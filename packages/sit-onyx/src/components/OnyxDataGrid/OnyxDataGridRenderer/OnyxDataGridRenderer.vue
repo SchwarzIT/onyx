@@ -89,6 +89,12 @@ const columnStyle = computed(() => {
         grid-column: 1 / -1;
         grid-row: 1 / -1;
 
+        > colgroup {
+          // Prevents the "colgroup" element from participating in the CSS grid.
+          // This fixes the issue https://github.com/SchwarzIT/onyx/issues/5612
+          position: fixed;
+        }
+
         > thead {
           display: grid;
           grid-template-columns: subgrid;

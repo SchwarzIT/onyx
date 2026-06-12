@@ -7,7 +7,7 @@ import type { PaginationOptions } from "./types.js";
 
 const props = defineProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
-  Pick<OnyxDataGridProps<TEntry, any, any, any, any, any>, "data" | "skeleton"> & {
+  Pick<OnyxDataGridProps<TEntry, any, any, any, any, any>, "data" | "skeleton" | "columnGroups"> & {
     paginationOptions?: PaginationOptions;
     enabledFeatures?: ("filtering" | "selection")[];
   }
@@ -26,5 +26,5 @@ const features = computed(() => [
 </script>
 
 <template>
-  <OnyxDataGrid v-bind="props" :columns="['a']" :features />
+  <OnyxDataGrid v-bind="props" :columns="[{ key: 'a', columnGroupKey: 'group-1' }]" :features />
 </template>
