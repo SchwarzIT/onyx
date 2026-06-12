@@ -1,5 +1,6 @@
 import { expect, test, vi } from "vitest";
 import { ref } from "vue";
+import { useFormContext } from "../components/OnyxForm/OnyxForm.core.js";
 import { useClearButton } from "./useClearButton.js";
 
 vi.mock("../components/OnyxForm/OnyxForm.core.js", async (importOriginal) => {
@@ -25,10 +26,60 @@ test.each([
   { modelValue: NaN, visible: false },
   { modelValue: [], visible: false },
 ])("should show clear button with value $modelValue: $visible", ({ modelValue, visible }) => {
+  // ARRANGE
   const { showClearButton } = useClearButton({
     modelValue: ref(modelValue),
     props: {},
   });
 
+  // ASSERT
   expect(showClearButton.value).toBe(visible);
+});
+
+test("should hide when readonly", () => {
+  // ARRANGE
+  const { showClearButton } = useClearButton({
+    modelValue: ref("Test"),
+    props: { readonly: true },
+  });
+
+  // ASSERT
+  expect(showClearButton.value).toBe(false);
+});
+
+test("should hide when loading", () => {
+  // ARRANGE
+  const { showClearButton } = useClearButton({
+    modelValue: ref("Test"),
+    props: { loading: true },
+  });
+
+  // ASSERT
+  expect(showClearButton.value).toBe(false);
+});
+
+test("should hide when disabled", () => {
+  // ARRANGE
+  vi.mocked(useFormContext).mockReturnValue({ disabled: ref(true) } as ReturnType<
+    typeof useFormContext
+  >);
+
+  const { showClearButton } = useClearButton({
+    modelValue: ref("Test"),
+    props: {},
+  });
+
+  // ASSERT
+  expect(showClearButton.value).toBe(false);
+});
+
+test("should hide when explicitly hidden", () => {
+  // ARRANGE
+  const { showClearButton } = useClearButton({
+    modelValue: ref("Test"),
+    props: { hideClearIcon: true },
+  });
+
+  // ASSERT
+  expect(showClearButton.value).toBe(false);
 });
