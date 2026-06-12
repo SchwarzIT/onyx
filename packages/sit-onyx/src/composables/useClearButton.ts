@@ -27,7 +27,7 @@ export const useClearButton = (options: UseClearButtonOptions) => {
 };
 
 /**
- * Checks if the given value is considered defines in order to show the clear button.
+ * Checks if the given value is considered "defined" in order to show the clear button.
  */
 function isValueDefined(value: unknown): boolean {
   // any number expect NaN (including 0 should be considered defined)
