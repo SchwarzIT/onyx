@@ -9,18 +9,25 @@
   "engines": {
     "node": ">=20"
   },
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": "./dist/index.js"
-  },
   "scripts": {
-    "build": "rm -rf ./dist && tsc",
+    "dev": "vite",
+    "build": "pnpm build:ui && pnpm build:figma",
+    "build:ui": "vite build && vue-tsc -b",
+    "build:figma": "rimraf ./dist/plugin && pnpm tsc -p tsconfig.figma.json",
     "watch": "pnpm run build --watch"
+  },
+  "dependencies": {
+    "@sit-onyx/icons": "workspace:^",
+    "sit-onyx": "workspace:^",
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.128.0",
-    "typescript": "catalog:"
+    "@fontsource-variable/source-code-pro": "^5.2.7",
+    "@fontsource-variable/source-sans-3": "^5.2.9",
+    "@sit-onyx/shared": "workspace:^",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-singlefile": "^2.3.3"
   }
 }

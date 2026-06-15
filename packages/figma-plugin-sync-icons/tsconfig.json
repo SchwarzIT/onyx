@@ -1,12 +1,4 @@
 {
-  "include": ["src"],
-  "compilerOptions": {
-    "rootDir": "./src",
-    "baseUrl": ".",
-    "outDir": "./dist",
-    "target": "es6",
-    "lib": ["es6"],
-    "strict": true,
-    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"]
-  }
+  "files": [],
+  "references": [{ "path": "./tsconfig.ui.json" }, { "path": "./tsconfig.figma.json" }]
 }
