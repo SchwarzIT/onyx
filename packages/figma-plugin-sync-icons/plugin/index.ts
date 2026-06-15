@@ -39,13 +39,13 @@ const CONFIG = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- needed for typing
 const MESSAGE_HANDLERS: Record<string, (data?: any) => Promise<void>> = {
   "get-stored-data": getStoredData,
-  "save-and-run": syncIcons,
+  "sync-icons": syncIcons,
 };
 
 runPlugin();
 
 async function runPlugin() {
-  figma.showUI(__html__, { width: 720, height: 512 });
+  figma.showUI(__html__, { width: 720, height: 384 });
 
   figma.ui.onmessage = async (msg) => {
     const handler = MESSAGE_HANDLERS[msg.type];

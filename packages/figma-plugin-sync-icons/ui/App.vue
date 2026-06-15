@@ -32,7 +32,7 @@ onMounted(() => {
 const handleSubmit = () => {
   isLoading.value = true;
   postPluginMessage({
-    type: "save-and-run",
+    type: "sync-icons",
     data: { accessToken: accessToken.value },
   });
 };
