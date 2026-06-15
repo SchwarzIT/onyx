@@ -16,7 +16,7 @@ export type PostPluginMessageOptions = {
 export const usePluginMessage = <T>(options: UsePluginMessageOptions<T>) => {
   const listener = (event: MessageEvent) => {
     const message = event.data.pluginMessage;
-    if (!message || message.type !== options.type) return;
+    if (message?.type !== options.type) return;
     options.onMessage(message.data);
   };
 

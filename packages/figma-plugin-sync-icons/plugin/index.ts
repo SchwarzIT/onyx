@@ -54,7 +54,7 @@ async function runPlugin() {
     try {
       await handler(msg.data);
     } catch (e) {
-      // eslint-disable-next-line no-console -- error should be loogged
+      // eslint-disable-next-line no-console -- error should be logged
       console.error(e);
       figma.notify((e as Error).message);
       figma.closePlugin();
