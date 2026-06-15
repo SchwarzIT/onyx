@@ -34,6 +34,36 @@ export const TIME_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) =>
   return NUMBER_COMPARE(dateA, dateB);
 };
 
+/**
+ * Extracts the label or link string for correct alphabetical sorting,
+ * handling strings and { link, label } objects.
+ */
+export const LINK_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) => {
+  const getSortString = (value: unknown): string => {
+    if (value == null) return "";
+
+    if (typeof value === "string") {
+      return value;
+    }
+
+    if (typeof value === "number" || typeof value === "boolean" || typeof value === "bigint") {
+      return value.toString();
+    }
+
+    if (typeof value === "object") {
+      if ("link" in value) {
+        const linkObj = value as { link: string; label?: string };
+        return linkObj.label ?? linkObj.link ?? "";
+      }
+      return JSON.stringify(value);
+    }
+
+    return "";
+  };
+
+  return collator.compare(getSortString(a), getSortString(b));
+};
+
 export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.freeze({
   string: STRING_COMPARE,
   select: STRING_COMPARE,
@@ -45,4 +75,5 @@ export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.fr
   timestamp: NUMBER_COMPARE,
   skeleton: () => 0,
   boolean: BOOLEAN_COMPARE,
+  link: LINK_COMPARE,
 }) satisfies Record<DefaultSupportedTypes, Compare<DataGridEntry>>;
