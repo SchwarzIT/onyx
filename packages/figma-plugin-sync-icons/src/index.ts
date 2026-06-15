@@ -155,7 +155,22 @@ async function runPlugin() {
             try {
               const component = await figma.importComponentByKeyAsync(iconKey);
               if (component) {
-                const clone = component.clone();
+                // create a fresh, local component
+                // cloning does not work here since the component would be hidden from publishing which can not be changed
+                // via the Figma plugin API so we only clone the SVG contents below
+                const clone = figma.createComponent();
+
+                // 2. Inherit base dimensions and properties
+                clone.name = component.name;
+                clone.resize(component.width, component.height);
+                clone.fills = component.fills;
+                clone.clipsContent = component.clipsContent;
+
+                // 3. Deep-clone the inner vector shapes from the remote component
+                for (const child of component.children) {
+                  clone.appendChild(child.clone());
+                }
+
                 if (icon.absoluteBoundingBox && frame.absoluteBoundingBox) {
                   clone.x = icon.absoluteBoundingBox.x - frame.absoluteBoundingBox.x;
                   clone.y = icon.absoluteBoundingBox.y - frame.absoluteBoundingBox.y;
