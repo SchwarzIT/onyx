@@ -13,6 +13,8 @@ import OnyxDatePicker from "../../OnyxDatePicker/OnyxDatePicker.vue";
 import type { DateValue } from "../../OnyxDatePicker/types.js";
 import type { OnyxIconProps } from "../../OnyxIcon/types.js";
 import OnyxInput from "../../OnyxInput/OnyxInput.vue";
+import OnyxLink from "../../OnyxLink/OnyxLink.vue";
+import type { OnyxLinkProps } from "../../OnyxLink/types.js";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
 import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
@@ -162,6 +164,51 @@ export const STRING_RENDERER = createTypeRenderer<StringCellOptions>({
             modelValue,
           })
         : stringFormatter(modelValue, metadata?.typeOptions),
+  },
+});
+
+export type LinkCellOptions = Partial<OnyxLinkProps> & {
+  /**
+   * Fallback value to display when the value is undefined.
+   * Defaults to "-" if not provided.
+   */
+  fallback?: string;
+};
+
+export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
+  header: { component: HeaderCell },
+  cell: {
+    component: ({ column: columnKey, row, metadata, modelValue, ...rest }) => {
+      if (metadata?.editable) {
+        return h(DataGridFormElementWrapper, {
+          ...rest,
+          label: getEditingLabel(row.id, columnKey),
+          is: OnyxInput,
+          modelValue,
+        });
+      }
+
+      if (modelValue == undefined) {
+        return fallback(metadata?.typeOptions);
+      }
+
+      let href = "";
+      let label = "";
+
+      // Prüfen, ob modelValue ein Objekt mit einer "link"-Eigenschaft ist
+      if (typeof modelValue === "object" && modelValue !== null && "link" in modelValue) {
+        const linkObj = modelValue as { link: string; label?: string };
+        href = linkObj.link;
+        label = linkObj.label ?? href;
+      } else {
+        href = stringFormatter(modelValue);
+        label = href;
+      }
+
+      const { fallback: _, ...linkProps } = metadata?.typeOptions ?? {};
+
+      return h(OnyxLink, { href, ...linkProps }, () => label);
+    },
   },
 });
 
