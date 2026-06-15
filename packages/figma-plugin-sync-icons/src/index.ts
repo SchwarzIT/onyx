@@ -11,44 +11,60 @@ async function fetchRemoteFile(fileKey: string, accessToken: string) {
   return data;
 }
 
+const CONFIG = {
+  remote: {
+    fileKey: "ZtlUPkO9ATUCV42Wkg7P0o",
+    /**
+     * Node ID of the icons page.
+     */
+    nodeId: "3270:179",
+  },
+  /**
+   * Variables to apply to the new icons synched to the onyx library.
+   */
+  variables: {
+    iconColor: "onyx/color/text+icons/neutral/medium",
+    borderColor: "onyx/color/base/neutral/300",
+    backgroundColor: "onyx/color/base/background/blank",
+  },
+  /**
+   * Node ID of the page that the icons should be synched to in the onyx library.
+   */
+  nodeId: "6:854",
+};
+
 async function runPlugin() {
   figma.showUI(__html__, { width: 400, height: 300 });
 
   figma.ui.onmessage = async (msg) => {
     if (msg.type === "get-stored-data") {
       const accessToken = await figma.clientStorage.getAsync("accessToken");
-      const fileKey = await figma.clientStorage.getAsync("fileKey");
-
-      figma.ui.postMessage({ type: "set-prefilled-data", accessToken, fileKey });
+      figma.ui.postMessage({ type: "set-prefilled-data", accessToken });
     }
 
     if (msg.type === "save-and-run") {
-      const { accessToken, fileKey } = msg;
+      const { accessToken } = msg;
 
-      if (accessToken && fileKey) {
+      if (accessToken) {
         await figma.clientStorage.setAsync("accessToken", accessToken);
-        await figma.clientStorage.setAsync("fileKey", fileKey);
-
         figma.notify("Settings saved!");
 
-        const destinationPageName = "Icons";
-        const iconColorVariable = "onyx/color/text+icons/neutral/medium";
-        const borderColorVariable = "onyx/color/base/neutral/300";
-        const backgroundColorVariable = "onyx/color/base/background/blank";
-
-        const data = await fetchRemoteFile(fileKey, accessToken);
+        const data = await fetchRemoteFile(CONFIG.remote.fileKey, accessToken);
         const components = data.components;
-        const canvas = data.document.children.find((canvas: SceneNode) => canvas.name === "Icons");
+
+        const canvas = data.document.children.find(
+          (node: SceneNode) => node.id === CONFIG.remote.nodeId,
+        );
 
         if (!canvas) {
-          figma.notify(`No page named "Icons" found in remote file`);
+          figma.notify("Source icon page in remote file not found");
           figma.closePlugin();
           return;
         }
         const structure = canvas.children;
 
         const destinationPage = figma.root.children.find(
-          (page) => page.type === "PAGE" && page.name === destinationPageName,
+          (page) => page.type === "PAGE" && page.id === CONFIG.nodeId,
         );
 
         if (!components || !destinationPage) {
@@ -59,10 +75,14 @@ async function runPlugin() {
         await destinationPage.loadAsync();
 
         const variables = await figma.variables.getLocalVariablesAsync();
-        const iconColor = variables.find((variable) => variable.name === iconColorVariable);
-        const borderColor = variables.find((variable) => variable.name === borderColorVariable);
+        const iconColor = variables.find(
+          (variable) => variable.name === CONFIG.variables.iconColor,
+        );
+        const borderColor = variables.find(
+          (variable) => variable.name === CONFIG.variables.borderColor,
+        );
         const backgroundColor = variables.find(
-          (variable) => variable.name === backgroundColorVariable,
+          (variable) => variable.name === CONFIG.variables.backgroundColor,
         );
 
         const remoteFrameNames = structure.map((frame: FrameNode) => frame.name);
@@ -133,7 +153,7 @@ async function runPlugin() {
             destinationPage.appendChild(newFrame);
           }
           if (!newFrame) {
-            figma.notify("SomeThing went wrong creating a Frame for: " + frame.name);
+            figma.notify("Something went wrong creating a frame for: " + frame.name);
             figma.closePlugin();
             return;
           }
