@@ -7,6 +7,7 @@
   "enableProposedApi": false,
   "documentAccess": "dynamic-page",
   "editorType": ["figma", "dev"],
+  "capabilities": ["inspect"],
   "networkAccess": {
     "allowedDomains": ["https://api.figma.com"]
   }
