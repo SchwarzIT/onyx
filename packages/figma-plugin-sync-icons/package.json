@@ -1,16 +1,22 @@
 {
-  "name": "figma-plugin-sync-icons",
-  "version": "0.1.0",
+  "name": "@sit-onyx/figma-plugin-sync-icons",
   "description": "This Figma plugin syncs Onyx icons with the UX Schwarz IT Icon Library and applies color variables.",
-  "main": "./dist/code.js",
+  "version": "0.1.0",
+  "type": "module",
   "author": "Schwarz IT KG",
   "license": "Apache-2.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "rm -rf ./dist && tsc",
     "watch": "pnpm run build --watch"
   },
   "devDependencies": {

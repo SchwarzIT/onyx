@@ -1,9 +1,11 @@
 {
+  "extends": "@tsconfig/node24/tsconfig.json",
+  "include": ["src"],
+  "exclude": ["src/**/*.ct.*", "src/**/*.spec.*"],
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es6"],
-    "strict": true,
-    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
-    "outDir": "./dist"
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"]
   }
 }
