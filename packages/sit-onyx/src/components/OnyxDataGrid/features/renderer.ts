@@ -195,7 +195,6 @@ export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
       let href = "";
       let label = "";
 
-      // Prüfen, ob modelValue ein Objekt mit einer "link"-Eigenschaft ist
       if (typeof modelValue === "object" && modelValue !== null && "link" in modelValue) {
         const linkObj = modelValue as { link: string; label?: string };
         href = linkObj.link;
