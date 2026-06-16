@@ -73,7 +73,7 @@
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.3.4",
+    "vue-component-type-helpers": "^3.3.5",
     "vue-i18n": "^11.4.5",
     "vue-router": "^5.1.0"
   }
