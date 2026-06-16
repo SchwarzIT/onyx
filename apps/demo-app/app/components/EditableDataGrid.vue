@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { iconArrowSmallUpRight, iconFileCircleCheck } from "@sit-onyx/icons";
 import { OnyxTextEditor } from "@sit-onyx/tiptap";
-import "@sit-onyx/tiptap/style.css";
 import { createFeature, DataGridFeatures, type ColumnConfig } from "sit-onyx";
 
 type FoodProduct = {

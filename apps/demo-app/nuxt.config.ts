@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     // see: https://nuxt.com/docs/4.x/guide/going-further/layers#named-layer-aliases
     name: "app",
   },
-  css: [resolve("./app/assets/css/index.scss")],
+  css: [resolve("./app/assets/css/index.scss"), "@sit-onyx/tiptap/style.css"],
   app: {
     head: {
       title: "onyx demo",
