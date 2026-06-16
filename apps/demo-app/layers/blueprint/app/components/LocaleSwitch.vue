@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconTranslate } from "@sit-onyx/icons";
-import { type SelectDialogOption } from "sit-onyx";
+import type { SelectDialogOption } from "sit-onyx";
 
 const { locale, setLocale, locales } = useI18n();
 const isLanguageDialogOpen = ref(false);

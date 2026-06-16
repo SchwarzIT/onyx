@@ -2,22 +2,7 @@
 import { iconArrowSmallUpRight, iconFileCircleCheck } from "@sit-onyx/icons";
 import { OnyxTextEditor } from "@sit-onyx/tiptap";
 import "@sit-onyx/tiptap/style.css";
-import type { ColumnConfig } from "sit-onyx";
-import {
-  createFeature,
-  DataGridFeatures,
-  OnyxAccordion,
-  OnyxAccordionItem,
-  OnyxBadge,
-  OnyxDataGrid,
-  OnyxHeadline,
-  OnyxSeparator,
-  OnyxSidebar,
-  OnyxSlider,
-} from "sit-onyx";
-import type { EditState } from "sit-onyx/dist/components/OnyxDataGrid/features/all.js";
-import { computed, ref, watch } from "vue";
-import { useI18n } from "vue-i18n";
+import { createFeature, DataGridFeatures, type ColumnConfig } from "sit-onyx";
 
 type FoodProduct = {
   id: number;
@@ -90,7 +75,7 @@ const columns = computed<ColumnConfig<FoodProduct>[]>(() => [
 ]);
 
 const isEditable = ref(false);
-const editState = ref<EditState<FoodProduct>>({});
+const editState = ref<DataGridFeatures.EditState<FoodProduct>>({});
 const currentCodeTab = ref("tab-1");
 const isSidebarOpen = ref(false);
 const currentProduct = ref<FoodProduct | null>(null);
@@ -238,9 +223,9 @@ const reset = () => {
       </div>
 
       <div class="sidebar-content-inner">
-        <OnyxHeadline is="h3">{{
-          t("dataGrid.editableTable.product.fields.allergens")
-        }}</OnyxHeadline>
+        <OnyxHeadline is="h3">
+          {{ t("dataGrid.editableTable.product.fields.allergens") }}
+        </OnyxHeadline>
         <div class="allergens-wrapper">
           <OnyxBadge v-for="allergen in currentProduct.allergens" :key="allergen">
             {{ allergen }}
