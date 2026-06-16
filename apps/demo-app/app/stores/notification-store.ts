@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import type { OnyxNotificationCardProps } from "sit-onyx";
 
 export type MyNotification = OnyxNotificationCardProps & {

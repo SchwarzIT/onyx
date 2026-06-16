@@ -1,9 +1,4 @@
 <script lang="ts" setup>
-import { useI18n } from "vue-i18n";
-import EditableDataGrid from "../components/EditableDataGrid.vue";
-import SystemDataGrid from "../components/SystemDataGrid.vue";
-import UserDataGrid from "../components/UserDataGrid.vue";
-
 const modelValue = ref("user-tab");
 const { t } = useI18n();
 </script>
