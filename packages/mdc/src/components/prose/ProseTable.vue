@@ -7,8 +7,8 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const headRef = useTemplateRef("head");
-const bodyRef = useTemplateRef("body");
+const headRef = useTemplateRef<HTMLElement>("head");
+const bodyRef = useTemplateRef<HTMLElement>("body");
 
 provide(PROSE_TABLE_INJECTION_KEY, { headRef, bodyRef });
 </script>

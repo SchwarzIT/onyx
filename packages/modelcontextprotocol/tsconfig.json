@@ -2,7 +2,6 @@
   "extends": ["@tsconfig/node24/tsconfig.json", "@sit-onyx/shared/tsconfig.json"],
   "compilerOptions": {
     "rootDir": "./src",
-    "baseUrl": ".",
     "resolveJsonModule": true,
     "module": "node20"
   },

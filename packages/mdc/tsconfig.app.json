@@ -14,7 +14,6 @@
   ],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
     "lib": ["ES2022", "DOM"],
     "rootDir": "./src"
   }

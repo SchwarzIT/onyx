@@ -4,7 +4,7 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "./src",
-    "baseUrl": ".",
-    "lib": ["ES2022", "DOM"]
+    "lib": ["ES2022", "DOM"],
+    "noUncheckedSideEffectImports": false
   }
 }
