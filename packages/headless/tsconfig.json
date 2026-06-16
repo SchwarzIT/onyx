@@ -3,8 +3,7 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "rootDir": "./src",
-    "baseUrl": ".",
-    "lib": ["DOM", "DOM.Iterable", "ES2024"],
+    "lib": ["DOM", "ES2024"],
     "noEmit": true
   }
 }

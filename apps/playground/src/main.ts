@@ -1,8 +1,8 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 
-import "@fontsource-variable/source-code-pro";
-import "@fontsource-variable/source-sans-3";
+import "@fontsource-variable/source-code-pro/index.css";
+import "@fontsource-variable/source-sans-3/index.css";
 import "sit-onyx/global.css";
 import "sit-onyx/style.css";
 

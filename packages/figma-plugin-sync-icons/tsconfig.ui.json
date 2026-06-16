@@ -4,8 +4,6 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "./ui",
-    "baseUrl": ".",
-    "allowSyntheticDefaultImports": true,
     "lib": ["ES2022", "DOM"]
   }
 }

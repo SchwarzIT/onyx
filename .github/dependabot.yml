@@ -37,10 +37,6 @@ updates:
       - dependency-name: "@eslint/js"
         update-types: [version-update:semver-major]
 
-      # TODO: remove with https://github.com/SchwarzIT/onyx/issues/5167
-      - dependency-name: "typescript"
-        update-types: [version-update:semver-major]
-
   - package-ecosystem: github-actions
     directories:
       - "/"
