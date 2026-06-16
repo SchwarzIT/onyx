@@ -6,9 +6,5 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.vitest.json" },
     { "path": "./tsconfig.playwright.json" }
-  ],
-  "compilerOptions": {
-    "types": ["node"],
-    "rootDir": "./src"
-  }
+  ]
 }
