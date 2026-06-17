@@ -243,7 +243,6 @@ const tooltipStyles = computed(() => {
   if (useragentSupportsAnchorApi.value) {
     return {
       width: tooltipWidth.value,
-      "position-anchor": anchorName,
       "position-area": positionAndAlignment.value,
     };
   }
@@ -274,7 +273,7 @@ const tooltipStyles = computed(() => {
   <div
     ref="tooltipWrapperRefEl"
     :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
-    :style="`anchor-name: ${anchorName}`"
+    :style="`anchor-name: ${anchorName}; --tooltip-anchor: ${anchorName}`"
   >
     <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
@@ -313,6 +312,7 @@ $wedge-size: 0.5rem;
     height: max-content;
     overflow: hidden;
     padding: 0;
+    position-anchor: var(--tooltip-anchor);
 
     --offset-with-wedge: calc(var(--offset) + #{$wedge-size});
     --background-color: var(--onyx-color-base-neutral-900);
@@ -353,27 +353,40 @@ $wedge-size: 0.5rem;
 
       &::after {
         content: " ";
-        position: absolute;
-        /* At the bottom of the tooltip */
-        top: 100%;
-        left: 50%;
+        position: fixed;
+        position-anchor: var(--tooltip-anchor);
         width: 2 * $wedge-size;
         height: 2 * $wedge-size;
-        margin-left: -$wedge-size;
         border-width: $wedge-size;
         border-style: solid;
         border-color: var(--background-color) transparent transparent;
         white-space: normal;
+        /* default styles target position "top": wedge points down, apex at trigger's top edge */
+        top: calc(anchor(top) - var(--offset) - #{$wedge-size});
+        left: calc(anchor(center) - #{$wedge-size});
       }
+    }
+
+    &--dont-support-anchor .onyx-tooltip--content::after {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -$wedge-size;
     }
     &--position-bottom {
       .onyx-tooltip--content {
         margin: var(--offset-with-wedge) 0 0 0;
 
         &::after {
-          top: -2 * $wedge-size;
           border-color: transparent transparent var(--background-color);
+          top: calc(anchor(bottom) + var(--offset) - #{$wedge-size});
+          left: calc(anchor(center) - #{$wedge-size});
         }
+      }
+
+      &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+        top: -2 * $wedge-size;
+        left: 50%;
       }
     }
 
@@ -382,13 +395,19 @@ $wedge-size: 0.5rem;
         margin: 0 var(--offset-with-wedge) 0 0;
 
         &::after {
-          right: 0;
-          left: 100%;
-          transform: translateX($wedge-size);
-          top: 50%;
-          margin-top: -$wedge-size;
           border-color: transparent transparent transparent var(--background-color);
+          top: calc(anchor(center) - #{$wedge-size});
+          left: calc(anchor(left) - var(--offset) - #{$wedge-size});
         }
+      }
+
+      &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+        right: 0;
+        left: 100%;
+        transform: translateX($wedge-size);
+        top: 50%;
+        margin-left: 0;
+        margin-top: -$wedge-size;
       }
     }
 
@@ -397,14 +416,19 @@ $wedge-size: 0.5rem;
         margin: 0 0 0 var(--offset-with-wedge);
 
         &::after {
-          left: 0;
-          right: 100%;
-          transform: translateX(-$wedge-size);
-
-          top: 50%;
-          margin-top: -$wedge-size;
           border-color: transparent var(--background-color) transparent transparent;
+          top: calc(anchor(center) - #{$wedge-size});
+          left: calc(anchor(right) + var(--offset) - #{$wedge-size});
         }
+      }
+
+      &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+        left: 0;
+        right: 100%;
+        transform: translateX(-$wedge-size);
+        top: 50%;
+        margin-left: 0;
+        margin-top: -$wedge-size;
       }
     }
     &--without-wedge,
@@ -446,8 +470,11 @@ $wedge-size: 0.5rem;
         }
         .onyx-tooltip--content {
           &::after {
-            left: 2 * $wedge-size;
+            left: calc(anchor(left) + #{$wedge-size});
           }
+        }
+        &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+          left: 2 * $wedge-size;
         }
       }
     }
@@ -467,8 +494,11 @@ $wedge-size: 0.5rem;
         }
         .onyx-tooltip--content {
           &::after {
-            left: calc(100% - 2 * $wedge-size);
+            left: calc(anchor(right) - 3 * #{$wedge-size});
           }
+        }
+        &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+          left: calc(100% - 2 * $wedge-size);
         }
       }
     }
