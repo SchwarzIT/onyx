@@ -471,7 +471,7 @@ $wedge-size: 0.5rem;
         }
         .onyx-tooltip--content {
           &::after {
-            left: calc(anchor(left) + #{$wedge-size});
+            left: calc(anchor(center) - #{$wedge-size});
           }
         }
         &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
@@ -495,7 +495,7 @@ $wedge-size: 0.5rem;
         }
         .onyx-tooltip--content {
           &::after {
-            left: calc(anchor(right) - 3 * #{$wedge-size});
+            left: calc(anchor(center) - #{$wedge-size});
           }
         }
         &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
