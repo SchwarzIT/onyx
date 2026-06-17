@@ -45,7 +45,7 @@ const MESSAGE_HANDLERS: Record<string, (data?: any) => Promise<void>> = {
 runPlugin();
 
 async function runPlugin() {
-  figma.showUI(__html__, { width: 720, height: 384 });
+  figma.showUI(__html__, { width: 400, height: 400 });
 
   figma.ui.onmessage = async (msg) => {
     const handler = MESSAGE_HANDLERS[msg.type];
@@ -56,7 +56,7 @@ async function runPlugin() {
     } catch (e) {
       // eslint-disable-next-line no-console -- error should be logged
       console.error(e);
-      figma.notify((e as Error).message);
+      showToast(e as Error);
       figma.closePlugin();
     }
   };
@@ -114,7 +114,7 @@ async function syncIcons(message: { accessToken: string }) {
     }
   }
 
-  let addedIcons = 0;
+  const addedIcons: string[] = [];
 
   for (const frame of structure) {
     const existingFramesMap = new Map(
@@ -217,8 +217,8 @@ async function syncIcons(message: { accessToken: string }) {
 
         return clone;
       } catch (error) {
-        figma.notify(
-          `Error importing component: ${error instanceof Error ? error.message : error}`,
+        showToast(
+          new Error(`Error importing component: ${error instanceof Error ? error.message : error}`),
         );
       }
       return null;
@@ -226,9 +226,26 @@ async function syncIcons(message: { accessToken: string }) {
 
     const importedInstances = (await Promise.all(iconPromises)).filter((instance) => !!instance);
     importedInstances.forEach((instance) => newFrame.appendChild(instance));
-    addedIcons += importedInstances.length;
+    addedIcons.push(...importedInstances.map((instance) => instance.name));
   }
 
-  figma.notify(`Synched ${addedIcons} new icons`);
+  if (addedIcons.length) {
+    showToast(`Added ${addedIcons.length} new icons: ${addedIcons.join(", ")}`);
+  } else {
+    showToast("No icons added, everything is up to date.");
+  }
+
   figma.closePlugin();
+}
+
+/**
+ * Shows a Figma notification / toast.
+ */
+function showToast(message: string | Error) {
+  const msg = typeof message === "string" ? message : message.message;
+
+  figma.notify(msg, {
+    timeout: 6_000,
+    error: message instanceof Error,
+  });
 }
