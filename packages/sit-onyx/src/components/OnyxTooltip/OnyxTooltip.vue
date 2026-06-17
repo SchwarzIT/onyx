@@ -12,6 +12,7 @@ import {
   type AriaAttributes,
   type MaybeRefOrGetter,
   type Ref,
+  type StyleValue,
   type VNode,
 } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -239,10 +240,11 @@ watch(
 
 const anchorName = `--anchor-${useId()}`;
 
-const tooltipStyles = computed(() => {
+const tooltipStyles = computed<StyleValue>(() => {
   if (useragentSupportsAnchorApi.value) {
     return {
       width: tooltipWidth.value,
+      "position-anchor": "var(--onyx-tooltip-anchor)",
       "position-area": positionAndAlignment.value,
     };
   }
@@ -273,7 +275,7 @@ const tooltipStyles = computed(() => {
   <div
     ref="tooltipWrapperRefEl"
     :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
-    :style="`anchor-name: ${anchorName}; --tooltip-anchor: ${anchorName}`"
+    :style="{ '--onyx-tooltip-anchor': anchorName }"
   >
     <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
@@ -312,7 +314,6 @@ $wedge-size: 0.5rem;
     height: max-content;
     overflow: hidden;
     padding: 0;
-    position-anchor: var(--tooltip-anchor);
 
     --offset-with-wedge: calc(var(--offset) + #{$wedge-size});
     --background-color: var(--onyx-color-base-neutral-900);
@@ -354,7 +355,7 @@ $wedge-size: 0.5rem;
       &::after {
         content: " ";
         position: fixed;
-        position-anchor: var(--tooltip-anchor);
+        position-anchor: var(--onyx-tooltip-anchor);
         width: 2 * $wedge-size;
         height: 2 * $wedge-size;
         border-width: $wedge-size;
@@ -507,6 +508,7 @@ $wedge-size: 0.5rem;
 
 .onyx-tooltip-wrapper {
   @include layers.component() {
+    anchor-name: var(--onyx-tooltip-anchor);
     position: relative;
     width: max-content;
     height: max-content;
