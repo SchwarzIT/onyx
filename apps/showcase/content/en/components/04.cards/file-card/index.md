@@ -31,3 +31,9 @@ See our [color documentation](/introduction/foundation/colors#colors) for when t
 The file card itself only displays the file but has no actual upload logic since this heavily depends on the backend that is uploaded to. This examples shows how a upload process can look like.
 
 :component-example{name="Upload" layout="grow"}
+
+### Skeleton
+
+The skeleton should be used on initial page load when the data for the page / file is initially loaded.
+
+:component-example{name="Skeleton" layout="grow"}
