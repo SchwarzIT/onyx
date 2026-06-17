@@ -305,11 +305,13 @@ const tooltipStyles = computed<StyleValue>(() => {
      */
     --offset: 0rem;
     --onyx-tooltip-wedge-size: 0.5rem;
+    --onyx-tooltip-max-width: 19rem;
 
     position: fixed;
     min-width: var(--onyx-spacing-3xl);
     width: max-content;
-    max-width: 19rem;
+    // prevent tooltip from overflowing the available viewport width
+    max-width: min(var(--onyx-tooltip-max-width), 100vw);
     height: max-content;
     overflow: hidden;
     padding: 0;
