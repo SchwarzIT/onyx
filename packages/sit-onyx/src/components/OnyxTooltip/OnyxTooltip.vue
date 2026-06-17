@@ -298,14 +298,13 @@ const tooltipStyles = computed<StyleValue>(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
-$wedge-size: 0.5rem;
-
 .onyx-tooltip {
   @include layers.component() {
     /**
      * CSS [length](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length) value that can be used to add an extra offset/margin the tooltip.
      */
     --offset: 0rem;
+    --onyx-tooltip-wedge-size: 0.5rem;
 
     position: fixed;
     min-width: var(--onyx-spacing-3xl);
@@ -315,7 +314,7 @@ $wedge-size: 0.5rem;
     overflow: hidden;
     padding: 0;
 
-    --offset-with-wedge: calc(var(--offset) + #{$wedge-size});
+    --offset-with-wedge: calc(var(--offset) + var(--onyx-tooltip-wedge-size));
     --background-color: var(--onyx-color-base-neutral-900);
     --color: var(--onyx-color-text-icons-neutral-inverted);
 
@@ -356,15 +355,15 @@ $wedge-size: 0.5rem;
         content: " ";
         position: fixed;
         position-anchor: var(--onyx-tooltip-anchor);
-        width: 2 * $wedge-size;
-        height: 2 * $wedge-size;
-        border-width: $wedge-size;
+        width: calc(2 * var(--onyx-tooltip-wedge-size));
+        height: calc(2 * var(--onyx-tooltip-wedge-size));
+        border-width: var(--onyx-tooltip-wedge-size);
         border-style: solid;
         border-color: var(--background-color) transparent transparent;
         white-space: normal;
         /* default styles target position "top": wedge points down, apex at trigger's top edge */
-        top: calc(anchor(top) - var(--offset) - #{$wedge-size});
-        left: calc(anchor(center) - #{$wedge-size});
+        top: calc(anchor(top) - var(--offset) - var(--onyx-tooltip-wedge-size));
+        left: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
       }
     }
 
@@ -372,7 +371,7 @@ $wedge-size: 0.5rem;
       position: absolute;
       top: 100%;
       left: 50%;
-      margin-left: -$wedge-size;
+      margin-left: calc(-1 * var(--onyx-tooltip-wedge-size));
     }
     &--position-bottom {
       .onyx-tooltip--content {
@@ -380,13 +379,13 @@ $wedge-size: 0.5rem;
 
         &::after {
           border-color: transparent transparent var(--background-color);
-          top: calc(anchor(bottom) + var(--offset) - #{$wedge-size});
-          left: calc(anchor(center) - #{$wedge-size});
+          top: calc(anchor(bottom) + var(--offset) - var(--onyx-tooltip-wedge-size));
+          left: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
         }
       }
 
       &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
-        top: -2 * $wedge-size;
+        top: calc(-2 * var(--onyx-tooltip-wedge-size));
         left: 50%;
       }
     }
@@ -397,18 +396,18 @@ $wedge-size: 0.5rem;
 
         &::after {
           border-color: transparent transparent transparent var(--background-color);
-          top: calc(anchor(center) - #{$wedge-size});
-          left: calc(anchor(left) - var(--offset) - #{$wedge-size});
+          top: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
+          left: calc(anchor(left) - var(--offset) - var(--onyx-tooltip-wedge-size));
         }
       }
 
       &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
         right: 0;
         left: 100%;
-        transform: translateX($wedge-size);
+        transform: translateX(var(--onyx-tooltip-wedge-size));
         top: 50%;
         margin-left: 0;
-        margin-top: -$wedge-size;
+        margin-top: calc(-1 * var(--onyx-tooltip-wedge-size));
       }
     }
 
@@ -418,18 +417,18 @@ $wedge-size: 0.5rem;
 
         &::after {
           border-color: transparent var(--background-color) transparent transparent;
-          top: calc(anchor(center) - #{$wedge-size});
-          left: calc(anchor(right) + var(--offset) - #{$wedge-size});
+          top: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
+          left: calc(anchor(right) + var(--offset) - var(--onyx-tooltip-wedge-size));
         }
       }
 
       &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
         left: 0;
         right: 100%;
-        transform: translateX(-$wedge-size);
+        transform: translateX(calc(-1 * var(--onyx-tooltip-wedge-size)));
         top: 50%;
         margin-left: 0;
-        margin-top: -$wedge-size;
+        margin-top: calc(-1 * var(--onyx-tooltip-wedge-size));
       }
     }
     &--without-wedge,
@@ -453,15 +452,15 @@ $wedge-size: 0.5rem;
       margin: var(--offset-with-wedge) var(--offset-with-wedge) 0 0;
     }
     &--position-bottom-right .onyx-tooltip--content {
-      margin: $wedge-size 0 0 $wedge-size;
+      margin: var(--onyx-tooltip-wedge-size) 0 0 var(--onyx-tooltip-wedge-size);
     }
     &--alignment-left {
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {
-        left: calc(-1 * anchor-size(width) / 2 - 2 * $wedge-size);
+        left: calc(-1 * anchor-size(width) / 2 - 2 * var(--onyx-tooltip-wedge-size));
         &.onyx-tooltip--dont-support-anchor {
-          transform: translateX(calc(-2 * $wedge-size));
+          transform: translateX(calc(-2 * var(--onyx-tooltip-wedge-size)));
         }
         &.onyx-tooltip--aligns-with-edge {
           transform: translateX(100%);
@@ -471,11 +470,11 @@ $wedge-size: 0.5rem;
         }
         .onyx-tooltip--content {
           &::after {
-            left: calc(anchor(center) - #{$wedge-size});
+            left: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
           }
         }
         &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
-          left: 2 * $wedge-size;
+          left: calc(2 * var(--onyx-tooltip-wedge-size));
         }
       }
     }
@@ -483,9 +482,9 @@ $wedge-size: 0.5rem;
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {
-        right: calc(-1 * anchor-size(width) / 2 - 2 * $wedge-size);
+        right: calc(-1 * anchor-size(width) / 2 - 2 * var(--onyx-tooltip-wedge-size));
         &.onyx-tooltip--dont-support-anchor {
-          transform: translateX(calc(2 * $wedge-size));
+          transform: translateX(calc(2 * var(--onyx-tooltip-wedge-size)));
         }
         &.onyx-tooltip--aligns-with-edge {
           transform: translateX(-100%);
@@ -495,11 +494,11 @@ $wedge-size: 0.5rem;
         }
         .onyx-tooltip--content {
           &::after {
-            left: calc(anchor(center) - #{$wedge-size});
+            left: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
           }
         }
         &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
-          left: calc(100% - 2 * $wedge-size);
+          left: calc(100% - 2 * var(--onyx-tooltip-wedge-size));
         }
       }
     }
