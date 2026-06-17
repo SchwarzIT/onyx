@@ -99,8 +99,11 @@ async function syncIcons(message: { accessToken: string }) {
   const structure = remotePage.children;
   const remoteFrameNames = structure.map((frame: FrameNode) => frame.name);
 
+  const removedIcons: string[] = [];
+
   for (const child of [...(destinationPage.children as FrameNode[])]) {
     if (!remoteFrameNames.includes(child.name)) {
+      removedIcons.push(...child.children.map((icon) => icon.name));
       child.remove();
       continue;
     }
@@ -109,6 +112,7 @@ async function syncIcons(message: { accessToken: string }) {
 
     for (const icon of [...child.children]) {
       if (!remoteIconNames.includes(icon.name)) {
+        removedIcons.push(icon.name);
         icon.remove();
       }
     }
@@ -229,10 +233,20 @@ async function syncIcons(message: { accessToken: string }) {
     addedIcons.push(...importedInstances.map((instance) => instance.name));
   }
 
+  const messages: string[] = [];
+
   if (addedIcons.length) {
-    showToast(`Added ${addedIcons.length} new icons: ${addedIcons.join(", ")}`);
+    messages.push(`Added ${addedIcons.length} icons: ${addedIcons.join(", ")}`);
+  }
+  if (removedIcons.length) {
+    messages.push(`Removed ${removedIcons.length} icons: ${removedIcons.join(", ")}`);
+  }
+
+  if (messages.length) {
+    // Figma messages do not support newlines so we separate them with a character instead
+    showToast(messages.join(" | "));
   } else {
-    showToast("No icons added, everything is up to date.");
+    showToast("No icons changed, everything is up to date.");
   }
 
   figma.closePlugin();
