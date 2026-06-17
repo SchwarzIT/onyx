@@ -15,7 +15,7 @@ import {
     <OnyxImage
       class="card__image"
       alt="Example image"
-      src="https://picsum.photos/320/128"
+      src="https://picsum.photos/id/16/320/128"
       :height="128"
       :width="320"
       shape="rounded"
