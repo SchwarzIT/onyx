@@ -49,7 +49,10 @@
     },
     "loadMore": "Meer laden",
     "editing": {
-      "label": "{column} met ID {id}"
+      "label": "{column} met ID {id}",
+      "addLink": "Link toevoegen",
+      "displayLabel": "Weergavelabel",
+      "enterText": "Voer label in"
     }
   },
   "validations": {
