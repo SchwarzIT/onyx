@@ -10,7 +10,7 @@ const props = defineProps<{
   /**
    * Value of the Link
    */
-  modelValue?: string | { link: string; label?: string };
+  modelValue?: unknown;
 }>();
 
 const open = ref(false);
