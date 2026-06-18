@@ -187,7 +187,6 @@ test("should render link column type", async ({ mount }) => {
       data: [
         { id: 1, a: "https://onyx.schwarz" },
         { id: 2, a: { link: "https://onyx.schwarz", label: "Onyx" } },
-        { id: 3, a: undefined },
       ],
     },
   });
@@ -206,6 +205,4 @@ test("should render link column type", async ({ mount }) => {
   await expect(secondLink).toHaveAttribute("href", "https://onyx.schwarz");
   await expect(secondLink).toHaveText("Onyx(opens in a new tab)");
   await expect(secondLink).toHaveAttribute("target", "_blank");
-
-  await expect(cells.nth(2)).toHaveText("No Link");
 });

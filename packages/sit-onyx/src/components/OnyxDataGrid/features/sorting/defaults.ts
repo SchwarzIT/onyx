@@ -39,29 +39,14 @@ export const TIME_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) =>
  * handling strings and { link, label } objects.
  */
 export const LINK_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) => {
-  const getSortString = (value: unknown): string => {
-    if (value == null) return "";
-
-    if (typeof value === "string") {
-      return value;
-    }
-
-    if (typeof value === "number" || typeof value === "boolean" || typeof value === "bigint") {
-      return value.toString();
-    }
-
-    if (typeof value === "object") {
-      if ("link" in value) {
-        const linkObj = value as { link: string; label?: string };
-        return linkObj.label ?? linkObj.link ?? "";
-      }
-      return JSON.stringify(value);
-    }
-
-    return "";
+  const getLabel = (value: unknown): unknown => {
+    if (!value || typeof value !== "object") return value;
+    if ("label" in value && typeof value.label === "string") return value.label;
+    if ("link" in value && typeof value.link === "string") return value.link;
+    return value;
   };
 
-  return collator.compare(getSortString(a), getSortString(b));
+  return STRING_COMPARE(getLabel(a), getLabel(b), collator);
 };
 
 export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.freeze({
