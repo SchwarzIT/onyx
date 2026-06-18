@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(core): disable font ligatures to improve accessibility
+feat(core): disable font ligatures to improve readability
