@@ -236,10 +236,10 @@ async function syncIcons(message: { accessToken: string }) {
   const messages: string[] = [];
 
   if (addedIcons.length) {
-    messages.push(`Added ${addedIcons.length} icons: ${addedIcons.join(", ")}`);
+    messages.push(`${addedIcons.length} added icon(s): ${addedIcons.join(", ")}`);
   }
   if (removedIcons.length) {
-    messages.push(`Removed ${removedIcons.length} icons: ${removedIcons.join(", ")}`);
+    messages.push(`${removedIcons.length} removed icon(s): ${removedIcons.join(", ")}`);
   }
 
   if (messages.length) {
