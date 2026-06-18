@@ -104,10 +104,12 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
               <!-- We chose 99 as a sufficiently large colspan number, which should always be able to span all columns of the table.
                Additionally the data grid only supports colspan up to 99, see: https://github.com/SchwarzIT/onyx/blob/joca96/fix-3176-empty-data-grid-broken/packages/sit-onyx/src/components/OnyxDataGrid/OnyxDataGridRenderer/OnyxDataGridRenderer.vue#L118 -->
               <td colspan="99">
-                <div class="onyx-table__empty-content">
-                  <slot name="empty" :default-message="isEmptyMessage">
-                    <OnyxEmpty> {{ isEmptyMessage }} </OnyxEmpty>
-                  </slot>
+                <div class="onyx-table__empty-wrapper">
+                  <div class="onyx-table__empty-content">
+                    <slot name="empty" :default-message="isEmptyMessage">
+                      <OnyxEmpty> {{ isEmptyMessage }} </OnyxEmpty>
+                    </slot>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -389,13 +391,22 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
   &__empty {
     --onyx-table-padding-block: 0;
     --onyx-table-padding-inline: 0;
+
+    &-wrapper {
+      // width: 0 + overflow: visible keeps this box from contributing to the
+      // table's intrinsic width, which would otherwise create a feedback loop
+      // inside a fit-content parent (e.g. OnyxModal): observed wrapper width
+      // -> empty content width -> table width -> wrapper width grows again.
+      position: sticky;
+      left: 0;
+      width: 0;
+      overflow: visible;
+    }
+
     &-content {
       display: flex;
       justify-content: center;
       align-items: center;
-
-      position: sticky;
-      left: 0;
       // table width - borders
       width: calc(var(--onyx-table-wrapper-observed-width) - 2 * var(--onyx-1px-in-rem));
       box-sizing: border-box;
