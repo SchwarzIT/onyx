@@ -27,11 +27,11 @@ Install the CLI globally:
 :::code-group
 
 ```shell [pnpm]
-pnpm install -g [@sit-onyx](https://github.com/sit-onyx)/modelcontextprotocol
+pnpm install -g @sit-onyx/modelcontextprotocol
 ```
 
 ```shell [npm]
-npm install -g [@sit-onyx](https://github.com/sit-onyx)/modelcontextprotocol
+npm install -g @sit-onyx/modelcontextprotocol
 ```
 
 :::
