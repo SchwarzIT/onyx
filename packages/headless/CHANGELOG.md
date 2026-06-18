@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- 7910ed8: feat: add `createTreeView` and `createTreeViewItem` composable
+- 7910ed8: feat: Implemented `createTreeView` and `createTreeViewItem` composables
 
 ## 0.10.0
 

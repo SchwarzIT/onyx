@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 3efb8bc: fix: remove whitespaces from component name when import icons or flags
+- 3efb8bc: fix: remove whitespaces from component name when importing icons or flags
 
 ## 1.1.0
 

@@ -4,10 +4,10 @@
 
 ### Minor Changes
 
-- 5652cc2: - fix: include added icons when publishing. Previously they were shown under "Hidden"
-  - fix: support users in DEV mode to use the plugin
-  - fix: use Figma node IDs instead of page names so pages can be renamed without breaking the logic
-  - feat: use the onyx design system to build the plugin UI
+- 5652cc2: fix: Include added icons when publishing. Previously they were only shown under "Hidden".
+- 5652cc2: fix: Allow users in DEV mode to use the plugin.
+- 5652cc2: fix: Use Figma node IDs instead of page names so pages can be renamed without breaking the script.
+- 5652cc2: feat: Use the onyx components to build the plugin UI
 
 ### Patch Changes
 
