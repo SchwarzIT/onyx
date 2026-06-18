@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Thu, 18 Jun 2026 07:35:43 GMT
+ * Imported from Figma API on Thu, 18 Jun 2026 07:49:06 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -349,10 +349,7 @@
     var(--onyx-color-base-danger-900),
     var(--onyx-color-base-danger-400)
   );
-  --onyx-color-component-cta-default: light-dark(
-    var(--onyx-color-base-neutral-500),
-    var(--onyx-color-neutral-steel-500)
-  );
+  --onyx-color-component-cta-default: var(--onyx-color-base-primary-500);
   --onyx-color-component-cta-default-hover: light-dark(
     var(--onyx-color-base-primary-900),
     var(--onyx-color-base-primary-500)
