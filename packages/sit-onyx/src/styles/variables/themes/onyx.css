@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Thu, 18 Jun 2026 07:49:06 GMT
+ * Imported from Figma API on Thu, 18 Jun 2026 12:14:52 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -477,7 +477,7 @@
     var(--onyx-color-onyx-teal-800)
   );
   --onyx-color-text-icons-success-bold: light-dark(
-    var(--onyx-color-onyx-green-1100),
+    var(--onyx-color-onyx-green-1200),
     var(--onyx-color-onyx-green-200)
   );
   --onyx-color-text-icons-success-intense: light-dark(
@@ -490,7 +490,7 @@
   );
   --onyx-color-text-icons-success-soft: light-dark(
     var(--onyx-color-onyx-green-300),
-    var(--onyx-color-onyx-green-900)
+    var(--onyx-color-onyx-green-1200)
   );
   --onyx-color-text-icons-warning-bold: light-dark(
     var(--onyx-color-onyx-orange-1100),
