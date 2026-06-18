@@ -68,6 +68,20 @@ Save the file and confirm that the MCP has been set up correctly:
 gemini mcp list
 ```
 
+### Using with Claude CLI
+
+Run the following command to add the MCP to your Claude CLI:
+
+```shell
+claude mcp add onyx onyx-mcp
+```
+
+Verify the installation by running:
+
+```shell
+claude mcp list
+```
+
 ## Development
 
 Run this command in the monorepo root:
