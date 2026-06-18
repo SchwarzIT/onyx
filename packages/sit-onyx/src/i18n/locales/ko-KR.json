@@ -49,7 +49,10 @@
     },
     "loadMore": "더 불러오기",
     "editing": {
-      "label": "ID가 {id}인 {column}"
+      "label": "ID가 {id}인 {column}",
+      "addLink": "링크 추가",
+      "displayLabel": "표시 레이블",
+      "enterText": "레이블 입력"
     }
   },
   "validations": {

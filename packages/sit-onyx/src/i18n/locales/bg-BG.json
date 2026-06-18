@@ -49,7 +49,10 @@
     },
     "loadMore": "Зареждане на още",
     "editing": {
-      "label": "{column} с ID {id}"
+      "label": "{column} с ID {id}",
+      "addLink": "Добавяне на връзка",
+      "displayLabel": "Показвано име",
+      "enterText": "Въведете име"
     }
   },
   "validations": {

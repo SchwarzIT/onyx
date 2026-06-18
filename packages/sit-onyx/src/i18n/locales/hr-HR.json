@@ -49,7 +49,10 @@
     },
     "loadMore": "Učitaj više",
     "editing": {
-      "label": "{column} s ID-jem {id}"
+      "label": "{column} s ID-jem {id}",
+      "addLink": "Dodaj poveznicu",
+      "displayLabel": "Oznaka za prikaz",
+      "enterText": "Unesite oznaku"
     }
   },
   "validations": {

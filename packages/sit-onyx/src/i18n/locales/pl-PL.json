@@ -49,7 +49,10 @@
     },
     "loadMore": "Załaduj więcej",
     "editing": {
-      "label": "{column} o ID {id}"
+      "label": "{column} o ID {id}",
+      "addLink": "Dodaj link",
+      "displayLabel": "Wyświetlana etykieta",
+      "enterText": "Wprowadź etykietę"
     }
   },
   "validations": {
