@@ -49,7 +49,10 @@
     },
     "loadMore": "Načíst další",
     "editing": {
-      "label": "{column} s ID {id}"
+      "label": "{column} s ID {id}",
+      "addLink": "Přidat odkaz",
+      "displayLabel": "Zobrazovaný popisek",
+      "enterText": "Zadejte popisek"
     }
   },
   "validations": {

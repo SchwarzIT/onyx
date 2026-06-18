@@ -49,7 +49,10 @@
     },
     "loadMore": "Charger plus",
     "editing": {
-      "label": "{column} avec l'ID {id}"
+      "label": "{column} avec l'ID {id}",
+      "addLink": "Ajouter un lien",
+      "displayLabel": "Étiquette d'affichage",
+      "enterText": "Saisir l'étiquette"
     }
   },
   "validations": {
