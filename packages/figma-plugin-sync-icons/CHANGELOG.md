@@ -11,10 +11,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [7910ed8]
-- Updated dependencies [3efb8bc]
-- Updated dependencies [7bf880f]
-- Updated dependencies [fea2714]
+- Updated dependencies
   - sit-onyx@1.15.0
   - @sit-onyx/icons@1.10.1
 
@@ -24,6 +21,6 @@
 
 - 7fde5eb: Development Release
 
-  This package is not yet stable and the API might change multiple times before the `1.0.0` release.
+This package is not yet stable and the API might change multiple times before the `1.0.0` release.
 
-  There are no changes to the latest `beta` version.
+There are no changes to the latest `beta` version.
