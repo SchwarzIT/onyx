@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.11.0
+
+### Minor Changes
+
+- 7910ed8: feat: Implemented `createTreeView` and `createTreeViewItem` composables
+
 ## 0.10.0
 
 ### Minor Changes

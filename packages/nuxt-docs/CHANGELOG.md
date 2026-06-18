@@ -1,5 +1,14 @@
 # @sit-onyx/nuxt-docs
 
+## 0.7.1
+
+### Patch Changes
+
+- 3efb8bc: fix(sidebar-layout): Define content section of TOC layout as container so the actual content width is considered when using the onyx grid
+- b2197a5: fix(useCollection): Prevent 404 when the route seems to begin with a locale, but doesn't actually match a locale prefix.
+
+  This fixes cases where e.g. the route is `/design` for locale `de` which was incorrectly detected as locale prefix (`/de/design`) although no prefix is used in this case.
+
 ## 0.7.0
 
 ### Minor Changes
