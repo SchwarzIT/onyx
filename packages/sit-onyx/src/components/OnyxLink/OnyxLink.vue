@@ -21,7 +21,10 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxRouterLink class="onyx-component onyx-link" v-bind="routerLinkProps">
+  <OnyxRouterLink
+    class="onyx-component onyx-link onyx-truncation-ellipsis"
+    v-bind="routerLinkProps"
+  >
     <slot></slot>
     <OnyxExternalLinkIcon v-bind="externalLinkIconProps" />
   </OnyxRouterLink>

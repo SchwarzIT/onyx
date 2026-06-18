@@ -48,7 +48,10 @@
       }
     },
     "editing": {
-      "label": "{column} mit der ID {id}"
+      "label": "{column} mit der ID {id}",
+      "addLink": "Link hinzufügen",
+      "displayLabel": "Anzeigenamen",
+      "enterText": "Anzeigenamen eingeben"
     },
     "loadMore": "Mehr laden"
   },
