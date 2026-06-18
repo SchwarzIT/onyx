@@ -8,7 +8,7 @@ Cards serve as versatile containers for a few short, related pieces of content. 
 
 ## Examples
 
-Since cards a very flexible and generic components, the content highly depends on the use case and is fully customizable. You can find a few examples below but feel free to create your own cards!
+Since cards a very flexible and generic components, the content highly depends on the use case and is fully customizable. You can find a few examples below to get started, feel free to copy and adjust them if needed or create your own cards from scratch.
 
 ### Basic
 
