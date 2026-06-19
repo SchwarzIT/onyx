@@ -258,6 +258,9 @@ importers:
       '@sit-onyx/vitepress-theme':
         specifier: workspace:^
         version: link:../../packages/vitepress-theme
+      browserslist:
+        specifier: ^4.28.2
+        version: 4.28.2
       chart.js:
         specifier: 'catalog:'
         version: 4.5.1
