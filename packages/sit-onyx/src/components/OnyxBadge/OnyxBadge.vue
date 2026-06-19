@@ -143,28 +143,28 @@ defineSlots<{
     }
 
     &--danger {
-      --onyx-badge-background-color: var(--onyx-color-base-danger-500);
+      --onyx-badge-background-color: var(--onyx-color-base-danger-800);
       --onyx-badge-hover-background-color: var(--onyx-color-base-danger-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-danger);
       --onyx-badge-active-background-color: var(--onyx-color-base-danger-700);
     }
 
     &--warning {
-      --onyx-badge-background-color: var(--onyx-color-base-warning-500);
+      --onyx-badge-background-color: var(--onyx-color-base-warning800);
       --onyx-badge-hover-background-color: var(--onyx-color-base-warning-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-warning);
       --onyx-badge-active-background-color: var(--onyx-color-base-warning-700);
     }
 
     &--success {
-      --onyx-badge-background-color: var(--onyx-color-base-success-500);
+      --onyx-badge-background-color: var(--onyx-color-base-success-800);
       --onyx-badge-hover-background-color: var(--onyx-color-base-success-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-success);
       --onyx-badge-active-background-color: var(--onyx-color-base-success-700);
     }
 
     &--info {
-      --onyx-badge-background-color: var(--onyx-color-base-info-500);
+      --onyx-badge-background-color: var(--onyx-color-base-info-800);
       --onyx-badge-hover-background-color: var(--onyx-color-base-info-200);
       --onyx-badge-focus-color: var(--onyx-color-base-info-200);
       --onyx-badge-active-background-color: var(--onyx-color-base-info-700);
