@@ -62,7 +62,7 @@
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/vite-plugin-component-meta": "workspace:^",
-    "@storybook/addon-a11y": "^10.4.5",
+    "@storybook/addon-a11y": "^10.4.6",
     "@vue/compiler-dom": "catalog:",
     "@vue/test-utils": "^2.4.11",
     "axe-core": "^4.12.1",
