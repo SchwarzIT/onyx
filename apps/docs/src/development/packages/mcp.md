@@ -27,11 +27,11 @@ Install the CLI globally:
 :::code-group
 
 ```shell [pnpm]
-pnpm install -g [@sit-onyx](https://github.com/sit-onyx)/modelcontextprotocol
+pnpm install -g @sit-onyx/modelcontextprotocol
 ```
 
 ```shell [npm]
-npm install -g [@sit-onyx](https://github.com/sit-onyx)/modelcontextprotocol
+npm install -g @sit-onyx/modelcontextprotocol
 ```
 
 :::
@@ -66,6 +66,20 @@ Save the file and confirm that the MCP has been set up correctly:
 
 ```shell
 gemini mcp list
+```
+
+### Using with Claude CLI
+
+Run the following command to add the MCP to your Claude CLI:
+
+```shell
+claude mcp add onyx onyx-mcp
+```
+
+Verify the installation by running:
+
+```shell
+claude mcp list
 ```
 
 ## Development
