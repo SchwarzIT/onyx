@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconExpandWindow } from "@sit-onyx/icons";
-import { OnyxCard, OnyxIcon, OnyxTag, type OnyxColor } from "sit-onyx";
+import type { OnyxColor } from "sit-onyx";
 
 const props = defineProps<{
   headline: string;

@@ -1,5 +1,5 @@
-import { ParsedVariable } from "src/index.js";
 import { beforeEach, describe, expect, test, vi } from "vitest";
+import { ParsedVariable } from "../index.js";
 import { generateAsCSS, generateAsJSON, generateAsSCSS } from "./generate.js";
 
 describe("generate.ts", () => {

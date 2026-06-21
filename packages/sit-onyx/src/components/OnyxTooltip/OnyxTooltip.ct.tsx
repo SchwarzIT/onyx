@@ -284,3 +284,20 @@ test.describe("Positioning Screenshot tests", () => {
     },
   });
 });
+
+test("should have max-width and position wedge correctly", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ width: 128, height: 160 });
+
+  await mount(
+    <TestWrapper
+      text="Very long tooltip text that should be truncated if viewport is too small"
+      open
+      position="bottom"
+      alignment="right"
+    />,
+  );
+
+  // ASSERT
+  await expect(page).toHaveScreenshot("truncated.png");
+});

@@ -1,14 +1,6 @@
 <script lang="ts" setup>
 import { iconFile, iconSearch } from "@sit-onyx/icons";
-import {
-  normalizedIncludes,
-  OnyxGlobalSearch,
-  OnyxGlobalSearchGroup,
-  OnyxGlobalSearchOption,
-  OnyxUnstableNavButton,
-  type OnyxGlobalSearchOptionProps,
-} from "sit-onyx";
-import { computed, ref, watch } from "vue";
+import { normalizedIncludes, type OnyxGlobalSearchOptionProps } from "sit-onyx";
 
 type SearchGroup = {
   label: string;

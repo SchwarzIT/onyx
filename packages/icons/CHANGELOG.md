@@ -1,5 +1,11 @@
 # @sit-onyx/icons
 
+## 1.10.1
+
+### Patch Changes
+
+- 3efb8bc: fix: remove whitespaces from `quote` icon name
+
 ## 1.10.0
 
 ### Minor Changes

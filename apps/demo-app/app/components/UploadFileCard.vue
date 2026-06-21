@@ -6,8 +6,7 @@ import {
   iconMediaPlay,
   iconTrash,
 } from "@sit-onyx/icons";
-import { type FileCardStatus, type OnyxFileCardProps } from "sit-onyx";
-import { computed } from "vue";
+import type { FileCardStatus, OnyxFileCardProps } from "sit-onyx";
 
 const props = defineProps<OnyxFileCardProps>();
 

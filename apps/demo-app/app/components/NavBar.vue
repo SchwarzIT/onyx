@@ -8,7 +8,7 @@ import {
   iconUserGroup,
   iconUserId,
 } from "@sit-onyx/icons";
-import { type OnyxNavBarSlots } from "sit-onyx";
+import type { OnyxNavBarSlots } from "sit-onyx";
 import logoUrl from "~/assets/images/onyx-logo.svg";
 
 defineSlots<Pick<OnyxNavBarSlots, "contextArea">>();

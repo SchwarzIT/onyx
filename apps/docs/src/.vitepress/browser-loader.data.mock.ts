@@ -4,22 +4,16 @@ import type { Data } from "./browser-loader.data.js";
 export const data: Data = {
   browsers: [
     {
-      coverage: 96.86,
       id: "chrome",
       name: "Chrome",
-      versions: {
-        "108.0.0": 108,
-        "107.0.0": 107,
-      },
+      version: "107",
+      image: "/images/browsers/chrome.svg",
     },
     {
-      coverage: 91.86,
       id: "firefox",
       name: "Firefox",
-      versions: {
-        "108.0.0": 108,
-        "107.0.0": 107,
-      },
+      version: "42",
+      image: "/images/browsers/firefox.svg",
     },
   ],
 };

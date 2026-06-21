@@ -7,7 +7,6 @@
     "outDir": "./dist",
     "resolveJsonModule": true,
     "emitDeclarationOnly": false,
-    "allowJs": true,
-    "baseUrl": "."
+    "allowJs": true
   }
 }

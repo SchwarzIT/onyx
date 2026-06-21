@@ -29,7 +29,7 @@
     "@vueuse/core": "^14.3.0",
     "@vueuse/nuxt": "^14.3.0",
     "@vueuse/router": "^14.3.0",
-    "better-sqlite3": "^12.10.1",
+    "better-sqlite3": "^12.11.1",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.29",
     "nuxt-studio": "^1.7.0",

@@ -3,7 +3,6 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "rootDir": "./src",
-    "baseUrl": ".",
     "outDir": "dist",
     "skipLibCheck": true
   }

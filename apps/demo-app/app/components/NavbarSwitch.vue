@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { iconDashboard, iconDraggable, iconDraggableHorizontal } from "@sit-onyx/icons";
-import { type SelectDialogOption } from "sit-onyx";
-import { computed, ref } from "vue";
+import type { SelectDialogOption } from "sit-onyx";
 
 const isVertical = defineModel<boolean>({ default: false });
 

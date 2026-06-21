@@ -1,17 +1,7 @@
 <script lang="ts" setup>
 import { iconBell, iconBellRing, iconCheckRead, iconCircleAttention } from "@sit-onyx/icons";
 import { promiseTimeout } from "@vueuse/core";
-import {
-  OnyxAccordion,
-  OnyxBadge,
-  OnyxBottomBar,
-  OnyxHeadline,
-  OnyxNotificationCard,
-  OnyxSidebar,
-  useGlobalFAB,
-  useNotification,
-} from "sit-onyx";
-import { ref } from "vue";
+import { useGlobalFAB, useNotification } from "sit-onyx";
 import type { MyNotification } from "~/stores/notification-store";
 
 const store = useNotificationStore();

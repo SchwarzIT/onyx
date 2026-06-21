@@ -2,8 +2,6 @@
 import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
 import { iconArrowSmallDown, iconArrowSmallUp } from "@sit-onyx/icons";
 import { Chart, registerables } from "chart.js";
-import { OnyxHeadline } from "sit-onyx";
-import { useI18n } from "vue-i18n";
 
 Chart.register(...registerables);
 registerOnyxPlugin(Chart);

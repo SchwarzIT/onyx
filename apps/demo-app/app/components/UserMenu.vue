@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { iconLogout } from "@sit-onyx/icons";
-import { type OnyxUserMenuProps } from "sit-onyx";
+import type { OnyxUserMenuProps } from "sit-onyx";
 import { version } from "sit-onyx/package.json";
+
 const props = defineProps<Pick<OnyxUserMenuProps, "position">>();
 </script>
 

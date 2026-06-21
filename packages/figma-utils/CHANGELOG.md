@@ -1,5 +1,11 @@
 # @sit-onyx/figma-utils
 
+## 1.1.1
+
+### Patch Changes
+
+- 3efb8bc: fix: remove whitespaces from component name when importing icons or flags
+
 ## 1.1.0
 
 ### Minor Changes

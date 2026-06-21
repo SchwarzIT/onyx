@@ -24,5 +24,6 @@
     */
     font-size: var(--onyx-font-size-md);
     line-height: var(--onyx-font-line-height-md);
+    font-variant-ligatures: none;
   }
 }

@@ -1,0 +1,9 @@
+{
+  "extends": ["@vue/tsconfig/tsconfig.dom.json", "@sit-onyx/shared/tsconfig.json"],
+  "include": ["ui/**/*"],
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "./ui",
+    "lib": ["ES2022", "DOM"]
+  }
+}
