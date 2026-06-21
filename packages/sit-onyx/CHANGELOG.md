@@ -1,5 +1,19 @@
 # sit-onyx
 
+## 1.15.0
+
+### Minor Changes
+
+- 7910ed8: feat: implement new `OnyxUnstableTreeView` & `OnyxUnstableTreeViewItem` component.
+
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+
+- fea2714: feat(OnyxAccordionItem): stretch header to full width and apply default flex layout for easier placement of multiple components
+
+### Patch Changes
+
+- 7bf880f: fix(useClearButton): show clear button if value is 0 or false
+
 ## 1.14.0
 
 ### Minor Changes

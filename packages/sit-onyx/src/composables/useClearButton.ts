@@ -20,8 +20,17 @@ export const useClearButton = (options: UseClearButtonOptions) => {
     }
 
     const value = toValue(options.modelValue);
-    return Array.isArray(value) ? value.length > 0 : !!value;
+    return isValueDefined(value);
   });
 
   return { showClearButton };
 };
+
+/**
+ * Checks if the given value is considered "defined" in order to show the clear button.
+ */
+function isValueDefined(value: unknown): boolean {
+  if (typeof value === "number" || typeof value === "boolean") return true;
+  if (Array.isArray(value)) return value.length > 0;
+  return !!value;
+}
