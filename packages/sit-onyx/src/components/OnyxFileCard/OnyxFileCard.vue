@@ -31,7 +31,7 @@ const emit = defineEmits<{
 const slots = defineSlots<{
   /**
    * Optional actions to show on the right side of the card.
-   * Recommended to use the OnyxIconButton component here.
+   * Recommended to use the `OnyxIconButton` or `OnyxFlyoutMenu` component here.
    */
   actions?(): unknown;
 }>();
