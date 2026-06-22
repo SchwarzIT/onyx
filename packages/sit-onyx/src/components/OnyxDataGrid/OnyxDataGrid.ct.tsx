@@ -88,8 +88,8 @@ test("should not resize in a loop when empty and used in a modal without explici
   // ACT
   const box1 = (await modal.boundingBox())!;
 
-  // eslint-disable-next-line playwright/no-wait-for-timeout -- relevant for this test
-  await page.waitForTimeout(2_000);
+  const handle = await modal.elementHandle();
+  await handle!.waitForElementState("stable");
 
   const box2 = (await modal.boundingBox())!;
 
