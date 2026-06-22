@@ -170,6 +170,30 @@ export const STRING_RENDERER = createTypeRenderer<StringCellOptions>({
 
 export type LinkCellOptions = Partial<OnyxLinkProps>;
 
+/**
+ * Normalizes a generic link value into a consistent object containing a link and label.
+ */
+export const parseLinkValue = (value: unknown): { link: string; label: string } => {
+  if (typeof value === "object" && value !== null && "link" in value) {
+    const linkObj = value as { link: string; label?: string };
+    const link = linkObj.link || "";
+    return {
+      link,
+      label: linkObj.label || link,
+    };
+  }
+
+  if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+    if (value === "") {
+      return { link: "", label: "" };
+    }
+    const strValue = String(value);
+    return { link: strValue, label: strValue };
+  }
+
+  return { link: "", label: "" };
+};
+
 export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
   header: { component: HeaderCell },
   cell: {
@@ -180,17 +204,7 @@ export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
         });
       }
 
-      let href = "";
-      let label = "";
-
-      if (typeof modelValue === "object" && modelValue !== null && "link" in modelValue) {
-        const linkObj = modelValue as { link: string; label?: string };
-        href = linkObj.link;
-        label = linkObj.label || href;
-      } else if (modelValue != null && modelValue !== "") {
-        href = stringFormatter(modelValue);
-        label = href;
-      }
+      const { link: href, label } = parseLinkValue(modelValue);
 
       if (!href) {
         return fallback();
@@ -202,6 +216,7 @@ export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
     },
   },
 });
+
 export type DateCellOptions = {
   format?: OnyxDateFormatOptions;
   /**

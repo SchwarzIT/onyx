@@ -1,5 +1,6 @@
 import type { DataGridEntry } from "../../types.js";
 import type { DefaultSupportedTypes } from "../index.js";
+import { parseLinkValue } from "../renderer.js";
 import type { Compare } from "./types.js";
 
 export const STRING_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) =>
@@ -39,14 +40,7 @@ export const TIME_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) =>
  * handling strings and { link, label } objects.
  */
 export const LINK_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) => {
-  const getLabel = (value: unknown): unknown => {
-    if (!value || typeof value !== "object") return value;
-    if ("label" in value && typeof value.label === "string") return value.label;
-    if ("link" in value && typeof value.link === "string") return value.link;
-    return value;
-  };
-
-  return STRING_COMPARE(getLabel(a), getLabel(b), collator);
+  return STRING_COMPARE(parseLinkValue(a).label, parseLinkValue(b).label, collator);
 };
 
 export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.freeze({
