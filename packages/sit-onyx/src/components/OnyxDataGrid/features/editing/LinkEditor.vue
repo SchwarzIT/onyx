@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { useOutsideClick } from "@sit-onyx/headless";
-import { computed, ref, useTemplateRef } from "vue";
+import { computed, ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
-import OnyxBasicPopover from "../../../OnyxBasicPopover/OnyxBasicPopover.vue";
 import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
-import OnyxInput from "../../../OnyxInput/OnyxInput.vue";
+import OnyxLinkDialog from "../../../OnyxLinkDialog/OnyxLinkDialog.vue";
+import { parseLinkValue } from "../renderer.js";
 
 const props = defineProps<{
   /**
@@ -13,51 +12,37 @@ const props = defineProps<{
   modelValue?: unknown;
 }>();
 
-const open = ref(false);
-
 const emit = defineEmits<{
-  "update:modelValue": [value: { link: string; label?: string }];
+  "update:modelValue": [value: { link: string; label?: string } | undefined];
 }>();
 
+const open = ref(false);
 const { t } = injectI18n();
-const popover = useTemplateRef("popoverRef");
 
-useOutsideClick({
-  inside: popover,
-  checkOnTab: true,
-  disabled: computed(() => !open.value),
-  onOutsideClick: () => (open.value = false),
-});
-const isObjectLink = computed(() => {
-  return (
-    typeof props.modelValue === "object" && props.modelValue !== null && "link" in props.modelValue
-  );
-});
+const linkData = computed(() => parseLinkValue(props.modelValue));
+const currentLink = computed(() => linkData.value.link);
+const currentLabel = computed(() => linkData.value.label);
 
-const currentLink = computed({
-  get: () =>
-    isObjectLink.value
-      ? (props.modelValue as { link: string }).link
-      : ((props.modelValue as string) ?? ""),
-  set: (newLink) => emit("update:modelValue", { link: newLink, label: currentLabel.value }),
-});
-
-const currentLabel = computed({
-  get: () =>
-    isObjectLink.value
-      ? ((props.modelValue as { label?: string }).label ?? currentLink.value)
-      : currentLink.value,
-  set: (newLabel) => emit("update:modelValue", { link: currentLink.value, label: newLabel }),
-});
+const handleSubmit = (payload: { link: string; text: string }) => {
+  if (!payload.link.trim()) {
+    emit("update:modelValue", undefined);
+  } else {
+    emit("update:modelValue", { link: payload.link, label: payload.text });
+  }
+  open.value = false;
+};
 </script>
 
 <template>
-  <OnyxBasicPopover
+  <OnyxLinkDialog
     v-model:open="open"
     class="onyx-component onyx-link-editor"
-    :label="t('editor.link.edit')"
+    :initial-link="currentLink"
+    :initial-text="currentLabel"
+    link-required
+    @apply="handleSubmit"
   >
-    <template #default="{ trigger }">
+    <template #trigger="{ trigger }">
       <OnyxButton
         class="onyx-link-editor__button"
         :label="currentLabel || currentLink || t('dataGrid.editing.addLink')"
@@ -65,19 +50,7 @@ const currentLabel = computed({
         v-bind="trigger"
       />
     </template>
-
-    <template #content>
-      <div ref="popoverRef" class="onyx-link-editor__popover">
-        <OnyxInput
-          v-model="currentLabel"
-          :label="t('dataGrid.editing.displayLabel')"
-          type="text"
-          :placeholder="t('dataGrid.editing.enterText')"
-        />
-        <OnyxInput v-model="currentLink" label="Link" placeholder="https://..." />
-      </div>
-    </template>
-  </OnyxBasicPopover>
+  </OnyxLinkDialog>
 </template>
 
 <style lang="scss">
@@ -86,13 +59,6 @@ const currentLabel = computed({
   &__button {
     width: 100%;
     justify-content: start;
-  }
-  &__popover {
-    display: flex;
-    width: 16rem;
-    flex-direction: column;
-    gap: var(--onyx-density-sm);
-    padding: var(--onyx-density-sm);
   }
 }
 </style>

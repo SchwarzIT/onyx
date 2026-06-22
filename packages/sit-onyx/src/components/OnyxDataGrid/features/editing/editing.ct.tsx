@@ -6,7 +6,7 @@ test.describe("DataGrid Editing", () => {
     // Arrange
     const component = await mount(
       <TestCaseCt
-        style={{ paddingBottom: "10rem", width: "24rem" }}
+        style={{ paddingBottom: "15rem", width: "24rem" }}
         columns={[
           { key: "id", label: "ID", width: "min-content" },
           { key: "link", label: "link", type: "link" },
@@ -25,12 +25,9 @@ test.describe("DataGrid Editing", () => {
     );
 
     const websiteCell = component.getByRole("button", { name: "link label" });
-    const popover = component
-      .getByRole("dialog")
-      .getByText("Display labelClear inputLinkClear input");
+    const popover = component.getByRole("dialog", { name: "Edit link" });
     const linkInput = component.getByRole("textbox", { name: "Link" });
-    const labelInput = component.getByRole("textbox", { name: "Display label" });
-
+    const labelInput = component.getByRole("textbox", { name: "Text" });
     // Assert
     await expect(component).toBeVisible();
     await expect(popover).toBeHidden();
