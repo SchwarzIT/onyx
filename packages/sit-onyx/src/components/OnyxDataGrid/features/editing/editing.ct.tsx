@@ -6,10 +6,20 @@ test.describe("DataGrid Editing", () => {
     // Arrange
     const component = await mount(
       <TestCaseCt
-        columns={[{ key: "link", label: "link", type: "link" }]}
+        style={{ paddingBottom: "10rem", width: "24rem" }}
+        columns={[
+          { key: "id", label: "ID", width: "min-content" },
+          { key: "link", label: "link", type: "link" },
+        ]}
         data={[
-          { link: { link: "https://example.com", label: "link label" } },
-          { link: "https://example.com/2" },
+          {
+            id: 1,
+            link: { link: "https://example.com", label: "link label" },
+          },
+          {
+            id: 2,
+            link: "https://example.com/2",
+          },
         ]}
       />,
     );
