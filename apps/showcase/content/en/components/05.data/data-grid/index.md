@@ -7,32 +7,92 @@ A highly customizable and modular table for displaying complex datasets. The dat
 
 ## Data grid vs. table
 
-- recommend data grid for most cases in general
-- table only in rare edge cases where max. flexibility and customization is required or data grid overhead is unwanted
-- if unsure what to use, use the data grid
-- if there is no reasonable concrete requirement for using the table, use the data grid
+We recommend to use the data grid in most cases since it supports advanced built-in features. The [table](/components/data/table) component is a simple styled wrapper for the HTML [\<table\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/table) element without additional features. The table can be used in rare edge cases where maximum flexibility and customization is required or where the data grid overhead is unwanted.
+
+If you are unsure which component to use or there is no reasonable explicit requirement for the table, use the data grid.
 
 ## Examples
 
-- Link zu Code unserer features
-- sort features by how often they are used
+### Basic
+
+A very basic data grid contains one or multiple columns and a set of data to display in rows. Each column has a type that defines how the value is displayed. See the [available column types](#column-types) below.
+
+:component-example{name="Basic" layout="fullWidth"}
 
 ### Column types
 
-List native types
+<!-- TODO: update custom feature link -->
+The data grid supports several column data types out-of-the-box that will display the data accordingly and also integrate with e.g. the [sorting](#sorting) or [filtering](#filtering) feature. To implement custom column types, see the [custom feature section](#build-a-custom-feature) below.
 
+<steps>
+
+::step
+#headline
+String / Text <onyx-tag label="Default" />
+
+#default
+Displays the value as text and is the default type for all columns.
+
+:component-example{name="ColumnTypeString" layout="grow"}
+::
+
+::step
+#headline
+Number
+
+#default
+Displays the value as formatter number depending on the current application language. Optionally, a custom format can be defined using [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat).
+
+:component-example{name="ColumnTypeNumber" layout="grow"}
+::
+
+::step
+#headline
+Date & Time
+
+#default
+Multiple column types are supported to display date, datetime, time and timestamp depending on the current application language. Optionally, a custom format can be defined using [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat).
+
+:component-example{name="ColumnTypeDate" layout="fullWidth"}
+::
+
+::step
+#headline
+Select
+
+#default
+<!-- TODO: change link -->
+The select type allows the developer to define a set of available options where the corresponding text is displayed depending on the value. This is particularly useful when the value is technically an enum but a user-friendly translated label should be shown. When used in combination with the [editing](#editing) feature, the user can change the value based on the pre-defined list of options.
+
+:component-example{name="ColumnTypeSelect" layout="grow"}
+::
+
+::step
+#headline
+Fallback text
+
+#default
+For every column, a fallback text is shown when the cell is empty. By default, "-" is used but a custom text can be defined if needed.
+
+:component-example{name="ColumnTypeFallback" layout="grow"}
+::
+
+</steps>
+
+### Skeleton
+
+The skeleton should be used on initial page load when the data for the page / data grid is initially loaded.
+
+:component-example{name="Skeleton" layout="fullWidth"}
+
+### Grouped columns
+
+Column groups can be used to visually group columns that are related.
+
+:component-example{name="ColumnGroups" layout="fullWidth"}
 
 ## Build a custom feature
 
-Step by step guide...
-
--
-
-### Common use cases build by projects
-
-1. Clickable row
-2. Custom column types
-3. Right aligned action column (with support for truncation + flyout menu)
-
-
-## Best Practices
+::info-card{headline="Coming Soon"}
+This part of the documentation will be available soon.
+::
