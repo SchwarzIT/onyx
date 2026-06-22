@@ -10,8 +10,6 @@ type Entry = {
 function getData(): Entry[] {
   return [
     { id: 1, name: "Alice" },
-    { id: 2, name: "Charlie" },
-    { id: 3, name: "Bob" },
     { id: 4, name: "Robin" },
     { id: 5, name: "John" },
   ];

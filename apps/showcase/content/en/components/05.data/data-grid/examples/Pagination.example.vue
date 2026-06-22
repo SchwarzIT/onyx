@@ -8,22 +8,24 @@ type Entry = {
 };
 
 const data = computed<Entry[]>(() => {
-  return [
-    { id: 1, name: "Alice" },
-    { id: 4, name: "Robin" },
-    { id: 5, name: "John" },
-  ];
+  // generating some dummy data
+  return Array.from({ length: 128 }, (_, index) => {
+    const id = index + 1;
+    return { id, name: `Name ${id}` };
+  });
 });
 
 const columns = computed<ColumnConfig<Entry>[]>(() => {
   return [{ key: "name", label: "Name" }];
 });
 
-const withFiltering = DataGridFeatures.useFiltering<Entry>({
+const withPagination = DataGridFeatures.usePagination({
   // options here...
+  pageSize: 10,
+  itemsPerPage: [10, 25, 50],
 });
 
-const features = [withFiltering];
+const features = [withPagination];
 </script>
 
 <template>

@@ -120,7 +120,7 @@ Async
 #default
 Alternatively, the sorting can be done asynchronously by an external service, e.g. by a backend or API so the data grid does not sort the data itself. Important: Set the `async` property on the data grid to disable the internal data transformations.
 
-:component-example{name="AsyncSorting" layout="fullWidth"}
+:component-example{name="SortingAsync" layout="fullWidth"}
 ::
 
 </steps>
@@ -148,7 +148,55 @@ Async
 #default
 Alternatively, the filtering can be done asynchronously by an external service, e.g. by a backend or API so the data grid does not filter the data itself. Important: Set the `async` property on the data grid to disable the internal data transformations.
 
-:component-example{name="AsyncFiltering" layout="fullWidth"}
+:component-example{name="FilteringAsync" layout="fullWidth"}
+::
+
+</steps>
+
+### Pagination
+
+Use pagination to handle data grids where a lot of data is available which would be too much to show it all at once to optimize performance. Different pagination modes are supported as described below. Each pagination mode also supports a select where the user can select how many items per page should be displayed.
+
+<steps>
+
+::step
+#headline
+Select <onyx-tag label="Default" />
+
+#default
+The select type uses our [pagination](/components/data/pagination) component to show a page select on the bottom right.
+
+:component-example{name="Pagination" layout="fullWidth"}
+::
+
+::step
+#headline
+Lazy loading
+
+#default
+With lazy loading, more data is automatically displayed when the user scrolls to the end of the data grid. You **must** set a maximum height when using lazy loading.
+
+:component-example{name="PaginationLazy" layout="fullWidth"}
+::
+
+::step
+#headline
+Button loading
+
+#default
+Button loading is similar to lazy loading but requires the user to manually click a load more button to load the next page of data. We strongly recommended to set a maximum height since the data grid can get very long when loading many pages.
+
+:component-example{name="PaginationButton" layout="fullWidth"}
+::
+
+::step
+#headline
+Async
+
+#default
+Alternatively, the pagination can be done asynchronously by an external service, e.g. by a backend or API. This is especially useful for performance optimization when not all available data should be loaded at once. Async pagination is compatible with all modes mentioned above. Important: Set the `async` property on the data grid to disable the internal data transformations.
+
+:component-example{name="PaginationAsync" layout="fullWidth"}
 ::
 
 </steps>
