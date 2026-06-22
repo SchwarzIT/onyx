@@ -150,7 +150,7 @@ defineSlots<{
     }
 
     &--warning {
-      --onyx-badge-background-color: var(--onyx-color-base-warning800);
+      --onyx-badge-background-color: var(--onyx-color-base-warning-800);
       --onyx-badge-hover-background-color: var(--onyx-color-base-warning-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-warning);
       --onyx-badge-active-background-color: var(--onyx-color-base-warning-700);
