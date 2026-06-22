@@ -91,6 +91,68 @@ Column groups can be used to visually group columns that are related.
 
 :component-example{name="ColumnGroups" layout="fullWidth"}
 
+## Features
+
+Data grid features are re-usable pieces of code that extend the functionality of the data grid using a unified API. We support several advanced features out-of-the-box for common use cases such as sorting, filtering, pagination and more. See the [custom feature](#build-a-custom-feature) section below for how you can build your own feature.
+
+In fact, every internal functionality of the data grid such as the different [column types](#column-types) is build using a feature.
+
+### Sorting
+
+Allows the user to sort the rows by a specific column. The developer can optionally define an initial sorting, customize the sorting logic and disabled/enabled sorting for specific columns. For [built-in column types](#column-types), the sorting logic is correctly defined by default. For custom types, make sure to define a custom sorting function if alphabetical sorting is not sufficient.
+
+<steps>
+
+::step
+#headline
+Internal
+
+#default
+The data is sorted internally by default considering all available data.
+
+:component-example{name="Sorting" layout="fullWidth"}
+::
+
+::step
+#headline
+Async
+
+#default
+Alternatively, the sorting can be done asynchronously by an external service, e.g. by a backend or API so the data grid does not sort the data itself. Important: Set the `async` property on the data grid to disable the internal data transformations.
+
+:component-example{name="AsyncSorting" layout="fullWidth"}
+::
+
+</steps>
+
+### Filtering / Search
+
+Allows the user to filter / search a column. The developer can optionally customize the filter logic and disabled/enabled filtering for specific columns.
+
+<steps>
+
+::step
+#headline
+Internal
+
+#default
+The data is filtered internally by default considering all available data.
+
+:component-example{name="Filtering" layout="fullWidth"}
+::
+
+::step
+#headline
+Async
+
+#default
+Alternatively, the filtering can be done asynchronously by an external service, e.g. by a backend or API so the data grid does not filter the data itself. Important: Set the `async` property on the data grid to disable the internal data transformations.
+
+:component-example{name="AsyncFiltering" layout="fullWidth"}
+::
+
+</steps>
+
 ## Build a custom feature
 
 ::info-card{headline="Coming Soon"}
