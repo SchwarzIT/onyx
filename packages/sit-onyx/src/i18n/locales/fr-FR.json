@@ -49,8 +49,7 @@
     },
     "loadMore": "Charger plus",
     "editing": {
-      "label": "{column} avec l'ID {id}",
-      "addLink": "Ajouter un lien"
+      "label": "{column} avec l'ID {id}"
     }
   },
   "validations": {

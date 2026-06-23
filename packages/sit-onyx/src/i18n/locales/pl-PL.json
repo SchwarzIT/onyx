@@ -49,8 +49,7 @@
     },
     "loadMore": "Załaduj więcej",
     "editing": {
-      "label": "{column} o ID {id}",
-      "addLink": "Dodaj link"
+      "label": "{column} o ID {id}"
     }
   },
   "validations": {

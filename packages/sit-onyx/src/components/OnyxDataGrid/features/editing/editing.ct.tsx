@@ -14,7 +14,7 @@ test.describe("DataGrid Editing", () => {
         data={[
           {
             id: 1,
-            link: { link: "https://example.com", label: "link label" },
+            link: { href: "https://example.com", label: "link label" },
           },
           {
             id: 2,
@@ -24,27 +24,50 @@ test.describe("DataGrid Editing", () => {
       />,
     );
 
-    const websiteCell = component.getByRole("button", { name: "link label" });
-    const popover = component.getByRole("dialog", { name: "Edit link" });
-    const linkInput = component.getByRole("textbox", { name: "Link" });
-    const labelInput = component.getByRole("textbox", { name: "Text" });
-    // Assert
+    const firstRow = component.getByRole("row").nth(1);
+    const editButton = firstRow.getByRole("button", { name: "Edit link" });
+    const dialog = component.getByRole("dialog", { name: "Edit link" });
+    const linkInput = dialog.getByLabel("Link");
+    const labelInput = dialog.getByLabel("Text");
+    const applyButton = dialog.getByRole("button", { name: "Apply" });
+
+    // ASSERT
+    await expect(firstRow).toContainText("link label");
     await expect(component).toBeVisible();
-    await expect(popover).toBeHidden();
+    await expect(dialog).toBeHidden();
 
-    // Act
-    await websiteCell.click();
+    // ACT
+    await editButton.click();
 
-    // Assert
-    await expect(popover).toBeVisible();
+    // ASSERT
+    await expect(dialog).toBeVisible();
     await expect(component).toHaveScreenshot("link-editor-popover.png");
 
-    // Act
-    await linkInput.fill("https://new-example.com");
+    // ACT
+    await linkInput.fill("https://example.com");
     await labelInput.fill("new label");
+    await applyButton.click();
 
-    // Assert
-    await expect(linkInput).toHaveValue("https://new-example.com");
-    await expect(labelInput).toHaveValue("new label");
+    // ASSERT
+    await expect(firstRow).toContainText("new label");
+
+    // ACT
+    await editButton.click();
+    await labelInput.clear();
+    await applyButton.click();
+
+    // ASSERT
+    await expect(firstRow).not.toContainText("new label");
+    await expect(firstRow).toContainText("https://example.com");
+
+    // ACT
+    await editButton.click();
+    await linkInput.clear();
+    await applyButton.click();
+
+    // ASSERT
+    await expect(firstRow).not.toContainText("new label");
+    await expect(firstRow).not.toContainText("https://example.com");
+    await expect(firstRow).toContainText("-");
   });
 });

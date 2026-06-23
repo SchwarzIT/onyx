@@ -335,7 +335,7 @@ const COMPONENTS: Components = {
       icon: iconPlaceholder,
     },
   },
-  OnyxUnstableLinkDialog: {
+  OnyxUnstableEditLinkDialog: {
     props: {
       open: false,
     },

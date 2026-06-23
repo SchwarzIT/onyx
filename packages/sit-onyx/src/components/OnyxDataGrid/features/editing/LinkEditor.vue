@@ -2,66 +2,63 @@
 import { iconLink } from "@sit-onyx/icons";
 import { computed, ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
+import OnyxEditLinkDialog from "../../../OnyxEditLinkDialog/OnyxEditLinkDialog.vue";
+import type { EditLinkValue } from "../../../OnyxEditLinkDialog/types.js";
+import { parseLinkValue } from "../../../OnyxEditLinkDialog/utils.js";
 import OnyxFormElementAction from "../../../OnyxFormElementAction/OnyxFormElementAction.vue";
-import OnyxLinkDialog from "../../../OnyxLinkDialog/OnyxLinkDialog.vue";
-import { parseLinkValue } from "../renderer.js";
 
 const props = defineProps<{
   /**
-   * Value of the Link
+   * Value of the link.
    */
   modelValue?: unknown;
 }>();
 
 const emit = defineEmits<{
-  "update:modelValue": [value: { link: string; label?: string } | undefined];
+  /**
+   * Emitted when the link changes.
+   */
+  "update:modelValue": [value?: EditLinkValue];
 }>();
 
 const open = ref(false);
 const { t } = injectI18n();
 
-const linkData = computed(() => parseLinkValue(props.modelValue));
-const currentLink = computed(() => linkData.value.link);
-const currentLabel = computed(() => linkData.value.label);
+const link = computed(() => parseLinkValue(props.modelValue));
 
-const handleSubmit = (payload: { link: string; text: string }) => {
-  if (!payload.link.trim()) {
-    emit("update:modelValue", undefined);
-  } else {
-    emit("update:modelValue", { link: payload.link, label: payload.text });
-  }
+const handleUpdateValue = (newValue?: EditLinkValue) => {
+  emit("update:modelValue", newValue);
   open.value = false;
 };
 </script>
 
 <template>
-  <OnyxLinkDialog
+  <OnyxEditLinkDialog
     v-model:open="open"
     class="onyx-component onyx-link-editor"
-    :initial-link="currentLink"
-    :initial-text="currentLabel"
-    link-required
-    @apply="handleSubmit"
+    :model-value="link"
+    @update:model-value="handleUpdateValue"
   >
     <template #trigger="{ trigger }">
       <div class="onyx-link-editor__display">
         <p class="onyx-link-editor__text">
-          {{ currentLabel || currentLink || t("dataGrid.editing.addLink") }}
+          {{ link?.label || link?.href || "-" }}
         </p>
         <OnyxFormElementAction
-          :icon="iconLink"
-          :label="currentLabel || currentLink || t('dataGrid.editing.addLink')"
           v-bind="trigger"
+          :label="t('editor.link.edit')"
+          :icon="iconLink"
           density="compact"
         />
       </div>
     </template>
-  </OnyxLinkDialog>
+  </OnyxEditLinkDialog>
 </template>
 
 <style lang="scss">
 .onyx-link-editor {
   width: 100%;
+
   &__display {
     width: 100%;
     align-items: center;

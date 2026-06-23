@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { iconLink } from "@sit-onyx/icons";
 import type { Editor } from "@tiptap/vue-3";
-import { injectI18n, OnyxUnstableLinkDialog } from "sit-onyx";
+import { injectI18n, OnyxUnstableEditLinkDialog, type EditLinkValue } from "sit-onyx";
 import { ref, watch } from "vue";
 import OnyxEditorToolbarAction from "../../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 
@@ -11,37 +11,33 @@ const props = defineProps<{
 
 const { t } = injectI18n();
 const open = ref(false);
-
-const initialLink = ref("");
-const initialText = ref("");
+const state = ref<EditLinkValue>({ href: "" });
 
 watch(
   open,
   (isOpen) => {
     if (!isOpen) {
-      initialLink.value = "";
-      initialText.value = "";
+      // reset state if dialog closes
+      state.value = { href: "" };
       return;
     }
 
     const href = props.editor?.getAttributes("link").href;
-    if (href && typeof href === "string") {
-      initialLink.value = href;
-    }
+    const previousHref = href && typeof href === "string" ? href : undefined;
+    if (previousHref) state.value.href = previousHref;
 
     if (props.editor) {
       const { from, to, empty } = props.editor.state.selection;
-      const text = empty ? "" : props.editor.state.doc.textBetween(from, to);
-      initialText.value = text;
+      const label = empty ? "" : props.editor.state.doc.textBetween(from, to);
+      state.value.label = label;
     }
   },
   { immediate: true },
 );
 
-const handleSubmit = (payload: { link: string; text: string }) => {
-  const href = payload.link.trim();
-  const text = payload.text.trim();
-
+const handleUpdateValue = (newValue?: EditLinkValue) => {
+  const href = newValue?.href.trim();
+  const label = newValue?.label?.trim() || href;
   if (!href) return removeLink();
 
   props.editor
@@ -51,7 +47,7 @@ const handleSubmit = (payload: { link: string; text: string }) => {
     .insertContent([
       {
         type: "text",
-        text,
+        text: label,
         marks: [{ type: "link", attrs: { href } }],
       },
     ])
@@ -69,13 +65,10 @@ const removeLink = () => {
 </script>
 
 <template>
-  <OnyxUnstableLinkDialog
+  <OnyxUnstableEditLinkDialog
     v-model:open="open"
-    class="onyx-editor-link-action"
-    :initial-link="initialLink"
-    :initial-text="initialText"
-    text-required
-    @apply="handleSubmit"
+    :model-value="state"
+    @update:model-value="handleUpdateValue"
   >
     <template #trigger="{ trigger }">
       <OnyxEditorToolbarAction
@@ -86,5 +79,5 @@ const removeLink = () => {
         :disabled="!props.editor?.can().chain().toggleLink().run()"
       />
     </template>
-  </OnyxUnstableLinkDialog>
+  </OnyxUnstableEditLinkDialog>
 </template>

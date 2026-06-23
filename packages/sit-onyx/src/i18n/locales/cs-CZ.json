@@ -49,8 +49,7 @@
     },
     "loadMore": "Načíst další",
     "editing": {
-      "label": "{column} s ID {id}",
-      "addLink": "Přidat odkaz"
+      "label": "{column} s ID {id}"
     }
   },
   "validations": {

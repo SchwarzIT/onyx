@@ -49,8 +49,7 @@
     },
     "loadMore": "Načítať viac",
     "editing": {
-      "label": "{column} s ID {id}",
-      "addLink": "Pridať odkaz"
+      "label": "{column} s ID {id}"
     }
   },
   "validations": {
