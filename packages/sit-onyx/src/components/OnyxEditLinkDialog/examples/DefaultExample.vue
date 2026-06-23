@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { OnyxButton, OnyxUnstableLinkDialog } from "../../../index.js";
+import { OnyxButton, OnyxUnstableEditLinkDialog } from "../../../index.js";
 
 const isOpen = ref(false);
 </script>
 
 <template>
-  <OnyxUnstableLinkDialog v-model:open="isOpen">
+  <OnyxUnstableEditLinkDialog v-model:open="isOpen">
     <template #trigger>
       <OnyxButton label="Edit link" @click="isOpen = true" />
     </template>
-  </OnyxUnstableLinkDialog>
+  </OnyxUnstableEditLinkDialog>
 </template>

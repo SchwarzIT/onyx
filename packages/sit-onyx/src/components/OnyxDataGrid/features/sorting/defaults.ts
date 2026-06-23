@@ -1,4 +1,4 @@
-import { parseLinkValue } from "../../../OnyxLinkDialog/utils.js";
+import { parseLinkValue } from "../../../OnyxEditLinkDialog/utils.js";
 import type { DataGridEntry } from "../../types.js";
 import type { DefaultSupportedTypes } from "../index.js";
 import type { Compare } from "./types.js";

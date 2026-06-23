@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { iconLink } from "@sit-onyx/icons";
 import type { Editor } from "@tiptap/vue-3";
-import { injectI18n, OnyxUnstableLinkDialog, type LinkValue } from "sit-onyx";
+import { injectI18n, OnyxUnstableEditLinkDialog, type EditLinkValue } from "sit-onyx";
 import { ref, watch } from "vue";
 import OnyxEditorToolbarAction from "../../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 
@@ -11,7 +11,7 @@ const props = defineProps<{
 
 const { t } = injectI18n();
 const open = ref(false);
-const state = ref<LinkValue>({ href: "" });
+const state = ref<EditLinkValue>({ href: "" });
 
 watch(
   open,
@@ -35,7 +35,7 @@ watch(
   { immediate: true },
 );
 
-const handleUpdateValue = (newValue?: LinkValue) => {
+const handleUpdateValue = (newValue?: EditLinkValue) => {
   const href = newValue?.href.trim();
   const label = newValue?.label?.trim() || href;
   if (!href) return removeLink();
@@ -65,7 +65,7 @@ const removeLink = () => {
 </script>
 
 <template>
-  <OnyxUnstableLinkDialog
+  <OnyxUnstableEditLinkDialog
     v-model:open="open"
     :model-value="state"
     @update:model-value="handleUpdateValue"
@@ -79,5 +79,5 @@ const removeLink = () => {
         :disabled="!props.editor?.can().chain().toggleLink().run()"
       />
     </template>
-  </OnyxUnstableLinkDialog>
+  </OnyxUnstableEditLinkDialog>
 </template>

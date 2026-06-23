@@ -14,9 +14,9 @@ import OnyxDialog from "../OnyxDialog/OnyxDialog.vue";
 import OnyxForm from "../OnyxForm/OnyxForm.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
-import type { LinkValue, OnyxLinkDialogProps } from "./types.js";
+import type { EditLinkValue, OnyxEditLinkDialogProps } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxLinkDialogProps>(), {
+const props = withDefaults(defineProps<OnyxEditLinkDialogProps>(), {
   open: undefined,
   modelValue: undefined,
 });
@@ -29,7 +29,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the value is updated.
    */
-  "update:modelValue": [value?: LinkValue];
+  "update:modelValue": [value?: EditLinkValue];
 }>();
 
 defineSlots<{
@@ -44,7 +44,7 @@ const id = useId();
 
 const isOpen = useVModel({ props, emit, key: "open", default: false });
 
-const state = ref<Partial<LinkValue>>({});
+const state = ref<Partial<EditLinkValue>>({});
 const modelValue = useVModel({ props, emit, key: "modelValue" });
 
 watch(
@@ -64,7 +64,7 @@ useOutsideClick({
 });
 
 const handleSubmit = () => {
-  const newValue = state.value.href ? ({ ...state.value } as LinkValue) : undefined;
+  const newValue = state.value.href ? ({ ...state.value } as EditLinkValue) : undefined;
   modelValue.value = newValue;
 };
 </script>

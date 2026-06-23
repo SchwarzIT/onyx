@@ -1,9 +1,9 @@
-import type { LinkValue } from "./types.js";
+import type { EditLinkValue } from "./types.js";
 
 /**
  * Normalizes a generic link value into a consistent object containing a link and label.
  */
-export const parseLinkValue = (value: unknown): LinkValue | undefined => {
+export const parseLinkValue = (value: unknown): EditLinkValue | undefined => {
   if (!value) return;
   if (typeof value === "string") return { href: value };
   if (typeof value !== "object") return;

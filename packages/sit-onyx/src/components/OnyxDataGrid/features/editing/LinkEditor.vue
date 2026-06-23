@@ -2,10 +2,10 @@
 import { iconLink } from "@sit-onyx/icons";
 import { computed, ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
+import OnyxEditLinkDialog from "../../../OnyxEditLinkDialog/OnyxEditLinkDialog.vue";
+import type { EditLinkValue } from "../../../OnyxEditLinkDialog/types.js";
+import { parseLinkValue } from "../../../OnyxEditLinkDialog/utils.js";
 import OnyxFormElementAction from "../../../OnyxFormElementAction/OnyxFormElementAction.vue";
-import OnyxLinkDialog from "../../../OnyxLinkDialog/OnyxLinkDialog.vue";
-import type { LinkValue } from "../../../OnyxLinkDialog/types.js";
-import { parseLinkValue } from "../../../OnyxLinkDialog/utils.js";
 
 const props = defineProps<{
   /**
@@ -18,7 +18,7 @@ const emit = defineEmits<{
   /**
    * Emitted when the link changes.
    */
-  "update:modelValue": [value?: LinkValue];
+  "update:modelValue": [value?: EditLinkValue];
 }>();
 
 const open = ref(false);
@@ -26,14 +26,14 @@ const { t } = injectI18n();
 
 const link = computed(() => parseLinkValue(props.modelValue));
 
-const handleUpdateValue = (newValue?: LinkValue) => {
+const handleUpdateValue = (newValue?: EditLinkValue) => {
   emit("update:modelValue", newValue);
   open.value = false;
 };
 </script>
 
 <template>
-  <OnyxLinkDialog
+  <OnyxEditLinkDialog
     v-model:open="open"
     class="onyx-component onyx-link-editor"
     :model-value="link"
@@ -52,7 +52,7 @@ const handleUpdateValue = (newValue?: LinkValue) => {
         />
       </div>
     </template>
-  </OnyxLinkDialog>
+  </OnyxEditLinkDialog>
 </template>
 
 <style lang="scss">

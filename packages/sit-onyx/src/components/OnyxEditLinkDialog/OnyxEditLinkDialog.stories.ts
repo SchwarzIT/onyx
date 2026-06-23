@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { createAdvancedStoryExample } from "../../utils/storybook.js";
-import OnyxLinkDialog from "./OnyxLinkDialog.vue";
+import OnyxEditLinkDialog from "./OnyxEditLinkDialog.vue";
 
-const meta: Meta<typeof OnyxLinkDialog> = {
-  title: "Support/LinkDialog",
-  component: OnyxLinkDialog,
+const meta: Meta<typeof OnyxEditLinkDialog> = {
+  title: "Support/EditLinkDialog",
+  component: OnyxEditLinkDialog,
   tags: ["unstable"],
 };
 
 export default meta;
-type Story = StoryObj<typeof OnyxLinkDialog>;
+type Story = StoryObj<typeof OnyxEditLinkDialog>;
 
 export const Default = createAdvancedStoryExample(
-  "OnyxLinkDialog",
+  "OnyxEditLinkDialog",
   "DefaultExample",
 ) satisfies Story;

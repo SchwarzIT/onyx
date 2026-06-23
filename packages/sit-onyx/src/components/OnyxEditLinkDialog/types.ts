@@ -1,15 +1,15 @@
-export type OnyxLinkDialogProps = {
+export type OnyxEditLinkDialogProps = {
   /**
    * Current link value.
    */
-  modelValue?: LinkValue;
+  modelValue?: EditLinkValue;
   /**
    * Controls whether the dialog is open.
    */
   open?: boolean;
 };
 
-export type LinkValue = {
+export type EditLinkValue = {
   /**
    * URL that the link points to.
    */
