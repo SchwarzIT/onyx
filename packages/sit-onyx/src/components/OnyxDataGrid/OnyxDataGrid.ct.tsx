@@ -1,5 +1,7 @@
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import OnyxModal from "../OnyxModal/OnyxModal.vue";
+import OnyxDataGrid from "./OnyxDataGrid.vue";
 import TestWrapperCt from "./TestWrapper.ct.vue";
 import TestWrapperColumnTypeOptionsCt from "./TestWrapperColumnTypeOptions.ct.vue";
 import TestWrapperWithColumnTypesCt from "./TestWrapperWithColumnTypes.ct.vue";
@@ -58,4 +60,39 @@ test.describe("Screenshot tests", () => {
       );
     },
   });
+});
+
+test("should not resize in a loop when empty and used in a modal without explicit width", async ({
+  mount,
+  page,
+}) => {
+  // ARRANGE
+  await mount(
+    <OnyxModal label="Example label" open>
+      <OnyxDataGrid data={[]} columns={["A", "B"]}>
+        <template v-slot:head>
+          <tr>
+            <th>Column A</th>
+            <th>Column B</th>
+          </tr>
+        </template>
+      </OnyxDataGrid>
+    </OnyxModal>,
+  );
+
+  const modal = page.getByRole("dialog", { name: "Example label" });
+
+  // ASSERT
+  await expect(modal).toBeVisible();
+
+  // ACT
+  const box1 = (await modal.boundingBox())!;
+
+  const handle = await modal.elementHandle();
+  await handle!.waitForElementState("stable");
+
+  const box2 = (await modal.boundingBox())!;
+
+  // ASSERT
+  expect(box1.width).toBe(box2.width);
 });
