@@ -1,16 +1,15 @@
 {
   "name": "onyx-monorepo",
-  "type": "module",
-  "packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620",
-  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
+  "type": "module",
   "scripts": {
     "dev": "./scripts/dev.sh",
     "build:all": "turbo run build build:storybook",
     "test:all": "vitest --coverage",
     "test:playwright:all": "turbo run test:playwright",
-    "format:all": "prettier --write .",
-    "format:check:all": "prettier --check .",
+    "format:all": "oxfmt",
+    "format:check:all": "oxfmt --check",
     "stylelint": "turbo run stylelint",
     "lint:all": "eslint .",
     "lint:fix:all": "pnpm run lint:all --fix",
@@ -54,6 +53,7 @@
     "lightningcss": "^1.32.0",
     "lint-staged": "^17.0.7",
     "nuxt": "catalog:",
+    "oxfmt": "~0.55.0",
     "prettier": "^3.8.4",
     "prettier-plugin-organize-imports": "^4.3.0",
     "publint": "^0.3.21",
@@ -73,8 +73,9 @@
   },
   "lint-staged": {
     "*": [
-      "prettier --write -u",
+      "oxfmt --no-error-on-unmatched-pattern",
       "eslint --fix"
     ]
-  }
+  },
+  "packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620"
 }

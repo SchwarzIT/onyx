@@ -1,8 +1,0 @@
-# Prettier ignores all files inside .gitignore by default so this file only contains
-# files that are checked into git but should not be formatted
-pnpm-lock.yaml
-CODEOWNERS
-
-# prettier can not handle the MDC syntax with YAML properties for components
-# see: https://github.com/nuxt/content/issues/1709
-apps/showcase/content/**/*.md
