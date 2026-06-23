@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { iconLink } from "@sit-onyx/icons";
 import { computed, ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
-import OnyxButton from "../../../OnyxButton/OnyxButton.vue";
+import OnyxFormElementAction from "../../../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxLinkDialog from "../../../OnyxLinkDialog/OnyxLinkDialog.vue";
 import { parseLinkValue } from "../renderer.js";
 
@@ -43,12 +44,17 @@ const handleSubmit = (payload: { link: string; text: string }) => {
     @apply="handleSubmit"
   >
     <template #trigger="{ trigger }">
-      <OnyxButton
-        class="onyx-link-editor__button"
-        :label="currentLabel || currentLink || t('dataGrid.editing.addLink')"
-        mode="plain"
-        v-bind="trigger"
-      />
+      <div class="onyx-link-editor__display">
+        <p class="onyx-link-editor__text">
+          {{ currentLabel || currentLink || t("dataGrid.editing.addLink") }}
+        </p>
+        <OnyxFormElementAction
+          :icon="iconLink"
+          :label="currentLabel || currentLink || t('dataGrid.editing.addLink')"
+          v-bind="trigger"
+          density="compact"
+        />
+      </div>
     </template>
   </OnyxLinkDialog>
 </template>
@@ -56,9 +62,11 @@ const handleSubmit = (payload: { link: string; text: string }) => {
 <style lang="scss">
 .onyx-link-editor {
   width: 100%;
-  &__button {
+  &__display {
     width: 100%;
-    justify-content: start;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>
