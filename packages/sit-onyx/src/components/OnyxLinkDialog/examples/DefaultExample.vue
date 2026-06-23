@@ -8,7 +8,7 @@ const isOpen = ref(false);
 <template>
   <OnyxUnstableLinkDialog v-model:open="isOpen">
     <template #trigger>
-      <OnyxButton label="Dialog öffnen" @click="isOpen = true" />
+      <OnyxButton label="Edit link" @click="isOpen = true" />
     </template>
   </OnyxUnstableLinkDialog>
 </template>

@@ -4,7 +4,7 @@ import { computed, ref } from "vue";
 import { injectI18n } from "../../../../i18n/index.js";
 import OnyxFormElementAction from "../../../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxLinkDialog from "../../../OnyxLinkDialog/OnyxLinkDialog.vue";
-import { parseLinkValue } from "../renderer.js";
+import { parseLinkValue } from "../base/utils.js";
 
 const props = defineProps<{
   /**
@@ -21,8 +21,8 @@ const open = ref(false);
 const { t } = injectI18n();
 
 const linkData = computed(() => parseLinkValue(props.modelValue));
-const currentLink = computed(() => linkData.value.link);
-const currentLabel = computed(() => linkData.value.label);
+const currentLink = computed(() => linkData.value?.link);
+const currentLabel = computed(() => linkData.value?.label);
 
 const handleSubmit = (payload: { link: string; text: string }) => {
   if (!payload.link.trim()) {

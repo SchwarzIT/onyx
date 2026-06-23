@@ -20,6 +20,7 @@ import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTimePicker from "../../OnyxTimePicker/OnyxTimePicker.vue";
 import type { DataGridEntry } from "../types.js";
+import { parseLinkValue } from "./base/utils.js";
 import DataGridFormElementWrapper from "./DataGridFormElementWrapper.vue";
 import LinkEditor from "./editing/LinkEditor.vue";
 import HeaderCell from "./HeaderCell.vue";
@@ -170,49 +171,22 @@ export const STRING_RENDERER = createTypeRenderer<StringCellOptions>({
 
 export type LinkCellOptions = Partial<OnyxLinkProps>;
 
-/**
- * Normalizes a generic link value into a consistent object containing a link and label.
- */
-export const parseLinkValue = (value: unknown): { link: string; label: string } => {
-  if (typeof value === "object" && value !== null && "link" in value) {
-    const linkObj = value as { link: string; label?: string };
-    const link = linkObj.link || "";
-    return {
-      link,
-      label: linkObj.label || link,
-    };
-  }
-
-  if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
-    if (value === "") {
-      return { link: "", label: "" };
-    }
-    const strValue = String(value);
-    return { link: strValue, label: strValue };
-  }
-
-  return { link: "", label: "" };
-};
-
 export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
   header: { component: HeaderCell },
   cell: {
     component: ({ metadata, modelValue }) => {
       if (metadata?.editable) {
-        return h(LinkEditor, {
-          modelValue,
-        });
+        return h(LinkEditor, { modelValue });
       }
 
-      const { link: href, label } = parseLinkValue(modelValue);
+      const link = parseLinkValue(modelValue);
+      if (!link) return fallback();
 
-      if (!href) {
-        return fallback();
-      }
-
-      const { ...linkProps } = metadata?.typeOptions ?? {};
-
-      return h(OnyxLink, { href, ...linkProps }, () => label);
+      return h(
+        OnyxLink,
+        { href: link.link, ...metadata?.typeOptions },
+        () => link.label ?? link.link,
+      );
     },
   },
 });
