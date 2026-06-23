@@ -129,15 +129,16 @@ const searchGroups = computed(() => {
     </OnyxPageLayout>
 
     <OnyxGlobalSearch v-model:open="isOpen" v-model="searchTerm">
-      <!-- show skeleton while search results are loading -->
-      <OnyxGlobalSearchGroup v-if="isLoading" label="Search results" skeleton />
-
-      <template v-else>
+      <template #filters>
         <OnyxUnstableGlobalSearchFilterGroup label="Filters">
           <OnyxFilterBadge label="Filter 1" />
           <OnyxFilterBadge label="Filter 2" />
           <OnyxFilterBadge label="Filter 3" />
         </OnyxUnstableGlobalSearchFilterGroup>
+      </template>
+      <!-- show skeleton while search results are loading -->
+      <OnyxGlobalSearchGroup v-if="isLoading" label="Search results" skeleton />
+      <template v-else>
         <OnyxGlobalSearchGroup
           v-for="group in searchGroups"
           :key="group.label"
