@@ -201,6 +201,46 @@ Alternatively, the pagination can be done asynchronously by an external service,
 
 </steps>
 
+### Sticky columns
+
+One or multiple columns can be made sticky on the left or right side of the data grid. We strongly recommend to use sticky columns sparely since they can block the whole data grid on smaller devices.
+
+<p style="color: var(--onyx-color-text-icons-info-intense)">Scroll the data grid horizontally below to see the sticky columns in action.</p>
+
+:component-example{name="StickyColumns" layout="grow"}
+
+### Selection
+
+Allows the user to select multiple rows. When dealing with large data sets that use pagination or filters, a standard "Select all" button doesn't always work because many rows are hidden from the view. To solve this, the data grid **automatically switches** between two selection modes.
+
+The data grid tracks the selection using a "contingent" - which is simply the specific list of rows the user has manually interacted with. How the selection behaves, depends on the mode:
+
+<steps>
+
+::step
+#headline
+Include mode <onyx-tag label="Default" />
+
+#default
+Only the rows that the user explicitly checked are included. The "contingent" is the list of checked rows.
+::
+
+::step
+#headline
+Exclude mode
+
+#default
+When checking the "Select all" checkbox in the column header, the data grid automatically switches to the "exclude" mode. It assumes the user wants to select _every single row_ in the entire dataset (even the ones on other pages). Everything **except** the rows the user manually unchecks is selected. The "contingent" becomes the "blacklist" of unchecked rows.
+
+ **Important Note for Developers**: The data grid only stores the rows that the user unchecked. You need to write custom logic to calculate the final list of selected rows based on your project's specific requirements.
+::
+
+</steps>
+
+:component-example{name="Selection" layout="grow"}
+
+The checkboxes can optionally be only shown on hover.
+
 ## Build a custom feature
 
 ::info-card{headline="Coming Soon"}
