@@ -64,8 +64,12 @@ useOutsideClick({
 });
 
 const handleSubmit = () => {
-  const newValue = state.value.href ? ({ ...state.value } as EditLinkValue) : undefined;
-  modelValue.value = newValue;
+  modelValue.value = state.value.href
+    ? {
+        href: state.value.href,
+        label: state.value.label?.trim() || undefined,
+      }
+    : undefined;
 };
 </script>
 
