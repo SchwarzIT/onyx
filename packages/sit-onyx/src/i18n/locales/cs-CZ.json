@@ -50,9 +50,7 @@
     "loadMore": "Načíst další",
     "editing": {
       "label": "{column} s ID {id}",
-      "addLink": "Přidat odkaz",
-      "displayLabel": "Zobrazovaný popisek",
-      "enterText": "Zadejte popisek"
+      "addLink": "Přidat odkaz"
     }
   },
   "validations": {

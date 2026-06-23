@@ -113,6 +113,9 @@ const handleOpenUpdate = (val: boolean) => {
 
 .onyx-link-dialog {
   @include layers.component() {
+    .onyx-basic-popover__dialog {
+      width: 16rem;
+    }
     &__content {
       padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
       display: flex;

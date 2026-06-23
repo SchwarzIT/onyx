@@ -50,9 +50,7 @@
     "loadMore": "Зареждане на още",
     "editing": {
       "label": "{column} с ID {id}",
-      "addLink": "Добавяне на връзка",
-      "displayLabel": "Показвано име",
-      "enterText": "Въведете име"
+      "addLink": "Добавяне на връзка"
     }
   },
   "validations": {
