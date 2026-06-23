@@ -107,6 +107,9 @@ export * from "./components/OnyxGlobalSearch/types.js";
 export { default as OnyxGlobalSearchGroup } from "./components/OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
 export * from "./components/OnyxGlobalSearchGroup/types.js";
 
+export { default as OnyxUnstableGlobalSearchFilterGroup } from "./components/OnyxGlobalSearchFilterGroup/OnyxGlobalSearchFilterGroup.vue";
+export * from "./components/OnyxGlobalSearchFilterGroup/types.js";
+
 export { default as OnyxGlobalSearchOption } from "./components/OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 export * from "./components/OnyxGlobalSearchOption/types.js";
 

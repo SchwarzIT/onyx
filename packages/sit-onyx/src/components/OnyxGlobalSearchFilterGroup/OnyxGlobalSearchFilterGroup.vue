@@ -1,8 +1,12 @@
 <script lang="ts" setup>
+/**
+ * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
+ */
 import { computed, inject } from "vue";
 import { useDensity } from "../../composables/density.js";
+import OnyxFilterBadge from "../OnyxFilterBadge/OnyxFilterBadge.vue";
 import { GLOBAL_SEARCH_INJECTION_KEY } from "../OnyxGlobalSearch/types.js";
-import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import type { OnyxGlobalSearchFilterGroupProps } from "./types.js";
 
@@ -37,19 +41,20 @@ const skeletonCount = computed(() => {
       </OnyxHeadline>
     </li>
 
-    <div v-if="skeletonCount <= 0" class="onyx-global-search-group__filters">
-      <slot></slot>
+    <div class="onyx-global-search-group__filters">
+      <template v-if="skeletonCount <= 0">
+        <slot></slot>
+      </template>
+      <template v-else>
+        <OnyxFilterBadge
+          v-for="i in skeletonCount"
+          :key="`skeleton-${i}`"
+          :label="`Skeleton ${i}`"
+          :value="`skeleton-${i}`"
+          skeleton
+        />
+      </template>
     </div>
-
-    <template v-else>
-      <OnyxGlobalSearchOption
-        v-for="i in skeletonCount"
-        :key="`skeleton-${i}`"
-        :label="`Skeleton ${i}`"
-        :value="`skeleton-${i}`"
-        skeleton
-      />
-    </template>
 
     <!-- TODO: implement empty state -->
   </div>

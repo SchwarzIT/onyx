@@ -16,9 +16,11 @@ import {
   OnyxInfoCard,
   OnyxNavBar,
   OnyxPageLayout,
+  OnyxUnstableGlobalSearchFilterGroup,
   OnyxUnstableNavButton,
   type OnyxGlobalSearchOptionProps,
 } from "../../../index.js";
+import OnyxFilterBadge from "../../OnyxFilterBadge/OnyxFilterBadge.vue";
 
 type SearchGroup = {
   label: string;
@@ -131,6 +133,11 @@ const searchGroups = computed(() => {
       <OnyxGlobalSearchGroup v-if="isLoading" label="Search results" skeleton />
 
       <template v-else>
+        <OnyxUnstableGlobalSearchFilterGroup label="Filters">
+          <OnyxFilterBadge label="Filter 1" />
+          <OnyxFilterBadge label="Filter 2" />
+          <OnyxFilterBadge label="Filter 3" />
+        </OnyxUnstableGlobalSearchFilterGroup>
         <OnyxGlobalSearchGroup
           v-for="group in searchGroups"
           :key="group.label"
