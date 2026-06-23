@@ -54,7 +54,8 @@ Usage:
     onyx-mcp [options]
 
 Options:
- -t, --transport <stdio|http> Which kind of MCP server should be started (default: stdio).
+ -t, --transport <stdio|http> Which kind of MCP server should be started (default: stdio). 
+                              The "http" transport considers PORT and HOST environment variables, when starting the server.
  -r, --resourcesAsTools       Some LLM Coding Assistants (e.g. Gemini) are not able to to use MCP resources (yet). 
                               This setting makes resources also available as tools to support these Coding Assistants.
  -h, --help                   Show this help text and quit.
@@ -67,9 +68,8 @@ Options:
     if (!Object.keys(SUPPORTED_TRANSPORTS).includes(transport)) {
       throw new Error(`Unsupported transport: ${transport}`);
     }
-
-    const server = createServer({ resourcesAsTools });
-    await SUPPORTED_TRANSPORTS[transport as SupportedTransport](server);
+    const getServer = () => createServer({ resourcesAsTools });
+    await SUPPORTED_TRANSPORTS[transport as SupportedTransport](getServer);
   }
 }
 
