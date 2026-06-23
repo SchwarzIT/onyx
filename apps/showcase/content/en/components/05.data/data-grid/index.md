@@ -205,6 +205,8 @@ Alternatively, the pagination can be done asynchronously by an external service,
 
 Allows the user to edit the data. Multiple editing modes are supported depending on the requirements. For [built-in column types](#column-types), a corresponding edit component is used automatically.
 
+Some examples below use custom features, see the [custom feature section](#build-a-custom-feature) for further information.
+
 <steps>
 
 ::step
@@ -213,9 +215,6 @@ Manual
 
 #default
 All rows are editable at once and the rows do not switch between display and edit mode automatically. You have full control over how the editing is enabled, saved, cancelled etc. In this example we use custom buttons but you can also use auto-save or custom logic.
-
-See the [custom feature section](#build-a-custom-feature) on how to build a custom feature.
-
 
 :component-example{name="EditingInline" layout="fullWidth"}
 ::
