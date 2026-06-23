@@ -14,7 +14,7 @@ test.describe("DataGrid Editing", () => {
         data={[
           {
             id: 1,
-            link: { link: "https://example.com", label: "link label" },
+            link: { href: "https://example.com", label: "link label" },
           },
           {
             id: 2,
