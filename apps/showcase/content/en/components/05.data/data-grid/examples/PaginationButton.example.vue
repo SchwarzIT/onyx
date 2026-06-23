@@ -9,7 +9,7 @@ type Entry = {
 
 const data = computed<Entry[]>(() => {
   // generating some dummy data
-  return Array.from({ length: 128 }, (_, index) => {
+  return Array.from({ length: 20 }, (_, index) => {
     const id = index + 1;
     return { id, name: `Name ${id}` };
   });
@@ -22,23 +22,12 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
 const withPagination = DataGridFeatures.usePagination({
   // options here...
   type: "button",
+  pageSize: 5,
 });
 
 const features = [withPagination];
 </script>
 
 <template>
-  <OnyxDataGrid
-    class="data-grid"
-    :headline="{ text: 'Example headline', rowCount: true }"
-    :columns
-    :data
-    :features
-  />
+  <OnyxDataGrid :headline="{ text: 'Example headline', rowCount: true }" :columns :data :features />
 </template>
-
-<style lang="scss" scoped>
-.data-grid {
-  max-height: 32rem;
-}
-</style>

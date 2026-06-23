@@ -184,7 +184,7 @@ With lazy loading, more data is automatically displayed when the user scrolls to
 Button loading
 
 #default
-Button loading is similar to lazy loading but requires the user to manually click a load more button to load the next page of data. We strongly recommended to set a maximum height since the data grid can get very long when loading many pages.
+Button loading is similar to lazy loading but requires the user to manually click a load more button to load the next page of data.
 
 :component-example{name="PaginationButton" layout="fullWidth"}
 ::
