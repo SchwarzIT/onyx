@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+/**
+ * @experimental
+ * @deprecated This component is still under active development and its API might change in patch releases.
+ */
 import { useOutsideClick } from "@sit-onyx/headless";
 import { iconCheckSmall, iconLink } from "@sit-onyx/icons";
 
