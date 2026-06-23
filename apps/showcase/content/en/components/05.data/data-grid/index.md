@@ -17,7 +17,7 @@ If you are unsure which component to use or there is no reasonable explicit requ
 
 A very basic data grid contains one or multiple columns and a set of data to display in rows. Each column has a type that defines how the value is displayed. See the [available column types](#column-types) below.
 
-:component-example{name="Basic" layout="fullWidth"}
+:component-example{name="Basic" layout="grow"}
 
 ### Column types
 
@@ -83,13 +83,13 @@ For every column, a fallback text is shown when the cell is empty. By default, "
 
 The skeleton should be used on initial page load when the data for the page / data grid is initially loaded.
 
-:component-example{name="Skeleton" layout="fullWidth"}
+:component-example{name="Skeleton" layout="grow"}
 
 ### Grouped columns
 
 Column groups can be used to visually group columns that are related.
 
-:component-example{name="ColumnGroups" layout="fullWidth"}
+:component-example{name="ColumnGroups" layout="grow"}
 
 ## Features
 
@@ -120,7 +120,7 @@ Async
 #default
 Alternatively, the sorting can be done asynchronously by an external service, e.g. by a backend or API so the data grid does not sort the data itself. Important: Set the `async` property on the data grid to disable the internal data transformations.
 
-:component-example{name="SortingAsync" layout="fullWidth"}
+:component-example{name="SortingAsync" layout="grow"}
 ::
 
 </steps>
@@ -138,7 +138,7 @@ Internal
 #default
 The data is filtered internally by default considering all available data.
 
-:component-example{name="Filtering" layout="fullWidth"}
+:component-example{name="Filtering" layout="grow"}
 ::
 
 ::step
@@ -148,7 +148,7 @@ Async
 #default
 Alternatively, the filtering can be done asynchronously by an external service, e.g. by a backend or API so the data grid does not filter the data itself. Important: Set the `async` property on the data grid to disable the internal data transformations.
 
-:component-example{name="FilteringAsync" layout="fullWidth"}
+:component-example{name="FilteringAsync" layout="grow"}
 ::
 
 </steps>
@@ -166,7 +166,7 @@ Select <onyx-tag label="Default" />
 #default
 The select type uses our [pagination](/components/data/pagination) component to show a page select on the bottom right.
 
-:component-example{name="Pagination" layout="fullWidth"}
+:component-example{name="Pagination" layout="grow"}
 ::
 
 ::step
@@ -176,7 +176,7 @@ Lazy loading
 #default
 With lazy loading, more data is automatically displayed when the user scrolls to the end of the data grid. You **must** set a maximum height when using lazy loading.
 
-:component-example{name="PaginationLazy" layout="fullWidth"}
+:component-example{name="PaginationLazy" layout="grow"}
 ::
 
 ::step
@@ -186,7 +186,7 @@ Button loading
 #default
 Button loading is similar to lazy loading but requires the user to manually click a load more button to load the next page of data.
 
-:component-example{name="PaginationButton" layout="fullWidth"}
+:component-example{name="PaginationButton" layout="grow"}
 ::
 
 ::step
@@ -196,7 +196,7 @@ Async
 #default
 Alternatively, the pagination can be done asynchronously by an external service, e.g. by a backend or API. This is especially useful for performance optimization when not all available data should be loaded at once. Async pagination is compatible with all modes mentioned above. Important: Set the `async` property on the data grid to disable the internal data transformations.
 
-:component-example{name="PaginationAsync" layout="fullWidth"}
+:component-example{name="PaginationAsync" layout="grow"}
 ::
 
 </steps>
