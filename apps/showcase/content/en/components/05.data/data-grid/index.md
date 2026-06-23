@@ -201,6 +201,27 @@ Alternatively, the pagination can be done asynchronously by an external service,
 
 </steps>
 
+### Editing
+
+Allows the user to edit the data. Multiple editing modes are supported depending on the requirements. For [built-in column types](#column-types), a corresponding edit component is used automatically.
+
+<steps>
+
+::step
+#headline
+Manual
+
+#default
+All rows are editable at once and the rows do not switch between display and edit mode automatically. You have full control over how the editing is enabled, saved, cancelled etc. In this example we use custom buttons but you can also use auto-save or custom logic.
+
+See the [custom feature section](#build-a-custom-feature) on how to build a custom feature.
+
+
+:component-example{name="EditingInline" layout="fullWidth"}
+::
+
+</steps>
+
 ### Sticky columns
 
 One or multiple columns can be made sticky on the left or right side of the data grid. We strongly recommend to use sticky columns sparely since they can block the whole data grid on smaller devices.
@@ -232,7 +253,7 @@ Exclude mode
 #default
 When checking the "Select all" checkbox in the column header, the data grid automatically switches to the "exclude" mode. It assumes the user wants to select _every single row_ in the entire dataset (even the ones on other pages). Everything **except** the rows the user manually unchecks is selected. The "contingent" becomes the "blacklist" of unchecked rows.
 
- **Important Note for Developers**: The data grid only stores the rows that the user unchecked. You need to write custom logic to calculate the final list of selected rows based on your project's specific requirements.
+**Important Note for Developers**: The data grid only stores the rows that the user unchecked. You need to write custom logic to calculate the final list of selected rows based on your project's specific requirements.
 ::
 
 </steps>
