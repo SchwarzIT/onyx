@@ -241,6 +241,26 @@ When checking the "Select all" checkbox in the column header, the data grid auto
 
 The checkboxes can optionally be only shown on hover.
 
+### Resizing
+
+Allows the user to manually change the width of columns by dragging the right border of the column header. Double clicking the right border adjusts the size to the content width.
+
+To ensure the overall table size does not shrink, an empty filler column is added to the right if the columns do not take up the full width.
+
+:component-example{name="Resizing" layout="grow"}
+
+### Hide columns
+
+Allows the user to hide or show columns. Can also be used by the developer to hide specific columns by default that the user can show manually if needed.
+
+:component-example{name="HideColumns" layout="grow"}
+
+### Expandable rows
+
+Allows to expand additional content for each row. We do **NOT recommend** to show nested tables inside the expanded rows, prefer using e.g. a [modal](/components/feedback/modal) instead if needed.
+
+:component-example{name="ExpandableRows" layout="grow"}
+
 ## Build a custom feature
 
 ::info-card{headline="Coming Soon"}

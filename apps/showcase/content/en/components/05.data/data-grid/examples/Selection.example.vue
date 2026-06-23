@@ -61,7 +61,7 @@ const contingentRows = computed(() => {
       :features
     />
 
-    <div class="test onyx-text--small">
+    <div class="data onyx-text--small">
       <p>Mode: {{ selectionState.selectMode }}</p>
       <p>Contingent: {{ contingentRows.map((row) => row.name).join(", ") || "-" }}</p>
       <p>=> Selected rows: {{ selectedRows.map((row) => row.name).join(", ") || "-" }}</p>
@@ -70,7 +70,7 @@ const contingentRows = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-.test {
+.data {
   margin-top: var(--onyx-density-sm);
   color: var(--onyx-color-text-icons-neutral-medium);
 }

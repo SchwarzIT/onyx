@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "sit-onyx";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 type Entry = {
   id: number;
@@ -27,11 +27,16 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
   ];
 });
 
-const withSorting = DataGridFeatures.useSorting<Entry>({
+const hiddenColumns = ref<DataGridFeatures.HideColumnsState<Entry>>(
+  new Set(["birthday", "active"]),
+);
+
+const withHideColumns = DataGridFeatures.useHideColumns<Entry>({
   // options here...
+  state: hiddenColumns,
 });
 
-const features = [withSorting];
+const features = [withHideColumns];
 </script>
 
 <template>
