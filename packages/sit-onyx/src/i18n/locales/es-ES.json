@@ -50,9 +50,7 @@
     "loadMore": "Cargar más",
     "editing": {
       "label": "{column} con ID {id}",
-      "addLink": "Añadir enlace",
-      "displayLabel": "Etiqueta de visualización",
-      "enterText": "Introducir etiqueta"
+      "addLink": "Añadir enlace"
     }
   },
   "validations": {

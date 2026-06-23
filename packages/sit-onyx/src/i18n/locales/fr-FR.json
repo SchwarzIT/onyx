@@ -50,9 +50,7 @@
     "loadMore": "Charger plus",
     "editing": {
       "label": "{column} avec l'ID {id}",
-      "addLink": "Ajouter un lien",
-      "displayLabel": "Étiquette d'affichage",
-      "enterText": "Saisir l'étiquette"
+      "addLink": "Ajouter un lien"
     }
   },
   "validations": {

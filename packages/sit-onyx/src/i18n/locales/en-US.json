@@ -49,9 +49,7 @@
     },
     "editing": {
       "label": "{column} with ID {id}",
-      "addLink": "Add Link",
-      "displayLabel": "Display label",
-      "enterText": "Enter label"
+      "addLink": "Add Link"
     },
     "loadMore": "Load more"
   },

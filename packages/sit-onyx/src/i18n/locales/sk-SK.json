@@ -50,9 +50,7 @@
     "loadMore": "Načítať viac",
     "editing": {
       "label": "{column} s ID {id}",
-      "addLink": "Pridať odkaz",
-      "displayLabel": "Zobrazovaný štítok",
-      "enterText": "Zadajte štítok"
+      "addLink": "Pridať odkaz"
     }
   },
   "validations": {

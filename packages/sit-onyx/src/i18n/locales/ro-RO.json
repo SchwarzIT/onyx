@@ -50,9 +50,7 @@
     "loadMore": "Încărcare mai multe",
     "editing": {
       "label": "{column} cu ID {id}",
-      "addLink": "Adăugare link",
-      "displayLabel": "Etichetă de afișare",
-      "enterText": "Introduceți eticheta"
+      "addLink": "Adăugare link"
     }
   },
   "validations": {
