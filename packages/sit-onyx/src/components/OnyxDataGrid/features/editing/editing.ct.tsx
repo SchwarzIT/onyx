@@ -32,7 +32,7 @@ test.describe("DataGrid Editing", () => {
     const applyButton = dialog.getByRole("button", { name: "Apply" });
 
     // ASSERT
-    await expect(firstRow).toContainText("-");
+    await expect(firstRow).toContainText("link label");
     await expect(component).toBeVisible();
     await expect(dialog).toBeHidden();
 
