@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { h } from "vue";
-import OnyxFilterBadge from "../OnyxFilterBadge/OnyxFilterBadge.vue";
-import OnyxTag from "../OnyxTag/OnyxTag.vue";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxGlobalSearchFilterGroup from "./OnyxGlobalSearchFilterGroup.vue";
 
 const meta: Meta<typeof OnyxGlobalSearchFilterGroup> = {
-  title: "Support/GlobalSearchFilterGroup",
+  title: "Search & Filter/GlobalSearch/modules/GlobalSearchFilterGroup",
   component: OnyxGlobalSearchFilterGroup,
+  tags: ["unstable"],
   argTypes: {
     default: {
       control: { disable: true },
@@ -17,13 +16,14 @@ const meta: Meta<typeof OnyxGlobalSearchFilterGroup> = {
 export default meta;
 type Story = StoryObj<typeof OnyxGlobalSearchFilterGroup>;
 
-export const Default = {
+export const Default = createAdvancedStoryExample(
+  "OnyxGlobalSearchFilterGroup",
+  "DefaultExample",
+) satisfies Story;
+
+export const Skeleton = {
   args: {
     label: "Filters",
-    default: () => [
-      h(OnyxTag, { label: "Filter 1" }),
-      h(OnyxFilterBadge, { label: "Filter 1" }),
-      h(OnyxFilterBadge, { label: "Filter 2" }),
-    ],
+    skeleton: true,
   },
 } satisfies Story;
