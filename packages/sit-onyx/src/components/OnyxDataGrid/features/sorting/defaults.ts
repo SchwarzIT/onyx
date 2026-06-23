@@ -1,5 +1,5 @@
+import { parseLinkValue } from "../../../OnyxLinkDialog/utils.js";
 import type { DataGridEntry } from "../../types.js";
-import { parseLinkValue } from "../base/utils.js";
 import type { DefaultSupportedTypes } from "../index.js";
 import type { Compare } from "./types.js";
 
@@ -42,7 +42,7 @@ export const TIME_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) =>
 export const LINK_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) => {
   const aLink = parseLinkValue(a);
   const bLink = parseLinkValue(b);
-  return STRING_COMPARE(aLink?.label ?? aLink?.link, bLink?.label ?? bLink?.link, collator);
+  return STRING_COMPARE(aLink?.label || aLink?.href, bLink?.label || bLink?.href, collator);
 };
 
 export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.freeze({

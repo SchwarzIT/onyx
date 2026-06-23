@@ -49,8 +49,7 @@
     },
     "loadMore": "Încărcare mai multe",
     "editing": {
-      "label": "{column} cu ID {id}",
-      "addLink": "Adăugare link"
+      "label": "{column} cu ID {id}"
     }
   },
   "validations": {

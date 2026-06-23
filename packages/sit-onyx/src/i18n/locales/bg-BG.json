@@ -49,8 +49,7 @@
     },
     "loadMore": "Зареждане на още",
     "editing": {
-      "label": "{column} с ID {id}",
-      "addLink": "Добавяне на връзка"
+      "label": "{column} с ID {id}"
     }
   },
   "validations": {

@@ -48,8 +48,7 @@
       }
     },
     "editing": {
-      "label": "{column} with ID {id}",
-      "addLink": "Add Link"
+      "label": "{column} with ID {id}"
     },
     "loadMore": "Load more"
   },

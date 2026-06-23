@@ -309,7 +309,9 @@ export { default as OnyxUnstableTreeViewItem } from "./components/OnyxTreeViewIt
 export * from "./components/OnyxTreeViewItem/types.js";
 
 export { default as OnyxComponentShowcase } from "./components/examples/ComponentShowcase/ComponentShowcase.vue";
+
 export { default as OnyxUnstableLinkDialog } from "./components/OnyxLinkDialog/OnyxLinkDialog.vue";
+export * from "./components/OnyxLinkDialog/types.js";
 
 export { FORM_INJECTED_SYMBOL, useFormContext } from "./components/OnyxForm/OnyxForm.core.js";
 export * from "./composables/density.js";

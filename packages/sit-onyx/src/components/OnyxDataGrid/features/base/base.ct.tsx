@@ -186,7 +186,7 @@ test("should render link column type", async ({ mount }) => {
       ],
       data: [
         { id: 1, a: "https://onyx.schwarz" },
-        { id: 2, a: { link: "https://onyx.schwarz", label: "Onyx" } },
+        { id: 2, a: { href: "https://onyx.schwarz", label: "Onyx" } },
       ],
     },
   });

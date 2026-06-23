@@ -1,18 +1,15 @@
-export type LinkValue = {
-  link: string;
-  label?: string;
-};
+import type { LinkValue } from "./types.js";
 
 /**
  * Normalizes a generic link value into a consistent object containing a link and label.
  */
 export const parseLinkValue = (value: unknown): LinkValue | undefined => {
   if (!value) return;
-  if (typeof value === "string") return { link: value };
+  if (typeof value === "string") return { href: value };
   if (typeof value !== "object") return;
 
-  const link = "link" in value && typeof value.link === "string" ? value.link : undefined;
+  const href = "href" in value && typeof value.href === "string" ? value.href : undefined;
   const label = "label" in value && typeof value.label === "string" ? value.label : undefined;
-  if (!link) return;
-  return { link, label };
+  if (!href) return;
+  return { href, label };
 };

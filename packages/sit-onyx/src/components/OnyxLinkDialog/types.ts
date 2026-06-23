@@ -1,22 +1,21 @@
 export type OnyxLinkDialogProps = {
   /**
+   * Current link value.
+   */
+  modelValue?: LinkValue;
+  /**
    * Controls whether the dialog is open.
    */
-  open: boolean;
+  open?: boolean;
+};
+
+export type LinkValue = {
   /**
-   * The initial link when the dialog is opened.
+   * URL that the link points to.
    */
-  initialLink?: string;
+  href: string;
   /**
-   * The initial text (label) when the dialog is opened.
+   * User-friendly label to display instead of the link.
    */
-  initialText?: string;
-  /**
-   * Whether the text field is required.
-   */
-  textRequired?: boolean;
-  /**
-   * Whether the link field is required.
-   */
-  linkRequired?: boolean;
+  label?: string;
 };

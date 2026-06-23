@@ -15,12 +15,12 @@ import type { OnyxIconProps } from "../../OnyxIcon/types.js";
 import OnyxInput from "../../OnyxInput/OnyxInput.vue";
 import OnyxLink from "../../OnyxLink/OnyxLink.vue";
 import type { OnyxLinkProps } from "../../OnyxLink/types.js";
+import { parseLinkValue } from "../../OnyxLinkDialog/utils.js";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
 import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTimePicker from "../../OnyxTimePicker/OnyxTimePicker.vue";
 import type { DataGridEntry } from "../types.js";
-import { parseLinkValue } from "./base/utils.js";
 import DataGridFormElementWrapper from "./DataGridFormElementWrapper.vue";
 import LinkEditor from "./editing/LinkEditor.vue";
 import HeaderCell from "./HeaderCell.vue";
@@ -184,8 +184,8 @@ export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
 
       return h(
         OnyxLink,
-        { href: link.link, ...metadata?.typeOptions },
-        () => link.label ?? link.link,
+        { href: link.href, ...metadata?.typeOptions },
+        () => link.label || link.href,
       );
     },
   },

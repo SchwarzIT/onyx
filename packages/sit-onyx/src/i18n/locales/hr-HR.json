@@ -49,8 +49,7 @@
     },
     "loadMore": "Učitaj više",
     "editing": {
-      "label": "{column} s ID-jem {id}",
-      "addLink": "Dodaj poveznicu"
+      "label": "{column} s ID-jem {id}"
     }
   },
   "validations": {
