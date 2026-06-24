@@ -32,6 +32,7 @@
     "@modelcontextprotocol/sdk": "^1.29.0"
   },
   "devDependencies": {
+    "@adobe/css-tools": "^4.5.0",
     "@sit-onyx/shared": "workspace:^",
     "@types/node": "catalog:",
     "@types/tar-stream": "^3.1.4",

@@ -9,6 +9,8 @@ export const REGISTRY_URL = process.env.REGISTRY_URL ?? "https://registry.npmjs.
  */
 export const SIT_ONYX_MIN_VERSION = "1.12.0";
 export const SIT_ONYX_COMPONENT_META_FILE = "package/dist/component-meta.json";
+export const SIT_ONYX_DESIGN_TOKENS_FILE = "package/src/styles/variables/themes/onyx.css";
+export const SIT_ONYX_DESIGN_TOKENS_SPACINGS_FILE = "package/src/styles/variables/spacing.css";
 /**
  * Minimum `@sit-onyx/icons` version that provides the `metadata.json` file
  */

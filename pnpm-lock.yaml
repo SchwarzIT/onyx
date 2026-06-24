@@ -6,19 +6,7 @@ settings:
 
 catalogs:
   default:
-    '@types/node':
-      specifier: 24.13.2
-      version: 24.13.2
-    chart.js:
-      specifier: 4.5.1
-      version: 4.5.1
-    unplugin-dts:
-      specifier: 1.0.2
-      version: 1.0.2
     vue-component-meta:
-      specifier: 3.3.5
-      version: 3.3.5
-    vue-tsc:
       specifier: 3.3.5
       version: 3.3.5
 
@@ -598,6 +586,9 @@ importers:
         specifier: ^1.29.0
         version: 1.29.0(zod@4.4.3)
     devDependencies:
+      '@adobe/css-tools':
+        specifier: ^4.5.0
+        version: 4.5.0
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared

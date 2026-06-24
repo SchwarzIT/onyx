@@ -1,15 +1,15 @@
 import { SIT_ONYX_ICONS_METADATA_FILE, USER_AGENT } from "../config.js";
 import type { IconMetadata } from "../types.js";
 import { cached } from "./cached.js";
-import { getSingleFileFromPackage } from "./package.js";
+import { getFilesFromPackage } from "./package.js";
 
 export const retrieveIconsMetadataJsonFile = cached(
   async (versionOrTag: string): Promise<IconMetadata> => {
-    const data = await getSingleFileFromPackage(
+    const [file] = await getFilesFromPackage(
       { name: "@sit-onyx/icons", versionOrTag },
-      (header) => header.name === SIT_ONYX_ICONS_METADATA_FILE,
+      [(header) => header.name === SIT_ONYX_ICONS_METADATA_FILE],
       USER_AGENT,
     );
-    return JSON.parse(data.toString("utf-8"));
+    return JSON.parse(file.data.toString("utf-8") ?? "");
   },
 );
