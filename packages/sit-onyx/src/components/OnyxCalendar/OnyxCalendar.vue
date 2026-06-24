@@ -1,11 +1,3 @@
-<script lang="ts">
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
-export default {};
-</script>
-
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
 import {
   createCalendar,
@@ -371,6 +363,7 @@ useOutsideClick({
     --onyx-calendar-border-radius: var(--onyx-radius-md);
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     gap: var(--onyx-density-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
     font-family: var(--onyx-font-family-paragraph);
