@@ -1,3 +1,4 @@
+import { parseLinkValue } from "../../../OnyxEditLinkDialog/utils.js";
 import type { DataGridEntry } from "../../types.js";
 import type { DefaultSupportedTypes } from "../index.js";
 import type { Compare } from "./types.js";
@@ -34,6 +35,16 @@ export const TIME_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) =>
   return NUMBER_COMPARE(dateA, dateB);
 };
 
+/**
+ * Extracts the label or link string for correct alphabetical sorting,
+ * handling strings and { link, label } objects.
+ */
+export const LINK_COMPARE = (a: unknown, b: unknown, collator: Intl.Collator) => {
+  const aLink = parseLinkValue(a);
+  const bLink = parseLinkValue(b);
+  return STRING_COMPARE(aLink?.label || aLink?.href, bLink?.label || bLink?.href, collator);
+};
+
 export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.freeze({
   string: STRING_COMPARE,
   select: STRING_COMPARE,
@@ -45,4 +56,5 @@ export const DEFAULT_COMPARES: Record<PropertyKey, Compare<unknown>> = Object.fr
   timestamp: NUMBER_COMPARE,
   skeleton: () => 0,
   boolean: BOOLEAN_COMPARE,
+  link: LINK_COMPARE,
 }) satisfies Record<DefaultSupportedTypes, Compare<DataGridEntry>>;

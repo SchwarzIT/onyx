@@ -8,6 +8,7 @@ import {
   BOOLEAN_RENDERER,
   DATE_RENDERER,
   DATETIME_RENDERER,
+  LINK_RENDERER,
   NUMBER_RENDERER,
   SELECT_RENDERER,
   SKELETON_RENDERER,
@@ -70,6 +71,7 @@ export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
         timestamp: TIMESTAMP_RENDERER,
         skeleton: SKELETON_RENDERER,
         boolean: BOOLEAN_RENDERER,
+        link: LINK_RENDERER,
       },
       slots: {
         headline: (slotContent) => {

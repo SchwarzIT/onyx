@@ -335,6 +335,11 @@ const COMPONENTS: Components = {
       icon: iconPlaceholder,
     },
   },
+  OnyxUnstableEditLinkDialog: {
+    props: {
+      open: false,
+    },
+  },
 };
 
 describe("components", () => {

@@ -165,3 +165,44 @@ test("should render boolean column type", async ({ mount }) => {
     "should include visually hidden label",
   ).toHaveText("No");
 });
+
+test("should render link column type", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestWrapper, {
+    props: {
+      style: "width: 12rem",
+      columns: [
+        {
+          key: "a",
+          label: "Column A",
+          type: {
+            name: "link",
+            options: {
+              target: "_blank",
+              fallback: "No Link",
+            },
+          },
+        },
+      ],
+      data: [
+        { id: 1, a: "https://onyx.schwarz" },
+        { id: 2, a: { href: "https://onyx.schwarz", label: "Onyx" } },
+      ],
+    },
+  });
+
+  // ASSERT
+  await expect(component).toHaveScreenshot("link.png");
+
+  const cells = component.getByRole("cell");
+
+  const firstLink = cells.nth(0).getByRole("link");
+  await expect(firstLink).toHaveAttribute("href", "https://onyx.schwarz");
+  await expect(firstLink).toHaveText("https://onyx.schwarz(opens in a new tab)");
+  await expect(firstLink).toHaveAttribute("target", "_blank");
+
+  const secondLink = cells.nth(1).getByRole("link");
+  await expect(secondLink).toHaveAttribute("href", "https://onyx.schwarz");
+  await expect(secondLink).toHaveText("Onyx(opens in a new tab)");
+  await expect(secondLink).toHaveAttribute("target", "_blank");
+});
