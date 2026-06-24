@@ -1,9 +1,9 @@
 {
   "name": "sit-onyx",
-  "description": "A design system and Vue.js component library created by Schwarz IT",
+  "description": "A design system and Vue.js component library created by Schwarz Digits",
   "version": "1.15.0",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20"

@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "A Nuxt module to easily integrate onyx into Nuxt projects",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20"

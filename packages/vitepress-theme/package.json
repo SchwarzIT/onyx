@@ -3,7 +3,7 @@
   "description": "VitePress theme that uses the onyx design system",
   "version": "1.0.0",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20"

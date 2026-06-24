@@ -1,5 +1,5 @@
 <div align="center" style="text-align: center">
-  <img alt="onyx logo" src="https://raw.githubusercontent.com/SchwarzIT/onyx/main/.github/onyx-logo.svg" height="96px">
+<img alt="onyx logo" src="https://raw.githubusercontent.com/SchwarzIT/onyx/main/.github/onyx-logo.svg" height="96px">
 </div>
 
 <br>
@@ -7,7 +7,7 @@
 # @sit-onyx/figma-utils
 
 Utility functions and CLI for importing data from the Figma API into different formats (e.g. CSS, SCSS etc.).
-Created by [Schwarz IT](https://it.schwarz).
+Created by [Schwarz Digits](https://schwarz-digits.de).
 
 ## Use as CLI
 

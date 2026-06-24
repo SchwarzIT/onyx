@@ -8,7 +8,7 @@
     "directory": "apps/demo-app"
   },
   "license": "Apache-2.0",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "type": "module",
   "scripts": {
     "build": "pnpm dev:prepare && nuxt build",

@@ -3,7 +3,7 @@
   "description": "This Figma plugin syncs Onyx icons with the UX Schwarz IT Icon Library and applies color variables.",
   "version": "0.2.0",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "private": true,
   "engines": {

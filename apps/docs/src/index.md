@@ -6,7 +6,7 @@ markdownStyles: false
 hero:
   name: onyx.web
   text: design system
-  tagline: A design system and Vue.js component library created by Schwarz IT.
+  tagline: A design system and Vue.js component library created by Schwarz Digits.
   image:
     src: /images/logo-signet-light.svg
     alt: Logo of the Schwarz Group
@@ -28,21 +28,21 @@ features:
   - title: First class DX
     details: Developer Experience is our top priority. onyx is fully written in TypeScript with great type support and generically typed components.
     icon:
-      light: /icons/typescript-dark.svg
-      dark: /icons/typescript-light.svg
-      alt: TypeScript logo
+    light: /icons/typescript-dark.svg
+    dark: /icons/typescript-light.svg
+    alt: TypeScript logo
   - title: Figma library
     details: onyx also offers a Figma library for design purposes. Connecting Design and Development.
     icon:
-      light: /icons/figma-dark.svg
-      dark: /icons/figma-light.svg
-      alt: Figma logo
+    light: /icons/figma-dark.svg
+    dark: /icons/figma-light.svg
+    alt: Figma logo
   - title: Open Source
     details: Open Source and free to use. Released under the Apache-2.0 License.
     icon:
-      light: /icons/github-dark.svg
-      dark: /icons/github-light.svg
-      alt: GitHub logo
+    light: /icons/github-dark.svg
+    dark: /icons/github-light.svg
+    alt: GitHub logo
 ---
 
 <script lang="ts" setup>

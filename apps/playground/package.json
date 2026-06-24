@@ -10,7 +10,7 @@
     "directory": "apps/playground"
   },
   "license": "Apache-2.0",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "type": "module",
   "files": [
     "dist"
