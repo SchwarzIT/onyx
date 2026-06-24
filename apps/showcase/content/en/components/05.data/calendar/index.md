@@ -1,6 +1,7 @@
 ---
 title: Calendar
 componentName: OnyxCalendar
+status: new
 ---
 
 The calendar is used to display or select date-related information. It supports multiple selection modes such as single, multiple, range and more. For selecting date and time, we recommend to use our dedicated components:
