@@ -6,6 +6,7 @@ import {
   OnyxDataGrid,
   SelectOption,
   type ColumnConfig,
+  type EditLinkValue,
 } from "sit-onyx";
 import { computed, ref } from "vue";
 
@@ -16,6 +17,7 @@ type Entry = {
   birthday: Date;
   time: string;
   role: UserRole;
+  link: string | EditLinkValue;
   active?: boolean;
 };
 
@@ -30,6 +32,7 @@ const data = ref<Entry[]>([
     time: "10:00",
     active: true,
     role: "user",
+    link: { href: "https://example.com", label: "Link" },
   },
   {
     id: 4,
@@ -39,6 +42,7 @@ const data = ref<Entry[]>([
     time: "12:30",
     active: true,
     role: "editor",
+    link: { href: "https://example.com", label: "Link" },
   },
   {
     id: 5,
@@ -48,6 +52,7 @@ const data = ref<Entry[]>([
     time: "09:00",
     active: false,
     role: "admin",
+    link: { href: "https://example.com", label: "Link" },
   },
 ]);
 
@@ -58,6 +63,7 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
     { key: "birthday", label: "Birthday", type: "date" },
     { key: "time", label: "Time", type: "time" },
     { key: "active", label: "Active?", type: "boolean" },
+    { key: "link", label: "Link", type: "link" },
     {
       key: "role",
       label: "User role",

@@ -69,6 +69,16 @@ The select type allows the developer to define a set of available options where 
 
 ::step
 #headline
+Link
+
+#default
+Allows to display links to other pages or applications. Optionally support to define a custom display label.
+
+:component-example{name="ColumnTypeLink" layout="grow"}
+::
+
+::step
+#headline
 Fallback text
 
 #default
