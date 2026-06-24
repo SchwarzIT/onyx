@@ -30,26 +30,25 @@ Import styles
 #default
 Next, import the editor styles. We recommend to import them globally in the root of your application:
 
-::content-tabs
-#vue
-Import the styles in your `main.ts` file. Make sure to import them **after** the regular `sit-onyx/style.css` styles and **before** any of your components (usually the `App.vue` file).
+  ::content-tabs
+  #vue
+  Import the styles in your `main.ts` file. Make sure to import them **after** the regular `sit-onyx/style.css` styles and **before** any of your components (usually the `App.vue` file).
 
-```ts [main.ts]
-// make sure to import the Tiptap styles AFTER the general "sit-onyx" styles
-// import "sit-onyx/style.css";
-import "@sit-onyx/tiptap/style.css";
-```
+  ```ts [main.ts]
+  // make sure to import the Tiptap styles AFTER the general "sit-onyx" styles
+  // import "sit-onyx/style.css";
+  import "@sit-onyx/tiptap/style.css";
+  ```
 
-#nuxt
-Import the styles in your Nuxt config:
+  #nuxt
+  Import the styles in your Nuxt config:
 
-```ts [nuxt.config.ts]
-export default defineNuxtConfig({
-  css: ["@sit-onyx/tiptap/style.css"],
-});
-```
-
-::
+  ```ts [nuxt.config.ts]
+  export default defineNuxtConfig({
+    css: ["@sit-onyx/tiptap/style.css"],
+  });
+  ```
+  ::
 
 ::
 
@@ -108,6 +107,7 @@ Additionally, the editor can be extended with custom extensions and actions whic
 ::
 
 </steps>
+
 
 ### Disabled
 
