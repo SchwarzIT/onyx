@@ -37,3 +37,17 @@ Allows the user to select multiple dates.
 Allows the user to select a range with a start and end date. If calendar weeks are enabled, the user can click a specific calendar week to automatically select the whole week.
 
 :component-example{name="Range" layout="grow"}
+
+### Min, max and disabled dates
+
+Specific dates can be disabled by defining a minimum or maximum date where all dates before/after the given date will be disabled or by specifying individual dates (e.g. every Wednesday). Alternatively, the `disabled` property can be set to disabled all dates.
+
+In the example below, only the past and upcoming 7 days are selectable except Wednesdays.
+
+:component-example{name="MinMax" layout="grow"}
+
+### Skeleton
+
+The skeleton can be used on initial page load when the data for the page / calendar is initially loaded.
+
+:component-example{name="Skeleton" layout="grow"}
