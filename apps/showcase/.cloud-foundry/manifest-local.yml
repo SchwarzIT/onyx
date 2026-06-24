@@ -1,8 +1,0 @@
-# yaml-language-server: $schema=https://www.schemastore.org/cloudfoundry-application-manifest.json
----
-applications:
-  - name: onyx-showcase-qa
-    memory: 96M
-    buildpacks:
-      - https://github.com/cloudfoundry/nodejs-buildpack
-    command: node .output/server/index.mjs
