@@ -89,6 +89,12 @@ For every column, a fallback text is shown when the cell is empty. By default, "
 
 </steps>
 
+### Column width
+
+All columns are equally sized by default. The width of every column can be adjusted if needed using any valid value accepted by [grid-template-columns](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid-template-columns). So the column can e.g. have a fixed width using a static value like `100px` or `2rem`, a flexible value like `1fr` or `max-content` or a minimum and maximum width using use the [minmax](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/minmax) function.
+
+:component-example{name="ColumnWidth" layout="fullWidth"}
+
 ### Skeleton
 
 The skeleton should be used on initial page load when the data for the page / data grid is initially loaded.
