@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Thu, 18 Jun 2026 12:14:52 GMT
+ * Imported from Figma API on Wed, 24 Jun 2026 08:35:29 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -411,7 +411,6 @@
   --onyx-font-family-Barlow: "Barlow";
   --onyx-font-family-Barlow-Semi-Condensed: "Barlow Semi Condensed";
   --onyx-font-family-DIN-2014: "DIN 2014";
-  --onyx-font-family-Helsinki: "Helsinki";
   --onyx-font-family-Helvetica-Now-Var: "Helvetica Now Var";
   --onyx-font-family-IBM-Plex-Sans-Variable: "IBM Plex Sans Variable";
   --onyx-font-family-Kaufland: "Kaufland";
