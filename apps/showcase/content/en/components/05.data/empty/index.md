@@ -11,10 +11,10 @@ The empty component is used to indicate to the user that there is currently no d
 
 A basic empty component contains at least a headline and can optionally include a description and buttons.
 
-:component-example{name="Basic"}
+:component-example{name="Basic" layout="grow"}
 
 ### Custom icon
 
 Use the `icon` slot to override the default illustration, e.g. using the [icon component](/components/basic/icon).
 
-:component-example{name="Icon"}
+:component-example{name="Icon" layout="grow"}
