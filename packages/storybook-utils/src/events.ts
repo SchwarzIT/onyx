@@ -1,6 +1,6 @@
 import type { Events } from "vue";
 
-// prettier-ignore
+// oxfmt-ignore
 type EventName<T extends Event> =
   T extends ClipboardEvent ? "ClipboardEvent"
 : T extends WheelEvent ? "WheelEvent"
