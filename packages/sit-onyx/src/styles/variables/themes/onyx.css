@@ -1,17 +1,17 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Thu, 18 Jun 2026 12:14:52 GMT
+ * Imported from Figma API on Wed, 24 Jun 2026 08:35:29 GMT
  */
 :where(:root),
 .onyx-theme-default {
   --onyx-color-base-background-blank: light-dark(
     var(--onyx-color-onyx-neutral-100),
-    var(--onyx-color-onyx-neutral-850)
+    var(--onyx-color-onyx-neutral-900)
   );
   --onyx-color-base-background-tinted: light-dark(
     var(--onyx-color-onyx-neutral-200),
-    var(--onyx-color-onyx-neutral-800)
+    var(--onyx-color-onyx-neutral-850)
   );
   --onyx-color-base-danger-100: light-dark(
     var(--onyx-color-onyx-red-100),
@@ -352,7 +352,7 @@
   --onyx-color-component-cta-default: var(--onyx-color-base-primary-500);
   --onyx-color-component-cta-default-hover: light-dark(
     var(--onyx-color-base-primary-900),
-    var(--onyx-color-base-primary-500)
+    var(--onyx-color-base-primary-200)
   );
   --onyx-color-component-cta-disabled: var(--onyx-color-base-neutral-200);
   --onyx-color-component-focus-danger: light-dark(
@@ -423,10 +423,7 @@
     var(--onyx-color-onyx-purple-300),
     var(--onyx-color-onyx-purple-900)
   );
-  --onyx-color-text-icons-neutral-button: light-dark(
-    var(--onyx-color-onyx-neutral-100),
-    var(--onyx-color-onyx-neutral-900)
-  );
+  --onyx-color-text-icons-neutral-button: var(--onyx-color-onyx-neutral-100);
   --onyx-color-text-icons-neutral-intense: light-dark(
     var(--onyx-color-onyx-neutral-900),
     var(--onyx-color-onyx-neutral-100)
@@ -445,20 +442,20 @@
     var(--onyx-color-onyx-neutral-600)
   );
   --onyx-color-text-icons-primary-bold: light-dark(
-    var(--onyx-color-onyx-neutral-900),
-    var(--onyx-color-onyx-neutral-100)
+    var(--onyx-color-onyx-teal-900),
+    var(--onyx-color-onyx-teal-100)
   );
   --onyx-color-text-icons-primary-intense: light-dark(
-    var(--onyx-color-onyx-neutral-700),
-    var(--onyx-color-onyx-neutral-200)
+    var(--onyx-color-onyx-teal-700),
+    var(--onyx-color-onyx-teal-200)
   );
   --onyx-color-text-icons-primary-medium: light-dark(
-    var(--onyx-color-onyx-neutral-600),
-    var(--onyx-color-onyx-neutral-500)
+    var(--onyx-color-onyx-teal-600),
+    var(--onyx-color-onyx-teal-500)
   );
   --onyx-color-text-icons-primary-soft: light-dark(
-    var(--onyx-color-onyx-neutral-500),
-    var(--onyx-color-onyx-neutral-600)
+    var(--onyx-color-onyx-teal-400),
+    var(--onyx-color-onyx-teal-700)
   );
   --onyx-color-text-icons-secondary-bold: light-dark(
     var(--onyx-color-onyx-teal-1100),
