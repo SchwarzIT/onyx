@@ -3,7 +3,7 @@
   "description": "A Vite plugin to generate JavaScript exports for SVG files",
   "version": "0.1.0",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "private": true,
   "files": [

@@ -1,10 +1,10 @@
 <div align="center" style="text-align: center">
-  <img alt="onyx logo" src="./.github/onyx-logo.svg" height="96px">
+<img alt="onyx logo" src="./.github/onyx-logo.svg" height="96px">
 </div>
 
 <br>
 
-A design system and Vue.js component library for enterprise grade applications created by [Schwarz IT](https://it.schwarz).
+A design system and Vue.js component library for enterprise grade applications created by [Schwarz Digits](https://schwarz-digits.de).
 
 <br />
 

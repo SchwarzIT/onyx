@@ -3,7 +3,7 @@
   "version": "0.7.1",
   "description": "Nuxt layer/template for creating documentations with the onyx design system",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20"

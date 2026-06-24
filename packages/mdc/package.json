@@ -1,9 +1,9 @@
 {
   "name": "@sit-onyx/mdc",
-  "description": "Wrapper for the @nuxtjs/mdc package using the onyx design system created by Schwarz IT",
+  "description": "Wrapper for the @nuxtjs/mdc package using the onyx design system created by Schwarz Digits",
   "version": "0.2.0",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20"

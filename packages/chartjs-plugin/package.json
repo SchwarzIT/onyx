@@ -1,9 +1,9 @@
 {
   "name": "@sit-onyx/chartjs-plugin",
-  "description": "A Chart.js plugin for the onyx design system created by Schwarz IT",
+  "description": "A Chart.js plugin for the onyx design system created by Schwarz Digits",
   "version": "1.0.0",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20"

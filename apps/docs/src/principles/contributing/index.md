@@ -9,7 +9,7 @@ import nodeVersion from "../../../../../.node-version?raw";
 
 # Contribution Guide
 
-When contributing to onyx, please respect the [Schwarz IT Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md) and our [technical guidelines](/principles/technical-guidelines).
+When contributing to onyx, please respect the [Schwarz Digits Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md) and our [technical guidelines](/principles/technical-guidelines).
 
 ::: info Target audience
 This document is directed at people that are developing **for** onyx.
