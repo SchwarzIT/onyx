@@ -5,7 +5,6 @@ componentName: OnyxCard
 
 Cards serve as versatile containers for a few short, related pieces of content. Their primary purpose is to present information in a visually appealing and organized manner, enhancing user experience and content discoverability.
 
-
 ## Examples
 
 Since cards a very flexible and generic components, the content highly depends on the use case and is fully customizable. You can find a few examples below to get started, feel free to copy and adjust them if needed or create your own cards from scratch.

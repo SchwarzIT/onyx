@@ -46,7 +46,6 @@ Custom formatting
 #default
 Alternatively, a full custom formatter can be defined that returns a custom text for the current value.
 
-
 :component-example{name="CustomFormatter" layout="grow"}
 ::
 
