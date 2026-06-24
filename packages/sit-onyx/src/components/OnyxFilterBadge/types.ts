@@ -12,7 +12,7 @@ export type OnyxFilterBadgeProps = Omit<OnyxBadgeProps, "dot" | "icon" | "clicka
    */
   active?: Nullable<boolean>;
   /**
-   * Whether to show a skeleton option.
+   * Whether to show a skeleton badge.
    */
   skeleton?: SkeletonInjected;
 };
