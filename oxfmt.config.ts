@@ -2,8 +2,8 @@ import { defineConfig } from "oxfmt";
 
 export default defineConfig({
   ignorePatterns: [
-    // prettier can not handle the MDC syntax with YAML properties for components
-    // see: https://github.com/nuxt/content/issues/1709
+    // MDC syntax with YAML properties for components is not supported yet
+    // see: https://github.com/oxc-project/oxc/issues/18740
     "apps/showcase/content/**/*.md",
   ],
 });
