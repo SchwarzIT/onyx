@@ -7,7 +7,8 @@ export type RowClickOptions<TEntry extends DataGridEntry> = {
    */
   onClick: (entry: TEntry) => void;
   /**
-   * Whether the also trigger the click when the user has selection (e.g. marked text to copy).
+   * Whether the also trigger the click when the user has a [selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection)
+   * inside the row (e.g. marked text to copy).
    *
    * @default false
    */

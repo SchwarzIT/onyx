@@ -26,17 +26,8 @@ export const useRowClick = <TEntry extends DataGridEntry>(options: RowClickOptio
 
     const handleClick = (row: TEntry, event: MouseEvent) => {
       // check if the user has selected text inside the row and ignore the click then
-      if (!options.ignoreSelection) {
-        const selection = window.getSelection();
-        const hasSelection = !!selection?.toString();
-        const anchorNode = selection?.anchorNode;
-        const rowNode = (event.target as HTMLElement).closest("tr");
-
-        if (hasSelection && anchorNode && rowNode?.contains(anchorNode)) {
-          return;
-        }
-      }
-
+      const rowElement = (event.target as HTMLElement).closest("tr");
+      if (!options.ignoreSelection && hasSelection(rowElement)) return;
       options.onClick?.(row);
     };
 
@@ -64,3 +55,13 @@ export const useRowClick = <TEntry extends DataGridEntry>(options: RowClickOptio
       },
     };
   });
+
+/**
+ * Checks whether the given element contains a [selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection).
+ */
+function hasSelection(element: HTMLElement | null): boolean {
+  if (!element) return false;
+  const selection = window.getSelection();
+  if (!selection?.toString()) return false;
+  return element.contains(selection.anchorNode);
+}
