@@ -93,7 +93,7 @@ export const Nested = {
     logoUrl: "/onyx-logo.svg",
     appName: "App name",
     default: () => [
-      h(OnyxNavItem, { label: "Item 1", link: "https://it.schwarz/" }),
+      h(OnyxNavItem, { label: "Item 1", link: "https://schwarz-digits.de/" }),
       h(
         OnyxNavItem,
         { label: "Item 2" },

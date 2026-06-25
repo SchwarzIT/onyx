@@ -6,7 +6,7 @@ markdownStyles: false
 hero:
   name: onyx.web
   text: design system
-  tagline: A design system and Vue.js component library created by Schwarz IT.
+  tagline: A design system and Vue.js component library created by Schwarz Digits.
   image:
     src: /images/logo-signet-light.svg
     alt: Logo of the Schwarz Group

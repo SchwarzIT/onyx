@@ -6,4 +6,4 @@
 
 # @sit-onyx/vite-plugin-component-meta
 
-A Vite plugin to generate Vue component meta docs created by [Schwarz IT](https://it.schwarz).
+A Vite plugin to generate Vue component meta docs created by [Schwarz Digits](https://schwarz-digits.de).

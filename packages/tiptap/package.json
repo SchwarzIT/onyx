@@ -1,9 +1,9 @@
 {
   "name": "@sit-onyx/tiptap",
-  "description": "A rich text editor powered by the Tiptap editor and the onyx design system created by Schwarz IT",
+  "description": "A rich text editor powered by the Tiptap editor and the onyx design system created by Schwarz Digits",
   "version": "0.3.0",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=20"

@@ -1,5 +1,5 @@
 <div align="center" style="text-align: center">
-  <img alt="onyx logo" src="https://raw.githubusercontent.com/SchwarzIT/onyx/main/.github/onyx-logo.svg" height="96px">
+<img alt="onyx logo" src="https://raw.githubusercontent.com/SchwarzIT/onyx/main/.github/onyx-logo.svg" height="96px">
 </div>
 
 <br>
@@ -7,7 +7,7 @@
 # @sit-onyx/nuxt
 
 A Nuxt module to easily integrate onyx into [Nuxt](https://nuxt.com/) projects.
-Created by [Schwarz IT](https://it.schwarz).
+Created by [Schwarz Digits](https://schwarz-digits.de).
 
 ## Adding it to a Nuxt project
 

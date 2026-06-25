@@ -3,7 +3,7 @@
   "description": "SVG icons for the onyx design system",
   "version": "1.10.1",
   "type": "module",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "sideEffects": false,
   "engines": {

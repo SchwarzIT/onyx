@@ -11,14 +11,18 @@ import { allObjectEntries } from "../../../utils/objects.js";
 import { parseTimeSeconds } from "../../../utils/time.js";
 import OnyxDatePicker from "../../OnyxDatePicker/OnyxDatePicker.vue";
 import type { DateValue } from "../../OnyxDatePicker/types.js";
+import { parseLinkValue } from "../../OnyxEditLinkDialog/utils.js";
 import type { OnyxIconProps } from "../../OnyxIcon/types.js";
 import OnyxInput from "../../OnyxInput/OnyxInput.vue";
+import OnyxLink from "../../OnyxLink/OnyxLink.vue";
+import type { OnyxLinkProps } from "../../OnyxLink/types.js";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
 import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTimePicker from "../../OnyxTimePicker/OnyxTimePicker.vue";
 import type { DataGridEntry } from "../types.js";
 import DataGridFormElementWrapper from "./DataGridFormElementWrapper.vue";
+import LinkEditor from "./editing/LinkEditor.vue";
 import HeaderCell from "./HeaderCell.vue";
 import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from "./index.js";
 import "./renderer.scss";
@@ -162,6 +166,28 @@ export const STRING_RENDERER = createTypeRenderer<StringCellOptions>({
             modelValue,
           })
         : stringFormatter(modelValue, metadata?.typeOptions),
+  },
+});
+
+export type LinkCellOptions = Partial<OnyxLinkProps>;
+
+export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
+  header: { component: HeaderCell },
+  cell: {
+    component: ({ metadata, modelValue }) => {
+      if (metadata?.editable) {
+        return h(LinkEditor, { modelValue });
+      }
+
+      const link = parseLinkValue(modelValue);
+      if (!link) return fallback();
+
+      return h(
+        OnyxLink,
+        { href: link.href, ...metadata?.typeOptions },
+        () => link.label || link.href,
+      );
+    },
   },
 });
 

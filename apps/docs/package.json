@@ -8,7 +8,7 @@
     "directory": "apps/docs"
   },
   "license": "Apache-2.0",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "type": "module",
   "imports": {
     "#src/.vitepress/browser-loader.data": {

@@ -4,7 +4,7 @@
   "private": true,
   "version": "0.2.1",
   "type": "commonjs",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "license": "Apache-2.0",
   "main": "./src/index.cjs",
   "scripts": {

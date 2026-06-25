@@ -12,7 +12,7 @@
     "directory": "packages/modelcontextprotocol"
   },
   "license": "Apache-2.0",
-  "author": "Schwarz IT KG",
+  "author": "Schwarz Digits IT KG",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

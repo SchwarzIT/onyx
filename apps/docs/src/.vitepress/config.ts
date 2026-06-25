@@ -34,7 +34,7 @@ export const CONFIG = {
       "meta",
       {
         property: "og:description",
-        content: "Enterprise design system and Vue.js component library by Schwarz IT",
+        content: "Enterprise design system and Vue.js component library by Schwarz Digits",
       },
     ],
     ["meta", { property: "og:site_name", content: "onyx" }],
