@@ -1,16 +1,21 @@
 {
   "name": "@sit-onyx/mdc",
-  "description": "Wrapper for the @nuxtjs/mdc package using the onyx design system created by Schwarz Digits",
   "version": "0.2.0",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
+  "description": "Wrapper for the @nuxtjs/mdc package using the onyx design system created by Schwarz Digits",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
   "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
+  "author": "Schwarz Digits IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/mdc"
   },
   "files": [
     "dist"
   ],
+  "type": "module",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -21,22 +26,9 @@
     },
     "./style.css": "./dist/style.css"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
-    "directory": "packages/mdc"
-  },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
   "scripts": {
     "build": "vite build",
     "test:playwright": "playwright install && playwright test"
-  },
-  "peerDependencies": {
-    "@nuxtjs/mdc": ">= 0.20.2",
-    "sit-onyx": "workspace:^",
-    "vue": ">= 3.5.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
@@ -49,5 +41,13 @@
     "sit-onyx": "workspace:^",
     "unplugin-dts": "catalog:",
     "vite": "catalog:"
+  },
+  "peerDependencies": {
+    "@nuxtjs/mdc": ">= 0.20.2",
+    "sit-onyx": "workspace:^",
+    "vue": ">= 3.5.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

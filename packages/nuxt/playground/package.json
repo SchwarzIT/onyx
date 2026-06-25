@@ -1,6 +1,6 @@
 {
-  "private": true,
   "name": "onyx-nuxt-playground",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",

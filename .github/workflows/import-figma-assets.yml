@@ -49,9 +49,8 @@ jobs:
         working-directory: packages/icons
 
       # needed to prevent creating empty PR when nothing but the formatting changed
-      - name: Format with prettier
-        run: pnpm prettier --write src/metadata.json
-        working-directory: packages/icons
+      - name: Format
+        run: pnpm format:all packages/icons/src/metadata.json
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
@@ -104,9 +103,8 @@ jobs:
         working-directory: packages/flags
 
       # needed to prevent creating empty PR when nothing but the formatting changed
-      - name: Format with prettier
-        run: pnpm prettier --write src/metadata.json
-        working-directory: packages/flags
+      - name: Format
+        run: pnpm format:all packages/flags/src/metadata.json
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
