@@ -41,6 +41,9 @@ jobs:
           set -ex
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
 
+      - name: Build
+        run: pnpm run build:all --filter sit-onyx
+
       - name: 🔎 Run Playwright tests
         run: pnpm test:playwright src/components/OnyxImage --project webkit --repeat-each 100 -x
         working-directory: packages/sit-onyx
