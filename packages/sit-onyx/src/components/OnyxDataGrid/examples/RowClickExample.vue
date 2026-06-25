@@ -21,6 +21,7 @@ const columns: ColumnConfig<TEntry>[] = [
 ];
 
 const withRowClick = DataGridFeatures.useRowClick<TEntry>({
+  label: "Show details",
   onClick: (row) => {
     // your logic here...
     window.alert(`Clicked row "${row.name}"`);

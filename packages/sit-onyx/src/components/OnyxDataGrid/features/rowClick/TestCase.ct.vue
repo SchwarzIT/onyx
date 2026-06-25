@@ -45,6 +45,7 @@ const columns: ColumnConfig<TEntry>[] = [
 
 const withRowClick = computed(() =>
   useRowClick<TEntry>({
+    label: "Test label",
     ignoreSelection: props.ignoreSelection,
     enabled: props.disabledRows ? (row) => !props.disabledRows?.includes(row.id) : props.enabled,
     onClick: (row) => emit("rowClick", row),
