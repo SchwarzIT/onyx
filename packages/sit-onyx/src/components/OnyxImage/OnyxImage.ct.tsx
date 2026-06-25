@@ -19,5 +19,16 @@ test.describe("Screenshot tests", () => {
         skeleton={column === "skeleton"}
       />
     ),
+    hooks: {
+      beforeEach: async (component, page, column) => {
+        // to fix flaky test, we ensure the image is fully loaded
+        if (column === "default") {
+          await page.waitForFunction(() => {
+            const img = document.querySelector<HTMLImageElement>(".onyx-image__source");
+            return img?.complete && img.naturalWidth > 0;
+          });
+        }
+      },
+    },
   });
 });

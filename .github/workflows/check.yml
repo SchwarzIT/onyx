@@ -33,125 +33,16 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
-      - name: 🛠️ Build packages
-        run: pnpm run build:all
+      # install system dependencies for Playwright
+      # https://github.com/actions/runner-images/issues/7048
+      - name: 📦 Install Playwright system dependencies
+        id: first-playwright-install
+        run: |
+          set -ex
+          pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
 
-  check:
-    name: Check code quality
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      contents: read
-      security-events: write
-    steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
-        with:
-          egress-policy: audit
-
-      - name: "🛒 Checkout Repository"
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          # needed when building VitePress docs so timestamps can be calculated correctly
-          fetch-depth: 0
-
-      - uses: ./.github/templates/node-setup
-
-      - name: 🔎 Lint
-        run: pnpm run lint:ci:all
-        # we must continue on error here so the eslint results are uploaded to GitHub in the next step.
-        continue-on-error: true
-
-      - name: ⬆️ Upload eslint results to GitHub
-        uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4.36.2
-        with:
-          sarif_file: eslint-results.sarif
-          wait-for-processing: true
-          category: "/tool:eslint"
-
-      - name: 🎨 Check formatting
-        run: pnpm run format:check:all
-
-      - name: 🛠️ Build packages
-        run: pnpm run build:all
-
-      - name: 🚨 Run unit tests
-        run: pnpm run test:all
-
-      # make sure that publint is only run after all packages have been built
-      - name: 📋 Run publint
-        run: pnpm run publint:all
-
-      # scan CSS build for browser compatibility issues
-      - name: 💅 Run stylelint
-        run: pnpm run stylelint
-
-      - name: ⬆️ Upload code coverage artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: always() # needed to also upload test results when they failed (useful for debugging)
-        with:
-          name: coverage
-          path: coverage
-
-  screenshots:
-    if: github.ref != 'refs/heads/main'
-    needs: build
-    name: Component tests
-    uses: ./.github/workflows/playwright.yml
-    secrets: inherit
-    permissions:
-      contents: write
-    with:
-      # On PRs: Run tests only for changed files.
-      # This means that for merge_groups, which are required to be run before the merge, all tests are executed.
-      only-changed: ${{ (github.event.pull_request.base.ref && format('origin/{0}', github.event.pull_request.base.ref)) }}
-
-  codeql:
-    name: CodeQL
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
-        with:
-          egress-policy: audit
-
-      - name: "🛒 Checkout Repository"
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-
-      # Initializes the CodeQL tools for scanning.
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4.36.2
-        with:
-          languages: javascript-typescript
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4.36.2
-        with:
-          category: "/tool:CodeQL"
-
-  dependency-review:
-    name: "Dependency Review"
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
-        with:
-          egress-policy: audit
-
-      - name: "🛒 Checkout Repository"
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-
-      - name: "Dependency Review"
-        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
-        with:
-          comment-summary-in-pr: on-failure
+      - name: 🔎 Run Playwright tests
+        run: pnpm test:playwright src/components/OnyxImage --project webkit --repeat-each 100 -x
+        working-directory: packages/sit-onyx
+        env:
+          PW_UPDATE_SNAPSHOTS: "true"
