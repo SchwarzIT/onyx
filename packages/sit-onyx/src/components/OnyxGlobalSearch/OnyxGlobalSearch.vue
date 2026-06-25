@@ -43,9 +43,9 @@ const slots = defineSlots<{
     activeValue?: string;
   }): unknown;
   /**
-   * Slot to pass filters. Only `OnyxGlobalSearchFilterGroup` components should be used.
+   * Slot to pass leading Content. It's displayed before the List.
    */
-  filters?(): unknown;
+  leading?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -162,7 +162,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
 
     <!-- using v-show instead of v-if because the input has a aria-controls attribute which needs to point to a existing listbox -->
     <div v-show="!!slots.default" class="onyx-global-search__body">
-      <slot name="filters"></slot>
+      <slot name="leading"></slot>
       <div v-bind="headless.elements.listbox.value">
         <slot></slot>
 
