@@ -3,12 +3,12 @@ import { DiagnosticCategory } from "typescript";
 import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
 import { dependencies } from "./package.json" with { type: "json" };
+import { skillMdPlugin } from "./skill-md.vite.js";
 
 export default defineConfig({
   plugins: [
+    skillMdPlugin(),
     dts({
-      processor: "vue",
-      rollupTypes: true,
       afterDiagnostic: async (diagnostics) => {
         if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
           throw new Error("Build aborted due to TypeScript errors in the library!");
