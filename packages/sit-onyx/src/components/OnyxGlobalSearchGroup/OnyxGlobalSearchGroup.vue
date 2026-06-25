@@ -1,16 +1,20 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
 import { useDensity } from "../../composables/density.js";
+import OnyxFilterBadge from "../OnyxFilterBadge/OnyxFilterBadge.vue";
 import { GLOBAL_SEARCH_INJECTION_KEY } from "../OnyxGlobalSearch/types.js";
 import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import type { OnyxGlobalSearchGroupProps } from "./types.js";
 
-const props = defineProps<OnyxGlobalSearchGroupProps>();
+const props = withDefaults(defineProps<OnyxGlobalSearchGroupProps>(), {
+  direction: "column",
+  is: "li",
+});
 
 defineSlots<{
   /**
-   * Group options. Should only use `OnyxGlobalSearchOption` components here.
+   * Group items. Should use `OnyxGlobalSearchOption` or `OnyxFilterBadge` components here based on direction.
    */
   default?(): unknown;
 }>();
@@ -26,31 +30,54 @@ const skeletonCount = computed(() => {
 </script>
 
 <template>
-  <ul
+  <component
+    :is="props.is === 'li' ? 'ul' : 'div'"
     :class="['onyx-component', 'onyx-global-search-group', densityClass]"
     v-bind="context?.headless.elements.group.value({ label: props.label })"
   >
     <!-- we use aria-hidden here because the list is already labeled via aria-label -->
-    <li aria-hidden="true">
+    <component :is="props.is" aria-hidden="true">
       <OnyxHeadline is="h4" class="onyx-global-search-group__headline">
         {{ props.label }}
       </OnyxHeadline>
-    </li>
+    </component>
 
-    <slot v-if="skeletonCount <= 0"></slot>
+    <component
+      :is="props.is"
+      v-if="direction === 'row'"
+      class="onyx-global-search-group__content--row"
+    >
+      <template v-if="skeletonCount <= 0">
+        <slot></slot>
+      </template>
+      <template v-else>
+        <OnyxFilterBadge
+          v-for="i in skeletonCount"
+          :key="`skeleton-badge-${i}`"
+          :label="`Skeleton ${i}`"
+          :value="`skeleton-${i}`"
+          skeleton
+        />
+      </template>
+    </component>
 
     <template v-else>
-      <OnyxGlobalSearchOption
-        v-for="i in skeletonCount"
-        :key="`skeleton-${i}`"
-        :label="`Skeleton ${i}`"
-        :value="`skeleton-${i}`"
-        skeleton
-      />
+      <template v-if="skeletonCount <= 0">
+        <slot></slot>
+      </template>
+      <template v-else>
+        <OnyxGlobalSearchOption
+          v-for="i in skeletonCount"
+          :key="`skeleton-option-${i}`"
+          :label="`Skeleton ${i}`"
+          :value="`skeleton-${i}`"
+          skeleton
+        />
+      </template>
     </template>
 
     <!-- TODO: implement empty state -->
-  </ul>
+  </component>
 </template>
 
 <style lang="scss">
@@ -70,6 +97,12 @@ const skeletonCount = computed(() => {
 
     &__headline {
       color: var(--onyx-color-text-icons-neutral-soft);
+    }
+
+    &__content--row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--onyx-density-2xs);
     }
   }
 }
