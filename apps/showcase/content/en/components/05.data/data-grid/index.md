@@ -268,7 +268,9 @@ Exclude mode
 #default
 When checking the "Select all" checkbox in the column header, the data grid automatically switches to the "exclude" mode. It assumes the user wants to select _every single row_ in the entire dataset (even the ones on other pages). Everything **except** the rows the user manually unchecks is selected. The "contingent" becomes the "blacklist" of unchecked rows.
 
-**Important Note for Developers**: The data grid only stores the rows that the user unchecked. You need to write custom logic to calculate the final list of selected rows based on your project's specific requirements.
+  ::info-card{headline="Important note for developers"}
+  The data grid only stores the rows that the user unchecked. You need to write custom logic to calculate the final list of selected rows based on your project's specific requirements.
+  ::
 ::
 
 </steps>
