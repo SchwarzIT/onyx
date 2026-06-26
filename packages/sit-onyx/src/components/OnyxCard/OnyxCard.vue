@@ -18,17 +18,20 @@ defineSlots<{
 
 const { densityClass } = useDensity(props);
 
-const linkProps = computed(() =>
-  props.link != undefined ? extractLinkProps(props.link) : undefined,
-);
+const classes = computed(() => [
+  "onyx-component",
+  "onyx-card",
+  densityClass,
+  "onyx-truncation-multiline",
+  "onyx-text",
+]);
 </script>
 
 <template>
-  <component
-    :is="linkProps ? OnyxRouterLink : props.clickable ? 'button' : 'div'"
-    v-bind="linkProps"
-    :class="['onyx-component', 'onyx-card', densityClass, 'onyx-truncation-multiline', 'onyx-text']"
-  >
+  <OnyxRouterLink v-if="props.link" v-bind="extractLinkProps(props.link)" :class="classes">
+    <slot></slot>
+  </OnyxRouterLink>
+  <component :is="props.clickable ? 'button' : 'div'" v-else :class="classes">
     <slot></slot>
   </component>
 </template>
