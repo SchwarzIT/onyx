@@ -1,25 +1,22 @@
 {
   "name": "@sit-onyx/github-metrics",
-  "description": "Utilities for collecting metrics for GitHub projects",
   "version": "0.1.0",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
-  "license": "Apache-2.0",
-  "sideEffects": false,
-  "engines": {
-    "node": ">=20"
+  "description": "Utilities for collecting metrics for GitHub projects",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/github-metrics"
   },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
   "files": [
     "dist"
   ],
+  "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -35,5 +32,8 @@
   },
   "devDependencies": {
     "@sit-onyx/shared": "workspace:^"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

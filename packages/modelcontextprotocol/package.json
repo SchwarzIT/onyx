@@ -6,22 +6,22 @@
   "bugs": {
     "url": "https://github.com/SchwarzIT/onyx/issues"
   },
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/modelcontextprotocol"
   },
-  "license": "Apache-2.0",
-  "author": "Schwarz Digits IT KG",
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "bin": {
     "onyx-mcp": "./dist/index.js"
   },
   "files": [
     "dist"
   ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "pnpm run \"/build-dev|inspect-mcp/\"",
     "build-dev": "vite build --ssr -w",

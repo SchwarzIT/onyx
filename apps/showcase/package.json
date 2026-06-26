@@ -1,7 +1,6 @@
 {
   "name": "@sit-onyx/showcase",
   "version": "0.0.0",
-  "type": "module",
   "private": true,
   "license": "Apache-2.0",
   "author": "Schwarz Digits IT KG",
@@ -10,6 +9,7 @@
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "apps/showcase"
   },
+  "type": "module",
   "scripts": {
     "build": "nuxt prepare && nuxt build",
     "dev": "nuxt prepare && nuxt dev",

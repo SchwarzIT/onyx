@@ -2,21 +2,21 @@
   "name": "@sit-onyx/nuxt",
   "version": "1.1.0",
   "description": "A Nuxt module to easily integrate onyx into Nuxt projects",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
-  "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
-  },
   "homepage": "https://onyx.schwarz",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/nuxt"
   },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/types.d.mts",
@@ -24,9 +24,6 @@
       "require": "./dist/module.mjs"
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
@@ -36,9 +33,6 @@
     "test": "vitest",
     "test:playwright": "playwright install && playwright test",
     "test:coverage": "vitest run --coverage"
-  },
-  "peerDependencies": {
-    "sit-onyx": "workspace:^"
   },
   "devDependencies": {
     "@nuxt/devtools": "^3.2.4",
@@ -52,5 +46,11 @@
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
     "vue-i18n": "^11.4.6"
+  },
+  "peerDependencies": {
+    "sit-onyx": "workspace:^"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
