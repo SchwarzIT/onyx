@@ -1,24 +1,21 @@
 {
   "name": "@sit-onyx/playwright-utils",
-  "description": "Utilities for Vue component testing with Playwright",
   "version": "1.3.0",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
-  "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
+  "description": "Utilities for Vue component testing with Playwright",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/playwright-utils"
   },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
   "files": [
     "dist"
   ],
+  "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -29,6 +26,11 @@
   "scripts": {
     "build": "vite build && vue-tsc --emitDeclarationOnly"
   },
+  "devDependencies": {
+    "@sit-onyx/shared": "workspace:*",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  },
   "peerDependencies": {
     "@playwright/experimental-ct-vue": ">= 1",
     "@playwright/test": ">= 1",
@@ -36,9 +38,7 @@
     "vue": ">= 3",
     "vue-component-type-helpers": ">= 3"
   },
-  "devDependencies": {
-    "@sit-onyx/shared": "workspace:*",
-    "typescript": "catalog:",
-    "vite": "catalog:"
+  "engines": {
+    "node": ">=20"
   }
 }

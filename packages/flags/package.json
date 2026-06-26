@@ -1,25 +1,22 @@
 {
   "name": "@sit-onyx/flags",
-  "description": "SVG country flags for the onyx design system",
   "version": "1.3.0",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
-  "license": "Apache-2.0",
-  "sideEffects": false,
-  "engines": {
-    "node": ">=20"
+  "description": "SVG country flags for the onyx design system",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/flags"
   },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
   "files": [
     "dist"
   ],
+  "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -41,5 +38,8 @@
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vite-plugin-static-copy": "^4.1.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
