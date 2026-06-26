@@ -47,6 +47,11 @@ const slots = defineSlots<{
    * OnyxNavItem Children can be nested here.
    */
   children?(): unknown;
+  /**
+   * Custom content to replace the default icon.
+   * **Important:** Only used in the vertical navbar. You may need to adjust the --onyx-vertical-navbar-collapsed-width` CSS variable to fit your content.
+   */
+  verticalCollapsed?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -104,11 +109,13 @@ const { componentRef, isVisible } = isTopLevel
         :active
         context="vertical-navbar"
       >
-        <OnyxIcon v-if="props.icon" :icon="props.icon" />
-        <OnyxVisuallyHidden v-if="!isExpanded">
-          {{ props.label }}
-        </OnyxVisuallyHidden>
-        <slot v-else>{{ props.label }}</slot>
+        <slot name="verticalCollapsed">
+          <OnyxIcon v-if="props.icon" :icon="props.icon" />
+          <OnyxVisuallyHidden v-if="!isExpanded">
+            {{ props.label }}
+          </OnyxVisuallyHidden>
+          <slot v-else>{{ props.label }}</slot>
+        </slot>
         <template v-if="slots.children" #children>
           <slot name="children"></slot>
         </template>
@@ -138,8 +145,10 @@ const { componentRef, isVisible } = isTopLevel
         :active
         context="vertical-navbar"
       >
-        <OnyxIcon v-if="props.icon" :icon="props.icon" />
-        <OnyxVisuallyHidden> {{ props.label }}</OnyxVisuallyHidden>
+        <slot name="verticalCollapsed">
+          <OnyxIcon v-if="props.icon" :icon="props.icon" />
+          <OnyxVisuallyHidden> {{ props.label }}</OnyxVisuallyHidden>
+        </slot>
       </OnyxNavItemFacade>
     </template>
   </OnyxTooltip>
