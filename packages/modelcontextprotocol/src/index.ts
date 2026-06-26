@@ -64,7 +64,7 @@ Options:
                                   The "http" transport considers PORT and HOST environment variables, when starting the server.
  -r, --resourcesAsTools           Some LLM Coding Assistants (e.g. Gemini) are not able to to use MCP resources (yet). 
                                   This setting makes resources also available as tools to support these Coding Assistants.
- -w, --write-skills <directory>     Write resources to SKILL.md files in the specified directory.
+ -w, --write-skills <directory>   Write skill resources to SKILL.md files in the specified directory.
  -h, --help                       Show this help text and quit.
  -v, --version                    Show version number and quit.`);
     process.exit(0);
