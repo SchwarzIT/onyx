@@ -3,9 +3,9 @@ import type { RegisterableResource } from "../types.js";
 import { cached } from "../util/cached.js";
 import { retrieveOnyxDesignTokens } from "../util/onyx-css-design-tokens.js";
 
-export const listCssDesignTokens: RegisterableResource = [
+export const listCssDesignTokens: RegisterableResource<true> = [
   "list-css-design-tokens",
-  new ResourceTemplate("css-design-token://sit-onyx/{version}", {
+  new ResourceTemplate("sit-onyx://css-design-tokens/{version}", {
     list: undefined,
   }),
   {
