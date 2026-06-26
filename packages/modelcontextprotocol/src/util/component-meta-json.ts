@@ -7,7 +7,7 @@ export const retrieveComponentMetaJsonFile = cached(
   async (versionOrTag: string): Promise<MetaSource[]> => {
     const [file] = await getFilesFromPackage(
       { name: "sit-onyx", versionOrTag },
-      [(header) => header.name === SIT_ONYX_COMPONENT_META_FILE],
+      [SIT_ONYX_COMPONENT_META_FILE],
       USER_AGENT,
     );
     return JSON.parse(file.data.toString("utf-8") ?? "");

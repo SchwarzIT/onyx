@@ -10,8 +10,6 @@ class SuccessfulAbort {
   constructor() {}
 }
 
-type Matcher = (headers: Headers) => boolean;
-
 type Result = { headers: Headers; data: Buffer };
 
 type PackageIdentifier = {
@@ -23,7 +21,7 @@ type PackageIdentifier = {
 // TODO: It's quite fast, but we should add caching nevertheless.
 export async function getFilesFromPackage(
   packageIdent: PackageIdentifier,
-  matchers: Matcher[],
+  filenames: string[],
   userAgent: string,
 ) {
   const { dist } = await getPackageManifest(
@@ -31,7 +29,9 @@ export async function getFilesFromPackage(
     packageIdent.versionOrTag,
     packageIdent.registry,
   );
-  const { body } = await fetch(dist.tarball, { headers: { "User-Agent": userAgent } });
+  const { body } = await fetch(dist.tarball, {
+    headers: { "User-Agent": userAgent },
+  });
   if (!body) {
     throw new Error(`No body in response for tarball request to "${dist.tarball}"!`);
   }
@@ -45,10 +45,12 @@ export async function getFilesFromPackage(
 
   const archiveDownload = Readable.fromWeb(body as ReadableStream<Uint8Array>); // Incorrect typing, see: https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/65542#discussioncomment-6071004
   const decompress = createGunzip();
-  const fileSearcher = createTarFileSearcher(matchers, results, abortController);
+  const fileSearcher = createTarFileSearcher(filenames, results, abortController);
 
   try {
-    await pipeline(archiveDownload, decompress, fileSearcher, { signal: abortController.signal });
+    await pipeline(archiveDownload, decompress, fileSearcher, {
+      signal: abortController.signal,
+    });
     if (results.length) {
       return results;
     }
@@ -71,18 +73,18 @@ export async function getFilesFromPackage(
  * If found, will call the AbortController with the file content as reason.
  */
 function createTarFileSearcher(
-  matchers: Matcher[],
+  filenames: string[],
   results: Result[],
   abortController: AbortController,
 ): Writable {
   const searchFile = tarStream.extract();
 
   searchFile.on("entry", async (headers, stream, next) => {
-    if (matchers.some((m) => m(headers))) {
+    if (filenames.includes(headers.name)) {
       const data = await buffer(stream);
       results.push({ headers, data });
     }
-    if (results.length === matchers.length) {
+    if (results.length === filenames.length) {
       // found the relevant files, stop further processing
       abortController.abort(new SuccessfulAbort());
     } else {

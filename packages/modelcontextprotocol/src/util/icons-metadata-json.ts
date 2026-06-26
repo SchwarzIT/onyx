@@ -7,7 +7,7 @@ export const retrieveIconsMetadataJsonFile = cached(
   async (versionOrTag: string): Promise<IconMetadata> => {
     const [file] = await getFilesFromPackage(
       { name: "@sit-onyx/icons", versionOrTag },
-      [(header) => header.name === SIT_ONYX_ICONS_METADATA_FILE],
+      [SIT_ONYX_ICONS_METADATA_FILE],
       USER_AGENT,
     );
     return JSON.parse(file.data.toString("utf-8") ?? "");

@@ -10,10 +10,7 @@ import { getFilesFromPackage } from "./package.js";
 export const retrieveOnyxDesignTokens = cached(async (versionOrTag: string) => {
   const files = await getFilesFromPackage(
     { name: "sit-onyx", versionOrTag },
-    [
-      (header) => header.name === SIT_ONYX_DESIGN_TOKENS_FILE,
-      (header) => header.name === SIT_ONYX_DESIGN_TOKENS_SPACINGS_FILE,
-    ],
+    [SIT_ONYX_DESIGN_TOKENS_FILE, SIT_ONYX_DESIGN_TOKENS_SPACINGS_FILE],
     USER_AGENT,
   );
 
