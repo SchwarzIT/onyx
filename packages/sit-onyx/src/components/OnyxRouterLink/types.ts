@@ -12,10 +12,28 @@ export type SharedLinkProps = {
    * Where to display the linked URL (same tab, new tab etc.).
    * For `_blank`, the `rel="noreferrer"` will be set automatically.
    */
-  target?: LinkTarget;
+  target?: LinkTarget | "auto";
 };
 
-export const LINK_TARGETS = ["_self", "_blank", "_parent", "_top"] as const;
+export const LINK_TARGETS = [
+  /**
+   * Opens in the current browsing context. (Default)
+   */
+  "_self",
+  /**
+   * Usually opens in a new tab, but users can configure browsers to open a new window instead.
+   */
+  "_blank",
+  /**
+   * Opens in the parent browsing context of the current one. If no parent, behaves as `_self`.
+   */
+  "_parent",
+  /**
+   * Opens in the topmost browsing context. To be specific, this means the "highest" context that's an ancestor of the current one. If no ancestors, behaves as `_self`.
+   */
+  "_top",
+] as const;
+
 export type LinkTarget = (typeof LINK_TARGETS)[number];
 
 export type WithLinkProp<TExternalLink extends boolean = false> = {

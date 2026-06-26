@@ -1,11 +1,13 @@
 <script lang="ts" setup>
+import { computed } from "vue";
 import { useLink } from "../../composables/useLink.js";
 import { injectI18n } from "../../i18n/index.js";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
-import type { OnyxRouterLinkProps } from "./types.js";
+import type { LinkTarget, OnyxRouterLinkProps } from "./types.js";
+import { isInternalLink } from "../../utils/router.js";
 
 const props = withDefaults(defineProps<OnyxRouterLinkProps>(), {
-  target: "_self",
+  target: "auto",
 });
 
 defineSlots<{
@@ -14,6 +16,16 @@ defineSlots<{
 
 const { t } = injectI18n();
 const { navigate, isActive } = useLink();
+
+const computedTarget = computed<LinkTarget>(() => {
+  if (props.target !== "auto") {
+    return props.target;
+  }
+  if (isInternalLink(props.href)) {
+    return "_self";
+  }
+  return "_blank";
+});
 </script>
 
 <template>
@@ -24,13 +36,13 @@ const { navigate, isActive } = useLink();
       { 'onyx-router-link--active': isActive(props.href) },
     ]"
     :href="props.href"
-    :target="props.target"
-    :rel="props.target === '_blank' ? 'noreferrer' : undefined"
+    :target="computedTarget"
+    :rel="computedTarget === '_blank' ? 'noreferrer' : undefined"
     @click="navigate($event, props.href)"
   >
     <slot></slot>
 
-    <OnyxVisuallyHidden v-if="props.target === '_blank'">
+    <OnyxVisuallyHidden v-if="computedTarget === '_blank'">
       {{ t("link.opensExternally") }}
     </OnyxVisuallyHidden>
   </a>
