@@ -21,7 +21,7 @@ const { densityClass } = useDensity(props);
 const classes = computed(() => [
   "onyx-component",
   "onyx-card",
-  densityClass,
+  densityClass.value,
   "onyx-truncation-multiline",
   "onyx-text",
 ]);
