@@ -49,7 +49,7 @@ test.describe("Screenshot tests", () => {
 
 test("should behave correctly", async ({ mount, page }) => {
   // ARRANGE
-  let component = await mount(
+  const component = await mount(
     <div>
       <OnyxNavAppArea>Test app name</OnyxNavAppArea>
     </div>,
@@ -62,7 +62,7 @@ test("should behave correctly", async ({ mount, page }) => {
   await expect(link).toHaveAttribute("href", "/");
 
   // ACT
-  component = await mount(
+  await mount(
     <div>
       <OnyxNavAppArea link={{ href: "/test" }}>Test app name</OnyxNavAppArea>
     </div>,

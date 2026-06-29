@@ -106,7 +106,7 @@ const marks = computed<NormalizedSliderMark[]>(() => {
   const _marks = props.marks;
   if (!_marks) return [];
 
-  let normalizedMarks: SliderMark[] = [];
+  let normalizedMarks: SliderMark[];
   if (_marks === true) {
     // auto-generate marks based on step
     const markCount = Math.floor((max.value - min.value) / step.value) + 1;

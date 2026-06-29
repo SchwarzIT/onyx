@@ -34,7 +34,7 @@ export const defineIconSelectArgType = (options?: DefineIconSelectArgTypeOptions
    */
   const iconLabels = Object.entries(ALL_ICONS).reduce<Record<string, string>>(
     (labels, [filePath, content]) => {
-      labels[content as string] = filePath.split("/").at(-1)!.replace(".svg", "");
+      labels[content] = filePath.split("/").at(-1)!.replace(".svg", "");
       return labels;
     },
     options?.required ? {} : { "": "-- none --" },
