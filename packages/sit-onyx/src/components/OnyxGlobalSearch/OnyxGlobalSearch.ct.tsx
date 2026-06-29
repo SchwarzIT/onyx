@@ -44,7 +44,6 @@ test("should render groups and options", async ({ page, mount, makeAxeBuilder })
 
   // ASSERT
   await checkAccessibility(axeBuilder);
-  await page.setViewportSize({ width: 1280, height: 1280 });
   await expect(page).toHaveScreenshot("multiple-groups.png");
 
   // ACT
