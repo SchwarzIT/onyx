@@ -29,7 +29,7 @@ const props = withDefaults(
 
 <template>
   <OnyxGlobalSearch open :loading>
-    <template #filters>
+    <template #leading>
       <OnyxGlobalSearchGroup is="div" label="Filters" direction="row">
         <OnyxFilterBadge label="Filter 1" />
         <OnyxFilterBadge label="Filter 2" />
