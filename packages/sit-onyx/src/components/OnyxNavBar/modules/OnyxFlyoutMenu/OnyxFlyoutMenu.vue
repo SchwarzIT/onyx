@@ -2,7 +2,17 @@
 <script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
 import { iconMoreVertical } from "@sit-onyx/icons";
-import { computed, provide, ref, type ComponentInstance, type VNodeRef } from "vue";
+import {
+  computed,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  useTemplateRef,
+  watch,
+  type ComponentInstance,
+  type VNodeRef,
+} from "vue";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
@@ -81,6 +91,40 @@ const {
 provide<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY, {
   drilldownMode: computed(() => props.drilldownMode),
 });
+
+const menuRef = useTemplateRef<HTMLElement>("menuRef");
+const minHeight = ref<number>();
+let observer: ResizeObserver | undefined;
+
+onMounted(() => {
+  observer = new ResizeObserver((entries) => {
+    if (!isExpanded.value || props.drilldownMode !== "internal") return;
+    for (const entry of entries) {
+      const borderBox = entry.borderBoxSize?.[0];
+      const currentHeight = borderBox
+        ? borderBox.blockSize
+        : entry.target.getBoundingClientRect().height;
+      if (currentHeight > (minHeight.value ?? 0)) {
+        minHeight.value = currentHeight;
+      }
+    }
+  });
+});
+
+watch(menuRef, (newEl, oldEl) => {
+  if (oldEl) observer?.unobserve(oldEl);
+  if (newEl) observer?.observe(newEl);
+});
+
+onBeforeUnmount(() => {
+  observer?.disconnect();
+});
+
+watch(isExpanded, (newVal) => {
+  if (!newVal) {
+    minHeight.value = undefined;
+  }
+});
 </script>
 
 <template>
@@ -112,7 +156,11 @@ provide<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY, {
       <ul
         v-if="slots.options"
         v-bind="menu"
+        ref="menuRef"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
+        :style="{
+          minHeight: props.drilldownMode === 'internal' && minHeight ? `${minHeight}px` : undefined,
+        }"
       >
         <slot name="options"></slot>
       </ul>

@@ -201,7 +201,7 @@ provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
       >
         <OnyxMenuItem ref="backButton" class="onyx-menu-item__back" v-bind="backButtonProps">
           <OnyxIcon :icon="iconArrowSmallLeft" />
-          {{ t("back") }}
+          {{ props.label || t("back") }}
         </OnyxMenuItem>
         <slot name="children"></slot>
       </ul>
