@@ -85,7 +85,7 @@ module.exports = {
     /** @type {VueTemplateDefineData | null} */
     let vueTemplateDefineData = null;
 
-    const programNode = context.getSourceCode().ast;
+    const programNode = context.sourceCode.ast;
     if (utils.isScriptSetup(context)) {
       // init
       vueTemplateDefineData = {
