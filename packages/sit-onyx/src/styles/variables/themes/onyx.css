@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Wed, 24 Jun 2026 08:35:29 GMT
+ * Imported from Figma API on Mon, 29 Jun 2026 07:36:17 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -529,7 +529,7 @@
   --onyx-radius-component-container-sharp: var(--onyx-number-radius-200);
   --onyx-radius-component-container-soft: var(--onyx-number-radius-300);
   --onyx-radius-component-flyout: var(--onyx-number-radius-300);
-  --onyx-radius-component-icon-button: var(--onyx-number-radius-600);
+  --onyx-radius-component-icon-button: var(--onyx-number-radius-200);
   --onyx-radius-component-input: var(--onyx-number-radius-200);
   --onyx-radius-component-search-sharp: var(--onyx-number-radius-200);
   --onyx-radius-component-search-soft: var(--onyx-number-radius-300);
