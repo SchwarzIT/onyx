@@ -31,7 +31,7 @@
     "test:playwright": "playwright install && playwright test"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.3",
+    "@axe-core/playwright": "^4.12.1",
     "@nuxtjs/mdc": "~0.22.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
