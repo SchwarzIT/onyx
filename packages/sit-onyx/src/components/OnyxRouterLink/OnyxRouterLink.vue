@@ -18,13 +18,8 @@ const { t } = injectI18n();
 const { navigate, isActive } = useLink();
 
 const computedTarget = computed<LinkTarget>(() => {
-  if (props.target !== "auto") {
-    return props.target;
-  }
-  if (isInternalLink(props.href)) {
-    return "_self";
-  }
-  return "_blank";
+  if (props.target !== "auto") return props.target;
+  return isInternalLink(props.href) ? "_self" : "_blank";
 });
 </script>
 
