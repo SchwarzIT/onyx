@@ -22,6 +22,7 @@ A very basic data grid contains one or multiple columns and a set of data to dis
 ### Column types
 
 <!-- TODO: update custom feature link -->
+
 The data grid supports several column data types out-of-the-box that will display the data accordingly and also integrate with e.g. the [sorting](#sorting) or [filtering](#filtering) feature. To implement custom column types, see the [custom feature section](#build-a-custom-feature) below.
 
 <steps>
@@ -61,7 +62,9 @@ Multiple column types are supported to display date, datetime, time and timestam
 Select
 
 #default
+
 <!-- TODO: change link -->
+
 The select type allows the developer to define a set of available options where the corresponding text is displayed depending on the value. This is particularly useful when the value is technically an enum but a user-friendly translated label should be shown. When used in combination with the [editing](#editing) feature, the user can change the value based on the pre-defined list of options.
 
 :component-example{name="ColumnTypeSelect" layout="grow"}
@@ -301,6 +304,40 @@ Allows to expand additional content for each row. We do **NOT recommend** to sho
 
 ## Build a custom feature
 
-::info-card{headline="Coming Soon"}
-This part of the documentation will be available soon.
+Features are the fundamental building blocks that power the data grid. They are used internally to implement core data grid functionality and build-in features but can also be used to extend the data grid with custom functionality. This means that **every functionality** available for the data grid, can be implemented/used within a feature.
+
+Using features has powerful benefits:
+
+<steps>
+
+::step
+#headline
+Compatibility
+
+#default
+Since features use a uniform and consistent API, multiple features are compatible with each other, ensuring that e.g. filtering and sorting is supported even when displaying the data with custom components.
 ::
+
+::step
+#headline
+Reusability
+
+#default
+Data grid features are reusable by design which allows to share them across the application, team or beyond.
+::
+
+</steps>
+
+This section will cover how to build a custom re-usable data grid feature. For build-in features, see the [feature examples](#features) above.
+
+### Basic structure
+
+Create a new feature by using the `createFeature()` utility. Our naming convention is to prefix features with "use", e.g. "useSorting", "useFiltering" etc.
+
+```ts [Step 1: Create basic feature]
+import { createFeature } from "sit-onyx";
+
+const useMyFeature = createFeature(() => ({
+  name: Symbol("myFeature"),
+}));
+```
