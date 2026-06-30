@@ -11,6 +11,7 @@ export type SharedLinkProps = {
   /**
    * Where to display the linked URL (same tab, new tab etc.).
    * For `_blank`, the `rel="noreferrer"` will be set automatically.
+   * If set to "auto", external links will be opened with "_blank" and internal ones with "_self".
    */
   target?: LinkTarget | "auto";
 };
