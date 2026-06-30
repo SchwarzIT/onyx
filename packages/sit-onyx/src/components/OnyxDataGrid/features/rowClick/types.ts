@@ -21,11 +21,4 @@ export type RowClickOptions<TEntry extends DataGridEntry> = {
   enabled?:
     | MaybeRef<boolean | undefined>
     | ((entry: TEntry, column: keyof TEntry) => boolean | undefined);
-  /**
-   * Whether the click is also triggered when the user has a [selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection)
-   * inside the row (e.g. marked text to copy).
-   *
-   * @default false
-   */
-  ignoreSelection?: boolean;
 };

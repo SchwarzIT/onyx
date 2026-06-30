@@ -2,7 +2,7 @@ import { createEmitSpy, expectEmit } from "@sit-onyx/playwright-utils";
 import { expect, test } from "../../../../playwright/a11y.js";
 import TestCase from "./TestCase.ct.vue";
 
-test("should make row clickable", async ({ mount }) => {
+test("should make row clickable", async ({ mount, page }) => {
   // ARRANGE
   const clickSpy = createEmitSpy<typeof TestCase, "onRowClick">();
   const component = await mount(TestCase, {
@@ -26,15 +26,14 @@ test("should make row clickable", async ({ mount }) => {
   await expectEmit(clickSpy, 1);
 
   // ACT
-  await component.update({ props: { ignoreSelection: true } });
-  await firstRow.selectText();
+  await page.getByRole("document").click({ position: { x: 0, y: 0 } }); // reset selection
   await firstRow.click();
 
-  // ASSERT (should still emit click if selection exist when "ignoreSelection" is enabled)
-  await expectEmit(clickSpy, 2, [expect.objectContaining({ id: 1, name: "Alice" })]);
+  // ASSERT
+  await expectEmit(clickSpy, 2);
 
   // ACT
-  await component.update({ props: { ignoreSelection: false, enabled: false } });
+  await component.update({ props: { enabled: false } });
   await firstRow.click();
 
   // ASSERT (should not emit click when feature is disabled)

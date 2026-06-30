@@ -36,7 +36,7 @@ export const useRowClick = <TEntry extends DataGridEntry>(options: RowClickOptio
 
       // check if the user has selected text inside the row and ignore the click then
       const rowElement = target.closest("tr");
-      if (!options.ignoreSelection && hasSelection(rowElement)) return;
+      if (hasSelection(rowElement)) return;
 
       // check if cell is configured to not be clickable
       const cellElement = target.closest("td");
