@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  DataGridFeatures,
-  OnyxDataGrid,
-  type ColumnConfig,
-  type ColumnGroupConfig,
-} from "../../../index.js";
+import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "../../../index.js";
 
 type TEntry = {
   [key in `column-${number}`]?: string;
@@ -26,17 +21,14 @@ const data: TEntry[] = Array.from({ length: 8 }, (_, index) => {
   } as TEntry;
 });
 
-const columns: ColumnConfig<TEntry, ColumnGroupConfig, never>[] = Array.from(
-  { length: DUMMY_COLUMN_COUNT },
-  (_, index) => {
-    const id = index + 1;
-    return {
-      key: `column-${id}`,
-      label: `Column ${id}`,
-      width: "8rem",
-    };
-  },
-);
+const columns: ColumnConfig<TEntry>[] = Array.from({ length: DUMMY_COLUMN_COUNT }, (_, index) => {
+  const id = index + 1;
+  return {
+    key: `column-${id}`,
+    label: `Column ${id}`,
+    width: "8rem",
+  };
+});
 
 const withStickyColumns = DataGridFeatures.useStickyColumns<TEntry>({
   columns: ["column-1", "column-2"],

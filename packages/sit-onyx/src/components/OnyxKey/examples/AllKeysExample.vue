@@ -7,8 +7,6 @@ import {
   OnyxDataGrid,
   OnyxUnstableKey,
   type ColumnConfig,
-  type ColumnGroupConfig,
-  type ColumnTypesFromFeatures,
   type TypeRenderMap,
 } from "../../../index.js";
 import {
@@ -36,9 +34,7 @@ type Entry = {
   generic: string;
 };
 
-type CustomColumnTypes = ColumnTypesFromFeatures<typeof withCustomTypes>;
-
-const columns = computed<ColumnConfig<Entry, ColumnGroupConfig, CustomColumnTypes>[]>(() => {
+const columns = computed<ColumnConfig<Entry, typeof features>[]>(() => {
   return [
     { key: "id", label: "Key name", width: "max-content" },
     { key: "auto", label: `Auto detected (${detectedOS.value})`, type: "key" },

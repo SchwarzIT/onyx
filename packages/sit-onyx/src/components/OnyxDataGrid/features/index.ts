@@ -88,19 +88,67 @@ export type TypeRenderMap<
 > = Partial<Record<TKey, Readonly<TypeRenderer<TEntry, object>>>>;
 
 /**
+ * Checks if the type is a feature function or an array of feature functions.
+ */
+export type IsFeatureArrayOrFeature<T> = [T] extends [readonly ((...args: never[]) => unknown)[]]
+  ? true
+  : [T] extends [(...args: never[]) => unknown]
+    ? true
+    : false;
+
+/**
+ * Utility type to extract column types and their options from a single feature or a collection of features.
+ */
+export type ExtractTypesFromFeatures<TEntry extends DataGridEntry, TFeatures> = [
+  TFeatures,
+] extends [readonly unknown[]]
+  ? ExtractTypesFromFeature<TEntry, TFeatures[number]>
+  : ExtractTypesFromFeature<TEntry, TFeatures>;
+
+type ExtractTypesFromFeature<TEntry extends DataGridEntry, TFeature> = TFeature extends (
+  ...args: never[]
+) => { typeRenderer?: infer TRenderer }
+  ? {
+      [K in keyof TRenderer]: TRenderer[K] extends TypeRenderer<TEntry, infer TOptions>
+        ? ColumnConfigTypeOption<K, TOptions>
+        : never;
+    }[keyof TRenderer]
+  : never;
+
+/**
  * ColumnConfig as it can be defined by the user.
+ * Supports passing either a ColumnGroupConfig or an Array.
  */
 export type ColumnConfig<
   TEntry extends DataGridEntry,
-  TColumnGroup extends ColumnGroupConfig = Record<string, never>,
-  TTypes extends ColumnConfigTypeOption<PropertyKey, unknown> = never,
+  TFeaturesOrColumnGroup = Record<string, never>,
+  TTypesOrColumnGroup = never,
 > =
   | keyof TEntry
-  | PublicNormalizedColumnConfig<
-      TEntry,
-      TColumnGroup,
-      TTypes | ColumnTypesFromFeatures<ReturnType<typeof BASE_FEATURE>>
-    >;
+  | (IsFeatureArrayOrFeature<TFeaturesOrColumnGroup> extends true
+      ? PublicNormalizedColumnConfig<
+          TEntry,
+          [TTypesOrColumnGroup] extends [never]
+            ? Record<string, never>
+            : [TTypesOrColumnGroup] extends [ColumnGroupConfig]
+              ? TTypesOrColumnGroup
+              : Record<string, never>,
+          | ExtractTypesFromFeatures<TEntry, TFeaturesOrColumnGroup>
+          | ColumnTypesFromFeatures<ReturnType<typeof BASE_FEATURE>>
+        >
+      : PublicNormalizedColumnConfig<
+          TEntry,
+          [TFeaturesOrColumnGroup] extends [never]
+            ? Record<string, never>
+            : [TFeaturesOrColumnGroup] extends [ColumnGroupConfig]
+              ? TFeaturesOrColumnGroup
+              : Record<string, never>,
+          [TTypesOrColumnGroup] extends [never]
+            ? ColumnTypesFromFeatures<ReturnType<typeof BASE_FEATURE>>
+            : TTypesOrColumnGroup extends ColumnConfigTypeOption<PropertyKey, unknown>
+              ? TTypesOrColumnGroup | ColumnTypesFromFeatures<ReturnType<typeof BASE_FEATURE>>
+              : ColumnTypesFromFeatures<ReturnType<typeof BASE_FEATURE>>
+        >);
 
 export type DefaultSupportedTypes = keyof ReturnType<
   ReturnType<typeof BASE_FEATURE>
