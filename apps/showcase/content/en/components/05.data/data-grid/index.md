@@ -90,6 +90,14 @@ For every column, a fallback text is shown when the cell is empty. By default, "
 :component-example{name="ColumnTypeFallback" layout="grow"}
 ::
 
+::step
+#headline
+Custom types
+
+#default
+Custom column types can be implemented for full flexibility on how the data is displayed. See the [custom feature section](#type-renderer-column-types) for further information.
+::
+
 </steps>
 
 ### Column width
@@ -109,6 +117,14 @@ The skeleton should be used on initial page load when the data for the page / da
 Column groups can be used to visually group columns that are related.
 
 :component-example{name="ColumnGroups" layout="grow"}
+
+### Global actions
+
+Global actions allow the user to trigger custom actions for the data that are placed at the top right of the data grid. Examples use cases are edit, save, share or share actions. Actions can be displayed as text or icon buttons and can optionally be visually grouped. The actions automatically collapse into a [flyout menu](/components/basic/flyout-menu) if the available width is too small.
+
+Actions are defined using a custom feature. See the [custom feature](#build-a-custom-feature) section below for further information.
+
+:component-example{name="GlobalActions" layout="grow"}
 
 ## Features
 
@@ -332,12 +348,111 @@ This section will cover how to build a custom re-usable data grid feature. For b
 
 ### Basic structure
 
-Create a new feature by using the `createFeature()` utility. Our naming convention is to prefix features with "use", e.g. "useSorting", "useFiltering" etc.
+Create a new feature by using the `createFeature()` utility.
 
-```ts [Step 1: Create basic feature]
+<steps>
+
+::step
+#headline
+Without options
+
+#default
+If the feature does not need any options to e.g. customize how the feature behaves, define the feature like this:
+
+```ts [Basic feature]
 import { createFeature } from "sit-onyx";
 
-const useMyFeature = createFeature(() => ({
+const withMyFeature = createFeature(() => ({
   name: Symbol("myFeature"),
 }));
 ```
+
+::
+
+::step
+#headline
+With options
+
+#default
+To support custom feature options to customize its behavior and make it more flexible when re-used for several use-cases, return the feature from a custom function that accepts the feature options:
+
+```ts [Reusable feature]
+import { createFeature } from "sit-onyx";
+import type { MaybeRef } from "vue";
+
+export type MyFeatureOptions = {
+  someOption?: MaybeRef<boolean | undefined>;
+};
+
+const useMyFeature = (options?: MyFeatureOptions) =>
+  createFeature(() => {
+    // e.g. use the options here...
+
+    return {
+      name: Symbol("myFeature"),
+    };
+  });
+
+// usage:
+// const withMyFeature = useMyFeature({ someOption: true });
+```
+
+::
+
+</steps>
+
+### Type renderer / Column types
+
+Type renderers are used to define how a cell should visually be rendered/displayed. While several [build-in column types](#column-types) are supported, custom types can be used for use-case specific requirements. For specific types that are only needed for a single data grid, we recommend to place the feature with the data grid component. For generic / re-usable types, move the feature to a dedicated .ts file so it can be re-used by other data grids.
+
+Type renderers use Vue render functions (`h` function). If you are not familiar with this syntax, please refer to the [Vue documentation](https://vuejs.org/guide/extras/render-function).
+
+<steps>
+
+::step
+#headline
+Simple type
+
+#default
+A simple custom type renders the value in a fixed way, e.g. by adding a copy button to copy the cell content.
+
+:component-example{name="TypeRenderer" layout="grow"}
+::
+
+::step
+#headline
+Data-specific type
+
+#default
+A column type for a cell can access the full row data. This can be useful to create a custom column type that is very specific for a cell and is not reusable since it is strictly bound to the data shape of the specific data grid. The example below adds an email link to the name.
+
+:component-example{name="TypeRendererEntry" layout="grow"}
+::
+
+::step
+#headline
+Re-usable type with options
+
+#default
+Options can be defined for a custom column type that can then be set per data grid to customize how the column type is rendered. This is especially useful for re-usable types that are used across multiple data grids. The following examples defines a "tag" column type that can be used in multiple data grids but can be customized via options to change the tag properties (color, icon etc.) based on the row data.
+
+:component-example{name="TypeRendererOptions" layout="grow"}
+::
+
+</steps>
+
+### Modify columns
+
+Columns can be modified within a feature to e.g. add additional columns or edit/remove existing ones. You can optionally define an `order` when the modification is executed in cases where it should be executed before or after other features (the higher the order, the earlier it is applied).
+
+In the example below, a new columns is added automatically combined with a [custom column type](#type-renderer-column-types) to display row actions.
+
+:component-example{name="ModifyColumns" layout="grow"}
+
+### Modify rows
+
+Rows can be modified within a feature to e.g. add additional rows or edit/remove existing ones. You can optionally define an `order` when the modification is executed in cases where it should be executed before or after other features (the higher the order, the earlier it is applied).
+
+You can also add additional row options such as `<tr>` attributes which are useful for adding event/click handlers, class for changing styles etc.
+
+:component-example{name="ModifyRows" layout="grow"}
