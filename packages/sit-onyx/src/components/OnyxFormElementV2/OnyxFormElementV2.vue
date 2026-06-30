@@ -29,15 +29,25 @@ import type {
   OnyxFormElementV2Slots,
 } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
-  skeleton: SKELETON_INJECTED_SYMBOL,
-  requiredMarker: FORM_INJECTED_SYMBOL,
-  showError: FORM_INJECTED_SYMBOL,
-  reserveMessageSpace: FORM_INJECTED_SYMBOL,
-  open: undefined,
-  popoverOptions: () => ({ fitParent: true }),
-  id: () => useId(),
-});
+const props = withDefaults(
+  defineProps<
+    OnyxFormElementV2Props & {
+      /**
+       * Weather it's unstyled
+       */
+      unstyled?: boolean;
+    }
+  >(),
+  {
+    skeleton: SKELETON_INJECTED_SYMBOL,
+    requiredMarker: FORM_INJECTED_SYMBOL,
+    showError: FORM_INJECTED_SYMBOL,
+    reserveMessageSpace: FORM_INJECTED_SYMBOL,
+    open: undefined,
+    popoverOptions: () => ({ fitParent: true }),
+    id: () => useId(),
+  },
+);
 
 const emit = defineEmits<{
   /**
@@ -86,7 +96,10 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       'onyx-form-element-v2',
       densityClass,
       errorClass,
-      { [`onyx-form-element-v2--label-${label.position}`]: label.position !== 'top' },
+      {
+        [`onyx-form-element-v2--label-${label.position}`]: label.position !== 'top',
+        'onyx-form-element-v2--unstyled': props.unstyled,
+      },
     ]"
   >
     <OnyxFormElementV2Label
@@ -475,6 +488,21 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       height: calc(
         var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
       );
+    }
+  }
+  &--unstyled {
+    > .onyx-form-element-v2__body {
+      > .onyx-form-element-v2__content {
+        background-color: transparent;
+        > .onyx-form-element-v2__input-container {
+          border: none;
+          outline: none;
+          display: block;
+          &:focus-within {
+            background-color: transparent;
+          }
+        }
+      }
     }
   }
 }
