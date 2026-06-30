@@ -1,4 +1,4 @@
-import type { MaybeRef } from "vue";
+import type { MaybeRef, MaybeRefOrGetter } from "vue";
 import type { DataGridEntry } from "../../types.js";
 
 export type RowClickOptions<TEntry extends DataGridEntry> = {
@@ -7,7 +7,7 @@ export type RowClickOptions<TEntry extends DataGridEntry> = {
    *
    * @example "Show details"
    */
-  label: string;
+  label: MaybeRefOrGetter<string>;
   /**
    * Callback when a specific row is clicked.
    */

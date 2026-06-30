@@ -299,6 +299,12 @@ Allows to expand additional content for each row. We do **NOT recommend** to sho
 
 :component-example{name="ExpandableRows" layout="grow"}
 
+### Row click
+
+Allows the user to click a row to perform any custom action defined by the developer, e.g. navigating to a detail page, showing additional content inside a modal or sidebar etc. The click can be disabled for specific rows, columns or cells. We strongly recommend to disable the click for columns/cells where interactive components are used such as links, buttons etc.
+
+:component-example{name="RowClick" layout="grow"}
+
 ## Build a custom feature
 
 ::info-card{headline="Coming Soon"}
