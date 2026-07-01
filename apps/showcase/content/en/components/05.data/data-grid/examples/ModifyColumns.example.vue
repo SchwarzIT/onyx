@@ -29,7 +29,6 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
   return [{ key: "name", label: "Name" }];
 });
 
-// ideally place this feature in a dedicated .ts file so it can be re-used
 const CUSTOM_COLUMN_KEY = Symbol();
 const CUSTOM_COLUMN_TYPE = Symbol();
 
