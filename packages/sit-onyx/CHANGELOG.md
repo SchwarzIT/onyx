@@ -5,12 +5,8 @@
 ### Minor Changes
 
 - 74c1199: feat(OnyxDataGrid): added link as column type for data grid.
-
-  feat(OnyxUnstableEditLinkDialog): implemented a support Link Dialog
-
   For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
 
-- 385ae4c: feat(OnyxDataGrid): add support for `target` and `withExternalIcon` options for column link type
 - a89a427: feat(core): disable font ligatures to improve readability
 - c27005b: fix(OnyxMoreList): export useMoreList & useMoreListChild composables to allow custom implementations
 
