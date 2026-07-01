@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, inject } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -8,6 +8,7 @@ import {
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import { TOC_REGISTRY_INJECTION_KEY } from "../OnyxTableOfContents/useTocRegistry.js";
 import type { OnyxTableOfContentsItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableOfContentsItemProps>(), {
@@ -31,6 +32,18 @@ const { densityClass } = useDensity(props);
 
 const link = computed(() => extractLinkProps(props.link));
 const skeleton = useSkeletonContext(props);
+
+const context = inject(TOC_REGISTRY_INJECTION_KEY, undefined);
+
+const isActive = computed(() => {
+  if (typeof props.active === "boolean") return props.active;
+
+  const href = link.value.href;
+  const hash = href.startsWith("#") ? href.substring(1) : href;
+
+  const isVisible = hash === context?.registry.values().next().value;
+  return isVisible;
+});
 </script>
 
 <template>
@@ -46,7 +59,7 @@ const skeleton = useSkeletonContext(props);
       :class="[
         'onyx-toc-item__link',
         'onyx-truncation-ellipsis',
-        { 'onyx-router-link--active': props.active !== 'auto' && props.active },
+        { 'onyx-router-link--active': isActive },
       ]"
       :href="link.href"
       :target="link.target"
