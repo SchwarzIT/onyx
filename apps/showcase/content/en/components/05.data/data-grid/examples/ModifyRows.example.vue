@@ -4,6 +4,7 @@ import {
   DataGridEntry,
   DataGridFeature,
   DataGridRowOptionsSymbol,
+  mergeVueProps,
   OnyxDataGrid,
   type ColumnConfig,
 } from "sit-onyx";
@@ -35,12 +36,16 @@ const withMyFeature: DataGridFeature<Entry> = createFeature(() => ({
     // order: -1,
     func: (rows) => {
       return rows.map((row) => {
+        const currentAttributes =
+          (row as DataGridEntry)[DataGridRowOptionsSymbol]?.trAttributes ?? {};
+
         return {
           ...row,
           [DataGridRowOptionsSymbol]: {
-            trAttributes: {
+            // make sure to merge with existing attributes, otherwise attributes added by other features will be overridden
+            trAttributes: mergeVueProps(currentAttributes, {
               class: { "row--highlighted": row.name === "Charlie" },
-            },
+            } satisfies typeof currentAttributes),
           },
         } satisfies typeof row & DataGridEntry;
       });

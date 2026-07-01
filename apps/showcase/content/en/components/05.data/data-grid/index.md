@@ -21,9 +21,7 @@ A very basic data grid contains one or multiple columns and a set of data to dis
 
 ### Column types
 
-<!-- TODO: update custom feature link -->
-
-The data grid supports several column data types out-of-the-box that will display the data accordingly and also integrate with e.g. the [sorting](#sorting) or [filtering](#filtering) feature. To implement custom column types, see the [custom feature section](#build-a-custom-feature) below.
+The data grid supports several column data types out-of-the-box that will display the data accordingly and also integrate with e.g. the [sorting](#sorting) or [filtering](#filtering) feature. To implement custom column types, see the [custom feature section](#type-renderer-column-types) below.
 
 <steps>
 
@@ -62,9 +60,6 @@ Multiple column types are supported to display date, datetime, time and timestam
 Select
 
 #default
-
-<!-- TODO: change link -->
-
 The select type allows the developer to define a set of available options where the corresponding text is displayed depending on the value. This is particularly useful when the value is technically an enum but a user-friendly translated label should be shown. When used in combination with the [editing](#editing) feature, the user can change the value based on the pre-defined list of options.
 
 :component-example{name="ColumnTypeSelect" layout="grow"}
@@ -122,7 +117,7 @@ Column groups can be used to visually group columns that are related.
 
 Global actions allow the user to trigger custom actions for the data that are placed at the top right of the data grid. Examples use cases are edit, save, share or share actions. Actions can be displayed as text or icon buttons and can optionally be visually grouped. The actions automatically collapse into a [flyout menu](/components/basic/flyout-menu) if the available width is too small.
 
-Actions are defined using a custom feature. See the [custom feature](#slots) section below for further information.
+Actions are defined using a custom feature. See the [custom feature section](#slots) below for further information.
 
 :component-example{name="GlobalActions" layout="grow"}
 

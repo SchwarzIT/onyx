@@ -27,7 +27,7 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
 });
 
 const withCustomActions = createFeature(() => ({
-  name: Symbol("customACtions"),
+  name: Symbol("customActions"),
   // if your actions are conditionally displayed based on external conditions,
   // make sure to add them to the "watch" here so the data grid re-renders when the conditions changes
   // watch: [],

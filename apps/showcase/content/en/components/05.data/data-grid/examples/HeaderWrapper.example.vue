@@ -25,7 +25,7 @@ const withHeaderTooltip = createFeature(() => ({
   name: Symbol("headerTooltip"),
   header: {
     wrapper: (column) => {
-      // ideally you create a dedicated .vue file for the component and return it here
+      // ideally you create a dedicated .vue file for the component and import it here
       const TooltipHeaderWrapper = defineComponent({
         props: {
           tooltipText: {
