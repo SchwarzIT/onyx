@@ -48,7 +48,7 @@ const firstVisibleHash = computed<string | undefined>((previousValue) => {
   const hashPositions = visibleHashes
     .map((hash) => {
       const element = document.getElementById(hash);
-      return { hash, top: element?.getBoundingClientRect().top ?? 0 };
+      return { hash, top: element?.getBoundingClientRect().top ?? Number.MAX_SAFE_INTEGER };
     })
     .sort((a, b) => a.top - b.top);
 
