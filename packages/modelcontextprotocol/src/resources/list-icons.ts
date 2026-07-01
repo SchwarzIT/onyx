@@ -3,9 +3,9 @@ import type { IconMetadata, RegisterableResource } from "../types.js";
 import { cached } from "../util/cached.js";
 import { retrieveIconsMetadataJsonFile } from "../util/icons-metadata-json.js";
 
-export const listIcons: RegisterableResource = [
+export const listIcons: RegisterableResource<true> = [
   "list-icons",
-  new ResourceTemplate("icons://sit-onyx/{version}", {
+  new ResourceTemplate("sit-onyx://icons/{version}", {
     list: undefined,
   }),
   {

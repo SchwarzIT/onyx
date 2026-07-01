@@ -32,15 +32,24 @@
     "@modelcontextprotocol/sdk": "^1.29.0"
   },
   "devDependencies": {
+    "@adobe/css-tools": "^4.5.0",
     "@sit-onyx/shared": "workspace:^",
+    "@types/mdast": "^4.0.4",
     "@types/node": "catalog:",
     "@types/tar-stream": "^3.1.4",
+    "@types/unist": "^3.0.3",
     "query-registry": "^4.3.0",
+    "remark": "^15.0.1",
+    "remark-frontmatter": "^5.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-stringify": "^11.0.0",
     "tar-stream": "^3.2.0",
     "typescript": "catalog:",
+    "unified": "^11.0.5",
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vue-component-meta": "catalog:",
+    "yaml": "^2.9.0",
     "zod": "^4.4.3"
   },
   "engines": {
