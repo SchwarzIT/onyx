@@ -122,7 +122,7 @@ Column groups can be used to visually group columns that are related.
 
 Global actions allow the user to trigger custom actions for the data that are placed at the top right of the data grid. Examples use cases are edit, save, share or share actions. Actions can be displayed as text or icon buttons and can optionally be visually grouped. The actions automatically collapse into a [flyout menu](/components/basic/flyout-menu) if the available width is too small.
 
-Actions are defined using a custom feature. See the [custom feature](#build-a-custom-feature) section below for further information.
+Actions are defined using a custom feature. See the [custom feature](#slots) section below for further information.
 
 :component-example{name="GlobalActions" layout="grow"}
 
@@ -456,3 +456,61 @@ Rows can be modified within a feature to e.g. add additional rows or edit/remove
 You can also add additional row options such as `<tr>` attributes which are useful for adding event/click handlers, class for changing styles etc.
 
 :component-example{name="ModifyRows" layout="grow"}
+
+### Slots
+
+Any slots available for the underlying [table component](/components/data/table#slots) can be used. Make sure to consider existing slot content that might be added by other features, otherwise the slot will be overridden completely with your custom content.
+
+<steps>
+
+::step
+#headline
+Headline
+
+#default
+We strongly recommend to use the `headline` property of the data grid to add a headline. It also supports showing a row count and other properties of the [headline](/components/navigation/headline) component. In case custom content is needed, the `headline` slot can be extended using a custom feature:
+
+:component-example{name="SlotHeadline" layout="grow"}
+::
+
+::step
+#headline
+Actions
+
+#default
+Global actions can be placed at the top right of the data grid. We strongly recommend to pass the [actions with a feature](#global-actions) which ensures a consistent usage and will automatically truncate them into a flyout if the available width is too small. If you still need to add custom content, you can use the `actions` slot:
+
+:component-example{name="SlotActions" layout="grow"}
+::
+
+::step
+#headline
+Bottom left
+
+#default
+Allows to place any custom content, e.g. for showing an additional description, legend etc.
+
+:component-example{name="SlotBottomLeft" layout="grow"}
+::
+
+::step
+#headline
+Pagination
+
+#default
+We strongly recommend to use the [pagination feature](#pagination) instead of the slot directly. In case custom content is needed, the `pagination` slot can be extended using a custom feature:
+
+:component-example{name="SlotPagination" layout="grow"}
+::
+
+::step
+#headline
+Empty
+
+#default
+Allows to customize the default empty state when there is no data available. We recommend using the [empty component](/components/data/empty) here.
+
+:component-example{name="SlotEmpty" layout="grow"}
+::
+
+</steps>
