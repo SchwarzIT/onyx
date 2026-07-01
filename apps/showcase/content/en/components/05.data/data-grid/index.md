@@ -115,7 +115,7 @@ Column groups can be used to visually group columns that are related.
 
 ### Global actions
 
-Global actions allow the user to trigger custom actions for the data that are placed at the top right of the data grid. Examples use cases are edit, save, share or share actions. Actions can be displayed as text or icon buttons and can optionally be visually grouped. The actions automatically collapse into a [flyout menu](/components/basic/flyout-menu) if the available width is too small.
+Global actions allow the user to trigger custom actions for the data that are placed at the top right of the data grid. Example use cases are edit, save or share actions. Actions can be displayed as text or icon button and can optionally be visually grouped. The actions automatically collapse into a [flyout menu](/components/basic/flyout-menu) if the available width is too small.
 
 Actions are defined using a custom feature. See the [custom feature section](#slots) below for further information.
 
@@ -315,9 +315,9 @@ Allows to expand additional content for each row. We do **NOT recommend** to sho
 
 ## Build a custom feature
 
-Features are the fundamental building blocks that power the data grid. They are used internally to implement core data grid functionality and build-in features but can also be used to extend the data grid with custom functionality. This means that **every functionality** available for the data grid, can be implemented/used within a feature.
+Features are the fundamental building blocks that power the data grid. They are used internally to implement core data grid functionality and built-in features but can also be used to extend the data grid with custom functionality. This means that **every functionality** available for the data grid, can be implemented/used within a feature.
 
-Using features has powerful benefits:
+Using the feature API has powerful benefits:
 
 <steps>
 
@@ -339,7 +339,9 @@ Data grid features are reusable by design which allows to share them across the 
 
 </steps>
 
-This section will cover how to build a custom re-usable data grid feature. For build-in features, see the [feature examples](#features) above.
+This section will cover how to build a custom re-usable data grid feature. For built-in features, see the [feature examples](#features) above.
+
+Many feature APIs rely on Vue render (`h`) functions. If you are not familiar with this syntax, please refer to the [Vue documentation](https://vuejs.org/guide/extras/render-function).
 
 ### Basic structure
 
@@ -398,9 +400,7 @@ const useMyFeature = (options?: MyFeatureOptions) =>
 
 ### Type renderer / Column types
 
-Type renderers are used to define how a cell should visually be rendered/displayed. While several [build-in column types](#column-types) are supported, custom types can be used for use-case specific requirements. For specific types that are only needed for a single data grid, we recommend to place the feature with the data grid component. For generic / re-usable types, move the feature to a dedicated .ts file so it can be re-used by other data grids.
-
-Type renderers use Vue render functions (`h` function). If you are not familiar with this syntax, please refer to the [Vue documentation](https://vuejs.org/guide/extras/render-function).
+Type renderers are used to define how a cell should visually be rendered/displayed. While several [built-in column types](#column-types) are supported, custom types can be implement for use-case specific requirements. For generic / re-usable types, we recommend to move the feature to a dedicated .ts file so it can be re-used by other data grids.
 
 <steps>
 
@@ -409,7 +409,7 @@ Type renderers use Vue render functions (`h` function). If you are not familiar 
 Simple type
 
 #default
-A simple custom type renders the value in a fixed way, e.g. by adding a copy button to copy the cell content.
+A simple custom type displays the value for every column in the same way, e.g. by adding a copy button to copy the cell content.
 
 :component-example{name="TypeRenderer" layout="grow"}
 ::
@@ -419,7 +419,7 @@ A simple custom type renders the value in a fixed way, e.g. by adding a copy but
 Data-specific type
 
 #default
-A column type for a cell can access the full row data. This can be useful to create a custom column type that is very specific for a cell and is not reusable since it is strictly bound to the data shape of the specific data grid. The example below adds an email link to the name.
+A Column types have access to the full row data. This can be useful to create a custom column type that e.g. combines multiple values of the row to display them inside a single cell. The example below adds an email link to the name.
 
 :component-example{name="TypeRendererEntry" layout="grow"}
 ::
@@ -429,7 +429,7 @@ A column type for a cell can access the full row data. This can be useful to cre
 Re-usable type with options
 
 #default
-Options can be defined for a custom column type that can then be set per data grid to customize how the column type is rendered. This is especially useful for re-usable types that are used across multiple data grids. The following examples defines a "tag" column type that can be used in multiple data grids but can be customized via options to change the tag properties (color, icon etc.) based on the row data.
+Options can be defined for a custom column type that can then be set per data grid to customize how the column type is rendered. This is especially useful for re-usable types that are used across multiple data grids. The following example defines a "tag" column type that can be used in multiple data grids but can be customized via options to change the tag properties (color, icon etc.) based on the row data.
 
 :component-example{name="TypeRendererOptions" layout="grow"}
 ::
@@ -439,6 +439,8 @@ Options can be defined for a custom column type that can then be set per data gr
 ### Modify columns
 
 Columns can be modified within a feature to e.g. add additional columns or edit/remove existing ones. You can optionally define an `order` when the modification is executed in cases where it should be executed before or after other features (the higher the order, the earlier it is applied).
+
+You can also add additional attributes to the `<td>` and `<th>` element of the columns, e.g. for changing styles etc.
 
 In the example below, a new columns is added automatically combined with a [custom column type](#type-renderer-column-types) to display row actions.
 
@@ -463,11 +465,11 @@ Use the `header` option of a custom feature to add custom content to the column 
 Header actions
 
 #default
-Header actions are a unified API to add user-interactions to the column header that you might already know from built-in features like [sorting](#sorting) and [filtering](#filtering). If there are multiple actions defined for a single column (e.g. by using sorting and filtering and the same time), the actions are automatically moved to a [flyout menu](/components/basic/flyout-menu). Otherwise, if there is only a single action, it is displayed directly inside the header.
+Header actions are a unified API to add user-interactions to the column header that you might already know from built-in features like [sorting](#sorting) and [filtering](#filtering). If there are multiple actions defined for a single column (e.g. by using sorting and filtering at the same time), the actions are automatically moved to a [flyout menu](/components/basic/flyout-menu). Otherwise it is displayed directly inside the header if there is only a single action.
 
 When creating custom header actions, you can define both an `iconComponent` and `menuItems` for the same action which will then be automatically switched depending on whether additional header actions exist from other features. For example, our built-in [sorting feature](#sorting) uses this approach to either render a single sort button to toggle through the different sorting modes (ascending, descending and none) if there are no other actions but show separate menu items for each mode inside the flyout when used together with other features.
 
-Set the `showFlyoutMenu` option to force showing the action inside the flyout menu, even if there is only a single action. Similar, the `iconComponent` can set `alwaysShowInHeader` to force showing it directly inside the header, even when multiple actions exist which can e.g. be useful for showing a "clear" button. However, this should be used very rarely to prevent an overload of always visible header actions.
+Set the `showFlyoutMenu` option to force showing the action inside the flyout menu, even if there is only a single action. Similar, the `iconComponent` can set `alwaysShowInHeader` to force showing it directly inside the header but this should be **used very rarely** to prevent an overload of always visible header actions.
 
 We strongly recommend to use the [system button](/components/buttons/system-button) as `iconComponent` and the [menu item](/components/basic/menu-item) component for `menuItems`.
 
@@ -479,9 +481,9 @@ We strongly recommend to use the [system button](/components/buttons/system-butt
 Header wrapper
 
 #default
-In addition to the header actions, a wrapper component can be defined that is placed/wrapped around the whole header content. This can be used to e.g. add additional content, a tooltip and more but should be used carefully. The wrapper component **must** define a default slot where the header content is placed in.
+In addition to the header actions, a wrapper component can be defined that is placed/wrapped around the whole header content. This can be used to e.g. add additional content or apply custom styles. The wrapper component **must** define a default slot where the header content is placed in.
 
-<em style="color: var(--onyx-color-text-icons-info-intense)">Hover the column header in this example to see the tooltip.</em>
+<em style="color: var(--onyx-color-text-icons-info-intense)">Hover over the column header in this example to see a tooltip.</em>
 
 :component-example{name="HeaderWrapper" layout="grow"}
 ::
@@ -490,7 +492,7 @@ In addition to the header actions, a wrapper component can be defined that is pl
 
 ### Slots
 
-Any slots available for the underlying [table component](/components/data/table#slots) can be used. Make sure to consider existing slot content that might be added by other features, otherwise the slot will be overridden completely with your custom content.
+All slots available for the underlying [table component](/components/data/table#slots) can be used if needed. Make sure to consider existing slot content that might be added by other features, otherwise the slot will be overridden completely with your custom content.
 
 <steps>
 
