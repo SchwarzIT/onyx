@@ -1,5 +1,25 @@
 # sit-onyx
 
+## 1.16.0
+
+### Minor Changes
+
+- 74c1199: feat(OnyxDataGrid): added link as column type for data grid.
+
+  feat(OnyxUnstableEditLinkDialog): implemented a support Link Dialog
+
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+
+- 385ae4c: feat(OnyxDataGrid): add support for `target` and `withExternalIcon` options for column link type
+- a89a427: feat(core): disable font ligatures to improve readability
+- c27005b: fix(OnyxMoreList): export useMoreList & useMoreListChild composables to allow custom implementations
+
+### Patch Changes
+
+- de99e9d: fix(OnyxCalendar): remove unintentional deprecation and add flex-grow so the calendar takes up the full width inside flex layouts
+- dbcfd29: fix(OnyxTable, OnyxDataGrid): prevent empty state from causing infinite growth inside `fit-content` parents (e.g. `OnyxModal` without an explicit width)
+- 89e0c8b: fix(OnyxTooltip): correctly position wedge relative to the trigger and ensure tooltip does not exceed viewport width
+
 ## 1.15.0
 
 ### Minor Changes
@@ -72,6 +92,7 @@
 ### Minor Changes
 
 - 3f9e58a: feat(OnyxShortcut, OnyxKey): implement small improvements
+
   - show tooltip with key name on hover
   - ensure minimum width is at least the key height
   - adapted highlight prop to also allow static highlighting
@@ -95,6 +116,7 @@
   | OnyxUnstableSplitButton         | OnyxSplitButton         |
 
   Other noteworthy changes:
+
   - refactor(OnyxSplitButton)!: remove `default` slot
   - refactor(OnyxItemsPerPage)!: remove properties `labelAlignment` and `hideLabel` in favor of `label.position` and `label.hidden`
   - feat(OnyxSplitButton): support new properties: `iconPosition`, `type`, `alignment` and `position`
@@ -106,6 +128,7 @@
 - 328902b: feat(OnyxSelect): support `bottomRight` slot
 - e527add: fix(OnyxProgressSteps): Fixed issue where overflowing content was not scrollable
 - 1f5b69c: refactor(OnyxStepper): use `OnyxFormElementV2` internally
+
   - feat: support new slots: `leading`, `leadingIcons`, `trailingIcons`, `trailing` and `bottomRight`
   - feat: support left aligned label using `label.position` property
   - feat: support new CSS variable `--onyx-stepper-text-align` for easier customization of the value alignment
@@ -114,6 +137,7 @@
 - f65acbe: feat: Generate and publish 'component-meta.json' which includes the onyx API as json
 - 43410d9: feat: implemented new radius-component variabels
 - 328902b: fix(OnyxDatePickerV2): implement several bug fixes
+
   - remove non-existing properties `hideLabel` and `labelTooltip` in favor of `label.hidden` and `label.tooltipText`
   - use correct type for `message`, `error`, `success` and `selectionMode` property
   - remove default `popoverOptions.fitParent` so the calendar popover is always displayed correctly, even when the date picker width is very small
@@ -124,11 +148,13 @@
 - cbdebfb: feat(OnyxSelect): added functionality to select only filtered items when withCheckAll and a search is active. This includes a new `labelFiltered` option within `withCheckAll` to customize the checkbox label for filtered states.
 - d74aac4: feat(OnyxNavBar): auto align flyouts when using the vertical nav bar
 - 169f846: refactor(OnyxTextarea): use `OnyxFormElementV2` internally
+
   - feat: support new `leadingIcons` slot
   - feat: support new `loading` property
   - feat: support left aligned label using `label.position`
 
 - f598fff: feat(OnyxTimePicker): update implementation and use `OnyxFormElementV2` internally
+
   - fix: use correct styles for "clock" icon
   - fix: use correct component height (previously it was slightly bigger than other form elements)
   - fix: update spacings for "range" mode popover
@@ -169,12 +195,14 @@
 
 - 5466d27: feat(OnyxTimePicker): added `showAmPm` property to support 12-hour time format.
 - 1b47fae: refactor(OnyxInput): use `OnyxFormElementV2` internally
+
   - feat(OnyxInput): support new `leadingIcons` and `trailingIcons` slot
   - feat(OnyxInput): support left aligned label using `label.position` property
   - feat(OnyxInput): add new `disableSlotPadding` property (will become the default in version 2.x)
   - chore(OnyxInput): deprecate obsolete `hideSuccessIcon` property
 
 - 8551d9a: feat(OnyxDatePickerV2): enhanced component functionality
+
   - added a clear button to remove the current selection
   - add new `disabledDays` prop to support disabling specific dates or ranges
   - the popover now automatically closes after a date range is selected
@@ -199,6 +227,7 @@
 ### Patch Changes
 
 - a0aafe8: fix(OnyxFormElementV2): correctly set popover trigger
+
   - set popover trigger correctly on the `<input />` element instead of the input wrapper
   - correctly show error state when "touched" and a popover is used
   - also support passing `popoverOptions.label` to correctly define a different label for the popover than for the input itself
@@ -208,6 +237,7 @@
 
 - fc16972: fix(OnyxSlider): Remove unintended root padding
 - 1b47fae: The following properties were removed because they were non-existent / not functional and only added by accident.
+
   - OnyxDatePicker: hideClearIcon, hideSuccessIcon, showPassword
   - OnyxTextarea: showPassword
 
@@ -218,6 +248,7 @@
   - fix(OnyxFormElementAction): limit component height to the content height
   - feat(OnyxFormElementAction): support new `highlighted` property which will visually highlight the button, e.g. when the parent form element is focused
 - 4b55515: fix(OnyxFormElementV2): fix styles
+
   - use correct label gap when skeleton is in compact density
   - use correct inline padding for input when leading/trailing icons exist
 
@@ -252,6 +283,7 @@
 
   For all base column `typeRenderers` editing is supported.
   To enable editing with custom types, you will need to implement two things:
+
   1. Check for the `editable` prop in the metadata to decide if the cell should render in "display" or "edit" mode.
   2. Implement or call the `onUpdate:modelValue` when the value is supposed to change through an edit.
 
@@ -274,6 +306,7 @@
   ```
 
   **Caveats:**
+
   - Currently only basic editing is supported.
   - Managing `editable` for individual cells or columns state must currently performed in the application. Per default all cells and rows are either editable or not editable.
   - Filtering and Sorting features are always using the original value, not the edited value.
@@ -296,6 +329,7 @@
 ### Minor Changes
 
 - 2899011: feat(OnyxNavBar): vertical navbar support
+
   - implemented `OnyxVerticalNavBar`support component
   - implemented new `orientation`, `expanded` and `alignment` properties for supporting a vertical nav bar
   - implemented `OnyxMoreList` for automatic item overflow.
@@ -318,6 +352,7 @@
   For a full list, please refer to the [i18n documentation](https://onyx.schwarz/development/i18n.html#build-in-languages).
 
 - 2899011: feat(OnyxFlyout & OnyxUserMenu):
+
   - added left/right position support
 
 - ad676a1: The following utils are now exported: `FORM_INJECTED_SYMBOL`, `useFormContext`, `getFormMessages`, `injectI18n` and `useForwardProps`
@@ -328,6 +363,7 @@
 
 - ecb91f9: refactor: rename the "Timepicker" component, its related types and CSS classes to "TimePicker" (camel case) to be aligned with common naming conventions.
   This affects:
+
   - Component name: `OnyxUnstableTimepicker` to `OnyxUnstableTimePicker`
   - CSS classes: `.onyx-timepicker-*` to `.onyx-time-picker-*`
   - types: `OnyxTimepickerProps` to `OnyxTimePickerProps`, `TIMEPICKER_TYPES` to `TIME_PICKER_TYPES` and `TimepickerSelectOptions` to `TimePickerSelectOptions`
@@ -351,6 +387,7 @@
   There won't be any breaking changes from now on within minor versions.
 
   Other changes:
+
   - changed code font size from regular to small.
 
 - 7664b2b: fix(OnyxDataGrid:stickyColumns):
@@ -376,12 +413,14 @@
   For now, the `OnyxUnstableTableOfContents` and `OnyxUnstableTableOfContentsItem` components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
 
 - b55bffd: feat(OnyxTimePicker):
+
   - replaced clock icon button with plain icon
   - hide flyout in Default mode
   - made it fully support RFC 9557
 
 - 7763c19: feat(OnyxTableOfContents): implement `skeleton` property
 - b8b653b: feat(OnyxPagination): add compact type and automatic breakpoint detection
+
   - add new `type="compact"` pagination with a more space-efficient layout
   - add `disableFlyout` property to disable the flyout in select or compact mode (useful for cursor-based pagination)
   - add `autoCompact` property to automatically switch to compact type when viewport is smaller than a given breakpoint
@@ -411,6 +450,7 @@
 
 - 0fbd53f: fix(useOpenDirection): handle viewport boundaries when no overflow parent exists
 - 0fbd53f: feat(OnyxDataGrid): add `OnyxItemsPerPage` component and pagination page size control
+
   - Add `OnyxUnstableItemsPerPage` component for configurable page size selection
   - Add `itemsPerPage` option to `OnyxDataGrid` pagination feature to control visible rows per page
 
@@ -426,6 +466,7 @@
   Therefore, no breaking changes will be introduced from now on within major versions. The `OnyxUnstableSliderControl` component has been removed and integrated into the OnyxSlider directly.
 
   Changes to the last unstable version:
+
   - when `control="icon"` is set, the icon buttons will no longer be focusable via keyboard because its redundant (slider can already be changed with arrow keys). When clicking the icon buttons, the tooltip will now be shown automatically
   - when labelled marks are used, the tooltip will now be positioned top
   - remove `disableTooltip` property in favor of new `tooltip` property that also allows customizing the tooltip value
@@ -469,6 +510,7 @@
 ### Minor Changes
 
 - fd6793d: feat(OnyxSlider): add `OnyxSliderControl` component
+
   - Add unstable `OnyxSliderControl` component for slider input controls. For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
   - fix(OnyxStepper): ensure formatted display value is in sync with modelValue on blur
 
@@ -484,6 +526,7 @@
   For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using the component.
 
   Other minor changes:
+
   - feat(OnyxDialog): expose `dialog` template ref to the internal `<dialog>` element
   - feat: make CSS variable `--onyx-grid-margin-vertical` globally available. Previously it was just available inside the `.onyx-grid-layout` class
 
@@ -491,6 +534,7 @@
 - 523b7b9: refactor `OnyxSlider` implementation
 
   Breaking changes: This change includes breaking changes. Since the slider is marked as unstable, we allow for breaking changes within minor versions.
+
   - update and optimize internal implementation
   - prevent thumbs from overlapping each other in range mode
   - removed `discrete` property. Pass a corresponding `step` value if you only want to allow certain discrete values
@@ -515,6 +559,7 @@
 
 - df708d6: fix(OnyxTab): define font-size and line-height for panel content
 - 23de6e1: refactor(OnyxSlider): update icon and input control behavior
+
   - icon: value is now changed based on the `step` property, not the `shiftStep` value
   - icon: correctly disable the increase button when max value is reached
   - input: pass step, min and max to the stepper
@@ -554,6 +599,7 @@
 
 - 53fc1d7: feat(OnyxInfoCard): support new `headerActions` slot
 - 86b5fc7: feat(OnyxCalendar):
+
   - implement `selectionMode` property for single, multi and range selection
   - replaced `initialDate` property with `v-model:viewMonth`
   - implement `modelValue / v-model` for selection (depending on selectionMode property)
@@ -585,6 +631,7 @@
 ### Patch Changes
 
 - 5d0629f: The following new global CSS variables have been added:
+
   - `--onyx-color-base-secondary-*`
   - `--onyx-color-text-icons-secondary-soft`
   - `--onyx-color-text-icons-secondary-medium`
@@ -957,6 +1004,7 @@
   Previously, the `open` property of the OnyxTooltip and OnyxInfoTooltip was used to both define the trigger type (hover, click) and set a boolean for the open state.
 
   This is changed now so:
+
   - the `open` property is now just a boolean to control the open state. Supports `v-model:open`.
   - the new `trigger` property can be used to set the trigger type (hover, click)
 
@@ -1026,6 +1074,7 @@
 - 641eac3: feat!: Renamed Popover, Dialog, Modal components
 
   **BREAKING CHANGE**
+
   - Renamed `OnyxPopover` to `OnyxBasicPopover`.
   - Renamed `OnyxDialog` to `OnyxBasicDialog`.
   - Renamed `OnyxModalDialog` to `OnyxModal`.
@@ -1325,6 +1374,7 @@
 ### Major Changes
 
 - fb01a85: - feat(OnyxDataGrid): support new `headline` property
+
   - fix(OnyxDataGrid): do not render empty slots
   - fix(OnyxDataGrid): fix pagination mutation order to work correctly when used together with filtering and/or selection
   - fix(OnyxDataGrid): do not render pagination skeleton when usePagination feature is disabled
@@ -1373,6 +1423,7 @@
 - dfd13a1: feat(OnyxDataGrid): support new `type` option for usePagination feature that supports lazy and button loading
 
   Also support new `_trAttributes` and `_columns` property for data grid entries/data:
+
   - `_trAttributes`: can be used to pass attributes that are bound directly to the `<tr>` element
   - `_columns`: override which columns to render for the specific row. Useful if creating custom full-width rows
 
@@ -1995,6 +2046,7 @@
   #### Breaking changes
   - sorting feature: all columns will be enabled now by default (previously they were disabled)
   - hide columns feature: API / options for passing columns has changed to align with the other features
+
     - Old:
 
     ```ts
@@ -2286,6 +2338,7 @@
 ### Major Changes
 
 - f03482f: ### feat(OnyxDataGrid)!: Implemented support for column types and custom renderers into the feature API
+
   - The new feature property `typeRenderer` can be used to define custom renderers for column types. TypeRenderer keys of type `symbol` are intended for internal usage.
   - These types can now be specified in the `column` configuration with the new `ColumnConfig` type.
   - `watch` is not a required property anymore.
@@ -2343,6 +2396,7 @@
   If the username contains unsupported characters (e.g. for some Korean characters) a fallback icon will be displayed.
 
   Example for "John Middlename Doe":
+
   - Previously: "JM"
   - Now: "JD"
 
@@ -2377,6 +2431,7 @@
 - ece5641: chore: replace redundant useManagedState with defineModel
 
   The changes are mostly internal, but the typings were of `OnyxSelect` were improved:
+
   - The `modelValue` now infers a specific subtype of `SelectOptionValue` and the `options` values must match.
   - `withSearch`: Filtering of the options will not automatically disabled anymore when `searchTerm` is bound. Instead `noFilter` must be set.
 
@@ -2484,6 +2539,7 @@
 - 4464ff3: feat(OnyxHeadline): automatically normalize hash
 
   Other changes:
+
   - hide `#` when hash is set for screen readers
   - add hover title and screen reader text to hash link
   - remove `normalizeUrlHash()` method since this is now automatically done by the OnyxHeadline
@@ -2720,6 +2776,7 @@
 - 5fba96d: fix: adjust component colors and align with Figma
 
   All components were updated to be aligned with the Figma UX design. This change brings several color/contrast improvements/fixes:
+
   - Button: Update background, text and border colors
   - Tag: Update text and border colors
   - IconButton: Update text colors
@@ -2764,6 +2821,7 @@
 - 6730706: feat(OnyxMoreList): support more indicator
 
   Also changed the underlying logic to calculate the component visibility which is now based on component widths instead of using IntersectionObservers.
+
   - OnyxMoreList: removed `disabled` property
   - OnyxMoreList: removed `is` property. Make sure to use the new `default` and `more` slots and bind the attributes passed to the slots using `v-bind`.
   - useMoreList: removed `disabled` and `componentRefs` option, added required `listRef` and `moreIndicatorRef` option
@@ -2776,6 +2834,7 @@
 - 9f23f13: feat: support `schwarz` theme
 
   For docs about how to use the theme, see our [theming docs](https://onyx.schwarz/development/theming.html).
+
   - `sit-onyx` now also exports a `ONYX_THEMES` array that includes a list of all available themes.
   - OnyxButton: adjust text color contrast
 
@@ -2826,6 +2885,7 @@
 - 3f55c48: feat(OnyxTabs): support horizontal scrolling when overflowing
 
   The following additional features/fixes are also included:
+
   - OnyxTabs: add property `size` to change the font style
   - OnyxTabs: fix vertical alignment of tab text if its not selected
   - add CSS variable `--onyx-outline-width` and use it in all components for consistency
@@ -3229,6 +3289,7 @@
   #### Features
 
   New density CSS variables were added and used inside all onyx components which automatically adjust their spacing based on the current density:
+
   - --onyx-density-3xs
   - --onyx-density-2xs
   - --onyx-density-xs
@@ -3240,6 +3301,7 @@
   - --onyx-density-4xl
 
   The following components now also support density:
+
   - OnyxCheckboxGroup / OnyxRadioGroup headline and horizontal layout
   - OnyxEmpty
   - OnyxTooltip
@@ -3271,6 +3333,7 @@
 - 25bfc85: feat(OnyxCheckbox, OnyxSwitch, OnyxRadioButton): show error messages in the title when invalid
 
   For components that don't support an error message footer, we now set the `title` to show the error message info in the default browser tooltip.
+
   - Supports custom errors as well as default errors, e.g. `required`.
   - Combines the error message with a hidden label in the `title`.
 
@@ -3341,6 +3404,7 @@
 - 6e14afd: fix(OnyxMobileNavButton): scroll on overflowing mobile flyout
 
   The flyout of OnyxMobileNavButton now has a max height and is scrollable if too many nav/context items exist.
+
   - app version inside the mobile flyout is not positioned absolute anymore and is a disabled list item
   - fixed duplicate border in mobile context menu when multiple list items exist
 
@@ -3441,6 +3505,7 @@
 - 760bb76: refactor(OnyxTable): split default slot to distinguish thead and tbody
 
   Including new features:
+
   - implement empty state when no table data exists
   - define focus outline
 
@@ -3505,6 +3570,7 @@
 ### Minor Changes
 
 - 0bdb49a: feat(OnyxSelectInput): support validity handling
+
   - internal input is not readonly, but blocks all character inputs
   - supports translated error message for empty required inputs
 
@@ -3544,6 +3610,7 @@
 - d4fbcf4: refactor: align all namings with Figma
 
   The breaking changes changes are:
+
   - rename `OnyxRadioButtonGroup` to `OnyxRadioGroup`
   - OnyxRadioButton: rename property `selected` to `checked`
   - OnyxAvatar: remove `type` male/female
@@ -3599,6 +3666,7 @@
 ### Minor Changes
 
 - 0863114: feat: support `autofocus` property for multiple components
+
   - OnyxButton, OnyxCheckbox, OnyxIconButton, OnyxRadioButton, OnyxSwitch, OnyxSelect
 
 - 0863114: feat: add `OnyxColorSchemeDialog` component
@@ -3748,6 +3816,7 @@
 ### Major Changes
 
 - b0554c8: refactor: rename listbox to select
+
   - rename component `OnyxListbox` to `OnyxSelect`
   - rename component `OnyxListboxOption` to `OnyxSelectOption`
 
