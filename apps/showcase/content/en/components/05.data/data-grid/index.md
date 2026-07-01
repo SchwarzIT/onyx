@@ -457,6 +457,42 @@ You can also add additional row options such as `<tr>` attributes which are usef
 
 :component-example{name="ModifyRows" layout="grow"}
 
+### Header
+
+Use the `header` option of a custom feature to add custom content to the column header. There are two main ways to customize the header:
+
+<steps>
+
+::step
+#headline
+Header actions
+
+#default
+Header actions are a unified API to add user-interactions to the column header that you might already know from built-in features like [sorting](#sorting) and [filtering](#filtering). If there are multiple actions defined for a single column (e.g. by using sorting and filtering and the same time), the actions are automatically moved to a [flyout menu](/components/basic/flyout-menu). Otherwise, if there is only a single action, it is displayed directly inside the header.
+
+When creating custom header actions, you can define both an `iconComponent` and `menuItems` for the same action which will then be automatically switched depending on whether additional header actions exist from other features. For example, our built-in [sorting feature](#sorting) uses this approach to either render a single sort button to toggle through the different sorting modes (ascending, descending and none) if there are no other actions but show separate menu items for each mode inside the flyout when used together with other features.
+
+Set the `showFlyoutMenu` option to force showing the action inside the flyout menu, even if there is only a single action. Similar, the `iconComponent` can set `alwaysShowInHeader` to force showing it directly inside the header, even when multiple actions exist which can e.g. be useful for showing a "clear" button. However, this should be used very rarely to prevent an overload of always visible header actions.
+
+We strongly recommend to use the [system button](/components/buttons/system-button) as `iconComponent` and the [menu item](/components/basic/menu-item) component for `menuItems`.
+
+:component-example{name="HeaderActions" layout="grow"}
+::
+
+::step
+#headline
+Header wrapper
+
+#default
+In addition to the header actions, a wrapper component can be defined that is placed/wrapped around the whole header content. This can be used to e.g. add additional content, a tooltip and more but should be used carefully. The wrapper component **must** define a default slot where the header content is placed in.
+
+<em style="color: var(--onyx-color-text-icons-info-intense)">Hover the column header in this example to see the tooltip.</em>
+
+:component-example{name="HeaderWrapper" layout="grow"}
+::
+
+</steps>
+
 ### Slots
 
 Any slots available for the underlying [table component](/components/data/table#slots) can be used. Make sure to consider existing slot content that might be added by other features, otherwise the slot will be overridden completely with your custom content.
@@ -512,40 +548,4 @@ Allows to customize the default empty state when there is no data available. We 
 
 :component-example{name="SlotEmpty" layout="grow"}
 ::
-</steps>
-
-### Header
-
-Use the `header` option of a custom feature to add custom content to the column header. There are two main ways to customize the header:
-
-<steps>
-
-::step
-#headline
-Header actions
-
-#default
-Header actions are a unified API to add user-interactions to the column header that you might already know from built-in features like [sorting](#sorting) and [filtering](#filtering). If there are multiple actions defined for a single column (e.g. by using sorting and filtering and the same time), the actions are automatically moved to a [flyout menu](/components/basic/flyout-menu). Otherwise, if there is only a single action, it is displayed directly inside the header.
-
-When creating custom header actions, you can define both an `iconComponent` and `menuItems` for the same action which will then be automatically switched depending on whether additional header actions exist from other features. For example, our built-in [sorting feature](#sorting) uses this approach to either render a single sort button to toggle through the different sorting modes (ascending, descending and none) if there are no other actions but show separate menu items for each mode inside the flyout when used together with other features.
-
-Set the `showFlyoutMenu` option to force showing the action inside the flyout menu, even if there is only a single action. Similar, the `iconComponent` can set `alwaysShowInHeader` to force showing it directly inside the header, even when multiple actions exist which can e.g. be useful for showing a "clear" button. However, this should be used very rarely to prevent an overload of always visible header actions.
-
-We strongly recommend to use the [system button](/components/buttons/system-button) as `iconComponent` and the [menu item](/components/basic/menu-item) component for `menuItems`.
-
-:component-example{name="HeaderActions" layout="grow"}
-::
-
-::step
-#headline
-Header wrapper
-
-#default
-In addition to the header actions, a wrapper component can be defined that is placed/wrapped around the whole header content. This can be used to e.g. add additional content, a tooltip and more but should be used carefully. The wrapper component **must** define a default slot where the header content is placed in.
-
-<em style="color: var(--onyx-color-text-icons-info-intense)">Hover the column header in this example to see the tooltip.</em>
-
-:component-example{name="HeaderWrapper" layout="grow"}
-::
-
 </steps>
