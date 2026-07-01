@@ -4,17 +4,17 @@
 
 ### Minor Changes
 
-- 74c1199: feat(OnyxDataGrid): added link as column type for data grid.
+- 74c1199: feat(OnyxDataGrid): Added `link` as column type for data grid.
   For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
 
-- a89a427: feat(core): disable font ligatures to improve readability
-- c27005b: fix(OnyxMoreList): export useMoreList & useMoreListChild composables to allow custom implementations
+- a89a427: feat(core): Disable font ligatures to improve readability
+- c27005b: fix(OnyxMoreList): Export `useMoreList` & `useMoreListChild` composables to allow custom implementations
 
 ### Patch Changes
 
-- de99e9d: fix(OnyxCalendar): remove unintentional deprecation and add flex-grow so the calendar takes up the full width inside flex layouts
-- dbcfd29: fix(OnyxTable, OnyxDataGrid): prevent empty state from causing infinite growth inside `fit-content` parents (e.g. `OnyxModal` without an explicit width)
-- 89e0c8b: fix(OnyxTooltip): correctly position wedge relative to the trigger and ensure tooltip does not exceed viewport width
+- de99e9d: fix(OnyxCalendar): Remove unintentional deprecation and add flex-grow so the calendar takes up the full width inside flex layouts
+- dbcfd29: fix(OnyxTable, OnyxDataGrid): Prevent empty state from causing infinite growth inside `fit-content` parents (e.g. `OnyxModal` without an explicit width)
+- 89e0c8b: fix(OnyxTooltip): Correctly position wedge relative to the trigger and ensure tooltip does not exceed viewport width
 
 ## 1.15.0
 
