@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, useTemplateRef } from "vue";
+import type { VueTemplateRefElement } from "../../composables/useResizeObserver.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -8,6 +9,7 @@ import { injectI18n } from "../../i18n/index.js";
 import { normalizeUrlHash } from "../../utils/strings.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import { useTocRegistry } from "../OnyxTableOfContents/useTocRegistry.js";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxHeadlineProps } from "./types.js";
 
@@ -34,6 +36,13 @@ const copyLink = async (hash: string) => {
   // eslint-disable-next-line compat/compat -- event handler is safe as it can only be triggered in the client
   await navigator.clipboard.writeText(fullUrl);
 };
+
+const headline = useTemplateRef<VueTemplateRefElement>("headline");
+
+useTocRegistry({
+  hash: normalizedHash,
+  templateRef: headline,
+});
 </script>
 
 <template>
@@ -46,6 +55,7 @@ const copyLink = async (hash: string) => {
     :is="props.is"
     v-else
     :id="normalizedHash"
+    ref="headline"
     :class="['onyx-component', 'onyx-headline', `onyx-headline--${showAs}`]"
   >
     <OnyxRouterLink
