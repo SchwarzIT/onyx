@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { provide, reactive } from "vue";
 import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
-import { TOC_CONTEXT_INJECTION_KEY } from "../OnyxTableOfContents/useTocRegistry.js";
+import { TOC_CONTEXT_INJECTION_KEY } from "../OnyxTableOfContents/useTocContext.js";
 import type { OnyxPageLayoutProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPageLayoutProps>(), {

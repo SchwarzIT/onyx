@@ -8,7 +8,7 @@ import {
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import { useTocContext } from "../OnyxTableOfContents/useTocRegistry.js";
+import { useTocContext } from "../OnyxTableOfContents/useTocContext.js";
 import type { OnyxTableOfContentsItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableOfContentsItemProps>(), {

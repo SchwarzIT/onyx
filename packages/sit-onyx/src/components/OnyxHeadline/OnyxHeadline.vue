@@ -9,7 +9,7 @@ import { injectI18n } from "../../i18n/index.js";
 import { normalizeUrlHash } from "../../utils/strings.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import { useTocVisibility } from "../OnyxTableOfContents/useTocRegistry.js";
+import { useTocVisibility } from "../OnyxTableOfContents/useTocContext.js";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { OnyxHeadlineProps } from "./types.js";
 
