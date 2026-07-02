@@ -137,7 +137,7 @@ const icon = computed(() => {
       &:enabled {
         &:hover {
           --onyx-progress-item-background-color: var(--onyx-color-base-neutral-200);
-          --onyx-progress-item-border-color: var(--onyx-color-component-border-neutral-hover);
+          --onyx-progress-item-border-color: var(--onyx-color-component-border-primary-hover);
         }
 
         &:focus-visible {
