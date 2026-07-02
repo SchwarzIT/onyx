@@ -8,9 +8,13 @@ test.beforeEach(async ({ context }) => {
   await context.route(EXTERNAL_HREF, (route) => route.fulfill({ body: "Test page" }));
 });
 
-test("should open external link without router", async ({ page, mount }) => {
+test("should open external link with '_self' target without router", async ({ page, mount }) => {
   // ARRANGE
-  const component = await mount(<TestWrapper href={EXTERNAL_HREF}>Test link</TestWrapper>);
+  const component = await mount(
+    <TestWrapper href={EXTERNAL_HREF} target="_self">
+      Test link
+    </TestWrapper>,
+  );
 
   // ACT
   await component.click();
