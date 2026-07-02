@@ -306,8 +306,13 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     }
 
     &:hover {
-      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-        background-color: var(--onyx-color-base-neutral-400);
+      &:has(.onyx-switch__input:enabled) {
+        .onyx-switch__container {
+          background-color: var(--onyx-color-base-neutral-400);
+        }
+        .onyx-switch__frame {
+          border-color: var(--onyx-color-component-border-primary-hover);
+        }
       }
 
       &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
