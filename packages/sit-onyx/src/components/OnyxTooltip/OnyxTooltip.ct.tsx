@@ -176,6 +176,7 @@ test.describe("Screenshot tests", () => {
     name: "Tooltip",
     columns: ["default", "fit-parent", "long-text"],
     rows: ["default", "bottom", "icon", "danger"],
+    fastNoIsolation: true,
     component: (column, row) => {
       return (
         <div
@@ -216,6 +217,7 @@ test.describe("Alignment screenshot tests", () => {
     name: "Aligned tooltip",
     columns: ["left", "center", "right"],
     rows: ["top", "bottom"],
+    fastNoIsolation: true,
     component: (column, row) => {
       return (
         <div
@@ -261,6 +263,7 @@ test.describe("Positioning Screenshot tests", () => {
       "left",
       "top left",
     ],
+    fastNoIsolation: true,
     component: (column, row) => {
       return (
         <OnyxTooltip

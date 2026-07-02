@@ -10,6 +10,7 @@ test.describe("Screenshot tests", () => {
     name: "Data grid renderer",
     columns: DENSITIES,
     rows: ["default", "narrow"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <DefaultTestWrapper
         density={column}

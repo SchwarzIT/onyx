@@ -147,6 +147,7 @@ test.describe("Disabled Screenshot tests", () => {
     name: "Disabled Flyout",
     columns: ["default", "disabled"],
     rows: ["default"],
+    fastNoIsolation: true,
     component: (column, _row) => {
       return (
         <div class="container" style={{ margin: "0 8rem 12rem 0" }}>

@@ -20,6 +20,7 @@ test.describe("Screenshot tests", () => {
       name: `Toast message (${mode})`,
       columns: DENSITIES,
       rows: TOAST_COLORS,
+      fastNoIsolation: true,
       component: (column, row) => (
         <OnyxToastMessage
           headline="Test toast"
@@ -40,6 +41,7 @@ test.describe("Screenshot tests (description)", () => {
     name: "Toast message (description)",
     columns: DENSITIES,
     rows: TOAST_COLORS,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxToastMessage
         headline="Test toast"

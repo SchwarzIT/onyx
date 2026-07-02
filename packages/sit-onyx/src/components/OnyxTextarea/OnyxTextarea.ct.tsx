@@ -38,6 +38,7 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (required/optional, message/counter)",
     columns: ["default", "long-text", "hideLabel"],
     rows: ["required", "optional", "message", "counter"],
+    fastNoIsolation: true,
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
@@ -139,6 +140,7 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (skeleton)",
     columns: DENSITIES,
     rows: ["default", "hideLabel", "autosize-min-6-rows"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxTextarea
         style="width: 12rem"
@@ -321,6 +323,7 @@ test.describe("Screenshot tests", () => {
     name: "Textarea (slots)",
     columns: ["loading", "leadingIcons"],
     rows: ["default"],
+    fastNoIsolation: true,
     component: (column) => {
       return (
         <OnyxTextarea

@@ -10,6 +10,7 @@ test.describe("Screenshot tests", () => {
     name: "Shortcut",
     columns: ["default"],
     rows: ["all", "any", "mixed", "hideSeparator", "skeleton"],
+    fastNoIsolation: true,
     component: (column, row) => {
       const sequences: Record<typeof row, ShortcutSequenceStep[]> = {
         all: [{ all: ["Control", "C"] }],
@@ -44,6 +45,7 @@ test.describe("Screenshot tests (OS)", () => {
     name: "Shortcut (OS)",
     columns: OPERATING_SYSTEMS,
     rows: ["Meta"],
+    fastNoIsolation: true,
     component: (column, row) => <OnyxShortcut sequence={[{ all: [row, "S"] }]} os={column} />,
   });
 });

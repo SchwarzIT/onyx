@@ -54,6 +54,7 @@ test.describe("Screenshot tests", () => {
     name: "Input (required/optional, message/counter)",
     columns: ["default", "long-text", "hideLabel"],
     rows: ["required", "optional", "message", "counter"],
+    fastNoIsolation: true,
     component: (column, row) => {
       const label =
         column === "long-text" ? "Very long label that should be truncated" : "Test label";
@@ -295,6 +296,7 @@ test.describe("Screenshot tests", () => {
     name: "Input (skeleton)",
     columns: DENSITIES,
     rows: ["default", "hideLabel"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxInput
         style="width: 12rem"
