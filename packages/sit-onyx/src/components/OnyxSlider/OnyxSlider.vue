@@ -2,26 +2,19 @@
 import { createSlider } from "@sit-onyx/headless";
 import { iconMinusSmall, iconPlusSmall } from "@sit-onyx/icons";
 import { computed, ref, toRef, toRefs, type HTMLAttributes } from "vue";
-import { useDensity } from "../../composables/density.js";
-import { useErrorClass } from "../../composables/useErrorClass.js";
-import { getFormMessages, useFormElementError } from "../../composables/useFormElementError.js";
-import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../composables/useSkeletonState.js";
+import { useFormElementError } from "../../composables/useFormElementError.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
-import { mergeVueProps } from "../../utils/attrs.js";
-import { useForwardProps } from "../../utils/props.js";
+import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
-import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import type { OnyxIconButtonProps } from "../OnyxIconButton/types.js";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import type { OnyxStepperProps } from "../OnyxStepper/types.js";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type {
   NormalizedSliderMark,
   OnyxSliderProps,
@@ -29,6 +22,7 @@ import type {
   SliderMode,
   SliderValue,
 } from "./types.js";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 
 type Props = OnyxSliderProps<TSliderMode>;
 
@@ -72,17 +66,15 @@ const modelValue = useVModel<Props, "modelValue", SliderValue<TSliderMode>>({
 
 const { t } = injectI18n();
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
-const formElementProps = useForwardProps(props, OnyxFormElement);
-const messages = computed(() => getFormMessages(props.message));
-const successMessages = computed(() => getFormMessages(props.success));
 
-const { densityClass } = useDensity(props);
+const { disabled } = useFormContext(props);
 
-const { disabled, showError } = useFormContext(props);
-const errorClass = useErrorClass(showError);
-const skeleton = useSkeletonContext(props);
+const { min, max, step } = toRefs(props);
 
-const { min, max, step, label } = toRefs(props);
+const labelString = computed(() => {
+  if (typeof props.label === "object" && props.label !== null) return props.label.label;
+  return props.label;
+});
 
 const {
   elements: { root, thumbInput },
@@ -93,7 +85,7 @@ const {
   min,
   max,
   step,
-  label,
+  label: labelString,
   disabled,
   shiftStep: toRef(() => props.shiftStep),
   onChange: (newValue) => {
@@ -152,6 +144,8 @@ const sharedIconButtonProps = computed(() => {
   } satisfies Partial<OnyxIconButtonProps> & HTMLAttributes;
 });
 
+const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
+
 const sharedStepperProps = computed(() => {
   return {
     class: "onyx-slider__control",
@@ -163,134 +157,118 @@ const sharedStepperProps = computed(() => {
     hideButtons: true,
   } satisfies Partial<OnyxStepperProps> & HTMLAttributes;
 });
+const { rootAttrs, restAttrs } = useRootAttrs();
 </script>
 
 <template>
-  <div v-if="skeleton" :class="['onyx-component', 'onyx-slider-skeleton', densityClass]">
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-slider-skeleton__label" />
-    <OnyxSkeleton class="onyx-slider-skeleton__block" />
-  </div>
+  <OnyxFormElementV2 v-bind="mergeVueProps(formElementV2Props, rootAttrs)" unstyled>
+    <template #default="inputProps">
+      <div :class="['onyx-slider', 'onyx-slider__container']">
+        <!-- left controls -->
+        <span v-if="props.control === 'value'" class="onyx-slider__control">{{ props.min }}</span>
 
-  <div v-else :class="['onyx-component', 'onyx-slider', densityClass, errorClass]">
-    <OnyxFormElement
-      :label="props.label"
-      v-bind="formElementProps"
-      class="onyx-slider__form-element"
-      :message="messages"
-      :error-messages
-      :success-messages
-    >
-      <template #default="{ id: inputId }">
-        <div class="onyx-slider__container">
-          <!-- left controls -->
-          <span v-if="props.control === 'value'" class="onyx-slider__control">{{ props.min }}</span>
+        <OnyxIconButton
+          v-else-if="props.control === 'icon' && props.mode === 'single'"
+          v-bind="sharedIconButtonProps"
+          :label="t('slider.decreaseValueBy', { n: props.step })"
+          :icon="iconMinusSmall"
+          :disabled="disabled || normalizedValue[0] <= props.min"
+          @click="updateValueByStep('decrease')"
+        />
 
-          <OnyxIconButton
-            v-else-if="props.control === 'icon' && props.mode === 'single'"
-            v-bind="sharedIconButtonProps"
-            :label="t('slider.decreaseValueBy', { n: props.step })"
-            :icon="iconMinusSmall"
-            :disabled="disabled || normalizedValue[0] <= props.min"
-            @click="updateValueByStep('decrease')"
-          />
+        <OnyxStepper
+          v-else-if="props.control === 'input' && props.mode === 'range'"
+          v-bind="sharedStepperProps"
+          :label="t('slider.changeStartValue')"
+          :model-value="normalizedValue[0]"
+          @update:model-value="$event != undefined && updateValue($event, 0)"
+        />
 
-          <OnyxStepper
-            v-else-if="props.control === 'input' && props.mode === 'range'"
-            v-bind="sharedStepperProps"
-            :label="t('slider.changeStartValue')"
-            :model-value="normalizedValue[0]"
-            @update:model-value="$event != undefined && updateValue($event, 0)"
-          />
+        <!-- main slider -->
+        <span class="onyx-slider__root" v-bind="root">
+          <span
+            class="onyx-slider__rail"
+            :style="{
+              '--track-start-percentage': `${track.startPercentage}%`,
+              '--track-end-percentage': `${100 - track.endPercentage}%`,
+            }"
+          ></span>
 
-          <!-- main slider -->
-          <span class="onyx-slider__root" v-bind="root">
+          <template v-for="markItem in marks" :key="markItem.value">
             <span
-              class="onyx-slider__rail"
+              class="onyx-slider__mark"
               :style="{
-                '--track-start-percentage': `${track.startPercentage}%`,
-                '--track-end-percentage': `${100 - track.endPercentage}%`,
+                left: `${getValueInPercentage(markItem.value)}%`,
               }"
             ></span>
-
-            <template v-for="markItem in marks" :key="markItem.value">
-              <span
-                class="onyx-slider__mark"
-                :style="{
-                  left: `${getValueInPercentage(markItem.value)}%`,
-                }"
-              ></span>
-              <span
-                v-if="markItem.label || slots.mark"
-                class="onyx-slider__mark-label"
-                :style="{
-                  left: `${getValueInPercentage(markItem.value)}%`,
-                }"
-              >
-                <slot name="mark" v-bind="markItem">
-                  {{ markItem.label }}
-                </slot>
-              </span>
-            </template>
-
-            <OnyxTooltip
-              v-for="(value, index) in normalizedValue"
-              :key="index"
-              :style="{ left: `${getValueInPercentage(value)}%` }"
-              class="onyx-slider__thumb"
-              :open="props.tooltip?.hidden ? false : undefined"
-              :text="props.tooltip?.formatter?.(value, index) ?? String(value)"
-              :position="hasMarkLabels ? 'top' : 'bottom'"
+            <span
+              v-if="markItem.label || slots.mark"
+              class="onyx-slider__mark-label"
+              :style="{
+                left: `${getValueInPercentage(markItem.value)}%`,
+              }"
             >
-              <template #default="{ trigger }">
-                <OnyxVisuallyHidden
-                  v-bind="mergeVueProps(thumbInput({ value, index }), trigger)"
-                  is="input"
-                  :id="index === 0 ? inputId : undefined"
-                  v-custom-validity
-                  :class="['onyx-slider__native', { 'onyx-slider__native--touched': wasTouched }]"
-                  :tabindex="props.control === 'input' ? -1 : undefined"
-                  :disabled="disabled"
-                  :aria-label="props.label"
-                  :autofocus="props.autofocus && index === 0"
-                />
-              </template>
-            </OnyxTooltip>
-          </span>
+              <slot name="mark" v-bind="markItem">
+                {{ markItem.label }}
+              </slot>
+            </span>
+          </template>
 
-          <!-- right controls -->
-          <span v-if="props.control === 'value'" class="onyx-slider__control">{{ props.max }}</span>
+          <OnyxTooltip
+            v-for="(value, index) in normalizedValue"
+            :key="index"
+            :style="{ left: `${getValueInPercentage(value)}%` }"
+            class="onyx-slider__thumb"
+            :open="props.tooltip?.hidden ? false : undefined"
+            :text="props.tooltip?.formatter?.(value, index) ?? String(value)"
+            :position="hasMarkLabels ? 'top' : 'bottom'"
+          >
+            <template #default="{ trigger }">
+              <OnyxVisuallyHidden
+                v-bind="mergeVueProps(thumbInput({ value, index }), trigger, restAttrs, inputProps)"
+                is="input"
+                v-custom-validity
+                class="onyx-slider__native"
+                :tabindex="props.control === 'input' ? -1 : undefined"
+                :disabled="disabled"
+                :aria-label="props.label"
+                :autofocus="props.autofocus && index === 0"
+              />
+            </template>
+          </OnyxTooltip>
+        </span>
 
-          <OnyxIconButton
-            v-else-if="props.control === 'icon' && props.mode === 'single'"
-            v-bind="sharedIconButtonProps"
-            :label="t('slider.increaseValueBy', { n: props.step })"
-            :icon="iconPlusSmall"
-            :disabled="disabled || normalizedValue[0] >= props.max"
-            @click="updateValueByStep('increase')"
-          />
+        <!-- right controls -->
+        <span v-if="props.control === 'value'" class="onyx-slider__control">{{ props.max }}</span>
 
-          <OnyxStepper
-            v-else-if="props.control === 'input'"
-            v-bind="sharedStepperProps"
-            :label="t(`slider.${props.mode === 'range' ? 'changeEndValue' : 'changeValue'}`)"
-            :model-value="normalizedValue[1] ?? normalizedValue[0]"
-            @update:model-value="
-              $event != undefined && updateValue($event, props.mode === 'range' ? 1 : 0)
-            "
-          />
-        </div>
-      </template>
-    </OnyxFormElement>
-  </div>
+        <OnyxIconButton
+          v-else-if="props.control === 'icon' && props.mode === 'single'"
+          v-bind="sharedIconButtonProps"
+          :label="t('slider.increaseValueBy', { n: props.step })"
+          :icon="iconPlusSmall"
+          :disabled="disabled || normalizedValue[0] >= props.max"
+          @click="updateValueByStep('increase')"
+        />
+
+        <OnyxStepper
+          v-else-if="props.control === 'input'"
+          v-bind="sharedStepperProps"
+          :label="t(`slider.${props.mode === 'range' ? 'changeEndValue' : 'changeValue'}`)"
+          :model-value="normalizedValue[1] ?? normalizedValue[0]"
+          @update:model-value="
+            $event != undefined && updateValue($event, props.mode === 'range' ? 1 : 0)
+          "
+        />
+      </div>
+    </template>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/input.scss";
 
-.onyx-slider,
-.onyx-slider-skeleton {
+.onyx-slider {
   @include layers.component() {
     // Colors
     --onyx-slider-rail-background: var(--onyx-color-base-neutral-200);
@@ -463,33 +441,6 @@ const sharedStepperProps = computed(() => {
       --onyx-slider-thumb-background: var(--onyx-slider-background-disabled);
       --onyx-slider-thumb-border-color: var(--onyx-slider-background-disabled);
       --onyx-slider-mark-color: var(--onyx-slider-mark-color-disabled);
-    }
-  }
-}
-
-.onyx-slider-skeleton {
-  @include layers.component() {
-    $height: calc(1lh + 2 * var(--onyx-slider-padding-vertical));
-    $adjustment: var(--skeleton-label-density-adjustment, 0rem);
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--onyx-density-3xs) + $adjustment);
-    line-height: var(--onyx-font-line-height-md);
-
-    &__label {
-      width: var(--onyx-density-3xl);
-      height: calc(1.25rem - $adjustment);
-    }
-
-    &__block {
-      width: 17rem;
-      max-width: 100%;
-      height: $height;
-    }
-
-    @include density.compact {
-      // the skeleton gap would be 0 in compact density so we shrink the label size a bit and increase the gap so it does not look off
-      --skeleton-label-density-adjustment: var(--onyx-spacing-5xs);
     }
   }
 }
