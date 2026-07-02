@@ -1,17 +1,23 @@
 {
   "name": "sit-onyx",
+  "version": "1.16.0",
   "description": "A design system and Vue.js component library created by Schwarz Digits",
-  "version": "1.15.0",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
+  "homepage": "https://onyx.schwarz",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
   "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
+  "author": "Schwarz Digits IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/sit-onyx"
   },
   "files": [
     "dist",
     "src/styles"
   ],
+  "type": "module",
   "module": "./dist/index.esm-bundler.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -28,15 +34,6 @@
     "./dist/*": "./dist/*",
     "./package.json": "./package.json"
   },
-  "homepage": "https://onyx.schwarz",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
-    "directory": "packages/sit-onyx"
-  },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
     "build": "tsx ./build/index.ts && tsc -p tsconfig.locales.json --composite false",
@@ -47,13 +44,8 @@
     "test:playwright": "playwright install && playwright test",
     "stylelint": "stylelint \"dist/**/*.css\""
   },
-  "peerDependencies": {
-    "@sit-onyx/icons": "workspace:^",
-    "typescript": ">= 5.2.2",
-    "vue": ">= 3.5.0"
-  },
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.3",
+    "@axe-core/playwright": "^4.12.1",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/flags": "workspace:^",
@@ -76,5 +68,13 @@
     "vue-component-type-helpers": "^3.3.5",
     "vue-i18n": "^11.4.6",
     "vue-router": "^5.1.0"
+  },
+  "peerDependencies": {
+    "@sit-onyx/icons": "workspace:^",
+    "typescript": ">= 5.2.2",
+    "vue": ">= 3.5.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

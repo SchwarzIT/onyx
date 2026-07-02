@@ -1,32 +1,29 @@
 {
   "name": "@sit-onyx/vite-plugin-component-meta",
-  "description": "A Vite plugin to generate Vue component meta docs",
   "version": "0.0.0",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
-  "license": "Apache-2.0",
   "private": true,
-  "files": [
-    "dist"
-  ],
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js"
-  },
+  "description": "A Vite plugin to generate Vue component meta docs",
   "homepage": "https://onyx.schwarz",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/vite-plugin-component-meta"
   },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc"
-  },
-  "peerDependencies": {
-    "vite": ">= 8"
   },
   "dependencies": {
     "vue-component-meta": "catalog:",
@@ -34,5 +31,8 @@
   },
   "devDependencies": {
     "@sit-onyx/shared": "workspace:^"
+  },
+  "peerDependencies": {
+    "vite": ">= 8"
   }
 }

@@ -1,16 +1,21 @@
 {
   "name": "@sit-onyx/tiptap",
-  "description": "A rich text editor powered by the Tiptap editor and the onyx design system created by Schwarz Digits",
   "version": "0.3.0",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
+  "description": "A rich text editor powered by the Tiptap editor and the onyx design system created by Schwarz Digits",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
   "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
+  "author": "Schwarz Digits IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/tiptap"
   },
   "files": [
     "dist"
   ],
+  "type": "module",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -22,14 +27,6 @@
     "./style.css": "./dist/style.css",
     "./component-meta.json": "./dist/component-meta.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
-    "directory": "packages/tiptap"
-  },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
     "build": "vite build",
@@ -37,19 +34,8 @@
     "preview": "vite serve storybook-static",
     "test:playwright": "playwright install && playwright test"
   },
-  "peerDependencies": {
-    "@sit-onyx/icons": "workspace:^",
-    "@tiptap/extension-heading": ">= 3",
-    "@tiptap/extension-text-align": ">= 3",
-    "@tiptap/extensions": ">= 3",
-    "@tiptap/pm": ">= 3",
-    "@tiptap/starter-kit": ">= 3",
-    "@tiptap/vue-3": ">= 3",
-    "sit-onyx": "workspace:^",
-    "vue": ">= 3.5.0"
-  },
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.3",
+    "@axe-core/playwright": "^4.12.1",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",
@@ -67,5 +53,19 @@
     "sit-onyx": "workspace:^",
     "unplugin-dts": "catalog:",
     "vite": "catalog:"
+  },
+  "peerDependencies": {
+    "@sit-onyx/icons": "workspace:^",
+    "@tiptap/extension-heading": ">= 3",
+    "@tiptap/extension-text-align": ">= 3",
+    "@tiptap/extensions": ">= 3",
+    "@tiptap/pm": ">= 3",
+    "@tiptap/starter-kit": ">= 3",
+    "@tiptap/vue-3": ">= 3",
+    "sit-onyx": "workspace:^",
+    "vue": ">= 3.5.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

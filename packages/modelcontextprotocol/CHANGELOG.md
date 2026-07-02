@@ -1,5 +1,16 @@
 # @sit-onyx/modelcontextprotocol
 
+## 0.2.0
+
+### Minor Changes
+
+- ef69ed2: feat: Implement support for providing and writing skills via onyx-mcp CLI
+- ef69ed2: feat: Implement `list-css-design-tokens` resource
+
+### Patch Changes
+
+- ff6379e: fix: http transport (server) only accepting the very first connection
+
 ## 0.1.0
 
 ### Minor Changes

@@ -4,17 +4,17 @@
   "private": true,
   "description": "Playground for the onyx Vue components",
   "homepage": "https://playground.onyx.schwarz",
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "apps/playground"
   },
-  "license": "Apache-2.0",
-  "author": "Schwarz Digits IT KG",
-  "type": "module",
   "files": [
     "dist"
   ],
+  "type": "module",
   "scripts": {
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "vite build",

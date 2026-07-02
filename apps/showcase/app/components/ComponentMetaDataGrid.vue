@@ -90,6 +90,7 @@ const columns = computed(() => {
       key: "schema",
       label: t("components.schema"),
       type: "propertyMetaSchema",
+      width: "minmax(4rem, 16rem)",
     });
   }
 

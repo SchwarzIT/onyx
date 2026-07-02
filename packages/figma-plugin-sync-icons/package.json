@@ -1,14 +1,11 @@
 {
   "name": "@sit-onyx/figma-plugin-sync-icons",
-  "description": "This Figma plugin syncs Onyx icons with the UX Schwarz IT Icon Library and applies color variables.",
   "version": "0.2.0",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
-  "license": "Apache-2.0",
   "private": true,
-  "engines": {
-    "node": ">=20"
-  },
+  "description": "This Figma plugin syncs Onyx icons with the UX Schwarz IT Icon Library and applies color variables.",
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "pnpm build:ui && pnpm build:figma",
@@ -22,12 +19,15 @@
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "^1.129.0",
+    "@figma/plugin-typings": "^1.130.0",
     "@fontsource-variable/source-code-pro": "^5.2.7",
     "@fontsource-variable/source-sans-3": "^5.2.9",
     "@sit-onyx/shared": "workspace:^",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-singlefile": "^2.3.3"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

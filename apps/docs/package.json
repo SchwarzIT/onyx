@@ -2,13 +2,16 @@
   "name": "@sit-onyx/docs-app",
   "version": "0.0.1",
   "private": true,
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "apps/docs"
   },
-  "license": "Apache-2.0",
-  "author": "Schwarz Digits IT KG",
+  "files": [
+    "src/.vitepress"
+  ],
   "type": "module",
   "imports": {
     "#src/.vitepress/browser-loader.data": {
@@ -16,9 +19,6 @@
       "default": "./src/.vitepress/browser-loader.data.ts"
     }
   },
-  "files": [
-    "src/.vitepress"
-  ],
   "scripts": {
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "vitepress build src",
@@ -37,9 +37,9 @@
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/tiptap": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
-    "browserslist": "^4.28.2",
+    "browserslist": "^4.28.4",
     "chart.js": "catalog:",
-    "postcss": "^8.5.15",
+    "postcss": "^8.5.16",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",

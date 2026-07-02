@@ -1,12 +1,17 @@
 {
   "name": "@sit-onyx/figma-utils",
-  "description": "Utility functions and CLI for importing data from the Figma API into different formats (e.g. CSS, SCSS etc.)",
   "version": "1.1.1",
-  "type": "module",
-  "author": "Schwarz Digits IT KG",
+  "description": "Utility functions and CLI for importing data from the Figma API into different formats (e.g. CSS, SCSS etc.)",
+  "homepage": "https://onyx.schwarz/development/packages/figma-utils.html",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
   "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
+  "author": "Schwarz Digits IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/figma-utils"
   },
   "bin": {
     "@sit-onyx/figma-utils": "./dist/cli.js"
@@ -14,21 +19,13 @@
   "files": [
     "dist"
   ],
+  "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     }
-  },
-  "homepage": "https://onyx.schwarz/development/packages/figma-utils.html",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
-    "directory": "packages/figma-utils"
-  },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
   "scripts": {
     "build": "pnpm run '/type-check|build-only/'",
@@ -43,5 +40,8 @@
   },
   "optionalDependencies": {
     "svgo": "^4.0.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
