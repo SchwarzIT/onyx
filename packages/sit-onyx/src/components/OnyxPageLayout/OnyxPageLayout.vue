@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { provide, reactive } from "vue";
 import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
-import { TOC_REGISTRY_INJECTION_KEY } from "../OnyxTableOfContents/useTocRegistry.js";
+import { TOC_CONTEXT_INJECTION_KEY } from "../OnyxTableOfContents/useTocRegistry.js";
 import type { OnyxPageLayoutProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPageLayoutProps>(), {
@@ -36,7 +36,10 @@ const slots = defineSlots<{
 
 provideSkeletonContext(props);
 
-provide(TOC_REGISTRY_INJECTION_KEY, { registry: reactive(new Set<string>()) });
+provide(TOC_CONTEXT_INJECTION_KEY, {
+  visibleHashes: reactive(new Set<string>()),
+  tocItems: reactive(new Set<string>()),
+});
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, inject } from "vue";
+import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
@@ -8,7 +8,7 @@ import {
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import { TOC_REGISTRY_INJECTION_KEY } from "../OnyxTableOfContents/useTocRegistry.js";
+import { useTocContext } from "../OnyxTableOfContents/useTocRegistry.js";
 import type { OnyxTableOfContentsItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableOfContentsItemProps>(), {
@@ -33,33 +33,11 @@ const { densityClass } = useDensity(props);
 const link = computed(() => extractLinkProps(props.link));
 const skeleton = useSkeletonContext(props);
 
-const context = inject(TOC_REGISTRY_INJECTION_KEY, undefined);
-
-const firstVisibleHash = computed<string | undefined>((previousValue) => {
-  const visibleHashes = Array.from(context?.registry.values() ?? []);
-  if (visibleHashes.length === 1) return visibleHashes[0];
-
-  // to support cases where e.g. a headline is visible, then becomes hidden because the content below it
-  // is very long but there is no new headline visible yet, the previous headline
-  // should still be marked as visible in the TOC
-  if (visibleHashes.length === 0) return previousValue;
-
-  // if there are multiple hashes visible, we need to determine the order inside the DOM
-  const hashPositions = visibleHashes
-    .map((hash) => {
-      const element = document.getElementById(hash);
-      return { hash, top: element?.getBoundingClientRect().top ?? Number.MAX_SAFE_INTEGER };
-    })
-    .sort((a, b) => a.top - b.top);
-
-  return hashPositions[0]?.hash;
-});
+const { isVisible } = useTocContext({ link });
 
 const isActive = computed(() => {
-  if (typeof props.active === "boolean") return props.active;
-  const href = link.value.href;
-  const hash = href.startsWith("#") ? href.substring(1) : href;
-  return hash === firstVisibleHash.value;
+  if (props.active !== "auto") return props.active;
+  return isVisible.value;
 });
 </script>
 
