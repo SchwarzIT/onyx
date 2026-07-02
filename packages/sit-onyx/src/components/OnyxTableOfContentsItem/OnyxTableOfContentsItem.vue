@@ -33,7 +33,7 @@ const { densityClass } = useDensity(props);
 const link = computed(() => extractLinkProps(props.link));
 const skeleton = useSkeletonContext(props);
 
-const { isVisible } = useTocContext({ link });
+const { isVisible } = useTocContext({ href: computed(() => link.value.href) });
 
 const isActive = computed(() => {
   if (props.active !== "auto") return props.active;
