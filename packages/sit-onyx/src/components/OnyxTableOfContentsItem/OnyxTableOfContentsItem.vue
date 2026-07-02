@@ -105,6 +105,7 @@ const skeleton = useSkeletonContext(props);
       &:hover {
         background-color: var(--onyx-toc-item-background-hover);
         color: var(--onyx-toc-item-color-hover);
+        --onyx-toc-item-indicator-color: var(--onyx-color-component-border-neutral-hover);
       }
 
       &:focus-visible {

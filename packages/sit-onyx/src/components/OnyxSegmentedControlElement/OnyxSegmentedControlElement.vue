@@ -81,6 +81,10 @@ useAutofocus(input, props);
     &:has(.onyx-segmented-control-element__input:checked) {
       background-color: var(--onyx-color-base-background-blank);
       font-weight: var(--onyx-font-weight-semibold);
+      &:hover {
+        background-color: var(--onyx-color-base-neutral-700);
+        color: var(--onyx-color-text-icons-neutral-inverted);
+      }
     }
     &:has(.onyx-segmented-control-element__input:focus-visible) {
       outline: var(--onyx-outline-width) solid var(--outline-color);
