@@ -41,7 +41,10 @@ const COMPONENTS: Components = {
         },
         {
           default: () => [
-            h(ALL_EXPORTS.OnyxNavItem, { label: "Router Link", link: "#router-link" }),
+            h(ALL_EXPORTS.OnyxNavItem, {
+              label: "Router Link",
+              link: "#router-link",
+            }),
             h(
               ALL_EXPORTS.OnyxNavItem,
               { label: "Nesting" },
@@ -382,8 +385,7 @@ describe("components", () => {
     ).resolves.not.toThrow();
 
     // ASSERT
-    expect(errorSpy.mock.calls).toMatchObject([]);
-    expect(warningSpy.mock.calls).toMatchObject([]);
+    expect([...errorSpy.mock.calls, ...warningSpy.mock.calls]).toMatchObject([]);
   });
 });
 

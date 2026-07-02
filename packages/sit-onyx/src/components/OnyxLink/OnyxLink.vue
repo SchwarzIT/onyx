@@ -5,7 +5,7 @@ import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import type { OnyxLinkProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxLinkProps>(), {
-  target: "_self",
+  target: "auto",
   withExternalIcon: "auto",
 });
 
