@@ -135,3 +135,23 @@ test("should add rel attribute if target is _blank", async ({ mount }) => {
   // ASSERT
   await expect(component).toHaveAttribute("rel", "noreferrer");
 });
+
+test("should add determine target when set to auto", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <div>
+      <TestWrapper href="/internal" target="auto">
+        internal
+      </TestWrapper>
+      <TestWrapper href={EXTERNAL_HREF} target="auto">
+        external
+      </TestWrapper>
+    </div>,
+  );
+
+  // ASSERT
+  const internalLink = component.getByRole("link", { name: "internal" });
+  await expect(internalLink).toHaveAttribute("target", "_self");
+  const externalLink = component.getByRole("link", { name: "external" });
+  await expect(externalLink).toHaveAttribute("target", "_blank");
+});
