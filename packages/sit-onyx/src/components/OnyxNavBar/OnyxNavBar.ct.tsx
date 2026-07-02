@@ -94,7 +94,7 @@ test.describe("Screenshot tests", () => {
   }
   executeMatrixScreenshotTest({
     name: `Navigation bar (vertical)`,
-    columns: ["default", "back", "center", "context", "global-context"],
+    columns: ["default", "back", "center", "context", "global-context", "custom-collapsed"],
     rows: ["default", "expanded"],
     removePadding: true,
     component: (column, row) => (
@@ -106,6 +106,14 @@ test.describe("Screenshot tests", () => {
           alignment={column === "center" ? "center" : "top"}
           orientation="vertical"
           expanded={row === "expanded"}
+          style={{
+            ...(column === "custom-collapsed"
+              ? {
+                  "--onyx-vertical-navbar-collapsed-width":
+                    "calc(4 * var(--onyx-spacing-2xs) + 42px)",
+                }
+              : {}),
+          }}
         >
           <OnyxNavItem label="Item" icon={iconPlaceholder} active />
           <OnyxNavItem label="Item" icon={iconPlaceholder} />
@@ -113,6 +121,21 @@ test.describe("Screenshot tests", () => {
           <OnyxNavItem label="Item" icon={iconPlaceholder} />
           <OnyxNavItem label="Item" icon={iconPlaceholder} />
 
+          {column === "custom-collapsed" ? (
+            <OnyxNavItem
+              aria-label="custom collapsed"
+              label="custom collapsed"
+              icon={iconPlaceholder}
+              link="#"
+            >
+              <template v-slot:verticalCollapsed>
+                <OnyxIcon icon={iconPlaceholder} />
+                <OnyxBadge dot />
+              </template>
+            </OnyxNavItem>
+          ) : (
+            <OnyxNavItem label="Item" icon={iconPlaceholder} />
+          )}
           {column === "global-context" && (
             <template v-slot:globalContextArea>
               <OnyxNavItem label="Search" icon={iconSearch} />

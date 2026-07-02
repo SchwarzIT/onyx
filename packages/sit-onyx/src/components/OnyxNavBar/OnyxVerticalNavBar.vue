@@ -146,6 +146,8 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
 
 <style lang="scss">
 .onyx-nav-bar--vertical {
+  // 2x navItem padding + 2x verticalNavBar padding + item width
+  --onyx-vertical-navbar-collapsed-width: calc(4 * var(--onyx-spacing-2xs) + 24px);
   .onyx-tooltip {
     --offset: var(--onyx-spacing-2xs);
   }
@@ -155,8 +157,7 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
       max-height: fit-content;
     }
   }
-  // 2x navItem padding + 2x verticalNavBar padding + item width
-  width: calc(4 * var(--onyx-spacing-2xs) + 24px);
+  width: var(--onyx-vertical-navbar-collapsed-width);
   min-width: 0;
   &:not(&.onyx-nav-bar--expanded) {
     .onyx-user-menu {
