@@ -95,6 +95,7 @@ const handleOpen = async () => {
 
 const handleClose = async () => {
   if (!isExternal.value) await nextTick();
+  flyoutMenu?.resetMinHeight?.();
   menuItemElement.value?.$el.focus();
 };
 

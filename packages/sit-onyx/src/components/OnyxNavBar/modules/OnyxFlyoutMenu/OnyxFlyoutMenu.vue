@@ -4,8 +4,6 @@ import { createMenuButton } from "@sit-onyx/headless";
 import { iconMoreVertical } from "@sit-onyx/icons";
 import {
   computed,
-  onBeforeUnmount,
-  onMounted,
   provide,
   ref,
   useTemplateRef,
@@ -13,6 +11,7 @@ import {
   type ComponentInstance,
   type VNodeRef,
 } from "vue";
+import { useResizeObserver } from "../../../../composables/useResizeObserver.js";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
@@ -87,44 +86,35 @@ const {
   position: computed(() => (actualPosition.value?.includes("top") ? "top" : "bottom")),
 });
 
+const resetMinHeight = () => {
+  minHeight.value = undefined;
+};
+
 // Provide the context so that all OnyxMenuItems within this flyout adapt properly to the nested mode.
 provide<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY, {
   drilldownMode: computed(() => props.drilldownMode),
+  resetMinHeight,
 });
 
 const menuRef = useTemplateRef<HTMLElement>("menuRef");
 const minHeight = ref<number>();
-let observer: ResizeObserver | undefined;
 
-onMounted(() => {
-  observer = new ResizeObserver((entries) => {
-    if (!isExpanded.value || props.drilldownMode !== "internal") return;
-    for (const entry of entries) {
-      const borderBox = entry.borderBoxSize?.[0];
-      const currentHeight = borderBox
-        ? borderBox.blockSize
-        : entry.target.getBoundingClientRect().height;
-      if (currentHeight > (minHeight.value ?? 0)) {
-        minHeight.value = currentHeight;
-      }
+const { height } = useResizeObserver(menuRef);
+
+watch(
+  [height, isExpanded, () => props.drilldownMode],
+  ([newHeight, expanded, mode]) => {
+    if (!expanded || mode !== "internal") {
+      minHeight.value = undefined;
+      return;
     }
-  });
-});
 
-watch(menuRef, (newEl, oldEl) => {
-  if (oldEl) observer?.unobserve(oldEl);
-  if (newEl) observer?.observe(newEl);
-});
-
-onBeforeUnmount(() => {
-  observer?.disconnect();
-});
-
-watch(isExpanded, (newVal) => {
-  if (!newVal) {
-    minHeight.value = undefined;
-  }
-});
+    if (newHeight && (!minHeight.value || minHeight.value < newHeight)) {
+      minHeight.value = newHeight;
+    }
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -159,7 +149,7 @@ watch(isExpanded, (newVal) => {
         ref="menuRef"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
         :style="{
-          minHeight: props.drilldownMode === 'internal' && minHeight ? `${minHeight}px` : undefined,
+          '--onyx-flyout-menu-min-height': minHeight ? `${minHeight}px` : undefined,
         }"
       >
         <slot name="options"></slot>
@@ -202,6 +192,7 @@ watch(isExpanded, (newVal) => {
     &__wrapper {
       width: 100%;
       padding: 0;
+      min-height: var(--onyx-flyout-menu-min-height);
       /**
        * The last option should only be half visible:
        * 7.5 * OnyxListItem, where OnyxListItem => 2 * padding + line-height of OnyxListItem
