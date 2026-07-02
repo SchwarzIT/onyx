@@ -1,20 +1,19 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
 import { useDensity } from "../../composables/density.js";
-import OnyxFilterBadge from "../OnyxFilterBadge/OnyxFilterBadge.vue";
 import { GLOBAL_SEARCH_INJECTION_KEY } from "../OnyxGlobalSearch/types.js";
 import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import type { OnyxGlobalSearchGroupProps } from "./types.js";
+import OnyxFilterBadge from "../OnyxFilterBadge/OnyxFilterBadge.vue";
 
 const props = withDefaults(defineProps<OnyxGlobalSearchGroupProps>(), {
-  direction: "column",
-  is: "li",
+  orientation: "vertical",
 });
 
 defineSlots<{
   /**
-   * Group items. Should use `OnyxGlobalSearchOption` or `OnyxFilterBadge` components here based on direction.
+   * Group items. Should use `OnyxGlobalSearchOption` for vertical orientation.
    */
   default?(): unknown;
 }>();
@@ -22,6 +21,10 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 
 const context = inject(GLOBAL_SEARCH_INJECTION_KEY, undefined);
+
+const isVertical = computed(() => props.orientation === "vertical");
+const rootTag = computed(() => (isVertical.value ? "ul" : "div"));
+const itemTag = computed(() => (isVertical.value ? "li" : "div"));
 
 const skeletonCount = computed(() => {
   if (!props.skeleton) return 0;
@@ -31,20 +34,20 @@ const skeletonCount = computed(() => {
 
 <template>
   <component
-    :is="props.is === 'li' ? 'ul' : 'div'"
+    :is="rootTag"
     :class="['onyx-component', 'onyx-global-search-group', densityClass]"
     v-bind="context?.headless.elements.group.value({ label: props.label })"
   >
     <!-- we use aria-hidden here because the list is already labeled via aria-label -->
-    <component :is="props.is" aria-hidden="true">
+    <component :is="itemTag" aria-hidden="true">
       <OnyxHeadline is="h4" class="onyx-global-search-group__headline">
         {{ props.label }}
       </OnyxHeadline>
     </component>
 
     <component
-      :is="props.is"
-      v-if="direction === 'row'"
+      :is="itemTag"
+      v-if="props.orientation === 'horizontal'"
       class="onyx-global-search-group__content--row"
     >
       <template v-if="skeletonCount <= 0">
