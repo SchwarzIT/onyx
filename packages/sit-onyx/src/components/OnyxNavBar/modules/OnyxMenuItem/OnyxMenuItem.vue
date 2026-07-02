@@ -95,6 +95,7 @@ const handleOpen = async () => {
 
 const handleClose = async () => {
   if (!isExternal.value) await nextTick();
+  flyoutMenu?.resetMinHeight?.();
   menuItemElement.value?.$el.focus();
 };
 
@@ -201,7 +202,7 @@ provide<NestedMenuContext>(MENU_ITEM_INJECTION_KEY, {
       >
         <OnyxMenuItem ref="backButton" class="onyx-menu-item__back" v-bind="backButtonProps">
           <OnyxIcon :icon="iconArrowSmallLeft" />
-          {{ t("back") }}
+          {{ props.label || t("back") }}
         </OnyxMenuItem>
         <slot name="children"></slot>
       </ul>
