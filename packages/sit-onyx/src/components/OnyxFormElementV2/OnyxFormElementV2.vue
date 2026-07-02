@@ -498,7 +498,8 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
           border: none;
           outline: none;
           display: block;
-          &:focus-within {
+          &:focus-within,
+          &:hover {
             background-color: transparent;
           }
         }
