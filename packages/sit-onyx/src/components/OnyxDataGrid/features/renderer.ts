@@ -184,7 +184,10 @@ export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
 
       return h(
         OnyxLink,
-        { href: link.href, ...metadata?.typeOptions },
+        {
+          ...metadata?.typeOptions,
+          ...link,
+        },
         () => link.label || link.href,
       );
     },
