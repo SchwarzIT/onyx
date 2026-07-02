@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { iconArrowSmallRight, iconPlaceholder } from "@sit-onyx/icons";
 import OnyxButton from "../OnyxButton/OnyxButton.vue";
+import OnyxFilterBadge from "../OnyxFilterBadge/OnyxFilterBadge.vue";
 import OnyxGlobalSearchGroup from "../OnyxGlobalSearchGroup/OnyxGlobalSearchGroup.vue";
 import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxGlobalSearch from "./OnyxGlobalSearch.vue";
@@ -28,6 +29,13 @@ const props = withDefaults(
 
 <template>
   <OnyxGlobalSearch open :loading>
+    <template #leading>
+      <OnyxGlobalSearchGroup is="div" label="Filters" direction="row">
+        <OnyxFilterBadge label="Filter 1" />
+        <OnyxFilterBadge label="Filter 2" />
+        <OnyxFilterBadge label="Filter 3" />
+      </OnyxGlobalSearchGroup>
+    </template>
     <template v-if="props.groupCount > 0" #default>
       <OnyxGlobalSearchGroup
         v-for="group in props.groupCount"
