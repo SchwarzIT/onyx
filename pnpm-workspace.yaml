@@ -51,3 +51,4 @@ overrides:
   vite: "catalog:"
   vue: "catalog:"
   sass-embedded: "catalog:"
+  "@microsoft/eslint-formatter-sarif@3.1.0>eslint": "10" # Has an explicit dependency on eslint 8
