@@ -84,9 +84,9 @@ const contentAttributes = computed(() => {
     // colors
     --onyx-calendar-cell-date-background: transparent;
     --onyx-calendar-cell-date-background-hover: var(--onyx-color-base-neutral-300);
-    --onyx-calendar-cell-date-color: inherit;
+    --onyx-calendar-cell-date-color: var(--onyx-color-component-calendar-text);
     --onyx-calendar-cell-date-color-hover: var(--onyx-calendar-cell-date-color);
-    --onyx-calendar-cell-range-background: var(--onyx-color-text-icons-primary-soft);
+    --onyx-calendar-cell-range-background: var(--onyx-color-component-calendar-background-range);
     --onyx-calendar-cell-range-color: var(--onyx-color-text-icons-primary-bold);
     --onyx-calendar-cell-focus-color: var(--onyx-color-component-focus-primary);
     font-family: var(--onyx-font-family-paragraph);
@@ -125,7 +125,8 @@ const contentAttributes = computed(() => {
 
       &:disabled,
       &--disabled {
-        color: var(--onyx-color-base-neutral-300);
+        color: var(--onyx-color-component-calendar-text-disabled);
+        --onyx-calendar-cell-date-color: var(--onyx-color-component-calendar-text-disabled);
       }
 
       &--disabled {
@@ -166,9 +167,11 @@ const contentAttributes = computed(() => {
     }
 
     &--primary {
-      --onyx-calendar-cell-date-background: var(--onyx-color-base-primary-500);
+      --onyx-calendar-cell-date-background: var(
+        --onyx-color-component-calendar-background-selected
+      );
       --onyx-calendar-cell-date-background-hover: var(--onyx-color-base-primary-700);
-      --onyx-calendar-cell-date-color: var(--onyx-color-neutral-grayscale-white);
+      --onyx-calendar-cell-date-color: var(--onyx-color-component-calendar-text-inverted);
     }
 
     // range styles
@@ -218,13 +221,18 @@ const contentAttributes = computed(() => {
         min-width: var(--onyx-calendar-cell-date-size);
       }
     }
+    &[aria-disabled="true"] {
+      --onyx-calendar-cell-date-color: var(--onyx-color-component-calendar-text-disabled);
+    }
 
     &--neutral {
-      --onyx-calendar-cell-date-background: var(--onyx-color-base-neutral-500);
-      --onyx-calendar-cell-date-color: var(--onyx-color-neutral-grayscale-white);
+      --onyx-calendar-cell-date-background: var(--onyx-color-component-calendar-background-today);
+      --onyx-calendar-cell-date-color: var(--onyx-color-component-calendar-text-today);
       &[aria-disabled="true"] {
-        --onyx-calendar-cell-date-background: var(--onyx-color-base-neutral-300);
-        --onyx-calendar-cell-date-color: var(--onyx-color-text-icons-neutral-medium);
+        --onyx-calendar-cell-date-background: var(
+          --onyx-color-component-calendar-background-today-disabled
+        );
+        --onyx-calendar-cell-date-color: var(--onyx-color-component-calendar-text);
       }
       &.onyx-calendar-cell--range-middle {
         .onyx-calendar-cell__date {
