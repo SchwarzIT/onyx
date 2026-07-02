@@ -129,13 +129,11 @@ defineExpose({
     font-family: var(--onyx-font-family-paragraph);
     color: var(--onyx-color-text-icons-neutral-intense);
     background-color: var(--onyx-color-base-background-blank);
-    overflow: auto;
     z-index: var(--onyx-z-index-page-overlay);
     padding: 0;
 
-    $max-size: calc(100% - 2 * var(--onyx-basic-dialog-screen-gap));
-    max-width: $max-size;
-    max-height: $max-size;
+    max-width: calc(100vw - 2 * var(--onyx-basic-dialog-screen-gap));
+    max-height: calc(100vh - 2 * var(--onyx-basic-dialog-screen-gap));
 
     position: fixed;
     top: 0;
@@ -178,6 +176,11 @@ defineExpose({
     &__content {
       padding: var(--onyx-basic-dialog-padding);
       width: inherit;
+      outline: none;
+
+      /** Ensures that potential scrollbars are on the content element and not on the dialog element. Clicking a scrollbar of the dialog element would trigger an outside click. */
+      max-width: inherit;
+      max-height: inherit;
     }
   }
 }
