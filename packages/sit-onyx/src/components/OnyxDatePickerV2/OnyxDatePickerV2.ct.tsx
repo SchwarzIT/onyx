@@ -26,6 +26,7 @@ test.describe("Screenshot tests", () => {
       name: `DatePicker (${type})`,
       columns: DENSITIES,
       rows: ["default", "open"],
+      fastNoIsolation: true,
       component: (column, row) => {
         return (
           <OnyxDatePickerV2

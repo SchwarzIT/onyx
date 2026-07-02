@@ -107,6 +107,7 @@ test.describe("Screenshot tests (truncation)", () => {
     name: "Form element v2 (truncation)",
     columns: ["default"],
     rows: ["required", "optional", "message", "bottomRight", "message+bottomRight"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <TestCase
         style={{ width: "12rem" }}
@@ -203,6 +204,7 @@ test.describe("Screenshot tests (label positions)", () => {
     name: "Form element v2 (label positions)",
     columns: ["top", "left", "right"],
     rows: ["required", "optional", "message"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <TestCase
         label={{ label: "Test label", position: column }}
@@ -219,6 +221,7 @@ test.describe("Screenshot tests (skeleton)", () => {
     name: "Form element v2 (skeleton)",
     columns: DENSITIES,
     rows: ["top", "top+hideLabel", "left"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <TestCase
         style={{ width: "12rem" }}
@@ -240,6 +243,7 @@ test.describe("Screenshot tests (loading)", () => {
     name: "Form element v2 (loading)",
     columns: DENSITIES,
     rows: ["default", "icons"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <TestCase
         label="Test label"

@@ -59,6 +59,7 @@ test.describe("Default screenshots", () => {
     columns: DENSITIES,
     rows: ["default", "required", "hideLabel", "open"],
     context,
+    fastNoIsolation: true,
     component: (column, row) => (
       <div>
         <OnyxSelect
@@ -86,6 +87,7 @@ test.describe("Empty screenshots", () => {
     columns: DENSITIES,
     rows: ["empty", "search-empty"],
     context,
+    fastNoIsolation: true,
     component: (column, row) => (
       <div>
         <OnyxSelect
@@ -142,6 +144,7 @@ test.describe("Grouped screenshots", () => {
     columns: ["default", "with-search", "with-check-all"],
     rows: DENSITIES,
     context: nestedChildrenContext,
+    fastNoIsolation: true,
     component: (column, row) => {
       const preselected: SelectOptionValue = GROUPED_OPTIONS[0]!.value;
       const multiple = column === "with-check-all";
@@ -184,6 +187,7 @@ test.describe("Multiple screenshots", () => {
     columns: DENSITIES,
     rows: ["default", "check-all", "search", "preview"],
     context: nestedChildrenContext,
+    fastNoIsolation: true,
     component: (column, row) => {
       let modelValue = [MOCK_VARIED_OPTIONS_VALUES[0]!];
       if (column === "compact") modelValue = [];
@@ -217,6 +221,7 @@ test.describe("List description screenshots", () => {
     columns: DENSITIES,
     rows: ["default"],
     context,
+    fastNoIsolation: true,
     component: (column) => (
       <div>
         <OnyxSelect

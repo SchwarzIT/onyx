@@ -127,6 +127,7 @@ test.describe("Screenshot tests (slots)", () => {
     name: "Time picker (slots)",
     columns: ["default"],
     rows: TIME_PICKER_TYPES,
+    fastNoIsolation: true,
     component: (column, row) => {
       return (
         <OnyxTimePicker label="Test label" style={{ width: "24rem" }} type={row}>

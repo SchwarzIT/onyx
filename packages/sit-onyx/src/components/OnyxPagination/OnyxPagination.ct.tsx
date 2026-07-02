@@ -45,6 +45,7 @@ test.describe("screenshot tests", () => {
     name: "Pagination (inline)",
     columns: DENSITIES,
     rows: ["default", "skeleton", "min", "max", "large", "disabled", "middle"],
+    fastNoIsolation: true,
     component: (column, row) => {
       let currentPage = 2;
       let pages = 7;
