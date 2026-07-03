@@ -32,6 +32,7 @@ test.describe("Screenshot tests", () => {
     name: "SelectInput (other)",
     columns: ["default", "hideLabel"],
     rows: ["required", "optional", "message"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxSelectInput
         style="width: 16rem"
@@ -70,6 +71,7 @@ test.describe("Screenshot tests", () => {
     name: "SelectInput (multiple)",
     columns: MULTISELECT_TEXT_MODE,
     rows: ["empty", "one-value", "two-values", "many-values"],
+    fastNoIsolation: true,
     component: (column, row) => {
       const modelValues: Record<typeof row, string[]> = {
         empty: [],
@@ -93,6 +95,7 @@ test.describe("Screenshot tests", () => {
     name: "SelectInput (skeleton)",
     rows: ["default", "hideLabel"],
     columns: DENSITIES,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxSelectInput
         style="width: 16rem"

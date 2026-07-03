@@ -157,6 +157,7 @@ test.describe("Screenshot tests", () => {
     name: "Checkbox (other)",
     columns: ["default", "hideLabel"],
     rows: ["required", "optional", "skeleton"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxCheckbox
         label="Test label"
