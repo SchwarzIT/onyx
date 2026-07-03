@@ -21,6 +21,15 @@ concurrency:
 
 jobs:
   # We run the build first standalone to ensure everything is cached for all other jobs
+  print_context:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
+        run: |
+          echo $EVENT_CONTEXT
+          exit 1;
+
   build:
     name: Build and Cache
     runs-on: ubuntu-latest
