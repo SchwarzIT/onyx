@@ -1,7 +1,10 @@
 import { useFocusStateHooks } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
-import { test } from "../../playwright/a11y.js";
+import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
+import OnyxAppLayout from "../OnyxAppLayout/OnyxAppLayout.vue";
+import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
+import OnyxPageLayout from "../OnyxPageLayout/OnyxPageLayout.vue";
 import OnyxTableOfContentsItem from "../OnyxTableOfContentsItem/OnyxTableOfContentsItem.vue";
 import OnyxTableOfContents from "./OnyxTableOfContents.vue";
 
@@ -113,4 +116,120 @@ test.describe("Screenshot tests (densities)", () => {
       },
     },
   });
+});
+
+test("should auto activate items on scroll", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <OnyxAppLayout>
+      <OnyxPageLayout>
+        <template v-slot:sidebarRight>
+          <OnyxTableOfContents>
+            <OnyxTableOfContentsItem link="#1">Item 1</OnyxTableOfContentsItem>
+            <OnyxTableOfContentsItem link="#2">Item 2</OnyxTableOfContentsItem>
+            <OnyxTableOfContentsItem link="#4">Item 4</OnyxTableOfContentsItem>
+            <OnyxTableOfContentsItem link="#5">Item 5</OnyxTableOfContentsItem>
+            <OnyxTableOfContentsItem link="#6">Item 6</OnyxTableOfContentsItem>
+          </OnyxTableOfContents>
+        </template>
+
+        <div style={{ height: "110vh" }}>
+          <OnyxHeadline is="h2" hash="1">
+            Section 1
+          </OnyxHeadline>
+        </div>
+
+        <div style={{ height: "110vh" }}>
+          <OnyxHeadline is="h2" hash="2">
+            Section 2
+          </OnyxHeadline>
+        </div>
+
+        <div style={{ height: "20vh" }}>
+          <OnyxHeadline is="h2" hash="3">
+            Section 3
+          </OnyxHeadline>
+        </div>
+
+        <div style={{ height: "20vh" }}>
+          <OnyxHeadline is="h2" hash="4">
+            Section 4
+          </OnyxHeadline>
+        </div>
+
+        <div style={{ height: "210vh" }}>
+          <OnyxHeadline is="h2" hash="5">
+            Section 5
+          </OnyxHeadline>
+        </div>
+
+        <div style={{ height: "210vh" }}>
+          <OnyxHeadline is="h2" hash="6">
+            Section 6
+          </OnyxHeadline>
+        </div>
+      </OnyxPageLayout>
+    </OnyxAppLayout>,
+  );
+
+  // ASSERT
+  const activeClass = "onyx-router-link--active";
+
+  await expect(component.getByRole("heading", { name: "Section 1" })).toBeInViewport();
+  await expect(component.getByRole("link", { name: "Item 1" })).toContainClass(activeClass);
+
+  // ACT
+  await component.getByRole("heading", { name: "Section 2" }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(
+    component.getByRole("link", { name: "Item 2" }),
+    "should activate TOC item when it becomes visible",
+  ).toContainClass(activeClass);
+
+  // ACT
+  await component.getByRole("heading", { name: "Section 4" }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(component.getByRole("heading", { name: "Section 3" })).toBeInViewport();
+  await expect(component.getByRole("heading", { name: "Section 4" })).toBeInViewport();
+  await expect(component.getByRole("heading", { name: "Section 5" })).toBeInViewport();
+
+  await expect(
+    component.getByRole("link", { name: "Item 4" }),
+    "should activate first item if multiple are visible and ignore headlines that are not in the TOC",
+  ).toContainClass(activeClass);
+  await expect(
+    component.getByRole("link", { name: "Item 5" }),
+    "should not activate second item if multiple are visible",
+  ).not.toContainClass(activeClass);
+
+  // ACT
+  await component.getByRole("heading", { name: "Section 5" }).scrollIntoViewIfNeeded();
+  await component.locator(".onyx-page__main").evaluate((scrollContainer) => {
+    scrollContainer.scrollBy({ top: 1000 });
+  });
+
+  // ASSERT
+  await expect(component.getByRole("heading", { name: "Section 5" })).not.toBeInViewport();
+  await expect(component.getByRole("heading", { name: "Section 6" })).not.toBeInViewport();
+
+  await expect(
+    component.getByRole("link", { name: "Item 5" }),
+    "should keep previous item active if scrolled beyond but next item is not visible yet",
+  ).toContainClass(activeClass);
+
+  // ACT
+  await component.getByRole("heading", { name: "Section 6" }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(component.getByRole("link", { name: "Item 5" })).not.toContainClass(activeClass);
+  await expect(component.getByRole("link", { name: "Item 6" })).toContainClass(activeClass);
+
+  // ACT
+  await component.getByRole("heading", { name: "Section 2" }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(component.getByRole("link", { name: "Item 2" })).toContainClass(activeClass);
+  await expect(component.getByRole("link", { name: "Item 6" })).not.toContainClass(activeClass);
 });
