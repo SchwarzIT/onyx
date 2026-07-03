@@ -19,7 +19,7 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
        * Disable specific dates to select individually.
        *
        * @example
-       * `(date: Date) => date.getDay() === 0 || date.getDay() === 6`
+       * `(date: Date) => date.getDay() === 0`
        */
       disabledDays?: (date: Date) => boolean;
     };
