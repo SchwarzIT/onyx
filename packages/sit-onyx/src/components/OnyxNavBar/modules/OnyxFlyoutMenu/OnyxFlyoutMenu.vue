@@ -64,7 +64,11 @@ const slots = defineSlots<{
 }>();
 
 const popover = ref<ComponentInstance<typeof OnyxBasicPopover>>();
-const menuRef = ref<ComponentInstance<HTMLUListElement>>();
+const menuRef = ref<ComponentInstance<typeof HTMLUListElement>>();
+
+const setMenuRef = (el: unknown) => {
+  menuRef.value = el as ComponentInstance<typeof HTMLUListElement>;
+};
 
 const actualPosition = computed(() => popover.value?.popoverPosition);
 
@@ -142,7 +146,7 @@ watch(
 
       <ul
         v-if="slots.options"
-        v-bind="mergeVueProps(menu, { ref: menuRef as VNodeRef | undefined })"
+        v-bind="mergeVueProps(menu, { ref: setMenuRef as VNodeRef | undefined })"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
         :style="{
           '--onyx-flyout-menu-min-height': minHeight ? `${minHeight}px` : undefined,
