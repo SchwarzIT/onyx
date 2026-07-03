@@ -74,7 +74,6 @@ const classes = computed(() => [
     }
 
     &--active {
-      color: var(--onyx-color-text-icons-primary-bold);
       background-color: var(--onyx-color-base-primary-100);
 
       &:hover {

@@ -91,7 +91,7 @@ const isOpen = computed(() => !props.disabled && props.open);
       &:active,
       &--active {
         background-color: var(--onyx-color-base-primary-100);
-        color: var(--onyx-color-text-icons-primary-intense);
+        color: var(--onyx-color-text-icons-neutral-intense);
       }
 
       &:disabled {

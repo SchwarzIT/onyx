@@ -65,7 +65,6 @@ const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
     &--primary {
       --onyx-nav-button-background: var(--onyx-color-base-primary-100);
       --onyx-nav-button-background-hover: var(--onyx-color-base-primary-200);
-      --onyx-nav-button-color: var(--onyx-color-text-icons-primary-bold);
       --onyx-nav-button-outline-color: var(--onyx-color-base-primary-300);
     }
 
