@@ -306,7 +306,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     }
 
     &:hover {
-      &:has(.onyx-switch__input:enabled) {
+      &:has(.onyx-switch__input:enabled:not(.onyx-switch__input:user-invalid)) {
         .onyx-switch__container {
           background-color: var(--onyx-color-base-neutral-400);
         }
