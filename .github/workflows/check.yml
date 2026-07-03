@@ -15,10 +15,6 @@ permissions:
   contents: read
   checks: read
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.action  }}
-  cancel-in-progress: true
-
 jobs:
   # We run the build first standalone to ensure everything is cached for all other jobs
   print_context:
@@ -28,7 +24,6 @@ jobs:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
           echo $EVENT_CONTEXT
-          exit 1;
 
   build:
     name: Build and Cache
