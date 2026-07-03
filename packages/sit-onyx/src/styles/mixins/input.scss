@@ -6,9 +6,9 @@
 @mixin invalid($formElement) {
   &:not(.onyx-form-element-suppress-invalid) {
     &.onyx-form-element--touched-invalid:has(
-        #{$formElement}:user-invalid,
-        #{$formElement}--touched:invalid
-      ),
+      #{$formElement}:user-invalid,
+      #{$formElement}--touched:invalid
+    ),
     &.onyx-form-element--immediate-invalid:has(#{$formElement}:invalid) {
       @content;
     }
