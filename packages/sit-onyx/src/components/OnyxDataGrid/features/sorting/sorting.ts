@@ -66,11 +66,16 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
       return data;
     };
 
-    const handleClick = (clickedColumn: keyof TEntry, skipNone = false) => {
+    const handleClick = (clickedColumn: keyof TEntry, event: MouseEvent) => {
+      const target = event.target as Element | null;
+      const hasFlyout = !!target
+        ?.closest("th")
+        ?.querySelector(".onyx-data-grid-header-cell__actions > .onyx-flyout-menu");
+
       const direction =
         sortState.value.column === clickedColumn
-          ? nextSortDirection(sortState.value.direction, skipNone)
-          : nextSortDirection(undefined, skipNone);
+          ? nextSortDirection(sortState.value.direction, hasFlyout)
+          : nextSortDirection(undefined, hasFlyout);
       const column = direction !== "none" ? clickedColumn : undefined;
 
       sortState.value = {
@@ -121,36 +126,28 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
       header: {
         actions: ({ key: column, label }) => {
           if (!isEnabled.value(column)) return [];
+
           return [
             {
-              iconComponent: h(SortAction, {
-                columnLabel: label,
-                sortDirection:
-                  sortState.value.column === column ? sortState.value.direction : undefined,
-                onClick: () => handleClick(column),
-              }),
+              iconComponent: {
+                iconComponent: h(SortAction, {
+                  columnLabel: label,
+                  sortDirection:
+                    sortState.value.column === column ? sortState.value.direction : undefined,
+                  onClick: (event: MouseEvent) => handleClick(column, event),
+                }),
+                alwaysShowInHeader:
+                  sortState.value.column === column &&
+                  sortState.value.direction &&
+                  sortState.value.direction !== "none",
+              },
               menuItems: [
                 getMenuItem(column, "none"),
                 getMenuItem(column, "asc"),
                 getMenuItem(column, "desc"),
               ],
             },
-            sortState.value.column === column &&
-            sortState.value.direction &&
-            sortState.value.direction !== "none"
-              ? {
-                  iconComponent: {
-                    iconComponent: h(SortAction, {
-                      columnLabel: label,
-                      sortDirection:
-                        sortState.value.column === column ? sortState.value.direction : undefined,
-                      onClick: () => handleClick(column, true),
-                    }),
-                    alwaysShowInHeader: true,
-                  },
-                }
-              : null,
-          ].filter((item) => item !== null);
+          ];
         },
       },
     };
