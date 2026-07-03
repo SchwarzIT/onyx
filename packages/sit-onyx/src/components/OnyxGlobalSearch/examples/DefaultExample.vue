@@ -129,7 +129,7 @@ const searchGroups = computed(() => {
 
     <OnyxGlobalSearch v-model:open="isOpen" v-model="searchTerm">
       <template #leading>
-        <OnyxGlobalSearchGroup is="div" direction="row" label="Filters">
+        <OnyxGlobalSearchGroup orientation="horizontal" label="Filters">
           <OnyxFilterBadge label="Filter 1" />
           <OnyxFilterBadge label="Filter 2" />
           <OnyxFilterBadge label="Filter 3" />
