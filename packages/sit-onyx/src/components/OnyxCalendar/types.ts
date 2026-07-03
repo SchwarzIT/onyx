@@ -20,8 +20,8 @@ export type OnyxCalendarProps<TSelection extends OnyxCalendarSelectionMode> = De
    * ```
    * @example
    * ```ts
-   * // Disables only weekends (Saturday and Sunday)
-   * { disabled: (date: Date) => date.getDay() === 0 || date.getDay() === 6 }
+   * // Disables only Sunday
+   * { disabled: (date: Date) => date.getDay() === 0 }
    * ```
    */
   disabled?: boolean | ((date: Date) => boolean);

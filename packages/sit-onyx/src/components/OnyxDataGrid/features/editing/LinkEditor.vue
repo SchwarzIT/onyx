@@ -64,6 +64,7 @@ const handleUpdateValue = (newValue?: EditLinkValue) => {
     align-items: center;
     display: flex;
     justify-content: space-between;
+    gap: var(--onyx-density-sm);
   }
 }
 </style>

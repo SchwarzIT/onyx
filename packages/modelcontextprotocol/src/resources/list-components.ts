@@ -5,9 +5,9 @@ import type { RegisterableResource } from "../types.js";
 import { retrieveComponentMetaJsonFile } from "../util/component-meta-json.js";
 import { versionCompare } from "../util/version-compare.js";
 
-export const listComponents: RegisterableResource = [
+export const listComponents: RegisterableResource<true> = [
   "list-components",
-  new ResourceTemplate("components://sit-onyx/{version}", {
+  new ResourceTemplate("sit-onyx://components/{version}", {
     list: async () => {
       const { versions } = await getAbbreviatedPackument("sit-onyx", REGISTRY_URL);
       const relevantVersions = Object.keys(versions).filter(

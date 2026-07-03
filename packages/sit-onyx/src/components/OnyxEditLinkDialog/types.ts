@@ -1,3 +1,5 @@
+import type { OnyxLinkProps } from "../OnyxLink/types.js";
+
 export type OnyxEditLinkDialogProps = {
   /**
    * Current link value.
@@ -9,11 +11,7 @@ export type OnyxEditLinkDialogProps = {
   open?: boolean;
 };
 
-export type EditLinkValue = {
-  /**
-   * URL that the link points to.
-   */
-  href: string;
+export type EditLinkValue = OnyxLinkProps & {
   /**
    * User-friendly label to display instead of the link.
    */

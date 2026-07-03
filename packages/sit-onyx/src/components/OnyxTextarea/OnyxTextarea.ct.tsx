@@ -111,7 +111,10 @@ test.describe("Screenshot tests", () => {
       <OnyxTextarea
         style="width: 12rem"
         label="Test label"
-        success={{ shortMessage: "Test success message", longMessage: "Test long success message" }}
+        success={{
+          shortMessage: "Test success message",
+          longMessage: "Test long success message",
+        }}
       />
     ),
     hooks: {
@@ -204,7 +207,7 @@ test.describe("Screenshot tests", () => {
       "long-value",
     ],
     component: (column, row) => {
-      let modelValue = "";
+      let modelValue: string;
 
       if (row === "long-value") {
         modelValue = "Test".repeat(64);
@@ -426,7 +429,9 @@ test("should autosize", async ({ mount }) => {
   ];
 
   for (const testCase of TEST_CASES) {
-    await component.update({ props: { modelValue: generateModelValue(testCase.rows) } });
+    await component.update({
+      props: { modelValue: generateModelValue(testCase.rows) },
+    });
     await expectRows(testCase.expectedHeight);
   }
 
@@ -446,7 +451,9 @@ test("should autosize", async ({ mount }) => {
   ];
 
   for (const testCase of TEST_CASES) {
-    await component.update({ props: { modelValue: generateModelValue(testCase.rows) } });
+    await component.update({
+      props: { modelValue: generateModelValue(testCase.rows) },
+    });
     await expectRows(testCase.expectedHeight);
   }
 
@@ -463,7 +470,9 @@ test("should autosize", async ({ mount }) => {
   ];
 
   for (const testCase of TEST_CASES) {
-    await component.update({ props: { modelValue: generateModelValue(testCase.rows) } });
+    await component.update({
+      props: { modelValue: generateModelValue(testCase.rows) },
+    });
     await expectRows(testCase.expectedHeight);
   }
 });

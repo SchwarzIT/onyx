@@ -60,3 +60,8 @@ export const Sorting: Story = {
 export const StickyColumns: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "StickyColumnsExample"),
 };
+
+export const RowClick: Story = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxDataGrid", "RowClickExample"),
+};

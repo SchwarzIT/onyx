@@ -5,5 +5,5 @@
     "resolveJsonModule": true,
     "module": "node20"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "env.d.ts"]
 }

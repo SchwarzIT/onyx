@@ -30,7 +30,7 @@ const actualType = computed<PaginationType>(() => {
 
   let threshold: number;
   if (typeof props.autoCompact === "number") threshold = props.autoCompact;
-  if (typeof props.autoCompact === "string") threshold = ONYX_BREAKPOINTS[props.autoCompact];
+  else if (typeof props.autoCompact === "string") threshold = ONYX_BREAKPOINTS[props.autoCompact];
   else threshold = ONYX_BREAKPOINTS.xs;
 
   return width.value < threshold ? "compact" : props.type;

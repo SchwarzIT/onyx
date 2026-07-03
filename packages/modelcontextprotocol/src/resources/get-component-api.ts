@@ -19,9 +19,9 @@ const tagsToList = (tags: Tag[]) =>
     .map(({ text, name }) => `- ${name}: ${text}`)
     .join("\n");
 
-export const getComponentApi: RegisterableResource = [
+export const getComponentApi: RegisterableResource<true> = [
   "get-component-api",
-  new ResourceTemplate("components://sit-onyx/{version}/{component}", {
+  new ResourceTemplate("sit-onyx://components/{version}/{component}", {
     list: undefined,
   }),
   {

@@ -8,9 +8,13 @@ test.beforeEach(async ({ context }) => {
   await context.route(EXTERNAL_HREF, (route) => route.fulfill({ body: "Test page" }));
 });
 
-test("should open external link without router", async ({ page, mount }) => {
+test("should open external link with '_self' target without router", async ({ page, mount }) => {
   // ARRANGE
-  const component = await mount(<TestWrapper href={EXTERNAL_HREF}>Test link</TestWrapper>);
+  const component = await mount(
+    <TestWrapper href={EXTERNAL_HREF} target="_self">
+      Test link
+    </TestWrapper>,
+  );
 
   // ACT
   await component.click();
@@ -134,4 +138,24 @@ test("should add rel attribute if target is _blank", async ({ mount }) => {
 
   // ASSERT
   await expect(component).toHaveAttribute("rel", "noreferrer");
+});
+
+test("should add determine target when set to auto", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <div>
+      <TestWrapper href="/internal" target="auto">
+        internal
+      </TestWrapper>
+      <TestWrapper href={EXTERNAL_HREF} target="auto">
+        external
+      </TestWrapper>
+    </div>,
+  );
+
+  // ASSERT
+  const internalLink = component.getByRole("link", { name: "internal" });
+  await expect(internalLink).toHaveAttribute("target", "_self");
+  const externalLink = component.getByRole("link", { name: "external" });
+  await expect(externalLink).toHaveAttribute("target", "_blank");
 });
