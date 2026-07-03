@@ -15,6 +15,10 @@ permissions:
   contents: read
   checks: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.action  }}
+  cancel-in-progress: true
+
 jobs:
   # We run the build first standalone to ensure everything is cached for all other jobs
   build:
