@@ -60,6 +60,7 @@ const searchTerm = useVModel({
 
 const dialog = useTemplateRef("dialog");
 const dialogElement = computed(() => dialog.value?.dialog);
+const hasContent = computed(() => !!slots.default || !!slots.endOfList || !!slots.leading);
 
 /**
  * Value of the currently active/highlighted option.
@@ -161,9 +162,9 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     </OnyxInput>
 
     <!-- using v-show instead of v-if because the input has a aria-controls attribute which needs to point to a existing listbox -->
-    <div v-show="!!slots.default" class="onyx-global-search__body">
+    <div v-show="hasContent" class="onyx-global-search__body">
       <slot name="leading"></slot>
-      <div v-bind="headless.elements.listbox.value">
+      <div v-if="!!slots.default || !!slots.endOfList" v-bind="headless.elements.listbox.value">
         <slot></slot>
 
         <div v-if="!!slots.endOfList" class="onyx-global-search__end-of-list">
@@ -176,7 +177,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       </div>
     </div>
 
-    <div v-show="!!slots.default" class="onyx-global-search__footer onyx-text--small">
+    <div v-show="hasContent" class="onyx-global-search__footer onyx-text--small">
       <span class="onyx-global-search__shortcut">
         <OnyxKey name="ArrowUp" />
         <OnyxKey name="ArrowDown" />
