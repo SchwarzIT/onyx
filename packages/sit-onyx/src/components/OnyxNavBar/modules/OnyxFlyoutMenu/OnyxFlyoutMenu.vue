@@ -2,15 +2,7 @@
 <script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
 import { iconMoreVertical } from "@sit-onyx/icons";
-import {
-  computed,
-  provide,
-  ref,
-  useTemplateRef,
-  watch,
-  type ComponentInstance,
-  type VNodeRef,
-} from "vue";
+import { computed, provide, ref, watch, type ComponentInstance, type VNodeRef } from "vue";
 import { useResizeObserver } from "../../../../composables/useResizeObserver.js";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
@@ -72,6 +64,8 @@ const slots = defineSlots<{
 }>();
 
 const popover = ref<ComponentInstance<typeof OnyxBasicPopover>>();
+const menuRef = ref<ComponentInstance<HTMLUListElement>>();
+
 const actualPosition = computed(() => popover.value?.popoverPosition);
 
 const { t } = injectI18n();
@@ -96,7 +90,6 @@ provide<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY, {
   resetMinHeight,
 });
 
-const menuRef = useTemplateRef("menuRef");
 const minHeight = ref<number>();
 
 const isObserverDisabled = computed(() => {
@@ -149,8 +142,7 @@ watch(
 
       <ul
         v-if="slots.options"
-        v-bind="menu"
-        ref="menuRef"
+        v-bind="mergeVueProps(menu, { ref: menuRef as VNodeRef | undefined })"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
         :style="{
           '--onyx-flyout-menu-min-height': minHeight ? `${minHeight}px` : undefined,

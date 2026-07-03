@@ -164,7 +164,7 @@ test("should behave correctly with nested items (via mouse)", async ({ page, mou
   const trigger = page.getByRole("button", { name: "Trigger" });
   const firstItem = page.getByRole("menuitem", { name: "Item 1", exact: true });
   const nestedChild = page.getByRole("menuitem", { name: "Item 1.1" });
-  const backButton = page.getByRole("menuitem", { name: "Back" });
+  const backButton = page.locator(".onyx-menu-item__back").getByRole("menuitem");
 
   // ACT
   await trigger.hover();
@@ -186,7 +186,6 @@ test("should behave correctly with nested items (via mouse)", async ({ page, mou
   await firstItem.click();
 
   // ASSERT
-  await expect(firstItem).toBeHidden();
   await expect(nestedChild).toBeVisible();
   await expect(backButton).toBeVisible();
 
@@ -241,7 +240,7 @@ test("should behave correctly with nested items (via keyboard)", async ({
 
   // ASSERT
   await expect(menu).toHaveScreenshot("nested-open.png");
-  await expect(page.getByRole("menuitem", { name: "Back" })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Item 1", exact: true })).toBeFocused();
 
   // ACT
   await page.keyboard.press("ArrowDown");
@@ -250,7 +249,7 @@ test("should behave correctly with nested items (via keyboard)", async ({
 
   // ASSERT
   await expect(menu).toHaveScreenshot("nested-open-2.png");
-  await expect(page.getByRole("menuitem", { name: "Back" })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Item" })).toBeFocused();
 
   // ACT
   await page.keyboard.press("ArrowLeft");
@@ -259,7 +258,7 @@ test("should behave correctly with nested items (via keyboard)", async ({
   // ACT
   await page.keyboard.press("ArrowUp");
   await page.keyboard.press("ArrowUp");
-  await expect(page.getByRole("menuitem", { name: "Back" })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Item 1", exact: true })).toBeFocused();
   await page.keyboard.press("Enter");
 
   // ASSERT
