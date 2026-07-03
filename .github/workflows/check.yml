@@ -23,6 +23,7 @@ jobs:
       - env:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
+          echo "this is a change"
           echo $EVENT_CONTEXT
 
   build:
