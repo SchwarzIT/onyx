@@ -38,11 +38,7 @@ const copyLink = async (hash: string) => {
 };
 
 const headline = useTemplateRef<VueTemplateRefElement>("headline");
-
-useTocVisibility({
-  hash: normalizedHash,
-  templateRef: headline,
-});
+useTocVisibility({ hash: normalizedHash, templateRef: headline });
 </script>
 
 <template>
