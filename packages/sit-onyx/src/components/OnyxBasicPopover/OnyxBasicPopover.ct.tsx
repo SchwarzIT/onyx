@@ -78,7 +78,6 @@ test.describe("OnyxBasicPopover  Screenshot Tests", () => {
       name: "Aligned Popover",
       columns: ["left", "center", "right"],
       rows: ["top", "bottom"],
-      fastNoIsolation: true,
       component: (column, row) => {
         return (
           <div
@@ -110,7 +109,6 @@ test.describe("OnyxBasicPopover  Screenshot Tests", () => {
         "left",
         "top left",
       ],
-      fastNoIsolation: true,
       component: (column, row) => {
         return (
           <div class="container" style={{ margin: "2rem 6rem" }}>
