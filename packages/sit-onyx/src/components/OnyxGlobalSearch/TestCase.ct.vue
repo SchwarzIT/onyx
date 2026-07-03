@@ -29,7 +29,7 @@ const props = withDefaults(
 
 <template>
   <OnyxGlobalSearch open :loading>
-    <template #leading>
+    <template v-if="props.groupCount > 0" #leading>
       <OnyxGlobalSearchGroup orientation="horizontal" label="Filters">
         <OnyxFilterBadge label="Filter 1" />
         <OnyxFilterBadge label="Filter 2" />
@@ -58,7 +58,7 @@ const props = withDefaults(
         />
       </OnyxGlobalSearchGroup>
     </template>
-    <template #endOfList="{ getOptionProps }">
+    <template v-if="props.groupCount > 0" #endOfList="{ getOptionProps }">
       <OnyxButton
         v-bind="getOptionProps('show-all')"
         label="Show all results"
