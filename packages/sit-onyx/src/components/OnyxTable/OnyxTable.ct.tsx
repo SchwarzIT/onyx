@@ -48,7 +48,6 @@ test.describe("Screenshot tests", () => {
     name: "Table",
     columns: ["with-header", "without-header"],
     rows: ["default", "striped", "vertical-borders", "striped-vertical-borders", "page-scrolling"],
-    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxTable
         striped={row.includes("striped")}
