@@ -275,7 +275,7 @@ const sharedStepperProps = computed(() => {
             :label="t(`slider.${props.mode === 'range' ? 'changeEndValue' : 'changeValue'}`)"
             :model-value="normalizedValue[1] ?? normalizedValue[0]"
             @update:model-value="
-              $event != undefined && updateValue($event, props.mode === 'range' ? 1 : 0)
+              (event) => event != undefined && updateValue(event, props.mode === 'range' ? 1 : 0)
             "
           />
         </div>
