@@ -309,6 +309,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 
     &__container {
       display: flex;
+      width: 100%;
       align-items: center;
       gap: var(--onyx-density-sm);
       color: var(--onyx-color-text-icons-neutral-intense);

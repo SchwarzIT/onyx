@@ -497,7 +497,6 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         > .onyx-form-element-v2__input-container {
           border: none;
           outline: none;
-          display: block;
           &:focus-within,
           &:hover {
             background-color: transparent;
