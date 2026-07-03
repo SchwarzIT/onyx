@@ -96,15 +96,19 @@ provide<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY, {
   resetMinHeight,
 });
 
-const menuRef = useTemplateRef<HTMLElement>("menuRef");
+const menuRef = useTemplateRef("menuRef");
 const minHeight = ref<number>();
 
-const { height } = useResizeObserver(menuRef);
+const isObserverDisabled = computed(() => {
+  return !isExpanded.value || props.drilldownMode !== "internal" || props.trigger !== "hover";
+});
+
+const { height } = useResizeObserver(menuRef, { disabled: isObserverDisabled });
 
 watch(
-  [height, isExpanded, () => props.drilldownMode],
-  ([newHeight, expanded, mode]) => {
-    if (!expanded || mode !== "internal") {
+  [height, isObserverDisabled],
+  ([newHeight, isDisabled]) => {
+    if (isDisabled) {
       minHeight.value = undefined;
       return;
     }

@@ -457,3 +457,28 @@ test("should behave correctly with external nested items opening to the left (vi
   await expect(page.getByRole("menuitem", { name: "Item 2", exact: true })).toBeFocused();
   await expect(nestedChild1).toBeHidden();
 });
+
+test("should calculate and maintain min-height for nested items on hover", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<TestWrapperNestedCt trigger="hover" />);
+
+  const trigger = component.getByRole("button", { name: "Trigger" });
+  const menu = component.getByRole("menu").first();
+
+  // ACT
+  await trigger.hover();
+  await expect(menu).toBeVisible();
+
+  await component.getByRole("menuitem", { name: "Item 1", exact: true }).click();
+
+  const nestedBoundingBox = await menu.boundingBox();
+  const nestedHeight = nestedBoundingBox?.height ?? 0;
+
+  await component.getByRole("menuitem", { name: "Item 1.1" }).click();
+
+  // ASSERT
+  const deepNestedBoundingBox = await menu.boundingBox();
+  const deepNestedHeight = deepNestedBoundingBox?.height ?? 0;
+  expect(deepNestedHeight).toBeCloseTo(nestedHeight, 1);
+  await expect(component).toHaveScreenshot("nested-min-height.png");
+});

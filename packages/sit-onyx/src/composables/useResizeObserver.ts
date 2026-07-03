@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, ref, watch, type Ref } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch, type MaybeRef, type Ref } from "vue";
 
 export type UseResizeObserverOptions = {
   /**
@@ -7,6 +7,11 @@ export type UseResizeObserverOptions = {
    * @default 'content-box'
    */
   box?: ResizeObserverBoxOptions;
+  /**
+   * Whether the observer is disabled.
+   * * @default false
+   */
+  disabled?: MaybeRef<boolean>;
 };
 
 /**
@@ -24,6 +29,8 @@ export const useResizeObserver = (
   const box = options?.box ?? "content-box";
   const width = ref(0);
   const height = ref(0);
+
+  const isDisabled = ref(options?.disabled ?? false);
 
   const callback: ResizeObserverCallback = (entries) => {
     const entry = entries[0];
@@ -45,21 +52,29 @@ export const useResizeObserver = (
     if (!("ResizeObserver" in window)) return;
     const observer = new ResizeObserver(callback);
 
-    if (!target) {
-      observer.observe(document.documentElement, { box });
-      return;
-    }
+    const targetRef = target ?? ref(document.documentElement);
 
     watch(
-      target,
-      (newTargetRef, oldTargetRef) => {
-        const newTarget = getTemplateRefElement(newTargetRef);
-        const oldTarget = getTemplateRefElement(oldTargetRef);
+      [targetRef, isDisabled],
+      ([newTargetRef, disabledVal], oldValues) => {
+        const oldTargetRef = oldValues?.[0];
 
-        if (oldTarget) observer?.unobserve(oldTarget);
-        if (newTarget) observer?.observe(newTarget, { box });
-        else {
-          // target was removed (e.g. with v-if so we need to reset the size manually)
+        const newTarget = getTemplateRefElement(newTargetRef);
+        const oldTarget = oldTargetRef ? getTemplateRefElement(oldTargetRef) : undefined;
+
+        if (oldTarget) {
+          observer.unobserve(oldTarget);
+        }
+
+        if (disabledVal) {
+          width.value = 0;
+          height.value = 0;
+          return;
+        }
+
+        if (newTarget) {
+          observer.observe(newTarget, { box });
+        } else {
           width.value = 0;
           height.value = 0;
         }
