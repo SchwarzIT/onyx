@@ -64,11 +64,8 @@ const slots = defineSlots<{
 }>();
 
 const popover = ref<ComponentInstance<typeof OnyxBasicPopover>>();
-const menuRef = ref<ComponentInstance<typeof HTMLUListElement>>();
-
-const setMenuRef = (el: unknown) => {
-  menuRef.value = el as ComponentInstance<typeof HTMLUListElement>;
-};
+const menuRef = ref<HTMLElement>();
+const setMenuRef: VNodeRef = (el) => (menuRef.value = el as typeof menuRef.value);
 
 const actualPosition = computed(() => popover.value?.popoverPosition);
 
@@ -105,14 +102,7 @@ const { height } = useResizeObserver(menuRef, { disabled: isObserverDisabled });
 watch(
   [height, isObserverDisabled],
   ([newHeight, isDisabled]) => {
-    if (isDisabled) {
-      minHeight.value = undefined;
-      return;
-    }
-
-    if (newHeight && (!minHeight.value || minHeight.value < newHeight)) {
-      minHeight.value = newHeight;
-    }
+    minHeight.value = isDisabled ? undefined : Math.max(minHeight.value ?? 0, newHeight);
   },
   { immediate: true },
 );
@@ -146,7 +136,7 @@ watch(
 
       <ul
         v-if="slots.options"
-        v-bind="mergeVueProps(menu, { ref: setMenuRef as VNodeRef | undefined })"
+        v-bind="mergeVueProps(menu, { ref: setMenuRef })"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
         :style="{
           '--onyx-flyout-menu-min-height': minHeight ? `${minHeight}px` : undefined,

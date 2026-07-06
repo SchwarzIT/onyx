@@ -1,4 +1,4 @@
-import { onBeforeUnmount, onMounted, ref, watch, type MaybeRef, type Ref } from "vue";
+import { onBeforeUnmount, onMounted, ref, toValue, watch, type Ref } from "vue";
 
 export type UseResizeObserverOptions = {
   /**
@@ -8,10 +8,10 @@ export type UseResizeObserverOptions = {
    */
   box?: ResizeObserverBoxOptions;
   /**
-   * Whether the observer is disabled.
+   * Whether the observer is disabled.å
    * * @default false
    */
-  disabled?: MaybeRef<boolean>;
+  disabled?: Ref<boolean>;
 };
 
 /**
@@ -52,32 +52,24 @@ export const useResizeObserver = (
     if (!("ResizeObserver" in window)) return;
     const observer = new ResizeObserver(callback);
 
-    const targetRef = target ?? ref(document.documentElement);
+    const targetElement = target ?? document.documentElement;
 
     watch(
-      [targetRef, isDisabled],
-      ([newTargetRef, disabledVal], oldValues) => {
-        const oldTargetRef = oldValues?.[0];
-
+      [() => toValue(targetElement), isDisabled],
+      ([newTargetRef, disabled], [oldTargetRef]) => {
         const newTarget = getTemplateRefElement(newTargetRef);
-        const oldTarget = oldTargetRef ? getTemplateRefElement(oldTargetRef) : undefined;
+        const oldTarget = getTemplateRefElement(oldTargetRef);
 
-        if (oldTarget) {
-          observer.unobserve(oldTarget);
-        }
+        if (oldTarget) observer.unobserve(oldTarget);
 
-        if (disabledVal) {
+        // target was removed (e.g. with v-if) or observer is disabled so we need to reset the size manually
+        if (!newTarget || disabled) {
           width.value = 0;
           height.value = 0;
           return;
         }
 
-        if (newTarget) {
-          observer.observe(newTarget, { box });
-        } else {
-          width.value = 0;
-          height.value = 0;
-        }
+        observer.observe(newTarget, { box });
       },
       { immediate: true },
     );
