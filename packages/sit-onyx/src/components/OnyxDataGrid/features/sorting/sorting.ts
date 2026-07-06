@@ -66,24 +66,6 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
       return data;
     };
 
-    const handleClick = (clickedColumn: keyof TEntry, event: MouseEvent) => {
-      const target = event.target as Element | null;
-      const hasFlyout = !!target
-        ?.closest("th")
-        ?.querySelector(".onyx-data-grid-header-cell__actions > .onyx-flyout-menu");
-
-      const direction =
-        sortState.value.column === clickedColumn
-          ? nextSortDirection(sortState.value.direction, hasFlyout)
-          : nextSortDirection(undefined, hasFlyout);
-      const column = direction !== "none" ? clickedColumn : undefined;
-
-      sortState.value = {
-        direction,
-        column,
-      };
-    };
-
     const isSortActive = computed(() => {
       return (column: keyof DataGridEntry, direction: SortDirection) => {
         return sortState.value.column === column && sortState.value.direction === direction;
@@ -126,20 +108,19 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
       header: {
         actions: ({ key: column, label }) => {
           if (!isEnabled.value(column)) return [];
+          const isColumnSorted = sortState.value.column === column;
 
           return [
             {
               iconComponent: {
                 iconComponent: h(SortAction, {
                   columnLabel: label,
-                  sortDirection:
-                    sortState.value.column === column ? sortState.value.direction : undefined,
-                  onClick: (event: MouseEvent) => handleClick(column, event),
+                  sortDirection: isColumnSorted ? sortState.value.direction : "none",
+                  "onUpdate:sortDirection": (direction) => {
+                    sortState.value = { column, direction };
+                  },
                 }),
-                alwaysShowInHeader:
-                  sortState.value.column === column &&
-                  sortState.value.direction &&
-                  sortState.value.direction !== "none",
+                alwaysShowInHeader: isColumnSorted && sortState.value.direction !== "none",
               },
               menuItems: [
                 getMenuItem(column, "none"),

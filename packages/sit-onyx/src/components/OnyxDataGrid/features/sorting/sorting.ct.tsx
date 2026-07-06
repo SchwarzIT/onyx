@@ -166,8 +166,9 @@ test("should show sorting in flyout if multiple features are enabled", async ({ 
   await component.getByRole("menuitem", { name: "Sort ascending" }).click();
 
   // ASSERT
-  // TODO: fix label, should be "Sort the table ascending by the a column"
-  const ascButton = component.getByRole("button", { name: "Reset sorting" });
+  const ascButton = component.getByRole("button", {
+    name: "Sort the table ascending by the a column",
+  });
   const descButton = component.getByRole("button", {
     name: "Sort the table descending by the a column",
   });

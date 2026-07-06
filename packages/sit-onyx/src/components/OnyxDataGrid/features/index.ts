@@ -333,9 +333,9 @@ export type HeaderAction = {
    * Recommended to use the `OnyxSystemButton` component.
    */
   iconComponent?:
-    | Component
+    | Component<{ ctx?: HeaderActionIconComponentContext }>
     | {
-        iconComponent: Component;
+        iconComponent: Component<{ ctx?: HeaderActionIconComponentContext }>;
         /**
          * Will force the icon component to be always shown in the header and not be put into the menu.
          * Should be used rarely to prevent an overload of always visible header actions.
@@ -352,6 +352,13 @@ export type HeaderAction = {
    * By default, the flyout will only be visible if there are multiple actions (e.g. from other features), otherwise the `iconComponent` will be shown.
    */
   showFlyoutMenu?: boolean;
+};
+
+export type HeaderActionIconComponentContext = {
+  /**
+   * Whether the icon component is rendered alongside a flyout menu (because there are multiple actions, e.g. from other features).
+   */
+  hasFlyoutMenu?: boolean;
 };
 
 export type DataGridScrollContainerAttributes = HTMLAttributes & Pick<VNodeProps, "ref">;
@@ -601,13 +608,15 @@ export const useDataGridFeatures = <
       const header = renderer.value.getFor("header", column.type.name);
 
       const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
-      const iconComponents = actions.map(({ iconComponent }) => {
-        // normalize iconComponents to object-style definition
-        if (typeof iconComponent === "object" && "iconComponent" in iconComponent) {
-          return iconComponent;
-        }
-        return { iconComponent };
-      });
+      const iconComponents = actions
+        .map(({ iconComponent }) => {
+          // normalize iconComponents to object-style definition
+          if (typeof iconComponent === "object" && "iconComponent" in iconComponent) {
+            return iconComponent;
+          }
+          return { iconComponent };
+        })
+        .filter(({ iconComponent }) => !!iconComponent);
 
       const getFlyoutMenu = () =>
         h(
@@ -631,22 +640,33 @@ export const useDataGridFeatures = <
 
       const actionsSlot = {
         actions: () => {
-          const alwaysVisibleIconComponents = iconComponents
+          let alwaysVisibleIconComponents = iconComponents
             .filter(({ alwaysShowInHeader }) => alwaysShowInHeader)
             .map(({ iconComponent }) => iconComponent);
 
-          const regularIconComponents = iconComponents
+          let regularIconComponents = iconComponents
             .filter(({ alwaysShowInHeader }) => !alwaysShowInHeader)
             .map(({ iconComponent }) => iconComponent);
 
-          const shouldShowFlyoutMenu =
-            regularIconComponents.length > 1 ||
-            actions.some(({ showFlyoutMenu }) => showFlyoutMenu);
+          // add context to icon components
+          const ctx: HeaderActionIconComponentContext = {
+            hasFlyoutMenu:
+              regularIconComponents.length > 1 ||
+              actions.some(({ showFlyoutMenu }) => showFlyoutMenu),
+          };
+
+          alwaysVisibleIconComponents = alwaysVisibleIconComponents.map((iconComponent) =>
+            h(iconComponent, { ctx }),
+          );
+
+          regularIconComponents = regularIconComponents.map((iconComponent) =>
+            h(iconComponent, { ctx }),
+          );
 
           return [
             ...alwaysVisibleIconComponents,
-            shouldShowFlyoutMenu ? getFlyoutMenu() : regularIconComponents,
-          ].filter(Boolean);
+            ctx.hasFlyoutMenu ? getFlyoutMenu() : regularIconComponents,
+          ];
         },
       };
 
