@@ -47,11 +47,6 @@ const slots = defineSlots<{
    * OnyxNavItem Children can be nested here.
    */
   children?(): unknown;
-  /**
-   * Custom content to replace the default icon.
-   * **Important:** Only used in the vertical navbar. You may need to adjust the --onyx-vertical-navbar-collapsed-width` CSS variable to fit your content.
-   */
-  verticalCollapsed?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -109,7 +104,7 @@ const { componentRef, isVisible } = isTopLevel
         :active
         context="vertical-navbar"
       >
-        <slot name="verticalCollapsed">
+        <slot>
           <OnyxIcon v-if="props.icon" :icon="props.icon" />
           <OnyxVisuallyHidden v-if="!isExpanded">
             {{ props.label }}
@@ -145,7 +140,7 @@ const { componentRef, isVisible } = isTopLevel
         :active
         context="vertical-navbar"
       >
-        <slot name="verticalCollapsed">
+        <slot>
           <OnyxIcon v-if="props.icon" :icon="props.icon" />
           <OnyxVisuallyHidden> {{ props.label }}</OnyxVisuallyHidden>
         </slot>

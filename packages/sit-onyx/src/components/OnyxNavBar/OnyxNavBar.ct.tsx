@@ -129,8 +129,9 @@ test.describe("Screenshot tests", () => {
               icon={iconPlaceholder}
               link="#"
             >
-              <template v-slot:verticalCollapsed>
+              <template>
                 <OnyxIcon icon={iconPlaceholder} />
+                {row === "expanded" && <span> Item </span>}
                 <OnyxBadge dot />
               </template>
             </OnyxNavItem>
