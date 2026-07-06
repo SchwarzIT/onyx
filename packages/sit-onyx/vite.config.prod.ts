@@ -13,7 +13,6 @@ export default defineConfig({
     bundlerConfig,
     {
       build: {
-        cssMinify: true,
         sourcemap: false,
         lib: {
           fileName: "index",
