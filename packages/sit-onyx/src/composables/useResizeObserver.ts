@@ -9,7 +9,7 @@ export type UseResizeObserverOptions = {
   box?: ResizeObserverBoxOptions;
   /**
    * Whether the observer is disabled.å
-   * * @default false
+   * @default false
    */
   disabled?: Ref<boolean>;
 };
