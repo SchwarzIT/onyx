@@ -185,6 +185,7 @@ test.describe("Screenshot tests (hover)", () => {
     name: "Table (empty variations)",
     columns: ["default", "long-table", "no-header"],
     rows: ["default", "custom-empty"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxTable style="width: 20rem;">
         {column === "default" ? tableHead : column === "long-table" ? tableHeadLong : undefined}
@@ -235,6 +236,7 @@ test.describe("Screenshot tests (slots)", () => {
       "headline-actions",
       "bottomLeft-pagination",
     ],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxTable style={{ width: column === "small" ? "18rem" : "28rem" }}>
         {tableHead}

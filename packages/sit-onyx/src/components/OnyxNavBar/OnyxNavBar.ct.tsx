@@ -97,6 +97,7 @@ test.describe("Screenshot tests", () => {
     columns: ["default", "back", "center", "context", "global-context"],
     rows: ["default", "expanded"],
     removePadding: true,
+    fastNoIsolation: true,
     component: (column, row) => (
       <div style={{ height: "32rem", width: "25rem", border: "1px solid black", display: "flex" }}>
         <OnyxNavBar
