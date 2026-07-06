@@ -33,7 +33,7 @@ const props = withDefaults(
   defineProps<
     OnyxFormElementV2Props & {
       /**
-       * Weather it's unstyled
+       * Wether it's unstyled
        */
       unstyled?: boolean;
     }
