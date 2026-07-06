@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-faet(ONyxSlider): implement OnyxFormElementV2 inside the Slider componenet
+feat(OnyxSlider): implement OnyxFormElementV2 inside the Slider component
