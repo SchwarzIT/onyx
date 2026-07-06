@@ -272,6 +272,7 @@ test("should handle lazy loading", async ({ mount }) => {
       paginationOptions: {
         type: "lazy",
       },
+      columns: [{ key: "a", columnGroupKey: "group-1" }],
       columnGroups: {
         // We include a column group here to test for a regression of https://github.com/SchwarzIT/onyx/issues/5612
         group1: { label: "Group 1" },
