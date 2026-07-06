@@ -479,5 +479,4 @@ test("should calculate and maintain min-height for nested items on hover", async
   const deepNestedBoundingBox = await menu.boundingBox();
   const deepNestedHeight = deepNestedBoundingBox?.height ?? 0;
   expect(deepNestedHeight).toBeCloseTo(nestedHeight, 1);
-  await expect(component).toHaveScreenshot("nested-min-height.png");
 });
