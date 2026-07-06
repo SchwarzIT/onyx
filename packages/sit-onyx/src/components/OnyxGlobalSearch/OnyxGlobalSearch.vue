@@ -162,7 +162,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     </OnyxInput>
 
     <!-- using v-show instead of v-if because the input has a aria-controls attribute which needs to point to a existing listbox -->
-    <div v-show="hasContent" class="onyx-global-search__body">
+    <div v-show="hasContent()" class="onyx-global-search__body">
       <slot name="leading"></slot>
       <div v-show="!!slots.default || !!slots.endOfList" v-bind="headless.elements.listbox.value">
         <slot></slot>
@@ -177,7 +177,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       </div>
     </div>
 
-    <div v-show="hasContent" class="onyx-global-search__footer onyx-text--small">
+    <div v-show="hasContent()" class="onyx-global-search__footer onyx-text--small">
       <span class="onyx-global-search__shortcut">
         <OnyxKey name="ArrowUp" />
         <OnyxKey name="ArrowDown" />
