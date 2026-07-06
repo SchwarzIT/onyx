@@ -123,12 +123,7 @@ test.describe("Screenshot tests", () => {
           <OnyxNavItem label="Item" icon={iconPlaceholder} />
 
           {column === "custom-collapsed" ? (
-            <OnyxNavItem
-              aria-label="custom collapsed"
-              label="custom collapsed"
-              icon={iconPlaceholder}
-              link="#"
-            >
+            <OnyxNavItem aria-label="custom collapsed" label="custom collapsed" link="#">
               <template>
                 <OnyxIcon icon={iconPlaceholder} />
                 {row === "expanded" && <span> Item </span>}
