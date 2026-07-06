@@ -165,7 +165,6 @@ test("should behave correctly with nested items (via mouse)", async ({ page, mou
   const trigger = page.getByRole("button", { name: "Trigger" });
   const firstItem = page.getByRole("menuitem", { name: "Item 1", exact: true });
   const nestedChild = page.getByRole("menuitem", { name: "Item 1.1" });
-  const backButton = page.locator(".onyx-menu-item__back").getByRole("menuitem");
 
   // ACT
   await trigger.hover();
@@ -188,15 +187,14 @@ test("should behave correctly with nested items (via mouse)", async ({ page, mou
 
   // ASSERT
   await expect(nestedChild).toBeVisible();
-  await expect(backButton).toBeVisible();
+  await expect(firstItem).toBeVisible();
 
   // ACT
-  await backButton.click();
+  await firstItem.click();
 
   // ASSERT
   await expect(firstItem).toBeVisible();
   await expect(nestedChild).toBeHidden();
-  await expect(backButton).toBeHidden();
 });
 
 test("should behave correctly with nested items (via keyboard)", async ({
