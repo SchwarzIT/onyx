@@ -165,7 +165,6 @@ test("should behave correctly with nested items (via mouse)", async ({ page, mou
   const trigger = page.getByRole("button", { name: "Trigger" });
   const firstItem = page.getByRole("menuitem", { name: "Item 1", exact: true });
   const nestedChild = page.getByRole("menuitem", { name: "Item 1.1" });
-  const backButton = page.getByRole("menuitem", { name: "Back" });
 
   // ACT
   await trigger.hover();
@@ -187,17 +186,15 @@ test("should behave correctly with nested items (via mouse)", async ({ page, mou
   await firstItem.click();
 
   // ASSERT
-  await expect(firstItem).toBeHidden();
   await expect(nestedChild).toBeVisible();
-  await expect(backButton).toBeVisible();
+  await expect(firstItem).toBeVisible();
 
   // ACT
-  await backButton.click();
+  await firstItem.click();
 
   // ASSERT
   await expect(firstItem).toBeVisible();
   await expect(nestedChild).toBeHidden();
-  await expect(backButton).toBeHidden();
 });
 
 test("should behave correctly with nested items (via keyboard)", async ({
@@ -242,7 +239,7 @@ test("should behave correctly with nested items (via keyboard)", async ({
 
   // ASSERT
   await expect(menu).toHaveScreenshot("nested-open.png");
-  await expect(page.getByRole("menuitem", { name: "Back" })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Item 1", exact: true })).toBeFocused();
 
   // ACT
   await page.keyboard.press("ArrowDown");
@@ -251,7 +248,7 @@ test("should behave correctly with nested items (via keyboard)", async ({
 
   // ASSERT
   await expect(menu).toHaveScreenshot("nested-open-2.png");
-  await expect(page.getByRole("menuitem", { name: "Back" })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Item" })).toBeFocused();
 
   // ACT
   await page.keyboard.press("ArrowLeft");
@@ -260,7 +257,7 @@ test("should behave correctly with nested items (via keyboard)", async ({
   // ACT
   await page.keyboard.press("ArrowUp");
   await page.keyboard.press("ArrowUp");
-  await expect(page.getByRole("menuitem", { name: "Back" })).toBeFocused();
+  await expect(page.getByRole("menuitem", { name: "Item 1", exact: true })).toBeFocused();
   await page.keyboard.press("Enter");
 
   // ASSERT
@@ -457,4 +454,28 @@ test("should behave correctly with external nested items opening to the left (vi
   // ASSERT
   await expect(page.getByRole("menuitem", { name: "Item 2", exact: true })).toBeFocused();
   await expect(nestedChild1).toBeHidden();
+});
+
+test("should calculate and maintain min-height for nested items on hover", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<TestWrapperNestedCt trigger="hover" />);
+
+  const trigger = component.getByRole("button", { name: "Trigger" });
+  const menu = component.getByRole("menu").first();
+
+  // ACT
+  await trigger.hover();
+  await expect(menu).toBeVisible();
+
+  await component.getByRole("menuitem", { name: "Item 1", exact: true }).click();
+
+  const nestedBoundingBox = await menu.boundingBox();
+  const nestedHeight = nestedBoundingBox?.height ?? 0;
+
+  await component.getByRole("menuitem", { name: "Item 1.1" }).click();
+
+  // ASSERT
+  const deepNestedBoundingBox = await menu.boundingBox();
+  const deepNestedHeight = deepNestedBoundingBox?.height ?? 0;
+  expect(deepNestedHeight).toBeCloseTo(nestedHeight, 1);
 });
