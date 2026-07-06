@@ -19,18 +19,18 @@ const expectOrderedText = async (rows: Locator[], expectations: string[]) => {
   }
 };
 
+const getFirstColumn = (locator: Locator) =>
+  locator.getByRole("row").locator("td:first-of-type").all();
+
 test("should render correctly", async ({ mount, makeAxeBuilder }) => {
   // ARRANGE
   const data = getTestData();
   const component = await mount(<TestCase data={data} columns={["a", "b"]} />);
 
-  const getFirstColumn = () => component.locator("tbody tr td:first-of-type").all();
-
   // ASSERT
-  const columns = component.locator("th");
-  await expect(columns).toHaveCount(2);
+  await expect(component.getByRole("columnheader")).toHaveCount(2);
 
-  let rows = await getFirstColumn();
+  let rows = await getFirstColumn(component);
   expect(rows).toHaveLength(data.length);
 
   await expectOrderedText(
@@ -43,7 +43,7 @@ test("should render correctly", async ({ mount, makeAxeBuilder }) => {
   await component.getByLabel("Sort the table ascending by the a column.").click();
 
   // ASSERT
-  rows = await getFirstColumn();
+  rows = await getFirstColumn(component);
   expect(rows).toHaveLength(data.length);
 
   await expectOrderedText(rows, ["1", "2", "3", "4", "5", "6"]);
@@ -53,7 +53,7 @@ test("should render correctly", async ({ mount, makeAxeBuilder }) => {
   await component.getByLabel("Sort the table descending by the a column.").click();
 
   // ASSERT
-  rows = await getFirstColumn();
+  rows = await getFirstColumn(component);
   expect(rows).toHaveLength(data.length);
   await expectOrderedText(rows, ["6", "5", "4", "3", "2", "1"]);
   await expect(component).toHaveScreenshot("data-grid-sorting-desc.png");
@@ -62,7 +62,7 @@ test("should render correctly", async ({ mount, makeAxeBuilder }) => {
   await component.getByLabel("Reset sorting.").click();
 
   // ASSERT
-  rows = await getFirstColumn();
+  rows = await getFirstColumn(component);
   expect(rows).toHaveLength(data.length);
   await expectOrderedText(
     rows,
@@ -107,13 +107,11 @@ test("should sort the default types correctly", async ({ mount }) => {
 
   const component = await mount(<TestCase data={data} columns={columnsConfig} />);
 
-  const getFirstColumn = () => component.getByRole("row").locator("td:first-of-type").all();
-
   // ASSERT
   const columns = component.getByRole("columnheader");
   await expect(columns).toHaveCount(7);
 
-  let rows = await getFirstColumn();
+  let rows = await getFirstColumn(component);
   expect(rows).toHaveLength(data.length);
 
   for (const columnConfig of columnsConfig) {
@@ -123,7 +121,7 @@ test("should sort the default types correctly", async ({ mount }) => {
       .click();
 
     // ASSERT
-    rows = await getFirstColumn();
+    rows = await getFirstColumn(component);
     expect(rows).toHaveLength(data.length);
     await expectOrderedText(rows, ["1", "2"]);
 
@@ -133,8 +131,87 @@ test("should sort the default types correctly", async ({ mount }) => {
       .click();
 
     // ASSERT
-    rows = await getFirstColumn();
+    rows = await getFirstColumn(component);
     expect(rows).toHaveLength(data.length);
     await expectOrderedText(rows, ["2", "1"]);
   }
+});
+
+test("should show sorting in flyout if multiple features are enabled", async ({ mount }) => {
+  // ARRANGE
+  const data = getTestData();
+  const component = await mount(<TestCase data={data} columns={["a", "b"]} enableFiltering />);
+
+  const aHeader = component.getByRole("columnheader").first();
+  const headerFlyoutButton = aHeader.getByLabel("Toggle column actions");
+
+  const headerFlyout = component.getByRole("dialog", {
+    name: 'Choose an action for the column "a"',
+  });
+
+  // ASSERT
+  let rows = await getFirstColumn(component);
+  expect(rows).toHaveLength(data.length);
+  await expect(headerFlyoutButton).toBeVisible();
+
+  // ACT
+  await headerFlyoutButton.click();
+
+  // ASSERT
+  await expect(headerFlyout.getByRole("menuitem", { name: "No sorting" })).toBeVisible();
+  await expect(headerFlyout.getByRole("menuitem", { name: "Sort ascending" })).toBeVisible();
+  await expect(headerFlyout.getByRole("menuitem", { name: "Sort descending" })).toBeVisible();
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Sort ascending" }).click();
+
+  // ASSERT
+  // TODO: fix label, should be "Sort the table ascending by the a column"
+  const ascButton = component.getByRole("button", { name: "Reset sorting" });
+  const descButton = component.getByRole("button", {
+    name: "Sort the table descending by the a column",
+  });
+
+  await expect(headerFlyout, "should close flyout after selecting sort").toBeHidden();
+
+  rows = await getFirstColumn(component);
+  await expectOrderedText(rows, ["1", "2", "3", "4", "5", "6"]);
+
+  await expect(ascButton).toBeHidden();
+  await expect(descButton).toBeVisible();
+
+  // ACT
+  await descButton.click();
+
+  // ASSERT
+  rows = await getFirstColumn(component);
+  await expectOrderedText(rows, ["6", "5", "4", "3", "2", "1"]);
+
+  await expect(ascButton).toBeVisible();
+  await expect(descButton).toBeHidden();
+
+  // ACT (should loop through asc and desc but not none)
+  await ascButton.click();
+
+  // ASSERT
+  rows = await getFirstColumn(component);
+  await expectOrderedText(rows, ["1", "2", "3", "4", "5", "6"]);
+
+  await expect(ascButton).toBeHidden();
+  await expect(descButton).toBeVisible();
+
+  // ACT
+  await headerFlyoutButton.click();
+  await component.getByRole("menuitem", { name: "No sorting" }).click();
+
+  // ASSERT
+  await expect(headerFlyout).toBeHidden();
+  await expect(ascButton).toBeHidden();
+  await expect(descButton).toBeHidden();
+
+  rows = await getFirstColumn(component);
+  await expectOrderedText(
+    rows,
+    data.map((item) => item.a),
+  );
 });
