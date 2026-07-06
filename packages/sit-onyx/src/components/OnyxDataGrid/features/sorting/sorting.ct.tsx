@@ -12,10 +12,12 @@ const getTestData = () => [
 ];
 
 const expectOrderedText = async (rows: Locator[], expectations: string[]) => {
+  expect(rows).toHaveLength(expectations.length);
+
   for (let index = 0; index < rows.length; index++) {
     const row = rows[index];
     const expected = expectations[index];
-    await expect(row).toHaveText(expected);
+    await expect(row!).toHaveText(expected!);
   }
 };
 
