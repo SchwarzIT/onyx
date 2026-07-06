@@ -43,7 +43,7 @@ const slots = defineSlots<{
     activeValue?: string;
   }): unknown;
   /**
-   * Slot to pass leading Content. It's displayed before the List.
+   * Slot to pass leading content that is displayed before the `default` slot.
    */
   leading?(): unknown;
 }>();
