@@ -1,10 +1,6 @@
 @use "../../../../styles/mixins/layers.scss";
 
 @include layers.component {
-  .onyx-data-grid-filler-column-cell:is(td, th) {
-    padding: 0;
-  }
-
   .onyx-data-grid-resize-cell {
     .onyx-resize-handle {
       --onyx-resize-handle--active-indicator-height: var(--onyx-table-observed-height);
@@ -18,6 +14,30 @@
 
   // styles to apply to the whole data grid while actively resizing a column
   .onyx-data-grid {
+    min-width: 100%;
+    width: max-content;
+
+    th:last-child,
+    td:last-child {
+      width: 100%;
+    }
+    &:has(.onyx-data-grid-resize-cell) {
+      td {
+        overflow: hidden;
+      }
+
+      th:last-of-type {
+        .onyx-resize-handle {
+          right: 0;
+          &::after,
+          &::before {
+            left: auto;
+            right: 0;
+          }
+        }
+      }
+    }
+
     &:has(.onyx-data-grid-resize-cell--active) {
       // prevent hover effects on rows and other columns that are not resized
       tbody,
