@@ -154,10 +154,10 @@ const handleApply = () => {
         &:hover {
           border-color: var(--onyx-color-component-border-primary);
         }
-
+        .onyx-text--small,
         .onyx-select-dialog__label,
         .onyx-select-dialog__icon {
-          color: var(--onyx-color-text-icons-primary-intense);
+          color: var(--onyx-color-text-icons-neutral-intense);
         }
       }
     }
