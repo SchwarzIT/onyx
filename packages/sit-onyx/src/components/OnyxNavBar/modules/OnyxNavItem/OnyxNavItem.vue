@@ -109,7 +109,9 @@ const { componentRef, isVisible } = isTopLevel
           <OnyxVisuallyHidden v-if="!isExpanded">
             {{ props.label }}
           </OnyxVisuallyHidden>
-          <slot v-else>{{ props.label }}</slot>
+          <template v-else>
+            {{ props.label }}
+          </template>
         </slot>
         <template v-if="slots.children" #children>
           <slot name="children"></slot>

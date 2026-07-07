@@ -147,7 +147,7 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
 <style lang="scss">
 .onyx-nav-bar--vertical {
   // 2x navItem padding + 2x verticalNavBar padding + item width
-  --onyx-vertical-navbar-collapsed-width: calc(4 * var(--onyx-spacing-2xs) + 24px);
+  --onyx-vertical-navbar-collapsed-width: calc(4 * var(--onyx-spacing-2xs) + 1.5rem);
   .onyx-tooltip {
     --offset: var(--onyx-spacing-2xs);
   }
