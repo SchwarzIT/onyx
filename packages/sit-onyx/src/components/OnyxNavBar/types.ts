@@ -88,6 +88,13 @@ export type OnyxNavBarSlots = {
   appArea?: () => unknown;
   /**
    * Optional context area on the right to display additional (global) components, like user login, global settings etc.
+   * Use the following ready-to-use components:
+   * - `OnyxTimer`
+   * - `OnyxTag`
+   * - `OnyxSeparator`
+   * - `OnyxUserMenu` (Ideally `OnyxUserMenu` is the last item on the very right)
+   *
+   * For custom buttons use the `OnyxNavButton`.
    */
   contextArea?: () => unknown;
   /**
@@ -95,6 +102,8 @@ export type OnyxNavBarSlots = {
    * in the mobile nav bar itself and will not be collapsed into the context menu button.
    *
    * Global actions like e.g. search or notification center can be placed here that should always be directly accessible on mobile.
+   *
+   * The same components as for the `contextArea` can be used here.
    */
   globalContextArea?: () => unknown;
   /**
