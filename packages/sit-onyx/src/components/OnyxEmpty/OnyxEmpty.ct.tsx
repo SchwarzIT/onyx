@@ -11,6 +11,7 @@ test.describe("Screenshot tests", () => {
     columns: DENSITIES,
     rows: ["default", "custom-icon", "buttons", "multiline", "description"],
     removePadding: true,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxEmpty density={column} style={{ width: row === "multiline" ? "12rem" : undefined }}>
         {row === "multiline" ? "Very long text that will be wrapped" : "Example empty text"}

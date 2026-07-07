@@ -9,6 +9,7 @@ test.describe("Screenshot tests", () => {
     name: "Icon",
     columns: ONYX_COLORS,
     rows: ICON_SIZES,
+    fastNoIsolation: true,
     component: (column, row) => <OnyxIcon icon={mockPlaywrightIcon} size={row} color={column} />,
   });
 });

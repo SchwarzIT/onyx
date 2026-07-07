@@ -9,6 +9,7 @@ test.describe("Screenshot tests", () => {
     name: "Image",
     columns: ["default", "error", "skeleton"],
     rows: ["default", ...IMAGE_SHAPES],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxImage
         src={column === "error" ? "#does-not-exist" : TEST_IMAGE}

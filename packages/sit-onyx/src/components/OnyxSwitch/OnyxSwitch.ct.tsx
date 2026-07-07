@@ -98,6 +98,7 @@ test.describe("Screenshot tests", () => {
     name: "Switch (truncation + required/optional)",
     columns: ["default", "required", "optional"],
     rows: TRUNCATION_TYPES,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxSwitch
         style={{ maxWidth: "12rem" }}
@@ -113,6 +114,7 @@ test.describe("Screenshot tests", () => {
     name: "Switch (densities)",
     columns: DENSITIES,
     rows: ["unchecked", "checked", "loading", "skeleton"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxSwitch
         label="Test label"

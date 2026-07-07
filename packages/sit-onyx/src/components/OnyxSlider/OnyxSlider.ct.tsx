@@ -121,6 +121,7 @@ test.describe("Screenshot tests (other)", () => {
     name: "Slider (other)",
     columns: DENSITIES,
     rows: ["skeleton", "error", "message", "marks+message", "labelled-marks+message"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxSlider
         label="Skeleton slider"
@@ -149,6 +150,7 @@ test.describe("Screenshot tests (controls)", () => {
     name: "Slider (controls)",
     columns: [...SLIDER_CONTROLS, "input-range"],
     rows: ["enabled", "disabled"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxSlider
         label="Slider controls"

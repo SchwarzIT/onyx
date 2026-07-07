@@ -66,19 +66,6 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
       return data;
     };
 
-    const handleClick = (clickedColumn: keyof TEntry, skipNone = false) => {
-      const direction =
-        sortState.value.column === clickedColumn
-          ? nextSortDirection(sortState.value.direction, skipNone)
-          : nextSortDirection(undefined, skipNone);
-      const column = direction !== "none" ? clickedColumn : undefined;
-
-      sortState.value = {
-        direction,
-        column,
-      };
-    };
-
     const isSortActive = computed(() => {
       return (column: keyof DataGridEntry, direction: SortDirection) => {
         return sortState.value.column === column && sortState.value.direction === direction;
@@ -121,36 +108,27 @@ export const useSorting = <TEntry extends DataGridEntry>(options?: SortOptions<T
       header: {
         actions: ({ key: column, label }) => {
           if (!isEnabled.value(column)) return [];
+          const isColumnSorted = sortState.value.column === column;
+
           return [
             {
-              iconComponent: h(SortAction, {
-                columnLabel: label,
-                sortDirection:
-                  sortState.value.column === column ? sortState.value.direction : undefined,
-                onClick: () => handleClick(column),
-              }),
+              iconComponent: {
+                iconComponent: h(SortAction, {
+                  columnLabel: label,
+                  sortDirection: isColumnSorted ? sortState.value.direction : "none",
+                  "onUpdate:sortDirection": (direction) => {
+                    sortState.value = { column, direction };
+                  },
+                }),
+                alwaysShowInHeader: isColumnSorted && sortState.value.direction !== "none",
+              },
               menuItems: [
                 getMenuItem(column, "none"),
                 getMenuItem(column, "asc"),
                 getMenuItem(column, "desc"),
               ],
             },
-            sortState.value.column === column &&
-            sortState.value.direction &&
-            sortState.value.direction !== "none"
-              ? {
-                  iconComponent: {
-                    iconComponent: h(SortAction, {
-                      columnLabel: label,
-                      sortDirection:
-                        sortState.value.column === column ? sortState.value.direction : undefined,
-                      onClick: () => handleClick(column, true),
-                    }),
-                    alwaysShowInHeader: true,
-                  },
-                }
-              : null,
-          ].filter((item) => item !== null);
+          ];
         },
       },
     };

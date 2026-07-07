@@ -47,4 +47,5 @@ export type NestedMenuContext = {
 };
 export type NestedMenuDrilldownModeContext = {
   drilldownMode: MaybeRefOrGetter<"internal" | "external">;
+  resetMinHeight: () => void;
 };
