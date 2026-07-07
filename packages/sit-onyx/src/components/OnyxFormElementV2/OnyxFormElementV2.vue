@@ -33,7 +33,7 @@ const props = withDefaults(
   defineProps<
     OnyxFormElementV2Props & {
       /**
-       * Wether it's unstyled
+       *Wether it's unstyled, in which case it resets the styles of the content area (where the main form element resides)
        */
       unstyled?: boolean;
     }
