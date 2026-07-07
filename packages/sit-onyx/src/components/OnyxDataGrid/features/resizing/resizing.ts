@@ -8,7 +8,7 @@ import "./resizing.scss";
 import type { ResizeState, ResizingOptions } from "./types.js";
 
 export const RESIZING_FEATURE = Symbol("Resizing");
-export const FILLER_COLUMN = Symbol("FILLER_COLUMN");
+
 export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) =>
   createFeature((ctx) => {
     const resizingCol = ref<keyof TEntry>();
@@ -17,6 +17,8 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     const { isEnabled } = useFeatureContext(ctx, options);
     const resizeState: Ref<ResizeState<TEntry>> = toRef(options?.resizeState ?? new Map());
     const scrollContainer = ref<HTMLElement>();
+    const lastColumnKey = ref<keyof TEntry>();
+    const lastColumnActiveMinWidth = ref(MIN_COLUMN_WIDTH);
 
     watch(
       [headers, resizeState],
@@ -37,7 +39,11 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     );
 
     const modifyColumns = (cols: Readonly<InternalColumnConfig<TEntry>[]>) => {
-      const columns = cols.map((column) => {
+      if (cols.length > 0) {
+        lastColumnKey.value = cols[cols.length - 1]!.key;
+      }
+
+      return cols.map((column) => {
         if (!isEnabled.value(column.key)) return column;
 
         const isActive = column.key === resizingCol.value;
@@ -68,10 +74,6 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
           thAttributes: mergeVueProps(thAttributes, column.thAttributes),
         };
       });
-
-      columns.push({ key: FILLER_COLUMN, type: { name: FILLER_COLUMN }, width: "auto", label: "" });
-
-      return columns;
     };
 
     const renderWrapper = (
@@ -82,18 +84,44 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       const slotContent = slots.default?.();
       if (!isEnabled.value(column.key) || noResizeHandle) return slotContent;
 
+      const currentMin =
+        column.key === lastColumnKey.value ? lastColumnActiveMinWidth.value : MIN_COLUMN_WIDTH;
+
       return [
         h(OnyxResizeHandle, {
-          min: MIN_COLUMN_WIDTH,
+          min: currentMin,
           element: headers.value.get(column.key),
           active: resizingCol.value === column.key,
           onStart: () => {
             resizingCol.value = column.key;
 
+            let otherColumnsWidthSum = 0;
+            const thElement = headers.value.get(column.key);
+            const container =
+              thElement?.closest<HTMLElement>(".onyx-table-wrapper__container") ||
+              scrollContainer.value;
+            const containerWidth = container ? container.getBoundingClientRect().width : 0;
+
             Array.from(headers.value.entries()).forEach(([col, el]) => {
               const { width } = el.getBoundingClientRect();
-              resizeState.value.set(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
+              if (col !== lastColumnKey.value || column.key === lastColumnKey.value) {
+                resizeState.value.set(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
+              } else {
+                resizeState.value.delete(col);
+              }
+              if (col !== lastColumnKey.value) {
+                otherColumnsWidthSum += width;
+              }
             });
+
+            if (column.key === lastColumnKey.value && containerWidth > 0) {
+              lastColumnActiveMinWidth.value = Math.max(
+                MIN_COLUMN_WIDTH,
+                containerWidth - otherColumnsWidthSum,
+              );
+            } else {
+              lastColumnActiveMinWidth.value = MIN_COLUMN_WIDTH;
+            }
           },
           onEnd: () => {
             resizingCol.value = undefined;
@@ -101,7 +129,13 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
           onUpdateWidth: (width) => {
             resizeState.value.set(column.key, `${width}px`);
           },
-          onAutoSize: () => resizeState.value.set(column.key, "max-content"),
+          onAutoSize: () => {
+            if (column.key === lastColumnKey.value) {
+              resizeState.value.delete(column.key);
+            } else {
+              resizeState.value.set(column.key, "max-content");
+            }
+          },
         }),
         slotContent,
       ];
@@ -118,28 +152,11 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
           scrollContainer.value = el as typeof scrollContainer.value;
         },
       }),
-      typeRenderer: {
-        /**
-         * The filler column stretches the remaining space in case the column widths are smaller than the table's intended width.
-         */
-        [FILLER_COLUMN]: {
-          header: {
-            thAttributes: { class: "onyx-data-grid-filler-column-cell", "aria-hidden": true },
-            component: () => null,
-          },
-          cell: {
-            tdAttributes: { class: "onyx-data-grid-filler-column-cell", "aria-hidden": true },
-            component: () => null,
-          },
-        },
-      },
       header: {
         wrapper:
-          (cols, i, { length }) =>
+          (cols) =>
           (_, { slots }) => {
-            const isLastColumn = i === length - 1;
-            const isFillerColumn = cols.type.name === FILLER_COLUMN;
-            return renderWrapper(slots, cols, isLastColumn || isFillerColumn);
+            return renderWrapper(slots, cols, false);
           },
       },
     };
