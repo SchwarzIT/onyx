@@ -5,11 +5,14 @@ componentName: OnyxDataGrid
 
 A highly customizable and modular table for displaying complex datasets. The data grid supports features like sorting, filtering, grouping columns and rows, and much more, giving both developers and users extensive control.
 
-## Data grid vs. table
-
+::info-card{headline="Data grid vs. table"}
 We recommend using the data grid in most cases since it supports advanced built-in features. The [table](/components/data/table) component is a simple styled wrapper for the HTML [\<table\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/table) element without additional features. The table can be used in rare edge cases where maximum flexibility and customization is required or where the data grid overhead is unwanted.
 
+<br />
+<br />
+
 If you are unsure which component to use or there is no reasonable explicit requirement for the table, use the data grid.
+::
 
 ## Examples
 
@@ -111,7 +114,7 @@ The skeleton should be used on initial page load when the data for the page / da
 
 Column groups can be used to visually group columns that are related.
 
-:component-example{name="ColumnGroups" layout="grow"}
+:component-example{name="ColumnGroups" layout="fullWidth"}
 
 ### Global actions
 
@@ -291,7 +294,11 @@ When checking the "Select all" checkbox in the column header, the data grid auto
 
 :component-example{name="Selection" layout="grow"}
 
-The checkboxes can optionally be only shown on hover.
+<br />
+
+The checkboxes can optionally be only shown on hover:
+
+:component-example{name="SelectionHover" layout="grow"}
 
 ### Resizing
 
@@ -309,7 +316,7 @@ Allows the user to hide or show columns. Can also be used by the developer to hi
 
 ### Expandable rows
 
-Allows expanding additional content for each row. We do **NOT recommend** showing nested tables inside the expanded rows; prefer using e.g. a [modal](/components/feedback/modal) instead if needed.
+Allows expanding additional content for each row. We do **NOT recommend** showing nested tables inside the expanded rows. Prefer using e.g. a [modal](/components/feedback/modal) instead if needed.
 
 :component-example{name="ExpandableRows" layout="grow"}
 

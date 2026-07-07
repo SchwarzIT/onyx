@@ -27,7 +27,7 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
         options: {
           format: {
             style: "currency",
-            currency: "EUR",
+            currency: "USD",
           },
         },
       },

@@ -6,7 +6,7 @@ componentName: OnyxTable
 A streamlined way to display smaller data sets. The table component focuses on simplicity, making it easy for users to view and interact with data without overwhelming them.
 
 ::info-card{headline="Data grid vs. table" color="warning"}
-For most cases, we recommend to use the data grid instead. Please refer to the [data grid documentation](/components/data/table) for further information when to use the data grid and the table.
+For most cases, we recommend to use the data grid instead. Please refer to the [data grid documentation](/components/data/data-grid) for further information when to use the data grid and the table.
 ::
 
 ## Examples
