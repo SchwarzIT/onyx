@@ -79,6 +79,7 @@ export const NAV_BAR_IS_EXPANDED_INJECTION_KEY = Symbol() as InjectionKey<Ref<bo
 export type OnyxNavBarSlots = {
   /**
    * [`OnyxNavItem`](/docs/navigation-navbar-modules-navitem--docs) components should be placed and nested here to build the navigation.
+   * Important: When using the vertical orientation, the CSS variable --onyx-vertical-navbar-collapsed-width might need to be adjusted on the OnyxNavBar to fit the custom content properly.
    */
   default?: () => unknown;
   /**

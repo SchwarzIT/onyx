@@ -104,11 +104,15 @@ const { componentRef, isVisible } = isTopLevel
         :active
         context="vertical-navbar"
       >
-        <OnyxIcon v-if="props.icon" :icon="props.icon" />
-        <OnyxVisuallyHidden v-if="!isExpanded">
-          {{ props.label }}
-        </OnyxVisuallyHidden>
-        <slot v-else>{{ props.label }}</slot>
+        <slot>
+          <OnyxIcon v-if="props.icon" :icon="props.icon" />
+          <OnyxVisuallyHidden v-if="!isExpanded">
+            {{ props.label }}
+          </OnyxVisuallyHidden>
+          <template v-else>
+            {{ props.label }}
+          </template>
+        </slot>
         <template v-if="slots.children" #children>
           <slot name="children"></slot>
         </template>
@@ -138,8 +142,10 @@ const { componentRef, isVisible } = isTopLevel
         :active
         context="vertical-navbar"
       >
-        <OnyxIcon v-if="props.icon" :icon="props.icon" />
-        <OnyxVisuallyHidden> {{ props.label }}</OnyxVisuallyHidden>
+        <slot>
+          <OnyxIcon v-if="props.icon" :icon="props.icon" />
+          <OnyxVisuallyHidden> {{ props.label }}</OnyxVisuallyHidden>
+        </slot>
       </OnyxNavItemFacade>
     </template>
   </OnyxTooltip>
