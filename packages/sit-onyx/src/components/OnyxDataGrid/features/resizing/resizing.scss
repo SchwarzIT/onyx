@@ -14,9 +14,6 @@
 
   // styles to apply to the whole data grid while actively resizing a column
   .onyx-data-grid {
-    min-width: 100%;
-    width: max-content;
-
     th:last-child,
     td:last-child {
       width: 100%;
