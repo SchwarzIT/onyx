@@ -61,3 +61,9 @@ Multiple slots are supported to pass in custom content if needed.
 The label can be positioned in several ways to support a wide variety of layouts.
 
 :component-example{name="LabelPositions" layout="grow" orientation="vertical"}
+
+### Date and time picker
+
+The date picker component itself does **NOT support** a built-in picker for selecting a date **and** a time together since we've noticed too many UX issues and lack of flexibility. Therefore, we recommend to use a regular date picker together with a [time picker](/components/form-elements/time-picker) component for this. This also allows for full flexibility and customization depending on the use case and requirements.
+
+:component-example{name="DateTime" layout="grow"}
