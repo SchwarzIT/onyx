@@ -484,3 +484,21 @@ test("should correctly reserve message space", async ({ mount }) => {
   height = await bottom.evaluate((element) => element.clientHeight);
   expect(height).toBeGreaterThan(0);
 });
+
+test("should define inputmode if popover exists", async ({ mount }) => {
+  // ARRANGE
+  let component = await mount(
+    <TestCase label="Test label" popoverOptions={{ label: "Flyout label" }}>
+      <template v-slot:popover>Test</template>
+    </TestCase>,
+  );
+
+  // ASSERT
+  await expect(component.getByLabel("Test label")).toHaveAttribute("inputmode", "none");
+
+  // ACT
+  component = await mount(<TestCase label="Test label" />);
+
+  // ASSERT
+  await expect(component.getByLabel("Test label")).not.toHaveAttribute("inputmode");
+});

@@ -7,7 +7,7 @@ export default {};
 </script>
 
 <script lang="ts" setup>
-import { computed, useId } from "vue";
+import { computed, useId, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import {
@@ -69,7 +69,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
   return { label: props.label };
 });
 
-const inputProps = computed(() => {
+const inputProps = computed<HTMLAttributes>(() => {
   return {
     id: props.id,
     class: ["onyx-form-element-v2__input", "onyx-truncation-ellipsis"],
@@ -81,6 +81,10 @@ const inputProps = computed(() => {
           "aria-label": label.value.label,
         }
       : {}),
+    // prevent showing virtual keyboards on e.g. smartphones
+    // since the input is not editable if a popover exists
+    // see: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inputmode
+    ...(slots.popover ? { inputmode: "none" } : {}),
   };
 });
 
