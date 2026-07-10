@@ -124,7 +124,6 @@ const isActive = computed(() => {
       }
 
       &.onyx-router-link--active {
-        --onyx-toc-item-background-hover: var(--onyx-color-base-primary-100);
         --onyx-toc-item-background-focus: var(--onyx-toc-item-background-hover);
         --onyx-toc-item-color: var(--onyx-color-text-icons-primary-intense);
         --onyx-toc-item-color-hover: var(--onyx-color-text-icons-primary-bold);

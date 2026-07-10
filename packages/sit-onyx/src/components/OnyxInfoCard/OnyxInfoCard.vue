@@ -155,6 +155,8 @@ const systemButtonColor = computed(() => (props.color === "neutral" ? "soft" : "
 
         @if $color == "neutral" {
           --onyx-info-card-headline-color: var(--onyx-color-text-icons-#{$color}-intense);
+        } @else if $color == "primary" {
+          --onyx-info-card-headline-color: var(--onyx-color-text-icons-neutral-bold);
         } @else {
           --onyx-info-card-headline-color: var(--onyx-color-text-icons-#{$color}-bold);
         }
