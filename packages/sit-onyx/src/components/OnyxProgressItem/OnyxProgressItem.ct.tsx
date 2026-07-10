@@ -34,6 +34,7 @@ test.describe("Screenshot tests (density)", () => {
     name: "Progress item (density)",
     columns: DENSITIES,
     rows: ["default", "skeleton"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxProgressItem label="Step" value={1} density={column} skeleton={row === "skeleton"} />
     ),
@@ -45,6 +46,7 @@ test.describe("Screenshot tests (custom content)", () => {
     name: "Progress item (custom content)",
     columns: ["default"],
     rows: ["default"],
+    fastNoIsolation: true,
     component: () => (
       <OnyxProgressItem label="Custom content" value={1}>
         Custom content

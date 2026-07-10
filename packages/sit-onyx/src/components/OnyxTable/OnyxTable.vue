@@ -73,11 +73,9 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
         ]"
         :aria-labelledby="headlineId"
       >
-        <colgroup
-          v-for="group of props.columnGroups"
-          :key="group.key"
-          :span="group.span"
-        ></colgroup>
+        <colgroup>
+          <col v-for="group of props.columnGroups" :key="group.key" :span="group.span" />
+        </colgroup>
 
         <thead v-if="slots.head" class="onyx-table__header">
           <tr v-if="props.columnGroups?.length">

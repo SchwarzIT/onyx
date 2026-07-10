@@ -24,7 +24,6 @@ import {
   type Orderable,
   type OrderableMapping,
 } from "../../../utils/feature.js";
-import { asArray } from "../../../utils/objects.js";
 import { OnyxMenuItem } from "../../OnyxNavBar/modules/index.js";
 import OnyxFlyoutMenu from "../../OnyxNavBar/modules/OnyxFlyoutMenu/OnyxFlyoutMenu.vue";
 import OnyxSystemButton from "../../OnyxSystemButton/OnyxSystemButton.vue";
@@ -312,19 +311,7 @@ export type DataGridFeatureDescription<
       column: InternalColumnConfig<TEntry>,
       index: number,
       all: InternalColumnConfig<TEntry>[],
-    ) => {
-      iconComponent?:
-        | Component
-        | {
-            iconComponent: Component;
-            /**
-             * Will force the icon component to be always shown in the header and not be put into the menu
-             */
-            alwaysShowInHeader?: boolean;
-          };
-      menuItems?: Component<typeof OnyxMenuItem>[];
-      showFlyoutMenu?: boolean;
-    }[];
+    ) => HeaderAction[];
     wrapper?: (
       column: InternalColumnConfig<TEntry>,
       index: number,
@@ -337,6 +324,41 @@ export type DataGridFeatureDescription<
    * Optional table slots.
    */
   slots?: DataGridFeatureSlots;
+};
+
+export type HeaderAction = {
+  /**
+   * Icon button component to show. By default, it will only be shown when there are no other actions (e.g. from other features).
+   * Otherwise the `menuItems` will be displayed inside a flyout menu.
+   * Recommended to use the `OnyxSystemButton` component.
+   */
+  iconComponent?:
+    | Component<{ ctx?: HeaderActionIconComponentContext }>
+    | {
+        iconComponent: Component<{ ctx?: HeaderActionIconComponentContext }>;
+        /**
+         * Will force the icon component to be always shown in the header and not be put into the menu.
+         * Should be used rarely to prevent an overload of always visible header actions.
+         */
+        alwaysShowInHeader?: boolean;
+      };
+  /**
+   * Menu items to show inside a flyout if there are more than one action defined (e.g. from other features) or `showFlyoutMenu` is set.
+   * Recommended to use the `OnyxMenuItem` component here.
+   */
+  menuItems?: Component<typeof OnyxMenuItem>[];
+  /**
+   * Whether to always show the `menuItems` inside the flyout.
+   * By default, the flyout will only be visible if there are multiple actions (e.g. from other features), otherwise the `iconComponent` will be shown.
+   */
+  showFlyoutMenu?: boolean;
+};
+
+export type HeaderActionIconComponentContext = {
+  /**
+   * Whether the icon component is rendered alongside a flyout menu (because there are multiple actions, e.g. from other features).
+   */
+  hasFlyoutMenu?: boolean;
 };
 
 export type DataGridScrollContainerAttributes = HTMLAttributes & Pick<VNodeProps, "ref">;
@@ -586,57 +608,65 @@ export const useDataGridFeatures = <
       const header = renderer.value.getFor("header", column.type.name);
 
       const menuItems = actions.map(({ menuItems }) => menuItems).filter((item) => !!item);
-      const iconComponent = actions.map(({ iconComponent }) => iconComponent);
+      const iconComponents = actions
+        .map(({ iconComponent }) => {
+          // normalize iconComponents to object-style definition
+          if (typeof iconComponent === "object" && "iconComponent" in iconComponent) {
+            return iconComponent;
+          }
+          return { iconComponent };
+        })
+        .filter(({ iconComponent }) => !!iconComponent);
 
-      const flyoutMenu = h(
-        OnyxFlyoutMenu,
-        {
-          label: i18n.t.value("navigation.moreActionsFlyout", { column: column.label }),
-          trigger: "click",
-        },
-        {
-          button: ({ trigger }) =>
-            h(OnyxSystemButton, {
-              class: actions.length > 1 ? "onyx-system-button--multiple-actions" : "",
-              label: i18n.t.value("navigation.moreActionsTrigger"),
-              color: "medium",
-              icon: iconMoreHorizontalSmall,
-              ...trigger,
-            }),
-          options: () => menuItems,
-        } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
-      );
+      const getFlyoutMenu = () =>
+        h(
+          OnyxFlyoutMenu,
+          {
+            label: i18n.t.value("navigation.moreActionsFlyout", { column: column.label }),
+            trigger: "click",
+          },
+          {
+            button: ({ trigger }) =>
+              h(OnyxSystemButton, {
+                class: actions.length > 1 ? "onyx-system-button--multiple-actions" : "",
+                label: i18n.t.value("navigation.moreActionsTrigger"),
+                color: "medium",
+                icon: iconMoreHorizontalSmall,
+                ...trigger,
+              }),
+            options: () => menuItems,
+          } satisfies ComponentSlots<typeof OnyxFlyoutMenu>,
+        );
 
       const actionsSlot = {
         actions: () => {
-          // normalizing the iconComponents from Component to {iconComponent: Component}
-          const iconsArray = asArray(iconComponent);
-          const normalizedIcons = iconsArray.map((ic) => {
-            if (typeof ic === "object" && "iconComponent" in ic) {
-              return ic;
-            }
-            return { iconComponent: ic };
-          });
+          let alwaysVisibleIconComponents = iconComponents
+            .filter(({ alwaysShowInHeader }) => alwaysShowInHeader)
+            .map(({ iconComponent }) => iconComponent);
 
-          const headerIcons = normalizedIcons
-            .filter((ic) => ic?.alwaysShowInHeader)
-            .map((ic) => ic.iconComponent);
+          let regularIconComponents = iconComponents
+            .filter(({ alwaysShowInHeader }) => !alwaysShowInHeader)
+            .map(({ iconComponent }) => iconComponent);
 
-          const nonHeaderIcon =
-            normalizedIcons.find((ic) => !ic.alwaysShowInHeader)?.iconComponent ?? null;
+          // add context to icon components
+          const ctx: HeaderActionIconComponentContext = {
+            hasFlyoutMenu:
+              regularIconComponents.length > 1 ||
+              actions.some(({ showFlyoutMenu }) => showFlyoutMenu),
+          };
 
-          const filteredActions = actions.filter(
-            (action) =>
-              !(action.iconComponent as { alwaysShowInHeader?: boolean })?.alwaysShowInHeader,
+          alwaysVisibleIconComponents = alwaysVisibleIconComponents.map((iconComponent) =>
+            h(iconComponent, { ctx }),
           );
 
-          const shouldShowFlyout =
-            filteredActions.length > 1 || actions.some((action) => action.showFlyoutMenu);
+          regularIconComponents = regularIconComponents.map((iconComponent) =>
+            h(iconComponent, { ctx }),
+          );
 
           return [
-            ...(shouldShowFlyout ? headerIcons : []),
-            shouldShowFlyout ? flyoutMenu : nonHeaderIcon,
-          ].filter(Boolean);
+            ...alwaysVisibleIconComponents,
+            ctx.hasFlyoutMenu ? getFlyoutMenu() : regularIconComponents,
+          ];
         },
       };
 

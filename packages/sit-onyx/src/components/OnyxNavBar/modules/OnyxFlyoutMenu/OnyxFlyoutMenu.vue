@@ -2,7 +2,8 @@
 <script setup lang="ts" generic="_">
 import { createMenuButton } from "@sit-onyx/headless";
 import { iconMoreVertical } from "@sit-onyx/icons";
-import { computed, provide, ref, type ComponentInstance, type VNodeRef } from "vue";
+import { computed, provide, ref, watch, type ComponentInstance, type VNodeRef } from "vue";
+import { useResizeObserver } from "../../../../composables/useResizeObserver.js";
 import { useVModel } from "../../../../composables/useVModel.js";
 import { injectI18n } from "../../../../i18n/index.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
@@ -63,6 +64,9 @@ const slots = defineSlots<{
 }>();
 
 const popover = ref<ComponentInstance<typeof OnyxBasicPopover>>();
+const menuRef = ref<HTMLElement>();
+const setMenuRef: VNodeRef = (el) => (menuRef.value = el as typeof menuRef.value);
+
 const actualPosition = computed(() => popover.value?.popoverPosition);
 
 const { t } = injectI18n();
@@ -77,10 +81,31 @@ const {
   position: computed(() => (actualPosition.value?.includes("top") ? "top" : "bottom")),
 });
 
+const resetMinHeight = () => {
+  minHeight.value = undefined;
+};
+
 // Provide the context so that all OnyxMenuItems within this flyout adapt properly to the nested mode.
 provide<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY, {
   drilldownMode: computed(() => props.drilldownMode),
+  resetMinHeight,
 });
+
+const minHeight = ref<number>();
+
+const isObserverDisabled = computed(() => {
+  return !isExpanded.value || props.drilldownMode !== "internal" || props.trigger !== "hover";
+});
+
+const { height } = useResizeObserver(menuRef, { disabled: isObserverDisabled });
+
+watch(
+  [height, isObserverDisabled],
+  ([newHeight, isDisabled]) => {
+    minHeight.value = isDisabled ? undefined : Math.max(minHeight.value ?? 0, newHeight);
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
@@ -111,8 +136,11 @@ provide<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY, {
 
       <ul
         v-if="slots.options"
-        v-bind="menu"
+        v-bind="mergeVueProps(menu, { ref: setMenuRef })"
         class="onyx-flyout-menu__wrapper onyx-flyout-menu__group"
+        :style="{
+          '--onyx-flyout-menu-min-height': minHeight ? `${minHeight}px` : undefined,
+        }"
       >
         <slot name="options"></slot>
       </ul>
@@ -154,6 +182,7 @@ provide<NestedMenuDrilldownModeContext>(MENU_ITEM_DRILLDOWN_INJECTION_KEY, {
     &__wrapper {
       width: 100%;
       padding: 0;
+      min-height: var(--onyx-flyout-menu-min-height);
       /**
        * The last option should only be half visible:
        * 7.5 * OnyxListItem, where OnyxListItem => 2 * padding + line-height of OnyxListItem

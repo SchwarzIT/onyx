@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { isInternalLink, OnyxLink, type LinkTarget } from "sit-onyx";
+import { OnyxLink, type LinkTarget } from "sit-onyx";
 
 const props = withDefaults(
   defineProps<{
@@ -17,7 +17,7 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxLink v-bind="props" :target="!isInternalLink(props.href) ? '_blank' : props.target">
+  <OnyxLink v-bind="props">
     <slot></slot>
   </OnyxLink>
 </template>

@@ -22,7 +22,7 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
 const withPagination = DataGridFeatures.usePagination({
   // options here...
   pageSize: 10,
-  itemsPerPage: [10, 25, 50],
+  itemsPerPage: [10, 15, 20],
 });
 
 const features = [withPagination];

@@ -20,8 +20,8 @@ catalog:
   unplugin-dts: 1.0.3
   vite: 8.0.16
   vue: 3.5.39
-  vue-component-meta: 3.3.5
-  vue-tsc: 3.3.5
+  vue-component-meta: 3.3.6
+  vue-tsc: 3.3.6
 
 # Security settings (See: https://pnpm.io/supply-chain-security)
 trustPolicy: "no-downgrade"
@@ -51,3 +51,4 @@ overrides:
   vite: "catalog:"
   vue: "catalog:"
   sass-embedded: "catalog:"
+  "@microsoft/eslint-formatter-sarif@3.1.0>eslint": "10" # Has an explicit dependency on eslint 8

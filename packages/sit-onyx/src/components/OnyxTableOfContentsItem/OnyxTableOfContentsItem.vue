@@ -8,6 +8,7 @@ import {
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import { useTocContext } from "../OnyxTableOfContents/useTocContext.js";
 import type { OnyxTableOfContentsItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableOfContentsItemProps>(), {
@@ -31,6 +32,13 @@ const { densityClass } = useDensity(props);
 
 const link = computed(() => extractLinkProps(props.link));
 const skeleton = useSkeletonContext(props);
+
+const { isVisible } = useTocContext({ href: computed(() => link.value.href) });
+
+const isActive = computed(() => {
+  if (props.active !== "auto") return props.active;
+  return isVisible.value;
+});
 </script>
 
 <template>
@@ -46,7 +54,7 @@ const skeleton = useSkeletonContext(props);
       :class="[
         'onyx-toc-item__link',
         'onyx-truncation-ellipsis',
-        { 'onyx-router-link--active': props.active !== 'auto' && props.active },
+        { 'onyx-router-link--active': isActive },
       ]"
       :href="link.href"
       :target="link.target"

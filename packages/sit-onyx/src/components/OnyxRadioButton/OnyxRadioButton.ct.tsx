@@ -129,6 +129,7 @@ test.describe("Screenshot tests", () => {
     name: "Radio button (skeleton + loading)",
     columns: DENSITIES,
     rows: ["skeleton", "loading"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxRadioButton
         value="test-value"
