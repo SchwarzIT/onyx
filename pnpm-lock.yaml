@@ -190,6 +190,9 @@ importers:
       '@pinia/nuxt':
         specifier: ~0.11.3
         version: 0.11.3(magicast@0.5.3)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3)))
+      '@sit-onyx/assets':
+        specifier: workspace:^
+        version: link:../../packages/assets
       '@sit-onyx/chartjs-plugin':
         specifier: workspace:^
         version: link:../../packages/chartjs-plugin
@@ -235,6 +238,9 @@ importers:
 
   apps/docs:
     devDependencies:
+      '@sit-onyx/assets':
+        specifier: workspace:^
+        version: link:../../packages/assets
       '@sit-onyx/chartjs-plugin':
         specifier: workspace:^
         version: link:../../packages/chartjs-plugin
@@ -286,6 +292,9 @@ importers:
 
   apps/playground:
     devDependencies:
+      '@sit-onyx/assets':
+        specifier: workspace:^
+        version: link:../../packages/assets
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../../packages/icons
@@ -374,6 +383,8 @@ importers:
       vue-component-meta:
         specifier: 'catalog:'
         version: 3.3.7(typescript@6.0.3)
+
+  packages/assets: {}
 
   packages/chartjs-plugin:
     devDependencies:
@@ -815,6 +826,9 @@ importers:
       '@playwright/test':
         specifier: 1.61.1
         version: 1.61.1
+      '@sit-onyx/assets':
+        specifier: workspace:^
+        version: link:../assets
       '@sit-onyx/flags':
         specifier: workspace:^
         version: link:../flags

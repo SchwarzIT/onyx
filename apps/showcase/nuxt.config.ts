@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   css: ["@sit-onyx/tiptap/style.css"],
   app: {
     head: {
-      link: [{ rel: "icon", href: "/onyx-logo.svg" }],
+      link: [{ rel: "icon", href: "/onyx.svg" }],
     },
   },
   i18n: {

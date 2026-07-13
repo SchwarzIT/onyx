@@ -1,5 +1,5 @@
 <div align="center" style="text-align: center">
-<img alt="onyx logo" src="./.github/onyx-logo.svg" height="96px">
+<img alt="onyx logo" src="./logos/onyx-positive.svg" height="96px">
 </div>
 
 <br>

@@ -1,6 +1,5 @@
 import path from "path";
 import { expect, test } from "../../../playwright/a11y.js";
-import { MOCK_PLAYWRIGHT_LOGO } from "../../../playwright/screenshots.js";
 import { ONYX_BREAKPOINTS } from "../../../utils/breakpoints.js";
 import ComponentShowcase from "./ComponentShowcase.vue";
 
@@ -10,9 +9,6 @@ test.beforeEach(async ({ page }) => {
       contentType: "image/png",
       path: path.join(import.meta.dirname, "sherlock.png"),
     }),
-  );
-  await page.route("/onyx-logo.svg", (route) =>
-    route.fulfill({ contentType: "image/svg+xml", body: MOCK_PLAYWRIGHT_LOGO }),
   );
 });
 

@@ -8,7 +8,7 @@ hero:
   text: design system
   tagline: A design system and Vue.js component library created by Schwarz Digits.
   image:
-    src: /images/logo-signet-light.svg
+    src: /favicon.svg
     alt: Logo of the Schwarz Group
   actions:
     - theme: brand
