@@ -1,7 +1,11 @@
+<script setup lang="ts">
+import logoUrl from "@sit-onyx/assets/logos/favicon.svg";
+</script>
+
 <template>
   <OnyxAppLayout>
     <template #navBar>
-      <OnyxNavBar :app-area="{ link: '#' }" :mobile="false" logo-url="/onyx-logo.svg">
+      <OnyxNavBar :app-area="{ link: '#' }" :mobile="false" :logo-url>
         <div class="placeholder"></div>
 
         <template #contextArea>

@@ -8,6 +8,7 @@ import {
   OnyxSidebar,
 } from "sit-onyx";
 import { ref } from "vue";
+import logoUrl from "@sit-onyx/assets/logos/favicon.svg";
 
 // for this example, we open the first accordion initially
 // but you can also leave the array empty if not needed
@@ -17,7 +18,7 @@ const openAccordions = ref<string[]>(["item-1"]);
 <template>
   <OnyxAppLayout>
     <template #navBar>
-      <OnyxNavBar logo-url="/onyx-logo.svg" />
+      <OnyxNavBar :logo-url />
     </template>
 
     <OnyxPageLayout>
