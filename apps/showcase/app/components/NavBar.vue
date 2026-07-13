@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import NavBar from "#layers/onyx/app/components/NavBar.vue";
 import type { OnyxNavItemProps } from "sit-onyx";
+import logoUrl from "@sit-onyx/assets/logos/favicon.svg";
 
 const localePath = useLocalePath();
 const route = useRoute();
@@ -18,7 +19,7 @@ const getLinkProps = computed(() => {
 </script>
 
 <template>
-  <NavBar logo-url="/onyx-logo.svg">
+  <NavBar :logo-url>
     <OnyxNavItem :label="$t('introduction')" v-bind="getLinkProps('/introduction')" />
     <OnyxNavItem :label="$t('components.component', 2)" v-bind="getLinkProps('/components')" />
     <OnyxNavItem :label="$t('resources')" v-bind="getLinkProps('/resources')" />

@@ -325,6 +325,9 @@ importers:
       '@nuxtjs/mdc':
         specifier: ~0.22.1
         version: 0.22.1(magicast@0.5.3)
+      '@sit-onyx/assets':
+        specifier: workspace:^
+        version: link:../../packages/assets
       '@sit-onyx/flags':
         specifier: workspace:^
         version: link:../../packages/flags
