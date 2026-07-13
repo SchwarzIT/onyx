@@ -1,8 +1,10 @@
 <div align="center" style="text-align: center">
-<img alt="onyx logo" src="./logos/onyx-positive.svg" height="96px">
+<img alt="Onyx logo" src="./packages/assets/src/logos/favicon.svg" height="96px">
 </div>
 
 <br>
+
+# Onyx
 
 A design system and Vue.js component library for enterprise grade applications created by [Schwarz Digits](https://schwarz-digits.de).
 
