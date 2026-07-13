@@ -4,8 +4,10 @@ layout: home
 markdownStyles: false
 
 hero:
-  name: onyx.web
-  text: design system
+  name: Onyx
+  text: |
+    Application
+    Design System
   tagline: A design system and Vue.js component library created by Schwarz Digits.
   image:
     src: /favicon.svg
