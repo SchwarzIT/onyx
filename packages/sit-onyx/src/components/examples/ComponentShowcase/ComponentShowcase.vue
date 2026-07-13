@@ -7,7 +7,7 @@ import {
   iconShareIos,
 } from "@sit-onyx/icons";
 import { ref } from "vue";
-import logoUrl from "../../../../.storybook/public/onyx-logo.svg";
+import logoUrl from "@sit-onyx/assets/logos/favicon.svg";
 import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
 import OnyxAvatarStack from "../../OnyxAvatarStack/OnyxAvatarStack.vue";
 import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";

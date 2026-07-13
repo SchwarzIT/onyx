@@ -11,7 +11,7 @@ import { createOnyx } from "../src";
 import { a11yTags } from "../src/a11yConfig";
 import docsTemplate from "./docs-template.mdx";
 import { enhanceFormInjectedSymbol } from "./formInjected";
-import brandImage from "./public/onyx-logo-long.svg";
+import brandImage from "@sit-onyx/assets/logos/onyx-text.svg";
 import { enhanceSkeletonInjectedSymbol } from "./skeletonInjected";
 
 const enabledRules = getRules(a11yTags).map((ruleMetadata) => ({

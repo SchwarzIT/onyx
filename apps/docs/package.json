@@ -30,6 +30,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "devDependencies": {
+    "@sit-onyx/assets": "workspace:^",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
