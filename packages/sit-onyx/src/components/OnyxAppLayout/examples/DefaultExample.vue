@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { OnyxAppLayout, OnyxNavBar, OnyxNavItem, OnyxPageLayout } from "../../../index.js";
-import logoUrl from "@sit-onyx/assets/logos/favicon.svg";
+import logoUrl from "@sit-onyx/assets/logos/signet.svg";
 </script>
 
 <template>

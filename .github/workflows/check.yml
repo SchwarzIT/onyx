@@ -33,6 +33,19 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
+      - run: |
+          # Find broken symbolic links
+          output=$(find . -type l -not -path '*/node_modules/*' ! -exec [ -e {} ] \; -exec file {} \;)
+
+          if [ -n "$output" ]; then
+              echo "Error: Broken symbolic links found:"
+              echo "$output"
+              exit 1
+          fi
+
+          echo "All symbolic links are healthy."
+          exit 0
+
       - name: 🛠️ Build packages
         run: pnpm run build:all
 

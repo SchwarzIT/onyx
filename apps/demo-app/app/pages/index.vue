@@ -2,7 +2,7 @@
 import { iconChart, iconTextSelector, iconToolTable } from "@sit-onyx/icons";
 import bannerImg from "~/assets/images/banner.webp";
 import coverImg from "~/assets/images/cover.webp";
-import onyxLogo from "@sit-onyx/assets/logos/favicon.svg?raw";
+import onyxLogo from "@sit-onyx/assets/logos/signet.svg?raw";
 import type { LinkCardProps } from "../components/LinkCard.vue";
 
 definePageMeta({ layout: false });

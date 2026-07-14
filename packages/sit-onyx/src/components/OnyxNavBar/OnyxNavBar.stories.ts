@@ -15,7 +15,7 @@ import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
 import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories.js";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
-import logoUrl from "@sit-onyx/assets/logos/favicon.svg";
+import logoUrl from "@sit-onyx/assets/logos/signet.svg";
 
 const withPaddingDecorator: Decorator = (story) => {
   return {

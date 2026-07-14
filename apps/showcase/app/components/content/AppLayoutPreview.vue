@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logoUrl from "@sit-onyx/assets/logos/favicon.svg";
+import logoUrl from "@sit-onyx/assets/logos/signet.svg";
 </script>
 
 <template>

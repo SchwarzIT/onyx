@@ -5,7 +5,7 @@ import lidlLogo from "~/assets/images/brands/lidl.svg?raw";
 import prezeroLogo from "~/assets/images/brands/prezero.svg?raw";
 import scosLogo from "~/assets/images/brands/scos.svg?raw";
 import tailwindLogo from "~/assets/images/brands/tailwind.svg?raw";
-import onyxLogo from "@sit-onyx/assets/logos/favicon.svg?raw";
+import onyxLogo from "@sit-onyx/assets/logos/signet.svg?raw";
 import type { DetailsItem } from "../DetailsList.vue";
 
 type SchwarzBrand =
