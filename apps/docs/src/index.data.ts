@@ -79,7 +79,7 @@ export default defineLoader({
       },
       {
         name: "Data grid",
-        status: "in-progress",
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/data-datagrid--docs",
       },
       {
@@ -190,12 +190,12 @@ export default defineLoader({
       },
       {
         name: "Date picker",
-        status: "planned",
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-datepickerv2--docs",
       },
       {
         name: "Time picker",
-        status: getImplementedStatus("OnyxTimePicker"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-timepicker--docs",
       },
       {
@@ -225,7 +225,7 @@ export default defineLoader({
       },
       {
         name: "Form",
-        status: "in-progress",
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/form-elements-form--docs",
       },
       {
@@ -254,7 +254,11 @@ export default defineLoader({
         status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/navigation-tabs--docs",
       },
-      { name: "Search", status: getImplementedStatus("OnyxSearch") },
+      {
+        name: "Search",
+        status: "implemented",
+        href: "https://storybook.onyx.schwarz/?path=/docs/search-filter-search--docs",
+      },
       { name: "Filters", status: getImplementedStatus("OnyxFilters") },
       {
         name: "Bottom bar",
@@ -278,7 +282,7 @@ export default defineLoader({
       },
       {
         name: "Shortcut",
-        status: getImplementedStatus("OnyxShortcut"),
+        status: "implemented",
         href: "https://storybook.onyx.schwarz/?path=/docs/basic-shortcut--docs",
       },
       { name: "Feed", status: getImplementedStatus("OnyxFeed") },
