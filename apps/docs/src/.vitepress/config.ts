@@ -38,7 +38,7 @@ export const CONFIG = {
       },
     ],
     ["meta", { property: "og:site_name", content: "onyx" }],
-    ["meta", { property: "og:image", content: "https://onyx.schwarz/images/og-logo.png" }],
+    ["meta", { property: "og:image", content: "https://onyx.schwarz/images/og-image.png" }],
     ["meta", { property: "og:image:type", content: "image/jpeg" }],
     ["meta", { property: "og:image:width", content: "600" }],
     ["meta", { property: "og:image:height", content: "600" }],
@@ -47,7 +47,7 @@ export const CONFIG = {
   ignoreDeadLinks: [/^http:\/\/localhost:6006/],
   themeConfig: {
     externalLinkIcon: true,
-    logo: { light: "/onyx-light.svg", dark: "/onyx-dark.svg", alt: "Onyx logo" },
+    logo: { light: "/logo-on-light.svg", dark: "/logo-on-dark.svg", alt: "Onyx logo" },
     siteTitle: false,
     search: {
       provider: "local",

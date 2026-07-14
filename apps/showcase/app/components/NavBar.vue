@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import NavBar from "#layers/onyx/app/components/NavBar.vue";
 import type { OnyxNavItemProps } from "sit-onyx";
-import logoUrl from "@sit-onyx/assets/logos/signet.svg";
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 const localePath = useLocalePath();
 const route = useRoute();

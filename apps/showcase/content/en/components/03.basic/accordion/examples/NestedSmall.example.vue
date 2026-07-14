@@ -8,7 +8,7 @@ import {
   OnyxSidebar,
 } from "sit-onyx";
 import { ref } from "vue";
-import logoUrl from "@sit-onyx/assets/logos/signet.svg";
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 // for this example, we open the first accordion initially
 // but you can also leave the array empty if not needed

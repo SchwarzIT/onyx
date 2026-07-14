@@ -31,7 +31,7 @@ import {
   useSkeletonContext,
   type OnyxNotificationCardProps,
 } from "../../../index.js";
-import logoUrl from "@sit-onyx/assets/logos/signet.svg";
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 /**
  * Custom notification type for your project. This can also include custom properties depending in your needs (e.g. an ID etc.).
