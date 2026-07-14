@@ -187,7 +187,10 @@
   "input": {
     "clear": "Изчистване на въведеното",
     "showPassword": "Показване на паролата",
-    "hidePassword": "Скриване на паролата"
+    "hidePassword": "Скриване на паролата",
+    "copy": "копиране",
+    "copyFailed": "копирането е неуспешно",
+    "copySuccess": "копирано"
   },
   "dialog": {
     "close": "Затваряне на диалоговия прозорец"
@@ -358,6 +361,7 @@
     "leadingShortcutPlaceholder": "Въведете",
     "trailingShortcutPlaceholder": "за търсене",
     "label": "Търсене",
-    "selectFilter": "Избор на филтър"
+    "selectFilter": "Избор на филтър",
+    "toggleFilters": "Превключване на филтри"
   }
 }

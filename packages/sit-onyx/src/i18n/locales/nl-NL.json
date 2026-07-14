@@ -187,7 +187,10 @@
   "input": {
     "clear": "Invoer wissen",
     "showPassword": "Wachtwoord tonen",
-    "hidePassword": "Wachtwoord verbergen"
+    "hidePassword": "Wachtwoord verbergen",
+    "copy": "kopiëren",
+    "copyFailed": "kopiëren mislukt",
+    "copySuccess": "gekopieerd"
   },
   "dialog": {
     "close": "Dialoogvenster sluiten"
@@ -358,6 +361,7 @@
     "leadingShortcutPlaceholder": "Typ",
     "trailingShortcutPlaceholder": "om te zoeken",
     "label": "Zoeken",
-    "selectFilter": "Filter selecteren"
+    "selectFilter": "Filter selecteren",
+    "toggleFilters": "Filters tonen/verbergen"
   }
 }

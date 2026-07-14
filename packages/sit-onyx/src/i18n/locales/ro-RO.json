@@ -187,7 +187,10 @@
   "input": {
     "clear": "Ștergere intrare",
     "showPassword": "Afișare parolă",
-    "hidePassword": "Ascundere parolă"
+    "hidePassword": "Ascundere parolă",
+    "copy": "copiere",
+    "copyFailed": "copiere eșuată",
+    "copySuccess": "copiat"
   },
   "dialog": {
     "close": "Închidere dialog"
@@ -358,6 +361,7 @@
     "leadingShortcutPlaceholder": "Tastați",
     "trailingShortcutPlaceholder": "pentru a căuta",
     "label": "Căutare",
-    "selectFilter": "Selectare filtru"
+    "selectFilter": "Selectare filtru",
+    "toggleFilters": "Comutare filtre"
   }
 }
