@@ -19,6 +19,7 @@
   "dependencies": {
     "@nuxt/content": "^3.14.0",
     "@nuxtjs/mdc": "~0.22.0",
+    "@onyx-internal/digits-theme": "^1.2.1",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/icons": "workspace:^",

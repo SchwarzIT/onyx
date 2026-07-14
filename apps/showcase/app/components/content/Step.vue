@@ -24,7 +24,7 @@ const slots = defineSlots<{
         <slot name="headline" mdc-unwrap="p"></slot>
       </div>
 
-      <div class="onyx-text--small step__content">
+      <div class="onyx-text--basic step__content">
         <!-- using custom CSS below instead of mdc-unwrap="p" because it would wrap all nested p elements, but we only want to remove the margin of the first one -->
         <slot></slot>
       </div>

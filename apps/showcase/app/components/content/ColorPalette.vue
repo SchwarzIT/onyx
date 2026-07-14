@@ -40,7 +40,7 @@ const borderColor = computed(() =>
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  box-shadow: var(--onyx-shadow-soft-bottom);
+  //  box-shadow: var(--onyx-shadow-soft-bottom);
   border-radius: var(--onyx-radius-md);
   overflow: hidden;
   border: var(--onyx-1px-in-rem) solid var(--palette-border-color);

@@ -6,7 +6,7 @@ export default defineNuxtModule({
   },
   defaults: {},
   setup() {
-    const globalComponents = ["OnyxTag", "OnyxHeadline"];
+    const globalComponents = ["OnyxTag", "OnyxHeadline", "OnyxCard"];
 
     // register specific components globally so they can be used in markdown files
     globalComponents.forEach((component) => {
