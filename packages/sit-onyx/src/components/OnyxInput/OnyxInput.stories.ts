@@ -225,6 +225,13 @@ export const LeftLabel = {
   },
 } satisfies Story;
 
+export const WithCopyButton = {
+  tags: ["new:feature"],
+  args: {
+    showCopyButton: true,
+  },
+} satisfies Story;
+
 export const Slots = {
   tags: ["new:feature"],
   args: {

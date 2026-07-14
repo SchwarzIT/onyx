@@ -186,6 +186,9 @@
   },
   "input": {
     "clear": "Clear input",
+    "copy": "copy",
+    "copyFailed": "copy failed",
+    "copySuccess": "copied",
     "showPassword": "Show Password",
     "hidePassword": "Hide Password"
   },

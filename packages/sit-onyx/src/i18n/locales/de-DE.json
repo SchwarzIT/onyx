@@ -186,6 +186,10 @@
   },
   "input": {
     "clear": "Eingabe löschen",
+    "copy": "kopieren",
+    "copyFailed": "kopieren fehlgeschlagen",
+    "copySuccess": "kopiert",
+
     "showPassword": "Passwort anzeigen",
     "hidePassword": "Passwort verstecken"
   },

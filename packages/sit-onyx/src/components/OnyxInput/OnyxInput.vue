@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
+import { iconCheckSmall, iconCopy, iconEye, iconEyeClosed, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useClearButton } from "../../composables/useClearButton.js";
@@ -15,6 +15,7 @@ import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type { OnyxFormElementV2Slots } from "../OnyxFormElementV2/types.js";
 import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import type { OnyxInputProps } from "./types.js";
+import { useCopy } from "../../composables/useCopy.js";
 
 const props = withDefaults(defineProps<OnyxInputProps>(), {
   type: "text",
@@ -91,6 +92,7 @@ const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue
 const error = computed(() => {
   if (props.error) return props.error;
   if (maxLengthError.value) return maxLengthError.value;
+  if (copyStatus.value === "error") return t.value("input.copyFailed") || "Copy failed";
   return undefined;
 });
 
@@ -131,12 +133,21 @@ const counter = computed(() => {
 });
 
 const { showClearButton } = useClearButton({ props, modelValue });
+
+const { copyStatus, copy: handleCopy } = useCopy({ source: () => modelValue.value });
+const formElementSuccess = computed(() => {
+  return (
+    formElementV2Props.value.success ??
+    (copyStatus.value === "success" ? t.value("input.copySuccess") : undefined)
+  );
+});
 </script>
 
 <template>
   <OnyxFormElementV2
     v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
     :class="['onyx-input', { 'onyx-input--no-slot-padding': props.disableSlotPadding }]"
+    :success="formElementSuccess"
   >
     <template #default="inputProps">
       <!-- eslint-disable-next-line vuejs-accessibility/form-control-has-label -- label is associated by "inputProps" -->
@@ -168,13 +179,20 @@ const { showClearButton } = useClearButton({ props, modelValue });
       <slot name="leadingIcons"></slot>
     </template>
 
-    <template v-if="slots.trailingIcons || showClearButton" #trailingIcons>
+    <template v-if="slots.trailingIcons || showClearButton || props.showCopyButton" #trailingIcons>
       <OnyxFormElementAction
         v-if="showClearButton"
         :label="t('input.clear')"
         :icon="iconXSmall"
         show-on-focus
         @click="modelValue = ''"
+      />
+      <OnyxFormElementAction
+        v-if="props.showCopyButton"
+        class="onyx-input__copy"
+        :label="t('input.copy')"
+        :icon="copyStatus === 'success' ? iconCheckSmall : iconCopy"
+        @click="handleCopy"
       />
       <slot name="trailingIcons"></slot>
     </template>
@@ -209,7 +227,11 @@ const { showClearButton } = useClearButton({ props, modelValue });
         color: var(--onyx-color-text-icons-danger-intense);
       }
     }
-
+    &:has(.onyx-form-element-v2__message--success) {
+      .onyx-input__copy .onyx-form-element-action__button {
+        color: var(--onyx-color-base-success-500);
+      }
+    }
     &:not(&--no-slot-padding) {
       .onyx-form-element-v2__slot:not(:has(.onyx-input__password)) {
         padding-inline: var(--onyx-form-element-v2-padding-inline);

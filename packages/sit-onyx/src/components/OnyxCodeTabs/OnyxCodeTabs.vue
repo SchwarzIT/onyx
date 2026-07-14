@@ -8,6 +8,7 @@ import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTabs from "../OnyxTabs/OnyxTabs.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import { CODE_TABS_INJECTION_KEY, type OnyxCodeTabsProps } from "./types.js";
+import { useCopy } from "../../composables/useCopy.js";
 
 const props = defineProps<OnyxCodeTabsProps<TValue>>();
 
@@ -39,22 +40,8 @@ const tabs = ref(new Map<PropertyKey, string>());
 provide(CODE_TABS_INJECTION_KEY, { tabs });
 
 const activeTabCode = computed(() => tabs.value.get(modelValue.value));
-const copyStatus = ref<"success" | "error">();
 
-const handleCopy = async () => {
-  if (!activeTabCode.value) return;
-
-  try {
-    // eslint-disable-next-line compat/compat -- event handler is safe as it can only be triggered in the client
-    await navigator.clipboard.writeText(activeTabCode.value);
-    copyStatus.value = "success";
-  } catch {
-    // the user might not have granted the permission for the browser / application to access the clipboard
-    copyStatus.value = "error";
-  } finally {
-    setTimeout(() => (copyStatus.value = undefined), 3000);
-  }
-};
+const { copyStatus, copy: handleCopy } = useCopy({ source: () => activeTabCode.value ?? "" });
 </script>
 
 <template>
