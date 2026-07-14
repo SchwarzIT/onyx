@@ -34,6 +34,12 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
             container?.style.removeProperty(property);
           }
         });
+
+        // If the last column is being resized, we automatically scroll the container to the right.
+        if (resizingCol.value === lastColumnKey.value && scrollContainer.value) {
+          scrollContainer.value.scrollLeft =
+            scrollContainer.value.scrollWidth - scrollContainer.value.clientWidth;
+        }
       },
       { flush: "post", deep: true },
     );
@@ -125,13 +131,29 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
           },
           onEnd: () => {
             resizingCol.value = undefined;
+            // Prevents the last column from being permanently frozen at a fixed width when it could actually fill the remaining space.
+            if (lastColumnKey.value) {
+              const lastColWidthStr = resizeState.value.get(lastColumnKey.value);
+              if (lastColWidthStr && lastColWidthStr.endsWith("px")) {
+                const lastColWidth = parseFloat(lastColWidthStr);
+                if (!isNaN(lastColWidth) && lastColWidth <= lastColumnActiveMinWidth.value) {
+                  resizeState.value.delete(lastColumnKey.value);
+                }
+              }
+            }
           },
           onUpdateWidth: (width) => {
-            resizeState.value.set(column.key, `${width}px`);
+            if (column.key === lastColumnKey.value) {
+              // Prevents shrinking the table below the container size when dragging
+              const finalWidth = Math.max(lastColumnActiveMinWidth.value, width);
+              resizeState.value.set(column.key, `${finalWidth}px`);
+            } else {
+              resizeState.value.set(column.key, `${width}px`);
+            }
           },
           onAutoSize: () => {
             if (column.key === lastColumnKey.value) {
-              resizeState.value.delete(column.key);
+              resizeState.value.set(column.key, "minmax(max-content, 1fr)");
             } else {
               resizeState.value.set(column.key, "max-content");
             }
