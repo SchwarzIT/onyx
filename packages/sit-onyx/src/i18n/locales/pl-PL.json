@@ -187,7 +187,10 @@
   "input": {
     "clear": "Wyczyść pole",
     "showPassword": "Pokaż hasło",
-    "hidePassword": "Ukryj hasło"
+    "hidePassword": "Ukryj hasło",
+    "copy": "kopiuj",
+    "copyFailed": "kopiowanie nie powiodło się",
+    "copySuccess": "skopiowano"
   },
   "dialog": {
     "close": "Zamknij okno dialogowe"
@@ -358,6 +361,7 @@
     "leadingShortcutPlaceholder": "Wpisz",
     "trailingShortcutPlaceholder": "aby wyszukać",
     "label": "Szukaj",
-    "selectFilter": "Wybierz filtr"
+    "selectFilter": "Wybierz filtr",
+    "toggleFilters": "Przełącz filtry"
   }
 }

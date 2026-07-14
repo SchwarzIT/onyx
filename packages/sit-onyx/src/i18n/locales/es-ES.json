@@ -187,7 +187,10 @@
   "input": {
     "clear": "Borrar entrada",
     "showPassword": "Mostrar contraseña",
-    "hidePassword": "Ocultar contraseña"
+    "hidePassword": "Ocultar contraseña",
+    "copy": "copiar",
+    "copyFailed": "copia fallida",
+    "copySuccess": "copiado"
   },
   "dialog": {
     "close": "Cerrar diálogo"
@@ -358,6 +361,7 @@
     "leadingShortcutPlaceholder": "Escriba",
     "trailingShortcutPlaceholder": "para buscar",
     "label": "Buscar",
-    "selectFilter": "Seleccionar filtro"
+    "selectFilter": "Seleccionar filtro",
+    "toggleFilters": "Alternar filtros"
   }
 }

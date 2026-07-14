@@ -187,7 +187,10 @@
   "input": {
     "clear": "Vymazať vstup",
     "showPassword": "Zobraziť heslo",
-    "hidePassword": "Skryť heslo"
+    "hidePassword": "Skryť heslo",
+    "copy": "kopírovať",
+    "copyFailed": "kopírovanie zlyhalo",
+    "copySuccess": "skopírované"
   },
   "dialog": {
     "close": "Zavrieť dialógové okno"
@@ -358,6 +361,7 @@
     "leadingShortcutPlaceholder": "Napísať",
     "trailingShortcutPlaceholder": "na vyhľadávanie",
     "label": "Hľadať",
-    "selectFilter": "Vybrať filter"
+    "selectFilter": "Vybrať filter",
+    "toggleFilters": "Prepnúť filtre"
   }
 }

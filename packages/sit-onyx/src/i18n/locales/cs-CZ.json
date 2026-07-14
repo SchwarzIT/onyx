@@ -187,7 +187,10 @@
   "input": {
     "clear": "Vymazat vstup",
     "showPassword": "Zobrazit heslo",
-    "hidePassword": "Skrýt heslo"
+    "hidePassword": "Skrýt heslo",
+    "copy": "kopírovat",
+    "copyFailed": "kopírování se nezdařilo",
+    "copySuccess": "zkopírováno"
   },
   "dialog": {
     "close": "Zavřít dialog"
@@ -358,6 +361,7 @@
     "leadingShortcutPlaceholder": "Napsat",
     "trailingShortcutPlaceholder": "pro vyhledávání",
     "label": "Hledat",
-    "selectFilter": "Vybrat filtr"
+    "selectFilter": "Vybrat filtr",
+    "toggleFilters": "Přepnout filtry"
   }
 }

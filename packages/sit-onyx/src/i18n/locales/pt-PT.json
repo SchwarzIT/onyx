@@ -187,7 +187,10 @@
   "input": {
     "clear": "Limpar entrada",
     "showPassword": "Mostrar Palavra-passe",
-    "hidePassword": "Ocultar Palavra-passe"
+    "hidePassword": "Ocultar Palavra-passe",
+    "copy": "copiar",
+    "copyFailed": "cópia falhou",
+    "copySuccess": "copiado"
   },
   "dialog": {
     "close": "Fechar diálogo"
@@ -358,6 +361,7 @@
     "leadingShortcutPlaceholder": "Digite",
     "trailingShortcutPlaceholder": "para pesquisar",
     "label": "Pesquisar",
-    "selectFilter": "Selecionar Filtro"
+    "selectFilter": "Selecionar Filtro",
+    "toggleFilters": "Alternar filtros"
   }
 }

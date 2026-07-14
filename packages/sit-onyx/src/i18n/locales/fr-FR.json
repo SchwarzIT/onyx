@@ -187,7 +187,10 @@
   "input": {
     "clear": "Effacer la saisie",
     "showPassword": "Afficher le mot de passe",
-    "hidePassword": "Masquer le mot de passe"
+    "hidePassword": "Masquer le mot de passe",
+    "copy": "copier",
+    "copyFailed": "copie échouée",
+    "copySuccess": "copié"
   },
   "dialog": {
     "close": "Fermer la boîte de dialogue"
@@ -358,6 +361,7 @@
     "leadingShortcutPlaceholder": "Taper",
     "trailingShortcutPlaceholder": "pour rechercher",
     "label": "Rechercher",
-    "selectFilter": "Sélectionner un filtre"
+    "selectFilter": "Sélectionner un filtre",
+    "toggleFilters": "Afficher/masquer les filtres"
   }
 }
