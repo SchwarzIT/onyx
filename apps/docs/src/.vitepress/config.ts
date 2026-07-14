@@ -47,7 +47,7 @@ export const CONFIG = {
   ignoreDeadLinks: [/^http:\/\/localhost:6006/],
   themeConfig: {
     externalLinkIcon: true,
-    logo: { light: "onyx-light.svg", dark: "onyx-dark.svg", alt: "Onyx logo" },
+    logo: { light: "/onyx-light.svg", dark: "/onyx-dark.svg", alt: "Onyx logo" },
     siteTitle: false,
     search: {
       provider: "local",
