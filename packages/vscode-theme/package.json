@@ -1,0 +1,53 @@
+{
+  "name": "sit-onyx-vscode-theme",
+  "displayName": "Onyx",
+  "version": "0.1.0",
+  "private": true,
+  "description": "VSCode themes based on the sit-onyx design system by Schwarz Digits.",
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "dark",
+    "light",
+    "onyx",
+    "schwarz",
+    "sit-onyx",
+    "theme"
+  ],
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/vscode-theme"
+  },
+  "publisher": "schwarzit",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "build": "rimraf ./dist && mkdir dist && npx @vscode/vsce package --no-dependencies --out dist/onyx.vsix"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Onyx Dark",
+        "uiTheme": "vs-dark",
+        "path": "./src/onyx-dark.json"
+      },
+      {
+        "label": "Onyx Light",
+        "uiTheme": "vs",
+        "path": "./src/onyx-light.json"
+      }
+    ]
+  },
+  "galleryBanner": {
+    "color": "#081723",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  }
+}
