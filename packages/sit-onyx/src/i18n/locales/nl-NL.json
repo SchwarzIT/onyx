@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Typ",
     "trailingShortcutPlaceholder": "om te zoeken",
     "label": "Zoeken",
-    "selectFilter": "Filter selecteren",
-    "toggleFilters": "Filters tonen/verbergen"
+    "selectFilter": "Filter selecteren"
   }
 }

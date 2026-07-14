@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "입력",
     "trailingShortcutPlaceholder": "하여 검색",
     "label": "검색",
-    "selectFilter": "필터 선택",
-    "toggleFilters": "필터 전환"
+    "selectFilter": "필터 선택"
   }
 }

@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Wpisz",
     "trailingShortcutPlaceholder": "aby wyszukać",
     "label": "Szukaj",
-    "selectFilter": "Wybierz filtr",
-    "toggleFilters": "Przełącz filtry"
+    "selectFilter": "Wybierz filtr"
   }
 }

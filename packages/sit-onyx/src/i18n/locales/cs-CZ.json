@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Napsat",
     "trailingShortcutPlaceholder": "pro vyhledávání",
     "label": "Hledat",
-    "selectFilter": "Vybrat filtr",
-    "toggleFilters": "Přepnout filtry"
+    "selectFilter": "Vybrat filtr"
   }
 }

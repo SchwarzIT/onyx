@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Digitare",
     "trailingShortcutPlaceholder": "per cercare",
     "label": "Cerca",
-    "selectFilter": "Seleziona filtro",
-    "toggleFilters": "Attiva/disattiva filtri"
+    "selectFilter": "Seleziona filtro"
   }
 }

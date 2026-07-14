@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Upišite",
     "trailingShortcutPlaceholder": "za pretraživanje",
     "label": "Pretraživanje",
-    "selectFilter": "Odaberi filtar",
-    "toggleFilters": "Uključi/isključi filtre"
+    "selectFilter": "Odaberi filtar"
   }
 }

@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Въведете",
     "trailingShortcutPlaceholder": "за търсене",
     "label": "Търсене",
-    "selectFilter": "Избор на филтър",
-    "toggleFilters": "Превключване на филтри"
+    "selectFilter": "Избор на филтър"
   }
 }

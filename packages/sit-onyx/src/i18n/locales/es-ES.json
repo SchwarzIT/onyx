@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Escriba",
     "trailingShortcutPlaceholder": "para buscar",
     "label": "Buscar",
-    "selectFilter": "Seleccionar filtro",
-    "toggleFilters": "Alternar filtros"
+    "selectFilter": "Seleccionar filtro"
   }
 }

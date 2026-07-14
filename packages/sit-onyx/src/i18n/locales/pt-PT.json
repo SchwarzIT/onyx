@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Digite",
     "trailingShortcutPlaceholder": "para pesquisar",
     "label": "Pesquisar",
-    "selectFilter": "Selecionar Filtro",
-    "toggleFilters": "Alternar filtros"
+    "selectFilter": "Selecionar Filtro"
   }
 }

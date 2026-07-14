@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Napísať",
     "trailingShortcutPlaceholder": "na vyhľadávanie",
     "label": "Hľadať",
-    "selectFilter": "Vybrať filter",
-    "toggleFilters": "Prepnúť filtre"
+    "selectFilter": "Vybrať filter"
   }
 }

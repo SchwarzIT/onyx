@@ -361,7 +361,6 @@
     "leadingShortcutPlaceholder": "Tastați",
     "trailingShortcutPlaceholder": "pentru a căuta",
     "label": "Căutare",
-    "selectFilter": "Selectare filtru",
-    "toggleFilters": "Comutare filtre"
+    "selectFilter": "Selectare filtru"
   }
 }
