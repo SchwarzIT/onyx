@@ -15,6 +15,7 @@ import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
 import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories.js";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 const withPaddingDecorator: Decorator = (story) => {
   return {
@@ -68,7 +69,7 @@ type Story = StoryObj<typeof OnyxNavBar>;
 export const Default = {
   decorators: [withPaddingDecorator],
   args: {
-    logoUrl: "/onyx-logo.svg",
+    logoUrl,
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Router Link", link: "#router-link" }),
@@ -90,7 +91,7 @@ export const Default = {
 export const Nested = {
   decorators: [withPaddingDecorator],
   args: {
-    logoUrl: "/onyx-logo.svg",
+    logoUrl,
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Item 1", link: "https://schwarz-digits.de/" }),
@@ -138,7 +139,7 @@ export const WithMoreListItem = {
     viewport: { value: "sm" },
   },
   args: {
-    logoUrl: "/onyx-logo.svg",
+    logoUrl,
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Menuitem 0" }),

@@ -9,7 +9,7 @@ import {
   iconUserId,
 } from "@sit-onyx/icons";
 import type { OnyxNavBarSlots } from "sit-onyx";
-import logoUrl from "~/assets/images/onyx-logo.svg";
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 defineSlots<Pick<OnyxNavBarSlots, "contextArea">>();
 const expanded = ref(false);
