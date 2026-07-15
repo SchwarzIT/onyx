@@ -1,5 +1,11 @@
 # @sit-onyx/eslint-plugin
 
+## 0.2.2
+
+### Patch Changes
+
+- 1ee4efd: Fix: Support eslint 10
+
 ## 0.2.1
 
 ### Patch Changes

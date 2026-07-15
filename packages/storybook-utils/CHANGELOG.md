@@ -1,5 +1,11 @@
 # @sit-onyx/storybook-utils
 
+## 1.1.4
+
+### Patch Changes
+
+- 397511f: fix(createTheme): allow definition for dark and light mode images
+
 ## 1.1.3
 
 ### Patch Changes

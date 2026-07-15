@@ -1,5 +1,37 @@
 # sit-onyx
 
+## 1.17.0
+
+### Minor Changes
+
+- 6a14c64: feat: Links that are determined to be external will now open in a new tab per default
+- 8151ac2: feat(OnyxFlyoutMenu): implemented flyout menu to retain maximum layout height when navigating to a layer with fewer items to prevent cursor hover loss and updated the "Back" button to display the parent menu item
+- d7e0f7b: feat(OnyxDataGrid): implement new `useRowClick` feature
+- ee6566e: fix(OnyxVerticalNavbar): changed default slot of `OnyxNavItem` to show custom content when the vertical navbar is collapsed
+
+  Important: When using this, the CSS variable --onyx-vertical-navbar-collapsed-width might need to be adjusted on the OnyxNavBar to fit the custom content properly.
+
+- 977852d: - fix(OnyxDataGrid): ensure header `iconComponent` is always displayed when `alwaysShowInHeader` option is enabled
+  - fix(OnyxDataGrid): correctly pass slot props to `empty` slot
+  - fix(OnyxDataGrid): use correct label for ascending sort button of `useSorting` feature when flyout exists
+  - feat(OnyxDataGrid): pass `ctx` property to `iconComponent` of header actions
+- 368ee87: feat(OnyxTableOfContentsItem): set active when corresponding headline is visible/scrolled to when `active="auto"` is set
+- fe14550: feat(OnyxGlobalSearch): added leading slot for the `OnyxGlobalSearch` and added orientation prop for the `OnyxGlobalSearchGroup` component.
+- d306ebd: feat(OnyxSlider): implement OnyxFormElementV2 inside the Slider component
+
+  - internal re-work of the OnyxSlider
+  - fixed the height, so it's now aligned with the other form elements
+  - might affect existing layouts
+
+### Patch Changes
+
+- 91b075f: fix(form-elements): prevent virtual keyboards when opening popover
+- cd477cf: fix(DataGridFeatures.usePagination): Fix Lazy Loading not working in combination with ColumnGrouping
+- 69710b5: fix(OnyxSearch): inherit skeleton from parent by default
+- c0d470f: fix(OnyxTab): Fix incorrect font-family
+- 072c082: fix(OnyxBasicDialog, OnyxModal): Fix OnyxModal closing on scrollbar click
+- 642c818: fix(OnyxCard): set `type="button"` if card is clickable to e.g. prevent unintentional form submit on click when used inside a form
+
 ## 1.16.0
 
 ### Minor Changes
