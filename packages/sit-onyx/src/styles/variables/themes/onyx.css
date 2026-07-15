@@ -283,6 +283,11 @@
   --onyx-color-component-border-neutral-hover: var(--onyx-color-base-neutral-400);
   --onyx-color-component-border-primary: var(--onyx-color-base-primary-500);
   --onyx-color-component-border-primary-hover: var(--onyx-color-base-primary-400);
+  --onyx-color-component-border-secondary: var(--onyx-color-base-neutral-600);
+  --onyx-color-component-border-secondary-hover: light-dark(
+    var(--onyx-color-base-primary-600),
+    var(--onyx-color-base-primary-500)
+  );
   --onyx-color-component-border-success: var(--onyx-color-base-success-500);
   --onyx-color-component-border-success-hover: var(--onyx-color-base-success-400);
   --onyx-color-component-cta-danger: var(--onyx-color-base-danger-500);

@@ -154,6 +154,7 @@ const valueLabel = computed(() =>
   @include layers.component() {
     &--compact {
       .onyx-pagination__button:first-of-type {
+        border-left-color: initial;
         border-radius: var(--onyx-pagination-border-radius) 0 0 var(--onyx-pagination-border-radius);
       }
 
@@ -163,11 +164,14 @@ const valueLabel = computed(() =>
         &:focus-visible {
           margin-left: var(--onyx-outline-width);
           border-left: var(--onyx-pagination-border-size) solid
-            var(--onyx-color-component-border-neutral);
+            var(--onyx-color-component-border-secondary-hover);
         }
       }
 
       .onyx-pagination__select {
+        .onyx-form-element-v2__input-container {
+          border-left-color: var(--onyx-color-component-border-neutral);
+        }
         --onyx-form-element-v2-border-radius: 0;
         --onyx-form-element-v2-padding-inline-icons: var(--onyx-form-element-v2-padding-inline);
 
