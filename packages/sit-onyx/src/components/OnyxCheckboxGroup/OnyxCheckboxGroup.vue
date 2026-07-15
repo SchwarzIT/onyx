@@ -141,7 +141,7 @@ defineExpose({
     width: max-content;
     max-width: 100%;
     min-width: unset;
-    $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
 
     &__label {
       display: flex;
