@@ -35,7 +35,7 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "prettier": "^3.9.5",
-    "storybook": "10.4.6",
+    "storybook": "~10.4.6",
     "vue": "catalog:",
     "vue-component-type-helpers": "^3.3.7"
   },
