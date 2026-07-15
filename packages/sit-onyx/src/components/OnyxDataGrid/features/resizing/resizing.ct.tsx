@@ -28,11 +28,7 @@ test("should resize columns", async ({ page, mount }) => {
   const component = await mount(
     <TestCase
       data={data}
-      columns={[
-        { key: "a", width: "200px" },
-        { key: "b", width: "100px" },
-        { key: "c", width: "300px" },
-      ]}
+      columns={[{ key: "a", width: "200px" }, { key: "b", width: "100px" }, { key: "c" }]}
       onUpdate:resizeState={(newValue) => (resizeState = newValue)}
     />,
   );
