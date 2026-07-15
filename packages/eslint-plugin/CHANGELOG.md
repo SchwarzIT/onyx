@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 1ee4efd: Fix: Support eslint 10
+- 1ee4efd: fix: Support eslint 10
 
 ## 0.2.1
 

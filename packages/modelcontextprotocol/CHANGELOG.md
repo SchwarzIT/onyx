@@ -8,7 +8,7 @@
 
 ### Patch Changes
 
-- 077680e: fix(list-components): ignore pre-release versions
+- 077680e: fix(list-components): Ignore and don't list pre-release versions anymore
 - 077680e: fix(get-component-api): Add hint when no `events`, `slots`, `props` or `exposed` are defined
 
 ## 0.2.0

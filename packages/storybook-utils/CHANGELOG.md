@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- 397511f: fix(createTheme): allow definition for dark and light mode images
+- 397511f: fix(createTheme): Allow definition for dark and light mode images
 
 ## 1.1.3
 
