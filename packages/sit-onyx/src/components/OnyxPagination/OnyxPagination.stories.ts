@@ -34,7 +34,6 @@ export const Inline = {
 } satisfies Story;
 
 export const Compact = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     type: "compact",

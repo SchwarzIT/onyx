@@ -12,7 +12,6 @@ import OnyxGlobalSearchOption from "./OnyxGlobalSearchOption.vue";
 const meta: Meta<typeof OnyxGlobalSearchOption> = {
   title: "Search & Filter/GlobalSearch/modules/GlobalSearchOption",
   component: OnyxGlobalSearchOption,
-  tags: ["new:component"],
   argTypes: {
     default: { control: { disable: true } },
     trailing: { control: { disable: true } },

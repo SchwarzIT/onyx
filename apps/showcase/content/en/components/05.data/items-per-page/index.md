@@ -1,7 +1,6 @@
 ---
 title: Items per page
 componentName: OnyxItemsPerPage
-status: new
 ---
 
 The items per page component allows users to select how many items are displayed per page in a paginated list or table.
