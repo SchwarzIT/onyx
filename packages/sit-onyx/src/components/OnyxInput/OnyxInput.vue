@@ -92,7 +92,7 @@ const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue
 const error = computed(() => {
   if (props.error) return props.error;
   if (maxLengthError.value) return maxLengthError.value;
-  if (copyStatus.value === "error") return t.value("input.copyFailed") || "Copy failed";
+  if (copyStatus.value === "error") return t.value("input.copyFailed");
   return undefined;
 });
 
