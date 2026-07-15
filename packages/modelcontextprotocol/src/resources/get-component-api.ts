@@ -94,19 +94,19 @@ ${exposed.description}`,
 
 ## Props
 
-${propsText}
+${propsText || "_No Props_"}
 
 ## Slots
 
-${slotsText}
+${slotsText || "_No Slots_"}
 
 ## Events
 
-${eventsText}
+${eventsText || "_No Events_"}
 
 ## Exposed
 
-${exposedText}
+${exposedText || "_No Exposed API_"}
 `;
 
     return {
