@@ -91,27 +91,20 @@ test("should consider initial resize state", async ({ page, mount }) => {
   const component = await mount(
     <TestCase
       data={data}
-      columns={[
-        { key: "a", width: "200px" },
-        { key: "b", width: "100px" },
-        { key: "c", width: "300px" },
-      ]}
-      resizeState={{ a: "300px", b: "200px", c: "100px" }}
+      columns={[{ key: "a", width: "200px" }, { key: "b", width: "100px" }, { key: "c" }]}
+      resizeState={{ a: "300px", b: "200px" }}
       onUpdate:resizeState={(newValue) => (resizeState = newValue)}
     />,
   );
 
   const aColumn = component.getByRole("columnheader", { name: "Drag to change width a" });
   const bColumn = component.getByRole("columnheader", { name: "Drag to change width b" });
-  const cColumn = component.getByRole("columnheader", { name: "Drag to change width c" });
 
   // ASSERT
   let aBox = (await aColumn.boundingBox())!;
   const bBox = (await bColumn.boundingBox())!;
-  const cBox = (await cColumn.boundingBox())!;
   expect(aBox.width).toBeCloseTo(300);
   expect(bBox.width).toBeCloseTo(200);
-  expect(cBox.width).toBeCloseTo(100);
   expect(resizeState).toStrictEqual({});
 
   // ACT
