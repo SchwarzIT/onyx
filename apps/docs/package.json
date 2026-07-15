@@ -37,15 +37,15 @@
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/tiptap": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
-    "browserslist": "^4.28.4",
+    "browserslist": "^4.28.6",
     "chart.js": "catalog:",
-    "postcss": "^8.5.16",
+    "postcss": "^8.5.17",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",
-    "vitepress": "2.0.0-alpha.17",
+    "vitepress": "2.0.0-alpha.18",
     "vue": "catalog:",
-    "vue-chartjs": "^5.3.3"
+    "vue-chartjs": "^5.3.4"
   },
   "engines": {
     "node": ">=20"
