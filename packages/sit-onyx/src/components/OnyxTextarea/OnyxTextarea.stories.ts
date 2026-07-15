@@ -187,7 +187,6 @@ export const WithMessageTooltip = {
 } satisfies Story;
 
 export const Loading = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     loading: true,
@@ -195,14 +194,12 @@ export const Loading = {
 } satisfies Story;
 
 export const LeftLabel = {
-  tags: ["new:feature"],
   args: {
     label: { label: Default.args.label, position: "left" },
   },
 } satisfies Story;
 
 export const Slots = {
-  tags: ["new:feature"],
   args: {
     ...Maxlength.args,
     label: { label: Maxlength.args.label, tooltipText: "Label tooltip" },

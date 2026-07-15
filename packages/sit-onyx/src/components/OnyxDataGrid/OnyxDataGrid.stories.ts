@@ -33,7 +33,6 @@ export const Slots = {
 } satisfies Story;
 
 export const Actions = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "ActionsExample"),
 } satisfies Story;
 

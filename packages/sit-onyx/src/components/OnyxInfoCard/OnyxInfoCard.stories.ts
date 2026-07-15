@@ -53,7 +53,6 @@ export const Minimal = {
 } satisfies Story;
 
 export const HeaderActions = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     headerActions: () => [

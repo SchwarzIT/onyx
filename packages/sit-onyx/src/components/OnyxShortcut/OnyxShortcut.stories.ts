@@ -38,7 +38,6 @@ export const MultiStep = {
 } satisfies Story;
 
 export const Nested = {
-  tags: ["new:feature"],
   args: {
     sequence: [{ all: ["Control", "K", { any: ["A", "B"] }] }],
     highlight: "auto",

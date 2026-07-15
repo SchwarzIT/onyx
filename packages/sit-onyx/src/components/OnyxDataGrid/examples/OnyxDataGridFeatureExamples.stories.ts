@@ -24,12 +24,10 @@ export const Pagination: Story = {
 };
 
 export const Editing: Story = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "EditingExample"),
 };
 
 export const ExpandableRows: Story = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "ExpandableRowsExample"),
 };
 

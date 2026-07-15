@@ -385,7 +385,6 @@ export const WithRightAlignment = {
 } satisfies Story;
 
 export const LeftLabel = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     label: {
@@ -396,7 +395,6 @@ export const LeftLabel = {
 } satisfies Story;
 
 export const Slots = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     label: { label: Default.args.label, tooltipText: "Label tooltip" },

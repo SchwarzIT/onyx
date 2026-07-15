@@ -263,6 +263,5 @@ export const Mobile = {
 } satisfies Story;
 
 export const Vertical = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxNavBar", "VerticalExample"),
 } satisfies Story;

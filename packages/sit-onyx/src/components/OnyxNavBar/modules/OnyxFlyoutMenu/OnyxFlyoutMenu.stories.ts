@@ -135,7 +135,6 @@ export const Nested = {
 } satisfies Story;
 
 export const NestedExtern = {
-  tags: ["new:feature"],
   args: {
     label: "Choose an item",
     trigger: "click",
