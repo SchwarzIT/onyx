@@ -247,7 +247,6 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
         > td {
           position: relative;
           padding: var(--onyx-table-padding-block) var(--onyx-table-padding-inline);
-          min-width: calc(var(--onyx-table-padding-inline) * 2 + 2rem);
           outline: none;
 
           &:focus::after,

@@ -29,7 +29,6 @@ const slots = defineSlots<{
     align-items: center;
     gap: var(--onyx-density-xs);
     min-height: 1.5rem;
-    word-break: break-all;
 
     &__actions {
       display: inline-flex;
