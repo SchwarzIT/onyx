@@ -135,12 +135,11 @@ const counter = computed(() => {
 const { showClearButton } = useClearButton({ props, modelValue });
 
 const { copyStatus, copy: handleCopy } = useCopy({ source: () => modelValue.value });
-const formElementSuccess = computed(() => {
-  return (
+const formElementSuccess = computed(
+  () =>
     formElementV2Props.value.success ??
-    (copyStatus.value === "success" ? t.value("input.copySuccess") : undefined)
-  );
-});
+    (copyStatus.value === "success" ? t.value("input.copySuccess") : undefined),
+);
 </script>
 
 <template>
