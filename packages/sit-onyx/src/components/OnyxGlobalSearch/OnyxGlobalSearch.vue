@@ -283,6 +283,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       display: flex;
       flex-direction: column;
       max-width: 100%;
+      overflow: visible; // needed to show focus-visible outline on input
     }
 
     &__input {

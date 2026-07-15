@@ -232,6 +232,13 @@ const eslintCommentsConfig = {
   },
 };
 
+const showcaseConfig = {
+  files: ["apps/showcase/content/**/*.example.vue"],
+  rules: {
+    "@typescript-eslint/no-unused-vars": "warn",
+  },
+};
+
 export default defineConfig(
   eslint.configs.recommended,
   eslintCommentsConfig,
@@ -242,6 +249,7 @@ export default defineConfig(
   playwrightConfig,
   nuxtConfig,
   noConsoleConfig,
+  showcaseConfig,
   skipFormattingConfig,
   gitignoreConfig,
   specificIgnoreConfig,
