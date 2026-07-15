@@ -24,6 +24,7 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "devDependencies": {
+    "@sit-onyx/assets": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@vue/repl": "^4.7.2",

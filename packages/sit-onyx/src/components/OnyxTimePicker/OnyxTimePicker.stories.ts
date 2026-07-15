@@ -30,14 +30,12 @@ export const WithSeconds = {
 } satisfies Story;
 
 export const WithAmPm = {
-  tags: ["new:feature"],
   args: {
     showAmPm: true,
   },
 } satisfies Story;
 
 export const Range = {
-  tags: ["new:feature"],
   args: {
     type: "range",
   },
@@ -118,14 +116,12 @@ export const SelectWithCustomTimes = {
 } satisfies Story;
 
 export const LeftLabel = {
-  tags: ["new:feature"],
   args: {
     label: { label: "Select time", position: "left" },
   },
 } satisfies Story;
 
 export const Slots = {
-  tags: ["new:feature"],
   args: {
     style: "max-width: 24rem;",
     label: { label: "Select time", tooltipText: "Label tooltip" },

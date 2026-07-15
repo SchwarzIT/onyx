@@ -15,7 +15,6 @@ import OnyxTableOfContents from "./OnyxTableOfContents.vue";
 const meta: Meta<typeof OnyxTableOfContents> = {
   title: "Navigation/TableOfContents",
   component: OnyxTableOfContents,
-  tags: ["new:component"],
   argTypes: {
     default: { control: { disable: true } },
   },

@@ -7,7 +7,6 @@ import OnyxFilterBadge from "./OnyxFilterBadge.vue";
  */
 const meta: Meta<typeof OnyxFilterBadge> = {
   title: "Search & Filter/FilterBadge",
-  tags: ["new:component"],
   component: OnyxFilterBadge,
   argTypes: {
     ...withNativeEventLogging(["onClick"]),

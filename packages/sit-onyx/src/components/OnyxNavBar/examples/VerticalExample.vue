@@ -23,6 +23,7 @@ import {
   OnyxUserMenu,
   useResizeObserver,
 } from "../../../index.js";
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 const expanded = ref(false);
 
@@ -40,7 +41,7 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
       <OnyxNavBar
         v-model:expanded="expanded"
         app-name="App name"
-        logo-url="/onyx-logo.svg"
+        :logo-url
         :orientation="isMobile ? 'horizontal' : 'vertical'"
       >
         <OnyxNavItem label="Router Link" link="#router-link" active :icon="iconPlaceholder" />

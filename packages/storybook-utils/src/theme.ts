@@ -2,7 +2,14 @@ import { create, type ThemeVars } from "storybook/theming";
 import type { Viewport } from "storybook/viewport";
 import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "./breakpoints.js";
 
-export type BrandDetails = Pick<ThemeVars, "brandTitle" | "brandImage" | "brandUrl">;
+export type BrandDetails = Pick<ThemeVars, "brandTitle" | "brandUrl"> & {
+  brandImage:
+    | string
+    | {
+        dark: string;
+        light: string;
+      };
+};
 
 /**
  * Get the computed value for a CSS custom property.
@@ -21,7 +28,10 @@ export const createTheme = (base: "light" | "dark" = "light", brandDetails?: Bra
   return create({
     brandTitle: brandDetails?.brandTitle,
     brandUrl: brandDetails?.brandUrl,
-    brandImage: brandDetails?.brandImage,
+    brandImage:
+      typeof brandDetails?.brandImage === "object"
+        ? brandDetails.brandImage[base]
+        : brandDetails?.brandImage,
     brandTarget: "_blank",
     base,
 

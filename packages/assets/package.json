@@ -1,0 +1,21 @@
+{
+  "name": "@sit-onyx/assets",
+  "version": "0.0.0",
+  "private": false,
+  "description": "Assets for the onyx brand and related to the sit-onyx package",
+  "homepage": "https://onyx.schwarz",
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/assets"
+  },
+  "files": [
+    "src/"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  }
+}
