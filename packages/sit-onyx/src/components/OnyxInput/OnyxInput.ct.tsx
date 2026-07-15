@@ -371,11 +371,13 @@ test("should hide/show password", async ({ mount }) => {
   await expect(component).toHaveScreenshot(`input-password-shown.png`);
 });
 
-test("should copy input value to clipboard and show success state", async ({
-  mount,
-  context,
-  page,
-}) => {
+test("should copy input value to clipboard", async ({ mount, context, page, browserName }) => {
+  // ARRANGE
+  test.skip(
+    browserName !== "chromium",
+    "clipboard permission granting is only supported in chromium",
+  );
+
   // ARRANGE
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
 
