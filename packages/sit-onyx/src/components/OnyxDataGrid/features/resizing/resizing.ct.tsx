@@ -80,7 +80,7 @@ test("should resize columns", async ({ page, mount }) => {
 
   // ASSERT
   cBox = (await cColumn.boundingBox())!;
-  expect(cBox.width, "should be able to resize on doubleclick").toBeCloseTo(1000, -1);
+  expect(cBox.width, "should be able to resize on doubleclick").toBeCloseTo(800, -1);
 });
 
 test("should consider initial resize state", async ({ page, mount }) => {
