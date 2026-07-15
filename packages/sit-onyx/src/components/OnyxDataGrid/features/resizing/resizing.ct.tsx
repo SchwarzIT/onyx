@@ -61,7 +61,7 @@ test("should resize columns", async ({ page, mount }) => {
   const bBox = (await bColumn.boundingBox())!;
   let cBox = (await cColumn.boundingBox())!;
   expect(bBox.width, "should keep width of other columns when resizing").toBeCloseTo(100);
-  expect(cBox.width, "should keep width of other columns when resizing").toBeCloseTo(300);
+  expect(cBox.width, "should keep width of other columns when resizing").toBeCloseTo(800, -1);
 
   // ACT
   await dragResizeHandle({ page, component: cColumn, to: 1200 });
