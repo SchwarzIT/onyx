@@ -56,7 +56,7 @@ test("should resize columns", async ({ page, mount }) => {
   // ASSERT
   expect(box.width).toBeCloseTo(100, -1);
   expect(parseFloat(resizeState["a"] ?? "")).toBeCloseTo(100, -1);
-  await expect(component).toHaveScreenshot("data-grid-resized-columns-with-extra-empty-column.png");
+  await expect(component).toHaveScreenshot("data-grid-resized-columns.png");
 
   const bBox = (await bColumn.boundingBox())!;
   let cBox = (await cColumn.boundingBox())!;
