@@ -1,5 +1,12 @@
 # @sit-onyx/nuxt-docs
 
+## 0.7.2
+
+### Patch Changes
+
+- Updated dependencies [6a14c64]
+  - @sit-onyx/mdc@0.3.0
+
 ## 0.7.1
 
 ### Patch Changes
