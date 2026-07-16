@@ -1,5 +1,5 @@
-import { defineOnyxPlaywrightConfigCT } from "@sit-onyx/shared/playwright.config.base";
 import { fileURLToPath } from "node:url";
+import { defineOnyxPlaywrightConfigCT } from "@sit-onyx/shared/playwright.config.base";
 
 /**
  * See https://playwright.dev/docs/test-configuration.

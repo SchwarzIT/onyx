@@ -1,6 +1,9 @@
 import { defineConfig } from "oxfmt";
 
 export default defineConfig({
+  sortImports: {
+    newlinesBetween: false,
+  },
   ignorePatterns: [
     // MDC syntax with YAML properties for components is not supported yet
     // see: https://github.com/oxc-project/oxc/issues/18740

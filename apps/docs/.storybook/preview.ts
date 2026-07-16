@@ -1,5 +1,4 @@
 import { createPreview } from "@sit-onyx/storybook-utils";
-
 import "@sit-onyx/storybook-utils/style.css";
 import "@sit-onyx/vitepress-theme/index.scss";
 import "sit-onyx/style.css";

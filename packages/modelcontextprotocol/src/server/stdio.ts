@@ -1,6 +1,6 @@
+import { error } from "node:console";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { error } from "node:console";
 
 /**
  * MCP server running via stdio.
