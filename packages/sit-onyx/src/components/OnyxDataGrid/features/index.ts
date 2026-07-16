@@ -174,7 +174,8 @@ export type PublicNormalizedColumnConfig<
  */
 export type DataGridFeatureContext = {
   /**
-   * Ref for the `async` state of the `OnyxDataGrid`. If `true` data mutations should be skipped, if they are expected to be handled by a backend.
+   * Ref for the `async` state of the `OnyxDataGrid`. If `true` data mutations should be skipped, if
+   * they are expected to be handled by a backend.
    */
   async: Readonly<Ref<boolean>>;
   /**
@@ -228,7 +229,6 @@ export type DataGridFeatureDescription<
   /**
    * With `enhanceCell` the render details for a cell can be modified.
    * The provided function is called for every cell, after the matching typeRenderer was applied.
-   *
    */
   enhanceCells?: {
     func: (
@@ -272,29 +272,29 @@ export type DataGridFeatureDescription<
    * To change entries, you need to clone them first:
    *
    * @example
-   * ```ts
-   * {
+   *   ```ts
+   *   {
    *   modifyColumns: [ { func: (config) => configs.map(column => ({ ...column, type: "newType" })) } ];
-   * }
-   * ```
+   *   }
+   *   ```;
    */
   modifyColumns?: ModifyColumns<TEntry>;
 
   /**
    * Allows modification of the column groups.
    *
-   *  @example
-   * ```ts
-   * {
-   * modifyColumnGroups: {
-   * func: (groups, columns) => {
-   * return groups.flatMap(group => {
-   * return [ { ...group, class: 'my-custom-group-class' } ];
-   * });
-   * }
-   * }
-   * }
-   * ```
+   * @example
+   *   ```ts
+   *   {
+   *     modifyColumnGroups: {
+   *       func: (groups, columns) => {
+   *         return groups.flatMap((group) => {
+   *           return [{ ...group, class: "my-custom-group-class" }];
+   *         });
+   *       }
+   *     }
+   *   }
+   *   ```;
    */
   modifyColumnGroups?: ModifyColumnGroups<TEntry, ColumnGroupConfig>;
 
@@ -328,35 +328,37 @@ export type DataGridFeatureDescription<
 
 export type HeaderAction = {
   /**
-   * Icon button component to show. By default, it will only be shown when there are no other actions (e.g. from other features).
-   * Otherwise the `menuItems` will be displayed inside a flyout menu.
-   * Recommended to use the `OnyxSystemButton` component.
+   * Icon button component to show. By default, it will only be shown when there are no other
+   * actions (e.g. from other features). Otherwise the `menuItems` will be displayed inside a flyout
+   * menu. Recommended to use the `OnyxSystemButton` component.
    */
   iconComponent?:
     | Component<{ ctx?: HeaderActionIconComponentContext }>
     | {
         iconComponent: Component<{ ctx?: HeaderActionIconComponentContext }>;
         /**
-         * Will force the icon component to be always shown in the header and not be put into the menu.
-         * Should be used rarely to prevent an overload of always visible header actions.
+         * Will force the icon component to be always shown in the header and not be put into the
+         * menu. Should be used rarely to prevent an overload of always visible header actions.
          */
         alwaysShowInHeader?: boolean;
       };
   /**
-   * Menu items to show inside a flyout if there are more than one action defined (e.g. from other features) or `showFlyoutMenu` is set.
-   * Recommended to use the `OnyxMenuItem` component here.
+   * Menu items to show inside a flyout if there are more than one action defined (e.g. from other
+   * features) or `showFlyoutMenu` is set. Recommended to use the `OnyxMenuItem` component here.
    */
   menuItems?: Component<typeof OnyxMenuItem>[];
   /**
-   * Whether to always show the `menuItems` inside the flyout.
-   * By default, the flyout will only be visible if there are multiple actions (e.g. from other features), otherwise the `iconComponent` will be shown.
+   * Whether to always show the `menuItems` inside the flyout. By default, the flyout will only be
+   * visible if there are multiple actions (e.g. from other features), otherwise the `iconComponent`
+   * will be shown.
    */
   showFlyoutMenu?: boolean;
 };
 
 export type HeaderActionIconComponentContext = {
   /**
-   * Whether the icon component is rendered alongside a flyout menu (because there are multiple actions, e.g. from other features).
+   * Whether the icon component is rendered alongside a flyout menu (because there are multiple
+   * actions, e.g. from other features).
    */
   hasFlyoutMenu?: boolean;
 };
@@ -390,7 +392,8 @@ export type DataGridFeatureOptions<
     | {
         [TKey in keyof TEntry]?: TColumnOptions[TKey] & {
           /**
-           * Whether the feature is enabled for this column. If unset, the default/global `enabled` option of this feature will be used.
+           * Whether the feature is enabled for this column. If unset, the default/global `enabled`
+           * option of this feature will be used.
            */
           enabled?: boolean;
         };
@@ -400,31 +403,35 @@ export type DataGridFeatureOptions<
 } & (TWithAsync extends true
   ? {
       /**
-       * When async is `true`, then the internal data transformations of this feature  are disabled and have to be performed manually.
+       * When async is `true`, then the internal data transformations of this feature are disabled
+       * and have to be performed manually.
        */
       async?: boolean;
     }
   : unknown);
 
 /**
- * Helper function that checks the generics of the DataGridFeature type, without breaking type inference.
- * @example
- * ```ts
+ * Helper function that checks the generics of the DataGridFeature type, without breaking type
+ * inference.
  *
- * const MY_FEATURE = Symbol("TABLE_HEADER_BUTTON");
- * export const useDataGridHeaderButton = createFeature(<TEntry extends DataGridEntry>() => {
+ * @example
+ *   ```ts
+ *   const MY_FEATURE = Symbol("TABLE_HEADER_BUTTON");
+ *   export const useDataGridHeaderButton = createFeature(<TEntry extends DataGridEntry>() => {
  *   return {
- *     name: MY_FEATURE,
- *     header: {
- *       actions: (column) => [
- *         {
- *           iconComponent: h('button', { onClick: (column) => console.log(`Clicked on ${column}`) },),
- *         },
- *       ],
- *     },
+ *   name: MY_FEATURE,
+ *   header: {
+ *   actions: (column) => [
+ *   {
+ *   iconComponent: h("button", {
+ *   onClick: (column) => console.log(`Clicked on ${column}`),
+ *   }),
+ *   },
+ *   ],
+ *   },
  *   };
- * });
- * ```
+ *   });
+ *   ```
  */
 export function createFeature<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
@@ -463,7 +470,9 @@ export const createTableColumnGroups = <
     return undefined;
   }
 
-  /** Remember start of the current group */
+  /**
+   * Remember start of the current group
+   */
   let currentStart = 0;
   const result: TableColumnGroup[] = [];
 
@@ -495,38 +504,39 @@ export type ModifyColumnGroups<
 };
 
 /**
- * Uses the defined datagrid features to provide factory functions.
- * These factories are to be used to map data and configuration to `OnyxDataGridRenderer` properties.
- * The properties are then used to render the data grid.
+ * Uses the defined datagrid features to provide factory functions. These factories are to be used
+ * to map data and configuration to `OnyxDataGridRenderer` properties. The properties are then used
+ * to render the data grid.
  *
  * Make use of the `watchSources` to trigger re-rendering when state changes occur.
+ *
  * @example
- * ```vue
- * <script setup lang="ts">
- * // ...
- * // imports, props, emits, etc.
- * const withHeaderButton = useDataGridHeaderButton<TEntry>();
+ *   ```vue
+ *   <script setup lang="ts">
+ *   // ...
+ *   // imports, props, emits, etc.
+ *   const withHeaderButton = useDataGridHeaderButton<TEntry>();
  *
- * const { watchSources, createRendererRows, createRendererColumns } = useDataGridFeatures([withHeaderButton]);
+ *   const { watchSources, createRendererRows, createRendererColumns } = useDataGridFeatures([withHeaderButton]);
  *
- * const renderCols: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);
- * const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([]);
+ *   const renderCols: Ref<DataGridRendererColumn<TEntry, object>[]> = ref([]);
+ *   const renderRows: Ref<DataGridRendererRow<TEntry, DataGridMetadata>[]> = ref([]);
  *
- * const { columns, data } = toRefs(props);
+ *   const { columns, data } = toRefs(props);
  *
- * watch(
+ *   watch(
  *   [columns, data, ...watchSources],
  *   ([newColumns, newData]) => {
- *     renderCols.value = createRendererColumns(newColumns);
- *     renderRows.value = createRendererRows(newData, newColumns);
+ *   renderCols.value = createRendererColumns(newColumns);
+ *   renderRows.value = createRendererRows(newData, newColumns);
  *   },
  *   { immediate: true },
- * );
- * </script>
- * <template>
+ *   );
+ *   </script>
+ *   <template>
  *   <OnyxDataGridRenderer :columns="renderCols" :rows="renderRows" />
- * </template>
- * ```
+ *   </template>
+ *   ```;
  */
 export const useDataGridFeatures = <
   TEntry extends DataGridEntry,
@@ -792,13 +802,24 @@ export const useDataGridFeatures = <
      * Returns the merged attributes that should be applied to the native <table> element.
      */
     createTableAttributes,
-    /** Uses the column definition and available column group config to generate the column groups for the underlying OnyxTable */
+    /**
+     * Uses the column definition and available column group config to generate the column groups
+     * for the underlying OnyxTable
+     */
     createRendererColumnGroups,
-    /** Takes the column definition and maps all, calls mutation func and maps at the end to RendererCell */
+    /**
+     * Takes the column definition and maps all, calls mutation func and maps at the end to
+     * RendererCell
+     */
     createRendererRows,
-    /** Takes the column definition and creates a RenderHeader for each, adds actions from features */
+    /**
+     * Takes the column definition and creates a RenderHeader for each, adds actions from features
+     */
     createRendererColumns,
-    /** Uses all features and generates the content of the additional table slots (headline, pagination etc.) for the underlying OnyxTable */
+    /**
+     * Uses all features and generates the content of the additional table slots (headline,
+     * pagination etc.) for the underlying OnyxTable
+     */
     createSlots,
     // the combined `watch` for all features
     watchSources,

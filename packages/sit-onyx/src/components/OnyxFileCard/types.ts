@@ -12,9 +12,10 @@ export type OnyxFileCardProps = DensityProp &
      */
     filename: string;
     /**
-     * File size.
-     * Can be a number in bytes (e.g. 1024 \* 1024 \* 42) or a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) (e.g. 42MiB).
-     * For the user, the size will be displayed in decimal instead of binary notation (e.g. 42MB instead of 42MiB) since users are mostly non-technical and such visualization is therefore simpler to understand.
+     * File size. Can be a number in bytes (e.g. 1024 * 1024 * 42) or a [binary prefixed
+     * size](https://en.wikipedia.org/wiki/Binary_prefix) (e.g. 42MiB). For the user, the size will
+     * be displayed in decimal instead of binary notation (e.g. 42MB instead of 42MiB) since users
+     * are mostly non-technical and such visualization is therefore simpler to understand.
      */
     size: number | BinaryPrefixedSize;
     /**
@@ -26,7 +27,8 @@ export type OnyxFileCardProps = DensityProp &
      */
     status?: FileCardStatus;
     /**
-     * Optional icon to show. If unset, a default icon will be shown depending on the file `type` property.
+     * Optional icon to show. If unset, a default icon will be shown depending on the file `type`
+     * property.
      */
     icon?: string;
     /**

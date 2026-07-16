@@ -7,10 +7,13 @@ import type {
 
 /**
  * Call a function `cb` for every type node in the storybook type tree.
- * @param inputType the root type
- * @param cb the function that is called for every type. If any non-nullish value is returned by `cb` the execution is stopped and this value is returned.
- * @param parent optional, the parent type. Is only used as input for the `cb` function and provided when recursing.
- * @returns the first non-nullish value that is returned by `cb`
+ *
+ * @param inputType The root type
+ * @param cb The function that is called for every type. If any non-nullish value is returned by
+ *   `cb` the execution is stopped and this value is returned.
+ * @param parent Optional, the parent type. Is only used as input for the `cb` function and provided
+ *   when recursing.
+ * @returns The first non-nullish value that is returned by `cb`
  */
 export const walkTree = <TValue>(
   inputType: SBType,
@@ -61,20 +64,20 @@ const getFormInjectedParent = (symbol: string, inputType?: StrictInputType) => {
  * Can be used to create an `ArgTypesEnhancer` which matches a Symbol that is used as default Prop.
  * When it matches the passed  description text will be set.
  *
- * @param symbol description of the symbol that should be matched.
- * @param description the description text that should be shown in Storybook for this prop.
- * @returns An `ArgTypesEnhancer` which can be passed to storybook.
- *
  * @example
- * ```ts
- * import { createSymbolArgTypeEnhancer } from "@sit-onyx/storybook-utils";
+ *   ```ts
+ *   import { createSymbolArgTypeEnhancer } from "@sit-onyx/storybook-utils";
  *
- * export const enhanceFormInjectedSymbol = createSymbolArgTypeEnhancer(
+ *   export const enhanceFormInjectedSymbol = createSymbolArgTypeEnhancer(
  *   "FORM_INJECTED_SYMBOL",
  *   "If no value (or `undefined`) is provided, `FORM_INJECTED_SYMBOL` is the internal default value for this prop.\n" +
- *     "In that case the props value will be derived from it's parent form (if it exists).\n",
- * );
- * ```
+ *   "In that case the props value will be derived from it's parent form (if it exists).\n",
+ *   );
+ *   ```
+ *
+ * @param symbol Description of the symbol that should be matched.
+ * @param description The description text that should be shown in Storybook for this prop.
+ * @returns An `ArgTypesEnhancer` which can be passed to storybook.
  */
 export const createSymbolArgTypeEnhancer = (
   symbol: string,

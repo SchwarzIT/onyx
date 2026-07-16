@@ -8,7 +8,7 @@ export type OnyxPaginationProps = DensityProp & {
    */
   modelValue: number;
   /**
-   *  The maximum number of pages.
+   * The maximum number of pages.
    */
   pages: number;
   /**
@@ -31,8 +31,9 @@ export type OnyxPaginationProps = DensityProp & {
    */
   disableFlyout?: boolean;
   /**
-   * Whether the pagination type should be automatically switched to "compact" if the screen width is below a given breakpoint.
-   * Can be set to a boolean or a specific breakpoint. If set to `true`, the "xs" breakpoint is used.
+   * Whether the pagination type should be automatically switched to "compact" if the screen width
+   * is below a given breakpoint. Can be set to a boolean or a specific breakpoint. If set to
+   * `true`, the "xs" breakpoint is used.
    */
   autoCompact?: boolean | number | OnyxBreakpoint;
 };

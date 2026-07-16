@@ -3,7 +3,8 @@ import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxEditorToolbarGroup from "./OnyxEditorToolbarGroup.vue";
 
 /**
- * Support component to visually group related editor toolbar actions that are separated by vertical lines.
+ * Support component to visually group related editor toolbar actions that are separated by vertical
+ * lines.
  */
 const meta: Meta<typeof OnyxEditorToolbarGroup> = {
   title: "Support/EditorToolbarGroup",

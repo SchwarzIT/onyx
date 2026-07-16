@@ -166,8 +166,8 @@ export type KeyboardKey =
   | "unknown";
 
 /**
- * Special characters / symbols for macOS-specific keyboard keys.
- * Only contains special symbols, regular characters that are equivalent to their name are not included.
+ * Special characters / symbols for macOS-specific keyboard keys. Only contains special symbols,
+ * regular characters that are equivalent to their name are not included.
  */
 export const MAC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   // Modifiers
@@ -236,8 +236,8 @@ export const MAC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
 };
 
 /**
- * Special characters / symbols for Windows-specific keyboard keys.
- * Only contains special symbols, regular characters that are equivalent to their name are not included.
+ * Special characters / symbols for Windows-specific keyboard keys. Only contains special symbols,
+ * regular characters that are equivalent to their name are not included.
  */
 export const WINDOWS_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   // Modifiers
@@ -304,8 +304,8 @@ export const WINDOWS_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
 };
 
 /**
- * Special characters / symbols for generic keyboard keys.
- * Only contains special symbols, regular characters that are equivalent to their name are not included.
+ * Special characters / symbols for generic keyboard keys. Only contains special symbols, regular
+ * characters that are equivalent to their name are not included.
  */
 export const GENERIC_KEY_SYMBOLS: Partial<Record<KeyboardKey, string>> = {
   // Modifiers
@@ -421,7 +421,8 @@ export const isMediaKey = (key: string): key is MediaKey => MEDIA_KEYS.includes(
 export const isMiscKey = (key: string): key is MiscKey => MISC_KEYS.includes(key as MiscKey);
 
 /**
- * Gets and maps the normalized keyboard key from a KeyboardEvent (e.g. emitted by a keyup or keydown event).
+ * Gets and maps the normalized keyboard key from a KeyboardEvent (e.g. emitted by a keyup or
+ * keydown event).
  */
 export const keyboardEventToKey = (event: KeyboardEvent): KeyboardKey => {
   const { key, code } = event;

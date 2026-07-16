@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxTab from "./OnyxTab.vue";
 
 /**
- * A single tab component. Only intended to be used with the [OnyxTabs](/docs/navigation-tabs--docs) component.
+ * A single tab component. Only intended to be used with the [OnyxTabs](/docs/navigation-tabs--docs)
+ * component.
  */
 const meta: Meta<typeof OnyxTab> = {
   title: "Support/Tab",

@@ -4,7 +4,8 @@ export type CreateClientOptions = {
   /**
    * Name of the GitHub organization
    *
-   * @example "SchwarzIT"
+   * @example
+   *   "SchwarzIT";
    */
   organization: string;
   /**
@@ -12,12 +13,14 @@ export type CreateClientOptions = {
    */
   projectId: number;
   /**
-   * GitHub token to use for authentication.
-   * It is recommended to use an environment variable for this and NOT include it in any public code or commit.
+   * GitHub token to use for authentication. It is recommended to use an environment variable for
+   * this and NOT include it in any public code or commit.
    *
-   * To get a GitHub token, go to: https://github.com/settings/tokens and create a new token with scope "read:project".
+   * To get a GitHub token, go to: https://github.com/settings/tokens and create a new token with
+   * scope "read:project".
    *
-   * @example `authToken: process.env.GITHUB_TOKEN`
+   * @example
+   *   `authToken: process.env.GITHUB_TOKEN`;
    */
   authToken: string;
   /**
@@ -37,13 +40,15 @@ export type ClientProjectFields = {
   /**
    * Name of the numeric field that represents your Story effort/size/estimation.
    *
-   * @example "Effort"
+   * @example
+   *   "Effort";
    */
   effort: string;
   /**
    * Name of the iteration field that represents your iteration/sprint.
    *
-   * @example "Sprint"
+   * @example
+   *   "Sprint";
    */
   iteration: string;
   /**

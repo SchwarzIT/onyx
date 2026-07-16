@@ -36,7 +36,8 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
       test.setTimeout(options.columns.length * options.rows.length * timeoutPerScreenshot);
 
       /**
-       * Mounts the given element, captures a screenshot and returns and HTML `<img />` containing the captured screenshot.
+       * Mounts the given element, captures a screenshot and returns and HTML `<img />` containing
+       * the captured screenshot.
        */
       const getScreenshot = async (element: JSX.Element, column: TColumn, row: TRow) => {
         await page.getByRole("document").focus(); // reset focus
@@ -198,17 +199,18 @@ export const useMatrixScreenshotTest = <TContext extends HookContext = HookConte
 
   return {
     /**
-     * Creates a combined matrix screenshot that includes the screenshots for every column-row combination.
-     * Every combination is mounted individually, which allows to perform pointer or keyboard interactions before taking a screenshot.
-     * If the isolation is not necessary, consider enabling `fastNoIsolation` which is way faster.
+     * Creates a combined matrix screenshot that includes the screenshots for every column-row
+     * combination. Every combination is mounted individually, which allows to perform pointer or
+     * keyboard interactions before taking a screenshot. If the isolation is not necessary, consider
+     * enabling `fastNoIsolation` which is way faster.
      */
     executeMatrixScreenshotTest,
   };
 };
 
 /**
- * Sets the component size to fit all absolute positioned content so it is fully included in screenshots.
- * Useful if component includes flyouts etc. that use CSS `position: absolute`.
+ * Sets the component size to fit all absolute positioned content so it is fully included in
+ * screenshots. Useful if component includes flyouts etc. that use CSS `position: absolute`.
  *
  * Will wait for the component to be visible.
  */
@@ -237,7 +239,8 @@ export type UseFocusStateHooksOptions = {
 };
 
 /**
- * Utility hook for screenshot tests to capture the component in hover, active and focus-visible state.
+ * Utility hook for screenshot tests to capture the component in hover, active and focus-visible
+ * state.
  *
  * States:
  * - hover: will hover the center of the component

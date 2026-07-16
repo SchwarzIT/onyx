@@ -127,7 +127,8 @@ const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
 
 /**
  * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
- * because the native browser :user-invalid does not trigger when the value is changed e.g. via slider click.
+ * because the native browser :user-invalid does not trigger when the value is changed e.g. via
+ * slider click.
  */
 const wasTouched = ref(false);
 

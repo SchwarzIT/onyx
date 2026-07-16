@@ -3,7 +3,8 @@ import type { DefineComponent } from "vue";
 
 export type DefineIconSelectArgTypeOptions = {
   /**
-   * Whether the icon property is required. If optional, a "none" option will be displayed at the top.
+   * Whether the icon property is required. If optional, a "none" option will be displayed at the
+   * top.
    */
   required?: boolean;
 };
@@ -13,13 +14,13 @@ export type DefineIconSelectArgTypeOptions = {
  * all available onyx icons.
  *
  * @example
- * ```ts
- * {
- *   argTypes: {
- *     icon: defineIconSelectArgType(),
+ *   ```ts
+ *   {
+ *     argTypes: {
+ *       icon: defineIconSelectArgType()
+ *     }
  *   }
- * }
- * ```
+ *   ```;
  */
 export const defineIconSelectArgType = (options?: DefineIconSelectArgTypeOptions) => {
   const ALL_ICONS = import.meta.glob("../../node_modules/@sit-onyx/icons/src/assets/*.svg", {
@@ -63,12 +64,15 @@ export const textColorDecorator: Decorator = (story) => ({
 });
 
 /**
- * Utility for creating a Storybook example/story where the example uses a dedicated .vue file (useful for advanced examples).
- * The example must be put inside e.g. "src/components/{componentName}/examples/{exampleName}".
+ * Utility for creating a Storybook example/story where the example uses a dedicated .vue file
+ * (useful for advanced examples). The example must be put inside e.g.
+ * "src/components/{componentName}/examples/{exampleName}".
  *
- * Make sure to import all onyx components, types etc. from the index file "../../../" so its replaced correctly in the code snippet.
+ * Make sure to import all onyx components, types etc. from the index file "../../../" so its
+ * replaced correctly in the code snippet.
  *
- * **Note** The "Controls" and "Actions" panel/tab will be disabled for this story since they will probably be mostly unusable due to the custom example.
+ * **Note** The "Controls" and "Actions" panel/tab will be disabled for this story since they will
+ * probably be mostly unusable due to the custom example.
  */
 export function createAdvancedStoryExample(componentName: string, exampleName: string) {
   const allExamples: Record<string, DefineComponent> = import.meta.glob(

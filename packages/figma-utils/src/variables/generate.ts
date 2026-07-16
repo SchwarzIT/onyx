@@ -18,9 +18,10 @@ export type GenerateAsCSSOptions = BaseGenerateOptions & {
   /**
    * Selector to use for the CSS format. You can use {mode} as placeholder for the mode name.
    *
-   * @default ":root"
    * @example
-   * for the mode named "dark", passing the selector "html.{mode}" will result in "html.dark"
+   *   for the mode named "dark", passing the selector "html.{mode}" will result in "html.dark"
+   *
+   * @default ":root"
    */
   selector?: string;
 };
@@ -82,22 +83,23 @@ export const generateAsJSON = (data: ParsedVariable): string => {
 };
 
 /**
- * Recursively resolves the value for the given variable name.
- * So if the value is an alias, the output will be the actual alias value instead of a reference by name.
- * If the value is not an alias, its value will be directly returned.
+ * Recursively resolves the value for the given variable name. So if the value is an alias, the
+ * output will be the actual alias value instead of a reference by name. If the value is not an
+ * alias, its value will be directly returned.
+ *
+ * @example
+ *   ```ts
+ *   const allVariables = {
+ *     "variable-a": 42,
+ *     "variable-b": "{variable-a}",
+ *   };
+ *
+ *   const resolvedValue = resolveValue("variable-b", allVariables);
+ *   // const resolvedValue = 42;
+ *   ```;
  *
  * @param name Variable name to resolve
  * @param allVariables All available variables
- * @example
- * ```ts
- * const allVariables = {
- *   "variable-a": 42,
- *   "variable-b": "{variable-a}"
- * }
- *
- * const resolvedValue = resolveValue("variable-b", allVariables);
- * // const resolvedValue = 42;
- * ```
  */
 export const resolveValue = (name: string, allVariables: ParsedVariable["variables"]): string => {
   const { isAlias, aliasName } = isAliasVariable(allVariables[name]);
@@ -121,8 +123,11 @@ export const generateTimestampComment = (modeName?: string): string => {
  * Checks whether the given variable value is an alias / variable reference to another variable.
  * Alias values are enclosed by curly braces.
  *
- * @example "{your-variable-name}"
- * @returns `isAlias` whether the variable is an alias and `aliasName` the raw variable name without curly braces.
+ * @example
+ *   "{your-variable-name}";
+ *
+ * @returns `isAlias` whether the variable is an alias and `aliasName` the raw variable name without
+ *   curly braces.
  */
 export const isAliasVariable = (variableValue?: string) => {
   if (!variableValue) return { isAlias: false, aliasName: "" };
@@ -138,7 +143,8 @@ export const isAliasVariable = (variableValue?: string) => {
  * @param variables Variable data (name + value)
  * @param variablesDarkTheme Variable data (name +value) for additionally dark theme
  * @param nameFormatter Function to format the variable name
- * @param aliasFormatter Function to format a reference to another variable (e.g. `var(--name)` for CSS)
+ * @param aliasFormatter Function to format a reference to another variable (e.g. `var(--name)` for
+ *   CSS)
  * @param options Generator options
  */
 const getCssOrScssVariableContent = (

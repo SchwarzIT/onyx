@@ -42,10 +42,10 @@ export const groupIconsByCategory = (iconMetadata: Record<string, IconMetadata>)
  * Transform an icon file name to its corresponding JavaScript import name.
  *
  * @example
- * ```ts
- * "bell-disabled.svg" => "iconBellDisabled"
- * // e.g. used as 'import { iconBellDisabled } from "@sit-onyx/icons"'
- * ```
+ *   ```ts
+ *   "bell-disabled.svg" => "iconBellDisabled"
+ *   // e.g. used as 'import { iconBellDisabled } from "@sit-onyx/icons"'
+ *   ```;
  */
 export const getIconImportName = (iconName: string) => {
   return `icon${iconName

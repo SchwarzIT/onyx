@@ -16,7 +16,8 @@ export type OnyxTextareaProps = Omit<SharedFormElementProps, "label"> &
      */
     autosize?: TextareaAutosize;
     /**
-     * If `true`, the user will not be able to manually resize the textarea by dragging the bottom right corner.
+     * If `true`, the user will not be able to manually resize the textarea by dragging the bottom
+     * right corner.
      */
     disableManualResize?: boolean;
   };

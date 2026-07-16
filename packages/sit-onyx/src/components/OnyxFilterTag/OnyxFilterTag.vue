@@ -17,7 +17,9 @@ const props = withDefaults(defineProps<OnyxFilterTagProps>(), {
 });
 
 const emit = defineEmits<{
-  /** Emitted when the active state changes. */
+  /**
+   * Emitted when the active state changes.
+   */
   "update:active": [value: boolean];
 }>();
 

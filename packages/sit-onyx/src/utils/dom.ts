@@ -1,6 +1,7 @@
 /**
  * Escapes the given key for save usage in CSS (e.g. as part of a CSS variable name or selector).
- * Will use the native "CSS.escape()" if available in the browser, otherwise a fallback will be used.
+ * Will use the native "CSS.escape()" if available in the browser, otherwise a fallback will be
+ * used.
  */
 export const escapeCSS = (key: PropertyKey) => {
   // to prevent server side hydration errors, we are using the description for symbols so the name does not contain "(" or ")"

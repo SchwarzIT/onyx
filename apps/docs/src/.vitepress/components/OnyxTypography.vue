@@ -14,12 +14,18 @@ import DesignVariableHeader from "./DesignVariableHeader.vue";
 export type TypographyVariable = {
   /**
    * Human readable variable name
-   * @example "h1"
+   *
+   * @example
+   *   "h1";
    */
   name: string;
-  /** HTML element to render. */
+  /**
+   * HTML element to render.
+   */
   htmlTag: HeadlineType | "p" | "a";
-  /** Text size to use if `htmlTag` is <p> or <a> */
+  /**
+   * Text size to use if `htmlTag` is <p> or <a>
+   */
   textSize?: TextSize;
 };
 
@@ -28,7 +34,9 @@ type AvailableFontTab = (typeof AVAILABLE_FONT_TABS)[number];
 
 const props = defineProps<{
   variables: TypographyVariable[];
-  /** If true, more width will be used for the variable names. */
+  /**
+   * If true, more width will be used for the variable names.
+   */
   wideName?: boolean;
 }>();
 

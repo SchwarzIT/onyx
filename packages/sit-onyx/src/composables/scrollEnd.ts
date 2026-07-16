@@ -13,19 +13,20 @@ export type UseScrollEndOptions = {
    */
   enabled?: Ref<boolean>;
   /**
-   * Offset (in pixel). Can be used to trigger the callback earlier (e.g. if scrolled to second last option).
-   * Must be >= 0.
+   * Offset (in pixel). Can be used to trigger the callback earlier (e.g. if scrolled to second last
+   * option). Must be >= 0.
    */
   offset?: MaybeRef<number | undefined>;
 };
 
 /**
- * Directive used for lazy loading which will keep track of whether the component is scrolled to the end (vertically).
+ * Directive used for lazy loading which will keep track of whether the component is scrolled to the
+ * end (vertically).
  */
 export const useScrollEnd = (options: UseScrollEndOptions) => {
   /**
-   * We have to check if the scroll amount is close enough to some threshold in order to
-   * more accurately calculate arrivedState. This is because scrollTop/scrollLeft are non-rounded
+   * We have to check if the scroll amount is close enough to some threshold in order to more
+   * accurately calculate arrivedState. This is because scrollTop/scrollLeft are non-rounded
    * numbers, while scrollHeight/scrollWidth and clientHeight/clientWidth are rounded.
    * https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight#determine_if_an_element_has_been_totally_scrolled
    */

@@ -4,8 +4,8 @@ export type OnyxRouterLinkProps = SharedLinkProps;
 
 export type SharedLinkProps = {
   /**
-   * The URL/link to point to.
-   * Will use the router for internal links if provided, see [our documentation](https://onyx.schwarz/development/router.html) for further details.
+   * The URL/link to point to. Will use the router for internal links if provided, see [our
+   * documentation](https://onyx.schwarz/development/router.html) for further details.
    */
   href: string;
   /**
@@ -30,7 +30,8 @@ export const LINK_TARGETS = [
    */
   "_parent",
   /**
-   * Opens in the topmost browsing context. To be specific, this means the "highest" context that's an ancestor of the current one. If no ancestors, behaves as `_self`.
+   * Opens in the topmost browsing context. To be specific, this means the "highest" context that's
+   * an ancestor of the current one. If no ancestors, behaves as `_self`.
    */
   "_top",
 ] as const;

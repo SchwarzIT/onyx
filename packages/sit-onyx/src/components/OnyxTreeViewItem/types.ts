@@ -4,7 +4,7 @@ import type { OnyxListItemProps } from "../OnyxListItem/types.js";
 export type OnyxTreeViewItemProps = DensityProp &
   Pick<OnyxListItemProps, "active" | "disabled"> & {
     /**
-     *  Label to show.
+     * Label to show.
      */
     label?: string;
     /**

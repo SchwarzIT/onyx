@@ -11,6 +11,7 @@ export type OnyxGlobalSearchGroupProps = DensityProp & {
   skeleton?: boolean | number;
   /**
    * Orientation of the component.
+   *
    * @default "vertical"
    */
   orientation?: "horizontal" | "vertical";

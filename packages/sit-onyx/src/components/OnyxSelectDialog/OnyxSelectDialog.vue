@@ -27,7 +27,8 @@ const emit = defineEmits<{
 
 const slots = defineSlots<{
   /**
-   * Optional slot to add custom content, e.g. a description to the dialog header (below the headline).
+   * Optional slot to add custom content, e.g. a description to the dialog header (below the
+   * headline).
    */
   description?(): unknown;
 }>();

@@ -14,13 +14,17 @@ const notClickableClass = "onyx-data-grid__cell--not-clickable";
 
 export const useRowClick = <TEntry extends DataGridEntry>(options: RowClickOptions<TEntry>) =>
   createFeature(() => {
-    /** Whether the feature is enabled in general. */
+    /**
+     * Whether the feature is enabled in general.
+     */
     const isFeatureEnabled = computed(() => {
       if (typeof options.enabled == "function") return true;
       return toValue(options.enabled) ?? true;
     });
 
-    /** Whether a specific cell is enabled. */
+    /**
+     * Whether a specific cell is enabled.
+     */
     const isCellEnabled = computed(() => {
       return (row: TEntry, column: keyof TEntry) => {
         if (typeof options.enabled === "function") {
@@ -83,7 +87,8 @@ export const useRowClick = <TEntry extends DataGridEntry>(options: RowClickOptio
   }) as DataGridFeature<TEntry>;
 
 /**
- * Checks whether the given element contains a [selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection).
+ * Checks whether the given element contains a
+ * [selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection).
  */
 function hasSelection(element: HTMLElement | null): boolean {
   if (!element) return false;
