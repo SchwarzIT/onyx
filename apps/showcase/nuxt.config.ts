@@ -1,5 +1,8 @@
 import { globSync } from "node:fs";
 import { Features } from "lightningcss";
+import { fileURLToPath } from "node:url";
+
+const monorepoRoot = fileURLToPath(new URL("../../", import.meta.url));
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -15,7 +18,9 @@ export default defineNuxtConfig({
   },
   i18n: {
     defaultLocale: "en",
-    locales: [{ code: "en", language: "en-US", file: "en-US.json", name: "English" }],
+    locales: [
+      { code: "en", language: "en-US", file: "en-US.json", name: "English" },
+    ],
   },
   studio: {
     dev: process.env.NUXT_STUDIO_DEV_DISABLED !== "true",
@@ -44,6 +49,14 @@ export default defineNuxtConfig({
         exclude: Features.LightDark,
       },
     },
+    server: {
+      fs: {
+        allow: [monorepoRoot],
+      },
+    },
+  },
+  alias: {
+    "@repo-root": monorepoRoot,
   },
   imports: {
     transform: {
