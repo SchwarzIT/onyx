@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-fix(OnyxDataGrid:Resizing): removed empty column gap for the resizing feature.
+fix(DataGridFeatures.useResizing): Removed empty column gap for the resizing feature.
