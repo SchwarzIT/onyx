@@ -4,11 +4,11 @@ import { useVModel } from "./useVModel.js";
 
 const props = defineProps<{
   /**
-   * modelValue
+   * ModelValue
    */
   modelValue?: string;
   /**
-   * noDefault
+   * NoDefault
    */
   noDefault?: string;
 }>();

@@ -19,7 +19,8 @@ type CreateMenuButtonOptions = {
   onToggle: () => void;
   disabled?: Readonly<Ref<boolean>>;
   /**
-   * Whether the menu button opens to the top or bottom. Defines the keyboard navigation behavior (e.g. Arrow up and down).
+   * Whether the menu button opens to the top or bottom. Defines the keyboard navigation behavior
+   * (e.g. Arrow up and down).
    *
    * @default "bottom"
    */
@@ -181,23 +182,41 @@ export const createMenuButton = createBuilder((options: CreateMenuButtonOptions)
 });
 
 type CreateMenuItemOptions = {
-  /** Current expanded state of the menu item (for nested children). */
+  /**
+   * Current expanded state of the menu item (for nested children).
+   */
   isExpanded?: Ref<boolean>;
-  /** Whether the menu item renders its children in an external flyout. */
+  /**
+   * Whether the menu item renders its children in an external flyout.
+   */
   isExternal?: MaybeRefOrGetter<boolean>;
-  /** Whether the menu item is disabled. */
+  /**
+   * Whether the menu item is disabled.
+   */
   disabled?: MaybeRefOrGetter<boolean>;
-  /** DOM element ref of the external children wrapper (used for focus checks). */
+  /**
+   * DOM element ref of the external children wrapper (used for focus checks).
+   */
   externalChildrenRef?: Readonly<Ref<HTMLElement | null>>;
-  /** Called when the menu item should be opened (if it has nested children). */
+  /**
+   * Called when the menu item should be opened (if it has nested children).
+   */
   onOpen?: () => void;
-  /** Called when the menu item should be closed.*/
+  /**
+   * Called when the menu item should be closed.
+   */
   onClose?: () => void;
-  /** Called when the external children should close and focus the trigger. */
+  /**
+   * Called when the external children should close and focus the trigger.
+   */
   onFocusTrigger?: () => void;
-  /** Called to notify a parent menu of a hover enter event. */
+  /**
+   * Called to notify a parent menu of a hover enter event.
+   */
   onHoverEnterParent?: () => void;
-  /** Called to notify a parent menu of a hover leave event. */
+  /**
+   * Called to notify a parent menu of a hover leave event.
+   */
   onHoverLeaveParent?: () => void;
   openingArrowDirection?: MaybeRefOrGetter<"ArrowRight" | "ArrowLeft">;
 };

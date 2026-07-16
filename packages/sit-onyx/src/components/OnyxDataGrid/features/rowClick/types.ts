@@ -5,7 +5,8 @@ export type RowClickOptions<TEntry extends DataGridEntry> = {
   /**
    * Label that describes the click action. Required for accessibility.
    *
-   * @example "Show details"
+   * @example
+   *   "Show details";
    */
   label: MaybeRefOrGetter<string>;
   /**

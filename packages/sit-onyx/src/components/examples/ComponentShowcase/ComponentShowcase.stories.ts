@@ -11,7 +11,8 @@ const meta: Meta<typeof ComponentShowcase> = {
   component: ComponentShowcase,
   tags: ["!autodocs"],
   /**
-   * Custom rendered to update the Storybook light/dark mode when the switch inside the component showcase is changed.
+   * Custom rendered to update the Storybook light/dark mode when the switch inside the component
+   * showcase is changed.
    */
   render: (args) => ({
     setup: () => {

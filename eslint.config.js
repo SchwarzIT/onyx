@@ -15,9 +15,10 @@ import { defineConfig } from "eslint/config";
 import sitOnyx from "./packages/eslint-plugin/src/index.cjs";
 
 /**
- * General Vue and TypeScript lint rules without typechecked lint rules.
- * Linting with typechecking has been disabled by default to improve lint performance.
- * Enabling the projectService and typechecked lint rules increases linting times drastically (from 20s to about 100s for the whole project)
+ * General Vue and TypeScript lint rules without typechecked lint rules. Linting with typechecking
+ * has been disabled by default to improve lint performance. Enabling the projectService and
+ * typechecked lint rules increases linting times drastically (from 20s to about 100s for the whole
+ * project)
  */
 const generalVueTsConfig = {
   name: "general-vue-ts",
@@ -201,7 +202,7 @@ const gitignorePath = fileURLToPath(import.meta.resolve("./.gitignore"));
 const gitignoreConfig = includeIgnoreFile(gitignorePath);
 
 /**
- * files that are excluded for different reasons
+ * Files that are excluded for different reasons
  */
 const specificIgnoreConfig = {
   name: "onyx-ignores",

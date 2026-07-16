@@ -5,7 +5,8 @@
  */
 export type SkillFrontmatter = {
   /**
-   * 	Max 64 characters. Lowercase letters, numbers, and hyphens only. Must not start or end with a hyphen.
+   * Max 64 characters. Lowercase letters, numbers, and hyphens only. Must not start or end with a
+   * hyphen.
    */
   name: string;
   /**
@@ -13,15 +14,16 @@ export type SkillFrontmatter = {
    */
   description: string;
   /**
-   * 	License name or reference to a bundled license file.
+   * License name or reference to a bundled license file.
    */
   license?: string;
   /**
-   * 	Max 500 characters. Indicates environment requirements (intended product, system packages, network access, etc.).
+   * Max 500 characters. Indicates environment requirements (intended product, system packages,
+   * network access, etc.).
    */
   compatibility?: string;
   /**
-   * 	Arbitrary key-value mapping for additional metadata.
+   * Arbitrary key-value mapping for additional metadata.
    */
   metadata?: object;
 };

@@ -7,7 +7,9 @@ export type ComponentStatus = "implemented" | "in-progress" | "planned";
 const props = defineProps<{
   status: ComponentStatus;
   count?: boolean;
-  /** If true, a status label will be shown. */
+  /**
+   * If true, a status label will be shown.
+   */
   showLabel?: boolean;
 }>();
 

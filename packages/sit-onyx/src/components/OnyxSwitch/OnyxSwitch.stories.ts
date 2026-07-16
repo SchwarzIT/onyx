@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxSwitch from "./OnyxSwitch.vue";
 
 /**
- * Switches are a common UI element used to control binary states, such as on/off, enable/disable/, or active/inactive.
- * They consist of a toggle mechanism that allow users to switch between two distinct states with a simple interaction.
+ * Switches are a common UI element used to control binary states, such as on/off, enable/disable/,
+ * or active/inactive. They consist of a toggle mechanism that allow users to switch between two
+ * distinct states with a simple interaction.
  */
 const meta: Meta<typeof OnyxSwitch> = {
   title: "Form Elements/Switch",
@@ -65,7 +66,8 @@ export const HiddenLabel = {
 } satisfies Story;
 
 /**
- * A switch with truncation. You can set the "truncation" property to choose between the different truncation types.
+ * A switch with truncation. You can set the "truncation" property to choose between the different
+ * truncation types.
  */
 export const WithTruncation = {
   args: {

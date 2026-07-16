@@ -12,7 +12,7 @@ test("has title", async ({ page }) => {
 const BLACKLIST_PATHS = [/changelog/i, /icons/i, /flags/i, /about/i];
 
 /**
- * maps links listed in the vitepress config to their respective absolute url
+ * Maps links listed in the vitepress config to their respective absolute url
  */
 const mapToLinks = (
   navItem: DefaultTheme.NavItem | DefaultTheme.SidebarItem | DefaultTheme.SidebarMulti[string],

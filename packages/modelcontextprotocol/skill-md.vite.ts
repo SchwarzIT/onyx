@@ -38,8 +38,8 @@ const parseFrontmatter = (node: RootContent) => {
 const toMarkdown = (root: Root) => unified().use(remarkStringify).stringify(root);
 
 /**
- * Plugin for parsing markdown files as LLM skill definition.
- * Will error if the markdown doesn't have a yaml frontmatter or the frontmatter doesn't include the `name` or `description` property.
+ * Plugin for parsing markdown files as LLM skill definition. Will error if the markdown doesn't
+ * have a yaml frontmatter or the frontmatter doesn't include the `name` or `description` property.
  *
  * @param include Optional regex for matching file imports.
  */

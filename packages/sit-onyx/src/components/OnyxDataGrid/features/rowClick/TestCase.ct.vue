@@ -14,8 +14,8 @@ const props = withDefaults(
   defineProps<{
     enabled?: boolean;
     /**
-     * List of row IDs that should be disabled. We can not use the "enabled" function of the feature options
-     * since functions props are not passed by Playwright.
+     * List of row IDs that should be disabled. We can not use the "enabled" function of the feature
+     * options since functions props are not passed by Playwright.
      */
     disabledRows?: TEntry["id"][];
   }>(),

@@ -10,7 +10,8 @@ const props = withDefaults(
     /**
      * Code language
      *
-     * @example js, ts, html, css, etc.
+     * @example
+     *   js, ts, html, css, etc.
      */
     language?: string;
     /**

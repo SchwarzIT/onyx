@@ -13,8 +13,9 @@ export type UseFormValidityOptions<
    */
   error?: MaybeRefOrGetter<string | undefined>;
   /**
-   * Props that influence native validation state. These are not used directly, but watched to trigger a re-evaluation of validation state.
-   * E.g. when `required` is changed from `true` to `false` the state needs to be re-evaluated.
+   * Props that influence native validation state. These are not used directly, but watched to
+   * trigger a re-evaluation of validation state. E.g. when `required` is changed from `true` to
+   * `false` the state needs to be re-evaluated.
    */
   props: MaybeRef<TProps>;
   /**
@@ -62,7 +63,7 @@ export const useCustomValidity = <TProps extends Record<string, MaybeRefOrGetter
      */
     vCustomValidity,
     /**
-     * validityState of the html element.
+     * ValidityState of the html element.
      */
     validityState,
   };

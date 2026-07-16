@@ -20,29 +20,34 @@ export type UseVModelOptions<
 
 // region docs
 /**
- * Composable for managing the v-model behavior of a prop.
- * It's behavior differs from the `defineModel` behavior, in that it will always prefer the bound value over the internal state.
- * This allows for better control over the component's state, e.g. a flyout can be kept open even when it was supposed to close.
+ * Composable for managing the v-model behavior of a prop. It's behavior differs from the
+ * `defineModel` behavior, in that it will always prefer the bound value over the internal state.
+ * This allows for better control over the component's state, e.g. a flyout can be kept open even
+ * when it was supposed to close.
  *
- * There is currently no way to differentiate between an explicitly bound `undefined` prop value (e.g. `<Comp :value="undefined" />`) and a implicit `undefined` from not defined prop (e.g. `<Comp />`).
- * Therefore for `null` or `undefined` values, the internal state or default value will always be used.
+ * There is currently no way to differentiate between an explicitly bound `undefined` prop value
+ * (e.g. `<Comp :value="undefined" />`) and a implicit `undefined` from not defined prop (e.g.
+ * `<Comp />`). Therefore for `null` or `undefined` values, the internal state or default value will
+ * always be used.
  *
- * For default values with non-primitive types, it's required to use a factory function that returns the default value to avoid mutating the former value.
+ * For default values with non-primitive types, it's required to use a factory function that returns
+ * the default value to avoid mutating the former value.
  *
- * @example ```typescript
- *    const props = defineProps<{
- *        modelValue?: string;
- *    }>();
+ * @example
+ *   ```typescript
+ *   const props = defineProps<{
+ *     modelValue?: string;
+ *   }>();
  *
- *    const emit = defineEmits<{ "update:modelValue": [string] }>();
+ *   const emit = defineEmits<{ "update:modelValue": [string] }>();
  *
- *    const modelValue = useVModel({
- *      props,
- *      emit,
- *      key: "modelValue",
- *      default: "",
- *    });
-```
+ *   const modelValue = useVModel({
+ *     props,
+ *     emit,
+ *     key: "modelValue",
+ *     default: "",
+ *   });
+ *   ```;
  */
 export const useVModel = <
   TProps extends object,

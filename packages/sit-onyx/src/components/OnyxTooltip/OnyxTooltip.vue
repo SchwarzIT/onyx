@@ -58,9 +58,11 @@ const emit = defineEmits<{
 
 defineSlots<{
   /**
-   * Default slot where the parent content is placed that controls the open/close state of the tooltip.
+   * Default slot where the parent content is placed that controls the open/close state of the
+   * tooltip.
    *
-   * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the `open` prop is not `hover`!
+   * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the
+   * `open` prop is not `hover`!
    */
 
   //TODO: fix the attribute type

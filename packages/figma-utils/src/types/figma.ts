@@ -42,17 +42,20 @@ export type ColorsAlias = {
 };
 
 export type ParsedVariable = {
-  /** Figma mode name or undefined if its the default mode. */
+  /**
+   * Figma mode name or undefined if its the default mode.
+   */
   modeName?: string;
   /**
    * Mapping from variable name to its value.
+   *
    * @example
-   * ```json
-   * {
-   *    "primary-100": "#ffffff",
-   *    "border-radius-s": "1rem",
-   * }
-   * ```
+   *   ```json
+   *   {
+   *   "primary-100": "#ffffff",
+   *   "border-radius-s": "1rem",
+   *   }
+   *   ```;
    */
   variables: Record<string, string>;
 };

@@ -3,8 +3,9 @@ import OnyxCheckboxGroup from "./OnyxCheckboxGroup.vue";
 import type { CheckboxGroupOption } from "./types.js";
 
 /**
- * Checkboxes are a fundamental UI element, that allows users to make a binary selection.
- * They are commonly used for tasks such as selecting multiple items, opting into services or confirming and agreeing.
+ * Checkboxes are a fundamental UI element, that allows users to make a binary selection. They are
+ * commonly used for tasks such as selecting multiple items, opting into services or confirming and
+ * agreeing.
  */
 const meta: Meta<typeof OnyxCheckboxGroup> = {
   title: "Form Elements/CheckboxGroup",
@@ -77,8 +78,8 @@ export const Disabled = {
 } satisfies Story;
 
 /**
- * A checkbox group with long labels that will be truncated.
- * You can set the "truncation" property of the options to choose between the different truncation types.
+ * A checkbox group with long labels that will be truncated. You can set the "truncation" property
+ * of the options to choose between the different truncation types.
  */
 export const WithTruncation = {
   args: {

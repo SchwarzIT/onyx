@@ -11,8 +11,8 @@ export type FilterConfig<
   TValue = TEntry[TKey],
 > = {
   /**
-   * A custom filtering function for this column.
-   * This function is used to filter the column data, instead of using the default filtering behavior.
+   * A custom filtering function for this column. This function is used to filter the column data,
+   * instead of using the default filtering behavior.
    */
   filterFunc?: (
     /**

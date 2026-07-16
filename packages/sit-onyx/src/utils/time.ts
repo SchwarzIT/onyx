@@ -13,9 +13,12 @@ export const getTimeFragments = (time: number) => {
 /**
  * Formats a given time into a pretty human readable string.
  *
+ * @example
+ *   "04:42 min";
+ *
  * @param time Time in milliseconds.
- * @param format RelativeTimeFormat to use for extracting localized strings for hours, minutes and seconds.
- * @example "04:42 min"
+ * @param format RelativeTimeFormat to use for extracting localized strings for hours, minutes and
+ *   seconds.
  */
 export const formatTime = (timeLeft: number, format: Intl.RelativeTimeFormat) => {
   const { hours, minutes, seconds } = getTimeFragments(timeLeft);
@@ -40,7 +43,8 @@ export const formatTime = (timeLeft: number, format: Intl.RelativeTimeFormat) =>
  * Gets the literal value for the parts returned by `Intl.RelativeTimeFormat.formatToParts()`.
  * Will trim and remove trailing dots.
  *
- * @example "min"
+ * @example
+ *   "min";
  */
 const getRelativeTimeFormatLiteralValue = (parts: Intl.RelativeTimeFormatPart[]) => {
   return parts.at(-1)?.value.replace(".", "").trim() ?? "";

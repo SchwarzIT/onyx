@@ -4,7 +4,8 @@ import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxMobileNavButton from "./OnyxMobileNavButton.vue";
 
 /**
- * Nav button that is mainly used inside the nav bar on mobile, e.g. for the burger and context menu buttons.
+ * Nav button that is mainly used inside the nav bar on mobile, e.g. for the burger and context menu
+ * buttons.
  */
 const meta: Meta<typeof OnyxMobileNavButton> = {
   title: "Support/MobileNavButton",
@@ -44,9 +45,9 @@ export const Open = {
 } satisfies Story;
 
 /**
- * Example of a mobile nav button with a long content.
- * We recommended to watch this example in its [story page](?path=/story/support-mobilenavbutton--scrollable)
- * where the full page behavior can be seen.
+ * Example of a mobile nav button with a long content. We recommended to watch this example in its
+ * [story page](?path=/story/support-mobilenavbutton--scrollable) where the full page behavior can
+ * be seen.
  */
 export const Scrollable: Story = {
   args: {

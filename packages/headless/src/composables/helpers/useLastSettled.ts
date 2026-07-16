@@ -1,11 +1,13 @@
 import { ref } from "vue";
 
 /**
- * Execute a callback, when the latest promise is settled (either resolved or rejected).
- * This ensures that out-of-order settling promises are ignored and only the latest promise is considered.
+ * Execute a callback, when the latest promise is settled (either resolved or rejected). This
+ * ensures that out-of-order settling promises are ignored and only the latest promise is
+ * considered.
  *
- * @param cb callback to execute when the last promise, that was added to the queue, is settled.
- * @returns the active state of the last settled promise and a queue function to add new promises to the queue.
+ * @param cb Callback to execute when the last promise, that was added to the queue, is settled.
+ * @returns The active state of the last settled promise and a queue function to add new promises to
+ *   the queue.
  */
 export const useLastSettled = <T>(cb: (success: boolean, resolved?: T) => void) => {
   const active = ref(false);

@@ -6,7 +6,8 @@ import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxTextarea from "./OnyxTextarea.vue";
 
 /**
- * Textarea components support large text entries, giving users a spacious area to input or format continuous text, making them ideal for comments, descriptions, or other longer texts.
+ * Textarea components support large text entries, giving users a spacious area to input or format
+ * continuous text, making them ideal for comments, descriptions, or other longer texts.
  */
 
 const meta: Meta<typeof OnyxTextarea> = {
@@ -67,7 +68,8 @@ export const Readonly = {
 } satisfies Story;
 
 /**
- * This example shows a disabled textarea that can not be edited and is therefore not included in any form data.
+ * This example shows a disabled textarea that can not be edited and is therefore not included in
+ * any form data.
  */
 export const Disabled = {
   args: {

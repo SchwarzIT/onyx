@@ -36,7 +36,8 @@ const slots = defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional slot to place custom content for the item. By default, the `label` and `icon` property will be shown.
+   * Optional slot to place custom content for the item. By default, the `label` and `icon` property
+   * will be shown.
    */
   item?(): unknown;
 }>();

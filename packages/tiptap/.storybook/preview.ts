@@ -42,6 +42,7 @@ const preview: Preview = {
          * Use a custom transformer for the story source code to better fit to our
          * Vue.js code because storybook per default does not render it exactly how
          * we want it to look.
+         *
          * @see https://storybook.js.org/docs/react/api/doc-block-source
          */
         transform: async (raw: string) => {

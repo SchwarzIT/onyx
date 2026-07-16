@@ -5,7 +5,9 @@ import { executeGitHubRequest } from "../github-api.js";
  * Build-time data for the team page
  */
 export type TeamPageData = {
-  /** All onyx contributors */
+  /**
+   * All onyx contributors
+   */
   contributors: GithubContributor[];
 };
 
@@ -14,6 +16,7 @@ export { data };
 
 /**
  * Build-Time data loader to get the github data
+ *
  * @see https://vitepress.dev/guide/data-loading
  */
 export default defineLoader({
