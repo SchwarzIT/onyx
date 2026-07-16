@@ -20,11 +20,11 @@ export type SidebarNavigationItem<TCollection extends keyof Collections = keyof 
  * Custom navigation options. Can be set via the `.navigation.yml` file inside of a content folder.
  *
  * @example
- * ```yaml
- * # .navigation.yml
- * sidebar:
- *    root: true
- * ```
+ *   ```yaml
+ *   # .navigation.yml
+ *   sidebar:
+ *   root: true
+ *   ```;
  */
 export type SidebarNavigationOptions = {
   /**
@@ -104,8 +104,8 @@ export const useSidebarNavigation = async <
   });
 
   /**
-   * Finds the "previous root" (parent root) for the currently active route within the navigation tree.
-   * Useful to e.g. display a back button to traverse up the navigation tree.
+   * Finds the "previous root" (parent root) for the currently active route within the navigation
+   * tree. Useful to e.g. display a back button to traverse up the navigation tree.
    */
   const previousRootItem = computed(() => findPreviousRootItem(allItems.value, route.path));
 
@@ -117,7 +117,9 @@ export const useSidebarNavigation = async <
     items: SidebarNavigationItem<TCollection>[],
     currentPath: string,
   ): SidebarNavigationItem<TCollection> | undefined {
-    /** Helper function to check if a path exists anywhere in a node's subtree */
+    /**
+     * Helper function to check if a path exists anywhere in a node's subtree
+     */
     const containsPath = (node: SidebarNavigationItem, path: string): boolean => {
       if (node.path === path) return true;
       return node.children?.some((child) => containsPath(child, path)) ?? false;

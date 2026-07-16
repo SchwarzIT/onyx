@@ -16,7 +16,9 @@ type GetTypeOfTranslations<T> = T extends object
   ? { [P in keyof T]?: GetTypeOfTranslations<T[P]> }
   : string;
 
-/** Available translations that are used by onyx components. */
+/**
+ * Available translations that are used by onyx components.
+ */
 export type OnyxTranslations = GetTypeOfTranslations<typeof enUS>;
 
 export type OnyxTranslationKey = FlattenedKeysOf<OnyxTranslations>;
@@ -31,7 +33,8 @@ export type ProvideI18nOptions = {
    * all onyx messages will be updated if it changes (if locale is supported).
    * If a message is missing for your currently set locale, English will be used as fallback.
    *
-   * The should be in the BCP 47 format as it's used to localize date times using the native [Intl API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+   * The should be in the BCP 47 format as it's used to localize date times using the native [Intl
+   * API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
    *
    * @default "en-US"
    */
@@ -41,37 +44,44 @@ export type ProvideI18nOptions = {
    * https://onyx.schwarz/development/i18n.html
    *
    * @example
-   * ```ts
-   * import deDE from "sit-onyx/locales/de-DE.json";
-   * {
+   *   ```ts
+   *   import deDE from "sit-onyx/locales/de-DE.json";
+   *   {
    *   messages: {
-   *     // English is always supported so we don't need to add it here
-   *     'de-DE': deDE
+   *   // English is always supported so we don't need to add it here
+   *   'de-DE': deDE
    *   }
-   * }
-   * ```
+   *   }
+   *   ```;
    */
   messages?: Record<string, DeepPartial<OnyxTranslations>>;
   /**
-   * Custom translation function. This option can be used to pass a custom function for translations to onyx in case you want your i18n library to handle them.
+   * Custom translation function. This option can be used to pass a custom function for translations
+   * to onyx in case you want your i18n library to handle them.
+   *
    * @example
-   * ```ts
-   * import { useI18n } from "vue-i18n";
+   *   ```ts
+   *   import { useI18n } from "vue-i18n";
    *
-   * const { t } = useI18n();
-   * {
-   *   t: computed((key, placeholders) => t(`onyx.${key}`, placeholders?.n ?? 1, { named: placeholders }))
-   * }
-   * ```
+   *   const { t } = useI18n();
+   *   {
+   *   t: computed((key, placeholders) =>
+   *   t(`onyx.${key}`, placeholders?.n ?? 1, { named: placeholders }),
+   *   );
+   *   }
+   *   ```
    *
-   * Note: If a custom `t` function is used, passed messages will not be used.
+   *   Note: If a custom `t` function is used, passed messages will not be used.
    */
   t?: MaybeRef<TranslationFunction>;
 };
 
 export type TranslationFunction = (
   key: OnyxTranslationKey,
-  /** Named values to interpolate into the translation. The property `n` is special as it represents the number of elements for pluralization. */
+  /**
+   * Named values to interpolate into the translation. The property `n` is special as it represents
+   * the number of elements for pluralization.
+   */
   placeholders?: Record<string, string | number | undefined> & { n?: number },
 ) => string;
 
@@ -85,6 +95,7 @@ export type OnyxI18n = ReturnType<typeof createI18n>;
 export const createI18n = (options: ProvideI18nOptions = {}) => {
   /**
    * Current locale.
+   *
    * @default "en-US"
    */
   const locale = readonly(toRef(options?.locale ?? "en-US"));
@@ -97,8 +108,9 @@ export const createI18n = (options: ProvideI18nOptions = {}) => {
   /**
    * Gets the translation for the given key.
    * If message is not found for current locale, English fallback will be used.
+   *
    * @param placeholders Placeholders that will be replaced in the message string
-   * For pluralization, you must provide the placeholder `n`.
+   *   For pluralization, you must provide the placeholder `n`.
    */
   const t = computed((): TranslationFunction => {
     return (key, placeholders = {}) => {
@@ -110,7 +122,8 @@ export const createI18n = (options: ProvideI18nOptions = {}) => {
   });
 
   /**
-   * Gets the formatted date/time string for the given date and format depending on the current locale.
+   * Gets the formatted date/time string for the given date and format depending on the current
+   * locale.
    */
   const d = computed(() => {
     return (date: DateValue, format?: OnyxDateFormatOptions) => {
@@ -123,7 +136,8 @@ export const createI18n = (options: ProvideI18nOptions = {}) => {
   });
 
   /**
-   * Gets the formatted number string for the given number and format depending on the current locale.
+   * Gets the formatted number string for the given number and format depending on the current
+   * locale.
    */
   const n = computed(() => {
     return (value: number, format?: OnyxNumberFormatOptions) => {
@@ -164,6 +178,7 @@ export const injectI18n = () => {
 
 /**
  * Resolves the given flattened key (e.g. `a.b.c`) to the translation value of the given messages.
+ *
  * @returns Message value or undefined if translation does not exist.
  */
 const resolveMessage = (

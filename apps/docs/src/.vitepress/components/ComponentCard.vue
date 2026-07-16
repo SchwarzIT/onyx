@@ -4,13 +4,19 @@ import type { ComponentStatus } from "./ComponentStatusBadge.vue";
 import ComponentStatusBadge from "./ComponentStatusBadge.vue";
 
 export type ComponentCardProps = {
-  /** Component name. */
+  /**
+   * Component name.
+   */
   name: string;
 } & (
   | {
-      /** Component status. */
+      /**
+       * Component status.
+       */
       status: Exclude<ComponentStatus, "implemented">;
-      /** Link to the components storybook. */
+      /**
+       * Link to the components storybook.
+       */
       href?: string;
     }
   | {

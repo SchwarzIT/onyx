@@ -1,6 +1,7 @@
 <script lang="ts">
 /**
- * @deprecated Use the new `OnyxDatePickerV2` component which will replace the `OnyxDatePicker` in onyx version 2.
+ * @deprecated Use the new `OnyxDatePickerV2` component which will replace the `OnyxDatePicker` in
+ *   onyx version 2.
  */
 export default {};
 </script>
@@ -39,9 +40,11 @@ const props = withDefaults(defineProps<OnyxDatePickerProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the current value changes. Is a date string based on [ISO8601](https://en.wikipedia.org/wiki/ISO_8601).
+   * Emitted when the current value changes. Is a date string based on
+   * [ISO8601](https://en.wikipedia.org/wiki/ISO_8601).
    *
    * Dependent on `type` the string is either:
+   *
    * - "date": date only string based, e.g. `"2011-10-31"`
    * - "datetime-local": Full datetime string in UTC timezone, `e.g. "2011-10-31T00:00:00.000Z"`
    */
@@ -64,8 +67,8 @@ const errorClass = useErrorClass(showError);
 const formElementProps = useForwardProps(props, OnyxFormElement);
 
 /**
- * Gets the normalized date based on the input type that can be passed to the native HTML `<input />`.
- * Will be checked to be a valid date.
+ * Gets the normalized date based on the input type that can be passed to the native HTML `<input
+ * />`. Will be checked to be a valid date.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats#date_strings
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats#local_date_and_time_strings

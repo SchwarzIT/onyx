@@ -38,7 +38,8 @@ export type OnyxShortcutProps = Pick<OnyxKeyProps, "highlight" | "os"> & {
   /**
    * Sequence of shortcut steps.
    *
-   * @example `[{ all: ["Control", {any:["C","Y"]}] }, { any: ["V", "Insert"] }]`
+   * @example
+   *   `[{ all: ["Control", {any:["C","Y"]}] }, { any: ["V", "Insert"] }]`;
    */
   sequence: ShortcutSequenceStep[];
   /**

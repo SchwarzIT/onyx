@@ -9,6 +9,7 @@ export { data };
 
 /**
  * Build-Time data loader to get the home page data
+ *
  * @see https://vitepress.dev/guide/data-loading
  */
 export default defineLoader({
@@ -33,8 +34,8 @@ export default defineLoader({
     const closedIssueCount = (await searchGitHub("issues", "type:issue is:closed")) ?? 0;
 
     /**
-     * Checks whether the given component is implemented (meaning a Storybook file exists).
-     * Also returns a `href` property with the link to the implemented component (only if implemented).
+     * Checks whether the given component is implemented (meaning a Storybook file exists). Also
+     * returns a `href` property with the link to the implemented component (only if implemented).
      */
     const getImplementedStatus = (componentName: string) => {
       const fileExist = watchedFiles.some((file) => file.endsWith(`${componentName}.stories.ts`));

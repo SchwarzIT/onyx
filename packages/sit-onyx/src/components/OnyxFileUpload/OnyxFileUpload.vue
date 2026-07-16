@@ -69,7 +69,8 @@ defineSlots<{
    * Optional slot to override the displayed file card for each file.
    *
    * @param file The current file being rendered
-   * @param props File card props that would originally be passed to the OnyxFileCard if this slot would not be used
+   * @param props File card props that would originally be passed to the OnyxFileCard if this slot
+   *   would not be used
    */
   default?(props: { file: File; props: OnyxFileCardProps }): unknown;
 }>();

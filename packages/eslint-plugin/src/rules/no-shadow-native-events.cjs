@@ -8,16 +8,20 @@ const utils = require("eslint-plugin-vue/dist/utils/index.js").default;
 const domEvents = require("./dom-events.json");
 const { findVariable } = require("@eslint-community/eslint-utils");
 /**
- * @typedef {import('eslint-plugin-vue/dist/utils/index.js').ComponentEmit} ComponentEmit
- * @typedef {import('eslint-plugin-vue/dist/utils/index.js').ComponentProp} ComponentProp
- * @typedef {import('eslint-plugin-vue/dist/utils/index.js').VueObjectData} VueObjectData
- * @typedef {import('./require-explicit-emits.js').NameWithLoc} NameWithLoc
+ * @typedef {import("eslint-plugin-vue/dist/utils/index.js").ComponentEmit} ComponentEmit
+ *
+ * @typedef {import("eslint-plugin-vue/dist/utils/index.js").ComponentProp} ComponentProp
+ *
+ * @typedef {import("eslint-plugin-vue/dist/utils/index.js").VueObjectData} VueObjectData
+ *
+ * @typedef {import("./require-explicit-emits.js").NameWithLoc} NameWithLoc
  */
 
 /**
  * Get the name param node from the given CallExpression
+ *
  * @param {CallExpression} node CallExpression
- * @returns { NameWithLoc | null }
+ * @returns {NameWithLoc | null}
  */
 function getNameParamNode(node) {
   const nameLiteralNode = node.arguments[0];
@@ -34,6 +38,7 @@ function getNameParamNode(node) {
 
 /**
  * Check if the given name matches defineEmitsNode variable name
+ *
  * @param {string} name
  * @param {CallExpression | undefined} defineEmitsNode
  * @returns {boolean}
@@ -49,7 +54,7 @@ function isEmitVariableName(name, defineEmitsNode) {
 }
 
 /**
- * @type {import('eslint').Rule.RuleModule}
+ * @type {import("eslint").Rule.RuleModule}
  */
 module.exports = {
   meta: {
@@ -65,24 +70,34 @@ module.exports = {
         'Use a different emit name to avoid shadowing the native event with name "{{ name }}". Consider an emit name which communicates the users intent, if applicable.',
     },
   },
-  /** @param {RuleContext} context */
+  /**
+   * @param {RuleContext} context
+   */
   create(context) {
-    /** @type {Map<ObjectExpression | Program, { contextReferenceIds: Set<Identifier>, emitReferenceIds: Set<Identifier> }>} */
+    /**
+     * @type {Map<
+     *   ObjectExpression | Program,
+     *   { contextReferenceIds: Set<Identifier>; emitReferenceIds: Set<Identifier> }
+     * >}
+     */
     const setupContexts = new Map();
 
     /**
      * Tracks violating emit definitions, so that calls of this emit are not reported additionally.
+     *
      * @type {Set<string>}
-     *  */
+     */
     const definedAndReportedEmits = new Set();
 
     /**
      * @typedef {object} VueTemplateDefineData
-     * @property {'export' | 'mark' | 'definition' | 'setup'} type
+     * @property {"export" | "mark" | "definition" | "setup"} type
      * @property {ObjectExpression | Program} define
      * @property {CallExpression} [defineEmits]
      */
-    /** @type {VueTemplateDefineData | null} */
+    /**
+     * @type {VueTemplateDefineData | null}
+     */
     let vueTemplateDefineData = null;
 
     const programNode = context.sourceCode.ast;
@@ -96,6 +111,7 @@ module.exports = {
 
     /**
      * Verify if an emit call violates the rule of not using a native dom event name.
+     *
      * @param {NameWithLoc} nameWithLoc
      */
     function verifyEmit(nameWithLoc) {
@@ -114,6 +130,7 @@ module.exports = {
 
     /**
      * Verify if an emit declaration violates the rule of not using a native dom event name.
+     *
      * @param {ComponentEmit[]} emits
      */
     const verifyEmitDeclaration = (emits) => {
@@ -184,7 +201,9 @@ module.exports = {
       utils.defineTemplateBodyVisitor(
         context,
         {
-          /** @param { CallExpression } node */
+          /**
+           * @param {CallExpression} node
+           */
           CallExpression(node) {
             const callee = utils.skipChainExpression(node.callee);
             const nameWithLoc = getNameParamNode(node);
@@ -228,7 +247,9 @@ module.exports = {
               if (!variable) {
                 return;
               }
-              /** @type {Set<Identifier>} */
+              /**
+               * @type {Set<Identifier>}
+               */
               const emitReferenceIds = new Set();
               for (const reference of variable.references) {
                 if (!reference.isRead()) {
@@ -259,9 +280,13 @@ module.exports = {
                 // cannot check
                 return;
               }
-              /** @type {Set<Identifier>} */
+              /**
+               * @type {Set<Identifier>}
+               */
               const contextReferenceIds = new Set();
-              /** @type {Set<Identifier>} */
+              /**
+               * @type {Set<Identifier>}
+               */
               const emitReferenceIds = new Set();
               if (contextParam.type === "ObjectPattern") {
                 const emitProperty = utils.findAssignmentProperty(contextParam, "emit");

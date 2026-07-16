@@ -1,16 +1,22 @@
 "use strict";
 
 /**
- * @typedef {import('vue-eslint-parser').AST.VDirective} VDirective
- * @typedef {import('vue-eslint-parser').AST.VElement} VElement
- * @typedef {import('vue-eslint-parser').AST.VAttribute} VAttribute
- * @typedef {import('vue-eslint-parser').AST.VIdentifier} VIdentifier
- * @typedef {import('eslint').Rule.RuleContext} RuleContext
- * @typedef {import('eslint').Rule.RuleListener} RuleListener
+ * @typedef {import("vue-eslint-parser").AST.VDirective} VDirective
+ *
+ * @typedef {import("vue-eslint-parser").AST.VElement} VElement
+ *
+ * @typedef {import("vue-eslint-parser").AST.VAttribute} VAttribute
+ *
+ * @typedef {import("vue-eslint-parser").AST.VIdentifier} VIdentifier
+ *
+ * @typedef {import("eslint").Rule.RuleContext} RuleContext
+ *
+ * @typedef {import("eslint").Rule.RuleListener} RuleListener
  */
 
 /**
  * Check whether the given start tag has specific directive.
+ *
  * @param {VElement} node The start tag node to check.
  * @param {string} name The directive name to check.
  * @param {string} [argument] The directive argument to check.
@@ -22,6 +28,7 @@ function hasDirective(node, name, argument) {
 
 /**
  * Get the directive which has the given name.
+ *
  * @param {VElement} node The start tag node to check.
  * @param {string} name The directive name to check.
  * @param {string} [argument] The directive argument to check.

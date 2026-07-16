@@ -4,11 +4,12 @@ import { ROUTER_INJECTION_KEY } from "../../composables/useLink.js";
 import OnyxRouterLink from "./OnyxRouterLink.vue";
 
 /**
- * The router link is a unstyled support component that should be used instead of `<a>` elements.
- * It will behave identical to `<a>` but integrates the [Vue Router](https://router.vuejs.org/) if passed
- * to `createOnyx()`, see our [documentation](https://onyx.schwarz/development/router.html).
+ * The router link is a unstyled support component that should be used instead of `<a>` elements. It
+ * will behave identical to `<a>` but integrates the [Vue Router](https://router.vuejs.org/) if
+ * passed to `createOnyx()`, see our [documentation](https://onyx.schwarz/development/router.html).
  *
- * You can also use this behavior without the router link component by using the `useLink()` composable.
+ * You can also use this behavior without the router link component by using the `useLink()`
+ * composable.
  *
  * #### Example
  *
@@ -17,8 +18,8 @@ import OnyxRouterLink from "./OnyxRouterLink.vue";
  * import { createOnyx } from "sit-onyx";
  *
  * const router = createRouter({
- *    // configure your Vue Router...
- *  });
+ *   // configure your Vue Router...
+ * });
  * const onyx = createOnyx({ router });
  *
  * app.use(router).use(onyx);

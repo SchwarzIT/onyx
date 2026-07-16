@@ -4,11 +4,13 @@ export type ExtractComponentMetaOptions = {
   /**
    * Path of the tsconfig file to use for the vue-component-meta checker.
    * References are not supported.
+   *
    * @default "tsconfig.json"
    */
   tsconfigPath?: string;
   /**
    * Filename of the output file. Should have the ".json" extension.
+   *
    * @default "component-meta.json"
    */
   fileName?: string;

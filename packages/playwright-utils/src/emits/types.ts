@@ -4,9 +4,11 @@ import type { ComponentExposed } from "vue-component-type-helpers";
 /**
  * Picks the emits from an components property type.
  *
- * Unlike the `ComponentEmit` type utility from *vue-component-type-helpers*, it provides the emits as `Record<EmitName, EmitHandler>`, rather than a type intersection of the emit functions.
+ * Unlike the `ComponentEmit` type utility from _vue-component-type-helpers_, it provides the emits
+ * as `Record<EmitName, EmitHandler>`, rather than a type intersection of the emit functions.
  *
- * e.g.:
+ * E.g.:
+ *
  * ```ts
  * import MyInput from "./MyInput.vue";
  * import type { ComponentExposed } from "vue-component-type-helpers";

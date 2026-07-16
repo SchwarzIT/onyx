@@ -1,6 +1,6 @@
 /**
- * Returns true if searchString appears as a substring without considering capitalization or diacritics.
- * E.g. `ñ` and `n` are considered to be the same glyph.
+ * Returns true if searchString appears as a substring without considering capitalization or
+ * diacritics. E.g. `ñ` and `n` are considered to be the same glyph.
  */
 export const normalizedIncludes = (haystack: string, needle: string): boolean => {
   const haystackNormalized = removeDiacritics(haystack.toLowerCase());
@@ -13,9 +13,11 @@ export const removeDiacritics = (str: string) =>
   str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
 /**
- * Normalizes the given text (e.g. from a headline) to a URL-safe string that can be used as URL hash.
+ * Normalizes the given text (e.g. from a headline) to a URL-safe string that can be used as URL
+ * hash.
  *
- * @example "Hello World" => "hello-world", e.g. used as "https://example.com/my-page#hello-world"
+ * @example
+ *   "Hello World" => "hello-world", e.g. used as "https://example.com/my-page#hello-world"
  */
 export const normalizeUrlHash = (text: string) => {
   return text.trim().toLowerCase().replace(/\W/gi, "-");
@@ -24,7 +26,8 @@ export const normalizeUrlHash = (text: string) => {
 /**
  * Gets the initials for the given username by considering the given locale.
  *
- * @returns Initials or undefined if the username contains unsupported characters (e.g. because its a language that does not support initials).
+ * @returns Initials or undefined if the username contains unsupported characters (e.g. because its
+ *   a language that does not support initials).
  */
 export const getInitials = (username: string, locale: string) => {
   if (UNSUPPORTED_INITIALS_TEXT_REGEX.test(username)) {
@@ -56,12 +59,11 @@ const getGrapheme = (value: string, locale: string, index: number) => {
 };
 
 /**
- * Regular expression matching languages for which we currently don't support initials.
- * Arabic:   Arabic, Arabic Supplement, Arabic Extended-A.
- * Korean:   Hangul Jamo, Hangul Compatibility Jamo, Hangul Jamo Extended-A, Hangul Syllables, Hangul Jamo Extended-B.
- * Japanese: Hiragana, Katakana.
- * CJK:      CJK Unified Ideographs Extension A, CJK Unified Ideographs, CJK Compatibility Ideographs,
- *             CJK Unified Ideographs Extension B
+ * Regular expression matching languages for which we currently don't support initials. Arabic:
+ * Arabic, Arabic Supplement, Arabic Extended-A. Korean: Hangul Jamo, Hangul Compatibility Jamo,
+ * Hangul Jamo Extended-A, Hangul Syllables, Hangul Jamo Extended-B. Japanese: Hiragana, Katakana.
+ * CJK: CJK Unified Ideographs Extension A, CJK Unified Ideographs, CJK Compatibility Ideographs,
+ * CJK Unified Ideographs Extension B
  *
  * @see https://github.com/microsoft/fluentui/blob/b4a12e8c011441b0d0af21a78091b36074f81ef6/packages/react-components/react-avatar/library/src/utils/getInitials.ts#L34
  */

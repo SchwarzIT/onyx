@@ -34,7 +34,8 @@ import {
 import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 /**
- * Custom notification type for your project. This can also include custom properties depending in your needs (e.g. an ID etc.).
+ * Custom notification type for your project. This can also include custom properties depending in
+ * your needs (e.g. an ID etc.).
  */
 type MyNotification = OnyxNotificationCardProps & {
   /**

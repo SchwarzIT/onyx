@@ -27,7 +27,8 @@ export type UseTocVisibilityOptions = {
   /**
    * Hash (without leading #).
    *
-   * @example "section-1"
+   * @example
+   *   "section-1";
    */
   hash: Ref<string | undefined>;
   /**
@@ -37,15 +38,15 @@ export type UseTocVisibilityOptions = {
 };
 
 /**
- * Composable that should be added to components (usually the OnyxHeadline) that should report its visibility
- * to the OnyxTableOfContents so the corresponding TOC item is automatically marked active if the component (inside of the page content)
- * becomes visible.
+ * Composable that should be added to components (usually the OnyxHeadline) that should report its
+ * visibility to the OnyxTableOfContents so the corresponding TOC item is automatically marked
+ * active if the component (inside of the page content) becomes visible.
  *
  * @example
- * ```ts
- * const headline = useTemplateRef<VueTemplateRefElement>("headline");
- * useTocVisibility({ hash: "section-1", templateRef: headline });
- * ```
+ *   ```ts
+ *   const headline = useTemplateRef<VueTemplateRefElement>("headline");
+ *   useTocVisibility({ hash: "section-1", templateRef: headline });
+ *   ```;
  */
 export const useTocVisibility = (options: UseTocVisibilityOptions) => {
   const context = inject(TOC_CONTEXT_INJECTION_KEY, undefined);
@@ -74,21 +75,22 @@ export type UseTocContextOptions = {
   /**
    * Link / hash of the TOC item.
    *
-   * @example "#section-1"
+   * @example
+   *   "#section-1";
    */
   href: Ref<string>;
 };
 
 /**
  * Composable for accessing the table of contents context (usually done by OnyxTableOfContentsItem)
- * to check whether the related component (usually OnyxHeadline) for this TOC item inside the page content
- * is currently visible to support auto active highlighting for the TOC item.
+ * to check whether the related component (usually OnyxHeadline) for this TOC item inside the page
+ * content is currently visible to support auto active highlighting for the TOC item.
  *
  * @example
- * ```ts
- * const { isVisible } = useTocContext({ href: "#section-1" });
- * // highlight TOC item as active when "isVisible" is true...
- * ```
+ *   ```ts
+ *   const { isVisible } = useTocContext({ href: "#section-1" });
+ *   // highlight TOC item as active when "isVisible" is true...
+ *   ```;
  */
 export const useTocContext = (options: UseTocContextOptions) => {
   const context = inject(TOC_CONTEXT_INJECTION_KEY, undefined);

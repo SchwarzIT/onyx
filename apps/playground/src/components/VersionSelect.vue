@@ -5,8 +5,10 @@ import { fetchVersions } from "../utils/versions.js";
 
 const props = defineProps<{
   /**
-   * npm package to show versions for
-   * @example "vue"
+   * Npm package to show versions for
+   *
+   * @example
+   *   "vue";
    */
   pkg: string;
   label: string;

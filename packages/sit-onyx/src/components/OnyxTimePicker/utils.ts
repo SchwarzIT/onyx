@@ -39,8 +39,8 @@ export const parseTimeString = (showSeconds: boolean, string?: string) => {
 };
 
 /**
- * Composable for managing a time value with AM/PM formatting.
- * While derive the time format (am or pm) from the given time and update the value when the am/pm toggle is switched.
+ * Composable for managing a time value with AM/PM formatting. While derive the time format (am or
+ * pm) from the given time and update the value when the am/pm toggle is switched.
  */
 export const useAmPmValue = (value: Ref<string | undefined>, showSeconds: Ref<boolean>) => {
   const timeSuffix = computed({

@@ -58,7 +58,8 @@ export const useStore = () => {
         }),
       ),
       /**
-       * Specify onyx version which is needed for the Monaco editor so that is loads the correct types for the current version
+       * Specify onyx version which is needed for the Monaco editor so that is loads the correct
+       * types for the current version
        */
       dependencyVersion: computed(() => {
         // the dependencyVersion must be a real version number and not a range like "alpha"

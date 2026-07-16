@@ -4,7 +4,8 @@ import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxNavButton from "./OnyxNavButton.vue";
 
 /**
- * The nav button is intended to be used exclusively inside the OnyxNavBar for providing (custom) actions.
+ * The nav button is intended to be used exclusively inside the OnyxNavBar for providing (custom)
+ * actions.
  */
 const meta: Meta<typeof OnyxNavButton> = {
   title: "Navigation/NavBar/modules/NavButton",

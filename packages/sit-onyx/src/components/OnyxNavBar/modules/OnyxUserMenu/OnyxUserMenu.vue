@@ -23,7 +23,6 @@ const slots = defineSlots<{
    * You can also use the readily available `OnyxMenuItem` components:
    * - `OnyxColorSchemeMenuItem`
    * - `OnyxLanguageMenuItem`
-   *
    */
   default?(): unknown;
   /**

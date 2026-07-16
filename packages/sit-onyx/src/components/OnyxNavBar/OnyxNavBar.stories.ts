@@ -34,7 +34,8 @@ const withPaddingDecorator: Decorator = (story) => {
 };
 
 /**
- * The NavBar is the foundation of an app’s main navigation, allowing users to seamlessly move between pages and sections within the application.
+ * The NavBar is the foundation of an app’s main navigation, allowing users to seamlessly move
+ * between pages and sections within the application.
  */
 const meta: Meta<typeof OnyxNavBar> = {
   title: "Navigation/NavBar",

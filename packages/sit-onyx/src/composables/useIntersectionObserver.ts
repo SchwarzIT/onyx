@@ -11,7 +11,7 @@ export type UseIntersectionObserverOptions = {
   /**
    * Margin around the root element.
    *
-   * @default '0px'
+   * @default "0px"
    */
   rootMargin?: string;
   /**

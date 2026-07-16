@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxLink from "./OnyxLink.vue";
 
 /**
- * Links are navigational elements that direct users to other pages, whether they are internal or external.
+ * Links are navigational elements that direct users to other pages, whether they are internal or
+ * external.
  */
 const meta: Meta<typeof OnyxLink> = {
   title: "Navigation/Link",

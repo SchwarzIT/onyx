@@ -21,6 +21,7 @@ export type OnyxPluginOptions = {
   i18n?: ProvideI18nOptions;
   /**
    * Integration for [Vue Router](https://router.vuejs.org/).
+   *
    * @see https://onyx.schwarz/development/router.html
    */
   router?: ProvideRouterOptions;
