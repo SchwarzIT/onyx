@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/test";
 import { join } from "node:path";
+import { expect, test } from "@playwright/test";
 import type { DefaultTheme } from "../node_modules/vitepress/types/default-theme.js";
 import { CONFIG } from "../src/.vitepress/config.js";
 

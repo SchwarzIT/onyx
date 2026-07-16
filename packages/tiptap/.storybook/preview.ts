@@ -3,7 +3,6 @@ import "@fontsource-variable/source-sans-3";
 import "@sit-onyx/storybook-utils/style.css";
 import "sit-onyx/style.css";
 import "../../sit-onyx/.storybook/docs-template.scss";
-
 import { createPreview, withVModelDecorator } from "@sit-onyx/storybook-utils";
 import { Preview } from "@storybook/vue3-vite";
 import docsTemplate from "../../sit-onyx/.storybook/docs-template.mdx";

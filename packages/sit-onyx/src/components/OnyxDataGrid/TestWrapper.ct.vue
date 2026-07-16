@@ -2,8 +2,8 @@
 import { h } from "vue";
 import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import OnyxDataGrid from "./OnyxDataGrid.vue";
 import { createFeature } from "./features/index.js";
+import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 const features = createFeature(() => () => ({
   name: Symbol("More actions"),

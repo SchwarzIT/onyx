@@ -1,3 +1,4 @@
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import { iconBrowserTerminal, iconSearch, iconSettings } from "@sit-onyx/icons";
 import type { Decorator, Meta, StoryObj } from "@storybook/vue3-vite";
 import { action } from "storybook/actions";
@@ -15,7 +16,6 @@ import OnyxTimer from "./modules/OnyxTimer/OnyxTimer.vue";
 import { Default as OnyxUserMenuDefault } from "./modules/OnyxUserMenu/OnyxUserMenu.stories.js";
 import OnyxUserMenu from "./modules/OnyxUserMenu/OnyxUserMenu.vue";
 import OnyxNavBar from "./OnyxNavBar.vue";
-import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 const withPaddingDecorator: Decorator = (story) => {
   return {

@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
 import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
@@ -11,7 +12,6 @@ import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
 import vueA11y from "eslint-plugin-vuejs-accessibility";
 import { defineConfig } from "eslint/config";
-import { fileURLToPath } from "node:url";
 import sitOnyx from "./packages/eslint-plugin/src/index.cjs";
 
 /**

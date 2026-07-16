@@ -1,11 +1,8 @@
 import OnyxTheme from "@sit-onyx/vitepress-theme";
+import { createOnyx } from "sit-onyx";
 import type { Theme } from "vitepress";
 import TopicOverviewCard from "../components/TopicOverviewCard.vue";
 import TheLayout from "./TheLayout.vue";
-
-// custom styles must be imported after the theme
-import { createOnyx } from "sit-onyx";
-
 import "sit-onyx/style.css";
 import "./theme.scss";
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { Command } from "commander";
 import fs from "node:fs";
 import { fileURLToPath, URL } from "node:url";
+import { Command } from "commander";
 import { importFlagsCommand } from "./commands/import-flags.js";
 import { importIconsCommand } from "./commands/import-icons.js";
 import { importVariablesCommand } from "./commands/import-variables.js";

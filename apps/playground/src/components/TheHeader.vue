@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { iconMoon, iconShareAndroid, iconSunny, iconSync } from "@sit-onyx/icons";
 import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
+import { iconMoon, iconShareAndroid, iconSunny, iconSync } from "@sit-onyx/icons";
 import githubLogo from "../assets/github-logo.svg?raw";
 import HeaderIconButton from "./HeaderIconButton.vue";
 import VersionSelect from "./VersionSelect.vue";
