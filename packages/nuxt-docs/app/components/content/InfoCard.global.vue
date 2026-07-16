@@ -7,7 +7,6 @@ const props = withDefaults(defineProps<OnyxInfoCardProps>(), {
 
 const slots = defineSlots<{
   default?(): unknown;
-  buttons?(): unknown;
 }>();
 
 const { icon: iconContent } = useIcon(
@@ -19,10 +18,6 @@ const { icon: iconContent } = useIcon(
   <OnyxInfoCard class="card" v-bind="props" :icon="iconContent ?? props.icon">
     <template v-if="slots.default" #default>
       <slot mdc-unwrap="p"></slot>
-    </template>
-
-    <template v-if="slots.buttons" #buttons>
-      <slot name="buttons"></slot>
     </template>
   </OnyxInfoCard>
 </template>
