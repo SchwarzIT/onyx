@@ -139,6 +139,10 @@
     "category": "Arrows",
     "aliases": ["organize-pointers", "Pfeile", "sortieren", "ordnen"]
   },
+  "artifical-intelligence": {
+    "category": "Software & Services",
+    "aliases": []
+  },
   "attachment": {
     "category": "Action & Interface",
     "aliases": ["document", "upload", "Anhang", "Dokument"]
@@ -1726,6 +1730,10 @@
     "category": "Communication",
     "aliases": ["chat", "text", "Nachricht", "Chat"]
   },
+  "message-AI": {
+    "category": "Communication",
+    "aliases": []
+  },
   "message-conversation": {
     "category": "Communication",
     "aliases": ["chat", "talk", "Nachrichten-Gespräch", "Chat-Dialog"]
@@ -2204,6 +2212,10 @@
   "robot": {
     "category": "Objects",
     "aliases": ["roboter", "machine"]
+  },
+  "robot-AI": {
+    "category": "Objects",
+    "aliases": []
   },
   "robot-manufacture": {
     "category": "Objects",
