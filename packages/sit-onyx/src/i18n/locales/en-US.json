@@ -186,9 +186,6 @@
   },
   "input": {
     "clear": "Clear input",
-    "copy": "Copy value",
-    "copyFailed": "Failed to copy! Please check the browser permissions.",
-    "copySuccess": "Copied successfully!",
     "showPassword": "Show Password",
     "hidePassword": "Hide Password"
   },

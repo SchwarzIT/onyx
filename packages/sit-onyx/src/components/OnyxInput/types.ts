@@ -40,10 +40,6 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
      * Will become the default in version 2.
      */
     disableSlotPadding?: boolean;
-    /**
-     * Whether to show a copy button. When clicked, the current value of the input will be copied to the clipboard.
-     */
-    showCopyButton?: boolean;
   };
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;

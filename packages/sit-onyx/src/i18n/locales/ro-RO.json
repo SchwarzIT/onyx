@@ -187,10 +187,7 @@
   "input": {
     "clear": "Ștergere intrare",
     "showPassword": "Afișare parolă",
-    "hidePassword": "Ascundere parolă",
-    "copy": "copiere",
-    "copyFailed": "copiere eșuată",
-    "copySuccess": "copiat"
+    "hidePassword": "Ascundere parolă"
   },
   "dialog": {
     "close": "Închidere dialog"

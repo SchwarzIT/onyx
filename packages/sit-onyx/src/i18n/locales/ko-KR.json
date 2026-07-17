@@ -187,10 +187,7 @@
   "input": {
     "clear": "입력 지우기",
     "showPassword": "비밀번호 표시",
-    "hidePassword": "비밀번호 숨기기",
-    "copy": "복사",
-    "copyFailed": "복사 실패",
-    "copySuccess": "복사됨"
+    "hidePassword": "비밀번호 숨기기"
   },
   "dialog": {
     "close": "대화상자 닫기"

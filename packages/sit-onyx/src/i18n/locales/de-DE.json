@@ -186,9 +186,6 @@
   },
   "input": {
     "clear": "Eingabe löschen",
-    "copy": "Wert kopieren",
-    "copyFailed": "Kopieren fehlgeschlagen! Prüfen Sie ihre Browserberechtigung.",
-    "copySuccess": "Erfolgreich kopiert!",
 
     "showPassword": "Passwort anzeigen",
     "hidePassword": "Passwort verstecken"

@@ -371,46 +371,6 @@ test("should hide/show password", async ({ mount }) => {
   await expect(component).toHaveScreenshot(`input-password-shown.png`);
 });
 
-test("should copy input value to clipboard", async ({ mount, context, page, browserName }) => {
-  // ARRANGE
-  // eslint-disable-next-line playwright/no-skipped-test -- clipboard permission granting is only supported in chromium
-  test.skip(
-    browserName !== "chromium",
-    "clipboard permission granting is only supported in chromium",
-  );
-
-  // ARRANGE
-  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
-
-  const textToCopy = "test";
-  const component = await mount(
-    <OnyxInput
-      label="Copy Label"
-      modelValue={textToCopy}
-      showCopyButton
-      style={{ width: "15rem" }}
-    />,
-  );
-
-  const input = component.getByLabel("Copy Label");
-  const copyButton = component.getByRole("button", { name: "Copy" });
-
-  // ASSERT
-  await expect(input).toHaveValue(textToCopy);
-  await expect(copyButton).toBeVisible();
-  await expect(component).toHaveScreenshot(`input-copy.png`);
-
-  // ACT
-  await copyButton.click();
-
-  // ASSERT
-  const successMessage = component.getByText("copied").first();
-  await expect(successMessage).toBeVisible();
-  const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
-  expect(clipboardText).toBe(textToCopy);
-  await expect(component).toHaveScreenshot(`input-copy-success.png`);
-});
-
 testMaxLengthBehavior(OnyxInput);
 
 test("should show/hide clear button", async ({ mount }) => {

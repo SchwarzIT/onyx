@@ -187,10 +187,7 @@
   "input": {
     "clear": "Invoer wissen",
     "showPassword": "Wachtwoord tonen",
-    "hidePassword": "Wachtwoord verbergen",
-    "copy": "kopiëren",
-    "copyFailed": "kopiëren mislukt",
-    "copySuccess": "gekopieerd"
+    "hidePassword": "Wachtwoord verbergen"
   },
   "dialog": {
     "close": "Dialoogvenster sluiten"

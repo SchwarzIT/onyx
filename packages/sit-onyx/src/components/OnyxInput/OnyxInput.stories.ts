@@ -5,6 +5,7 @@ import { h } from "vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import OnyxInput from "./OnyxInput.vue";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 
 /**
  * Text inputs are essential UI elements where users can enter textual information.
@@ -224,12 +225,10 @@ export const LeftLabel = {
   },
 } satisfies Story;
 
-export const WithCopyButton = {
-  tags: ["new:feature"],
-  args: {
-    showCopyButton: true,
-  },
-} satisfies Story;
+export const WithCopyButton = createAdvancedStoryExample(
+  "OnyxInput",
+  "CopyExample",
+) satisfies Story;
 
 export const Slots = {
   args: {

@@ -187,10 +187,7 @@
   "input": {
     "clear": "Wyczyść pole",
     "showPassword": "Pokaż hasło",
-    "hidePassword": "Ukryj hasło",
-    "copy": "kopiuj",
-    "copyFailed": "kopiowanie nie powiodło się",
-    "copySuccess": "skopiowano"
+    "hidePassword": "Ukryj hasło"
   },
   "dialog": {
     "close": "Zamknij okno dialogowe"

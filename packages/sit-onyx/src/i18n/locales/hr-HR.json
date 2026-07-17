@@ -187,10 +187,7 @@
   "input": {
     "clear": "Očisti unos",
     "showPassword": "Prikaži lozinku",
-    "hidePassword": "Sakrij lozinku",
-    "copy": "kopirati",
-    "copyFailed": "kopiranje nije uspjelo",
-    "copySuccess": "kopirano"
+    "hidePassword": "Sakrij lozinku"
   },
   "dialog": {
     "close": "Zatvori dijalog"

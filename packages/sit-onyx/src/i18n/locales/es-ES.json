@@ -187,10 +187,7 @@
   "input": {
     "clear": "Borrar entrada",
     "showPassword": "Mostrar contraseña",
-    "hidePassword": "Ocultar contraseña",
-    "copy": "copiar",
-    "copyFailed": "copia fallida",
-    "copySuccess": "copiado"
+    "hidePassword": "Ocultar contraseña"
   },
   "dialog": {
     "close": "Cerrar diálogo"

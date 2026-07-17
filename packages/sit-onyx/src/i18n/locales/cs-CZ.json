@@ -187,10 +187,7 @@
   "input": {
     "clear": "Vymazat vstup",
     "showPassword": "Zobrazit heslo",
-    "hidePassword": "Skrýt heslo",
-    "copy": "kopírovat",
-    "copyFailed": "kopírování se nezdařilo",
-    "copySuccess": "zkopírováno"
+    "hidePassword": "Skrýt heslo"
   },
   "dialog": {
     "close": "Zavřít dialog"
