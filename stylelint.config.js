@@ -1,4 +1,6 @@
-/** @type {import('stylelint').Config} */
+/**
+ * @type {import("stylelint").Config}
+ */
 export default {
   plugins: ["stylelint-no-unsupported-browser-features"],
   rules: {

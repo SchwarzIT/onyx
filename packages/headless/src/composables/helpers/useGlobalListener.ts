@@ -41,8 +41,8 @@ const addGlobalListener = <K extends DocumentEventType>(type: K, listener: Globa
 };
 
 /**
- * A single and unique function for all event types.
- * We use the fact that `addEventListener` and `removeEventListener` are idempotent when called with the same function reference.
+ * A single and unique function for all event types. We use the fact that `addEventListener` and
+ * `removeEventListener` are idempotent when called with the same function reference.
  */
 const GLOBAL_HANDLER = (event: Event) => {
   const type = event.type as DocumentEventType;

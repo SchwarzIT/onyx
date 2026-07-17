@@ -43,11 +43,11 @@ export const TOAST_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<ToastProvid
  * Should be provided once on global app level with:
  *
  * @example
- * ```ts
- * import { createToastProvider, TOAST_PROVIDER_INJECTION_KEY } from "sit-onyx";
+ *   ```ts
+ *   import { createToastProvider, TOAST_PROVIDER_INJECTION_KEY } from "sit-onyx";
  *
- * app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
- * ```
+ *   app.provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
+ *   ```;
  */
 export const createToastProvider = (): ToastProvider => {
   let nextId = 1;

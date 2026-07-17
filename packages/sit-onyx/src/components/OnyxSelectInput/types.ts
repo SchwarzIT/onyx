@@ -10,7 +10,7 @@ export type OnyxSelectInputProps = Omit<SharedFormElementProps, "maxlength" | "w
    * How multiselect labels will be displayed in the input.
    * - summary (default): will show "x Selected" if more than 1 is selected.
    * - preview: will show the names of the selection as a truncated list.
-   *            A number-badge appears next to it including a tooltip with all selected names.
+   * A number-badge appears next to it including a tooltip with all selected names.
    */
   textMode?: MultiselectTextMode;
   /**

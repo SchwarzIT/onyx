@@ -3,7 +3,8 @@ import "@fontsource-variable/source-sans-3";
 import "@sit-onyx/storybook-utils/style.css";
 import "../src/styles/index.scss";
 import "./docs-template.scss";
-
+import logoDark from "@sit-onyx/assets/onyx-brand/logo-on-dark.svg";
+import logoLight from "@sit-onyx/assets/onyx-brand/logo-on-light.svg";
 import { createPreview, withVModelDecorator } from "@sit-onyx/storybook-utils";
 import { setup, type Preview } from "@storybook/vue3-vite";
 import { getRules, Spec } from "axe-core";
@@ -11,8 +12,6 @@ import { createOnyx } from "../src";
 import { a11yTags } from "../src/a11yConfig";
 import docsTemplate from "./docs-template.mdx";
 import { enhanceFormInjectedSymbol } from "./formInjected";
-import logoDark from "@sit-onyx/assets/onyx-brand/logo-on-dark.svg";
-import logoLight from "@sit-onyx/assets/onyx-brand/logo-on-light.svg";
 import { enhanceSkeletonInjectedSymbol } from "./skeletonInjected";
 
 const enabledRules = getRules(a11yTags).map((ruleMetadata) => ({

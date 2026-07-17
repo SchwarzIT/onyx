@@ -17,7 +17,8 @@ const props = withDefaults(defineProps<OnyxGlobalSearchOptionProps>(), {
 
 const slots = defineSlots<{
   /**
-   * Optional slot to override the option content. By default the `label` and `icon` property will be displayed.
+   * Optional slot to override the option content. By default the `label` and `icon` property will
+   * be displayed.
    */
   default?(): unknown;
   /**

@@ -15,6 +15,7 @@ export type RfcTimeValue =
 export type TimePickerSelectOptions = {
   /**
    * The step size, in seconds, used for generating the time options.
+   *
    * @default 1800 // 30 min
    */
   stepSize?: number;
@@ -33,7 +34,8 @@ export type OnyxTimePickerProps<TType extends TimePickerType = TimePickerType> =
        * Specifies the type of time picker input.
        * - 'default': Free text input with validation.
        * - 'select': Displays a dropdown list with pre-generated time options.
-       * @default 'default'
+       *
+       * @default "default"
        */
       type?: TType;
       /**
@@ -45,23 +47,37 @@ export type OnyxTimePickerProps<TType extends TimePickerType = TimePickerType> =
        * Current time value in 24-hour format (RFC 9557).
        * While milliseconds (`.123`) and timezones (`Z`, `+01:00`) are accepted as input,
        * they are **ignored** (truncated) by the component logic and display.
-       * @example "14:30"
-       * @example "14:30:00"
-       * @example "14:30:00.500Z" (Treated as "14:30:00")
+       *
+       * @example
+       *   "14:30";
+       *
+       * @example
+       *   "14:30:00";
+       *
+       * @example
+       *   "14:30:00.500Z"(Treated as "14:30:00");
        */
       modelValue?: TType extends "range" ? TimeRange : string;
       /**
        * Minimum allowed time (inclusive).
        * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.
-       * @example "08:00:00"
-       * @example "08:00:00.000Z" (Valid, treated as "08:00:00")
+       *
+       * @example
+       *   "08:00:00";
+       *
+       * @example
+       *   "08:00:00.000Z"(Valid, treated as "08:00:00");
        */
       min?: RfcTimeValue;
       /**
        * Maximum allowed time (inclusive).
        * Accepts RFC 9557 formats. Milliseconds and timezones are ignored during validation.
-       * @example "08:00:00"
-       * @example "08:00:00.000Z" (Valid, treated as "08:00:00")
+       *
+       * @example
+       *   "08:00:00";
+       *
+       * @example
+       *   "08:00:00.000Z"(Valid, treated as "08:00:00");
        */
       max?: RfcTimeValue;
       /**

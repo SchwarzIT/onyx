@@ -47,7 +47,9 @@ const selectedRows = computed(() => {
 });
 
 // TODO: only used for this example, remove in your project
-/** All rows in the selection contingent. */
+/**
+ * All rows in the selection contingent.
+ */
 const contingentRows = computed(() => {
   return data.value.filter((row) => selectionState.value.contingent.has(row.id));
 });

@@ -83,11 +83,13 @@ export type UseTextInputOptions = {
 };
 
 /**
- * This composable returns a computed property `maxLengthError` that checks if the `modelValue` prop is longer than the specified `maxlength`.
- * If so, it returns a custom error message.
+ * This composable returns a computed property `maxLengthError` that checks if the `modelValue` prop
+ * is longer than the specified `maxlength`. If so, it returns a custom error message.
  *
- * The native [maxlength attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/maxlength) restricts the user from entering more characters then allowed.
- * This custom validation circumvents that restrictions.
+ * The native [maxlength
+ * attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/maxlength) restricts the
+ * user from entering more characters then allowed. This custom validation circumvents that
+ * restrictions.
  */
 export const useLenientMaxLengthValidation = (options: UseTextInputOptions) => {
   const { t } = injectI18n();

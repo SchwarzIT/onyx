@@ -15,17 +15,17 @@ export type OnyxNavBarProps<TOrientation extends NavBarOrientation = NavBarOrien
   withBackButton?: boolean;
   /**
    * Override app area.
+   *
    * @default Link to "/" route with a translated "Go to home" aria-label depending on the current locale.
    */
   appArea?: Omit<OnyxNavAppAreaProps, "appName" | "logoUrl">;
   /**
-   *
    * Determines if and when the `OnyxNavBar` should render in mobile mode.
    *
-   * `mobile` prop can be one of the following;
-   *  - a `boolean`: The NavBar renders in mobile mode, when `true`.
-   *  - a `OnyxBreakpoint`: The NavBar renders in mobile mode, when the current breakpoint matches or is smaller.
-   *  - a `number`: The NavBar renders in mobile when the viewport width is smaller than the provided value.
+   * `mobile` prop can be one of the following; - a `boolean`: The NavBar renders in mobile mode,
+   * when `true`. - a `OnyxBreakpoint`: The NavBar renders in mobile mode, when the current
+   * breakpoint matches or is smaller. - a `number`: The NavBar renders in mobile when the viewport
+   * width is smaller than the provided value.
    *
    * @see [onyx docs](https://onyx.schwarz/development/breakpoints.html) for more information.
    */
@@ -33,6 +33,7 @@ export type OnyxNavBarProps<TOrientation extends NavBarOrientation = NavBarOrien
 
   /**
    * The orientation of the nav bar.
+   *
    * @default "horizontal"
    */
   orientation?: TOrientation;
@@ -47,15 +48,15 @@ export type OnyxNavBarProps<TOrientation extends NavBarOrientation = NavBarOrien
 };
 
 /**
- * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar
- * to communicate child components whether they should render in mobile or desktop mode.
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the
+ * nav bar to communicate child components whether they should render in mobile or desktop mode.
  *
  * @returns `true` if mobile, `false` otherwise
  */
 export const MOBILE_NAV_BAR_INJECTION_KEY = Symbol() as InjectionKey<ComputedRef<boolean>>;
 /**
- * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav items
- * to communicate child nav items whether they should render as flyout or list item.
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the
+ * nav items to communicate child nav items whether they should render as flyout or list item.
  *
  * @returns `true` if outermost parent, `false` otherwise
  */
@@ -64,44 +65,48 @@ export const NAV_BAR_IS_TOP_LEVEL_INJECTION_KEY = Symbol() as InjectionKey<boole
 export const NAV_BAR_MORE_LIST_INJECTION_KEY = Symbol() as MoreListInjectionKey;
 
 /**
- * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar to communicate the teleport target id for navitems that should be put into the more list.
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the
+ * nav bar to communicate the teleport target id for navitems that should be put into the more
+ * list.
  */
 export const NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<
   Ref<TeleportProps["to"]>
 >;
 
 /**
- * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the nav bar
- * to communicate child components whether they should render horizontal or vertical.
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the
+ * nav bar to communicate child components whether they should render horizontal or vertical.
  */
 export const NAV_BAR_IS_EXPANDED_INJECTION_KEY = Symbol() as InjectionKey<Ref<boolean>>;
 
 export type OnyxNavBarSlots = {
   /**
-   * [`OnyxNavItem`](/docs/navigation-navbar-modules-navitem--docs) components should be placed and nested here to build the navigation.
-   * Important: When using the vertical orientation, the CSS variable --onyx-vertical-navbar-collapsed-width might need to be adjusted on the OnyxNavBar to fit the custom content properly.
+   * [`OnyxNavItem`](/docs/navigation-navbar-modules-navitem--docs) components should be placed and
+   * nested here to build the navigation. Important: When using the vertical orientation, the CSS
+   * variable --onyx-vertical-navbar-collapsed-width might need to be adjusted on the OnyxNavBar to
+   * fit the custom content properly.
    */
   default?: () => unknown;
   /**
-   * Optional slot to override the app area content (logo and app name, e.g. with a custom icon / `OnyxIcon` component).
+   * Optional slot to override the app area content (logo and app name, e.g. with a custom icon /
+   * `OnyxIcon` component).
    */
   appArea?: () => unknown;
   /**
-   * Optional context area on the right to display additional (global) components, like user login, global settings etc.
-   * Use the following ready-to-use components:
-   * - `OnyxTimer`
-   * - `OnyxTag`
-   * - `OnyxSeparator`
-   * - `OnyxUserMenu` (Ideally `OnyxUserMenu` is the last item on the very right)
+   * Optional context area on the right to display additional (global) components, like user login,
+   * global settings etc. Use the following ready-to-use components: - `OnyxTimer` - `OnyxTag` -
+   * `OnyxSeparator` - `OnyxUserMenu` (Ideally `OnyxUserMenu` is the last item on the very right)
    *
    * For custom buttons use the `OnyxNavButton`.
    */
   contextArea?: () => unknown;
   /**
-   * Same as `contextArea` slot on desktop (will be placed next to it) but on mobile, the components inside will stay
-   * in the mobile nav bar itself and will not be collapsed into the context menu button.
+   * Same as `contextArea` slot on desktop (will be placed next to it) but on mobile, the components
+   * inside will stay in the mobile nav bar itself and will not be collapsed into the context menu
+   * button.
    *
-   * Global actions like e.g. search or notification center can be placed here that should always be directly accessible on mobile.
+   * Global actions like e.g. search or notification center can be placed here that should always be
+   * directly accessible on mobile.
    *
    * The same components as for the `contextArea` can be used here.
    */

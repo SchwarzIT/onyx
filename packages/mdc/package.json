@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/mdc",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Wrapper for the @nuxtjs/mdc package using the onyx design system created by Schwarz Digits",
   "bugs": {
     "url": "https://github.com/SchwarzIT/onyx/issues"

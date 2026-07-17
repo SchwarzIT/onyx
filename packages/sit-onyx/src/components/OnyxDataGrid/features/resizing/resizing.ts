@@ -120,7 +120,8 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       }),
       typeRenderer: {
         /**
-         * The filler column stretches the remaining space in case the column widths are smaller than the table's intended width.
+         * The filler column stretches the remaining space in case the column widths are smaller
+         * than the table's intended width.
          */
         [FILLER_COLUMN]: {
           header: {

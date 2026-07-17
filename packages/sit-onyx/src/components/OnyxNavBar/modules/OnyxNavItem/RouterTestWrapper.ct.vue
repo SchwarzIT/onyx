@@ -7,7 +7,9 @@ import type { OnyxNavItemProps } from "./types.js";
 const props = withDefaults(
   defineProps<
     OnyxNavItemProps & {
-      /** Current route */
+      /**
+       * Current route
+       */
       currentRoute: string;
     }
   >(),

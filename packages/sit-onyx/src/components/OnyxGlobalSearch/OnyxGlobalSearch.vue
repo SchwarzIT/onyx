@@ -36,10 +36,13 @@ const slots = defineSlots<{
   endOfList?(props: {
     /**
      * Helper to make an element navigable.
+     *
      * @param value - Must be a unique name (e.g., 'show-all').
      */
     getOptionProps: typeof getOptionProps;
-    /** The value of the currently highlighted option. */
+    /**
+     * The value of the currently highlighted option.
+     */
     activeValue?: string;
   }): unknown;
   /**
@@ -120,7 +123,10 @@ const headless = createComboBox({
 /**
  * Generates the necessary props to make a custom element (e.g., a "Show all" button)
  * navigable via arrow keys.
- * * @param value - A unique identifier for this option. Must be unique within the entire search component.
+ * *
+ *
+ * @param value - A unique identifier for this option. Must be unique within the entire search
+ *   component.
  * @returns An object containing the required ARIA roles, IDs, and the current active state.
  */
 const getOptionProps = (value: string) => {

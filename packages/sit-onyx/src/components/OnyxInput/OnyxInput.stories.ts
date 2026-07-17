@@ -8,8 +8,9 @@ import OnyxInput from "./OnyxInput.vue";
 import { createAdvancedStoryExample } from "../../utils/storybook.js";
 
 /**
- * Text inputs are essential UI elements where users can enter textual information.
- * These components play a fundamental role in facilitating user interactions and data input within applications and websites.
+ * Text inputs are essential UI elements where users can enter textual information. These components
+ * play a fundamental role in facilitating user interactions and data input within applications and
+ * websites.
  */
 const meta: Meta<typeof OnyxInput> = {
   title: "Form Elements/Input",
@@ -73,7 +74,8 @@ export const Readonly = {
 } satisfies Story;
 
 /**
- * This example shows a disabled input that can not be edited and is therefore not included in any form data.
+ * This example shows a disabled input that can not be edited and is therefore not included in any
+ * form data.
  */
 export const Disabled = {
   args: {

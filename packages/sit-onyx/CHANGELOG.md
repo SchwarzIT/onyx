@@ -1,5 +1,38 @@
 # sit-onyx
 
+## 1.17.0
+
+### Minor Changes
+
+- 6a14c64: feat(OnyxCard, OnyxLink, OnyxRouterLink): Links that are determined to be external will now open in a new tab per default
+- 8151ac2: feat(OnyxFlyoutMenu): Implemented flyout menu to retain maximum layout height when navigating to a layer with fewer items to prevent cursor hover loss
+- 8151ac2: feat(OnyxFlyoutMenu): Updated the "Back" button to display the parent menu items name instead
+
+  **Important:** When using this, the CSS variable `--onyx-vertical-navbar-collapsed-width` might need to be adjusted on the `OnyxNavBar` to fit the custom content properly
+
+- d7e0f7b: feat(OnyxDataGrid): Implement new `useRowClick` feature
+- 977852d: feat(OnyxDataGrid): Pass `ctx` property to `iconComponent` of header actions
+- 368ee87: feat(OnyxTableOfContentsItem): Set active when corresponding headline is visible/scrolled to when `active="auto"` is set
+- fe14550: feat(OnyxGlobalSearch): Added `leading` slot for the `OnyxGlobalSearch`
+- fe14550: feat(OnyxGlobalSearch): Added `orientation` prop for the `OnyxGlobalSearchGroup` component
+- d306ebd: feat(OnyxSlider): implement OnyxFormElementV2 inside the Slider component
+  - internal re-work of the OnyxSlider
+  - fixed the height, so it's now aligned with the other form elements
+  - might affect existing layouts
+
+### Patch Changes
+
+- 91b075f: fix(form-elements): Prevent opening of virtual keyboards when opening popover
+- 69710b5: fix(OnyxSearch): Inherit skeleton from parent by default
+- c0d470f: fix(OnyxTab): Fix incorrect font-family style
+- 072c082: fix(OnyxBasicDialog, OnyxModal): Fix OnyxModal closing on scrollbar click
+- 642c818: fix(OnyxCard): Set `type="button"` if card is clickable to e.g. prevent unintentional form submit on click when used inside a form
+- 977852d: fix(OnyxDataGrid): Ensure header `iconComponent` is always displayed when `alwaysShowInHeader` option is enabled
+- 977852d: fix(OnyxDataGrid): Correctly pass slot props to `empty` slot
+- 977852d: fix(OnyxDataGrid): Use correct label for ascending sort button of `useSorting` feature when flyout exists
+- cd477cf: fix(DataGridFeatures.usePagination): Fix Lazy Loading not working in combination with ColumnGrouping
+- ee6566e: fix(OnyxVerticalNavbar): Changed default slot of `OnyxNavItem` to show custom content when the vertical navbar is collapsed
+
 ## 1.16.0
 
 ### Minor Changes

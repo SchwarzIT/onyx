@@ -24,7 +24,8 @@ export const BASE_MUTATION_ORDER =
   Math.max(FILTERING_MUTATION_ORDER, PAGINATION_MUTATION_ORDER) + 1;
 
 /**
- * The Base feature includes everything that should be provided as built-in functionality of the `OnyxDataGrid` component.
+ * The Base feature includes everything that should be provided as built-in functionality of the
+ * `OnyxDataGrid` component.
  */
 export const BASE_FEATURE = (options?: BaseFeatureOptions) =>
   createFeature(({ skeleton }) => {

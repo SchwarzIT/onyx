@@ -101,7 +101,8 @@ async function getMyAPIAccessToken() {
 /**
  * Gets a list of all available onyx locales.
  *
- * @example ["de-DE", "en-US"]
+ * @example
+ *   ["de-DE", "en-US"];
  */
 async function getOnyxLocales() {
   const localePath = getFilePath("../../packages/sit-onyx/src/i18n/locales");

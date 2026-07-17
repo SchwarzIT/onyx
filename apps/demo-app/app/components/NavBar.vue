@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import NavBar from "#layers/blueprint/app/components/NavBar.vue";
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import {
   iconChart,
   iconFile,
@@ -9,7 +9,7 @@ import {
   iconUserId,
 } from "@sit-onyx/icons";
 import type { OnyxNavBarSlots } from "sit-onyx";
-import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
+import NavBar from "#layers/blueprint/app/components/NavBar.vue";
 
 defineSlots<Pick<OnyxNavBarSlots, "contextArea">>();
 const expanded = ref(false);

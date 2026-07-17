@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   /**
-   * label of the column
+   * Label of the column
    */
   label: string;
 }>();

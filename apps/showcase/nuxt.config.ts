@@ -1,5 +1,5 @@
-import { Features } from "lightningcss";
 import { globSync } from "node:fs";
+import { Features } from "lightningcss";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({

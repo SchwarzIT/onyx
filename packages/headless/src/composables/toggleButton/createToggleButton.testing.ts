@@ -11,8 +11,9 @@ export type ToggleButtonTestingOptions = {
 };
 
 /**
- * Playwright utility for executing accessibility testing for a navigation menu.
- * Will check aria attributes and keyboard shortcuts as defined in https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-links.
+ * Playwright utility for executing accessibility testing for a navigation menu. Will check aria
+ * attributes and keyboard shortcuts as defined in
+ * https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-links.
  */
 export const toggleButtonTesting = async ({
   button,

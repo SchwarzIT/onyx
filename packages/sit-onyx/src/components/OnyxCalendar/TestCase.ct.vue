@@ -16,7 +16,7 @@ const props = defineProps<{
    */
   size: OnyxCalendarSize;
   /**
-   * disabled
+   * Disabled
    */
   disabledDays?: boolean;
 }>();

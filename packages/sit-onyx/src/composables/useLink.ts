@@ -3,7 +3,8 @@ import type { SharedLinkProps } from "../components/OnyxRouterLink/types.js";
 import { extractLinkProps, isInternalLink } from "../utils/router.js";
 
 /**
- * Internal behavior of the `OnyxRouterLink`. Should be used for navigation. Considers the user provided [router](https://onyx.schwarz/development/router.html).
+ * Internal behavior of the `OnyxRouterLink`. Should be used for navigation. Considers the user
+ * provided [router](https://onyx.schwarz/development/router.html).
  */
 export const useLink = () => {
   const router = inject(ROUTER_INJECTION_KEY, undefined);
@@ -21,23 +22,24 @@ export const useLink = () => {
    * Handles the navigation with the user provided router if available and the link is internal.
    * Otherwise the default browser behavior of the `<a>` tag will handle the navigation.
    *
-   * @param e Mouse event of a `<a>` element, e.g. from a click listener.
    * @example
-   * ```vue
-   * <script lang="ts" setup>
-   * const { navigate } = useLink();
-   * </script>
+   *   ```vue
+   *   <script lang="ts" setup>
+   *   const { navigate } = useLink();
+   *   </script>
    *
-   * <template>
+   *   <template>
    *   <a
-   *     :href="props.href"
-   *     :target="props.target"
-   *     @click="navigate($event, props.href)"
+   *   :href="props.href"
+   *   :target="props.target"
+   *   @click="navigate($event, props.href)"
    *   >
-   *     <slot></slot>
+   *   <slot></slot>
    *   </a>
-   * </template>
-   * ```
+   *   </template>
+   *   ```;
+   *
+   * @param e Mouse event of a `<a>` element, e.g. from a click listener.
    */
   const navigate = (e: MouseEvent, href: string) => {
     if (router && isInternalLink(href) && shouldHandleNavigation(e)) {
@@ -68,7 +70,8 @@ export const useLink = () => {
 };
 
 /**
- * Checks whether we should handle the navigation for a given mouse event using the user provided router.
+ * Checks whether we should handle the navigation for a given mouse event using the user provided
+ * router.
  *
  * @see: https://github.com/vuejs/router/blob/7deea23a30739af1bda56f966133848bb25d36df/packages/router/src/RouterLink.ts#L394
  */
@@ -105,11 +108,13 @@ const normalizeHref = (href: string) => {
 export type ProvideRouterOptions = {
   /**
    * Programmatically navigate to a new URL.
+   *
    * @see https://router.vuejs.org/api/interfaces/Router.html#push-
    */
   push: (to: string) => void;
   /**
    * Currently active route.
+   *
    * @see https://router.vuejs.org/api/interfaces/Router.html#currentRoute
    */
   currentRoute: Ref<string | { path: string; hash?: string }>;

@@ -7,7 +7,9 @@ type Entry = {
   name: string;
 };
 
-/** Our "dummy" API response for this example */
+/**
+ * Our "dummy" API response for this example
+ */
 type PaginatedEntries = {
   items: Entry[];
   total: number;

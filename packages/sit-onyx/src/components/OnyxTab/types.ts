@@ -3,7 +3,8 @@ import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 
 export type OnyxTabProps = DensityProp & {
   /**
-   * Value of the tab when its selected. Will be the `modelValue` / `v-model` of the `OnyxTabs` component.
+   * Value of the tab when its selected. Will be the `modelValue` / `v-model` of the `OnyxTabs`
+   * component.
    */
   value: PropertyKey;
   /**

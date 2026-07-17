@@ -1,8 +1,8 @@
 /// <reference types="vitest/config" />
+import { fileURLToPath, URL } from "node:url";
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import { extractComponentMeta } from "@sit-onyx/vite-plugin-component-meta";
 import vue from "@vitejs/plugin-vue";
-import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
 import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
@@ -67,7 +67,9 @@ export default defineConfig({
   },
 });
 
-/** Gets the given path while ensuring cross-platform and correct decoding */
+/**
+ * Gets the given path while ensuring cross-platform and correct decoding
+ */
 function getFilePath(path: string) {
   return fileURLToPath(new URL(path, import.meta.url));
 }

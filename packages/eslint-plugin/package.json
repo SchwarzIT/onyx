@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/eslint-plugin",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "description": "Custom eslint rules that should be used for all packages of this monorepo",
   "license": "Apache-2.0",

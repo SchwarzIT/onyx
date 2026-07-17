@@ -4,7 +4,8 @@ export type OnyxAvatarProps = IconSizeProp<Exclude<IconSize, "12px">> & {
   /**
    * Full user name. Will determine the displayed initials.
    *
-   * @example "John Doe"
+   * @example
+   *   "John Doe";
    */
   fullName: DisplayName;
   /**

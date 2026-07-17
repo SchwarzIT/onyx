@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/test";
 import { join } from "node:path";
+import { expect, test } from "@playwright/test";
 import type { DefaultTheme } from "../node_modules/vitepress/types/default-theme.js";
 import { CONFIG } from "../src/.vitepress/config.js";
 
@@ -12,7 +12,7 @@ test("has title", async ({ page }) => {
 const BLACKLIST_PATHS = [/changelog/i, /icons/i, /flags/i, /about/i];
 
 /**
- * maps links listed in the vitepress config to their respective absolute url
+ * Maps links listed in the vitepress config to their respective absolute url
  */
 const mapToLinks = (
   navItem: DefaultTheme.NavItem | DefaultTheme.SidebarItem | DefaultTheme.SidebarMulti[string],

@@ -27,7 +27,8 @@ const slots = defineSlots<{
    */
   trigger?(params: {
     /**
-     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the dialog trigger.
+     * Attributes and event listeners that must be bound to an interactive element (button or link),
+     * that should act as the dialog trigger.
      */
     trigger: object;
   }): unknown;

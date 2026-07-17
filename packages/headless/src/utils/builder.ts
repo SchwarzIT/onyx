@@ -56,39 +56,39 @@ export type HeadlessComposable<
 
 /**
  * We use this identity function to ensure the correct typings of the headless composables
+ *
  * @example
- * ```ts
- * export const createTooltip = createBuilder(({ initialVisible }: CreateTooltipOptions) => {
- *   const tooltipId = useId();
- *   const isVisible = ref(initialVisible);
+ *   ```ts
+ *   export const createTooltip = createBuilder(({ initialVisible }: CreateTooltipOptions) => {
+ *     const tooltipId = useId();
+ *     const isVisible = ref(initialVisible);
  *
- *   const hoverEvents = {
- *     onMouseover: () => (isVisible.value = true),
- *     onMouseout: () => (isVisible.value = false),
- *     onFocusin: () => (isVisible.value = true),
- *     onFocusout: () => (isVisible.value = false),
- *   };
+ *     const hoverEvents = {
+ *       onMouseover: () => (isVisible.value = true),
+ *       onMouseout: () => (isVisible.value = false),
+ *       onFocusin: () => (isVisible.value = true),
+ *       onFocusout: () => (isVisible.value = false),
+ *     };
  *
- *   return {
- *     elements: {
- *       trigger: {
- *         "aria-describedby": tooltipId,
- *         ...hoverEvents,
+ *     return {
+ *       elements: {
+ *         trigger: {
+ *           "aria-describedby": tooltipId,
+ *           ...hoverEvents,
+ *         },
+ *         tooltip: {
+ *           role: "tooltip",
+ *           id: tooltipId,
+ *           tabindex: "-1",
+ *           ...hoverEvents,
+ *         },
  *       },
- *       tooltip: {
- *         role: "tooltip",
- *         id: tooltipId,
- *         tabindex: "-1",
- *         ...hoverEvents,
+ *       state: {
+ *         isVisible,
  *       },
- *     },
- *     state: {
- *       isVisible,
- *     },
- *   };
- * });
- *
- * ```
+ *     };
+ *   });
+ *   ```;
  */
 export const createBuilder = <
   Args extends unknown[] = unknown[],
@@ -105,7 +105,7 @@ type VueTemplateRef<E extends Element> = Ref<VueTemplateRefElement<E>>;
 export declare const HeadlessElRefSymbol: unique symbol;
 export type HeadlessElRef<E extends Element | null> = WritableComputedRef<E | null> & {
   /**
-   * type differentiator
+   * Type differentiator
    * ensures that only `createElRef` can be used for headless element ref bindings
    */
   [HeadlessElRefSymbol]: true;
@@ -114,19 +114,20 @@ export type HeadlessElRef<E extends Element | null> = WritableComputedRef<E | nu
 /**
  * Creates a special writeable computed that references a DOM Element.
  * Vue Component references will be unwrapped.
+ *
  * @example
- * ```ts
- * createBuilder() => {
- *  const buttonRef = createElRef<HtmlButtonElement>();
- *  return {
- *    elements: {
- *      button: {
- *        ref: buttonRef,
- *      },
- *    }
- *  };
- * });
- * ```
+ *   ```ts
+ *   createBuilder() => {
+ *   const buttonRef = createElRef<HtmlButtonElement>();
+ *   return {
+ *   elements: {
+ *   button: {
+ *   ref: buttonRef,
+ *   },
+ *   }
+ *   };
+ *   });
+ *   ```;
  */
 export function createElRef<E extends Element>() {
   const elementRef = shallowRef<E | null>(null);
