@@ -21,10 +21,6 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     const lastColumnActiveMinWidth = ref(MIN_COLUMN_WIDTH);
     const lastColumnStartWidth = ref(MIN_COLUMN_WIDTH);
 
-    const getContainer = (el?: HTMLElement) => {
-      return el?.closest<HTMLElement>(".onyx-table-wrapper__container") || scrollContainer.value;
-    };
-
     const getColumnWidth = (key: keyof TEntry, el: HTMLElement): number => {
       const stateWidth = resizeState.value.get(key);
       if (stateWidth?.endsWith("px")) {
@@ -38,16 +34,14 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       [headers, resizeState],
       () => {
         // Changing the width directly is needed to avoid re-rendering the table too often.
-        const firstTh = headers.value.values().next().value;
-        const container = getContainer(firstTh);
 
         headers.value.forEach((_, columnKey) => {
           const property = `--onyx-data-grid-column-${escapeCSS(columnKey)}`;
           const width = resizeState.value.get(columnKey);
           if (width) {
-            container?.style.setProperty(property, width);
+            scrollContainer.value?.style.setProperty(property, width);
           } else {
-            container?.style.removeProperty(property);
+            scrollContainer.value?.style.removeProperty(property);
           }
         });
 
@@ -98,13 +92,9 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
       });
     };
 
-    const renderWrapper = (
-      slots: Slots,
-      column: Readonly<InternalColumnConfig<TEntry>>,
-      noResizeHandle?: boolean,
-    ) => {
+    const renderWrapper = (slots: Slots, column: Readonly<InternalColumnConfig<TEntry>>) => {
       const slotContent = slots.default?.();
-      if (!isEnabled.value(column.key) || noResizeHandle) return slotContent;
+      if (!isEnabled.value(column.key)) return slotContent;
 
       const currentMin =
         column.key === lastColumnKey.value ? lastColumnActiveMinWidth.value : MIN_COLUMN_WIDTH;
@@ -118,8 +108,9 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
             resizingCol.value = column.key;
 
             let otherColumnsWidthSum = 0;
-            const container = getContainer(headers.value.get(column.key));
-            const containerWidth = container ? container.getBoundingClientRect().width : 0;
+            const containerWidth = scrollContainer.value
+              ? scrollContainer.value.getBoundingClientRect().width
+              : 0;
 
             headers.value.forEach((el, col) => {
               const width = getColumnWidth(col, el);
@@ -149,8 +140,9 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
             const lastColWidth = parseFloat(lastColWidthStr);
             if (isNaN(lastColWidth)) return;
 
-            const container = getContainer(headers.value.get(lastKey));
-            const containerWidth = container ? container.getBoundingClientRect().width : 0;
+            const containerWidth = scrollContainer.value
+              ? scrollContainer.value.getBoundingClientRect().width
+              : 0;
 
             let otherColumnsWidthSum = 0;
             headers.value.forEach((el, col) => {
@@ -179,8 +171,9 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
               return;
             }
 
-            const container = getContainer(headers.value.get(column.key));
-            const containerWidth = container ? container.getBoundingClientRect().width : 0;
+            const containerWidth = scrollContainer.value
+              ? scrollContainer.value.getBoundingClientRect().width
+              : 0;
 
             if (containerWidth > 0 && lastKey) {
               let otherColumnsSum = 0;
