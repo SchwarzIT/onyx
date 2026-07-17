@@ -32,7 +32,7 @@ const activeTab = useRouteQuery("tab", "overview");
       >
         <i18n-t keypath="components.status.experimental.description" scope="global">
           <template #changelog>
-            <OnyxLink href="/introduction/changelog">
+            <OnyxLink href="/introduction/getting-started/changelog">
               {{ $t("components.status.experimental.changelog") }}
             </OnyxLink>
           </template>
