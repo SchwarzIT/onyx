@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import browserslistrc from "@repo-root/.browserslistrc?raw";
 import browserslist from "browserslist";
 import { capitalize } from "vue";
+import browserslistrc from "#root/.browserslistrc?raw";
 
 export type Browser = {
   /**

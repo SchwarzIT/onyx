@@ -54,7 +54,7 @@ export default defineNuxtConfig({
     },
   },
   alias: {
-    "@repo-root": monorepoRoot,
+    "#root": monorepoRoot,
   },
   imports: {
     transform: {
