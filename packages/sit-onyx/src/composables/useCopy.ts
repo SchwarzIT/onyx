@@ -14,7 +14,7 @@ export type UseCopyOptions = {
 };
 
 export const useCopy = (options: UseCopyOptions) => {
-  const copyStatus = ref<"success" | "error" | undefined>();
+  const copyStatus = ref<"success" | "error">();
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
   const copy = async () => {
