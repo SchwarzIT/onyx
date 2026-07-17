@@ -7,6 +7,7 @@ export type UseCopyOptions = {
   source: MaybeRefOrGetter<string>;
   /**
    * The duration in milliseconds to keep the success/error status active.
+   *
    * @default 3000
    */
   timeout?: MaybeRefOrGetter<number>;
@@ -32,10 +33,9 @@ export const useCopy = (options: UseCopyOptions) => {
       copyStatus.value = "error";
     } finally {
       const duration = toValue(options.timeout) ?? 3000;
-      timeoutId = setTimeout(() => {
-        copyStatus.value = undefined;
-        timeoutId = undefined;
-      }, duration);
+      await new Promise((resolve) => (timeoutId = setTimeout(resolve, duration)));
+      copyStatus.value = undefined;
+      timeoutId = undefined;
     }
   };
 
