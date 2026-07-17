@@ -2,10 +2,10 @@ import { iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import OnyxInput from "./OnyxInput.vue";
-import { createAdvancedStoryExample } from "../../utils/storybook.js";
 
 /**
  * Text inputs are essential UI elements where users can enter textual information. These components

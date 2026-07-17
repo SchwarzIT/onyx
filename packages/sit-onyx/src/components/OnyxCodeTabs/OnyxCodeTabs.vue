@@ -1,6 +1,7 @@
 <script lang="ts" setup generic="TValue extends PropertyKey = PropertyKey">
 import { iconFileCopy } from "@sit-onyx/icons";
 import { computed, provide, ref } from "vue";
+import { useCopy } from "../../composables/useCopy.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
@@ -8,7 +9,6 @@ import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTabs from "../OnyxTabs/OnyxTabs.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import { CODE_TABS_INJECTION_KEY, type OnyxCodeTabsProps } from "./types.js";
-import { useCopy } from "../../composables/useCopy.js";
 
 const props = defineProps<OnyxCodeTabsProps<TValue>>();
 
