@@ -2,6 +2,16 @@
 
 @include layers.component {
   .onyx-data-grid-resize-cell {
+    &--last {
+      .onyx-resize-handle {
+        right: 0;
+        &::after,
+        &::before {
+          left: auto;
+          right: 0;
+        }
+      }
+    }
     .onyx-resize-handle {
       --onyx-resize-handle--active-indicator-height: var(--onyx-table-observed-height);
       --onyx-resize-handle-border-width: 0.125rem;
@@ -14,27 +24,6 @@
 
   // styles to apply to the whole data grid while actively resizing a column
   .onyx-data-grid {
-    th:last-child,
-    td:last-child {
-      width: 100%;
-    }
-    &:has(.onyx-data-grid-resize-cell) {
-      td {
-        overflow: hidden;
-      }
-
-      th:last-of-type {
-        .onyx-resize-handle {
-          right: 0;
-          &::after,
-          &::before {
-            left: auto;
-            right: 0;
-          }
-        }
-      }
-    }
-
     &:has(.onyx-data-grid-resize-cell--active) {
       // prevent hover effects on rows and other columns that are not resized
       tbody,

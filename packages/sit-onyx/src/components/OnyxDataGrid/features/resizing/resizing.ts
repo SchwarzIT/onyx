@@ -68,6 +68,7 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
           class: [
             "onyx-data-grid-resize-cell",
             {
+              "onyx-data-grid-resize-cell--last": column.key === lastColumnKey.value,
               "onyx-data-grid-resize-cell--active": isActive,
               // the "hover" class is supported by the OnyxTable to force showing the column hover effect
               hover: isActive,
