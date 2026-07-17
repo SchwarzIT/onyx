@@ -21,13 +21,28 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     const lastColumnActiveMinWidth = ref(MIN_COLUMN_WIDTH);
     const lastColumnStartWidth = ref(MIN_COLUMN_WIDTH);
 
+    const getContainer = (el?: HTMLElement) => {
+      return el?.closest<HTMLElement>(".onyx-table-wrapper__container") || scrollContainer.value;
+    };
+
+    const getColumnWidth = (key: keyof TEntry, el: HTMLElement): number => {
+      const stateWidth = resizeState.value.get(key);
+      if (stateWidth?.endsWith("px")) {
+        const parsed = parseFloat(stateWidth);
+        if (!isNaN(parsed)) return parsed;
+      }
+      return el.getBoundingClientRect().width;
+    };
+
     watch(
       [headers, resizeState],
       () => {
         // Changing the width directly is needed to avoid re-rendering the table too often.
-        headers.value.forEach((th, columnKey) => {
+        const firstTh = headers.value.values().next().value;
+        const container = getContainer(firstTh);
+
+        headers.value.forEach((_, columnKey) => {
           const property = `--onyx-data-grid-column-${escapeCSS(columnKey)}`;
-          const container = th.closest<HTMLElement>(".onyx-table-wrapper__container");
           const width = resizeState.value.get(columnKey);
           if (width) {
             container?.style.setProperty(property, width);
@@ -103,14 +118,11 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
             resizingCol.value = column.key;
 
             let otherColumnsWidthSum = 0;
-            const thElement = headers.value.get(column.key);
-            const container =
-              thElement?.closest<HTMLElement>(".onyx-table-wrapper__container") ||
-              scrollContainer.value;
+            const container = getContainer(headers.value.get(column.key));
             const containerWidth = container ? container.getBoundingClientRect().width : 0;
 
-            Array.from(headers.value.entries()).forEach(([col, el]) => {
-              const { width } = el.getBoundingClientRect();
+            headers.value.forEach((el, col) => {
+              const width = getColumnWidth(col, el);
               resizeState.value.set(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
 
               if (col !== lastColumnKey.value) {
@@ -120,89 +132,73 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
               }
             });
 
-            if (column.key === lastColumnKey.value && containerWidth > 0) {
-              lastColumnActiveMinWidth.value = Math.max(
-                MIN_COLUMN_WIDTH,
-                containerWidth - otherColumnsWidthSum,
-              );
-            } else {
-              lastColumnActiveMinWidth.value = MIN_COLUMN_WIDTH;
-            }
+            lastColumnActiveMinWidth.value =
+              column.key === lastColumnKey.value && containerWidth > 0
+                ? Math.max(MIN_COLUMN_WIDTH, containerWidth - otherColumnsWidthSum)
+                : MIN_COLUMN_WIDTH;
           },
           onEnd: () => {
             resizingCol.value = undefined;
+            const lastKey = lastColumnKey.value;
             // Prevents the last column from being permanently frozen at a fixed width when it could actually fill the remaining space.
-            if (lastColumnKey.value) {
-              const lastColWidthStr = resizeState.value.get(lastColumnKey.value);
-              if (lastColWidthStr && lastColWidthStr.endsWith("px")) {
-                const lastColWidth = parseFloat(lastColWidthStr);
-                if (!isNaN(lastColWidth)) {
-                  const lastColElement = headers.value.get(lastColumnKey.value);
-                  const container =
-                    lastColElement?.closest<HTMLElement>(".onyx-table-wrapper__container") ||
-                    scrollContainer.value;
-                  const containerWidth = container ? container.getBoundingClientRect().width : 0;
+            if (!lastKey) return;
 
-                  let otherColumnsWidthSum = 0;
-                  Array.from(headers.value.entries()).forEach(([col, el]) => {
-                    if (col !== lastColumnKey.value) {
-                      const widthStr = resizeState.value.get(col);
-                      const width = widthStr
-                        ? parseFloat(widthStr)
-                        : el.getBoundingClientRect().width;
-                      otherColumnsWidthSum += width;
-                    }
-                  });
+            const lastColWidthStr = resizeState.value.get(lastKey);
+            if (!lastColWidthStr?.endsWith("px")) return;
 
-                  const isResizingLastColumn = column.key === lastColumnKey.value;
+            const lastColWidth = parseFloat(lastColWidthStr);
+            if (isNaN(lastColWidth)) return;
 
-                  const isBelowActiveMin =
-                    isResizingLastColumn && lastColWidth <= lastColumnActiveMinWidth.value;
-                  const tableFitsWithLastCol =
-                    !isResizingLastColumn &&
-                    otherColumnsWidthSum + lastColWidth <= containerWidth + 2;
+            const container = getContainer(headers.value.get(lastKey));
+            const containerWidth = container ? container.getBoundingClientRect().width : 0;
 
-                  if (isBelowActiveMin || tableFitsWithLastCol) {
-                    resizeState.value.delete(lastColumnKey.value);
-                  }
-                }
+            let otherColumnsWidthSum = 0;
+            headers.value.forEach((el, col) => {
+              if (col !== lastKey) {
+                otherColumnsWidthSum += getColumnWidth(col, el);
               }
+            });
+
+            const isResizingLastColumn = column.key === lastKey;
+            const isBelowActiveMin =
+              isResizingLastColumn && lastColWidth <= lastColumnActiveMinWidth.value;
+            const tableFitsWithLastCol =
+              !isResizingLastColumn && otherColumnsWidthSum + lastColWidth <= containerWidth + 2;
+
+            if (isBelowActiveMin || tableFitsWithLastCol) {
+              resizeState.value.delete(lastKey);
             }
           },
           onUpdateWidth: (width) => {
-            if (column.key === lastColumnKey.value) {
+            const lastKey = lastColumnKey.value;
+
+            if (column.key === lastKey) {
               // Prevents shrinking the table below the container size when dragging
               const finalWidth = Math.max(lastColumnActiveMinWidth.value, width);
               resizeState.value.set(column.key, `${finalWidth}px`);
-            } else {
-              const thElement = headers.value.get(column.key);
-              const container =
-                thElement?.closest<HTMLElement>(".onyx-table-wrapper__container") ||
-                scrollContainer.value;
-              const containerWidth = container ? container.getBoundingClientRect().width : 0;
+              return;
+            }
 
-              if (containerWidth > 0 && lastColumnKey.value) {
-                let otherColumnsSum = 0;
-                Array.from(headers.value.entries()).forEach(([col, el]) => {
-                  if (col !== column.key && col !== lastColumnKey.value) {
-                    const widthStr = resizeState.value.get(col);
-                    const colWidth = widthStr
-                      ? parseFloat(widthStr)
-                      : el.getBoundingClientRect().width;
-                    otherColumnsSum += colWidth;
-                  }
-                });
-                const neededLastColWidth = containerWidth - (otherColumnsSum + width);
+            const container = getContainer(headers.value.get(column.key));
+            const containerWidth = container ? container.getBoundingClientRect().width : 0;
 
-                if (neededLastColWidth > lastColumnStartWidth.value) {
-                  resizeState.value.set(column.key, `${width}px`);
-                  resizeState.value.set(lastColumnKey.value, `${neededLastColWidth}px`);
-                } else {
-                  resizeState.value.set(column.key, `${width}px`);
+            if (containerWidth > 0 && lastKey) {
+              let otherColumnsSum = 0;
+              headers.value.forEach((el, col) => {
+                if (col !== column.key && col !== lastKey) {
+                  otherColumnsSum += getColumnWidth(col, el);
                 }
+              });
+
+              const neededLastColWidth = containerWidth - (otherColumnsSum + width);
+              if (neededLastColWidth > lastColumnStartWidth.value) {
+                resizeState.value.set(column.key, `${width}px`);
+                resizeState.value.set(lastKey, `${neededLastColWidth}px`);
               } else {
                 resizeState.value.set(column.key, `${width}px`);
               }
+            } else {
+              resizeState.value.set(column.key, `${width}px`);
             }
           },
           onAutoSize: () => {
