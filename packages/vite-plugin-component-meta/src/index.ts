@@ -177,17 +177,23 @@ async function createVueComponentMetaChecker(tsconfigPath = "tsconfig.json") {
   return createChecker(tsconfigPath, checkerOptions);
 }
 
-/** Gets the filename without file extension. */
+/**
+ * Gets the filename without file extension.
+ */
 function getFilenameWithoutExtension(filename: string) {
   return parse(filename).name;
 }
 
-/** Lowercases the first letter. */
+/**
+ * Lowercases the first letter.
+ */
 function lowercaseFirstLetter(string: string) {
   return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
-/** Checks whether the given file path exists. */
+/**
+ * Checks whether the given file path exists.
+ */
 async function fileExists(fullPath: string) {
   try {
     await stat(fullPath);

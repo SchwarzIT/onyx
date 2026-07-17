@@ -24,8 +24,9 @@ export type EditOptions<TEntry extends DataGridEntry> = DataGridFeatureOptions<
    */
   editState?: Ref<EditState<TEntry>>;
   /**
-   * In `manual` mode the all cells are rendered in their editable state per default. They don't swap automatically between display and editing.
-   * The `isCellEditable` option can be used to configure the edit mode for specific cells and rows.
+   * In `manual` mode the all cells are rendered in their editable state per default. They don't
+   * swap automatically between display and editing. The `isCellEditable` option can be used to
+   * configure the edit mode for specific cells and rows.
    *
    * More edit modes will follow in future updates.
    */

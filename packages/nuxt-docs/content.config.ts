@@ -1,5 +1,5 @@
-import { defineCollection, defineContentConfig } from "@nuxt/content";
 import path from "node:path";
+import { defineCollection, defineContentConfig } from "@nuxt/content";
 
 export default defineContentConfig({
   collections: {

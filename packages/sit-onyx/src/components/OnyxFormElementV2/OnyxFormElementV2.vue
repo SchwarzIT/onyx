@@ -1,7 +1,8 @@
 <script lang="ts">
 /**
+ * @deprecated This component is still under active development and its API might change in patch
+ *   releases.
  * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
  */
 export default {};
 </script>
@@ -33,7 +34,8 @@ const props = withDefaults(
   defineProps<
     OnyxFormElementV2Props & {
       /**
-       *Wether it's unstyled, in which case it resets the styles of the content area (where the main form element resides)
+       * *Wether it's unstyled, in which case it resets the styles of the content area (where the
+       * main form element resides)
        */
       unstyled?: boolean;
     }

@@ -36,7 +36,9 @@ const emit = defineEmits<{
    * Emitted when the validity state of the input changes.
    */
   validityChange: [validity: ValidityState];
-  /** Emitted when the checked state changes. */
+  /**
+   * Emitted when the checked state changes.
+   */
   "update:modelValue": [value: boolean];
 }>();
 

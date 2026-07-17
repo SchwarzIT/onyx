@@ -74,7 +74,8 @@ export const useRelativeTimeFormat = (options: UseRelativeTimeFormatOptions) => 
     /**
      * Formatted relative time string.
      *
-     * @example "42 minutes ago"
+     * @example
+     *   "42 minutes ago";
      */
     timeAgo,
   };

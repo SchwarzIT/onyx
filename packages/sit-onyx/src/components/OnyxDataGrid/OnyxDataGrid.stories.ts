@@ -3,7 +3,9 @@ import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxDataGrid from "./OnyxDataGrid.vue";
 
 /**
- * A highly customizable and modular table for displaying complex datasets. The Data Grid supports features like grouping columns and rows, ordering them, and data manipulation, giving both developers and users extensive control.
+ * A highly customizable and modular table for displaying complex datasets. The Data Grid supports
+ * features like grouping columns and rows, ordering them, and data manipulation, giving both
+ * developers and users extensive control.
  */
 const meta: Meta<typeof OnyxDataGrid> = {
   title: "Data/DataGrid",

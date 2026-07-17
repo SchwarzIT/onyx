@@ -103,7 +103,9 @@ const selectionText = computed<string>(() => {
   }
 });
 
-/** used to detect user interaction to simulate the behavior of :user-invalid for the native input */
+/**
+ * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
+ */
 const wasTouched = ref(false);
 
 const { densityClass } = useDensity(props);

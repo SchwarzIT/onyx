@@ -5,7 +5,8 @@ import OnyxSlider from "./OnyxSlider.vue";
 import type { SliderMode } from "./types.js";
 
 /**
- * The slider component allows users to select a value (or a range of two values) inside a given min/max range by dragging a thumb along a track.
+ * The slider component allows users to select a value (or a range of two values) inside a given
+ * min/max range by dragging a thumb along a track.
  */
 const meta: Meta<typeof OnyxSlider> = {
   title: "Form Elements/Slider",

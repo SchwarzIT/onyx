@@ -5,7 +5,8 @@ export type OnyxSystemButtonProps = Pick<
   "disabled" | "autofocus" | "skeleton" | "link"
 > & {
   /**
-   * Button label / text to show. Is always required (even if `icon` is set) for screen readers / accessibility.
+   * Button label / text to show. Is always required (even if `icon` is set) for screen readers /
+   * accessibility.
    */
   label: string;
   /**

@@ -1,12 +1,13 @@
 /**
  * Gets a union type from an object that contains all combinations of nested keys as arrays.
  *
- * @see https://stackoverflow.com/a/47058976
  * @example
- * ```ts
- * type Test = ObjectToKeyPaths<{ a: "foo"; b: { c: "bar"; d: "baz" } }>;
- * // type Test = ["a"] | ["b", "c"] | ["b", "d"]
- * ```
+ *   ```ts
+ *   type Test = ObjectToKeyPaths<{ a: "foo"; b: { c: "bar"; d: "baz" } }>;
+ *   // type Test = ["a"] | ["b", "c"] | ["b", "d"]
+ *   ```;
+ *
+ * @see https://stackoverflow.com/a/47058976
  */
 type ObjectToKeyPaths<T> = T extends string
   ? []
@@ -15,12 +16,13 @@ type ObjectToKeyPaths<T> = T extends string
 /**
  * Joins the elements in the given type `T` with the separator `D`.
  *
- * @see https://stackoverflow.com/a/47058976
  * @example
- * ```ts
- * type Test = Join<["foo", "bar"], ".">
- * // type Test = "foo.bar"
- * ```
+ *   ```ts
+ *   type Test = Join<["foo", "bar"], ".">;
+ *   // type Test = "foo.bar"
+ *   ```;
+ *
+ * @see https://stackoverflow.com/a/47058976
  */
 type Join<T extends unknown[], D extends string> = T extends []
   ? never
@@ -38,17 +40,19 @@ type NestedMessage = { [key: string]: string | NestedMessage };
  * Translation value. Can either by a string or nested object with more translation values.
  *
  * @example
- * ```ts
- * // simple value
- * { someKey: "Hello World" }
- *
- * // nested value
- * {
- *   someKey: {
- *     someOtherKey: "Hello World"
+ *   ```ts
+ *   // simple value
+ *   {
+ *     someKey: "Hello World";
  *   }
- * }
- * ```
+ *
+ *   // nested value
+ *   {
+ *     someKey: {
+ *       someOtherKey: "Hello World";
+ *     }
+ *   }
+ *   ```;
  */
 export type TranslationValue = string | NestedMessage;
 
@@ -56,13 +60,14 @@ export type TranslationValue = string | NestedMessage;
  * Gets a union type of deeply joined keys from an object.
  *
  * @example
- * ```ts
- * FlattenedKeysOf<{
- *   a: "test",
- *   b: { c: "test" }
- * }>
- * // results in: "a" | "b.c"
- * ```
+ *   ```ts
+ *   FlattenedKeysOf<{
+ *     a: "test";
+ *     b: { c: "test" };
+ *   }>;
+ *   // results in: "a" | "b.c"
+ *   ```;
+ *
  * @see https://stackoverflow.com/a/47058976
  */
 export type FlattenedKeysOf<T extends TranslationValue> = Join<ObjectToKeyPaths<T>, ".">;

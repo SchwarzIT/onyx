@@ -1,7 +1,7 @@
-import writeChangeset from "@changesets/write";
 import { exec as nodeExec } from "node:child_process";
 import path from "node:path";
 import { exit } from "node:process";
+import writeChangeset from "@changesets/write";
 
 export type GenerateChangesetOptions = {
   /**

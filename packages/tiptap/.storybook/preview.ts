@@ -3,7 +3,6 @@ import "@fontsource-variable/source-sans-3";
 import "@sit-onyx/storybook-utils/style.css";
 import "sit-onyx/style.css";
 import "../../sit-onyx/.storybook/docs-template.scss";
-
 import { createPreview, withVModelDecorator } from "@sit-onyx/storybook-utils";
 import { Preview } from "@storybook/vue3-vite";
 import docsTemplate from "../../sit-onyx/.storybook/docs-template.mdx";
@@ -43,6 +42,7 @@ const preview: Preview = {
          * Use a custom transformer for the story source code to better fit to our
          * Vue.js code because storybook per default does not render it exactly how
          * we want it to look.
+         *
          * @see https://storybook.js.org/docs/react/api/doc-block-source
          */
         transform: async (raw: string) => {

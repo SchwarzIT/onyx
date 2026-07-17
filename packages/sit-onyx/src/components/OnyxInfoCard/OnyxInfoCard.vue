@@ -32,10 +32,11 @@ const slots = defineSlots<{
    */
   buttons?(): unknown;
   /**
-   * Optional custom header actions to display inside a flyout menu.
-   * Note that the `closable` property will not have any effect when custom header actions are set.
-   * Please provide a close menu item manually via the header actions then.
-   * You must only put [OnyxMenuItem](https://storybook.onyx.schwarz/?path=/docs/basic-menuitem--docs) components here.
+   * Optional custom header actions to display inside a flyout menu. Note that the `closable`
+   * property will not have any effect when custom header actions are set. Please provide a close
+   * menu item manually via the header actions then. You must only put
+   * [OnyxMenuItem](https://storybook.onyx.schwarz/?path=/docs/basic-menuitem--docs) components
+   * here.
    */
   headerActions?(): unknown;
 }>();

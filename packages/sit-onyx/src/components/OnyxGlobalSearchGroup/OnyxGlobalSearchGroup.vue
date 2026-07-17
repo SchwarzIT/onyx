@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed, inject } from "vue";
 import { useDensity } from "../../composables/density.js";
+import OnyxFilterBadge from "../OnyxFilterBadge/OnyxFilterBadge.vue";
 import { GLOBAL_SEARCH_INJECTION_KEY } from "../OnyxGlobalSearch/types.js";
 import OnyxGlobalSearchOption from "../OnyxGlobalSearchOption/OnyxGlobalSearchOption.vue";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import type { OnyxGlobalSearchGroupProps } from "./types.js";
-import OnyxFilterBadge from "../OnyxFilterBadge/OnyxFilterBadge.vue";
 
 const props = withDefaults(defineProps<OnyxGlobalSearchGroupProps>(), {
   orientation: "vertical",

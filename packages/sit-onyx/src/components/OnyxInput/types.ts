@@ -7,9 +7,10 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
   Pick<OnyxFormElementV2Props, "label"> &
   SharedTextInputProps & {
     /**
-     * Input type.
-     * For numeric inputs, we recommend using the [OnyxStepper](https://storybook.onyx.schwarz/?path=/docs/form-elements-stepper--docs).
-     * For date inputs, refer to the [OnyxDatePicker](https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs).
+     * Input type. For numeric inputs, we recommend using the
+     * [OnyxStepper](https://storybook.onyx.schwarz/?path=/docs/form-elements-stepper--docs). For
+     * date inputs, refer to the
+     * [OnyxDatePicker](https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs).
      */
     type?: InputType;
     /**
@@ -33,9 +34,9 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
      */
     showPassword?: boolean;
     /**
-     * Whether to disable the inline padding for the leading and trailing slot.
-     * Useful when placing full-size components like OnyxSelect or OnyxFormElementAction inside.
-     * When set to `true`, use custom CSS with the `var(--onyx-form-element-v2-padding-inline)` to apply padding if needed.
+     * Whether to disable the inline padding for the leading and trailing slot. Useful when placing
+     * full-size components like OnyxSelect or OnyxFormElementAction inside. When set to `true`, use
+     * custom CSS with the `var(--onyx-form-element-v2-padding-inline)` to apply padding if needed.
      *
      * Will become the default in version 2.
      */

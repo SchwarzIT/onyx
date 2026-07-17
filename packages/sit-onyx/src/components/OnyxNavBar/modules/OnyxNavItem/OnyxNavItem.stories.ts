@@ -5,9 +5,9 @@ import OnyxBadge from "../../../OnyxBadge/OnyxBadge.vue";
 import OnyxNavItem from "./OnyxNavItem.vue";
 
 /**
- * The `OnyxNavItem` is used to build the navigation bar component and not intended to be used standalone.
- * Based on the context and if the `link` property is provided, it will either be rendered as a button or anchor element.
- * Links are integrated with the provided router.
+ * The `OnyxNavItem` is used to build the navigation bar component and not intended to be used
+ * standalone. Based on the context and if the `link` property is provided, it will either be
+ * rendered as a button or anchor element. Links are integrated with the provided router.
  */
 const meta: Meta<typeof OnyxNavItem> = {
   title: "Navigation/NavBar/modules/NavItem",

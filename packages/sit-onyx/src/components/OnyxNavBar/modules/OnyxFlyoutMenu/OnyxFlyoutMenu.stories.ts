@@ -8,21 +8,23 @@ import OnyxMenuItem from "../OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxFlyoutMenu from "./OnyxFlyoutMenu.vue";
 
 /**
- * The flyout menu is used to build up navigation menus such as the [OnyxNavItem](/docs/navigation-navbar-modules-navitem--docs) or [OnyxUserMenu](/docs/navigation-navbar-modules-usermenu--docs).
+ * The flyout menu is used to build up navigation menus such as the
+ * [OnyxNavItem](/docs/navigation-navbar-modules-navitem--docs) or
+ * [OnyxUserMenu](/docs/navigation-navbar-modules-usermenu--docs).
  *
- * You can also use it to e.g. build custom nav modules like action buttons for your application. The flyout menu will then take care of basic styles and keyboard navigation.
+ * You can also use it to e.g. build custom nav modules like action buttons for your application.
+ * The flyout menu will then take care of basic styles and keyboard navigation.
  *
- * The default `OnyxSystemButton` of the `button` slot can be replaced with a custom button.
- * If you do, you **must** bind the `trigger` [slot prop](https://vuejs.org/guide/components/slots.html#scoped-slots) to the button element.
- * E.g.:
+ * The default `OnyxSystemButton` of the `button` slot can be replaced with a custom button. If you
+ * do, you **must** bind the `trigger` [slot
+ * prop](https://vuejs.org/guide/components/slots.html#scoped-slots) to the button element. E.g.:
+ *
  * ```html
  * <OnyxFlyoutMenu>
- *    <!-- Passing slot props from the button slot to the custom button -->
- *    <template #button="{ trigger }">
- *      <MyCustomButton
- *        v-bind="trigger"
- *      />
- *    </template>
+ *   <!-- Passing slot props from the button slot to the custom button -->
+ *   <template #button="{ trigger }">
+ *     <MyCustomButton v-bind="trigger" />
+ *   </template>
  * </OnyxFlyoutMenu>
  * ```
  */

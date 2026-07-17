@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import {
   iconBell,
   iconBrowserTerminal,
@@ -23,7 +24,6 @@ import {
   OnyxUserMenu,
   useResizeObserver,
 } from "../../../index.js";
-import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 const expanded = ref(false);
 

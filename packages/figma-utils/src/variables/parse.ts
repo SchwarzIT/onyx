@@ -8,13 +8,17 @@ import {
 
 export type ParseFigmaVariablesOptions = {
   /**
-   * Base for converting pixel in rem. Set to `false` for disabling rem conversion and use pixel values.
+   * Base for converting pixel in rem. Set to `false` for disabling rem conversion and use pixel
+   * values.
+   *
    * @default 16
    */
   remBase?: number | false;
 };
 
-/** Default Figma mode name if only one mode exists and no other name is specified by the designer. */
+/**
+ * Default Figma mode name if only one mode exists and no other name is specified by the designer.
+ */
 export const DEFAULT_MODE_NAME = "Mode 1" as const;
 
 /**

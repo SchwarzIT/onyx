@@ -2,19 +2,23 @@ import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 
 export type OnyxHeadlineProps = {
   /**
-   * Semantical headline type. Should match the page hierarchy and should not skip hierarchies (e.g. h2 should be followed by h3 etc.).
+   * Semantical headline type. Should match the page hierarchy and should not skip hierarchies (e.g.
+   * h2 should be followed by h3 etc.).
    */
   is: HeadlineType;
   /**
-   * Visual size of the headline (h1-h6). Will default to but can be different from the semantical `is` property.
-   * Please note that only h1-h4 are intended to be used from UX perspective, h5 and h6 will have the same styles as h4.
+   * Visual size of the headline (h1-h6). Will default to but can be different from the semantical
+   * `is` property. Please note that only h1-h4 are intended to be used from UX perspective, h5 and
+   * h6 will have the same styles as h4.
    */
   showAs?: Exclude<HeadlineType, "h5" | "h6">;
   /**
-   * Unique headline hash/ID (without "#") that is used to show a "#" icon on hover. Makes the headline clickable and a URL that points to this headline
-   * is copied to the users clipboard. Will be automatically normalized when containing non URL-safe characters.
+   * Unique headline hash/ID (without "#") that is used to show a "#" icon on hover. Makes the
+   * headline clickable and a URL that points to this headline is copied to the users clipboard.
+   * Will be automatically normalized when containing non URL-safe characters.
    *
-   * @example "about-us"
+   * @example
+   *   "about-us";
    */
   hash?: string;
   /**

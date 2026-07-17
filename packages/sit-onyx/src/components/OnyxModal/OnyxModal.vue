@@ -30,7 +30,8 @@ const slots = defineSlots<{
    */
   headline?(bindings: Pick<OnyxModalProps, "label">): unknown;
   /**
-   * Optional slot to add custom content, e.g. a description to the dialog header (below the headline).
+   * Optional slot to add custom content, e.g. a description to the dialog header (below the
+   * headline).
    */
   description?(): unknown;
   /**

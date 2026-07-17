@@ -3,8 +3,9 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxLanguageMenuItem from "./OnyxLanguageMenuItem.vue";
 
 /**
- * Pre-built menu item for the `OnyxUserMenu` that can be used inside the nav bar to
- * display the current application language to the user and allow changing it by displaying a [OnyxSelectDialog](/docs/support-selectdialog--docs).
+ * Pre-built menu item for the `OnyxUserMenu` that can be used inside the nav bar to display the
+ * current application language to the user and allow changing it by displaying a
+ * [OnyxSelectDialog](/docs/support-selectdialog--docs).
  *
  * ### Keyboard support
  *

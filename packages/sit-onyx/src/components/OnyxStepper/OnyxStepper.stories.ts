@@ -7,7 +7,8 @@ import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import OnyxStepper from "./OnyxStepper.vue";
 
 /**
- * The stepper component lets users input numerical values and adjust them incrementally via plus and minus buttons, making it ideal for setting quantities or values in small, controlled steps.
+ * The stepper component lets users input numerical values and adjust them incrementally via plus
+ * and minus buttons, making it ideal for setting quantities or values in small, controlled steps.
  */
 
 const meta: Meta<typeof OnyxStepper> = {

@@ -1,5 +1,4 @@
 import { expect, test } from "../playwright/a11y.js";
-
 import TestCase from "./useAnchorPostionPolyfillTestCase.vue";
 
 test("should position tooltip correctly after scrolling", async ({ mount, page }) => {

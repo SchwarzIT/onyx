@@ -4,11 +4,17 @@ import { useCssVariableValue } from "../utils-browser.js";
 import DesignVariable from "./DesignVariable.vue";
 
 const props = defineProps<{
-  /** Variable name. */
+  /**
+   * Variable name.
+   */
   name: string;
-  /** If true, both columns will take up 50% of the available width. */
+  /**
+   * If true, both columns will take up 50% of the available width.
+   */
   wideName?: boolean;
-  /** Whether hide the variable value. */
+  /**
+   * Whether hide the variable value.
+   */
   hideValue?: boolean;
 }>();
 

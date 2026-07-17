@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import onyxLogo from "@sit-onyx/assets/onyx-brand/signet.svg?raw";
 import { iconChart, iconTextSelector, iconToolTable } from "@sit-onyx/icons";
 import bannerImg from "~/assets/images/banner.webp";
 import coverImg from "~/assets/images/cover.webp";
-import onyxLogo from "@sit-onyx/assets/onyx-brand/signet.svg?raw";
 import type { LinkCardProps } from "../components/LinkCard.vue";
 
 definePageMeta({ layout: false });

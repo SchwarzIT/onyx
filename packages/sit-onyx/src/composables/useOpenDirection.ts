@@ -20,8 +20,9 @@ export const useOpenDirection = (
     const elementRect = el.getBoundingClientRect();
 
     /**
-     * In case there no parent with overflow hidden, we consider top/left as 0 and bottom/right as the viewport height/width,
-     * since `getBoundingClientRect` returns values relative to the viewport and not considering any scrolling.
+     * In case there no parent with overflow hidden, we consider top/left as 0 and bottom/right as
+     * the viewport height/width, since `getBoundingClientRect` returns values relative to the
+     * viewport and not considering any scrolling.
      */
     if (toValue(horizontal)) {
       const parentLeft = overflowParentRect?.left ?? 0;
@@ -48,8 +49,9 @@ export const useOpenDirection = (
      */
     openDirection,
     /**
-     * Detects in which direction a popover should be opened, depending on the available space in each direction.
-     * Should only be called onBeforeMount or later to support server side rendering.
+     * Detects in which direction a popover should be opened, depending on the available space in
+     * each direction. Should only be called onBeforeMount or later to support server side
+     * rendering.
      */
     updateOpenDirection,
   };

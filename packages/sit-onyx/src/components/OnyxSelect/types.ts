@@ -67,6 +67,7 @@ export type OnyxSelectProps<
     alignment?: SelectAlignment;
     /**
      * Label describing the list of options to support assistive technologies.
+     *
      * @example: { label: "Your Animal", listLabel: "List of animals" }
      */
     listLabel: string;
@@ -99,7 +100,7 @@ export type OnyxSelectProps<
      * How multiselect labels will be displayed in the input.
      * - summary (default): will show "x Selected" if more than 1 is selected.
      * - preview: will show the names of the selection as a truncated list.
-     *            A number-badge appears next to it including a tooltip with all selected names.
+     * A number-badge appears next to it including a tooltip with all selected names.
      */
     textMode?: MultiselectTextMode;
   };
@@ -114,8 +115,8 @@ export type SelectOption<TValue extends SelectOptionValue = SelectOptionValue> =
      */
     disabled?: boolean;
     /**
-     * Optional group name. If set, all options with the same group name will be grouped below that name.
-     * If `group` is used for one option, it should be used for all other options as well.
+     * Optional group name. If set, all options with the same group name will be grouped below that
+     * name. If `group` is used for one option, it should be used for all other options as well.
      */
     group?: string;
   };

@@ -19,18 +19,20 @@ export type OnyxTextEditorProps = Omit<OnyxFormElementV2Props, "open" | "popover
      */
     toolbar?: ToolbarOptions;
     /**
-     * Tiptap extensions to use. Should not be changed dynamically.
-     * If set, default extensions will be overridden. Use or configure the OnyxStarterKit in this case.
+     * Tiptap extensions to use. Should not be changed dynamically. If set, default extensions will
+     * be overridden. Use or configure the OnyxStarterKit in this case.
      */
     extensions?: Extensions;
     /**
-     * Minimum number of characters that have to to be entered.
-     * Character count is determined using Tiptap's [CharacterCount extension](https://tiptap.dev/docs/editor/extensions/functionality/character-count).
+     * Minimum number of characters that have to to be entered. Character count is determined using
+     * Tiptap's [CharacterCount
+     * extension](https://tiptap.dev/docs/editor/extensions/functionality/character-count).
      */
     minlength?: number;
     /**
-     * Maximum number of characters that are allowed to be entered.
-     * Character count is determined using Tiptap's [CharacterCount extension](https://tiptap.dev/docs/editor/extensions/functionality/character-count).
+     * Maximum number of characters that are allowed to be entered. Character count is determined
+     * using Tiptap's [CharacterCount
+     * extension](https://tiptap.dev/docs/editor/extensions/functionality/character-count).
      */
     maxlength?: number;
   };

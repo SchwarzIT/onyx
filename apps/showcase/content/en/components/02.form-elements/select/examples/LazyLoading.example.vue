@@ -2,7 +2,9 @@
 import { OnyxSelect, type SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
-/** Generates the given number of dummy options for this example. */
+/**
+ * Generates the given number of dummy options for this example.
+ */
 const generateDummyOptions = (count: number, existingItems: number) => {
   return Array.from({ length: count }, (_, index) => {
     const id = existingItems + index + 1;
@@ -10,7 +12,9 @@ const generateDummyOptions = (count: number, existingItems: number) => {
   });
 };
 
-/** Number of items per load */
+/**
+ * Number of items per load
+ */
 const count = 25;
 
 const options = ref<SelectOption<number>[]>(generateDummyOptions(count, 0));

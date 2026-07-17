@@ -14,7 +14,8 @@ export type UseMatrixScreenshotTestOptions<TContext extends HookContext = HookCo
     >
   >;
   /**
-   * Optional custom `test` function to use. Useful when using [fixtures](https://playwright.dev/docs/test-fixtures#creating-a-fixture).
+   * Optional custom `test` function to use. Useful when using
+   * [fixtures](https://playwright.dev/docs/test-fixtures#creating-a-fixture).
    */
   test?: typeof test;
 };
@@ -42,15 +43,17 @@ export type MatrixScreenshotTestOptions<
    */
   component: (column: TColumn, row: TRow) => JSX.Element;
   /**
-   * By default a combined matrix screenshot is created that includes the screenshots for every column-row combination.
-   * Every combination is mounted individually, which allows to perform pointer or keyboard interactions before taking a screenshot.
+   * By default a combined matrix screenshot is created that includes the screenshots for every
+   * column-row combination. Every combination is mounted individually, which allows to perform
+   * pointer or keyboard interactions before taking a screenshot.
    *
-   * If the isolation is not necessary, consider enabling this option which is way faster, as it mounts all combinations together.
-   * On the downside the hooks will not be executed.
+   * If the isolation is not necessary, consider enabling this option which is way faster, as it
+   * mounts all combinations together. On the downside the hooks will not be executed.
    */
   fastNoIsolation?: boolean;
   /**
-   * Custom hooks/callbacks that can be executed at specific points in time during the matrix screenshot.
+   * Custom hooks/callbacks that can be executed at specific points in time during the matrix
+   * screenshot.
    */
   hooks?: ScreenshotTestHooks<TColumn, TRow, TContext>;
   /**
@@ -59,8 +62,8 @@ export type MatrixScreenshotTestOptions<
    */
   removePadding?: boolean;
   /**
-   * Context that is passed to all `hooks`.
-   * Useful for passing options to (global) hooks per matrix screenshot, e.g. for disabling specific accessibility test rule.
+   * Context that is passed to all `hooks`. Useful for passing options to (global) hooks per matrix
+   * screenshot, e.g. for disabling specific accessibility test rule.
    */
   context?: TContext;
   /**
@@ -83,14 +86,14 @@ export type ScreenshotTestHooks<
   TContext extends HookContext = HookContext,
 > = Partial<{
   /**
-   * Optional callback to be executed before capturing each individual screenshot (column + row combination).
-   * Useful for performing `expect()` or e.g. hover, focus-visible state etc.
-   * Focus and mouse will be reset after each screenshot.
+   * Optional callback to be executed before capturing each individual screenshot (column + row
+   * combination). Useful for performing `expect()` or e.g. hover, focus-visible state etc. Focus
+   * and mouse will be reset after each screenshot.
    */
   beforeEach: ScreenshotTestHook<TColumn, TRow, TContext>;
   /**
-   * Optional callback to be executed after capturing each individual screenshot (column + row combination).
-   * Useful for performing clean ups of side effects created by the `beforeEach` hook.
+   * Optional callback to be executed after capturing each individual screenshot (column + row
+   * combination). Useful for performing clean ups of side effects created by the `beforeEach` hook.
    * Focus and mouse will be reset after each screenshot.
    */
   afterEach: ScreenshotTestHook<TColumn, TRow, TContext>;

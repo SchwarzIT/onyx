@@ -10,11 +10,11 @@ export type TransferableEmit = Omit<DataGridFeatures.SelectionState, "contingent
 
 const { dataGrid, selectionOption } = defineProps<{
   /**
-   * props passed through to DataGrid
+   * Props passed through to DataGrid
    */
   dataGrid: Pick<OnyxDataGridProps<any, any, any, any, any, any>, "columns" | "data">; // eslint-disable-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
   /**
-   * props passed through to the feature
+   * Props passed through to the feature
    */
   selectionOption?: DataGridFeatures.SelectionOptions;
 }>();

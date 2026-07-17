@@ -19,8 +19,8 @@ export type OnyxTabsProps<TValue extends PropertyKey = PropertyKey> = DensityPro
      */
     stretched?: boolean;
     /**
-     * Tab font size. Note: This only affects the visual size of the tab font and has NO effect on the semantic meaning.
-     * Size will be aligned with the corresponding `OnyxHeadline` size.
+     * Tab font size. Note: This only affects the visual size of the tab font and has NO effect on
+     * the semantic meaning. Size will be aligned with the corresponding `OnyxHeadline` size.
      */
     size?: TabSize;
   };
