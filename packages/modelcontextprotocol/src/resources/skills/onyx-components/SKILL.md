@@ -27,6 +27,10 @@ Onyx component APIs are dynamic and change across versions. **NEVER guess or ass
 
 - Nest and structure basic components (`Accordion`, `Cards`, `Badge`, `Tag`) inside the Onyx grid layout (see `onyx-foundation`) to prevent layout breaking.
 
+### Data presentation
+
+- **Tabular data:** Always prefer the use of the `OnyxDataGrid` over the `OnyxTable` component.
+
 ---
 
 ## Validation & Quality Check
