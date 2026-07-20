@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(OnyxSwitch, OnyxProgressItem, OnyxSegmentedControl): improved color contrasts for hover states.
+feat(theme): improved color contrasts for default and hover states.
