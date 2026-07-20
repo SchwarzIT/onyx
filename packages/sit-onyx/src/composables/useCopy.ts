@@ -33,9 +33,10 @@ export const useCopy = (options: UseCopyOptions) => {
       copyStatus.value = "error";
     } finally {
       const duration = toValue(options.timeout) ?? 3000;
-      await new Promise((resolve) => (timeoutId = setTimeout(resolve, duration)));
-      copyStatus.value = undefined;
-      timeoutId = undefined;
+      timeoutId = setTimeout(() => {
+        copyStatus.value = undefined;
+        timeoutId = undefined;
+      }, duration);
     }
   };
 
