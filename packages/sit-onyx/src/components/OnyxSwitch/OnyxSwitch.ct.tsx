@@ -85,10 +85,11 @@ test.describe("Screenshot tests", () => {
 
         // wait for the tooltip to show up reliably
         if (["focus-visible", "hover"].includes(row)) {
-          await expect(
-            component.getByRole("tooltip"),
-            `should show error tooltip for ${row} and ${column}`,
-          ).toBeVisible();
+          if (column === "longError") {
+            await expect(component.getByText("ErrorFurther infoFurther info")).toBeVisible();
+          } else {
+            await expect(component.getByText("Test errorTest errorTest error")).toBeVisible();
+          }
         }
       },
     },

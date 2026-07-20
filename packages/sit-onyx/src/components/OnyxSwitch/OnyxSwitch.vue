@@ -1,22 +1,17 @@
 <script lang="ts" setup>
 import { iconCheckSmall, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density.js";
-import { useRequired } from "../../composables/required.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { useErrorTooltip } from "../../composables/useErrorTooltip.js";
+import { useRequired } from "../../composables/required.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
-import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../composables/useSkeletonState.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import type { OnyxSwitchProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
@@ -43,23 +38,29 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const { densityClass } = useDensity(props);
-
-const { disabled, showError, requiredMarker } = useFormContext(props);
+const { disabled, requiredMarker } = useFormContext(props);
 const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
-const shownErrorMessages = computed(() =>
-  showError.value !== false ? errorMessages.value : undefined,
-);
-const errorTooltip = useErrorTooltip({ disabled, errorMessages: shownErrorMessages });
 
 const title = computed(() => (props.hideLabel && props.label) || undefined);
-const skeleton = useSkeletonContext(props);
 const isChecked = useVModel({
   props,
   emit,
   key: "modelValue",
   default: false,
+});
+
+const { formElementV2Props: legacyProps } = useLegacyFormElementProps({ props, errorMessages });
+
+const formElementV2Props = computed(() => {
+  return {
+    ...legacyProps.value,
+    loading: false,
+    label: props.descriptionLabel ?? {
+      label: props.label,
+      hidden: true,
+    },
+  };
 });
 
 const input = useTemplateRef("input");
@@ -68,25 +69,14 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div
-    v-if="skeleton"
-    :class="['onyx-component', 'onyx-switch-skeleton', densityClass]"
-    v-bind="rootAttrs"
+  <OnyxFormElementV2
+    v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
+    class="onyx-component onyx-switch"
+    unstyled
   >
-    <span class="onyx-switch-skeleton__click-area">
-      <OnyxSkeleton class="onyx-switch-skeleton__input" />
-    </span>
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
-  </div>
-
-  <OnyxTooltip v-else v-bind="mergeVueProps(rootAttrs, errorTooltip)">
-    <template #default="{ trigger }">
-      <label
-        class="onyx-component onyx-switch"
-        :class="[requiredTypeClass, densityClass]"
-        :title="title"
-        v-bind="trigger"
-      >
+    <!-- eslint-disable-next-line vue/no-unused-vars -->
+    <template #default="{ title: _title, ...inputProps }">
+      <label :class="['onyx-switch__label', requiredTypeClass]" :title="title">
         <input
           ref="input"
           v-model="isChecked"
@@ -98,7 +88,7 @@ useAutofocus(input, props);
           :disabled="disabled || props.loading"
           :required="props.required"
           :autofocus="props.autofocus"
-          v-bind="restAttrs"
+          v-bind="mergeVueProps(restAttrs, inputProps)"
         />
         <span class="onyx-switch__click-area">
           <span class="onyx-switch__container">
@@ -132,15 +122,37 @@ useAutofocus(input, props);
         ></div>
       </label>
     </template>
-  </OnyxTooltip>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers.scss";
 
-.onyx-switch,
-.onyx-switch-skeleton {
+.onyx-switch {
+  @include layers.component() {
+    .onyx-form-element-v2__content-skeleton {
+      height: var(--onyx-switch-frame-height);
+      width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
+      border-radius: var(--onyx-radius-full);
+      margin: var(--onyx-switch-label-padding-vertical);
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        left: calc(100% + var(--onyx-density-xs));
+        top: 50%;
+        transform: translateY(-50%);
+        height: var(--onyx-spacing-md);
+        width: var(--onyx-spacing-3xl);
+        border-radius: var(--onyx-radius-sm);
+        background: inherit;
+        animation: inherit;
+      }
+    }
+  }
+}
+
+.onyx-switch {
   @include layers.component() {
     --onyx-switch-icon-size: 1.25rem;
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
@@ -158,12 +170,10 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
 
 .onyx-switch {
   @include layers.component() {
-    display: inline-flex;
-    align-items: flex-start;
-    cursor: pointer;
-    max-width: 100%;
-
-    .onyx-tooltip-wrapper:has(&) {
+    &__label {
+      display: inline-flex;
+      align-items: flex-start;
+      cursor: pointer;
       max-width: 100%;
     }
 
@@ -250,8 +260,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       }
     }
 
-    &__click-area,
-    &-skeleton__click-area {
+    &__click-area {
       padding: var(--onyx-switch-label-padding-vertical);
       display: flex;
       align-items: center;
@@ -360,23 +369,8 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         border-color: var(--onyx-color-component-border-secondary);
       }
     }
-  }
-}
-
-.onyx-switch-skeleton {
-  @include layers.component() {
-    display: inline-flex;
-    align-items: center;
-
-    &__input {
-      height: var(--onyx-switch-frame-height);
-      border-radius: var(--onyx-radius-full);
-      width: $input-width;
-    }
-
-    &__label {
-      height: var(--onyx-spacing-md);
-      width: var(--onyx-spacing-3xl);
+    &.onyx-form-element-v2--label-left .onyx-form-element-v2__body {
+      margin-left: calc(-1 * var(--onyx-switch-label-padding-vertical));
     }
   }
 }
