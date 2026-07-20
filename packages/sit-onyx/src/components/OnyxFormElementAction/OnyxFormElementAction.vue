@@ -114,6 +114,7 @@ const toggleAttrs = computed(() =>
 
     &__button {
       all: initial;
+      color-scheme: inherit;
       color: var(--onyx-form-element-action-color);
 
       &[aria-pressed="true"] {
