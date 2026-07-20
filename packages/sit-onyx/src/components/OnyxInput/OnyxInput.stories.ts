@@ -2,6 +2,7 @@ import { iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import OnyxInput from "./OnyxInput.vue";
@@ -225,6 +226,11 @@ export const LeftLabel = {
     },
   },
 } satisfies Story;
+
+export const WithCopyButton = createAdvancedStoryExample(
+  "OnyxInput",
+  "CopyExample",
+) satisfies Story;
 
 export const Slots = {
   args: {
