@@ -1,5 +1,8 @@
-import { Features } from "lightningcss";
 import { globSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { Features } from "lightningcss";
+
+const monorepoRoot = fileURLToPath(new URL("../../", import.meta.url));
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -10,7 +13,7 @@ export default defineNuxtConfig({
   css: ["@sit-onyx/tiptap/style.css"],
   app: {
     head: {
-      link: [{ rel: "icon", href: "/onyx-logo.svg" }],
+      link: [{ rel: "icon", href: "/favicon.svg" }],
     },
   },
   i18n: {
@@ -44,6 +47,14 @@ export default defineNuxtConfig({
         exclude: Features.LightDark,
       },
     },
+    server: {
+      fs: {
+        allow: [monorepoRoot],
+      },
+    },
+  },
+  alias: {
+    "#root": monorepoRoot,
   },
   imports: {
     transform: {

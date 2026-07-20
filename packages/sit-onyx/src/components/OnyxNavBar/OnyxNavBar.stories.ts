@@ -1,3 +1,4 @@
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import { iconBrowserTerminal, iconSearch, iconSettings } from "@sit-onyx/icons";
 import type { Decorator, Meta, StoryObj } from "@storybook/vue3-vite";
 import { action } from "storybook/actions";
@@ -33,7 +34,8 @@ const withPaddingDecorator: Decorator = (story) => {
 };
 
 /**
- * The NavBar is the foundation of an app’s main navigation, allowing users to seamlessly move between pages and sections within the application.
+ * The NavBar is the foundation of an app’s main navigation, allowing users to seamlessly move
+ * between pages and sections within the application.
  */
 const meta: Meta<typeof OnyxNavBar> = {
   title: "Navigation/NavBar",
@@ -68,7 +70,7 @@ type Story = StoryObj<typeof OnyxNavBar>;
 export const Default = {
   decorators: [withPaddingDecorator],
   args: {
-    logoUrl: "/onyx-logo.svg",
+    logoUrl,
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Router Link", link: "#router-link" }),
@@ -90,7 +92,7 @@ export const Default = {
 export const Nested = {
   decorators: [withPaddingDecorator],
   args: {
-    logoUrl: "/onyx-logo.svg",
+    logoUrl,
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Item 1", link: "https://schwarz-digits.de/" }),
@@ -138,7 +140,7 @@ export const WithMoreListItem = {
     viewport: { value: "sm" },
   },
   args: {
-    logoUrl: "/onyx-logo.svg",
+    logoUrl,
     appName: "App name",
     default: () => [
       h(OnyxNavItem, { label: "Menuitem 0" }),
@@ -262,6 +264,5 @@ export const Mobile = {
 } satisfies Story;
 
 export const Vertical = {
-  tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxNavBar", "VerticalExample"),
 } satisfies Story;

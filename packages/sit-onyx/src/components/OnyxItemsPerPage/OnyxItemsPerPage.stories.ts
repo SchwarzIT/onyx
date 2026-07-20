@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxItemsPerPage from "./OnyxItemsPerPage.vue";
 
 /**
- * The items per page component allows users to select how many items are displayed per page in a paginated list or table.
+ * The items per page component allows users to select how many items are displayed per page in a
+ * paginated list or table.
  */
 const meta: Meta<typeof OnyxItemsPerPage> = {
   title: "Data/ItemsPerPage",
   component: OnyxItemsPerPage,
-  tags: ["new:component"],
 };
 
 export default meta;

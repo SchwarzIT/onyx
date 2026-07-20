@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/storybook-utils",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Storybook utilities for Vue",
   "homepage": "https://onyx.schwarz/development/packages/storybook-utils.html",
   "bugs": {
@@ -34,10 +34,10 @@
   "devDependencies": {
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
-    "prettier": "^3.9.4",
-    "storybook": "^10.4.6",
+    "prettier": "^3.9.5",
+    "storybook": "~10.4.6",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.3.6"
+    "vue-component-type-helpers": "^3.3.7"
   },
   "peerDependencies": {
     "@sit-onyx/flags": "workspace:^",

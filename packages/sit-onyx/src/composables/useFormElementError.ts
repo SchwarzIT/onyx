@@ -68,7 +68,8 @@ export const TRANSLATED_INPUT_TYPES = Object.keys(
 export type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 
 /**
- * Transforms a customMessage into the format needed to display an error preview and extended message
+ * Transforms a customMessage into the format needed to display an error preview and extended
+ * message
  */
 export const getFormMessages = (customMessage?: CustomMessageType): FormMessages | undefined => {
   if (!customMessage) return;
@@ -82,8 +83,8 @@ export const getFormMessages = (customMessage?: CustomMessageType): FormMessages
 };
 
 /**
- * Returns a string combining short + long message or just the customMessage if it was provided as single string.
- * Will be used e.g. for customInvalidity and showing a tooltip e.g. in RadioButtons
+ * Returns a string combining short + long message or just the customMessage if it was provided as
+ * single string. Will be used e.g. for customInvalidity and showing a tooltip e.g. in RadioButtons
  */
 export const getFormMessageText = (error?: CustomMessageType): string | undefined => {
   if (!error) return;

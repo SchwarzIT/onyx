@@ -10,7 +10,6 @@ import OnyxGlobalSearchGroup from "./OnyxGlobalSearchGroup.vue";
 const meta: Meta<typeof OnyxGlobalSearchGroup> = {
   title: "Search & Filter/GlobalSearch/modules/GlobalSearchGroup",
   component: OnyxGlobalSearchGroup,
-  tags: ["new:component"],
   argTypes: {
     default: { control: { disable: true } },
   },

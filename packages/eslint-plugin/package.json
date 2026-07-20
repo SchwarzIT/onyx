@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/eslint-plugin",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "description": "Custom eslint rules that should be used for all packages of this monorepo",
   "license": "Apache-2.0",
@@ -13,7 +13,7 @@
   "devDependencies": {
     "@eslint/core": "^1.2.1",
     "@types/eslint": "^9.6.1",
-    "@typescript-eslint/parser": "^8.62.1",
+    "@typescript-eslint/parser": "^8.63.0",
     "eslint-vitest-rule-tester": "^3.1.0",
     "vue-eslint-parser": "^10.4.1"
   },

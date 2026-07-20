@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/vitepress-theme",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "VitePress theme that uses the onyx design system",
   "homepage": "https://onyx.schwarz/development/packages/vitepress-theme.html",
   "bugs": {

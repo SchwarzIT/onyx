@@ -53,7 +53,6 @@ export const RequiredError = {
     required: true,
     showError: true,
   },
-  tags: ["new:feature"],
 } satisfies Story;
 
 export const MaxHeight = {

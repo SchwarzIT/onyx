@@ -2,8 +2,8 @@ import type { IterationBasedMetricOptions } from "../types.js";
 import { getAllItemsByIterationDate } from "../utils/client.js";
 
 /**
- * Calculates the bug fixing ratio in the given iteration (how much time is spend on bugs in relation to other stories).
- * Items without an assigned size will be ignored.
+ * Calculates the bug fixing ratio in the given iteration (how much time is spend on bugs in
+ * relation to other stories). Items without an assigned size will be ignored.
  */
 export async function getBugFixingRatio(options: IterationBasedMetricOptions) {
   const { items: allItems, iteration } = await getAllItemsByIterationDate(

@@ -73,14 +73,12 @@ export const DisabledDays = {
 } satisfies Story;
 
 export const LeftLabel = {
-  tags: ["new:feature"],
   args: {
     label: { label: Default.args.label, position: "left" },
   },
 } satisfies Story;
 
 export const Slots = {
-  tags: ["new:feature"],
   args: {
     label: { label: Default.args.label, tooltipText: "Label tooltip" },
     message: "Message",

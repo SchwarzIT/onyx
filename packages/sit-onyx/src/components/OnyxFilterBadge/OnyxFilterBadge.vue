@@ -19,7 +19,9 @@ const props = withDefaults(defineProps<OnyxFilterBadgeProps>(), {
 });
 
 const emit = defineEmits<{
-  /** Emitted when the active state changes. */
+  /**
+   * Emitted when the active state changes.
+   */
   "update:active": [value: boolean];
 }>();
 

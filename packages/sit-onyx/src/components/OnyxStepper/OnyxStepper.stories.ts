@@ -7,7 +7,8 @@ import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import OnyxStepper from "./OnyxStepper.vue";
 
 /**
- * The stepper component lets users input numerical values and adjust them incrementally via plus and minus buttons, making it ideal for setting quantities or values in small, controlled steps.
+ * The stepper component lets users input numerical values and adjust them incrementally via plus
+ * and minus buttons, making it ideal for setting quantities or values in small, controlled steps.
  */
 
 const meta: Meta<typeof OnyxStepper> = {
@@ -155,7 +156,6 @@ export const CustomFormattedNumber = {
 } satisfies Story;
 
 export const ValueAlignment = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     modelValue: 42,
@@ -164,14 +164,12 @@ export const ValueAlignment = {
 } satisfies Story;
 
 export const LeftLabel = {
-  tags: ["new:feature"],
   args: {
     label: { label: Default.args.label, position: "left" },
   },
 } satisfies Story;
 
 export const Slots = {
-  tags: ["new:feature"],
   args: {
     label: { label: Default.args.label, tooltipText: "Label tooltip" },
     message: "Message",

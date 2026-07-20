@@ -1,7 +1,17 @@
+<script lang="ts">
+/**
+ * @deprecated This component is still under active development and its API might change in patch
+ *   releases.
+ * @experimental
+ */
+export default {};
+</script>
+
 <script lang="ts" setup>
 import { iconFilter, iconSearch } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
 import { _unstableUseShortcut } from "../../composables/useShortcut.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
@@ -20,6 +30,7 @@ const props = withDefaults(defineProps<OnyxSearchProps>(), {
   showFilters: undefined,
   modelValue: undefined,
   filterPosition: "bottom",
+  skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
 const emit = defineEmits<{

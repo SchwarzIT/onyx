@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import {
   iconBell,
   iconCheckRead,
@@ -33,7 +34,8 @@ import {
 } from "../../../index.js";
 
 /**
- * Custom notification type for your project. This can also include custom properties depending in your needs (e.g. an ID etc.).
+ * Custom notification type for your project. This can also include custom properties depending in
+ * your needs (e.g. an ID etc.).
  */
 type MyNotification = OnyxNotificationCardProps & {
   /**
@@ -116,7 +118,7 @@ const addExampleNotification = () => {
   <OnyxAppLayout>
     <template #navBar>
       <!-- NAV BAR -->
-      <OnyxNavBar app-name="Notification center" logo-url="/onyx-logo.svg">
+      <OnyxNavBar app-name="Notification center" :logo-url>
         <OnyxNavItem label="Page 1" />
         <OnyxNavItem label="Page 2" />
 

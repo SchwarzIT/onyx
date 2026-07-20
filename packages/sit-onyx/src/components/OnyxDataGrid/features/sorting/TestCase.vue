@@ -6,7 +6,9 @@ import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
 const { columns, data, enableFiltering } = defineProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
   Pick<OnyxDataGridProps<any, any, any, any, any, any>, "columns" | "data"> & {
-    /** Whether to enable the filtering feature. */
+    /**
+     * Whether to enable the filtering feature.
+     */
     enableFiltering?: boolean;
   }
 >();

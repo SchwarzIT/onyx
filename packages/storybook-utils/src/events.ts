@@ -17,10 +17,12 @@ type EventName<T extends Event> =
 
 /**
  * Removes a prefix from a string type.
- * @example ```ts
- * type Trimmed = TrimStart<"onclick", "on">;
- * const trimmed: Trimmed = "click";
- * ```
+ *
+ * @example
+ *   ```ts
+ *   type Trimmed = TrimStart<"onclick", "on">;
+ *   const trimmed: Trimmed = "click";
+ *   ```;
  */
 type TrimStart<
   TString extends string,

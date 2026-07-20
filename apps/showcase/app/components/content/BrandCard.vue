@@ -1,11 +1,11 @@
 <script lang="ts" setup>
+import onyxLogo from "@sit-onyx/assets/onyx-brand/signet.svg?raw";
 import digitsLogo from "~/assets/images/brands/digits.svg?raw";
 import kauflandLogo from "~/assets/images/brands/kaufland.svg?raw";
 import lidlLogo from "~/assets/images/brands/lidl.svg?raw";
 import prezeroLogo from "~/assets/images/brands/prezero.svg?raw";
 import scosLogo from "~/assets/images/brands/scos.svg?raw";
 import tailwindLogo from "~/assets/images/brands/tailwind.svg?raw";
-import onyxLogo from "~~/public/onyx-logo.svg?raw";
 import type { DetailsItem } from "../DetailsList.vue";
 
 type SchwarzBrand =

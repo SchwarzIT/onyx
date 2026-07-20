@@ -8,7 +8,6 @@ import OnyxCalendar from "./OnyxCalendar.vue";
 const meta: Meta<typeof OnyxCalendar> = {
   title: "Data/Calendar",
   component: OnyxCalendar as Meta["component"],
-  tags: ["new:component"],
   args: {
     style: "max-width: 44rem",
   },

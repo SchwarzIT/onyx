@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import {
   iconArrowSmallRight,
   iconCheckSmall,
@@ -7,7 +8,6 @@ import {
   iconShareIos,
 } from "@sit-onyx/icons";
 import { ref } from "vue";
-import logoUrl from "../../../../.storybook/public/onyx-logo.svg";
 import OnyxAvatar from "../../OnyxAvatar/OnyxAvatar.vue";
 import OnyxAvatarStack from "../../OnyxAvatarStack/OnyxAvatarStack.vue";
 import OnyxBadge from "../../OnyxBadge/OnyxBadge.vue";
@@ -16,11 +16,11 @@ import OnyxCheckboxGroup from "../../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxInput from "../../OnyxInput/OnyxInput.vue";
-import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
 import OnyxColorSchemeMenuItem from "../../OnyxNavBar/modules/OnyxColorSchemeMenuItem/OnyxColorSchemeMenuItem.vue";
 import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNavItem from "../../OnyxNavBar/modules/OnyxNavItem/OnyxNavItem.vue";
 import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
+import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
 import OnyxPagination from "../../OnyxPagination/OnyxPagination.vue";
 import OnyxRadioGroup from "../../OnyxRadioGroup/OnyxRadioGroup.vue";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";

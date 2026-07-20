@@ -3,10 +3,12 @@ import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxShortcut from "./OnyxShortcut.vue";
 
 /**
- * The shortcut component displays keyboard shortcut sequences with visual key representations.
- * It supports multi-step sequences, operating system specific symbols (macOS, Windows) and interactive highlighting of pressed keys.
+ * The shortcut component displays keyboard shortcut sequences with visual key representations. It
+ * supports multi-step sequences, operating system specific symbols (macOS, Windows) and interactive
+ * highlighting of pressed keys.
  *
- * If you want to use the shortcut functionality without visualizing the OnyxShortcut component, you can also use the [_unstableUseShortcut()](/story/basic-shortcut--composable) composable.
+ * If you want to use the shortcut functionality without visualizing the OnyxShortcut component, you
+ * can also use the [_unstableUseShortcut()](/story/basic-shortcut--composable) composable.
  */
 const meta: Meta<typeof OnyxShortcut> = {
   title: "Basic/Shortcut",
@@ -38,7 +40,6 @@ export const MultiStep = {
 } satisfies Story;
 
 export const Nested = {
-  tags: ["new:feature"],
   args: {
     sequence: [{ all: ["Control", "K", { any: ["A", "B"] }] }],
     highlight: "auto",

@@ -10,7 +10,8 @@ export type NotificationsProvider = {
   notifications: ComputedRef<ProvidedNotification[]>;
   /**
    * Shows a single notification.
-   * @returns the id of the newly created notification.
+   *
+   * @returns The id of the newly created notification.
    */
   show: (notification: ShowNotificationOptions) => number;
   /**
@@ -54,11 +55,11 @@ export const NOTIFICATIONS_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<Not
  * Should be provided once on global app level with:
  *
  * @example
- * ```ts
- * import { createNotificationsProvider, NOTIFICATIONS_PROVIDER_INJECTION_KEY } from "sit-onyx";
+ *   ```ts
+ *   import { createNotificationsProvider, NOTIFICATIONS_PROVIDER_INJECTION_KEY } from "sit-onyx";
  *
- * app.provide(NOTIFICATIONS_PROVIDER_INJECTION_KEY, createNotificationsProvider());
- * ```
+ *   app.provide(NOTIFICATIONS_PROVIDER_INJECTION_KEY, createNotificationsProvider());
+ *   ```;
  */
 export const createNotificationsProvider = (): NotificationsProvider => {
   let nextId = 1;

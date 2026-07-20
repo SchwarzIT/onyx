@@ -4,11 +4,12 @@ export type UseResizeObserverOptions = {
   /**
    * Sets which box model the observer will observe changes to.
    *
-   * @default 'content-box'
+   * @default "content-box"
    */
   box?: ResizeObserverBoxOptions;
   /**
    * Whether the observer is disabled.å
+   *
    * @default false
    */
   disabled?: Ref<boolean>;

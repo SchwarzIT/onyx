@@ -1,5 +1,5 @@
-import { expect, test } from "@nuxt/test-utils/playwright";
 import { fileURLToPath } from "node:url";
+import { expect, test } from "@nuxt/test-utils/playwright";
 
 test.use({
   nuxt: {

@@ -5,8 +5,9 @@ import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
 import OnyxAccordion from "./OnyxAccordion.vue";
 
 /**
- * An accordion is a versatile UI element that allows users to expand and collapse sections of content.
- * It is commonly used for organizing large amounts of information in a compact space, enabling users to easily navigate through different categories or options.
+ * An accordion is a versatile UI element that allows users to expand and collapse sections of
+ * content. It is commonly used for organizing large amounts of information in a compact space,
+ * enabling users to easily navigate through different categories or options.
  */
 const meta: Meta<typeof OnyxAccordion> = {
   title: "Basic/Accordion",

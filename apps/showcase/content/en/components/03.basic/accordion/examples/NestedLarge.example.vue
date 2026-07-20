@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import {
   OnyxAccordion,
   OnyxAccordionItem,
@@ -17,7 +18,7 @@ const openAccordions = ref<string[]>(["item-1"]);
 <template>
   <OnyxAppLayout>
     <template #navBar>
-      <OnyxNavBar logo-url="/onyx-logo.svg" />
+      <OnyxNavBar :logo-url />
     </template>
 
     <OnyxPageLayout>

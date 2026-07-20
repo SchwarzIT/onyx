@@ -10,18 +10,18 @@ export type QuantitativeColorStep = (typeof QUANTITATIVE_COLOR_STEPS)[number];
  * Will be updated automatically when switching between light/dark mode.
  *
  * @example
- * ```ts
- * const chartData: ChartData<"line"> = {
- *   labels: ["A", "B", "C"],
- *   datasets: [
- *     {
- *       label: "Dataset A",
- *       data: [1, 2, 3],
- *       ...getDatasetColors("primary"),
- *     },
- *   ],
- * };
- * ```
+ *   ```ts
+ *   const chartData: ChartData<"line"> = {
+ *     labels: ["A", "B", "C"],
+ *     datasets: [
+ *       {
+ *         label: "Dataset A",
+ *         data: [1, 2, 3],
+ *         ...getDatasetColors("primary"),
+ *       },
+ *     ],
+ *   };
+ *   ```;
  */
 export const getDatasetColors = (color: OnyxColor | `quantitatives-${QuantitativeColorStep}`) => {
   const cssVariable = `--onyx-color-base-${color.startsWith("quantitatives-") ? color : `${color}-500`}`;
@@ -37,7 +37,8 @@ export const getDatasetColors = (color: OnyxColor | `quantitatives-${Quantitativ
 
 /**
  * Gets the current value of the given CSS variable.
- * @param CSS variable name, e.g. `--onyx-color-base-primary-500`
+ *
+ * @param CSS Variable name, e.g. `--onyx-color-base-primary-500`
  */
 
 export const getCSSVariableValue = (variableName: string): string => {

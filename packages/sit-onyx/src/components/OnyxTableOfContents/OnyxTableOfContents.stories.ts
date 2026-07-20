@@ -4,7 +4,8 @@ import OnyxTableOfContentsItem from "../OnyxTableOfContentsItem/OnyxTableOfConte
 import OnyxTableOfContents from "./OnyxTableOfContents.vue";
 
 /**
- * The table of contents component is used to display a list of sections/headings in a page with links to the corresponding sections.
+ * The table of contents component is used to display a list of sections/headings in a page with
+ * links to the corresponding sections.
  *
  * When integrating into a page layout, it is recommended to position it:
  * - right aligned
@@ -15,7 +16,6 @@ import OnyxTableOfContents from "./OnyxTableOfContents.vue";
 const meta: Meta<typeof OnyxTableOfContents> = {
   title: "Navigation/TableOfContents",
   component: OnyxTableOfContents,
-  tags: ["new:component"],
   argTypes: {
     default: { control: { disable: true } },
   },

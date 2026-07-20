@@ -6,9 +6,11 @@ import OnyxColorSchemeDialog from "./OnyxColorSchemeDialog.vue";
 import type { OnyxColorSchemeDialogProps } from "./types.js";
 
 /**
- * Pre-built dialog where the user can select which color scheme (light/dark mode or auto) to use for the application.
+ * Pre-built dialog where the user can select which color scheme (light/dark mode or auto) to use
+ * for the application.
  *
- * For recommended usage, please visit our [theming docs](https://onyx.schwarz/development/theming.html).
+ * For recommended usage, please visit our [theming
+ * docs](https://onyx.schwarz/development/theming.html).
  *
  * ### Keyboard support
  *

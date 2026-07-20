@@ -216,7 +216,9 @@ watch(
   { immediate: true },
 );
 
-/** unique ID to identify the `select all` checkbox */
+/**
+ * Unique ID to identify the `select all` checkbox
+ */
 const CHECK_ALL_ID = useId() as TValue;
 
 /**

@@ -23,7 +23,8 @@ const slots = defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional nested children to display. Recommended to use the `OnyxTableOfContentsItem` component here.
+   * Optional nested children to display. Recommended to use the `OnyxTableOfContentsItem` component
+   * here.
    */
   children?(): unknown;
 }>();

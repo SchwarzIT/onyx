@@ -13,7 +13,9 @@ const AVAILABLE_TABS = ["Base", "Text & Icons", "States"] as const;
 type AvailableTab = (typeof AVAILABLE_TABS)[number];
 const currentTab = ref<AvailableTab>(AVAILABLE_TABS[0]);
 
-/** Speaking names for base color steps. */
+/**
+ * Speaking names for base color steps.
+ */
 const baseStepNames: Record<number, string> = {
   200: "soft",
   500: "default",

@@ -3,15 +3,26 @@ import { iconCopy } from "@sit-onyx/icons";
 import { OnyxIcon } from "sit-onyx";
 
 export type ColorPaletteValueProps = {
-  /** Text to show below the value. */
+  /**
+   * Text to show below the value.
+   */
   description: number | string;
-  /** CSS variable of the color value to use as background color. */
+  /**
+   * CSS variable of the color value to use as background color.
+   */
   color: string;
-  /** Text color (should have good contrast to `color` property). */
+  /**
+   * Text color (should have good contrast to `color` property).
+   */
   textColor: string;
-  /** Optional name to show inside of the color. */
+  /**
+   * Optional name to show inside of the color.
+   */
   name?: string;
-  /** If true, a border is shown around the color value. Useful for very light/dark colors with low contrast. */
+  /**
+   * If true, a border is shown around the color value. Useful for very light/dark colors with low
+   * contrast.
+   */
   showBorder?: boolean;
 };
 

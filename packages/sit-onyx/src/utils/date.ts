@@ -1,23 +1,35 @@
 /**
  * Checks whether the given value is a valid `Date` object.
  *
- * @example isValidDate(new Date()) // true
- * @example isValidDate(new Date("not-a-date")) // false
- * @example isValidDate("definitely-not-a-date") // false
+ * @example
+ *   isValidDate(new Date()); // true
+ *
+ * @example
+ *   isValidDate(new Date("not-a-date")); // false
+ *
+ * @example
+ *   isValidDate("definitely-not-a-date"); // false
  */
 export const isValidDate = (date: unknown): date is Date =>
   date instanceof Date && !isNaN(date.getTime());
 
 /**
+ * @example
+ *   dateToISOString(new Date("2025-10-16T11:01:09.564Z", "date")); // "2025-10-16"
+ *
+ * @example
+ *   dateToISOString(new Date("2025-10-16T11:01:09.564Z", "datetime-utc")); // "2025-10-16T11:01:09.564Z"
+ *
+ * @example
+ *   dateToISOString(new Date("2025-10-16T13:01:09.564Z", "datetime-local")); // "2025-10-16T13:01:09.564"
+ *
+ * @example
+ *   dateToISOString(new Date("not-a-date")); // undefined
  *
  * @param date The JS Date object to convert
- * @param type If the formatted string should include the time and if so, with UTC timezone or as local time.
+ * @param type If the formatted string should include the time and if so, with UTC timezone or as
+ *   local time.
  * @returns Returns a full date-only ISO8601 complaint string, which is also parsable by new Date()
- *
- * @example dateToISOString(new Date("2025-10-16T11:01:09.564Z", "date")) // "2025-10-16"
- * @example dateToISOString(new Date("2025-10-16T11:01:09.564Z", "datetime-utc")) // "2025-10-16T11:01:09.564Z"
- * @example dateToISOString(new Date("2025-10-16T13:01:09.564Z", "datetime-local")) // "2025-10-16T13:01:09.564"
- * @example dateToISOString(new Date("not-a-date")) // undefined
  */
 export const dateToISOString = (
   date: Date | undefined,

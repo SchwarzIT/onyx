@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
-import { extractLinkProps } from "../../utils/router.js";
-import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
+import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
 import type { OnyxCardProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCardProps>(), {
@@ -28,12 +27,14 @@ const classes = computed(() => [
 </script>
 
 <template>
-  <OnyxRouterLink v-if="props.link" v-bind="extractLinkProps(props.link)" :class="classes">
+  <!-- eslint-disable sitOnyx/require-root-class -- added via "classes" -->
+  <ButtonOrLinkLayout v-if="props.link || props.clickable" :class="classes" :link="props.link">
     <slot></slot>
-  </OnyxRouterLink>
-  <component :is="props.clickable ? 'button' : 'div'" v-else :class="classes">
+  </ButtonOrLinkLayout>
+
+  <div v-else :class="classes">
     <slot></slot>
-  </component>
+  </div>
 </template>
 
 <style lang="scss">
