@@ -55,7 +55,8 @@ type UseShortcutOptions<TStep extends ShortcutSequenceStep> = {
   /**
    * Sequence of shortcut steps.
    *
-   * @example `[{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]`
+   * @example
+   *   `[{ all: ["Control", "C"] }, { any: ["V", "Insert"] }]`;
    */
   sequence: MaybeRef<TStep[]>;
   /**
@@ -88,8 +89,8 @@ type UseShortcutOptions<TStep extends ShortcutSequenceStep> = {
  * Composable for managing a keyboard shortcut that can consist of one or multiple steps.
  * If you want to also visualize the shortcut, use the `OnyxShortcut` component instead.
  *
- * @experimental
  * @deprecated This API is unstable and might change in patch releases.
+ * @experimental
  */
 export const _unstableUseShortcut = <TStep extends ShortcutSequenceStep>(
   options: UseShortcutOptions<TStep>,

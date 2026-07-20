@@ -10,21 +10,38 @@ import RoadmapCard from "./RoadmapCard.vue";
  * Build-time data for the home page (components, facts/numbers etc.)
  */
 export type HomePageData = {
-  /** Total number of implemented onyx components. */
+  /**
+   * Total number of implemented onyx components.
+   */
   componentCount: number;
-  /** Total number of component variants/stories across all implemented components as documented with Storybook. */
+  /**
+   * Total number of component variants/stories across all implemented components as documented with
+   * Storybook.
+   */
   variantCount: number;
-  /** Total number of merged pull requests on GitHub. */
+  /**
+   * Total number of merged pull requests on GitHub.
+   */
   mergedPRCount: number;
-  /** Total number of closed issues on GitHub. */
+  /**
+   * Total number of closed issues on GitHub.
+   */
   closedIssueCount: number;
-  /** Timestamp when this data has been fetched. */
+  /**
+   * Timestamp when this data has been fetched.
+   */
   timestamp: string;
-  /** Total number of npm downloads for all onyx npm packages in the last month. */
+  /**
+   * Total number of npm downloads for all onyx npm packages in the last month.
+   */
   downloads: number;
-  /** Number of npm packages inside the `packages` folder of this monorepo. */
+  /**
+   * Number of npm packages inside the `packages` folder of this monorepo.
+   */
   packageCount: number;
-  /** Component information. */
+  /**
+   * Component information.
+   */
   components: ComponentCardProps[];
 };
 

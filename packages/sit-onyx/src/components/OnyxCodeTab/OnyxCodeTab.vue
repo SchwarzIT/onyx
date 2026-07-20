@@ -19,11 +19,13 @@ const props = withDefaults(defineProps<OnyxCodeTabProps>(), {
 
 defineSlots<{
   /**
-   * Tab panel / content. By default, the `code` property will be used (without syntax highlighting).
+   * Tab panel / content. By default, the `code` property will be used (without syntax
+   * highlighting).
    */
   default?(): unknown;
   /**
-   * Optional slot to override the tab content. By default, the `label` and `icon` property will be displayed.
+   * Optional slot to override the tab content. By default, the `label` and `icon` property will be
+   * displayed.
    */
   tab?(): unknown;
 }>();

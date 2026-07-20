@@ -48,16 +48,19 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = Omit<
      */
     step?: number;
     /**
-     * Step size to increase/decrease the slider value when changing the value via keyboard while pressing the "Shift" key.
+     * Step size to increase/decrease the slider value when changing the value via keyboard while
+     * pressing the "Shift" key.
      *
      * @default 10% of the total range (max - min)
      */
     shiftStep?: number;
     /**
-     * Whether to show marks inside the slider rail. Use the `mark` slot to customize the displayed mark label.
+     * Whether to show marks inside the slider rail. Use the `mark` slot to customize the displayed
+     * mark label.
      *
      * - `true`: will generate marks automatically based on `step` prop
-     * - array of numbers or `SliderMark` objects: will shown at the specified values with optional labels
+     * - Array of numbers or `SliderMark` objects: will shown at the specified values with optional
+     *   labels
      */
     marks?: readonly SliderMark[] | readonly number[] | boolean;
     /**
@@ -83,7 +86,8 @@ export type SliderTooltipOptions = {
    * Optional formatter to customize the displayed tooltip value.
    *
    * @param value Thumb value.
-   * @param index Thumb index, will always be 0 for single sliders but can be 0 or 1 for range sliders.
+   * @param index Thumb index, will always be 0 for single sliders but can be 0 or 1 for range
+   *   sliders.
    */
   formatter?: (value: number, index: number) => string;
 };

@@ -11,7 +11,8 @@ export type OnyxIconProps = IconSizeProp<IconSize | "inline"> & {
    */
   color?: OnyxColor | "currentColor";
   /**
-   * In inline mode the icon will adapt to the font-size and align itself according to the line-height.
+   * In inline mode the icon will adapt to the font-size and align itself according to the
+   * line-height.
    *
    * @deprecated Use `size="inline"` instead
    */
@@ -23,7 +24,8 @@ export type IconSize = (typeof ICON_SIZES)[number];
 
 export type IconSizeProp<T extends string = IconSize> = {
   /**
-   * Size. Pixel values will be translated to the according `rem` value by the base of `16px`=`1rem`.
+   * Size. Pixel values will be translated to the according `rem` value by the base of
+   * `16px`=`1rem`.
    *
    * @default 24px
    */

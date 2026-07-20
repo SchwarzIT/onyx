@@ -1,6 +1,7 @@
 <script lang="ts" setup generic="TValue extends PropertyKey = PropertyKey">
 import { iconFileCopy } from "@sit-onyx/icons";
 import { computed, provide, ref } from "vue";
+import { useCopy } from "../../composables/useCopy.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
@@ -39,22 +40,8 @@ const tabs = ref(new Map<PropertyKey, string>());
 provide(CODE_TABS_INJECTION_KEY, { tabs });
 
 const activeTabCode = computed(() => tabs.value.get(modelValue.value));
-const copyStatus = ref<"success" | "error">();
 
-const handleCopy = async () => {
-  if (!activeTabCode.value) return;
-
-  try {
-    // eslint-disable-next-line compat/compat -- event handler is safe as it can only be triggered in the client
-    await navigator.clipboard.writeText(activeTabCode.value);
-    copyStatus.value = "success";
-  } catch {
-    // the user might not have granted the permission for the browser / application to access the clipboard
-    copyStatus.value = "error";
-  } finally {
-    setTimeout(() => (copyStatus.value = undefined), 3000);
-  }
-};
+const { copyStatus, copy: handleCopy } = useCopy({ source: () => activeTabCode.value ?? "" });
 </script>
 
 <template>

@@ -9,7 +9,8 @@ const props = withDefaults(defineProps<OnyxNotificationMessageProps>(), {
 
 const emit = defineEmits<{
   /**
-   * Emitted when the notification should be closed, e.g. when the duration has elapsed or the close "x" icon has been clicked.
+   * Emitted when the notification should be closed, e.g. when the duration has elapsed or the close
+   * "x" icon has been clicked.
    */
   close: [];
 }>();

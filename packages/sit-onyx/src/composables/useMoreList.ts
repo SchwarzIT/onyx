@@ -20,13 +20,15 @@ import {
 } from "./useResizeObserver.js";
 
 /**
- * Injection key for providing "more" data to child components of a list to e.g. render a "+3 more" indicator.
+ * Injection key for providing "more" data to child components of a list to e.g. render a "+3 more"
+ * indicator.
  */
 export type MoreListInjectionKey = InjectionKey<ReturnType<typeof useMoreList>>;
 
 export type UseMoreListOptions = {
   /**
-   * Vue template ref for the parent element containing the more indicator as well as the list of components.
+   * Vue template ref for the parent element containing the more indicator as well as the list of
+   * components.
    */
   parentRef: Ref<VueTemplateRefElement>;
   /**
@@ -34,69 +36,70 @@ export type UseMoreListOptions = {
    */
   listRef: Ref<VueTemplateRefElement>;
   /**
-   * Vue template ref for the more indicator element that might be shown if not all elements are visible.
+   * Vue template ref for the more indicator element that might be shown if not all elements are
+   * visible.
    */
   moreIndicatorRef: Ref<VueTemplateRefElement>;
   /**
    * From which direction the list items should start to be hidden, when space is limited.
    * ltr/rtl -> horizontal
    * ttb/btt -> vertical
+   *
    * @default "rtl"
    */
   direction: MaybeRefOrGetter<"rtl" | "ltr" | "ttb" | "btt">;
 };
 
 /**
- * Composable for managing a list of components where e.g. a "+3" more indicator should be shown if not all components
- * fit into the available width.
+ * Composable for managing a list of components where e.g. a "+3" more indicator should be shown if
+ * not all components fit into the available width.
  *
  * @example
+ *   ```vue
+ *   <script lang="ts" setup>
+ *   import { provide, ref, watch } from "vue";
+ *   import { useMoreList, NAV_BAR_MORE_LIST_INJECTION_KEY } from "sit-onyx";
  *
- * ```vue
- * <script lang="ts" setup>
- * import { provide, ref, watch } from "vue";
- * import { useMoreList, NAV_BAR_MORE_LIST_INJECTION_KEY } from "sit-onyx";
+ *   const parentRef = ref<HTMLElement>();
+ *   const listRef = ref<HTMLElement>();
+ *   const moreIndicatorRef = ref<HTMLElement>();
  *
- * const parentRef = ref<HTMLElement>();
- * const listRef = ref<HTMLElement>();
- * const moreIndicatorRef = ref<HTMLElement>();
+ *   const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
+ *   provide(NAV_BAR_MORE_LIST_INJECTION_KEY, more);
+ *   </script>
  *
- * const more = useMoreList({ parentRef, listRef, moreIndicatorRef });
- * provide(NAV_BAR_MORE_LIST_INJECTION_KEY, more);
- * </script>
- *
- * <template>
+ *   <template>
  *   <div ref="parent" class="more-list">
- *     <div ref="list" class="more-list__elements">
- *        <OnyxNavItem v-for="i in 16" ref="componentRefs" :key="i" :label="`Nav button ${i}`" />
- *     </div>
- *
- *     <div ref="moreIndicator" class="more-list__indicator">
- *        +{{ more.hiddenElements.value.length }} more
- *     </div>
+ *   <div ref="list" class="more-list__elements">
+ *   <OnyxNavItem v-for="i in 16" ref="componentRefs" :key="i" :label="`Nav button ${i}`" />
  *   </div>
- * </template>
  *
- * <style lang="scss">
- * .more-list {
+ *   <div ref="moreIndicator" class="more-list__indicator">
+ *   +{{ more.hiddenElements.value.length }} more
+ *   </div>
+ *   </div>
+ *   </template>
+ *
+ *   <style lang="scss">
+ *   .more-list {
  *   display: flex;
  *   align-items: center;
  *   gap: var(--onyx-spacing-4xs);
  *
  *   &__elements {
- *     display: inherit;
- *     align-items: inherit;
- *     gap: inherit;
- *     overflow-x: clip;
- *    }
+ *   display: inherit;
+ *   align-items: inherit;
+ *   gap: inherit;
+ *   overflow-x: clip;
+ *   }
  *
  *   &__indicator {
- *     min-width: max-content;
- *     max-width: 100%;
+ *   min-width: max-content;
+ *   max-width: 100%;
  *   }
- * }
- * </style>
- * ```
+ *   }
+ *   </style>
+ *   ```
  */
 export const useMoreList = (options: UseMoreListOptions) => {
   const visibleElements = ref<string[]>();
@@ -212,19 +215,19 @@ const getGap = (ref: VueTemplateRefElement, isVertical: boolean) => {
 };
 
 /**
- * Composable that must be implemented in all list children when using `useMoreList` to correctly observe the visibility of the elements.
+ * Composable that must be implemented in all list children when using `useMoreList` to correctly
+ * observe the visibility of the elements.
  *
  * @example
+ *   ```vue
+ *   <script lang="ts" setup
+ *   const { componentRef, isVisible } = useMoreListChild();
+ *   </script>
  *
- * ```vue
- * <script lang="ts" setup
- * const { componentRef, isVisible } = useMoreListChild();
- * </script>
- *
- * <template
- *  <div v-show="isVisible" ref="componentRef"> Your content... </div>
- * </template>
- * ```
+ *   <template
+ *   <div v-show="isVisible" ref="componentRef"> Your content... </div>
+ *   </template>
+ *   ```;
  */
 export const useMoreListChild = (injectionKey: MoreListInjectionKey) => {
   const id = useId();

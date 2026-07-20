@@ -4,20 +4,19 @@ import type { DataGridFeatureOptions } from "../index.js";
 
 export type SelectionState = {
   /**
-   * If the `contingent` set refers to entries that are included in the final selection or excluded from it.
-   * The `selectMode` is closely coupled with the `HeaderSelectionCheckbox` which is used to "select all" or "deselect all".
-   * It allows for tracking selections even when not all rows are known.
-   * This especially useful in case of pagination or asynchronous data loading.
+   * If the `contingent` set refers to entries that are included in the final selection or excluded
+   * from it. The `selectMode` is closely coupled with the `HeaderSelectionCheckbox` which is used
+   * to "select all" or "deselect all". It allows for tracking selections even when not all rows are
+   * known. This especially useful in case of pagination or asynchronous data loading.
    *
    * Based on this there are the following scenarios:
    *
-   * | selectMode | selected.size |      result      | HeaderSelectionCheckbox |
-   * |------------|:-------------:|:----------------:|-------------------------|
-   * | "include"  |      == 0     | nothing selected | unchecked               |
-   * | "include"  |       > 0     |   some selected  | indeterminate           |
-   * | "exclude"  |      == 0     |   all selected   | checked                 |
-   * | "exclude"  |       > 0     |   some selected  | indeterminate           |
-   *
+   * | selectMode | selected.size | result           | HeaderSelectionCheckbox |
+   * | ---------- | :-----------: | :--------------: | ----------------------- |
+   * | "include"  | == 0          | nothing selected | unchecked               |
+   * | "include"  | > 0           | some selected    | indeterminate           |
+   * | "exclude"  | == 0          | all selected     | checked                 |
+   * | "exclude"  | > 0           | some selected    | indeterminate           |
    */
   selectMode: "include" | "exclude";
   /**

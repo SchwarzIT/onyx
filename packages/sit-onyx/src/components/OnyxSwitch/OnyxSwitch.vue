@@ -25,7 +25,9 @@ const props = withDefaults(defineProps<OnyxSwitchProps>(), {
 });
 
 const emit = defineEmits<{
-  /** Emitted when the checked state changes. */
+  /**
+   * Emitted when the checked state changes.
+   */
   "update:modelValue": [value: boolean];
   /**
    * Emitted when the validity state of the input changes.

@@ -8,7 +8,8 @@ import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxNotificationCard from "./OnyxNotificationCard.vue";
 
 /**
- * Card component to display (user) notifications. For example to build a [notification center](/story/notifications-examples-notificationcenter--default).
+ * Card component to display (user) notifications. For example to build a [notification
+ * center](/story/notifications-examples-notificationcenter--default).
  */
 const meta: Meta<typeof OnyxNotificationCard> = {
   title: "Notifications/NotificationCard",

@@ -10,7 +10,7 @@ defineSlots<{
   /**
    * Slot to override the default "Back to home" action(s).
    *
-   * @params clearError - Function to clear the error and redirect to the home page
+   * @param clearError - Function to clear the error and redirect to the home page
    */
   actions?(props: { clearError: typeof _clearError }): unknown;
   /**

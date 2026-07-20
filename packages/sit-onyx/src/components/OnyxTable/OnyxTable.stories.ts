@@ -7,7 +7,8 @@ import OnyxPagination from "../OnyxPagination/OnyxPagination.vue";
 import OnyxTable from "./OnyxTable.vue";
 
 /**
- * A streamlined way to display smaller data sets, the Table component focuses on simplicity, making it easy for users to view and interact with data without overwhelming them.
+ * A streamlined way to display smaller data sets, the Table component focuses on simplicity, making
+ * it easy for users to view and interact with data without overwhelming them.
  */
 const meta: Meta<typeof OnyxTable> = {
   title: "Data/Table",
@@ -62,7 +63,8 @@ export const Striped = {
 } satisfies Story;
 
 /**
- * This example shows a table with additional verticals borders (horizontal borders are always shown).
+ * This example shows a table with additional verticals borders (horizontal borders are always
+ * shown).
  */
 export const VerticalBorders = {
   args: {

@@ -2,9 +2,9 @@
 import { computed } from "vue";
 import { useLink } from "../../composables/useLink.js";
 import { injectI18n } from "../../i18n/index.js";
+import { isInternalLink } from "../../utils/router.js";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { LinkTarget, OnyxRouterLinkProps } from "./types.js";
-import { isInternalLink } from "../../utils/router.js";
 
 const props = withDefaults(defineProps<OnyxRouterLinkProps>(), {
   target: "auto",

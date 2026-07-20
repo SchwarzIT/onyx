@@ -16,6 +16,7 @@ export type DataGridActionBase = {
   group?: string | DataGridActionGroup;
   /**
    * Order inside the group when multiple actions are used (sorted from lowest to highest).
+   *
    * @default 0
    */
   order?: number;
@@ -46,6 +47,7 @@ export type DataGridActionGroup = {
   name: string;
   /**
    * Order of the entire group when multiple groups are used (sorted from lowest to highest).
+   *
    * @default 0
    */
   order: number;

@@ -24,8 +24,9 @@ import type {
 export type DataGridMetadata = Record<string, unknown>;
 
 /**
- * Makes registered types of typeRenderers available for use in the column configuration.
- * Extracts all registered `Keys` and their `TOptions` types and maps them to the `ColumnConfigurationTypeOption`.
+ * Makes registered types of typeRenderers available for use in the column configuration. Extracts
+ * all registered `Keys` and their `TOptions` types and maps them to the
+ * `ColumnConfigurationTypeOption`.
  */
 export type MapTypeRenderOptions<T> = {
   [Key in keyof T]: T[Key] extends TypeRenderer<infer _, infer TOptions>
@@ -40,7 +41,6 @@ export type MaybeArray<T> = T | Array<T>;
 
 /**
  * Unwraps the typeRenderers from the given feature(s).
- *
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we use any for simplicity
 export type ColumnTypesFromFeatures<TFeatures extends MaybeArray<DataGridFeature<any, any, any>>> =
@@ -85,15 +85,15 @@ export type OnyxDataGridProps<
   >,
 > = {
   /**
-   * Features that should be applied.
-   * They allow the modification of the behavior and rendering.
+   * Features that should be applied. They allow the modification of the behavior and rendering.
    * Usually you want to use the provided features of the exported `DataGridFeature` namespace.
-   * Check the Storybook examples (e.g. [Sorting](/?path=/story/data-datagrid-features--sorting)) for more details on how the features are used and configured.
+   * Check the Storybook examples (e.g. [Sorting](/?path=/story/data-datagrid-features--sorting))
+   * for more details on how the features are used and configured.
    */
   features?: TFeatures;
   /**
-   * When `async` is `true`, the data transformation of supported features is disabled and externalized.
-   * This allows for backend handling of data fetching and data transformation.
+   * When `async` is `true`, the data transformation of supported features is disabled and
+   * externalized. This allows for backend handling of data fetching and data transformation.
    */
   async?: boolean;
   /**
@@ -109,7 +109,8 @@ export type OnyxDataGridProps<
    */
   data: TEntry[];
   /**
-   *  Whether to show skeleton rows. Can be set to `true` to use a pre-defined skeleton row count or you can pass a number to define a specific count.
+   * Whether to show skeleton rows. Can be set to `true` to use a pre-defined skeleton row count or
+   * you can pass a number to define a specific count.
    */
   skeleton?: SkeletonInjected;
   /**

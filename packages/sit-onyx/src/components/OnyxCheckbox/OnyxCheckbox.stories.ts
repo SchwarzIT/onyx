@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxCheckbox from "./OnyxCheckbox.vue";
 
 /**
- * Checkboxes are a fundamental UI element, that allows users to make a binary selection.
- * They are commonly used for tasks such as selecting multiple items, opting into services or confirming and agreeing.
+ * Checkboxes are a fundamental UI element, that allows users to make a binary selection. They are
+ * commonly used for tasks such as selecting multiple items, opting into services or confirming and
+ * agreeing.
  */
 const meta: Meta<typeof OnyxCheckbox> = {
   title: "Support/Checkbox",
@@ -66,7 +67,8 @@ export const HiddenLabel = {
 } satisfies Story;
 
 /**
- * A checkbox with truncation. You can set the "truncation" property to choose between the different truncation types.
+ * A checkbox with truncation. You can set the "truncation" property to choose between the different
+ * truncation types.
  */
 export const WithTruncation = {
   args: {

@@ -10,7 +10,9 @@ import {
   type ListboxValue,
 } from "../listbox/createListbox.js";
 
-/** See https://w3c.github.io/aria/#aria-autocomplete */
+/**
+ * See https://w3c.github.io/aria/#aria-autocomplete
+ */
 export type ComboboxAutoComplete = "none" | "list" | "both";
 
 export const OPENING_KEYS: PressedKey[] = ["ArrowDown", "ArrowUp", " ", "Enter", "Home", "End"];
@@ -24,7 +26,7 @@ export const CLOSING_KEYS: PressedKey[] = [
 const SELECTING_KEYS: PressedKey[] = ["Enter"];
 
 /**
- * if the a search input is included, space should not be used to select
+ * If the a search input is included, space should not be used to select
  * TODO: idea for the future: move this distinction to the listbox?
  */
 const isSelectingKey = (event: KeyboardEvent, withSpace?: boolean) => {
@@ -43,7 +45,8 @@ export type CreateComboboxOptions<
   autocomplete: MaybeRef<TAutoComplete>;
   label: MaybeRef<string>;
   /**
-   * Labels the listbox which displays the available options. E.g. the list label could be "Countries" for a combobox which is labelled "Country".
+   * Labels the listbox which displays the available options. E.g. the list label could be
+   * "Countries" for a combobox which is labelled "Country".
    */
   listLabel: MaybeRef<string>;
   /**
@@ -51,7 +54,8 @@ export type CreateComboboxOptions<
    */
   listDescription?: MaybeRef<Nullable<string>>;
   /**
-   * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can be controlled via the keyboard.
+   * Controls the opened/visible state of the associated pop-up. When expanded the activeOption can
+   * be controlled via the keyboard.
    */
   isExpanded: MaybeRef<boolean>;
   /**
@@ -65,7 +69,8 @@ export type CreateComboboxOptions<
   /**
    * Hook when the popover should toggle.
    *
-   * @param preventFocus If `true`, the parent combobox should not be focused (e.g. on outside click).
+   * @param preventFocus If `true`, the parent combobox should not be focused (e.g. on outside
+   *   click).
    */
   onToggle?: (preventFocus?: boolean) => void;
   /**
@@ -253,8 +258,9 @@ export const createComboBox = createBuilder(
           onMousedown: (e) => e.preventDefault(),
         })),
         /**
-         * An input that controls another element, that can dynamically pop-up to help the user set the value of the input.
-         * The input MAY be either a single-line text field that supports editing and typing or an element that only displays the current value of the combobox.
+         * An input that controls another element, that can dynamically pop-up to help the user set
+         * the value of the input. The input MAY be either a single-line text field that supports
+         * editing and typing or an element that only displays the current value of the combobox.
          */
         input: computed(() => ({
           role: "combobox",

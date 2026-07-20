@@ -4,7 +4,8 @@ import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxFilterTag from "./OnyxFilterTag.vue";
 
 /**
- * Tags are succinct textual labels that provide single-worded information or hints to their related parent element.
+ * Tags are succinct textual labels that provide single-worded information or hints to their related
+ * parent element.
  */
 const meta: Meta<typeof OnyxFilterTag> = {
   title: "Search & Filter/FilterTag",

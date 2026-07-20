@@ -18,8 +18,8 @@ type UseLegacyFormElementOptions = {
  * Composable for mapping the legacy props of `OnyxFormElement` based components
  * to the new `OnyxFormElementV2` based props.
  *
- * This is used for backwards compatibility until onyx version 2 so we don't introduce breaking changes
- * into existing components.
+ * This is used for backwards compatibility until onyx version 2 so we don't introduce breaking
+ * changes into existing components.
  */
 export const useLegacyFormElementProps = ({
   props,

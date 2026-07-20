@@ -110,8 +110,9 @@ const counter = computed(() => {
 });
 
 /**
- * The Tiptap editor uses a contenteditable div so it does not support the native CSS ":invalid" for showing the error.
- * To workaround this, the track if the value has ever been changed and consider this as "touched" / interacted.
+ * The Tiptap editor uses a contenteditable div so it does not support the native CSS ":invalid" for
+ * showing the error. To workaround this, the track if the value has ever been changed and consider
+ * this as "touched" / interacted.
  */
 const isTouched = ref(false);
 watch(modelValue, () => (isTouched.value = true), { once: true });

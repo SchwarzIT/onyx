@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import {
   iconBell,
   iconCheckRead,
@@ -31,10 +32,10 @@ import {
   useSkeletonContext,
   type OnyxNotificationCardProps,
 } from "../../../index.js";
-import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 
 /**
- * Custom notification type for your project. This can also include custom properties depending in your needs (e.g. an ID etc.).
+ * Custom notification type for your project. This can also include custom properties depending in
+ * your needs (e.g. an ID etc.).
  */
 type MyNotification = OnyxNotificationCardProps & {
   /**

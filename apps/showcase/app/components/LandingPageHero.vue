@@ -18,7 +18,11 @@
 
         <div class="hero__actions">
           <OnyxButton :label="$t('components.component', 2)" link="/components" />
-          <OnyxButton :label="$t('gettingStarted')" mode="outline" link="/introduction" />
+          <OnyxButton
+            :label="$t('gettingStarted')"
+            mode="outline"
+            link="/introduction/getting-started/installation"
+          />
         </div>
       </div>
     </div>

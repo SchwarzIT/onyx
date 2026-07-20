@@ -1,7 +1,7 @@
-import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
-import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { log } from "node:console";
 import { createServer } from "node:http";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 
 /**
  * MCP server running as a http server.

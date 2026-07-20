@@ -8,13 +8,14 @@ import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import type { OnyxIconButtonProps } from "../OnyxIconButton/types.js";
 import OnyxStepper from "../OnyxStepper/OnyxStepper.vue";
 import type { OnyxStepperProps } from "../OnyxStepper/types.js";
 import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
-import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import type {
   NormalizedSliderMark,
   OnyxSliderProps,
@@ -22,7 +23,6 @@ import type {
   SliderMode,
   SliderValue,
 } from "./types.js";
-import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 
 type Props = OnyxSliderProps<TSliderMode>;
 
@@ -127,7 +127,8 @@ const hasMarkLabels = computed(() => marks.value.some((mark) => !!mark.label));
 
 /**
  * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
- * because the native browser :user-invalid does not trigger when the value is changed e.g. via slider click.
+ * because the native browser :user-invalid does not trigger when the value is changed e.g. via
+ * slider click.
  */
 const wasTouched = ref(false);
 

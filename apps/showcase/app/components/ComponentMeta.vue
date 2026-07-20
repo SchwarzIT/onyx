@@ -5,7 +5,8 @@ const props = defineProps<{
   /**
    * Full component name.
    *
-   * @example OnyxButton.
+   * @example
+   *   OnyxButton.
    */
   component: string;
   /**

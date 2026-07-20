@@ -37,11 +37,12 @@ export type OnyxSearchProps = Pick<
   showFilters?: boolean;
   /**
    * Determines the position of the filters
+   *
    * @default "bottom"
    */
   filterPosition?: "bottom" | "inline" | "modal";
   /**
-   *  Indicates whether keyboard shortcuts should be enabled for quick access.
+   * Indicates whether keyboard shortcuts should be enabled for quick access.
    */
   withShortcut?: boolean;
 };

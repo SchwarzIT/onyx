@@ -45,7 +45,8 @@ const slots = defineSlots<{
    */
   button?(params: {
     /**
-     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the flyout trigger.
+     * Attributes and event listeners that must be bound to an interactive element (button or link),
+     * that should act as the flyout trigger.
      */
     trigger: object;
   }): unknown;
