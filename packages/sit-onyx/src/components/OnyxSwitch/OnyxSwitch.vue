@@ -79,6 +79,7 @@ useAutofocus(input, props);
       <label :class="['onyx-switch__label', requiredTypeClass]" :title="title">
         <input
           ref="input"
+          v-bind="mergeVueProps(restAttrs, inputProps)"
           v-model="isChecked"
           v-custom-validity
           type="checkbox"
@@ -88,7 +89,6 @@ useAutofocus(input, props);
           :disabled="disabled || props.loading"
           :required="props.required"
           :autofocus="props.autofocus"
-          v-bind="mergeVueProps(restAttrs, inputProps)"
         />
         <span class="onyx-switch__click-area">
           <span class="onyx-switch__container">
