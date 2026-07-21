@@ -1,0 +1,7 @@
+@use "sit-onyx/src/styles/mixins/layers.scss";
+
+.onyx-comark-renderer {
+  @include layers.component() {
+    font-family: var(--onyx-font-family-paragraph);
+  }
+}

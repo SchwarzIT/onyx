@@ -1,0 +1,10 @@
+<template>
+  <br aria-hidden="true" />
+</template>
+
+<style lang="scss" scoped>
+br {
+  display: block;
+  height: 1lh;
+}
+</style>
