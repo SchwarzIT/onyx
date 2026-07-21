@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, inject, onUnmounted, watch } from "vue";
+import { computed, inject, onUnmounted, useTemplateRef, watch } from "vue";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -37,24 +37,26 @@ const tabsContext = inject(CODE_TABS_INJECTION_KEY, undefined);
 const label = computed(() => props.label ?? t.value("codeTabs.tabLabel"));
 const skeleton = useSkeletonContext(props);
 
+const codeEl = useTemplateRef("code");
+
 watch(
-  [() => props.value, () => props.code],
+  [() => props.value, () => props.code, codeEl],
   ([newValue, newCode], [oldValue]) => {
     if (oldValue) {
-      tabsContext?.tabs.value.delete(oldValue);
+      tabsContext?.tabs.delete(oldValue);
     }
-    tabsContext?.tabs.value.set(newValue, newCode);
+    tabsContext?.tabs.set(newValue, newCode || codeEl.value || "");
   },
   { immediate: true },
 );
 
 onUnmounted(() => {
-  tabsContext?.tabs.value.delete(props.value);
+  tabsContext?.tabs.delete(props.value);
 });
 
 const disabled = computed(() => {
   if (props.disabled != undefined) return props.disabled;
-  return tabsContext && tabsContext.tabs.value.size <= 1;
+  return tabsContext && tabsContext.tabs.size <= 1;
 });
 </script>
 
@@ -72,9 +74,11 @@ const disabled = computed(() => {
     </div>
 
     <template v-else>
-      <slot>
-        <pre><code>{{ props.code }}</code></pre>
-      </slot>
+      <div ref="code" class="onyx-code-tab__code-wrapper">
+        <slot>
+          <pre><code>{{ props.code }}</code></pre>
+        </slot>
+      </div>
 
       <span v-if="props.language" class="onyx-code-tab__language">
         {{ props.language }}
@@ -113,6 +117,10 @@ const disabled = computed(() => {
 
     &__language {
       user-select: none;
+    }
+
+    &__code-wrapper {
+      display: contents;
     }
 
     &__skeletons {
