@@ -338,7 +338,7 @@ export {
   type MoreListInjectionKey,
   type UseMoreListOptions,
 } from "./composables/useMoreList.js";
-export * from "./composables/useCopy.js";
+export { useCopy, type UseCopyOptions } from "./composables/useCopy.js";
 export { useResizeObserver } from "./composables/useResizeObserver.js";
 export * from "./utils/attrs.js";
 export * from "./utils/props.js";
