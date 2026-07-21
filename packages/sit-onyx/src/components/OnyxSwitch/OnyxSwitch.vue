@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 import { iconCheckSmall, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
-import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useRequired } from "../../composables/required.js";
+import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
-import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
-import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
 import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import type { OnyxSwitchProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
