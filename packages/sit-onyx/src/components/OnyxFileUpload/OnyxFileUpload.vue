@@ -46,7 +46,6 @@ const props: OnyxFileUploadProps<TMultiple> = withDefaults(
     showError: FORM_INJECTED_SYMBOL,
     requiredMarker: FORM_INJECTED_SYMBOL,
     reserveMessageSpace: FORM_INJECTED_SYMBOL,
-    label: "test",
   },
 );
 
@@ -424,15 +423,16 @@ const shouldShowFileList = computed(() => {
     }
 
     &--large .onyx-form-element-v2__content-skeleton {
-      height: 7.5rem;
-      width: 100%;
-      max-width: 20rem;
+      height: calc(7.5rem + 2 * var(--onyx-density-xl));
+      width: calc(20rem + 2 * var(--onyx-density-xl));
     }
 
     &--medium .onyx-form-element-v2__content-skeleton {
-      height: 3.125rem;
-      width: 100%;
-      max-width: 16rem;
+      height: calc(3.125rem + 2 * var(--onyx-density-xs));
+      width: calc(16rem + 2 * var(--onyx-density-xs));
+    }
+    &--small .onyx-form-element-v2__content-skeleton {
+      width: calc(6rem + 2 * var(--onyx-density-sm));
     }
 
     &.onyx-form-element-v2--label-left,
