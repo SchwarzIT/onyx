@@ -40,7 +40,7 @@
     "@sit-onyx/vitepress-theme": "workspace:^",
     "browserslist": "^4.28.6",
     "chart.js": "catalog:",
-    "postcss": "^8.5.17",
+    "postcss": "^8.5.19",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",

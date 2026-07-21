@@ -10,6 +10,10 @@
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/shared"
   },
+  "files": [
+    "dist",
+    "tsconfig.json"
+  ],
   "type": "module",
   "exports": {
     ".": {
@@ -23,7 +27,7 @@
     "./tsconfig.json": "./tsconfig.json"
   },
   "scripts": {
-    "build": "tsc -d"
+    "build": "tsc"
   },
   "optionalDependencies": {
     "@nuxt/test-utils": ">= 4",
