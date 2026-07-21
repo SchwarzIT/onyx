@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { iconCheckSmall, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
-import { useRequired } from "../../composables/required.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
@@ -38,11 +37,9 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const { disabled, requiredMarker } = useFormContext(props);
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
+const { disabled } = useFormContext(props);
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
 
-const title = computed(() => (props.hideLabel && props.label) || undefined);
 const isChecked = useVModel({
   props,
   emit,
@@ -50,16 +47,47 @@ const isChecked = useVModel({
   default: false,
 });
 
-const { formElementV2Props: legacyProps } = useLegacyFormElementProps({ props, errorMessages });
+const displayValueLabel = computed(() => {
+  if (!props.valueLabel) return undefined;
+  if (typeof props.valueLabel === "object") {
+    return isChecked.value ? props.valueLabel.truthy : props.valueLabel.falsy;
+  }
+  return props.valueLabel;
+});
+
+const normalizedLabel = computed(() => {
+  const hidden = props.hideLabel;
+  if (typeof props.label === "string") {
+    return { label: props.label, position: "right" as const, hidden };
+  }
+  if (props.label) {
+    return {
+      ...props.label,
+      hidden: hidden || props.label.hidden,
+    };
+  }
+  return props.label;
+});
+
+const legacyProps = new Proxy(props, {
+  get(target, prop, receiver) {
+    if (prop === "label") {
+      return normalizedLabel.value;
+    }
+    return Reflect.get(target, prop, receiver);
+  },
+});
+
+const { formElementV2Props: legacyFormElementProps } = useLegacyFormElementProps({
+  props: legacyProps,
+  errorMessages,
+});
 
 const formElementV2Props = computed(() => {
   return {
-    ...legacyProps.value,
+    ...legacyFormElementProps.value,
     loading: false,
-    label: props.descriptionLabel ?? {
-      label: props.label,
-      hidden: true,
-    },
+    label: normalizedLabel.value,
   };
 });
 
@@ -74,9 +102,8 @@ useAutofocus(input, props);
     class="onyx-component onyx-switch"
     unstyled
   >
-    <!-- eslint-disable-next-line vue/no-unused-vars -->
-    <template #default="{ title: _title, ...inputProps }">
-      <label :class="['onyx-switch__label', requiredTypeClass]" :title="title">
+    <template #default="{ title, ...inputProps }">
+      <label class="onyx-switch__label" :title="title">
         <input
           ref="input"
           v-bind="mergeVueProps(restAttrs, inputProps)"
@@ -85,7 +112,6 @@ useAutofocus(input, props);
           type="checkbox"
           role="switch"
           :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
-          :aria-label="props.hideLabel ? props.label : undefined"
           :disabled="disabled || props.loading"
           :required="props.required"
           :autofocus="props.autofocus"
@@ -104,22 +130,12 @@ useAutofocus(input, props);
           </span>
         </span>
         <span
-          v-if="!props.hideLabel"
+          v-if="displayValueLabel"
           class="onyx-switch__label"
-          :class="[
-            `onyx-truncation-${props.truncation}`,
-            // shows the required marker inline for multiline labels
-            props.truncation === 'multiline' ? requiredMarkerClass : undefined,
-          ]"
+          :class="[`onyx-truncation-${props.truncation}`]"
         >
-          {{ props.label }}
+          {{ displayValueLabel }}
         </span>
-        <!-- shows the required marker fixed on the right for truncated labels -->
-        <div
-          v-if="!props.hideLabel && props.truncation === 'ellipsis'"
-          class="onyx-switch__marker"
-          :class="[requiredMarkerClass]"
-        ></div>
       </label>
     </template>
   </OnyxFormElementV2>
@@ -134,20 +150,8 @@ useAutofocus(input, props);
       height: var(--onyx-switch-frame-height);
       width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
       border-radius: var(--onyx-radius-full);
-      margin: var(--onyx-switch-label-padding-vertical);
+      margin: var(--onyx-switch-label-padding-vertical) 0;
       position: relative;
-      &::after {
-        content: "";
-        position: absolute;
-        left: calc(100% + var(--onyx-density-xs));
-        top: 50%;
-        transform: translateY(-50%);
-        height: var(--onyx-spacing-md);
-        width: var(--onyx-spacing-3xl);
-        border-radius: var(--onyx-radius-sm);
-        background: inherit;
-        animation: inherit;
-      }
     }
   }
 }
@@ -170,6 +174,15 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
 
 .onyx-switch {
   @include layers.component() {
+    justify-content: left;
+    .onyx-form-element-v2 {
+      &__body {
+        width: auto;
+      }
+      &__label {
+        padding-left: var(--onyx-switch-label-padding-vertical);
+      }
+    }
     &__label {
       display: inline-flex;
       align-items: flex-start;
@@ -261,7 +274,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     }
 
     &__click-area {
-      padding: var(--onyx-switch-label-padding-vertical);
+      padding: var(--onyx-switch-label-padding-vertical) 0;
       display: flex;
       align-items: center;
     }
@@ -302,9 +315,9 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       }
     }
 
-    &__label,
-    &__marker {
-      padding: var(--onyx-switch-label-padding-vertical) 0;
+    &__label {
+      padding: var(--onyx-switch-label-padding-vertical) 0 var(--onyx-switch-label-padding-vertical)
+        var(--onyx-switch-label-padding-vertical);
       font-size: var(--onyx-font-size-md);
       line-height: var(--onyx-font-line-height-md);
     }
@@ -363,9 +376,6 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       .onyx-switch__frame {
         border-color: var(--onyx-color-base-neutral-600);
       }
-    }
-    &.onyx-form-element-v2--label-left .onyx-form-element-v2__body {
-      margin-left: calc(-1 * var(--onyx-switch-label-padding-vertical));
     }
   }
 }

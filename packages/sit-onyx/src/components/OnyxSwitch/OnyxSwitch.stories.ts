@@ -23,6 +23,13 @@ export const Default = {
   },
 } satisfies Story;
 
+export const WithValueLabel = {
+  args: {
+    label: { label: "Switch label", position: "top" },
+    valueLabel: { falsy: "Off", truthy: "On" },
+  },
+} satisfies Story;
+
 /**
  * This example shows the checked state of the switch.
  */
