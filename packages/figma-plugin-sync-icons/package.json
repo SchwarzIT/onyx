@@ -19,9 +19,9 @@
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "^1.130.0",
-    "@fontsource-variable/source-code-pro": "^5.2.7",
-    "@fontsource-variable/source-sans-3": "^5.2.9",
+    "@figma/plugin-typings": "^1.131.0",
+    "@fontsource-variable/source-code-pro": "^5.3.0",
+    "@fontsource-variable/source-sans-3": "^5.3.0",
     "@sit-onyx/shared": "workspace:^",
     "typescript": "catalog:",
     "vite": "catalog:",

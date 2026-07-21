@@ -23,7 +23,7 @@
     "./tsconfig.json": "./tsconfig.json"
   },
   "scripts": {
-    "build": "tsc -d"
+    "build": "tsc"
   },
   "optionalDependencies": {
     "@nuxt/test-utils": ">= 4",
