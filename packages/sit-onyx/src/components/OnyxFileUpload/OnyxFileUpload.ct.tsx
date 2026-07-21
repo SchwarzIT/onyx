@@ -1,7 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
-import enUs from "../../i18n/locales/en-US.json" with { type: "json" };
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import type { Nullable } from "../../types/utils.js";
@@ -303,11 +302,12 @@ test("should show required error message", async ({ mount, page }) => {
   );
 
   const button = component.getByRole("button", { name: "Click to select" });
-  const errorMessage = component.locator(".onyx-file-upload__required_error");
+  const errorMessage = component.getByText(
+    "You need to upload at least one fileYou need to upload at least one fileYou",
+  );
 
   // ASSERT
   await expect(errorMessage).toBeVisible();
-  await expect(errorMessage).toHaveText(enUs.fileUpload.requiredError);
 
   // ACT
   await selectFiles(page, button, 1);

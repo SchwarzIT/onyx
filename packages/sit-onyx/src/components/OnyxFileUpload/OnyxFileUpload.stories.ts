@@ -17,6 +17,13 @@ export const Default = {
   },
 } satisfies Story;
 
+export const WithLabel = {
+  args: {
+    ...Default.args,
+    label: "File upload",
+  },
+} satisfies Story;
+
 export const Medium = {
   args: {
     ...Default.args,

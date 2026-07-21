@@ -4,9 +4,17 @@ import type { Nullable } from "../../types/utils.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
 import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { FormElementV2LabelOptions } from "../OnyxFormElementV2/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
-  Pick<SharedFormElementProps, "name" | "required" | "showError"> & {
+  Pick<
+    SharedFormElementProps,
+    "name" | "required" | "showError" | "requiredMarker" | "reserveMessageSpace"
+  > & {
+    /**
+     * Label to show for the file upload.
+     */
+    label?: string | FormElementV2LabelOptions;
     /**
      * Currently selected file(s).
      * If `multiple` property is enabled, this value is an array, otherwise a single file.
