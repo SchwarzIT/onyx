@@ -5,11 +5,11 @@ packages:
 catalog:
   "@playwright/experimental-ct-vue": 1.61.1
   "@playwright/test": 1.61.1
-  "@vue/compiler-core": 3.5.39
-  "@vue/compiler-dom": 3.5.39
-  "@vue/compiler-sfc": 3.5.39
-  "@vue/compiler-ssr": 3.5.39
-  "@vue/shared": 3.5.39
+  "@vue/compiler-core": 3.5.40
+  "@vue/compiler-dom": 3.5.40
+  "@vue/compiler-sfc": 3.5.40
+  "@vue/compiler-ssr": 3.5.40
+  "@vue/shared": 3.5.40
   "@types/node": 24.13.3
   chart.js: 4.5.1
   nuxt: 4.5.0
@@ -19,7 +19,7 @@ catalog:
   typescript: 6.0.3
   unplugin-dts: 1.0.3
   vite: 8.1.5
-  vue: 3.5.39
+  vue: 3.5.40
   vue-component-meta: 3.3.7
   vue-tsc: 3.3.7
 
