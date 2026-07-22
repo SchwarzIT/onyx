@@ -8,6 +8,7 @@ import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import type { FormElementV2LabelOptions } from "../OnyxFormElementV2/types.js";
 import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
@@ -49,44 +50,23 @@ const isChecked = useVModel({
 
 const displayValueLabel = computed(() => {
   if (!props.valueLabel) return undefined;
-  if (typeof props.valueLabel === "object") {
-    return isChecked.value ? props.valueLabel.truthy : props.valueLabel.falsy;
-  }
-  return props.valueLabel;
+  return isChecked.value ? props.valueLabel.truthy : props.valueLabel.falsy;
 });
 
-const normalizedLabel = computed(() => {
-  const hidden = props.hideLabel;
-  if (typeof props.label === "string") {
-    return { label: props.label, position: "right" as const, hidden };
-  }
-  if (props.label) {
-    return {
-      ...props.label,
-      hidden: hidden || props.label.hidden,
-    };
-  }
-  return props.label;
-});
-
-const legacyProps = new Proxy(props, {
-  get(target, prop, receiver) {
-    if (prop === "label") {
-      return normalizedLabel.value;
-    }
-    return Reflect.get(target, prop, receiver);
-  },
+const normalizedLabel = computed<FormElementV2LabelOptions>(() => {
+  const labelObject = typeof props.label === "string" ? { label: props.label } : props.label;
+  return { position: "right", hidden: props.hideLabel, ...labelObject };
 });
 
 const { formElementV2Props: legacyFormElementProps } = useLegacyFormElementProps({
-  props: legacyProps,
+  props,
   errorMessages,
 });
 
 const formElementV2Props = computed(() => {
   return {
     ...legacyFormElementProps.value,
-    loading: false,
+    loading: false, // hide FormElementV2 loading indicator because we use a custom one for the switch
     label: normalizedLabel.value,
   };
 });
@@ -131,8 +111,9 @@ useAutofocus(input, props);
         </span>
         <span
           v-if="displayValueLabel"
-          class="onyx-switch__label"
+          class="onyx-switch__display-label"
           :class="[`onyx-truncation-${props.truncation}`]"
+          aria-hidden="true"
         >
           {{ displayValueLabel }}
         </span>
@@ -179,10 +160,8 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       &__body {
         width: auto;
       }
-      &__label {
-        padding-left: var(--onyx-switch-label-padding-vertical);
-      }
     }
+
     &__label {
       display: inline-flex;
       align-items: flex-start;
@@ -315,18 +294,39 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       }
     }
 
-    &__label {
+    &__display-label {
       padding: var(--onyx-switch-label-padding-vertical) 0 var(--onyx-switch-label-padding-vertical)
         var(--onyx-switch-label-padding-vertical);
       font-size: var(--onyx-font-size-md);
       line-height: var(--onyx-font-line-height-md);
-    }
-
-    &__label {
       color: var(--onyx-color-text-icons-neutral-intense);
       font-family: var(--onyx-font-family-paragraph);
       font-style: normal;
       font-weight: var(--onyx-font-weight-regular);
+    }
+
+    &:has(.onyx-form-element-v2__message--success) {
+      .onyx-switch__frame {
+        border-color: var(--onyx-color-component-border-success);
+      }
+
+      .onyx-switch__container {
+        background-color: var(--onyx-color-base-success-200);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-success-500);
+          color: var(--onyx-color-text-icons-neutral-inverted);
+        }
+      }
+
+      &:has(.onyx-switch__input:checked) .onyx-switch__container {
+        background-color: var(--onyx-color-base-success-500);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-background-blank);
+          color: var(--onyx-color-text-icons-success-intense);
+        }
+      }
     }
 
     &:hover {
@@ -345,21 +345,37 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       &:has(.onyx-switch__input:user-invalid:enabled:checked) .onyx-switch__container {
         background-color: var(--onyx-color-component-cta-danger-hover);
       }
+
+      &:has(.onyx-switch__input:enabled):has(.onyx-form-element-v2__message--success)
+        .onyx-switch__container {
+        background-color: var(--onyx-color-base-success-300);
+      }
+
+      &:has(.onyx-switch__input:enabled:checked):has(.onyx-form-element-v2__message--success)
+        .onyx-switch__container {
+        background-color: var(--onyx-color-component-cta-success-hover);
+      }
     }
 
     &:has(&__input:focus-visible) {
       outline: none;
 
-      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-base-neutral-600);
+      &:not(:has(.onyx-form-element-v2__message--success)) {
+        &:has(.onyx-switch__input:enabled) .onyx-switch__container {
+          outline: var(--onyx-outline-width) solid var(--onyx-color-base-neutral-600);
+        }
+
+        &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
+          outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+        }
+
+        &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
+          outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
+        }
       }
 
-      &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-      }
-
-      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
+      &:has(.onyx-form-element-v2__message--success) .onyx-switch__container {
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-success);
       }
     }
 
@@ -368,13 +384,20 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       .onyx-switch__frame {
         border-color: transparent;
       }
-      .onyx-switch__label {
+      .onyx-switch__display-label {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
     &:has(.onyx-switch__input:disabled.onyx-switch__loading) {
       .onyx-switch__frame {
         border-color: var(--onyx-color-base-neutral-600);
+      }
+    }
+    &.onyx-form-element-v2--label-right:not(:has(.onyx-switch__display-label)) {
+      cursor: pointer;
+      gap: var(--onyx-switch-label-padding-vertical);
+      .onyx-truncation-ellipsis {
+        cursor: inherit;
       }
     }
   }
