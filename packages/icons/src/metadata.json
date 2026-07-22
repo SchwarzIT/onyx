@@ -139,9 +139,15 @@
     "category": "Arrows",
     "aliases": ["organize-pointers", "Pfeile", "sortieren", "ordnen"]
   },
-  "artifical-intelligence": {
+  "artificial-intelligence": {
     "category": "Software & Services",
-    "aliases": []
+    "aliases": [
+      "Chatbot",
+      "Technologie",
+      "Künstliche Intelligenz (KI)",
+      "Einrichtungsassistent",
+      "Generativ"
+    ]
   },
   "attachment": {
     "category": "Action & Interface",
@@ -1732,7 +1738,15 @@
   },
   "message-AI": {
     "category": "Communication",
-    "aliases": []
+    "aliases": [
+      "Chatbot",
+      "Nachricht",
+      "Textnachricht",
+      "Sprechblase",
+      "Eingabeaufforderung",
+      "Künstliche Intelligenz (KI)",
+      "Chat"
+    ]
   },
   "message-conversation": {
     "category": "Communication",
@@ -2215,7 +2229,17 @@
   },
   "robot-AI": {
     "category": "Objects",
-    "aliases": []
+    "aliases": [
+      "Chatbot",
+      "Roboter",
+      "Generierung",
+      "Erstellung",
+      "Künstliche Intelligenz (KI)",
+      "Einrichtungsassistent",
+      "KI",
+      "Bot",
+      "Assistent"
+    ]
   },
   "robot-manufacture": {
     "category": "Objects",
