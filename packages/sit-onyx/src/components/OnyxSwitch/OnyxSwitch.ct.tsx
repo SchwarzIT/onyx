@@ -24,6 +24,31 @@ test.describe("Screenshot tests", () => {
     },
   });
 
+  executeMatrixScreenshotTest({
+    name: "Switch (label position)",
+    columns: ["top", "left", "right"],
+    rows: ["unchecked", "checked"],
+    component: (column, row) => (
+      <OnyxSwitch
+        label={{ label: "Test label", position: column }}
+        modelValue={row === "checked"}
+      />
+    ),
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Switch (value label)",
+    columns: ["top", "left", "right"],
+    rows: ["unchecked", "checked"],
+    component: (column, row) => (
+      <OnyxSwitch
+        label={{ label: "Test label", position: column }}
+        modelValue={row === "checked"}
+        valueLabel={{ truthy: "Active", falsy: "Inactive" }}
+      />
+    ),
+  });
+
   for (const state of ["disabled", "loading"] as const) {
     executeMatrixScreenshotTest({
       name: `Switch (${state})`,

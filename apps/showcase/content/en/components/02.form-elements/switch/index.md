@@ -25,3 +25,16 @@ The switch can be disabled to indicate that its action is currently not availabl
 For an improved user experience, it should be clear to the user _why_ the switch is disabled.
 
 :component-example{name="Disabled"}
+
+### Label positions
+
+The switch label can be positioned in several ways to support a wide variety of layouts.
+
+:component-example{layout="grow" name="LabelPositions" orientation="vertical"}
+
+### Value label
+
+The switch value label can be used to display different labels depending on its state.
+
+:component-example{layout="grow" name="ValueLabel"}
+
