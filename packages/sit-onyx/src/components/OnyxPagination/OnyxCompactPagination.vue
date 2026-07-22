@@ -154,26 +154,20 @@ const valueLabel = computed(() =>
   @include layers.component() {
     &--compact {
       .onyx-pagination__button:first-of-type {
-        border-left-color: initial;
+        border-left: var(--onyx-pagination-border-size) solid
+          var(--onyx-color-component-border-secondary);
+        border-right: none;
         border-radius: var(--onyx-pagination-border-radius) 0 0 var(--onyx-pagination-border-radius);
       }
 
-      .onyx-pagination__button:last-of-type {
-        border-left: unset;
-
-        &:focus-visible {
-          margin-left: var(--onyx-outline-width);
-          border-left: var(--onyx-pagination-border-size) solid
-            var(--onyx-color-component-border-secondary-hover);
-        }
-      }
-
       .onyx-pagination__select {
-        .onyx-form-element-v2__input-container {
-          border-left-color: var(--onyx-color-component-border-neutral);
-        }
+        position: relative;
         --onyx-form-element-v2-border-radius: 0;
-        --onyx-form-element-v2-padding-inline-icons: var(--onyx-form-element-v2-padding-inline);
+
+        .onyx-form-element-v2__input-container {
+          border-left: none;
+          border-right: none;
+        }
 
         .onyx-form-element-v2__icons--trailing {
           display: none;
@@ -182,23 +176,25 @@ const valueLabel = computed(() =>
         .onyx-form-element-v2__input {
           text-align: center;
         }
-      }
 
-      // fix for button outlines
-      &:has(.onyx-pagination__button:first-of-type:focus-visible) {
-        .onyx-form-element-v2__input-container {
-          max-width: unset;
-          border-left: none;
-          margin-left: calc(-1 * var(--onyx-outline-width));
+        &::before {
+          content: "";
+          position: absolute;
+          top: var(--onyx-pagination-border-size);
+          bottom: var(--onyx-pagination-border-size);
+          left: 0;
+          width: var(--onyx-pagination-border-size);
+          background-color: var(--onyx-color-component-border-neutral);
         }
       }
-
-      &:has(.onyx-pagination__button:last-of-type:focus-visible) {
-        .onyx-form-element-v2__input-container {
-          max-width: unset;
-          border-right: none;
-          margin-right: calc(-1 * var(--onyx-outline-width));
-        }
+      .onyx-pagination__button:last-of-type ::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: var(--onyx-pagination-border-size);
+        background-color: var(--onyx-color-component-border-neutral);
       }
     }
   }

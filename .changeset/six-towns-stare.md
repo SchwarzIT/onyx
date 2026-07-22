@@ -2,4 +2,4 @@
 "sit-onyx": minor
 ---
 
-feat(theme): improved color contrasts for default and hover states.
+feat(theme): improve color contrasts for several components
