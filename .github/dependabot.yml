@@ -30,9 +30,9 @@ updates:
         update-types: [version-update:semver-major]
       # minor update breaks automatic API documentation. See https://github.com/SchwarzIT/onyx/issues/5851
       - dependency-name: "storybook"
-        update-types: [version-update:semver-minor]
+        update-types: [version-update:semver-patch]
       - dependency-name: "@storybook/"
-        update-types: [version-update:semver-minor]
+        update-types: [version-update:semver-patch]
 
   - package-ecosystem: github-actions
     directories:
