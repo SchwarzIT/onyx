@@ -35,6 +35,7 @@
     "@types/eslint": "^9.6.1",
     "@types/jsdom": "^28.0.3",
     "@types/node": "catalog:",
+    "@typescript/typescript6": "^6.0.2",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vitest/coverage-v8": "^4.1.10",
     "@vitest/eslint-plugin": "^1.6.23",

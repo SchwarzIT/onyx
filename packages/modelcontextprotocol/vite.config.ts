@@ -1,21 +1,12 @@
 import { fileURLToPath, URL } from "node:url";
-import { DiagnosticCategory } from "typescript";
+import { afterDiagnostic } from "@sit-onyx/shared/vite.config.base";
 import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
 import { dependencies } from "./package.json" with { type: "json" };
 import { skillMdPlugin } from "./skill-md.vite.js";
 
 export default defineConfig({
-  plugins: [
-    skillMdPlugin(),
-    dts({
-      afterDiagnostic: async (diagnostics) => {
-        if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
-          throw new Error("Build aborted due to TypeScript errors in the library!");
-        }
-      },
-    }),
-  ],
+  plugins: [skillMdPlugin(), dts({ afterDiagnostic })],
   ssr: {
     noExternal: true,
     external: Object.keys(dependencies),

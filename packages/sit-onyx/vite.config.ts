@@ -1,10 +1,9 @@
 /// <reference types="vitest/config" />
 import { fileURLToPath, URL } from "node:url";
 import { vuePluginOptions } from "@sit-onyx/shared/playwright.config.base";
-import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
+import { afterDiagnostic, VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import { extractComponentMeta } from "@sit-onyx/vite-plugin-component-meta";
 import vue from "@vitejs/plugin-vue";
-import { DiagnosticCategory } from "typescript";
 import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
 import packageJson from "./package.json" with { type: "json" };
@@ -23,11 +22,7 @@ export default defineConfig({
           return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
         }
       },
-      afterDiagnostic: (diagnostics) => {
-        if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
-          throw new Error("Build aborted due to TypeScript errors in the library!");
-        }
-      },
+      afterDiagnostic,
     }),
     vue(vuePluginOptions),
     extractComponentMeta({

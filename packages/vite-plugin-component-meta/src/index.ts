@@ -1,7 +1,7 @@
 // Based on https://github.com/storybookjs/storybook/blob/2b4ef8b687463fb3da89e2888620357afa31dadf/code/frameworks/vue3-vite/src/plugins/vue-component-meta.ts
 import { readFile, stat } from "node:fs/promises";
 import { parse } from "node:path";
-import type { Type } from "typescript";
+import type { Type } from "typescript/unstable/sync";
 import { createFilter, type Plugin } from "vite";
 import {
   type ComponentMeta,
@@ -312,17 +312,16 @@ function removeDefaultVueProps(meta: ComponentMeta) {
  * For a typescript type, get the declaration file.
  */
 function getModulePathFromType(type: Type): string | undefined {
-  const symbol = type.aliasSymbol ?? type.getSymbol();
+  const symbol = type.getAliasSymbol() ?? type.getSymbol();
 
   if (!symbol) {
     return undefined;
   }
 
-  const declarations = symbol.getDeclarations();
+  const declarations = symbol.declarations;
   if (!declarations || declarations.length === 0) {
     return undefined;
   }
 
-  const sourceFile = declarations[0].getSourceFile();
-  return sourceFile.fileName;
+  return declarations[0].path;
 }

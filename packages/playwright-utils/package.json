@@ -24,7 +24,7 @@
     }
   },
   "scripts": {
-    "build": "vite build && vue-tsc --emitDeclarationOnly"
+    "build": "vite build && tsc --emitDeclarationOnly"
   },
   "devDependencies": {
     "@sit-onyx/shared": "workspace:*",

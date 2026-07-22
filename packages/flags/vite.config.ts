@@ -1,7 +1,6 @@
 import { fileURLToPath, URL } from "node:url";
-import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
+import { VITE_BASE_CONFIG, afterDiagnostic } from "@sit-onyx/shared/vite.config.base";
 import svg from "@sit-onyx/vite-plugin-svg";
-import { DiagnosticCategory } from "typescript";
 import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
@@ -16,14 +15,7 @@ export default defineConfig({
       input: "src/assets",
       modifyExportName: (name) => getFlagImportName(name),
     }),
-    dts({
-      processor: "vue",
-      afterDiagnostic: async (diagnostics) => {
-        if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
-          throw new Error("Build aborted due to TypeScript errors in the library!");
-        }
-      },
-    }),
+    dts({ processor: "vue", afterDiagnostic }),
     viteStaticCopy({
       targets: [{ src: "src/assets", dest: "" }],
     }),
