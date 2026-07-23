@@ -63,3 +63,8 @@ export const RowClick: Story = {
   tags: ["new:feature"],
   ...createAdvancedStoryExample("OnyxDataGrid", "RowClickExample"),
 };
+
+export const RowRearrange: Story = {
+  tags: ["new:feature"],
+  ...createAdvancedStoryExample("OnyxDataGrid", "RowRearrange"),
+};

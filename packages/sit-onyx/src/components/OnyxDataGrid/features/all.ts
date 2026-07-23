@@ -9,6 +9,7 @@ export * from "./rowClick/types.js";
 export * from "./selection/types.js";
 export * from "./sorting/types.js";
 export * from "./stickyColumns/types.js";
+export * from "./rowRearrange/types.js";
 
 export { useEditing } from "./editing/editing.js";
 export { useExpandableRows } from "./expandableRows/expandableRows.js";
@@ -21,3 +22,4 @@ export { useRowClick } from "./rowClick/rowClick.js";
 export { useSelection } from "./selection/selection.js";
 export { useSorting } from "./sorting/sorting.js";
 export { useStickyColumns } from "./stickyColumns/stickyColumns.js";
+export { useRowRearrange } from "./rowRearrange/rowRearrange.js";
