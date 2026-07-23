@@ -103,17 +103,8 @@ const { vCustomValidity, errorMessages } = useFormElementError({
   error: requiredError,
 });
 
-const legacyProps = new Proxy(props, {
-  get(target, prop, receiver) {
-    if (prop === "label") {
-      return props.label ?? { label: t.value("fileUpload.clickToUpload"), hidden: true };
-    }
-    return Reflect.get(target, prop, receiver);
-  },
-}) as typeof props & { label: NonNullable<typeof props.label> };
-
 const { formElementV2Props } = useLegacyFormElementProps({
-  props: legacyProps,
+  props,
   errorMessages,
 });
 
@@ -245,6 +236,7 @@ const shouldShowFileList = computed(() => {
     v-bind="
       mergeVueProps(formElementV2Props, rootAttrs, {
         class: ['onyx-file-upload-wrapper', `onyx-file-upload-wrapper--${props.size}`],
+        label: props.label ?? { label: t('fileUpload.clickToUpload'), hidden: true },
       })
     "
     unstyled
@@ -324,6 +316,7 @@ const shouldShowFileList = computed(() => {
           <input
             ref="input"
             v-custom-validity
+            v-bind="mergeVueProps(restAttrs, inputProps)"
             aria-hidden="true"
             tabindex="-1"
             class="onyx-file-upload__input"
@@ -331,7 +324,6 @@ const shouldShowFileList = computed(() => {
             :accept="props.accept?.length ? props.accept.join(',') : undefined"
             :multiple="props.multiple"
             :name="props.name"
-            v-bind="mergeVueProps(restAttrs, inputProps)"
             @change="handleChange"
           />
         </OnyxVisuallyHidden>
@@ -378,6 +370,7 @@ const shouldShowFileList = computed(() => {
 
 @include layers.component() {
   .onyx-file-upload-wrapper {
+    --onyx-file-upload-max-files: 3;
     --onyx-file-upload-border-color: var(--onyx-color-component-border-neutral);
     --onyx-file-upload-active-border-color: var(--onyx-color-component-border-primary-hover);
     --onyx-file-upload-error-illustration-display: none;
@@ -423,16 +416,14 @@ const shouldShowFileList = computed(() => {
     }
 
     &--large .onyx-form-element-v2__content-skeleton {
-      height: calc(7.5rem + 2 * var(--onyx-density-xl));
-      width: calc(20rem + 2 * var(--onyx-density-xl));
+      --onyx-form-element-v2-content-height: 7lh;
     }
 
     &--medium .onyx-form-element-v2__content-skeleton {
-      height: calc(3.125rem + 2 * var(--onyx-density-xs));
-      width: calc(16rem + 2 * var(--onyx-density-xs));
+      --onyx-form-element-v2-content-height: 2lh;
     }
     &--small .onyx-form-element-v2__content-skeleton {
-      width: calc(6rem + 2 * var(--onyx-density-sm));
+      --onyx-form-element-v2-content-height: 1lh;
     }
 
     &.onyx-form-element-v2--label-left,
@@ -444,7 +435,6 @@ const shouldShowFileList = computed(() => {
   }
 
   .onyx-file-upload-container {
-    --onyx-file-upload-max-files: 3;
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);
