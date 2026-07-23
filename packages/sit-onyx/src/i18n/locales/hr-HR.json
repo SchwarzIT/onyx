@@ -359,5 +359,8 @@
     "trailingShortcutPlaceholder": "za pretraživanje",
     "label": "Pretraživanje",
     "selectFilter": "Odaberi filtar"
+  },
+  "fileCard": {
+    "unknownSize": "Nepoznata veličina"
   }
 }
