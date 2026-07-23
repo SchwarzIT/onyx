@@ -17,7 +17,7 @@ export type OnyxFileCardProps = DensityProp &
      * be displayed in decimal instead of binary notation (e.g. 42MB instead of 42MiB) since users
      * are mostly non-technical and such visualization is therefore simpler to understand.
      */
-    size: number | BinaryPrefixedSize;
+    size: number | BinaryPrefixedSize | "unknown";
     /**
      * Link to the file. If set, the filename will be rendered as link.
      */
