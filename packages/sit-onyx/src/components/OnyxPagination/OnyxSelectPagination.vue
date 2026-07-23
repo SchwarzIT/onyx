@@ -163,7 +163,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
 
     &__select {
       .onyx-form-element-v2__input-container {
-        border-right: none;
+        border-right-color: var(--onyx-color-component-border-neutral);
       }
       --onyx-form-element-v2-border-radius: var(--onyx-pagination-border-radius) 0 0
         var(--onyx-pagination-border-radius);
@@ -173,16 +173,9 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       .onyx-form-element-action {
         --onyx-form-element-action-color-highlight: var(--onyx-color-text-icons-neutral-intense);
       }
-
-      &:focus-within,
-      .onyx-form-element-v2__popover:has(> .onyx-basic-popover__dialog:popover-open)
-        > .onyx-form-element-v2__input-container {
-        z-index: 1;
-      }
     }
 
     &__count {
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -195,22 +188,9 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       background-color: var(--onyx-color-base-background-tinted);
       width: max-content;
       max-width: 100%;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: var(--onyx-pagination-border-size);
-        background-color: var(--onyx-color-component-border-neutral);
-        pointer-events: none;
-      }
     }
 
     &__button {
-      position: relative;
-      z-index: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -218,22 +198,17 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       height: var(--onyx-pagination-height);
       background-color: var(--onyx-color-base-background-blank);
       border: var(--onyx-pagination-border-size) solid var(--onyx-color-component-border-secondary);
-      border-left: none;
+      border-left-color: var(--onyx-color-component-border-neutral);
       color: inherit;
 
-      &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: var(--onyx-pagination-border-size);
-        background-color: var(--onyx-color-component-border-neutral);
-        pointer-events: none;
-      }
-
       &:first-of-type {
-        border-right: none;
+        &:not(:focus-visible) {
+          border-right: none;
+        }
+
+        &:focus-visible + .onyx-pagination__button {
+          border-left: none;
+        }
       }
 
       &:last-of-type {
@@ -244,16 +219,31 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
         cursor: pointer;
         color: var(--onyx-color-text-icons-neutral-medium);
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
           color: var(--onyx-color-text-icons-neutral-intense);
+        }
+
+        &:hover {
           background-color: var(--onyx-color-base-neutral-200);
         }
 
         &:focus-visible {
-          z-index: 1;
           background-color: var(--onyx-color-base-neutral-200);
           outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
           border-color: var(--onyx-color-component-border-secondary-hover);
+          // the right outline of the first button would be cut off / not visible
+          // so we use this little trick here to add margin-right and reduce the left padding
+          // of the second button so it does not change in size visually
+          &:first-of-type {
+            margin-right: var(--onyx-outline-width);
+
+            + .onyx-pagination__button {
+              padding-left: calc(
+                var(--onyx-pagination-padding-vertical) - var(--onyx-outline-width)
+              );
+            }
+          }
         }
 
         &:active {

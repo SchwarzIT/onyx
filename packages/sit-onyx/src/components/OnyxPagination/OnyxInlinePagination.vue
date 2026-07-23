@@ -141,11 +141,7 @@ const displayPagesNumbers = computed(() => {
 .onyx-pagination {
   @include layers.component() {
     &--inline {
-      display: inline-flex;
-      height: var(--onyx-pagination-height);
       background-color: var(--onyx-color-base-background-blank);
-      border: var(--onyx-pagination-border-size) solid var(--onyx-color-component-border-secondary);
-      border-radius: var(--onyx-pagination-border-radius);
 
       & > .onyx-pagination__navigate-button,
       & > .onyx-pagination__page-button,
@@ -153,33 +149,15 @@ const displayPagesNumbers = computed(() => {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
-        border: none;
-        border-right: var(--onyx-pagination-border-size) solid
-          var(--onyx-color-component-border-neutral);
+        padding: var(--onyx-pagination-padding-vertical);
+        height: var(--onyx-pagination-height);
+        border: var(--onyx-pagination-border-size) solid
+          var(--onyx-color-component-border-secondary);
+        border-left: none;
+        border-right-color: var(--onyx-color-component-border-neutral);
         background-color: inherit;
         color: inherit;
         aspect-ratio: 1;
-        &:last-child {
-          border-right: none;
-        }
-        &:first-child {
-          border-top-left-radius: calc(
-            var(--onyx-pagination-border-radius) - var(--onyx-pagination-border-size)
-          );
-          border-bottom-left-radius: calc(
-            var(--onyx-pagination-border-radius) - var(--onyx-pagination-border-size)
-          );
-        }
-
-        &:last-child {
-          border-top-right-radius: calc(
-            var(--onyx-pagination-border-radius) - var(--onyx-pagination-border-size)
-          );
-          border-bottom-right-radius: calc(
-            var(--onyx-pagination-border-radius) - var(--onyx-pagination-border-size)
-          );
-        }
       }
 
       & > .onyx-pagination__more-pages {
@@ -218,6 +196,20 @@ const displayPagesNumbers = computed(() => {
         &:disabled {
           background-color: var(--onyx-color-base-background-tinted);
           color: var(--onyx-color-text-icons-neutral-soft);
+        }
+      }
+
+      & > .onyx-pagination__navigate-button {
+        &:first-of-type {
+          border-radius: var(--onyx-pagination-border-radius) 0 0
+            var(--onyx-pagination-border-radius);
+          border-left: var(--onyx-pagination-border-size) solid
+            var(--onyx-color-component-border-secondary);
+        }
+        &:last-of-type {
+          border-radius: 0 var(--onyx-pagination-border-radius) var(--onyx-pagination-border-radius)
+            0;
+          border-right-color: var(--onyx-color-component-border-secondary);
         }
       }
 
