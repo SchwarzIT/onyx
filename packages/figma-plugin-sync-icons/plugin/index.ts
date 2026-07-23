@@ -181,18 +181,26 @@ async function syncIcons(message: { accessToken: string }) {
       try {
         const component = await figma.importComponentByKeyAsync(iconKey);
 
-        // create a fresh, local component
-        // cloning does not work here since the component would be hidden from publishing which can not be changed
-        // via the Figma plugin API so we only clone the SVG contents below
+        // Create a fresh, local component instead of using `component.clone()`.
+        // A real clone would inherit the "hidden from publish" flag from the imported
+        // remote component, and that flag cannot be toggled via the Figma plugin API.
+        // Creating a new component avoids the flag; we then copy over the content and all the
+        // publishable metadata (name, description, docs, ...) that a real clone would
+        // have carried, plus the inner vector shapes.
         const clone = figma.createComponent();
 
-        // 2. Inherit base dimensions and properties
+        // Base dimensions and container properties
         clone.name = component.name;
         clone.resize(component.width, component.height);
         clone.fills = component.fills;
         clone.clipsContent = component.clipsContent;
 
-        // 3. Deep-clone the inner vector shapes from the remote component
+        // Publishable metadata that `createComponent()` doesn't set
+        clone.description = component.description;
+        clone.descriptionMarkdown = component.descriptionMarkdown;
+        clone.documentationLinks = component.documentationLinks;
+
+        // Deep-clone the inner vector shapes from the remote component
         for (const child of component.children) {
           clone.appendChild(child.clone());
         }
