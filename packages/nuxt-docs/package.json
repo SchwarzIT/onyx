@@ -31,12 +31,12 @@
     "@sit-onyx/mdc": "workspace:^"
   },
   "devDependencies": {
-    "@fontsource-variable/source-code-pro": "^5.2.7",
-    "@fontsource-variable/source-sans-3": "^5.2.9",
+    "@fontsource-variable/source-code-pro": "^5.3.0",
+    "@fontsource-variable/source-sans-3": "^5.3.0",
     "@nuxt/content": "^3.15.0",
     "@nuxt/test-utils": "^4.0.3",
     "@nuxtjs/color-mode": "^4.0.1",
-    "@nuxtjs/mdc": "~0.22.1",
+    "@nuxtjs/mdc": "~0.22.2",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",

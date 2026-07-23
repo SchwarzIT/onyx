@@ -29,6 +29,7 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
 
 const withSorting = DataGridFeatures.useSorting<Entry>({
   // options here...
+
 });
 
 const features = [withSorting];

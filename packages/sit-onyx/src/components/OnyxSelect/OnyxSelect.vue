@@ -3,8 +3,8 @@
   setup
   generic="
     TModelValue extends SelectOptionValue | SelectOptionValue[],
-    TMultiple extends TModelValue extends any[] ? true : false | undefined,
-    TValue extends TModelValue extends (infer TInner)[] ? TInner : TModelValue
+    TMultiple extends (TModelValue extends any[] ? true : false | undefined),
+    TValue extends (TModelValue extends (infer TInner)[] ? TInner : TModelValue)
   "
 >
 import {

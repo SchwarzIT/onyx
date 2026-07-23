@@ -3,7 +3,7 @@
   setup
   generic="
     TMultiple extends boolean = false,
-    TModelValue extends TMultiple extends true ? File[] : Nullable<File> = TMultiple extends true
+    TModelValue extends (TMultiple extends true ? File[] : Nullable<File>) = TMultiple extends true
       ? File[]
       : Nullable<File>
   "
