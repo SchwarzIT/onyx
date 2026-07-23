@@ -8,6 +8,7 @@ import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
+import { injectI18n } from "../../i18n/index.js";
 import { applyLimits } from "../../utils/numbers.js";
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxCard from "../OnyxCard/OnyxCard.vue";
@@ -47,6 +48,11 @@ const link = computed(() => {
   if (!props.link) return;
   return extractLinkProps(props.link);
 });
+
+const { t } = injectI18n();
+const fileSize = computed(() =>
+  props.size === "unknown" ? t.value("fileCard.unknownSize") : formatFileSize.value(props.size),
+);
 </script>
 
 <template>
@@ -83,7 +89,7 @@ const link = computed(() => {
 
           <div class="onyx-file-card__details onyx-truncation-ellipsis">
             <div class="onyx-file-card__size">
-              {{ formatFileSize(props.size) }}
+              {{ fileSize }}
             </div>
 
             <span
