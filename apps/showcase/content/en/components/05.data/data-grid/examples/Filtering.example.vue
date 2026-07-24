@@ -21,6 +21,7 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
 
 const withFiltering = DataGridFeatures.useFiltering<Entry>({
   // options here...
+
 });
 
 const features = [withFiltering];

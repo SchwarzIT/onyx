@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
-    "@nuxtjs/mdc": "~0.22.1",
+    "@nuxtjs/mdc": "~0.22.2",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/playwright-utils": "workspace:^",

@@ -27,8 +27,8 @@
     "build": "tsc --noEmit"
   },
   "dependencies": {
-    "@fontsource-variable/source-code-pro": "^5.2.7",
-    "@fontsource-variable/source-sans-3": "^5.2.9"
+    "@fontsource-variable/source-code-pro": "^5.3.0",
+    "@fontsource-variable/source-sans-3": "^5.3.0"
   },
   "devDependencies": {
     "sit-onyx": "workspace:^"
