@@ -138,6 +138,9 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
       event.preventDefault();
 
       state.value.order.set(draggedRow.value.id, targetOrder.value);
+
+      // TODO: adjust previously moved rows if needed
+
       cleanUp();
     };
 
