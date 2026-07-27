@@ -31,7 +31,8 @@ const badgeClasses = computed(() => [
 
 defineSlots<{
   /**
-   * Badge content.
+   * The content of the badge. Don't provide interactive content.
+   * If the `dot` or `icon` prop is set the slot content is not rendered.
    */
   default?(): unknown;
 }>();

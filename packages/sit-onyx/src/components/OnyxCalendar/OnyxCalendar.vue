@@ -56,6 +56,7 @@ const emit = defineEmits<{
 const slots = defineSlots<{
   /**
    * Optional slot that is displayed below at the right of the Header.
+   * Can be used to provide `OnyxIconButton` or `OnyxButton` components.
    */
   actions?(): unknown;
   /**

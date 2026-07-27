@@ -32,6 +32,7 @@ const emit = defineEmits<{
 const slots = defineSlots<{
   /**
    * Main sidebar content/body.
+   * Use `OnyxSidebarItem` and/or `OnyxTreeView` components here.
    */
   default(): unknown;
   /**
@@ -40,6 +41,7 @@ const slots = defineSlots<{
   header?(): unknown;
   /**
    * Optional footer slot to show below the body.
+   * Use `OnyxButton` component here.
    */
   footer?(): unknown;
   /**

@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<OnyxBreadcrumbProps>(), {
 
 defineSlots<{
   /**
-   * Breadcrumb items (see `OnyxBreadcrumbItem` component).
+   * Use the default slot to provide one or more `OnyxBreadcrumbItem` components.
    */
   default(): unknown;
 }>();

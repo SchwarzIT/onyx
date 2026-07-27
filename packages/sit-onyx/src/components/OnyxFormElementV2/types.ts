@@ -62,7 +62,7 @@ export type OnyxFormElementV2Slots = {
    */
   leading?(): unknown;
   /**
-   * Optional inner icons to display before the input but after the `leading` slot.
+   * Optional inner icons (`OnyxIcon`) to display before the input but after the `leading` slot.
    * Will be hidden when `loading` property is set.
    */
   leadingIcons?(): unknown;
