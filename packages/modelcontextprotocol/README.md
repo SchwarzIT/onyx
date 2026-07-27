@@ -84,7 +84,7 @@ You must reload the inspector browser website after changes to the `@sit-onyx/mo
 ### Adding Agent Skills
 
 [Agent Skills](https://agentskills.io/) are developed and maintained in the `./src/resources/skills` directory.
-Each skill has it's own directory with a single `SKILL.md` file.
+Each skill has its own directory with a single `SKILL.md` file.
 
 ```md
 ---
