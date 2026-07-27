@@ -31,6 +31,10 @@ if (import.meta.main) {
       type: "string",
       short: "w",
     },
+    exclude: {
+      type: "string",
+      short: "e",
+    },
     help: {
       type: "boolean",
       short: "h",
@@ -44,7 +48,7 @@ if (import.meta.main) {
   } satisfies ParseArgsOptionsConfig;
 
   const {
-    values: { transport, version, help, resourcesAsTools, writeSkills },
+    values: { transport, version, help, resourcesAsTools, writeSkills, exclude },
   } = parseArgs({
     args: process.argv.slice(2),
     options,
@@ -64,7 +68,8 @@ Options:
                                   The "http" transport considers PORT and HOST environment variables, when starting the server.
  -r, --resourcesAsTools           Some LLM Coding Assistants (e.g. Gemini) are not able to to use MCP resources (yet). 
                                   This setting makes resources also available as tools to support these Coding Assistants.
- -w, --writeSkills <directory>   Write skill resources to SKILL.md files in the specified directory.
+ -w, --writeSkills <directory>    Write skill resources to SKILL.md files in the specified directory.
+-e, --exclude <regex-pattern>     Exclude/Filter capabilities by their URI. E.g. '-e "skill"' to exclude skills.
  -h, --help                       Show this help text and quit.
  -v, --version                    Show version number and quit.`);
     process.exit(0);
@@ -82,7 +87,7 @@ Options:
     if (!Object.keys(SUPPORTED_TRANSPORTS).includes(transport)) {
       throw new Error(`Unsupported transport: ${transport}`);
     }
-    const getServer = () => createServer({ resourcesAsTools });
+    const getServer = () => createServer({ resourcesAsTools, exclude });
     await SUPPORTED_TRANSPORTS[transport as SupportedTransport](getServer);
   }
 }

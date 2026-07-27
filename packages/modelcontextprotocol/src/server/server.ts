@@ -6,9 +6,9 @@ import { resourceToTool } from "../util/mcp-server.js";
 
 const { name, version, description } = packageJson;
 
-type CreateServerOptions = { resourcesAsTools: boolean };
+type CreateServerOptions = { resourcesAsTools: boolean; exclude?: string };
 
-export const createServer = ({ resourcesAsTools }: CreateServerOptions) => {
+export const createServer = ({ resourcesAsTools, exclude }: CreateServerOptions) => {
   /**
    * Internal McpServer, which provides the MCP resources.
    */
@@ -16,16 +16,21 @@ export const createServer = ({ resourcesAsTools }: CreateServerOptions) => {
     name,
     version,
     description,
-    websiteUrl: "https://onyx.schwarz",
+    websiteUrl: "https://onyx.schwarz/development/packages/mcp.html",
   });
 
-  resources.forEach((resource) =>
-    // typescript is unable to merge the type parameters of the overloaded function
-    server.registerResource(...(resource as RegisterableResource)),
-  );
+  for (const resource of resources) {
+    const uri = typeof resource[1] === "string" ? resource[1] : resource[1].uriTemplate.expand({});
+    if (exclude && new RegExp(exclude).test(uri)) {
+      continue;
+    }
 
-  if (resourcesAsTools) {
-    resources.map((r) => resourceToTool(r)).forEach((t) => server.registerTool(...t));
+    // typescript is unable to merge the type parameters of the overloaded function
+    server.registerResource(...(resource as RegisterableResource));
+
+    if (resourcesAsTools) {
+      server.registerTool(...resourceToTool(resource));
+    }
   }
 
   return server;
