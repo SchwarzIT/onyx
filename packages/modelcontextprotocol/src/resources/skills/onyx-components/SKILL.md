@@ -17,11 +17,23 @@ Onyx component APIs are dynamic and change across versions. **NEVER guess or ass
 - **Props-based Links:** Components like `OnyxButton`, `OnyxIconButton`, `OnyxSystemButton`, `OnyxMenuItem`, and `OnyxNavItem` support a `link` prop. Do not wrap these components in raw `<a>` tags; pass the URL to the `link` prop.
 - **Headless Links:** Use the `useLink` composable (`const { navigate, isActive } = useLink()`) or `OnyxRouterLink` for custom unstyled navigation components.
 
+### Composition
+
+- Compose, don't reinvent. Data page = OnyxHeadline + OnyxTabs + OnyxDataGrid. Dashboard = OnyxCard + OnyxHeadline + OnyxFlyoutMenu + OnyxSystemButton.
+- Always use the recommended components for a slot. These are usually mentioned in the API description of the slot itself.
+- Always use the appropriate Onyx component instead of building components from scratch: E.g.
+  - `OnyxButton`, `OnyxSystemButton` or `OnyxIconButton` instead of `<button>`
+  - `OnyxInput`, `OnyxTimepicker`, `OnyxDatepicker` or `OnyxStepper` instead of `<input>`
+  - `OnyxTextarea` instead of `<textarea>`
+  - `OnyxSelect` instead `<select>`
+  - `OnyxDatagrid` instead of `<table>`
+  - `OnyxSidebar` instead of building a sidebar from scratch
+
 ### Form Elements
 
 - **Labels & Messages:** Always configure standard `Message` and `LabelPositions` properties consistently.
 - **Loading State:** Implement built-in `Skeleton` loading states when loading form data.
-- **Accessibility:** Use proper labels and fieldsets for complex multi-input forms (`date-picker`, `radio-group`, `checkbox-group`).
+- **Accessibility:** Use proper labels for complex multi-input forms (`date-picker`, `radio-group`, `checkbox-group`).
 
 ### Cards & Layout Structure
 
