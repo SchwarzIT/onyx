@@ -69,7 +69,7 @@ Options:
  -r, --resourcesAsTools           Some LLM Coding Assistants (e.g. Gemini) are not able to to use MCP resources (yet). 
                                   This setting makes resources also available as tools to support these Coding Assistants.
  -w, --writeSkills <directory>    Write skill resources to SKILL.md files in the specified directory.
--e, --exclude <regex-pattern>     Exclude/Filter capabilities by their URI. E.g. '-e "skill"' to exclude skills.
+ -e, --exclude <regex-pattern>    Exclude/Filter capabilities by their URI. E.g. '-e "skill"' to exclude skills.
  -h, --help                       Show this help text and quit.
  -v, --version                    Show version number and quit.`);
     process.exit(0);
