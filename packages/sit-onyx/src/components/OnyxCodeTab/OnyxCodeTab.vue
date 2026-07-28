@@ -5,6 +5,7 @@ import {
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
+import { userConsole } from "../../utils/console.js";
 import { useForwardProps } from "../../utils/props.js";
 import { CODE_TABS_INJECTION_KEY } from "../OnyxCodeTabs/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -34,6 +35,8 @@ const { t } = injectI18n();
 
 const tabProps = useForwardProps(props, OnyxTab);
 const tabsContext = inject(CODE_TABS_INJECTION_KEY, undefined);
+userConsole?.assert(tabsContext, "OnyxCodeTab must be placed inside of a OnyxCodeTabs component!");
+
 const label = computed(() => props.label ?? t.value("codeTabs.tabLabel"));
 const skeleton = useSkeletonContext(props);
 
@@ -43,20 +46,20 @@ watch(
   [() => props.value, () => props.code, codeEl],
   ([newValue, newCode], [oldValue]) => {
     if (oldValue) {
-      tabsContext?.tabs.delete(oldValue);
+      tabsContext?.tabs.value.delete(oldValue);
     }
-    tabsContext?.tabs.set(newValue, newCode || codeEl.value || "");
+    tabsContext?.tabs.value.set(newValue, newCode || codeEl.value || "");
   },
   { immediate: true },
 );
 
 onUnmounted(() => {
-  tabsContext?.tabs.delete(props.value);
+  tabsContext?.tabs.value.delete(props.value);
 });
 
 const disabled = computed(() => {
   if (props.disabled != undefined) return props.disabled;
-  return tabsContext && tabsContext.tabs.size <= 1;
+  return tabsContext && tabsContext.tabs.value.size <= 1;
 });
 </script>
 

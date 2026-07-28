@@ -45,10 +45,10 @@ export const components = {
 
 export const OnyxComark = defineComarkComponent({
   components,
-  class: "onyx-comark-renderer",
+  class: "onyx-component onyx-comark",
 });
 
 export const OnyxComarkRenderer = defineComarkRendererComponent({
   components,
-  class: "onyx-comark-renderer",
+  class: "onyx-component onyx-comark-renderer",
 });
