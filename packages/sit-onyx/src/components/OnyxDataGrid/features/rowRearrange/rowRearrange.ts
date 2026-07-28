@@ -5,7 +5,7 @@ import {
   iconUndo,
   iconX,
 } from "@sit-onyx/icons";
-import { computed, h, ref, shallowRef, toRef, toValue, type HTMLAttributes } from "vue";
+import { computed, h, ref, shallowRef, toRef, toValue, type HTMLAttributes, type Ref } from "vue";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import type { DataGridEntry } from "../../types.js";
 import {
@@ -49,9 +49,9 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
 ) =>
   createFeature(() => {
     const isEnabled = computed(() => toValue(options?.enabled) ?? true);
-    const state = toRef(
-      options?.state ?? ({ active: false, order: new Map() } satisfies RowRearrangeState<TEntry>),
-    );
+    const state = toRef(options?.state ?? { active: false, order: new Map() }) as Ref<
+      RowRearrangeState<TEntry>
+    >;
 
     /**
      * ID of the row currently being dragged.
@@ -134,12 +134,26 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
     };
 
     const onDrop = (event: DragEvent) => {
-      if (targetOrder.value == undefined || !draggedRow.value) return;
+      const draggedRowOrderOld = getRowOrder(draggedRow.value?.tr);
+      const draggedRowOrderNew = targetOrder.value;
+      if (draggedRowOrderOld == undefined || draggedRowOrderNew == undefined || !draggedRow.value) {
+        return;
+      }
+
       event.preventDefault();
 
-      state.value.order.set(draggedRow.value.id, targetOrder.value);
+      // adjust previously moved rows if needed
+      state.value.order.forEach((order, rowId) => {
+        if (draggedRowOrderOld < order && draggedRowOrderNew >= order) {
+          // case 1: dropped row comes before previous re-ordered row
+          state.value.order.set(rowId, order - 1);
+        } else if (draggedRowOrderOld > order && draggedRowOrderNew <= order) {
+          // case 2: dropped row comes after previous re-ordered row
+          state.value.order.set(rowId, order + 1);
+        }
+      });
 
-      // TODO: adjust previously moved rows if needed
+      state.value.order.set(draggedRow.value.id, draggedRowOrderNew);
 
       cleanUp();
     };
