@@ -107,7 +107,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
       &.onyx-button--outline {
         --onyx-button-background-color-hover: var(--onyx-color-base-primary-100);
-        --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-primary-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-primary-soft);
         --onyx-button-border-color: var(--onyx-color-base-primary-400);
         --onyx-button-border-color-disabled: var(--onyx-color-base-primary-200);
@@ -115,7 +115,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
       &.onyx-button--plain {
         --onyx-button-background-color-hover: var(--onyx-color-base-primary-100);
-        --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-primary-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-primary-soft);
       }
     }
@@ -135,7 +135,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
       &.onyx-button--outline {
         --onyx-button-background-color-hover: var(--onyx-color-base-neutral-200);
-        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-soft);
         --onyx-button-border-color: var(--onyx-color-base-neutral-400);
         --onyx-button-border-color-disabled: var(--onyx-color-base-neutral-200);
@@ -143,7 +143,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
       &.onyx-button--plain {
         --onyx-button-background-color-hover: var(--onyx-color-base-neutral-200);
-        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-soft);
       }
     }
@@ -172,7 +172,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
       &.onyx-button--plain {
         --onyx-button-background-color-hover: var(--onyx-color-base-danger-100);
-        --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-danger-medium);
       }
     }

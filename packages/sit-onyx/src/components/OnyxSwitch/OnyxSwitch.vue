@@ -169,7 +169,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
 
     &__frame {
       position: absolute;
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-600);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
       height: var(--onyx-switch-frame-height);
       border-radius: var(--onyx-radius-full);
       width: $input-width;
@@ -308,8 +308,13 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     }
 
     &:hover {
-      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-        background-color: var(--onyx-color-base-neutral-400);
+      &:has(.onyx-switch__input:enabled:not(.onyx-switch__input:user-invalid)) {
+        .onyx-switch__container {
+          background-color: var(--onyx-color-base-neutral-400);
+        }
+        .onyx-switch__frame {
+          border-color: var(--onyx-color-component-border-secondary-hover);
+        }
       }
 
       &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
@@ -352,7 +357,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     }
     &:has(.onyx-switch__input:disabled.onyx-switch__loading) {
       .onyx-switch__frame {
-        border-color: var(--onyx-color-base-neutral-600);
+        border-color: var(--onyx-color-component-border-secondary);
       }
     }
   }

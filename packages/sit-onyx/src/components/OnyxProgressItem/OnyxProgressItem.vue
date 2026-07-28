@@ -131,18 +131,18 @@ const icon = computed(() => {
     &--default,
     &--visited {
       --onyx-progress-item-background-color: transparent;
-      --onyx-progress-item-border-color: var(--onyx-color-component-border-neutral);
+      --onyx-progress-item-border-color: var(--onyx-color-component-border-secondary);
       --onyx-progress-item-color: var(--onyx-color-text-icons-neutral-intense);
 
       &:enabled {
         &:hover {
           --onyx-progress-item-background-color: var(--onyx-color-base-neutral-200);
-          --onyx-progress-item-border-color: var(--onyx-color-component-border-neutral-hover);
+          --onyx-progress-item-border-color: var(--onyx-color-component-border-primary-hover);
         }
 
         &:focus-visible {
           --onyx-progress-item-background-color: transparent;
-          --onyx-progress-item-border-color: var(--onyx-color-component-border-neutral-hover);
+          --onyx-progress-item-border-color: var(--onyx-color-component-border-secondary-hover);
         }
       }
     }
