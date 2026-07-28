@@ -15,6 +15,14 @@ export type RowRearrangeOptions<TEntry extends DataGridEntry> = {
 };
 
 export type RowRearrangeState<TEntry extends DataGridEntry> = {
-  order: Map<TEntry["id"], number>;
+  /**
+   * Whether the rearrange mode is active. While active, the user can rearrange rows using drag and
+   * drop.
+   */
   active: boolean;
+  /**
+   * Map of rearranged rows. Key = row ID, value = new order (starting from 1). Only contains
+   * changed/rearranged rows and not necessarily all available rows.
+   */
+  order: Map<TEntry["id"], number>;
 };
