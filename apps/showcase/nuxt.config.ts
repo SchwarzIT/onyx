@@ -9,8 +9,16 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
-  modules: ["nuxt-studio", "nuxt-auth-utils", "@vueuse/nuxt"],
+  modules: ["nuxt-studio", "nuxt-auth-utils", "nuxt-llms", "@vueuse/nuxt"],
   css: ["@sit-onyx/tiptap/style.css"],
+  llms: {
+    domain: "localhost",
+  },
+  content: {
+    build: {
+      transformers: ["~~/transformers/my-custom-transformer.ts"],
+    },
+  },
   app: {
     head: {
       link: [{ rel: "icon", href: "/favicon.svg" }],

@@ -11,7 +11,21 @@ Buttons serve as fundamental components in UI design, acting as gateways for use
 
 Use primary buttons for the most relevant actions for the current workflow such as "Save" or "Submit" actions.
 
-:component-example{name="Primary"}
+::primary
+<script lang="ts" setup>
+import { OnyxButton } from "sit-onyx";
+
+const handleClick = () => {
+  // your logic here...
+};
+</script>
+
+<template>
+  <OnyxButton label="Default" @click="handleClick" />
+  <OnyxButton label="Outline" mode="outline" @click="handleClick" />
+  <OnyxButton label="Plain" mode="plain" @click="handleClick" />
+</template>
+::
 
 ### Neutral
 

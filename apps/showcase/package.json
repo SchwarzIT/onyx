@@ -41,6 +41,7 @@
     "vue-router": "^5.2.0"
   },
   "devDependencies": {
+    "nuxt-llms": "^0.2.0",
     "vue-component-meta": "catalog:"
   }
 }
