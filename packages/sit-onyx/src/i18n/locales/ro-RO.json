@@ -50,6 +50,10 @@
     "loadMore": "Încărcare mai multe",
     "editing": {
       "label": "{column} cu ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Rearanjare rânduri",
+      "reset": "Resetare modificări"
     }
   },
   "validations": {
@@ -359,5 +363,6 @@
     "trailingShortcutPlaceholder": "pentru a căuta",
     "label": "Căutare",
     "selectFilter": "Selectare filtru"
-  }
+  },
+  "save": "Salvare"
 }
