@@ -1,3 +1,4 @@
+import { createDragAndDrop } from "@sit-onyx/headless";
 import {
   iconCheckSmall,
   iconDraggable,
@@ -5,8 +6,20 @@ import {
   iconUndo,
   iconX,
 } from "@sit-onyx/icons";
-import { computed, h, ref, shallowRef, toRef, toValue, type HTMLAttributes, type Ref } from "vue";
+import {
+  computed,
+  h,
+  ref,
+  shallowRef,
+  toRef,
+  toValue,
+  type HTMLAttributes,
+  type Ref,
+  type TdHTMLAttributes,
+} from "vue";
+import { mergeVueProps } from "../../../../utils/attrs.js";
 import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
+import "./rowRearrange.scss";
 import type { DataGridEntry } from "../../types.js";
 import {
   createTypeRenderer,
@@ -14,7 +27,6 @@ import {
   type RowRearrangeOptions,
   type RowRearrangeState,
 } from "../all.js";
-import "./rowRearrange.scss";
 import { createFeature, type DataGridFeature } from "../index.js";
 
 export const ROW_REARRANGE_FEATURE = Symbol("RowRearrange");
@@ -63,39 +75,58 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
      */
     const targetOrder = ref<number>();
 
-    const onDragstart = (event: DragEvent, entry: TEntry) => {
-      const tr = event.target ? (event.target as HTMLElement).closest("tr") : null;
-      draggedRow.value = { id: entry.id, tr };
-
-      if (event.dataTransfer) {
-        event.dataTransfer.effectAllowed = "move";
-
-        // use the entire row as the drag preview instead of just the drag cell
-        if (tr) event.dataTransfer.setDragImage(tr, 0, 0);
-      }
-    };
-
     const cleanUp = () => {
       draggedRow.value = undefined;
       targetOrder.value = undefined;
     };
 
-    const onDragend = () => cleanUp();
+    const headless = createDragAndDrop<TEntry>({
+      onDragstart: (event, entry) => {
+        const tr = event.target ? (event.target as Element).closest("tr") : null;
+        draggedRow.value = { id: entry.id, tr };
 
-    let isDragoverAnimationFrameTicking = false;
+        if (event.dataTransfer) {
+          event.dataTransfer.effectAllowed = "move";
+          if (tr) event.dataTransfer.setDragImage(tr, 0, 0);
+        }
+      },
+      onDragend: cleanUp,
+      onDragover: (event) => {
+        targetOrder.value = getTargetOrder(event);
 
-    const onDragover = (event: DragEvent) => {
-      event.preventDefault(); // required to allow a drop
+        if (targetOrder.value != undefined) {
+          if (event.dataTransfer) event.dataTransfer.dropEffect = "move";
+        }
+      },
+      onDrop: (event) => {
+        const draggedRowOrderOld = getRowOrder(draggedRow.value?.tr);
+        const draggedRowOrderNew = targetOrder.value;
+        if (
+          draggedRowOrderOld == undefined ||
+          draggedRowOrderNew == undefined ||
+          !draggedRow.value
+        ) {
+          return;
+        }
 
-      // optimize triggering too many events by throttling them with animation frames
-      if (!isDragoverAnimationFrameTicking) {
-        requestAnimationFrame(() => {
-          handleDragover(event);
-          isDragoverAnimationFrameTicking = false;
+        event.preventDefault();
+
+        // adjust previously moved rows if needed
+        state.value.order.forEach((order, rowId) => {
+          if (draggedRowOrderOld < order && draggedRowOrderNew >= order) {
+            // case 1: dropped row comes before previous re-ordered row
+            state.value.order.set(rowId, order - 1);
+          } else if (draggedRowOrderOld > order && draggedRowOrderNew <= order) {
+            // case 2: dropped row comes after previous re-ordered row
+            state.value.order.set(rowId, order + 1);
+          }
         });
-        isDragoverAnimationFrameTicking = true;
-      }
-    };
+
+        state.value.order.set(draggedRow.value.id, draggedRowOrderNew);
+
+        cleanUp();
+      },
+    });
 
     const getTargetOrder = (event: DragEvent) => {
       const target = event.target as Element | null;
@@ -123,39 +154,6 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
       }
 
       return newOrder === draggedRowOrder ? undefined : newOrder;
-    };
-
-    const handleDragover = (event: DragEvent) => {
-      targetOrder.value = getTargetOrder(event);
-
-      if (targetOrder.value != undefined) {
-        if (event.dataTransfer) event.dataTransfer.dropEffect = "move";
-      }
-    };
-
-    const onDrop = (event: DragEvent) => {
-      const draggedRowOrderOld = getRowOrder(draggedRow.value?.tr);
-      const draggedRowOrderNew = targetOrder.value;
-      if (draggedRowOrderOld == undefined || draggedRowOrderNew == undefined || !draggedRow.value) {
-        return;
-      }
-
-      event.preventDefault();
-
-      // adjust previously moved rows if needed
-      state.value.order.forEach((order, rowId) => {
-        if (draggedRowOrderOld < order && draggedRowOrderNew >= order) {
-          // case 1: dropped row comes before previous re-ordered row
-          state.value.order.set(rowId, order - 1);
-        } else if (draggedRowOrderOld > order && draggedRowOrderNew <= order) {
-          // case 2: dropped row comes after previous re-ordered row
-          state.value.order.set(rowId, order + 1);
-        }
-      });
-
-      state.value.order.set(draggedRow.value.id, draggedRowOrderNew);
-
-      cleanUp();
     };
 
     return {
@@ -247,15 +245,11 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
       enhanceCells: {
         func: (cell, entry) => {
           if (cell.props.column !== REARRANGE_COLUMN_KEY) return {};
+
           return {
-            tdAttributes: {
+            tdAttributes: mergeVueProps(headless.elements.trigger({ item: entry }), {
               class: "onyx-data-grid-row-rearrange-cell",
-              // Only the handle cell is the drag source; drop targets are attached
-              // to the whole row via `enhanceRow` so the user can drop anywhere.
-              draggable: true,
-              onDragstart: (event) => onDragstart(event, entry),
-              onDragend,
-            },
+            } satisfies TdHTMLAttributes),
           };
         },
       },
@@ -288,11 +282,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
           };
         },
       },
-      tableAttributes: () => ({
-        onDragover,
-        onDrop,
-        style: { "--onyx-data-grid-row-rearrange-highlighted-row": 2 },
-      }),
+      tableAttributes: () => headless.elements.target,
     };
   }) as DataGridFeature<TEntry>;
 
