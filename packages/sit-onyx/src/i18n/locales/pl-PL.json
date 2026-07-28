@@ -50,6 +50,10 @@
     "loadMore": "Załaduj więcej",
     "editing": {
       "label": "{column} o ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Zmień kolejność wierszy",
+      "reset": "Zresetuj zmiany"
     }
   },
   "validations": {
@@ -359,5 +363,6 @@
     "trailingShortcutPlaceholder": "aby wyszukać",
     "label": "Szukaj",
     "selectFilter": "Wybierz filtr"
-  }
+  },
+  "save": "Zapisz"
 }

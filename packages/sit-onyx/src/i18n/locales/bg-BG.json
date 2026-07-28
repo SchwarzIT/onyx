@@ -50,6 +50,10 @@
     "loadMore": "Зареждане на още",
     "editing": {
       "label": "{column} с ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Пренареждане на редове",
+      "reset": "Нулиране на промените"
     }
   },
   "validations": {
@@ -359,5 +363,6 @@
     "trailingShortcutPlaceholder": "за търсене",
     "label": "Търсене",
     "selectFilter": "Избор на филтър"
-  }
+  },
+  "save": "Запазване"
 }
