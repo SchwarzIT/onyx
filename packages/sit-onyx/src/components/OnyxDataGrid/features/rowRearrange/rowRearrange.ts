@@ -263,6 +263,8 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
         func: (row, entry, index) => {
           const order = index + 1;
           const draggedRowOrder = getRowOrder(draggedRow.value?.tr);
+
+          const before = targetOrder.value === 1 && order === 1;
           let highlighted = false;
 
           if (targetOrder.value != undefined && draggedRowOrder != undefined) {
@@ -279,7 +281,8 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
             trAttributes: {
               "data-order": order.toString(),
               class: {
-                "onyx-data-grid-rearrange-row--highlighted": highlighted,
+                "onyx-data-grid-rearrange-row--highlighted": before || highlighted,
+                "onyx-data-grid-rearrange-row--highlighted-before": before,
               },
             } as HTMLAttributes,
           };
@@ -288,6 +291,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
       tableAttributes: () => ({
         onDragover,
         onDrop,
+        style: { "--onyx-data-grid-row-rearrange-highlighted-row": 2 },
       }),
     };
   }) as DataGridFeature<TEntry>;
