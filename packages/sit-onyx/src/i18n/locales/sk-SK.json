@@ -50,6 +50,10 @@
     "loadMore": "Načítať viac",
     "editing": {
       "label": "{column} s ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Zmeniť usporiadanie riadkov",
+      "reset": "Resetovať zmeny"
     }
   },
   "validations": {
@@ -359,5 +363,6 @@
     "trailingShortcutPlaceholder": "na vyhľadávanie",
     "label": "Hľadať",
     "selectFilter": "Vybrať filter"
-  }
+  },
+  "save": "Uložiť"
 }

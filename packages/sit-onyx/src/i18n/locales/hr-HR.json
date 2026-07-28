@@ -50,6 +50,10 @@
     "loadMore": "Učitaj više",
     "editing": {
       "label": "{column} s ID-jem {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Promijeni raspored redaka",
+      "reset": "Poništi promjene"
     }
   },
   "validations": {
@@ -359,5 +363,6 @@
     "trailingShortcutPlaceholder": "za pretraživanje",
     "label": "Pretraživanje",
     "selectFilter": "Odaberi filtar"
-  }
+  },
+  "save": "Spremi"
 }
