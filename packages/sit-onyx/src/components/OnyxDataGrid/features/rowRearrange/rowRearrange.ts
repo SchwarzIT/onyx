@@ -59,7 +59,7 @@ const applyOrder = <TEntry extends DataGridEntry>(
 export const useRowRearrange = <TEntry extends DataGridEntry>(
   options?: RowRearrangeOptions<TEntry>,
 ) =>
-  createFeature(() => {
+  createFeature((ctx) => {
     const isEnabled = computed(() => toValue(options?.enabled) ?? true);
     const state = toRef(options?.state ?? { active: false, order: new Map() }) as Ref<
       RowRearrangeState<TEntry>
@@ -171,13 +171,13 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
 
         if (state.value.active) {
           const group: DataGridActionGroup = {
-            name: "Rearrange rows",
+            name: ctx.i18n.t.value("dataGrid.rowRearrange.rearrange"),
             order: 0,
           };
 
           return [
             {
-              label: "Reset changes",
+              label: ctx.i18n.t.value("dataGrid.rowRearrange.reset"),
               icon: iconUndo,
               color: "neutral",
               displayAs: "iconButton",
@@ -185,7 +185,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
               onClick: () => state.value.order.clear(),
             },
             {
-              label: "Cancel",
+              label: ctx.i18n.t.value("cancel"),
               icon: iconX,
               color: "neutral",
               displayAs: "iconButton",
@@ -193,7 +193,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
               onClick: () => (state.value = { active: false, order: new Map() }),
             },
             {
-              label: "Save",
+              label: ctx.i18n.t.value("save"),
               icon: iconCheckSmall,
               displayAs: "button",
               group,
@@ -204,7 +204,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
 
         return [
           {
-            label: "Rearrange rows",
+            label: ctx.i18n.t.value("dataGrid.rowRearrange.rearrange"),
             icon: iconToolExpandVertically,
             color: "neutral",
             displayAs: "button",
