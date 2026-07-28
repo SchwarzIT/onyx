@@ -12,20 +12,21 @@
     }
 
     .onyx-data-grid-rearrange-row--highlighted {
-      > td {
-        border-bottom-color: var(--onyx-color-component-border-primary);
-        border-bottom-width: var(--onyx-spacing-5xs);
+      &::after {
+        content: "";
+        display: block;
+        background-color: var(--onyx-color-component-border-primary);
+        height: var(--onyx-spacing-5xs);
+        z-index: 100;
+        grid-column: 1 / -1;
+        align-self: flex-end;
+      }
+
+      &.onyx-data-grid-rearrange-row--highlighted-before {
+        &::after {
+          align-self: flex-start;
+        }
       }
     }
-
-    // border for very last row is defined on the table container instead of the row itself
-    > .onyx-table-wrapper__container {
-      &:has(.onyx-data-grid-rearrange-row--highlighted:is(tr:last-of-type)) {
-        border-bottom-color: var(--onyx-color-component-border-primary);
-        border-bottom-width: var(--onyx-spacing-5xs);
-      }
-    }
-
-    // TODO: implement highlight for very first row
   }
 }
