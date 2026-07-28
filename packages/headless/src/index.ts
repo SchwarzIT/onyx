@@ -13,6 +13,7 @@ export * from "./composables/tooltip/createToggletip.js";
 export * from "./composables/tooltip/createTooltip.js";
 export * from "./composables/treeView/createTreeView.js";
 export * from "./composables/treeView/createTreeViewItem.js";
+export * from "./composables/dragAndDrop/createDragAndDrop.js";
 
 export * from "./utils/builder.js";
 
