@@ -328,6 +328,12 @@ When the user has a selection inside the row (e.g. marked text to copy), the cli
 
 :component-example{name="RowClick" layout="grow"}
 
+### Rearrange rows
+
+Allows the user to rearrange the order of rows using drag-and-drop. Technically, the rearrange state contains a map of changed row IDs and their corresponding new order (starting from 1 for the first row).
+
+:component-example{name="RearrangeRows" layout="fullWidth"}
+
 ## Build a custom feature
 
 Features are the fundamental building blocks that power the data grid. They are used internally to implement core data grid functionality and built-in features but can also be used to extend the data grid with custom functionality. This means that **every functionality** available for the data grid can be implemented/used within a feature.
