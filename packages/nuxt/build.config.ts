@@ -1,38 +1,46 @@
 import fs from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
-import { defineBuildConfig } from "unbuild";
+import { defineBuildConfig, type RollupOptions } from "unbuild";
 
 export default defineBuildConfig({
   hooks: {
-    "build:before": async (ctx) => {
+    "rollup:options"(ctx, options) {
+      options.plugins.push(createLocalesPlugin());
+    },
+  },
+});
+
+function createLocalesPlugin(): RollupOptions["plugins"][number] {
+  return {
+    name: "onyx:build-locales",
+    async buildStart() {
       const locales = await getOnyxLocales();
 
-      const targetPath = path.resolve(ctx.options.rootDir, "src/runtime/locales");
+      locales.map((locale) => {
+        this.emitFile({
+          type: "asset",
+          fileName: `runtime/locales/${locale}.js`,
+          source: createLocaleModule(locale),
+        });
+      });
+    },
+  };
+}
 
-      // clear folder so no longer existing locales are removed
-      await fs.rm(targetPath, { recursive: true, force: true });
-      await fs.mkdir(targetPath, { recursive: true });
+/**
+ * Builds the ESM wrapper module that exposes an onyx locale to `@nuxtjs/i18n`.
+ */
+function createLocaleModule(locale: string) {
+  const importName = locale.replace("-", "");
 
-      // generate files
-      await Promise.all(
-        locales.map(async (locale) => {
-          const importName = locale.replace("-", "");
-
-          const fileContent = `// @ts-check
+  return `// @ts-check
 // generated at build time, do not edit
 import ${importName} from "sit-onyx/locales/${locale}.json";
 
 export default { onyx: ${importName} };
 `;
-
-          const localePath = path.join(targetPath, `${locale}.js`);
-          await fs.writeFile(localePath, fileContent, "utf-8");
-        }),
-      );
-    },
-  },
-});
+}
 
 /**
  * Gets a list of all available onyx locales.
