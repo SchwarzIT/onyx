@@ -8,7 +8,7 @@ const props = defineProps<OnyxTreeViewProps>();
 
 defineSlots<{
   /**
-   * Tree view items. Recommended to use the `OnyxTreeViewItem` component here.
+   * Tree view items. Use `OnyxTreeViewItem` components here.
    */
   default(): unknown;
 }>();

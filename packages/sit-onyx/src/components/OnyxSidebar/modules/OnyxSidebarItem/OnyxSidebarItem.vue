@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<OnyxSidebarItemProps>(), {
 
 defineSlots<{
   /**
-   * Content of the sidebar item.
+   * Content of the sidebar item. Only use textual content here.
    */
   default(): unknown;
 }>();
