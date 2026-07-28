@@ -35,7 +35,6 @@ function createLocaleModule(locale: string) {
   const importName = locale.replace("-", "");
 
   return `// @ts-check
-// generated at build time, do not edit
 import ${importName} from "sit-onyx/locales/${locale}.json";
 
 export default { onyx: ${importName} };
