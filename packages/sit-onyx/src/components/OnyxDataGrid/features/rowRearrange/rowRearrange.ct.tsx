@@ -132,3 +132,112 @@ test("should rearrange rows", async ({ mount, page }) => {
   await expectOrder(component, ["John", "Robin", "Charlie", "Alice", "Bob"]);
   expect(state).toStrictEqual({ 4: 2, 1: 4, 5: 1 });
 });
+
+test("should support to reset changes", async ({ mount, page }) => {
+  // ARRANGE
+  let state: Record<number, number> = {};
+
+  const component = await mount(<TestCase onUpdate:state={(value) => (state = value)} />);
+  const rearrangeButton = component.getByRole("button", { name: "Rearrange rows" });
+
+  // ASSERT
+  await expectOrder(component, ["Alice", "Charlie", "Bob", "Robin", "John"]);
+
+  // ACT
+  await rearrangeButton.click();
+
+  // ACT
+  await dragAndDrop({
+    page,
+    from: "Robin",
+    to: "Charlie",
+    position: "before",
+  });
+
+  // ASSERT
+  await expectOrder(component, ["Alice", "Robin", "Charlie", "Bob", "John"]);
+  expect(state).toStrictEqual({ 4: 2 });
+
+  // ACT
+  await dragAndDrop({ page, from: "Alice", to: "Bob", position: "before" });
+
+  // ASSERT
+  await expectOrder(component, ["Robin", "Charlie", "Alice", "Bob", "John"]);
+  expect(state).toStrictEqual({ 4: 1, 1: 3 });
+
+  // ACT
+  await component.getByRole("button", { name: "Reset changes" }).click();
+
+  // ASSERT
+  await expectOrder(component, ["Alice", "Charlie", "Bob", "Robin", "John"]);
+  expect(state).toStrictEqual({});
+  await expect(rearrangeButton).toBeHidden();
+});
+
+test("should support to cancel rearrange mode", async ({ mount, page }) => {
+  // ARRANGE
+  let state: Record<number, number> = {};
+
+  const component = await mount(<TestCase onUpdate:state={(value) => (state = value)} />);
+  const rearrangeButton = component.getByRole("button", { name: "Rearrange rows" });
+
+  // ASSERT
+  await expectOrder(component, ["Alice", "Charlie", "Bob", "Robin", "John"]);
+
+  // ACT
+  await rearrangeButton.click();
+
+  // ACT
+  await dragAndDrop({
+    page,
+    from: "Robin",
+    to: "Charlie",
+    position: "before",
+  });
+
+  // ASSERT
+  await expectOrder(component, ["Alice", "Robin", "Charlie", "Bob", "John"]);
+  expect(state).toStrictEqual({ 4: 2 });
+
+  // ACT
+  await component.getByRole("button", { name: "Cancel" }).click();
+
+  // ASSERT
+  await expectOrder(component, ["Alice", "Charlie", "Bob", "Robin", "John"]);
+  expect(state).toStrictEqual({});
+  await expect(rearrangeButton).toBeVisible();
+});
+
+test("should support save button", async ({ mount, page }) => {
+  // ARRANGE
+  let state: Record<number, number> = {};
+
+  const component = await mount(<TestCase onUpdate:state={(value) => (state = value)} />);
+  const rearrangeButton = component.getByRole("button", { name: "Rearrange rows" });
+
+  // ASSERT
+  await expectOrder(component, ["Alice", "Charlie", "Bob", "Robin", "John"]);
+
+  // ACT
+  await rearrangeButton.click();
+
+  // ACT
+  await dragAndDrop({
+    page,
+    from: "Robin",
+    to: "Charlie",
+    position: "before",
+  });
+
+  // ASSERT
+  await expectOrder(component, ["Alice", "Robin", "Charlie", "Bob", "John"]);
+  expect(state).toStrictEqual({ 4: 2 });
+
+  // ACT
+  await component.getByRole("button", { name: "Save" }).click();
+
+  // ASSERT
+  await expectOrder(component, ["Alice", "Robin", "Charlie", "Bob", "John"]);
+  expect(state).toStrictEqual({ 4: 2 });
+  await expect(rearrangeButton).toBeVisible();
+});
