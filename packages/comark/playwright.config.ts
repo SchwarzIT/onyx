@@ -3,4 +3,4 @@ import { defineOnyxPlaywrightConfigCT } from "@sit-onyx/shared/playwright.config
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineOnyxPlaywrightConfigCT();
+export default defineOnyxPlaywrightConfigCT({ browsers: "single" });
