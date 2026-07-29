@@ -3,6 +3,8 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import { defineBuildConfig, type RollupOptions } from "unbuild";
 
+type RollupPlugin = RollupOptions["plugins"][number];
+
 export default defineBuildConfig({
   hooks: {
     "rollup:options"(ctx, options) {
@@ -11,7 +13,7 @@ export default defineBuildConfig({
   },
 });
 
-function createLocalesPlugin(): RollupOptions["plugins"][number] {
+function createLocalesPlugin(): RollupPlugin {
   return {
     name: "onyx:build-locales",
     async buildStart() {
