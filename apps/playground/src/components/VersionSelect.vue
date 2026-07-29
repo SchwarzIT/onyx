@@ -22,25 +22,18 @@ const props = defineProps<{
 const version = defineModel<string | null>();
 const isOpen = ref(false);
 
-const { versions, isLoading, execute } = useVersions(() => props.pkg);
+const { versions, isLoading, execute } = useVersions(props);
 
 watch(isOpen, () => execute(), { once: true });
 
-const filteredVersions = computed(() => {
-  let _versions = versions.value;
-  // typescript v7 does currently not work in the web
-  if (props.pkg === "typescript") {
-    _versions = _versions.filter((v) => !v.startsWith("7"));
-  }
-  if (props.includePreReleases) return _versions;
-  return _versions.filter((v) => !v.includes("-"));
-});
-
 const options = computed(() => {
-  const versionOptions = filteredVersions.value.map<SelectOption<string>>((i) => ({
+  const versionOptions = versions.value.map<SelectOption<string>>((i) => ({
     value: i,
     label: i,
   }));
+  if (version.value && versionOptions.every(({ value }) => value !== version.value)) {
+    versionOptions.unshift({ value: version.value, label: version.value });
+  }
   if (!props.includePreReleases) return versionOptions;
 
   const SORT_ORDER = ["stable", "dev", "beta"];
