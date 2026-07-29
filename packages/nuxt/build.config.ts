@@ -17,7 +17,7 @@ function createLocalesPlugin(): RollupOptions["plugins"][number] {
     async buildStart() {
       const locales = await getOnyxLocales();
 
-      locales.map((locale) => {
+      locales.forEach((locale) => {
         this.emitFile({
           type: "asset",
           fileName: `runtime/locales/${locale}.js`,
@@ -34,8 +34,7 @@ function createLocalesPlugin(): RollupOptions["plugins"][number] {
 function createLocaleModule(locale: string) {
   const importName = locale.replace("-", "");
 
-  return `// @ts-check
-import ${importName} from "sit-onyx/locales/${locale}.json";
+  return `import ${importName} from "sit-onyx/locales/${locale}.json";
 
 export default { onyx: ${importName} };
 `;
