@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { OnyxSelect, type SelectOption } from "sit-onyx";
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { useVersions } from "../composables/versions.js";
 
 const props = defineProps<{
@@ -20,8 +20,11 @@ const props = defineProps<{
 }>();
 
 const version = defineModel<string | null>();
+const isOpen = ref(false);
 
-const { versions, isLoading } = useVersions(() => props.pkg);
+const { versions, isLoading, execute } = useVersions(() => props.pkg);
+
+watch(isOpen, () => execute(), { once: true });
 
 const filteredVersions = computed(() => {
   let _versions = versions.value;
@@ -68,6 +71,7 @@ const getPreReleaseTagFromVersion = (version: string) => {
 <template>
   <OnyxSelect
     v-model="version"
+    v-model:open="isOpen"
     :label="props.label"
     :list-label="`Select ${props.pkg} version`"
     :placeholder="version || 'Select version'"

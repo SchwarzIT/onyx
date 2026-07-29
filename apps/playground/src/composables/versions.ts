@@ -2,9 +2,17 @@ import { useAsyncState } from "@vueuse/core";
 import { toValue, type MaybeRefOrGetter } from "vue";
 
 export const useVersions = (pkg: MaybeRefOrGetter<string>) => {
-  const { state: versions, isLoading } = useAsyncState(() => fetchVersions(toValue(pkg)), []);
+  const {
+    state: versions,
+    isLoading,
+    execute,
+  } = useAsyncState(() => fetchVersions(toValue(pkg)), [], {
+    immediate: false,
+  });
 
   return {
+    // Add a small delay, so that the select doesn't flash
+    execute: () => execute(200),
     isLoading,
     versions,
   };
