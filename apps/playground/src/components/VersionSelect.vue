@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { OnyxSelect, type SelectOption } from "sit-onyx";
-import { computed, ref, watchEffect } from "vue";
-import { fetchVersions } from "../utils/versions.js";
+import { computed } from "vue";
+import { useVersions } from "../composables/versions.js";
 
 const props = defineProps<{
   /**
@@ -20,15 +20,17 @@ const props = defineProps<{
 }>();
 
 const version = defineModel<string | null>();
-const versions = ref<string[]>([]);
 
-watchEffect(async () => {
-  versions.value = await fetchVersions(props.pkg);
-});
+const { versions, isLoading } = useVersions(() => props.pkg);
 
 const filteredVersions = computed(() => {
-  if (props.includePreReleases) return versions.value;
-  return versions.value.filter((v) => !v.includes("-"));
+  let _versions = versions.value;
+  // typescript v7 does currently not work in the web
+  if (props.pkg === "typescript") {
+    _versions = _versions.filter((v) => !v.startsWith("7"));
+  }
+  if (props.includePreReleases) return _versions;
+  return _versions.filter((v) => !v.includes("-"));
 });
 
 const options = computed(() => {
@@ -70,7 +72,9 @@ const getPreReleaseTagFromVersion = (version: string) => {
     :list-label="`Select ${props.pkg} version`"
     :placeholder="version || 'Select version'"
     :options="options"
+    :loading="isLoading"
     density="compact"
+    hide-clear-icon
     with-search
   />
 </template>

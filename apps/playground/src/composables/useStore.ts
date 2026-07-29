@@ -43,7 +43,7 @@ export const useStore = () => {
   const store = useOriginalStore(
     {
       vueVersion,
-      typescriptVersion: ref(query.get("typescriptVersion") || "latest"),
+      typescriptVersion: ref(query.get("typescriptVersion") || "6.0.3"),
       template: ref({
         newSFC: NewFile,
         welcomeSFC: App,
