@@ -30,8 +30,8 @@ import {
 import { createFeature, type DataGridFeature } from "../index.js";
 
 export const ROW_REARRANGE_FEATURE = Symbol("RowRearrange");
-const REARRANGE_COLUMN_KEY = Symbol();
-const REARRANGE_COLUMN_TYPE = Symbol();
+export const ROW_REARRANGE_COLUMN_KEY = Symbol();
+const ROW_REARRANGE_COLUMN_TYPE = Symbol();
 
 /**
  * Given a list of entries and the current `order` map, return a new array with
@@ -237,9 +237,9 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
 
           return [
             {
-              key: REARRANGE_COLUMN_KEY,
+              key: ROW_REARRANGE_COLUMN_KEY,
               label: "",
-              type: { name: REARRANGE_COLUMN_TYPE },
+              type: { name: ROW_REARRANGE_COLUMN_TYPE },
               width: "max-content",
             },
             ...columns,
@@ -247,7 +247,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
         },
       },
       typeRenderer: {
-        [REARRANGE_COLUMN_TYPE]: createTypeRenderer<object, TEntry>({
+        [ROW_REARRANGE_COLUMN_TYPE]: createTypeRenderer<object, TEntry>({
           cell: {
             // we define the tdAttributes via "enhanceCells" below instead of here
             // since we need access to the row / entry data
@@ -263,7 +263,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
       },
       enhanceCells: {
         func: (cell, entry) => {
-          if (cell.props.column !== REARRANGE_COLUMN_KEY) return {};
+          if (cell.props.column !== ROW_REARRANGE_COLUMN_KEY) return {};
 
           return {
             tdAttributes: mergeVueProps(headless.elements.trigger({ item: entry }), {
