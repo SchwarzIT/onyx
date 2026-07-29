@@ -12,7 +12,7 @@ const props = defineProps<ComarkProps>();
 </template>
 
 <style>
-.onyx-comark-renderer {
+.onyx-comark {
   width: "max-content";
   padding: "1rem";
 }
