@@ -1,7 +1,7 @@
 {
-  "name": "@sit-onyx/mdc",
-  "version": "0.3.0",
-  "description": "Wrapper for the @nuxtjs/mdc package using the onyx design system created by Schwarz Digits",
+  "name": "@sit-onyx/comark",
+  "version": "0.0.0",
+  "description": "Wrapper for the comark package using the onyx design system created by Schwarz Digits",
   "bugs": {
     "url": "https://github.com/SchwarzIT/onyx/issues"
   },
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
-    "directory": "packages/mdc"
+    "directory": "packages/comark"
   },
   "files": [
     "dist"
@@ -31,7 +31,7 @@
     "test:playwright": "playwright install && playwright test"
   },
   "devDependencies": {
-    "@nuxtjs/mdc": "~0.22.2",
+    "@comark/vue": "^0.5.1",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/playwright-utils": "workspace:^",
@@ -39,10 +39,11 @@
     "@vue/compiler-dom": "catalog:",
     "sit-onyx": "workspace:^",
     "unplugin-dts": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vue": "catalog:"
   },
   "peerDependencies": {
-    "@nuxtjs/mdc": ">= 0.20.2",
+    "@comark/vue": ">=0.5.0",
     "sit-onyx": "workspace:^",
     "vue": ">= 3.5.0"
   },
