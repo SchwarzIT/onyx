@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/comark",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Wrapper for the comark package using the onyx design system created by Schwarz Digits",
   "bugs": {
     "url": "https://github.com/SchwarzIT/onyx/issues"

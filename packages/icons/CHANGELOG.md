@@ -1,5 +1,16 @@
 # @sit-onyx/icons
 
+## 1.11.0
+
+### Minor Changes
+
+- 5857f5a: feat: update icons
+
+  #### New
+  - artificial-intelligence
+  - message-AI
+  - robot-AI
+
 ## 1.10.1
 
 ### Patch Changes
@@ -531,6 +542,7 @@
 - 5ac259d: feat(icons): update icons
 
   The new available icons are:
+
   - chevron-down-up
   - plus-minus
   - server-lock
