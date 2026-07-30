@@ -1,7 +1,5 @@
-import MyModule from "../../../src/module.js";
-
 export default defineNuxtConfig({
-  modules: [MyModule, "@nuxtjs/i18n"],
+  modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
   compatibilityDate: "2024-07-08",
   i18n: {
     strategy: "prefix",
