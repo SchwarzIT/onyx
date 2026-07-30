@@ -25,10 +25,10 @@
     }
   },
   "scripts": {
-    "dev": "nuxi dev playground",
-    "dev:build": "nuxi build playground",
-    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "build": "pnpm run dev:prepare && nuxt-module-build build",
+    "dev": "pnpm run dev:prepare && nuxi dev playground",
+    "dev:build": "pnpm run dev:prepare && nuxi build playground",
+    "dev:prepare": "pnpm run build && nuxi prepare playground",
+    "build": "nuxt-module-build prepare && nuxt-module-build build",
     "type-check": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
     "test": "vitest",
     "test:playwright": "playwright install && playwright test",
