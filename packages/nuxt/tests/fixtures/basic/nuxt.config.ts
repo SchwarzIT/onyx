@@ -1,4 +1,6 @@
+import MyModule from "../../../dist/module.mjs";
+
 export default defineNuxtConfig({
-  modules: ["@sit-onyx/nuxt"],
+  modules: [MyModule],
   compatibilityDate: "2024-07-08",
 });
