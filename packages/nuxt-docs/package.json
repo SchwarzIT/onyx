@@ -15,7 +15,8 @@
   "files": [
     "app",
     "content.config.ts",
-    "nuxt.config.ts"
+    "nuxt.config.ts",
+    "modules"
   ],
   "type": "module",
   "main": "./nuxt.config.ts",
