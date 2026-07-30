@@ -18,7 +18,7 @@ test("should persist onyx version in URL", async ({ page }) => {
 
   // ASSERT
   const onyxVersionSelect = page.getByLabel("onyx version").first();
-  await expect(onyxVersionSelect).toHaveAttribute("placeholder", "1.0.0-mock.1");
+  await expect(onyxVersionSelect).toHaveValue("1.0.0-mock.1");
   await expect(page).toHaveURL(new RegExp(".*?onyxVersion=1.0.0-mock.1"));
 
   // ACT
@@ -28,6 +28,9 @@ test("should persist onyx version in URL", async ({ page }) => {
   // ASSERT
   await expect(onyxVersionSelect).toHaveValue("1.0.0-mock.2");
   await expect(page).toHaveURL(new RegExp(".*?onyxVersion=1.0.0-mock.2"));
+
+  // ACT (should keep onyx version after reload)
+  await page.reload();
 
   // ASSERT
   await expect(onyxVersionSelect).toHaveValue("1.0.0-mock.2");
