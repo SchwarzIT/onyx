@@ -274,6 +274,8 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
       },
       enhanceRow: {
         func: (row, entry, index) => {
+          if (!isEnabled.value || !state.value.active) return {};
+
           const order = index + 1;
           const draggedRowOrder = getRowOrder(draggedRow.value?.tr);
 
@@ -301,7 +303,10 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
           };
         },
       },
-      tableAttributes: () => headless.elements.target,
+      tableAttributes: () => {
+        if (!isEnabled.value || !state.value.active) return {};
+        return headless.elements.target;
+      },
     };
   }) as DataGridFeature<TEntry>;
 
