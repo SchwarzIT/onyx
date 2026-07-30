@@ -359,5 +359,8 @@
     "trailingShortcutPlaceholder": "na vyhľadávanie",
     "label": "Hľadať",
     "selectFilter": "Vybrať filter"
+  },
+  "fileCard": {
+    "unknownSize": "Neznáma veľkosť"
   }
 }

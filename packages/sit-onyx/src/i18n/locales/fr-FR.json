@@ -359,5 +359,8 @@
     "trailingShortcutPlaceholder": "pour rechercher",
     "label": "Rechercher",
     "selectFilter": "Sélectionner un filtre"
+  },
+  "fileCard": {
+    "unknownSize": "Taille inconnue"
   }
 }

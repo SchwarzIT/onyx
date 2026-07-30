@@ -359,5 +359,8 @@
     "trailingShortcutPlaceholder": "за търсене",
     "label": "Търсене",
     "selectFilter": "Избор на филтър"
+  },
+  "fileCard": {
+    "unknownSize": "Неизвестен размер"
   }
 }

@@ -211,6 +211,9 @@
   "resizeHandle": {
     "label": "Drag to change width"
   },
+  "fileCard": {
+    "unknownSize": "Unknown size"
+  },
   "fileUpload": {
     "select": "Select",
     "clickToUpload": "Click to select",

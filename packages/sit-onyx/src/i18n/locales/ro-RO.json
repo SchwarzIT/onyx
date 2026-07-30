@@ -359,5 +359,8 @@
     "trailingShortcutPlaceholder": "pentru a căuta",
     "label": "Căutare",
     "selectFilter": "Selectare filtru"
+  },
+  "fileCard": {
+    "unknownSize": "Dimensiune necunoscută"
   }
 }
