@@ -50,6 +50,11 @@
     "loadMore": "Meer laden",
     "editing": {
       "label": "{column} met ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Rijen herschikken",
+      "reset": "Wijzigingen resetten",
+      "dragToMove": "Sleep om de rij te verplaatsen"
     }
   },
   "validations": {
@@ -359,5 +364,6 @@
     "trailingShortcutPlaceholder": "om te zoeken",
     "label": "Zoeken",
     "selectFilter": "Filter selecteren"
-  }
+  },
+  "save": "Opslaan"
 }
