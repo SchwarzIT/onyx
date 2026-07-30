@@ -53,7 +53,8 @@
     },
     "rowRearrange": {
       "rearrange": "Rearanjare rânduri",
-      "reset": "Resetare modificări"
+      "reset": "Resetare modificări",
+      "dragToMove": "Trageți pentru a muta rândul"
     }
   },
   "validations": {

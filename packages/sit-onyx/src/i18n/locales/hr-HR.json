@@ -53,7 +53,8 @@
     },
     "rowRearrange": {
       "rearrange": "Promijeni raspored redaka",
-      "reset": "Poništi promjene"
+      "reset": "Poništi promjene",
+      "dragToMove": "Povucite za pomicanje retka"
     }
   },
   "validations": {
