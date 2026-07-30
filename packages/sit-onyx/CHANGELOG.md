@@ -6,12 +6,12 @@
 
 - adc2c10: feat: implement `useCopy` composable
 - 317e373: feat(OnyxCodeTab): Copies the text content of the slot when the `code` property is empty
-- 951718a: fix(DataGridFeatures.useResizing): Removed empty column gap for the resizing feature.
 - 653346b: feat(theme): improve color contrasts for several components
 
 ### Patch Changes
 
-- 666498e: fix: Generally improved slot description by specifying which content and components should be provided
+- 666498e: docs: Generally improved slot description by specifying which content and components should be used
+- 951718a: fix(DataGridFeatures.useResizing): Removed empty column
 
 ## 1.17.0
 

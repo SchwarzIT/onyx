@@ -8,7 +8,7 @@
 
 ### Patch Changes
 
-- 666498e: fix(sit-onyx://skill/\*): Refined and improved existing skills
+- 666498e: fix(sit-onyx://skill/*): Refined and improved existing skills
 
 ## 0.3.0
 
