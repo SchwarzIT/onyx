@@ -40,12 +40,10 @@ async function dragAndDrop({
 }: DragAndDropOptions): Promise<{ finish: () => Promise<void> } | void> {
   const dragHandle = page
     .locator("tbody")
-    .getByRole("row")
-    .filter({ hasText: from })
-    .getByRole("cell")
-    .first();
+    .getByRole("row", { name: from })
+    .getByRole("button", { name: "Drag to move row" });
 
-  const targetRow = page.locator("tbody").getByRole("row").filter({ hasText: to });
+  const targetRow = page.locator("tbody").getByRole("row", { name: to });
 
   // ASSERT
   await expect(dragHandle).toBeVisible();

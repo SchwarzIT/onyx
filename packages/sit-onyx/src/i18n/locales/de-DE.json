@@ -54,7 +54,8 @@
     "loadMore": "Mehr laden",
     "rowRearrange": {
       "rearrange": "Zeilen neu anordnen",
-      "reset": "Änderungen zurücksetzen"
+      "reset": "Änderungen zurücksetzen",
+      "dragToMove": "Zum Verschieben der Zeile ziehen"
     }
   },
   "validations": {

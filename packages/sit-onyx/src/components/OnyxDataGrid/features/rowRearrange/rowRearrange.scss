@@ -9,6 +9,10 @@
       &:active {
         cursor: grabbing;
       }
+
+      &__button {
+        cursor: inherit;
+      }
     }
 
     .onyx-data-grid-rearrange-row--highlighted {

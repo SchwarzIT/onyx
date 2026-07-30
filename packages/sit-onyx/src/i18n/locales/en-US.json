@@ -54,7 +54,8 @@
     "loadMore": "Load more",
     "rowRearrange": {
       "rearrange": "Rearrange rows",
-      "reset": "Reset changes"
+      "reset": "Reset changes",
+      "dragToMove": "Drag to move row"
     }
   },
   "validations": {

@@ -18,8 +18,8 @@ import {
   type TdHTMLAttributes,
 } from "vue";
 import { mergeVueProps } from "../../../../utils/attrs.js";
-import OnyxIcon from "../../../OnyxIcon/OnyxIcon.vue";
 import "./rowRearrange.scss";
+import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types.js";
 import {
   createTypeRenderer,
@@ -252,7 +252,11 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
             // we define the tdAttributes via "enhanceCells" below instead of here
             // since we need access to the row / entry data
             component: () => {
-              return h(OnyxIcon, { icon: iconDraggable });
+              return h(OnyxSystemButton, {
+                label: ctx.i18n.t.value("dataGrid.rowRearrange.dragToMove"),
+                icon: iconDraggable,
+                class: "onyx-data-grid-row-rearrange-cell__button",
+              });
             },
           },
           header: {
