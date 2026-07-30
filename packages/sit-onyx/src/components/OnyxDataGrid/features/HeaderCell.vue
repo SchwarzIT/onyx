@@ -34,6 +34,9 @@ const slots = defineSlots<{
       display: inline-flex;
       gap: var(--onyx-density-2xs);
     }
+    &__label {
+      width: 100%;
+    }
   }
 }
 </style>
