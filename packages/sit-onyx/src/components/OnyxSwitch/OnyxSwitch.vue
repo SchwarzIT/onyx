@@ -398,7 +398,8 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         border-color: var(--onyx-color-component-border-secondary);
       }
     }
-    &.onyx-form-element-v2--label-right:not(:has(.onyx-switch__display-label)) {
+    &.onyx-form-element-v2--label-right:not(:has(.onyx-switch__display-label)),
+    &.onyx-form-element-v2--label-left:not(:has(.onyx-switch__display-label)) {
       cursor: pointer;
       gap: var(--onyx-switch-label-padding-vertical);
       .onyx-truncation-ellipsis {

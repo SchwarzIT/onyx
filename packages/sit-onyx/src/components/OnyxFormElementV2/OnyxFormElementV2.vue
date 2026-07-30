@@ -277,7 +277,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
       > .onyx-form-element-v2__label {
         width: max-content;
-        margin-block: auto;
+        padding-block: calc(var(--onyx-form-element-v2-padding-block));
         line-height: var(--onyx-font-line-height-md);
       }
     }
