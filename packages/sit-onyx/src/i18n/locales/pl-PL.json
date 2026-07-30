@@ -53,7 +53,8 @@
     },
     "rowRearrange": {
       "rearrange": "Zmień kolejność wierszy",
-      "reset": "Zresetuj zmiany"
+      "reset": "Zresetuj zmiany",
+      "dragToMove": "Przeciągnij, aby przenieść wiersz"
     }
   },
   "validations": {

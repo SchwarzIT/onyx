@@ -53,7 +53,8 @@
     },
     "rowRearrange": {
       "rearrange": "Reorganizar filas",
-      "reset": "Restablecer cambios"
+      "reset": "Restablecer cambios",
+      "dragToMove": "Arrastrar para mover la fila"
     }
   },
   "validations": {

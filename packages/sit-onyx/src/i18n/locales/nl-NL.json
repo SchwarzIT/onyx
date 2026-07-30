@@ -53,7 +53,8 @@
     },
     "rowRearrange": {
       "rearrange": "Rijen herschikken",
-      "reset": "Wijzigingen resetten"
+      "reset": "Wijzigingen resetten",
+      "dragToMove": "Sleep om de rij te verplaatsen"
     }
   },
   "validations": {

@@ -53,7 +53,8 @@
     },
     "rowRearrange": {
       "rearrange": "행 재정렬",
-      "reset": "변경사항 재설정"
+      "reset": "변경사항 재설정",
+      "dragToMove": "드래그하여 행 이동"
     }
   },
   "validations": {

@@ -53,7 +53,8 @@
     },
     "rowRearrange": {
       "rearrange": "Zmeniť usporiadanie riadkov",
-      "reset": "Resetovať zmeny"
+      "reset": "Resetovať zmeny",
+      "dragToMove": "Potiahnutím presuniete riadok"
     }
   },
   "validations": {
