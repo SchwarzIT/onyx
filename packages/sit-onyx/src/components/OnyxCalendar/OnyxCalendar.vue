@@ -404,6 +404,7 @@ useOutsideClick({
         background-color: var(--onyx-color-base-background-blank);
 
         th {
+          overflow-wrap: normal;
           padding: var(--onyx-density-xs);
           justify-content: center;
           align-items: center;
