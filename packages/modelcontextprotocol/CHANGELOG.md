@@ -1,5 +1,15 @@
 # @sit-onyx/modelcontextprotocol
 
+## 0.4.0
+
+### Minor Changes
+
+- 666498e: feat: Add '--exclude' flag for disabling specific resources
+
+### Patch Changes
+
+- 666498e: fix(sit-onyx://skill/\*): Refined and improved existing skills
+
 ## 0.3.0
 
 ### Minor Changes
