@@ -34,8 +34,8 @@ export const useAutofocus = (
       return;
     }
     const isVisible = elem.value?.checkVisibility({
-      checkOpacity: true,
-      checkVisibilityCSS: true,
+      opacityProperty: true,
+      visibilityProperty: true,
       contentVisibilityAuto: true,
     });
     if (!isVisible) {
