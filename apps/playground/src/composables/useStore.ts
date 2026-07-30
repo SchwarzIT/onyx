@@ -2,7 +2,7 @@ import { mergeImportMap, useStore as useOriginalStore, useVueImportMap } from "@
 import { computed, ref, watch, watchEffect } from "vue";
 import App from "../template/App.vue?raw";
 import NewFile from "../template/NewFile.vue?raw";
-import { fetchVersions } from "../utils/versions.js";
+import { fetchVersions } from "./versions.js";
 
 /**
  * Wrapper around `useStore` from `@vue/repl` which defines onyx-specific settings/options.
@@ -43,7 +43,7 @@ export const useStore = () => {
   const store = useOriginalStore(
     {
       vueVersion,
-      typescriptVersion: ref(query.get("typescriptVersion") || "latest"),
+      typescriptVersion: ref(query.get("typescriptVersion") || "6.0.3"),
       template: ref({
         newSFC: NewFile,
         welcomeSFC: App,
