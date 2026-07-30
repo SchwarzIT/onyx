@@ -1,5 +1,19 @@
 # figma-plugin-sync-icons
 
+## 0.2.1
+
+### Patch Changes
+
+- 4eb45cb: fix: keep metadata when synching icons
+- Updated dependencies [adc2c10]
+- Updated dependencies [317e373]
+- Updated dependencies [951718a]
+- Updated dependencies [5857f5a]
+- Updated dependencies [653346b]
+- Updated dependencies [666498e]
+  - sit-onyx@1.18.0
+  - @sit-onyx/icons@1.11.0
+
 ## 0.2.0
 
 ### Minor Changes
