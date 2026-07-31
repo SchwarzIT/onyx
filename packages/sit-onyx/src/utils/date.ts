@@ -1,4 +1,9 @@
 /**
+ * Data types that are parsable as date via `new Date()`.
+ */
+export type DateValue = ConstructorParameters<typeof Date>[0];
+
+/**
  * Checks whether the given value is a valid `Date` object.
  *
  * @example
@@ -11,7 +16,17 @@
  *   isValidDate("definitely-not-a-date"); // false
  */
 export const isValidDate = (date: unknown): date is Date =>
-  date instanceof Date && !isNaN(date.getTime());
+  date instanceof Date && !Number.isNaN(date.getTime());
+
+export const nextMonthForDate = (dateValue: DateValue) => {
+  const date = new Date(dateValue);
+  return new Date(date.getFullYear(), date.getMonth() + 1, 1);
+};
+
+export const previousMonthForDate = (dateValue: DateValue) => {
+  const date = new Date(dateValue);
+  return new Date(date.getFullYear(), date.getMonth() - 1, 1);
+};
 
 /**
  * @example

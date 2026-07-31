@@ -51,6 +51,10 @@ const emit = defineEmits<{
    * Emitted when the viewed Month changes
    */
   "update:viewMonth": [newDate: Date];
+  /**
+   * Emitted when in `range` selection mode and selecting dates.
+   */
+  "update:hoverDate": [newDate: Date];
 }>();
 
 const slots = defineSlots<{
@@ -82,6 +86,13 @@ const modelValue = useVModel({
 
 const viewMonth = useVModel({
   key: "viewMonth",
+  props,
+  emit,
+  default: () => new Date(),
+});
+
+const hoverDate = useVModel({
+  key: "hoverDate",
   props,
   emit,
   default: () => new Date(),
@@ -148,14 +159,14 @@ const handleMonthSelect = (month: number) => {
   isPickerOpen.value = false;
 };
 
-const hoveredDate = ref<Date>();
-
 const hoverHandlers = (day: RenderDay) => {
   if (selectionMode.value !== "range" || isDisabled.value(day.date)) return {};
 
   return {
-    onMouseenter: () => (hoveredDate.value = day.date),
-    onFocusin: () => (hoveredDate.value = day.date),
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
+    onMouseenter: () => (hoverDate.value = day.date as typeof hoverDate.value),
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
+    onFocusin: () => (hoverDate.value = day.date as typeof hoverDate.value),
   } satisfies HTMLAttributes;
 };
 
@@ -168,14 +179,11 @@ const getDayRangeType = computed(() => {
   return (date: Date): CalendarCellRangeType | undefined => {
     const currentRange =
       props.selectionMode === "range" ? (modelValue.value as Nullable<DateRange>) : undefined;
-    if (!currentRange || currentRange.end || !hoveredDate.value) return getRangeType.value(date);
+    if (!currentRange || currentRange.end || !hoverDate.value) return getRangeType.value(date);
 
     return getRangeType.value(date, {
       start: currentRange.start,
-      end:
-        hoveredDate.value.getTime() === currentRange.start.getTime()
-          ? undefined
-          : hoveredDate.value,
+      end: hoverDate.value.getTime() === currentRange.start.getTime() ? undefined : hoverDate.value,
     });
   };
 });

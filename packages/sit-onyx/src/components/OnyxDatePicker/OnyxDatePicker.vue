@@ -18,13 +18,13 @@ import {
 } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { useRootAttrs } from "../../utils/attrs.js";
-import { dateToISOString } from "../../utils/date.js";
+import { dateToISOString, type DateValue } from "../../utils/date.js";
 import { useForwardProps } from "../../utils/props.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElement from "../OnyxFormElement/OnyxFormElement.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import type { DateValue, OnyxDatePickerProps } from "./types.js";
+import type { OnyxDatePickerProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxDatePickerProps>(), {
   type: "date",
