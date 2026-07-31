@@ -72,7 +72,10 @@ export default defineNuxtModule<ModuleOptions>({
                 : projectLocale;
 
             const language = locale.language ?? locale.code;
+
+            // files are generated at build time, see build.config.ts
             await stat(resolve(`./runtime/locales/${language}.js`));
+
             onyxLocalesToRegister[locale.code] = language;
           }) ?? [],
         );
