@@ -113,7 +113,7 @@ const hoverDate = ref<Date>();
 
 const updateViewMonth = (newValue: DateValue, offset = false) => {
   if (offset) {
-    viewMonth.value = previousMonthForDate(newValue);
+    viewMonth.value = previousMonthForDate(new Date(newValue));
   } else {
     viewMonth.value = new Date(newValue);
   }

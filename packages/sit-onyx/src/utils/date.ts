@@ -18,13 +18,23 @@ export type DateValue = ConstructorParameters<typeof Date>[0];
 export const isValidDate = (date: unknown): date is Date =>
   date instanceof Date && !Number.isNaN(date.getTime());
 
-export const nextMonthForDate = (dateValue: DateValue) => {
-  const date = new Date(dateValue);
+/**
+ * Get the next months date.
+ * Will always return the date for the first day of the month.
+ *
+ * @param date The base date
+ */
+export const nextMonthForDate = (date: Date) => {
   return new Date(date.getFullYear(), date.getMonth() + 1, 1);
 };
 
-export const previousMonthForDate = (dateValue: DateValue) => {
-  const date = new Date(dateValue);
+/**
+ * Get the previous months date.
+ * Will always return the date for the first day of the month.
+ *
+ * @param date The base date
+ */
+export const previousMonthForDate = (date: Date) => {
   return new Date(date.getFullYear(), date.getMonth() - 1, 1);
 };
 
