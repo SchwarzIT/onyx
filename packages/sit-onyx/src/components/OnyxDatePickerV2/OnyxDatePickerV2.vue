@@ -139,22 +139,26 @@ const handleDateSelect = (date: OnyxCalendarValueBySelection<TSelection>) => {
   }
 };
 
-watch(popoverOpen, (newValue) => {
-  if (!newValue) {
-    return;
-  }
-  const value = modelValue.value as OnyxCalendarValueBySelection<TSelection>;
-  let newFocusDate: Date | undefined;
-  if (Array.isArray(value)) {
-    newFocusDate = value.at(0);
-  } else if (typeof value === "object" && value instanceof Date) {
-    newFocusDate = value;
-  } else {
-    newFocusDate = value?.start;
-  }
+watch(
+  popoverOpen,
+  (newValue) => {
+    if (!newValue) {
+      return;
+    }
+    const value = modelValue.value as OnyxCalendarValueBySelection<TSelection>;
+    let newFocusDate: Date | undefined;
+    if (Array.isArray(value)) {
+      newFocusDate = value.at(0);
+    } else if (typeof value === "object" && value instanceof Date) {
+      newFocusDate = value;
+    } else {
+      newFocusDate = value?.start;
+    }
 
-  viewMonth.value = newFocusDate ? new Date(newFocusDate) : new Date();
-});
+    viewMonth.value = newFocusDate ? new Date(newFocusDate) : new Date();
+  },
+  { immediate: true },
+);
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
