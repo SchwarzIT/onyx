@@ -1,4 +1,4 @@
-import { computed, nextTick, ref, toValue, type MaybeRefOrGetter, type Ref } from "vue";
+import { computed, nextTick, ref, toValue, watch, type MaybeRefOrGetter, type Ref } from "vue";
 import { createBuilder, createElRef } from "../../utils/builder.js";
 import {
   getISOWeekNumber,
@@ -83,6 +83,16 @@ export const createCalendar = createBuilder((options: CreateCalendarOptions) => 
   };
 
   const focusedDate = ref(initialFocusedDate());
+
+  // sync focusDate and viewMonth
+  watch(
+    viewMonth,
+    (newViewMonth) => {
+      if (!newViewMonth) return;
+      focusedDate.value = newViewMonth;
+    },
+    { immediate: true },
+  );
 
   const isToday = (date: Date) => {
     return date.toDateString() === new Date().toDateString();
