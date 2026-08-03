@@ -371,6 +371,8 @@ useOutsideClick({
     $calendar-week-column-width: 2.5rem;
     $calendar-day-number-display-width: 2rem;
 
+    min-width: 18rem;
+
     &__header {
       display: flex;
       justify-content: space-between;
@@ -404,7 +406,6 @@ useOutsideClick({
         background-color: var(--onyx-color-base-background-blank);
 
         th {
-          overflow-wrap: normal;
           padding: var(--onyx-density-xs);
           justify-content: center;
           align-items: center;
