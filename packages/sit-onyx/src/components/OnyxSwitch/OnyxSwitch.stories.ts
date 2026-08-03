@@ -102,7 +102,6 @@ export const Skeleton = {
 export const CustomError = {
   args: {
     ...Default.args,
-    hideLabel: true,
     error: {
       shortMessage: "Custom error",
       longMessage: "Further explanation.",

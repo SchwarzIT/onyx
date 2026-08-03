@@ -36,7 +36,9 @@ const data = computed<FormElementV2LabelOptions>(() => {
     <OnyxSkeleton v-if="skeleton" class="onyx-form-element-v2__label-skeleton" />
 
     <template v-else>
-      <label :for="props.id" class="onyx-truncation-ellipsis">{{ data.label }}</label>
+      <label :for="props.id" :class="[`onyx-truncation-${data.truncation ?? 'ellipsis'}`]">
+        {{ data.label }}
+      </label>
 
       <span
         v-if="props.required"
