@@ -55,7 +55,12 @@ const displayValueLabel = computed(() => {
 
 const normalizedLabel = computed<FormElementV2LabelOptions>(() => {
   const labelObject = typeof props.label === "string" ? { label: props.label } : props.label;
-  return { position: "right", hidden: props.hideLabel, ...labelObject };
+  return {
+    position: "right",
+    hidden: props.hideLabel,
+    truncation: props.truncation,
+    ...labelObject,
+  };
 });
 
 const { formElementV2Props: legacyFormElementProps } = useLegacyFormElementProps({
@@ -405,6 +410,15 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       .onyx-truncation-ellipsis {
         cursor: inherit;
       }
+    }
+    &:has(.onyx-truncation-multiline) {
+      .onyx-form-element-v2__content {
+        height: auto;
+      }
+    }
+    // TODO: remove max-width with V2
+    .onyx-form-element-v2__bottom {
+      max-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
     }
   }
 }
