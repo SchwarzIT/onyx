@@ -50,6 +50,11 @@
     "loadMore": "Cargar más",
     "editing": {
       "label": "{column} con ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Reorganizar filas",
+      "reset": "Restablecer cambios",
+      "dragToMove": "Arrastrar para mover la fila"
     }
   },
   "validations": {
@@ -359,5 +364,6 @@
     "trailingShortcutPlaceholder": "para buscar",
     "label": "Buscar",
     "selectFilter": "Seleccionar filtro"
-  }
+  },
+  "save": "Guardar"
 }

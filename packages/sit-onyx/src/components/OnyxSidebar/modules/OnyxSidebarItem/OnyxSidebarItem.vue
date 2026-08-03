@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<OnyxSidebarItemProps>(), {
 
 defineSlots<{
   /**
-   * Content of the sidebar item.
+   * Content of the sidebar item. Only use textual content here.
    */
   default(): unknown;
 }>();
@@ -74,7 +74,6 @@ const classes = computed(() => [
     }
 
     &--active {
-      color: var(--onyx-color-text-icons-primary-bold);
       background-color: var(--onyx-color-base-primary-100);
 
       &:hover {

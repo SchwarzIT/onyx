@@ -7,6 +7,7 @@
   "back": "Zurück",
   "close": "Schließen",
   "now": "Jetzt",
+  "save": "Speichern",
   "breadcrumb": {
     "label": "Brotkrümelnavigation",
     "home": "Startseite"
@@ -50,7 +51,12 @@
     "editing": {
       "label": "{column} mit der ID {id}"
     },
-    "loadMore": "Mehr laden"
+    "loadMore": "Mehr laden",
+    "rowRearrange": {
+      "rearrange": "Zeilen neu anordnen",
+      "reset": "Änderungen zurücksetzen",
+      "dragToMove": "Zum Verschieben der Zeile ziehen"
+    }
   },
   "validations": {
     "tooShort": {

@@ -41,7 +41,7 @@ const isExpanded = useVModel({
 
 const slots = defineSlots<{
   /**
-   * The trigger for the flyout menu. Should be an interactive component like a button or link.
+   * The trigger for the flyout menu. Use with `OnyxButton`, `OnyxSystemButton` or `OnyxIconButton`
    */
   button?(params: {
     /**
@@ -51,7 +51,7 @@ const slots = defineSlots<{
     trigger: object;
   }): unknown;
   /**
-   * OnyxMenuItem's to show
+   * Use this slot to provide `OnyxMenuItem` components.
    */
   options?(): unknown;
   /**

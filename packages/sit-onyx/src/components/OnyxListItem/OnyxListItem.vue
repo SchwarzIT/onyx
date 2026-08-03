@@ -44,7 +44,7 @@ const { densityClass } = useDensity(props);
 .onyx-list-item {
   @include layers.component() {
     --onyx-list-item-color: var(--onyx-color-text-icons-neutral-intense);
-    --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-bold);
+    --onyx-list-item-color-selected: var(--onyx-color-text-icons-neutral-intense);
     --onyx-list-item-background: var(--onyx-color-base-background-blank);
     --onyx-list-item-background-hover: var(--onyx-color-base-primary-100);
     --onyx-list-item-background-selected: var(--onyx-color-base-primary-200);

@@ -50,6 +50,11 @@
     "loadMore": "더 불러오기",
     "editing": {
       "label": "ID가 {id}인 {column}"
+    },
+    "rowRearrange": {
+      "rearrange": "행 재정렬",
+      "reset": "변경사항 재설정",
+      "dragToMove": "드래그하여 행 이동"
     }
   },
   "validations": {
@@ -359,5 +364,6 @@
     "trailingShortcutPlaceholder": "하여 검색",
     "label": "검색",
     "selectFilter": "필터 선택"
-  }
+  },
+  "save": "저장"
 }

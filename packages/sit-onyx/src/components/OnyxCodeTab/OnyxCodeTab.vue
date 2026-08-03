@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { computed, inject, onUnmounted, watch } from "vue";
+import { computed, inject, onUnmounted, useTemplateRef, watch } from "vue";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
 } from "../../composables/useSkeletonState.js";
 import { injectI18n } from "../../i18n/index.js";
+import { userConsole } from "../../utils/console.js";
 import { useForwardProps } from "../../utils/props.js";
 import { CODE_TABS_INJECTION_KEY } from "../OnyxCodeTabs/types.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
@@ -34,16 +35,20 @@ const { t } = injectI18n();
 
 const tabProps = useForwardProps(props, OnyxTab);
 const tabsContext = inject(CODE_TABS_INJECTION_KEY, undefined);
+userConsole?.assert(tabsContext, "OnyxCodeTab must be placed inside of a OnyxCodeTabs component!");
+
 const label = computed(() => props.label ?? t.value("codeTabs.tabLabel"));
 const skeleton = useSkeletonContext(props);
 
+const codeEl = useTemplateRef("code");
+
 watch(
-  [() => props.value, () => props.code],
+  [() => props.value, () => props.code, codeEl],
   ([newValue, newCode], [oldValue]) => {
     if (oldValue) {
       tabsContext?.tabs.value.delete(oldValue);
     }
-    tabsContext?.tabs.value.set(newValue, newCode);
+    tabsContext?.tabs.value.set(newValue, newCode || codeEl.value || "");
   },
   { immediate: true },
 );
@@ -72,9 +77,11 @@ const disabled = computed(() => {
     </div>
 
     <template v-else>
-      <slot>
-        <pre><code>{{ props.code }}</code></pre>
-      </slot>
+      <div ref="code" class="onyx-code-tab__code-wrapper">
+        <slot>
+          <pre><code>{{ props.code }}</code></pre>
+        </slot>
+      </div>
 
       <span v-if="props.language" class="onyx-code-tab__language">
         {{ props.language }}
@@ -113,6 +120,10 @@ const disabled = computed(() => {
 
     &__language {
       user-select: none;
+    }
+
+    &__code-wrapper {
+      display: contents;
     }
 
     &__skeletons {

@@ -36,12 +36,12 @@ const modelValue = useVModel({
   key: "modelValue",
 });
 
-const tabs = ref(new Map<PropertyKey, string>());
+const tabs = ref(new Map<PropertyKey, string | HTMLElement>());
 provide(CODE_TABS_INJECTION_KEY, { tabs });
 
 const activeTabCode = computed(() => tabs.value.get(modelValue.value));
 
-const { copyStatus, copy: handleCopy } = useCopy({ source: () => activeTabCode.value ?? "" });
+const { copyStatus, copy: handleCopy } = useCopy({ source: () => activeTabCode.value || "" });
 </script>
 
 <template>
@@ -57,10 +57,9 @@ const { copyStatus, copy: handleCopy } = useCopy({ source: () => activeTabCode.v
 
     <template #actions>
       <OnyxSystemButton
-        v-if="!copyStatus"
+        v-if="!copyStatus && activeTabCode"
         :label="t('codeTabs.copySnippet')"
         :icon="iconFileCopy"
-        :disabled="!activeTabCode"
         @click="handleCopy"
       />
       <OnyxTag v-else-if="copyStatus === 'success'" :label="t('codeTabs.copied')" color="success" />

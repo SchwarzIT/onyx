@@ -5,6 +5,7 @@ This is the official [onyx](https://onyx.schwarz/) Model Context Protocol (or "M
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en) version as specified in [.node-version](./.node-version) file
+- If you are sitting behind an (enterprise) proxy, you might need to set the `export NODE_USE_SYSTEM_CA=1` environment variable.
 
 ## Getting started
 
@@ -51,7 +52,23 @@ Save the file and confirm that the MCP has been set up correctly:
 gemini mcp list
 ```
 
-## Development
+### "Eject" Skills
+
+If you prefer to have the skills as editable markdown on your filesystem, then the `--writeSkills` flag can be used in the CLI:
+
+```shell
+onyx-mcp --writeSkills "./skills"
+```
+
+Then configure the `onyx-mcp` in your coding assistants configuration to exclude the `skill` capabilities:
+
+```sh
+onyx-mcp --exclude "skill"
+```
+
+This way the MCP will not provide the skills and avoid duplicated context for the coding agent.
+
+## Development/Contributing
 
 Run this command in the monorepo root:
 
@@ -63,3 +80,18 @@ This starts the "build" watcher and the [`@modelcontextprotocol/inspector`](http
 
 You must reload the inspector browser website after changes to the `@sit-onyx/modelcontextprotocol` source code.
 **Using the "Reconnect" button does not suffice!**
+
+### Adding Agent Skills
+
+[Agent Skills](https://agentskills.io/) are developed and maintained in the `./src/resources/skills` directory.
+Each skill has its own directory with a single `SKILL.md` file.
+
+```md
+---
+name: <skill-name>
+description: <skill-description>
+license: Apache-2.0
+---
+```
+
+Nested/bundled references and other resources are currently not supported.

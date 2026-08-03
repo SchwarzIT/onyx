@@ -28,7 +28,7 @@ const emit = defineEmits<{
 
 defineSlots<{
   /**
-   * Displays OnyxAccordionItem components.
+   * Use the default slot to pass one or more `OnyxAccordionItem`.
    */
   default(): unknown;
 }>();

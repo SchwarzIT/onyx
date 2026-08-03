@@ -86,7 +86,9 @@ const handleApply = () => {
               </OnyxVisuallyHidden>
 
               <span class="onyx-select-dialog__label"> {{ option.label }} </span>
-              <p v-if="option.description" class="onyx-text--small">{{ option.description }}</p>
+              <p v-if="option.description" class="onyx-text--small onyx-select-dialog__description">
+                {{ option.description }}
+              </p>
             </div>
           </OnyxCard>
         </label>
@@ -155,10 +157,10 @@ const handleApply = () => {
         &:hover {
           border-color: var(--onyx-color-component-border-primary);
         }
-
+        .onyx-select-dialog__description,
         .onyx-select-dialog__label,
         .onyx-select-dialog__icon {
-          color: var(--onyx-color-text-icons-primary-intense);
+          color: var(--onyx-color-text-icons-neutral-intense);
         }
       }
     }

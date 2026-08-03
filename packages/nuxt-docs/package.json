@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/nuxt-docs",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Nuxt layer/template for creating documentations with the onyx design system",
   "bugs": {
     "url": "https://github.com/SchwarzIT/onyx/issues"
@@ -15,7 +15,8 @@
   "files": [
     "app",
     "content.config.ts",
-    "nuxt.config.ts"
+    "nuxt.config.ts",
+    "modules"
   ],
   "type": "module",
   "main": "./nuxt.config.ts",

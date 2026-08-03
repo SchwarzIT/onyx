@@ -14,7 +14,7 @@ Onyx supports light and dark themes out-of-the-box. Theme switching is handled a
 
 ### Rule: CSS Variables Only
 
-**NEVER hardcode hex, rgb, or hsl color values.** Always use semantic Onyx CSS variables (prefixed with `--onyx-`).
+**NEVER hardcode hex, rgb, or hsl color values!** Always use semantic Onyx CSS variables (prefixed with `--onyx-`).
 
 - **Base backgrounds:** `var(--onyx-color-base-background-tinted)`, `var(--onyx-color-base-background-blank)`
 - **Primary brand:** `var(--onyx-color-base-primary-500)`, `var(--onyx-color-base-primary-100)`
@@ -22,6 +22,14 @@ Onyx supports light and dark themes out-of-the-box. Theme switching is handled a
 - **Component states:** `var(--onyx-color-component-cta-default)`, `var(--onyx-color-component-border-primary)`, `var(--onyx-color-component-focus-primary)`
 
 _Note: Access ONLY Semantic variables. Do NOT use global or component variables directly in applications._
+
+### Rule: No custom animations
+
+**NEVER add animations or transitions unprompted!** Only add them when explicitly asked for and use the Onyx duration CSS variables:
+
+- `--onyx-duration-sm`
+- `--onyx-duration-md`
+- `--onyx-duration-lg`
 
 ## Density
 

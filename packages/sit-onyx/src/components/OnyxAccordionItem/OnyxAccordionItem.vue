@@ -18,12 +18,12 @@ const props = withDefaults(defineProps<OnyxAccordionItemProps>(), {
 
 defineSlots<{
   /**
-   * Displays the header content.
+   * Displays the header content, which is always visible.
    */
   header(): unknown;
 
   /**
-   * Displays the panel content.
+   * Displays the panel content, which is visible when the accordion item is open.
    */
   default?(): unknown;
 }>();

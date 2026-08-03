@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { OnyxSelect, type SelectOption } from "sit-onyx";
-import { computed, ref, watchEffect } from "vue";
-import { fetchVersions } from "../utils/versions.js";
+import { computed, ref, watch } from "vue";
+import { useVersions } from "../composables/versions.js";
 
 const props = defineProps<{
   /**
@@ -20,22 +20,20 @@ const props = defineProps<{
 }>();
 
 const version = defineModel<string | null>();
-const versions = ref<string[]>([]);
+const isOpen = ref(false);
 
-watchEffect(async () => {
-  versions.value = await fetchVersions(props.pkg);
-});
+const { versions, isLoading, execute } = useVersions(props);
 
-const filteredVersions = computed(() => {
-  if (props.includePreReleases) return versions.value;
-  return versions.value.filter((v) => !v.includes("-"));
-});
+watch(isOpen, () => execute(), { once: true });
 
 const options = computed(() => {
-  const versionOptions = filteredVersions.value.map<SelectOption<string>>((i) => ({
+  const versionOptions = versions.value.map<SelectOption<string>>((i) => ({
     value: i,
     label: i,
   }));
+  if (version.value && versionOptions.every(({ value }) => value !== version.value)) {
+    versionOptions.unshift({ value: version.value, label: version.value });
+  }
   if (!props.includePreReleases) return versionOptions;
 
   const SORT_ORDER = ["stable", "dev", "beta"];
@@ -66,11 +64,14 @@ const getPreReleaseTagFromVersion = (version: string) => {
 <template>
   <OnyxSelect
     v-model="version"
+    v-model:open="isOpen"
     :label="props.label"
     :list-label="`Select ${props.pkg} version`"
     :placeholder="version || 'Select version'"
     :options="options"
+    :loading="isLoading"
     density="compact"
+    hide-clear-icon
     with-search
   />
 </template>

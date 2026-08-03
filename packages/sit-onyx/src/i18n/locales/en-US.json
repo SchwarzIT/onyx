@@ -7,6 +7,7 @@
   "back": "Back",
   "close": "Close",
   "now": "Now",
+  "save": "Save",
   "breadcrumb": {
     "label": "Breadcrumb navigation",
     "home": "Home"
@@ -50,7 +51,12 @@
     "editing": {
       "label": "{column} with ID {id}"
     },
-    "loadMore": "Load more"
+    "loadMore": "Load more",
+    "rowRearrange": {
+      "rearrange": "Rearrange rows",
+      "reset": "Reset changes",
+      "dragToMove": "Drag to move row"
+    }
   },
   "validations": {
     "tooShort": {

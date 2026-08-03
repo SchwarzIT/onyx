@@ -1,13 +1,14 @@
 import { expect, test } from "@playwright/test";
+import { PKG_METADATA_URL } from "../src/composables/versions.js";
 
 test("should persist onyx version in URL", async ({ page }) => {
   // ARRANGE
-  const MOCK_URL = "https://registry.npmjs.org/sit-onyx";
+  const MOCK_URL = PKG_METADATA_URL("sit-onyx");
 
   await page.route(MOCK_URL, (route) => {
     return route.fulfill({
       json: {
-        versions: [{ version: "1.0.0-mock.2" }, { version: "1.0.0-mock.1" }],
+        versions: ["1.0.0-mock.1", "1.0.0-mock.2"],
       },
     });
   });

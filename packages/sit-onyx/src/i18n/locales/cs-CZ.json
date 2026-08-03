@@ -50,6 +50,11 @@
     "loadMore": "Načíst další",
     "editing": {
       "label": "{column} s ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Změnit uspořádání řádků",
+      "reset": "Resetovat změny",
+      "dragToMove": "Táhnutím přesunete řádek"
     }
   },
   "validations": {
@@ -359,5 +364,6 @@
     "trailingShortcutPlaceholder": "pro vyhledávání",
     "label": "Hledat",
     "selectFilter": "Vybrat filtr"
-  }
+  },
+  "save": "Uložit"
 }

@@ -54,9 +54,9 @@ When using another package manager, you can skip this step.
 ::: code-group
 
 ```yml [pnpm-workspace.yaml]
-# needed to correctly install the Nuxt content and Nuxt image module
-onlyBuiltDependencies:
-  - better-sqlite3
+allowBuilds:
+  better-sqlite3: true
+  esbuild: true
 ```
 
 :::
