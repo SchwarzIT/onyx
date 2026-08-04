@@ -8,7 +8,7 @@ const value = ref(false);
 <template>
   <OnyxSwitch
     v-model="value"
-    :label="{ label: 'Label', position: 'top' }"
+    :label="{ label: 'Example Label', position: 'top' }"
     :value-label="{ truthy: 'ON', falsy: 'OFF' }"
   />
 </template>

@@ -3,6 +3,6 @@ import { OnyxSwitch } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxSwitch label="Example label" loading />
-  <OnyxSwitch label="Example label" skeleton />
+  <OnyxSwitch :label="{ label: 'Example label', position: 'top' }" loading />
+  <OnyxSwitch :label="{ label: 'Example label', position: 'top' }" skeleton />
 </template>
