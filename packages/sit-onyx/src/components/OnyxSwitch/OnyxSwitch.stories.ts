@@ -27,7 +27,12 @@ export const WithValueLabel = {
   tags: ["new:feature"],
   args: {
     label: { label: "Switch label", position: "top" },
-    valueLabel: { falsy: "Off", truthy: "On" },
+    valueLabel: {
+      falsy:
+        ", Very long label that will be truncated, Very long label that will be truncated, Very long label that will be truncated",
+      truthy: "Very long label that will be truncated",
+    },
+    style: "max-width: 12rem",
   },
 } satisfies Story;
 

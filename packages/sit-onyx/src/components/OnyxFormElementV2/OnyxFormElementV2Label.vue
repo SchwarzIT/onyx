@@ -22,6 +22,8 @@ const data = computed<FormElementV2LabelOptions>(() => {
   if (typeof props.label === "object") return props.label;
   return { label: props.label };
 });
+
+const truncation = computed(() => data.value.truncation ?? "ellipsis");
 </script>
 
 <template>
@@ -36,13 +38,19 @@ const data = computed<FormElementV2LabelOptions>(() => {
     <OnyxSkeleton v-if="skeleton" class="onyx-form-element-v2__label-skeleton" />
 
     <template v-else>
-      <label :for="props.id" :class="[`onyx-truncation-${data.truncation ?? 'ellipsis'}`]">
+      <label
+        :for="props.id"
+        :class="[
+          `onyx-truncation-${truncation}`,
+          truncation === 'multiline' ? requiredMarkerClass : undefined,
+        ]"
+      >
         {{ data.label }}
       </label>
 
       <span
-        v-if="props.required"
-        :class="[props.required ? requiredMarkerClass : undefined]"
+        v-if="truncation !== 'multiline' && props.required"
+        :class="[requiredMarkerClass]"
       ></span>
 
       <OnyxInfoTooltip
@@ -53,8 +61,8 @@ const data = computed<FormElementV2LabelOptions>(() => {
       />
 
       <span
-        v-if="!props.required"
-        :class="[!props.required ? requiredMarkerClass : undefined]"
+        v-if="truncation !== 'multiline' && !props.required"
+        :class="[requiredMarkerClass]"
       ></span>
     </template>
   </div>
