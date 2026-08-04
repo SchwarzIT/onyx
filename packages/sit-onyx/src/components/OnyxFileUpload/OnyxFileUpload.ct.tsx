@@ -302,9 +302,7 @@ test("should show required error message", async ({ mount, page }) => {
   );
 
   const button = component.getByRole("button", { name: "Click to select" });
-  const errorMessage = component.getByText(
-    "You need to upload at least one fileYou need to upload at least one fileYou",
-  );
+  const errorMessage = component.getByText("You need to upload at least one file").first();
 
   // ASSERT
   await expect(errorMessage).toBeVisible();

@@ -2,12 +2,12 @@ import type { DensityProp } from "../../composables/density.js";
 import type { Nullable } from "../../types/utils.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
-import type { FormElementV2LabelOptions } from "../OnyxFormElementV2/types.js";
+import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
+  Pick<SharedFormElementProps, "name" | "disabled"> &
   Pick<
-    SharedFormElementProps,
-    | "name"
+    OnyxFormElementV2Props,
     | "required"
     | "showError"
     | "requiredMarker"
@@ -16,13 +16,8 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
     | "message"
     | "error"
     | "skeleton"
-    | "disabled"
-  > & {
-    /**
-     * Label to show for the file upload.
-     * Will be required in onyx version 2.
-     */
-    label?: string | FormElementV2LabelOptions;
+  > &
+  Partial<Pick<OnyxFormElementV2Props, "label">> & {
     /**
      * Currently selected file(s).
      * If `multiple` property is enabled, this value is an array, otherwise a single file.
