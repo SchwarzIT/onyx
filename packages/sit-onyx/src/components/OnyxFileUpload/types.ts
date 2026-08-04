@@ -5,9 +5,9 @@ import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
-  Pick<SharedFormElementProps, "name" | "disabled"> &
   Pick<
-    OnyxFormElementV2Props,
+    SharedFormElementProps,
+    | "name"
     | "required"
     | "showError"
     | "requiredMarker"
@@ -16,6 +16,7 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
     | "message"
     | "error"
     | "skeleton"
+    | "disabled"
   > &
   Partial<Pick<OnyxFormElementV2Props, "label">> & {
     /**
