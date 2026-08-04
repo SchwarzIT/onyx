@@ -35,7 +35,7 @@ const slots = defineSlots<{
       gap: var(--onyx-density-2xs);
     }
     &__label {
-      width: 100%;
+      max-width: 100%;
     }
   }
 }
