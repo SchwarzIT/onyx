@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { OnyxInput, OnyxSwitch } from "sit-onyx";
-import { ref } from "vue";
+import { OnyxSwitch } from "sit-onyx";
 </script>
 
 <template>
