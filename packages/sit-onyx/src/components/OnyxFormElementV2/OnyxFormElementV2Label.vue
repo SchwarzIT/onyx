@@ -49,8 +49,8 @@ const truncation = computed(() => data.value.truncation ?? "ellipsis");
       </label>
 
       <span
-        v-if="truncation !== 'multiline' && props.required"
-        :class="[requiredMarkerClass]"
+        v-if="truncation !== 'multiline' && requiredMarkerClass"
+        :class="['onyx-form-element-v2__marker', requiredMarkerClass]"
       ></span>
 
       <OnyxInfoTooltip
@@ -59,11 +59,6 @@ const truncation = computed(() => data.value.truncation ?? "ellipsis");
         trigger="hover"
         :text="data.tooltipText"
       />
-
-      <span
-        v-if="truncation !== 'multiline' && !props.required"
-        :class="[requiredMarkerClass]"
-      ></span>
     </template>
   </div>
 </template>
@@ -78,6 +73,8 @@ const truncation = computed(() => data.value.truncation ?? "ellipsis");
       align-items: center;
       max-width: 100%;
       width: 100%;
+      min-width: 0;
+
       color: var(--onyx-color-text-icons-neutral-medium);
 
       // optional marker should be displayed at the very end of the label
