@@ -416,8 +416,8 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         height: auto;
       }
     }
-    // TODO: remove max-width with V2
-    .onyx-form-element-v2__bottom {
+    // Truncates messages if the label is on the right to prevent layout shifts
+    &.onyx-form-element-v2--label-right .onyx-form-element-v2__bottom {
       max-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
     }
   }

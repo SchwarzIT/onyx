@@ -6,5 +6,5 @@ const checked = ref(false);
 </script>
 
 <template>
-  <OnyxSwitch v-model="checked" label="Example label" required />
+  <OnyxSwitch v-model="checked" :label="{ label: 'Example label', position: 'top' }" required />
 </template>

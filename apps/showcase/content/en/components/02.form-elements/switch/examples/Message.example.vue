@@ -5,7 +5,7 @@ import { ref } from "vue";
 
 <template>
   <OnyxSwitch
-    label="Example label"
+    :label="{ label: 'Example label', position: 'top' }"
     :message="{ shortMessage: 'Message', longMessage: 'Message tooltip content' }"
   />
   <!--
@@ -13,12 +13,12 @@ import { ref } from "vue";
     Remove it if not needed so the error is only displayed after user interaction.
   -->
   <OnyxSwitch
-    label="Example label"
+    :label="{ label: 'Example label', position: 'top' }"
     :error="{ shortMessage: 'Custom error', longMessage: 'Error tooltip content' }"
     show-error
   />
   <OnyxSwitch
-    label="Example label"
+    :label="{ label: 'Example label', position: 'top' }"
     :success="{ shortMessage: 'Success', longMessage: 'Success tooltip content' }"
   />
 </template>

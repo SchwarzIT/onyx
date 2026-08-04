@@ -3,5 +3,5 @@ import { OnyxSwitch } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxSwitch label="Example label" disabled />
+  <OnyxSwitch :label="{ label: 'Example label', position: 'top' }" disabled />
 </template>

@@ -19,7 +19,7 @@ type Story = StoryObj<typeof OnyxSwitch>;
  */
 export const Default = {
   args: {
-    label: "Switch label",
+    label: { label: "Switch label", position: "top" },
   },
 } satisfies Story;
 
