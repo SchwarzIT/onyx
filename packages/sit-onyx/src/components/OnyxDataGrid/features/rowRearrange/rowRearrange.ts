@@ -30,7 +30,7 @@ import {
 import { createFeature, type DataGridFeature } from "../index.js";
 
 export const ROW_REARRANGE_FEATURE = Symbol("RowRearrange");
-export const ROW_REARRANGE_COLUMN_KEY = Symbol();
+export const ROW_REARRANGE_COLUMN_KEY = Symbol("RowRearrangeColumn");
 const ROW_REARRANGE_COLUMN_TYPE = Symbol();
 
 /**
