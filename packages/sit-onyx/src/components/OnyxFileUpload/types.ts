@@ -17,8 +17,7 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
     | "error"
     | "skeleton"
     | "disabled"
-  > &
-  Omit<SharedFormElementProps, "id" | ""> & {
+  > & {
     /**
      * Label to show for the file upload.
      * Will be required in onyx version 2.

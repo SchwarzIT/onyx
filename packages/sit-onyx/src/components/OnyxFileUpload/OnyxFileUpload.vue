@@ -103,8 +103,14 @@ const { vCustomValidity, errorMessages } = useFormElementError({
   error: requiredError,
 });
 
+const legacyFormElementProps = computed(() => {
+  return {
+    ...props,
+    label: props.label ?? { label: t.value("fileUpload.clickToUpload"), hidden: true },
+  };
+});
 const { formElementV2Props } = useLegacyFormElementProps({
-  props,
+  props: legacyFormElementProps,
   errorMessages,
 });
 
