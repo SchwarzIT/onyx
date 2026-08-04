@@ -141,15 +141,15 @@ const handleDateSelect = (date: OnyxCalendarValueBySelection<TSelection>) => {
 
 watch(
   popoverOpen,
-  (newValue) => {
-    if (!newValue) {
-      return;
-    }
-    const value = modelValue.value as OnyxCalendarValueBySelection<TSelection>;
+  (isOpen) => {
+    if (!isOpen) return;
+
+    const value = modelValue.value;
     let newFocusDate: Date | undefined;
+
     if (Array.isArray(value)) {
       newFocusDate = value.at(0);
-    } else if (typeof value === "object" && value instanceof Date) {
+    } else if (value instanceof Date) {
       newFocusDate = value;
     } else {
       newFocusDate = value?.start;

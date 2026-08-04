@@ -343,4 +343,5 @@ export { useResizeObserver } from "./composables/useResizeObserver.js";
 export * from "./utils/attrs.js";
 export * from "./utils/props.js";
 export * from "./utils/router.js";
+export { type DateValue } from "./utils/date.js";
 export { normalizedIncludes } from "./utils/strings.js";

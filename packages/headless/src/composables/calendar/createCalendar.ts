@@ -84,7 +84,7 @@ export const createCalendar = createBuilder((options: CreateCalendarOptions) => 
 
   const focusedDate = ref(initialFocusedDate());
 
-  // sync focusDate and viewMonth
+  // sync focusDate with viewMonth
   watch(
     viewMonth,
     (newViewMonth) => {
