@@ -242,9 +242,9 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
         &:hover:not(.onyx-table__empty, .onyx-table__standalone-row) > td::before {
           background-color: var(--onyx-color-base-neutral-200);
         }
-
         > th,
         > td {
+          overflow-wrap: break-word;
           position: relative;
           padding: var(--onyx-table-padding-block) var(--onyx-table-padding-inline);
           outline: none;

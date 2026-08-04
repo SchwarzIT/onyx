@@ -281,6 +281,31 @@ test.describe("Screenshot tests (slots)", () => {
   });
 });
 
+test.describe("Screenshot tests (overflow)", () => {
+  executeMatrixScreenshotTest({
+    name: "Table (text overflow)",
+    columns: ["default"],
+    rows: ["default"],
+    fastNoIsolation: true,
+    component: () => (
+      <OnyxTable style={{ width: "18rem" }} tableAttrs={{ style: { tableLayout: "fixed" } }}>
+        <template v-slot:head>
+          <tr>
+            <th>very.long.header.email.address@example.com</th>
+            <th>Short</th>
+            <th>Multiple words header text</th>
+          </tr>
+        </template>
+        <tr>
+          <td>john.doe.very.long.email.address@example.com</td>
+          <td>Short</td>
+          <td>Multiple words inside cell</td>
+        </tr>
+      </OnyxTable>
+    ),
+  });
+});
+
 test("should keep components be clickable even with active column hover effect", async ({
   mount,
 }) => {
