@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import { iconPlaceholder } from "@sit-onyx/icons";
 import { OnyxFileUpload } from "sit-onyx";
-import { ref } from "vue";
 </script>
 
 <template>
