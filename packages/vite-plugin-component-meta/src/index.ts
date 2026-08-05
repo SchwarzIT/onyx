@@ -121,7 +121,7 @@ export async function extractComponentMeta(
       }
     },
     configResolved(config) {
-      if (config.build.lib === false) {
+      if (config.build.lib === false || config.build.lib.entry == undefined) {
         return;
       } else if (typeof config.build.lib.entry === "object") {
         entry = Object.values(config.build.lib.entry);
