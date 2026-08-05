@@ -62,12 +62,12 @@
     "postcss-scss": "^4.0.9",
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^3.1.0",
-    "tsx": "^4.23.1",
+    "tsx": "^4.23.5",
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.3.7",
-    "vue-i18n": "^11.4.6",
+    "vue-component-type-helpers": "^3.3.9",
+    "vue-i18n": "^11.4.8",
     "vue-router": "^5.2.0"
   },
   "peerDependencies": {

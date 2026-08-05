@@ -28,7 +28,7 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@vue/repl": "^4.7.2",
-    "@vueuse/core": "^14.3.0",
+    "@vueuse/core": "^14.4.0",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",
     "vue": "catalog:"
