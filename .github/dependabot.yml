@@ -16,6 +16,10 @@ updates:
           - "@playwright/*"
           - "playwright*"
 
+      typescript:
+        patterns:
+          - typescript
+
       minor:
         update-types:
           - minor

@@ -17,7 +17,7 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@nuxt/content": "^3.15.0",
+    "@nuxt/content": "^3.15.2",
     "@nuxtjs/mdc": "~0.22.2",
     "@sit-onyx/assets": "workspace:^",
     "@sit-onyx/flags": "workspace:^",
@@ -27,17 +27,16 @@
     "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/nuxt-docs": "workspace:^",
     "@sit-onyx/tiptap": "workspace:^",
-    "@vueuse/core": "^14.3.0",
-    "@vueuse/nuxt": "^14.3.0",
-    "@vueuse/router": "^14.3.0",
-    "better-sqlite3": "^12.11.1",
-    "browserslist": "^4.28.6",
+    "@vueuse/core": "^14.4.0",
+    "@vueuse/nuxt": "^14.4.0",
+    "@vueuse/router": "^14.4.0",
+    "better-sqlite3": "^13.0.2",
+    "browserslist": "^4.28.7",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.29",
-    "nuxt-studio": "^1.7.0",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
-    "vue-i18n": "^11.4.6",
+    "vue-i18n": "^11.4.8",
     "vue-router": "^5.2.0"
   },
   "devDependencies": {

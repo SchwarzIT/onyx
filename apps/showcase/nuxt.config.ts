@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
-  modules: ["nuxt-studio", "nuxt-auth-utils", "@vueuse/nuxt"],
+  modules: ["nuxt-auth-utils", "@vueuse/nuxt"],
   css: ["@sit-onyx/tiptap/style.css"],
   app: {
     head: {
@@ -19,26 +19,6 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: "en",
     locales: [{ code: "en", language: "en-US", file: "en-US.json", name: "English" }],
-  },
-  studio: {
-    dev: process.env.NUXT_STUDIO_DEV_DISABLED !== "true",
-    // git repository configuration
-    repository: {
-      provider: "github",
-      owner: "SchwarzIT",
-      repo: "onyx",
-      rootDir: "apps/showcase",
-      private: false,
-      // Nuxt Studio does not yet support creating Pull Requests. Since our main branch is protected, we use a
-      // different branch here so Nuxt Studio can push the changes there directly and we can create the PR manually for now
-      branch: "nuxt-studio",
-    },
-    meta: {
-      // see: https://nuxt.studio/setup#components-meta
-      components: {
-        exclude: ["Prose*"],
-      },
-    },
   },
   vite: {
     css: {
