@@ -20,6 +20,12 @@ export default defineNuxtConfig({
     defaultLocale: "en",
     locales: [{ code: "en", language: "en-US", file: "en-US.json", name: "English" }],
   },
+  content: {
+    experimental: {
+      // use native Node sqlite so we don't need "better-sqlite3" dependency
+      sqliteConnector: "native",
+    },
+  },
   vite: {
     css: {
       lightningcss: {
