@@ -44,7 +44,7 @@
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",
-    "vitepress": "2.0.0-alpha.18",
+    "vitepress": "2.0.0-alpha.19",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.4"
   },
