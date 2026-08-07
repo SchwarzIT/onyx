@@ -54,7 +54,7 @@
     "lint-staged": "^17.3.0",
     "nuxt": "catalog:",
     "oxfmt": "~0.62.0",
-    "publint": "^0.3.22",
+    "publint": "^0.3.23",
     "rimraf": "^6.1.3",
     "simple-git-hooks": "^2.13.1",
     "storybook": "~10.5.5",
