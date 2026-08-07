@@ -5,7 +5,7 @@ test("should render link", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <TestCaseCt
-      markdown={`
+      value={`
 [Internal link](#test)
 
 [External link](https://example.com)
@@ -32,7 +32,7 @@ test("should render hard break", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <TestCaseCt
-      markdown={`
+      value={`
 A
 <br />
 B
@@ -50,7 +50,7 @@ B
 test("should render code", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
-    <TestCaseCt markdown={"This is an `console.log('inline code')` snippet"} />,
+    <TestCaseCt value={"This is an `console.log('inline code')` snippet"} />,
   );
 
   // ASSERT
@@ -61,7 +61,7 @@ test("should render details / summary", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <TestCaseCt
-      markdown={`
+      value={`
 <details>
 Details content
 </details>
@@ -90,7 +90,7 @@ test("should render headlines", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <TestCaseCt
-      markdown={`# Headline 1
+      value={`# Headline 1
 ## Headline 2
 ### Headline 3
 #### Headline 4
@@ -118,7 +118,7 @@ test("should render hr", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <TestCaseCt
-      markdown={`a
+      value={`a
 
 ---
 
@@ -136,7 +136,7 @@ test("should render ol", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <TestCaseCt
-      markdown={`
+      value={`
 1. Option A
 2. Option B
 3. Option C
@@ -152,7 +152,7 @@ test("should render p", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <TestCaseCt
-      markdown={`
+      value={`
 Hello World
 
 New line
@@ -170,7 +170,7 @@ test("should render pre", async ({ mount, page, context }) => {
 
   const component = await mount(
     <TestCaseCt
-      markdown={`
+      value={`
 \`\`\`ts
 console.log("Hello World");
 \`\`\`
@@ -199,7 +199,7 @@ test("should render table", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <TestCaseCt
-      markdown={`
+      value={`
 | Left aligned | Centered | Right aligned |
 | ------------ | :------: | ------------: |
 | foo          |    1     |         Hello |
@@ -220,7 +220,7 @@ test("should render ul", async ({ mount }) => {
   // ARRANGE
   const component = await mount(
     <TestCaseCt
-      markdown={`
+      value={`
 - Option A
 - Option B
 - Option C
