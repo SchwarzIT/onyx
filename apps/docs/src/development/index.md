@@ -178,7 +178,7 @@ onyx works best with the following browser versions. Older versions might also w
 
 ::: details More information (.browserslistrc file)
 
-<<< @include ../../../../.browserslistrc{txt}
+<<< @include ../../../../../.browserslistrc{txt}
 :::
 
 ## Next steps
