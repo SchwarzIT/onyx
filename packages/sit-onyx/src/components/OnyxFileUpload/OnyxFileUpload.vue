@@ -21,12 +21,13 @@ import { userConsole } from "../../utils/console.js";
 import { validateFileType } from "../../utils/file.js";
 import { convertBinaryPrefixToBytes } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
+import { useForwardProps } from "../../utils/props.js"; // Standard Prop Forwarding Nutzen
 import { OnyxFileUploadSVG } from "../illustrations/index.js";
 import OnyxFileCard from "../OnyxFileCard/OnyxFileCard.vue";
 import type { FileCardStatus, OnyxFileCardProps } from "../OnyxFileCard/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
-import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
+import { customMessageToFormElementV2Message } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -103,13 +104,14 @@ const { vCustomValidity, errorMessages } = useFormElementError({
   error: requiredError,
 });
 
-const { formElementV2Props } = useLegacyFormElementProps({
-  props: computed(() => ({
+const formElementV2Props = useForwardProps(
+  computed(() => ({
     ...props,
     label: props.label ?? { label: t.value("fileUpload.clickToUpload"), hidden: true },
+    error: props.error ?? customMessageToFormElementV2Message(errorMessages.value),
   })),
-  errorMessages,
-});
+  OnyxFormElementV2,
+);
 
 const hideFiles = ref(false);
 
@@ -239,7 +241,6 @@ const shouldShowFileList = computed(() => {
     v-bind="
       mergeVueProps(formElementV2Props, rootAttrs, {
         class: ['onyx-file-upload-wrapper', `onyx-file-upload-wrapper--${props.size}`],
-        label: props.label ?? { label: t('fileUpload.clickToUpload'), hidden: true },
       })
     "
     unstyled
