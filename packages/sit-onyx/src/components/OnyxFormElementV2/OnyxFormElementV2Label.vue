@@ -81,12 +81,6 @@ const truncation = computed(() => data.value.truncation ?? "ellipsis");
       min-width: 0;
 
       color: var(--onyx-color-text-icons-neutral-medium);
-
-      // optional marker should be displayed at the very end of the label
-      & .onyx-optional-marker {
-        flex-grow: 1;
-        text-align: end;
-      }
     }
 
     &__label-skeleton {
