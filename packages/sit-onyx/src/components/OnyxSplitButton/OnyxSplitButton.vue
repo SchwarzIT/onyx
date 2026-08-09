@@ -147,7 +147,7 @@ const { t } = injectI18n();
     display: flex;
     gap: 0rem;
 
-    &--primary {
+    &--primary.onyx-split-button--default {
       gap: var(--onyx-1px-in-rem);
     }
 
