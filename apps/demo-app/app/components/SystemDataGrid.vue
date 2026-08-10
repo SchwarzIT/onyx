@@ -4,7 +4,6 @@ import {
   DataGridFeatures,
   OnyxBadge,
   type ColumnConfig,
-  type ColumnGroupConfig,
   type TypeRenderMap,
 } from "sit-onyx";
 
@@ -64,13 +63,7 @@ const systemData = ref<SystemEntry[]>([
   },
 ]);
 
-const systemColumns = computed<
-  ColumnConfig<
-    SystemEntry,
-    ColumnGroupConfig,
-    keyof ReturnType<typeof systemCustomType>["typeRenderer"]
-  >[]
->(() => [
+const systemColumns = computed<ColumnConfig<SystemEntry, typeof systemFeatures>[]>(() => [
   { key: "component_name", label: t("dataGrid.systemTable.component_name") },
   { key: "status", label: t("dataGrid.systemTable.status"), type: "status" },
   { key: "last_check_at", label: t("dataGrid.systemTable.last_check_at"), type: "date" },
