@@ -86,16 +86,17 @@ defineSlots<{
 
   @include layers.component() {
     --onyx-badge-background-color: var(--onyx-color-component-cta-default);
+    --onyx-badge-color: var(--onyx-color-base-neutral-100);
     --onyx-badge-hover-background-color: var(--onyx-color-component-cta-default-hover);
     --onyx-badge-focus-color: var(--onyx-color-component-focus-primary);
-    --onyx-badge-active-background-color: var(--onyx-color-base-primary-700);
-
+    --onyx-badge-active-background-color: var(--onyx-color-base-secondary-900);
+    --onyx-badge-active-color: var(--onyx-color-base-neutral-100);
     display: inline-block;
     max-width: 100%;
     padding: var(--onyx-density-3xs) var(--onyx-density-sm);
     border-radius: var(--onyx-radius-component-badge);
     background-color: var(--onyx-badge-background-color);
-    color: var(--onyx-color-text-icons-neutral-inverted);
+    color: var(--onyx-badge-color);
     font-family: var(--onyx-font-family-paragraph);
     font-style: normal;
     vertical-align: middle;
@@ -134,6 +135,11 @@ defineSlots<{
 
     &--active {
       background-color: var(--onyx-badge-active-background-color);
+      color: var(--onyx-badge-active-color);
+    }
+
+    &--primary {
+      --onyx-badge-color: var(--onyx-color-text-icons-neutral-button);
     }
 
     &--neutral {
@@ -144,10 +150,10 @@ defineSlots<{
     }
 
     &--danger {
-      --onyx-badge-background-color: var(--onyx-color-base-danger-800);
+      --onyx-badge-background-color: var(--onyx-color-base-danger-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-danger-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-danger);
-      --onyx-badge-active-background-color: var(--onyx-color-base-danger-700);
+      --onyx-badge-active-background-color: var(--onyx-color-base-danger-800);
     }
 
     &--warning {
