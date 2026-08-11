@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Mon, 29 Jun 2026 07:36:17 GMT
+ * Imported from Figma API on Tue, 11 Aug 2026 06:39:37 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -366,11 +366,11 @@
   );
   --onyx-color-component-focus-neutral: light-dark(
     var(--onyx-color-base-neutral-300),
-    var(--onyx-color-base-neutral-500)
+    var(--onyx-color-base-neutral-700)
   );
   --onyx-color-component-focus-primary: light-dark(
     var(--onyx-color-base-primary-600),
-    var(--onyx-color-base-primary-300)
+    var(--onyx-color-base-primary-800)
   );
   --onyx-color-component-focus-success: light-dark(
     var(--onyx-color-base-success-400),
@@ -381,12 +381,12 @@
     var(--onyx-color-base-warning-200)
   );
   --onyx-color-component-nav-label: light-dark(
-    var(--onyx-color-text-icons-primary-bold),
-    var(--onyx-color-base-grayscale-white)
+    var(--onyx-color-text-icons-primary-intense),
+    var(--onyx-color-base-primary-800)
   );
   --onyx-color-component-nav-stroke: light-dark(
-    var(--onyx-color-base-neutral-900),
-    var(--onyx-color-base-grayscale-white)
+    var(--onyx-color-base-primary-500),
+    var(--onyx-color-base-primary-800)
   );
   --onyx-color-component-opacity-backdrop-medium: light-dark(
     var(--onyx-color-opacity-backdrop-600),
@@ -447,7 +447,7 @@
     var(--onyx-color-onyx-neutral-600)
   );
   --onyx-color-text-icons-primary-bold: light-dark(
-    var(--onyx-color-onyx-teal-900),
+    var(--onyx-color-neutral-stone-1200),
     var(--onyx-color-onyx-teal-100)
   );
   --onyx-color-text-icons-primary-intense: light-dark(
