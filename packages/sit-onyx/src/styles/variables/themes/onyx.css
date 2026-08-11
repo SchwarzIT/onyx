@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Tue, 11 Aug 2026 06:39:37 GMT
+ * Imported from Figma API on Tue, 11 Aug 2026 11:42:44 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -369,8 +369,8 @@
     var(--onyx-color-base-neutral-700)
   );
   --onyx-color-component-focus-primary: light-dark(
-    var(--onyx-color-base-primary-600),
-    var(--onyx-color-base-primary-800)
+    var(--onyx-color-base-primary-200),
+    var(--onyx-color-base-primary-300)
   );
   --onyx-color-component-focus-success: light-dark(
     var(--onyx-color-base-success-400),
