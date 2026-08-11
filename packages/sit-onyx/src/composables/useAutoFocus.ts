@@ -33,18 +33,7 @@ export const useAutofocus = (
     if (elem.value === document.activeElement) {
       return;
     }
-    const isVisible = elem.value?.checkVisibility({
-      opacityProperty: true,
-      visibilityProperty: true,
-      contentVisibilityAuto: true,
-    });
-    if (!isVisible) {
-      return userConsole?.warn(
-        "Did not perform autofocus on Element ",
-        elem.value,
-        ". The element is not visible!",
-      );
-    }
+
     if (anyInputFocused()) {
       return userConsole?.warn(
         "Did not perform autofocus on Element ",
@@ -54,6 +43,23 @@ export const useAutofocus = (
         " is already focused!",
       );
     }
+
+    if (elem.value && "checkVisibility" in elem.value) {
+      const isVisible = elem.value?.checkVisibility({
+        opacityProperty: true,
+        visibilityProperty: true,
+        contentVisibilityAuto: true,
+      });
+
+      if (!isVisible) {
+        return userConsole?.warn(
+          "Did not perform autofocus on Element ",
+          elem.value,
+          ". The element is not visible!",
+        );
+      }
+    }
+
     elem.value?.focus();
   };
 
