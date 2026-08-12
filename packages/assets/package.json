@@ -16,6 +16,9 @@
   ],
   "type": "module",
   "exports": {
-    "./*": "./src/*"
+    "./*": {
+      "types": "./index.d.ts",
+      "default": "./src/*"
+    }
   }
 }
