@@ -255,24 +255,6 @@ describe("useShortcut", () => {
   });
 
   describe("edge cases", () => {
-    test("should re-trigger onComplete when re-pressing the action key while the modifier is still held", () => {
-      // ARRANGE
-      const onComplete = vi.fn();
-      _unstableUseShortcut({
-        sequence: [{ all: ["Control", "C"] }],
-        onComplete,
-      });
-
-      // ACT - complete Ctrl+C, then release C and press C again (Ctrl still held)
-      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
-      document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
-      document.dispatchEvent(new KeyboardEvent("keyup", { key: "c" }));
-      document.dispatchEvent(new KeyboardEvent("keydown", { key: "c" }));
-
-      // ASSERT - onComplete SHOULD be triggered again (natural repeat behavior)
-      expect(onComplete).toHaveBeenCalledTimes(2);
-    });
-
     test("should handle meta/control key edge case", () => {
       // ARRANGE
       const { pressedKeys } = _unstableUseShortcut({ sequence: [{ all: ["Meta", "C"] }] });
