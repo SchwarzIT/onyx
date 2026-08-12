@@ -207,5 +207,7 @@
   "delete": "Löschen",
   "reset": "Zurücksetzen",
   "noDemoDataUpdated": "Dies ist nur eine Demo-Anwendung, daher wurden keine Daten tatsächlich geändert.",
-  "cancel": "Abbrechen"
+  "cancel": "Abbrechen",
+  "yes": "Ja",
+  "no": "Nein"
 }

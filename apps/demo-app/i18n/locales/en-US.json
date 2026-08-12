@@ -207,5 +207,7 @@
   "delete": "Delete",
   "reset": "Reset",
   "noDemoDataUpdated": "This is just a demo app so no data is actually changed.",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "yes": "Yes",
+  "no": "No"
 }

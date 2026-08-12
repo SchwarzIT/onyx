@@ -1,22 +1,17 @@
 <script lang="ts" setup>
 import { iconCheckSmall, iconXSmall } from "@sit-onyx/icons";
 import { computed, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density.js";
-import { useRequired } from "../../composables/required.js";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
-import { useErrorTooltip } from "../../composables/useErrorTooltip.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
-import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-} from "../../composables/useSkeletonState.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import type { FormElementV2LabelOptions } from "../OnyxFormElementV2/types.js";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxLoadingIndicator from "../OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
-import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import type { OnyxSwitchProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxSwitchProps>(), {
@@ -43,23 +38,42 @@ const emit = defineEmits<{
 defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 
-const { densityClass } = useDensity(props);
-
-const { disabled, showError, requiredMarker } = useFormContext(props);
-const { requiredMarkerClass, requiredTypeClass } = useRequired(props, requiredMarker);
+const { disabled } = useFormContext(props);
 const { vCustomValidity, errorMessages } = useFormElementError({ props, emit });
-const shownErrorMessages = computed(() =>
-  showError.value !== false ? errorMessages.value : undefined,
-);
-const errorTooltip = useErrorTooltip({ disabled, errorMessages: shownErrorMessages });
 
-const title = computed(() => (props.hideLabel && props.label) || undefined);
-const skeleton = useSkeletonContext(props);
 const isChecked = useVModel({
   props,
   emit,
   key: "modelValue",
   default: false,
+});
+
+const displayValueLabel = computed(() => {
+  if (!props.valueLabel) return undefined;
+  return isChecked.value ? props.valueLabel.truthy : props.valueLabel.falsy;
+});
+
+const normalizedLabel = computed<FormElementV2LabelOptions>(() => {
+  const labelObject = typeof props.label === "string" ? { label: props.label } : props.label;
+  return {
+    position: "right",
+    hidden: props.hideLabel,
+    truncation: props.truncation,
+    ...labelObject,
+  };
+});
+
+const { formElementV2Props: legacyFormElementProps } = useLegacyFormElementProps({
+  props,
+  errorMessages,
+});
+
+const formElementV2Props = computed(() => {
+  return {
+    ...legacyFormElementProps.value,
+    loading: false, // hide FormElementV2 loading indicator because we use a custom one for the switch
+    label: normalizedLabel.value,
+  };
 });
 
 const input = useTemplateRef("input");
@@ -68,37 +82,24 @@ useAutofocus(input, props);
 </script>
 
 <template>
-  <div
-    v-if="skeleton"
-    :class="['onyx-component', 'onyx-switch-skeleton', densityClass]"
-    v-bind="rootAttrs"
+  <OnyxFormElementV2
+    v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
+    class="onyx-component onyx-switch"
+    unstyled
   >
-    <span class="onyx-switch-skeleton__click-area">
-      <OnyxSkeleton class="onyx-switch-skeleton__input" />
-    </span>
-    <OnyxSkeleton v-if="!props.hideLabel" class="onyx-switch-skeleton__label" />
-  </div>
-
-  <OnyxTooltip v-else v-bind="mergeVueProps(rootAttrs, errorTooltip)">
-    <template #default="{ trigger }">
-      <label
-        class="onyx-component onyx-switch"
-        :class="[requiredTypeClass, densityClass]"
-        :title="title"
-        v-bind="trigger"
-      >
+    <template #default="{ title, ...inputProps }">
+      <label class="onyx-switch__label" :title="title">
         <input
           ref="input"
+          v-bind="mergeVueProps(restAttrs, inputProps)"
           v-model="isChecked"
           v-custom-validity
           type="checkbox"
           role="switch"
           :class="{ 'onyx-switch__input': true, 'onyx-switch__loading': props.loading }"
-          :aria-label="props.hideLabel ? props.label : undefined"
           :disabled="disabled || props.loading"
           :required="props.required"
           :autofocus="props.autofocus"
-          v-bind="restAttrs"
         />
         <span class="onyx-switch__click-area">
           <span class="onyx-switch__container">
@@ -114,33 +115,36 @@ useAutofocus(input, props);
           </span>
         </span>
         <span
-          v-if="!props.hideLabel"
-          class="onyx-switch__label"
+          v-if="displayValueLabel"
+          class="onyx-switch__display-label"
           :class="[
-            `onyx-truncation-${props.truncation}`,
-            // shows the required marker inline for multiline labels
-            props.truncation === 'multiline' ? requiredMarkerClass : undefined,
+            `onyx-switch-truncation-${props.truncation} onyx-truncation-${props.truncation}`,
           ]"
+          aria-hidden="true"
         >
-          {{ props.label }}
+          {{ displayValueLabel }}
         </span>
-        <!-- shows the required marker fixed on the right for truncated labels -->
-        <div
-          v-if="!props.hideLabel && props.truncation === 'ellipsis'"
-          class="onyx-switch__marker"
-          :class="[requiredMarkerClass]"
-        ></div>
       </label>
     </template>
-  </OnyxTooltip>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
-@use "../../styles/mixins/density.scss";
 @use "../../styles/mixins/layers.scss";
 
-.onyx-switch,
-.onyx-switch-skeleton {
+.onyx-switch {
+  @include layers.component() {
+    .onyx-form-element-v2__content-skeleton {
+      height: var(--onyx-switch-frame-height);
+      width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
+      border-radius: var(--onyx-radius-full);
+      margin: var(--onyx-switch-label-padding-vertical) 0;
+      position: relative;
+    }
+  }
+}
+
+.onyx-switch {
   @include layers.component() {
     --onyx-switch-icon-size: 1.25rem;
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
@@ -158,12 +162,17 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
 
 .onyx-switch {
   @include layers.component() {
-    display: inline-flex;
-    align-items: flex-start;
-    cursor: pointer;
-    max-width: 100%;
+    justify-content: left;
+    .onyx-form-element-v2 {
+      &__body {
+        width: auto;
+      }
+    }
 
-    .onyx-tooltip-wrapper:has(&) {
+    &__label {
+      display: inline-flex;
+      align-items: flex-start;
+      cursor: pointer;
       max-width: 100%;
     }
 
@@ -250,9 +259,8 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       }
     }
 
-    &__click-area,
-    &-skeleton__click-area {
-      padding: var(--onyx-switch-label-padding-vertical);
+    &__click-area {
+      padding: var(--onyx-switch-label-padding-vertical) 0;
       display: flex;
       align-items: center;
     }
@@ -293,56 +301,91 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       }
     }
 
-    &__label,
-    &__marker {
-      padding: var(--onyx-switch-label-padding-vertical) 0;
+    &__display-label {
+      padding: var(--onyx-switch-label-padding-vertical) 0 var(--onyx-switch-label-padding-vertical)
+        var(--onyx-switch-label-padding-vertical);
       font-size: var(--onyx-font-size-md);
       line-height: var(--onyx-font-line-height-md);
-    }
-
-    &__label {
       color: var(--onyx-color-text-icons-neutral-intense);
       font-family: var(--onyx-font-family-paragraph);
       font-style: normal;
       font-weight: var(--onyx-font-weight-regular);
     }
 
+    &:has(.onyx-form-element-v2__message--success) {
+      .onyx-switch__frame {
+        border-color: var(--onyx-color-component-border-success);
+      }
+
+      .onyx-switch__container {
+        background-color: var(--onyx-color-base-success-200);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-success-500);
+          color: var(--onyx-color-text-icons-neutral-inverted);
+        }
+      }
+
+      &:has(.onyx-switch__input:checked) .onyx-switch__container {
+        background-color: var(--onyx-color-base-success-500);
+
+        .onyx-switch__icon {
+          background-color: var(--onyx-color-base-background-blank);
+          color: var(--onyx-color-text-icons-success-intense);
+        }
+      }
+    }
+
     &:hover {
-      &:has(.onyx-switch__input:enabled:not(.onyx-switch__input:user-invalid)) {
+      &:has(.onyx-switch__input:enabled:not(.onyx-switch__input:user-invalid)):not(
+          :has(.onyx-form-element-v2__message--success)
+        ) {
         .onyx-switch__container {
           background-color: var(--onyx-color-base-neutral-400);
         }
         .onyx-switch__frame {
           border-color: var(--onyx-color-component-border-secondary-hover);
         }
+        &:has(.onyx-switch__input:checked) .onyx-switch__container {
+          background-color: var(--onyx-color-component-cta-default-hover);
+        }
       }
 
-      &:has(.onyx-switch__input:enabled:checked) .onyx-switch__container {
-        background-color: var(--onyx-color-component-cta-default-hover);
+      &:has(.onyx-switch__input:user-invalid:enabled) {
+        .onyx-switch__container {
+          background-color: var(--onyx-color-base-danger-300);
+        }
+        &:has(.onyx-switch__input:checked) .onyx-switch__container {
+          background-color: var(--onyx-color-component-cta-danger-hover);
+        }
       }
 
-      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
-        background-color: var(--onyx-color-base-danger-300);
-      }
-
-      &:has(.onyx-switch__input:user-invalid:enabled:checked) .onyx-switch__container {
-        background-color: var(--onyx-color-component-cta-danger-hover);
+      &:has(.onyx-form-element-v2__message--success) {
+        &:has(.onyx-switch__input:enabled) .onyx-switch__container {
+          background-color: var(--onyx-color-base-success-300);
+        }
       }
     }
 
     &:has(&__input:focus-visible) {
       outline: none;
 
-      &:has(.onyx-switch__input:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-base-neutral-600);
+      &:not(:has(.onyx-form-element-v2__message--success)) {
+        &:has(.onyx-switch__input:enabled) .onyx-switch__container {
+          outline: var(--onyx-outline-width) solid var(--onyx-color-base-neutral-600);
+        }
+
+        &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
+          outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
+        }
+
+        &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
+          outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
+        }
       }
 
-      &:has(.onyx-switch__input:checked:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-primary);
-      }
-
-      &:has(.onyx-switch__input:user-invalid:enabled) .onyx-switch__container {
-        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-danger);
+      &:has(.onyx-form-element-v2__message--success) .onyx-switch__container {
+        outline: var(--onyx-outline-width) solid var(--onyx-color-component-focus-success);
       }
     }
 
@@ -351,7 +394,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
       .onyx-switch__frame {
         border-color: transparent;
       }
-      .onyx-switch__label {
+      .onyx-switch__display-label {
         color: var(--onyx-color-text-icons-neutral-soft);
       }
     }
@@ -360,23 +403,23 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
         border-color: var(--onyx-color-component-border-secondary);
       }
     }
-  }
-}
-
-.onyx-switch-skeleton {
-  @include layers.component() {
-    display: inline-flex;
-    align-items: center;
-
-    &__input {
-      height: var(--onyx-switch-frame-height);
-      border-radius: var(--onyx-radius-full);
-      width: $input-width;
+    &.onyx-form-element-v2--label-right:not(:has(.onyx-switch__display-label)),
+    &.onyx-form-element-v2--label-left:not(:has(.onyx-switch__display-label)) {
+      cursor: pointer;
+      gap: var(--onyx-switch-label-padding-vertical);
+    }
+    &:has(.onyx-switch-truncation-multiline) {
+      .onyx-form-element-v2__content {
+        height: auto;
+      }
+    }
+    // Truncates messages if the label is on the right to prevent layout shifts
+    &.onyx-form-element-v2--label-right .onyx-form-element-v2__bottom {
+      max-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
     }
 
-    &__label {
-      height: var(--onyx-spacing-md);
-      width: var(--onyx-spacing-3xl);
+    > .onyx-form-element-v2__label {
+      overflow: hidden;
     }
   }
 }

@@ -22,6 +22,8 @@ const data = computed<FormElementV2LabelOptions>(() => {
   if (typeof props.label === "object") return props.label;
   return { label: props.label };
 });
+
+const truncation = computed(() => data.value.truncation ?? "ellipsis");
 </script>
 
 <template>
@@ -36,11 +38,19 @@ const data = computed<FormElementV2LabelOptions>(() => {
     <OnyxSkeleton v-if="skeleton" class="onyx-form-element-v2__label-skeleton" />
 
     <template v-else>
-      <label :for="props.id" class="onyx-truncation-ellipsis">{{ data.label }}</label>
+      <label
+        :for="props.id"
+        :class="[
+          `onyx-truncation-${truncation}`,
+          truncation === 'multiline' ? requiredMarkerClass : undefined,
+        ]"
+      >
+        {{ data.label }}
+      </label>
 
       <span
-        v-if="props.required"
-        :class="[props.required ? requiredMarkerClass : undefined]"
+        v-if="truncation !== 'multiline' && props.required"
+        :class="[requiredMarkerClass]"
       ></span>
 
       <OnyxInfoTooltip
@@ -51,8 +61,8 @@ const data = computed<FormElementV2LabelOptions>(() => {
       />
 
       <span
-        v-if="!props.required"
-        :class="[!props.required ? requiredMarkerClass : undefined]"
+        v-if="truncation !== 'multiline' && !props.required"
+        :class="[requiredMarkerClass]"
       ></span>
     </template>
   </div>
@@ -70,10 +80,16 @@ const data = computed<FormElementV2LabelOptions>(() => {
       width: 100%;
       color: var(--onyx-color-text-icons-neutral-medium);
 
-      // optional marker should be displayed at the very end of the label
-      & .onyx-optional-marker {
+      .onyx-optional-marker {
         flex-grow: 1;
         text-align: end;
+      }
+    }
+
+    &--label-left,
+    &--label-right {
+      .onyx-form-element-v2__label .onyx-optional-marker {
+        text-align: initial;
       }
     }
 
