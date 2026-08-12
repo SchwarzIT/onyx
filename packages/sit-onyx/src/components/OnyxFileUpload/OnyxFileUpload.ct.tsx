@@ -27,6 +27,7 @@ test.describe("Screenshot tests", () => {
       rows: ["default", "hover", "focus-visible", "dragging", "disabled", "skeleton"],
       component: (column, row) => (
         <OnyxFileUpload
+          style={{ width: "25rem" }}
           density={column}
           size={size}
           disabled={row === "disabled"}
@@ -46,6 +47,7 @@ test.describe("Screenshot tests (max. file sizes)", () => {
       rows: ["default", "hover", "focus-visible", "dragging"],
       component: (column) => (
         <OnyxFileUpload
+          style={{ width: "25rem" }}
           size={size}
           accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
           maxSize={column.includes("size") ? "4MiB" : undefined}
@@ -76,6 +78,7 @@ test.describe("Screenshot tests (required error states)", () => {
           required
           showError
           style={{
+            width: "25rem",
             marginBottom: row === "focus-visible" || row === "hover" ? "2rem" : undefined,
             marginRight: row === "focus-visible" || row === "hover" ? "12rem" : undefined,
           }}

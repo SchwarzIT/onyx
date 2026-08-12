@@ -385,8 +385,6 @@ const shouldShowFileList = computed(() => {
     --onyx-file-upload-active-label-color: var(--onyx-color-text-icons-primary-intense);
     --onyx-file-upload-hover-svg-background-color-bubble: var(--onyx-color-base-primary-800);
 
-    --onyx-file-upload-small-border-color: var(--onyx-color-base-neutral-200);
-    --onyx-file-upload-small-active-border-color: var(--onyx-color-base-neutral-400);
     --onyx-file-upload-small-hover-background-color: var(--onyx-background-color-hover);
     --onyx-file-upload-small-outline-color: var(--onyx-color-component-focus-neutral);
     --onyx-file-upload-small-dragging-border-color: var(
@@ -406,8 +404,6 @@ const shouldShowFileList = computed(() => {
         --onyx-color-component-border-danger
       );
 
-      --onyx-file-upload-small-border-color: var(--onyx-color-component-border-danger);
-      --onyx-file-upload-small-active-border-color: var(--onyx-color-component-border-danger);
       --onyx-file-upload-small-hover-background-color: var(--onyx-color-base-background-blank);
       --onyx-file-upload-small-outline-color: var(--onyx-color-component-focus-danger);
       --onyx-file-upload-small-dragging-border-color: var(
@@ -555,13 +551,13 @@ const shouldShowFileList = computed(() => {
           var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
         );
         padding: 0 var(--onyx-density-sm);
-        border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-small-border-color);
+        border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-border-color);
         &:hover {
           background-color: var(--onyx-file-upload-small-hover-background-color);
-          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-small-active-border-color);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-active-border-color);
         }
         &:focus-within {
-          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-small-active-border-color);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-active-border-color);
           outline: var(--onyx-outline-width) solid var(--onyx-file-upload-small-outline-color);
         }
 
