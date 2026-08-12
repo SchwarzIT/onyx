@@ -355,6 +355,40 @@ test("selection column is automatically sticky when both features are active", a
   await expect(component).toHaveScreenshot("data-grid-sticky-selection-column.png");
 });
 
+test("row rearrange column is automatically sticky when both features are active", async ({
+  mount,
+}) => {
+  const data = getTestData();
+
+  const component = await mount(
+    <TestCase
+      data={data}
+      columns={columns}
+      stickyColumnsOptions={{ columns: ["a"] }}
+      withRowRearrange={true}
+    />,
+  );
+
+  // ACT
+  await component.getByRole("button", { name: "Rearrange rows" }).click();
+
+  await component.getByRole("columnheader", { name: "k" }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  const rearrangeColumn = component.getByRole("columnheader").first();
+  const stickyColA = component.getByRole("columnheader", { name: "a", exact: true });
+
+  await expect(rearrangeColumn).toContainClass("onyx-data-grid-sticky-columns--sticky");
+  await expect(rearrangeColumn).toContainClass("left");
+  await expect(rearrangeColumn).toHaveCSS("left", "0px");
+
+  await expect(stickyColA).toContainClass("onyx-data-grid-sticky-columns--sticky");
+  await expect(stickyColA).toContainClass("left");
+  await expect(stickyColA).toHaveCSS("left", /[0-9]*px/);
+
+  await expect(component).toHaveScreenshot("data-grid-sticky-row-rearrange-column.png");
+});
+
 test("scrolling triggered by filtering overflow shouldn't close search box", async ({ mount }) => {
   const data = getTestData();
 

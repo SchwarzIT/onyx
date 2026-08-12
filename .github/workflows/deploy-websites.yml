@@ -26,7 +26,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
         with:
           egress-policy: audit
 
@@ -58,7 +58,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
         with:
           egress-policy: audit
 
@@ -94,7 +94,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
         with:
           egress-policy: audit
 
@@ -126,7 +126,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
         with:
           egress-policy: audit
 
@@ -172,7 +172,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
         with:
           egress-policy: audit
 
@@ -183,12 +183,6 @@ jobs:
 
       - name: 🛠️ Build Showcase
         run: pnpm build:all --filter=@sit-onyx/showcase
-        env:
-          # the Nuxt Studio env variables currently need to be provided during the build and can not be dynamically injected during runtime
-          # see: https://github.com/nuxt-content/nuxt-studio/issues/139#issuecomment-3749269074
-          # we also added these env variables to our global turbo.json so turborepo correctly passes the env variables to the build process
-          STUDIO_GITHUB_CLIENT_ID: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_ID }}
-          STUDIO_GITHUB_CLIENT_SECRET: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_SECRET }}
 
       - name: Copy .node-version file
         # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
@@ -214,7 +208,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
         with:
           egress-policy: audit
 

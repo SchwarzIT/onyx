@@ -40,7 +40,7 @@ features:
       dark: /icons/figma-light.svg
       alt: Figma logo
   - title: Open Source
-    details: Open Source and free to use. Released under the Apache-2.0 License.
+    details: Anyone can inspect, review, modify, and improve the code. But Open Source isn't a free ride — continuous development and maintenance require resources that internal Schwarz Group projects should support.
     icon:
       light: /icons/github-dark.svg
       dark: /icons/github-light.svg

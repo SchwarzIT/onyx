@@ -10,8 +10,9 @@ import {
   type ModifyColumnGroups,
   type ModifyColumns,
 } from "../index.js";
-import { SELECTION_COLUMN } from "../selection/selection.js";
+import { ROW_REARRANGE_COLUMN_KEY } from "../rowRearrange/rowRearrange.js";
 import "./stickyColumns.scss";
+import { SELECTION_COLUMN } from "../selection/selection.js";
 import { type StickyColumnDef, type StickyColumnsOptions } from "./types.js";
 
 export const STICKY_COLUMNS_FEATURE = Symbol("StickyColumns");
@@ -50,9 +51,14 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
           return { key: col!, position: globalPosition.value };
         });
 
+      normalized.unshift({ key: ROW_REARRANGE_COLUMN_KEY, position: "left" });
       normalized.unshift({ key: SELECTION_COLUMN, position: "left" });
 
-      return normalized;
+      return (
+        normalized
+          // filter out columns that do not exist to prevent no longer existing "empty" columns if e.g. a column is dynamically removed
+          .filter((column) => columnConfig.value.some((config) => config.key === column.key))
+      );
     });
 
     const leftStickyKeys = computed(() =>

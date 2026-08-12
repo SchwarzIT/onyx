@@ -31,7 +31,7 @@
     "test:playwright": "playwright install && playwright test"
   },
   "devDependencies": {
-    "@comark/vue": "^0.5.1",
+    "@comark/vue": "^0.6.2",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/playwright-utils": "workspace:^",
@@ -43,7 +43,7 @@
     "vue": "catalog:"
   },
   "peerDependencies": {
-    "@comark/vue": ">=0.5.0",
+    "@comark/vue": ">= 0.6.0",
     "sit-onyx": "workspace:^",
     "vue": ">= 3.5.0"
   },

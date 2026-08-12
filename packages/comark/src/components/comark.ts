@@ -1,4 +1,4 @@
-import { defineComarkComponent, defineComarkRendererComponent } from "@comark/vue";
+import { defineMarkdownComponent, defineMarkdownDocumentComponent } from "@comark/vue";
 import ProseA from "./prose/ProseA.vue";
 import ProseBr from "./prose/ProseBr.vue";
 import ProseCode from "./prose/ProseCode.vue";
@@ -43,12 +43,12 @@ export const components = {
   img: ProseImg,
 };
 
-export const OnyxComark = defineComarkComponent({
+export const OnyxMarkdown = defineMarkdownComponent({
   components,
-  class: "onyx-component onyx-comark",
+  class: "onyx-component onyx-markdown",
 });
 
-export const OnyxComarkRenderer = defineComarkRendererComponent({
+export const OnyxMarkdownDocument = defineMarkdownDocumentComponent({
   components,
-  class: "onyx-component onyx-comark-renderer",
+  class: "onyx-component onyx-markdown-document",
 });
