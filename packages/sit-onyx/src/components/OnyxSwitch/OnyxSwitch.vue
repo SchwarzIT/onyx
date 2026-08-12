@@ -417,6 +417,10 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     &.onyx-form-element-v2--label-right .onyx-form-element-v2__bottom {
       max-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
     }
+
+    > .onyx-form-element-v2__label {
+      overflow: hidden;
+    }
   }
 }
 </style>

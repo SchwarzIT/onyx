@@ -78,9 +78,19 @@ const truncation = computed(() => data.value.truncation ?? "ellipsis");
       align-items: center;
       max-width: 100%;
       width: 100%;
-      min-width: 0;
-
       color: var(--onyx-color-text-icons-neutral-medium);
+
+      .onyx-optional-marker {
+        flex-grow: 1;
+        text-align: end;
+      }
+    }
+
+    &--label-left,
+    &--label-right {
+      .onyx-form-element-v2__label .onyx-optional-marker {
+        text-align: initial;
+      }
     }
 
     &__label-skeleton {
