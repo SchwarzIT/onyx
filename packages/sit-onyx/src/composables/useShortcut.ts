@@ -2,7 +2,7 @@ import { debounce, useGlobalEventListener } from "@sit-onyx/headless";
 import { computed, onBeforeUnmount, ref, unref, watch, type MaybeRef } from "vue";
 import type { ShortcutSequenceStep } from "../components/OnyxShortcut/types.js";
 import type { Nullable } from "../types/utils.js";
-import { keyboardEventToKey, type KeyboardKey } from "../utils/keyboard.js";
+import { isModifierKey, keyboardEventToKey, type KeyboardKey } from "../utils/keyboard.js";
 import { useOperatingSystem } from "./useOperatingSystem.js";
 
 /**
@@ -147,6 +147,7 @@ export const _unstableUseShortcut = <TStep extends ShortcutSequenceStep>(
       options.onComplete?.();
       event.preventDefault();
       currentStepIndex.value = 0;
+      pressedKeys.value = new Set([...pressedKeys.value].filter((key) => isModifierKey(key)));
     } else {
       options.onStepComplete?.(currentStep, currentStepIndex.value);
       currentStepIndex.value += 1;
