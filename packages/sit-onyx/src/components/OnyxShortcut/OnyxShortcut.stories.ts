@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { createAdvancedStoryExample } from "../../utils/storybook.js";
+import OnyxToast from "../OnyxToast/OnyxToast.vue";
 import OnyxShortcut from "./OnyxShortcut.vue";
 
 /**
@@ -60,7 +61,13 @@ export const Disabled = {
   },
 } satisfies Story;
 
-export const Composable = createAdvancedStoryExample(
-  "OnyxShortcut",
-  "ComposableExample",
-) satisfies Story;
+export const Composable = {
+  ...createAdvancedStoryExample("OnyxShortcut", "ComposableExample"),
+  decorators: [
+    // provide the OnyxToast so toasts are shown correctly in the examples
+    (story) => ({
+      components: { story, OnyxToast },
+      template: `<story /> <OnyxToast />`,
+    }),
+  ],
+} satisfies Story;

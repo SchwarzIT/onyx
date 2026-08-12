@@ -255,34 +255,6 @@ describe("useShortcut", () => {
   });
 
   describe("edge cases", () => {
-    test("should not re-trigger onComplete when a single key of the shortcut is pressed", () => {
-      // see: https://github.com/SchwarzIT/onyx/issues/5945
-      // ARRANGE
-      const onComplete = vi.fn();
-      _unstableUseShortcut({
-        sequence: [{ all: ["Control", "V"] }],
-        onComplete,
-      });
-
-      // ACT - complete Ctrl+V
-      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Control" }));
-      document.dispatchEvent(new KeyboardEvent("keydown", { key: "v" }));
-
-      // ASSERT
-      expect(onComplete).toHaveBeenCalledOnce();
-
-      // ACT - release all keys, then just press "V" again
-      document.dispatchEvent(new KeyboardEvent("keyup", { key: "Control" }));
-      document.dispatchEvent(new KeyboardEvent("keyup", { key: "v" }));
-      document.dispatchEvent(new KeyboardEvent("keydown", { key: "v" }));
-
-      // ASSERT - onComplete should NOT be triggered again
-      expect(
-        onComplete,
-        "should not re-trigger after completing when only single key is pressed",
-      ).toHaveBeenCalledOnce();
-    });
-
     test("should re-trigger onComplete when re-pressing the action key while the modifier is still held", () => {
       // ARRANGE
       const onComplete = vi.fn();

@@ -1,10 +1,17 @@
 <script lang="ts" setup>
-import { _unstableUseShortcut } from "../../../index.js";
+import { _unstableUseShortcut, useToast } from "../../../index.js";
+
+const toast = useToast();
 
 _unstableUseShortcut({
   sequence: [{ all: ["Control", "C"] }],
   onComplete: () => {
-    alert("Shortcut successfully pressed!");
+    // your logic here when the full shortcut is pressed...
+    toast.show({
+      headline: "Successfully pressed shortcut",
+      description: "This shortcut was triggered using the shortcut composable",
+      color: "success",
+    });
   },
 });
 </script>
