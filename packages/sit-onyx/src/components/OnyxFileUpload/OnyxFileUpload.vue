@@ -546,6 +546,13 @@ const shouldShowFileList = computed(() => {
         color: var(--onyx-color-text-icons-neutral-medium);
       }
 
+      &.onyx-file-upload--medium {
+        padding: var(--onyx-density-xs);
+        .onyx-file-upload__icon {
+          padding: var(--onyx-density-xs) var(--onyx-density-sm);
+        }
+      }
+
       &.onyx-file-upload--small {
         height: calc(
           var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
