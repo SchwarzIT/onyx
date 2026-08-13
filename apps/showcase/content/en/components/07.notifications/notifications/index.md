@@ -30,3 +30,7 @@ import { OnyxNotifications } from "sit-onyx";
 ## Examples
 
 ### Basic
+
+Use the `useNotification()` composable to show a new notification from anywhere in your application. The notification will close automatically after a certain time by default but you can adjust the time via the `duration` option. Set it to `0` to permanently show the notification and require the user to manually close it if needed.
+
+:component-example{name="Basic"}

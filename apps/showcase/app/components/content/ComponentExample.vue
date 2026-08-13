@@ -49,7 +49,9 @@ const fileKey = computed(() => {
   return Object.keys(allExamples.components).find((key) => {
     return (
       key.includes(`/content/${locale.value}/`) &&
-      key.endsWith(`/${componentName.value}/examples/${props.name}.example.vue`)
+      new RegExp(
+        `/(?:\\d+\\.)?${componentName.value}/examples/${props.name}\\.example\\.vue$`,
+      ).test(key)
     );
   });
 });
