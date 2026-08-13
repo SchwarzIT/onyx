@@ -519,6 +519,20 @@ const shouldShowFileList = computed(() => {
       height: 100%;
     }
 
+    &.onyx-file-upload--medium {
+      padding: var(--onyx-density-xs);
+      .onyx-file-upload__icon {
+        padding: var(--onyx-density-xs) var(--onyx-density-sm);
+      }
+    }
+
+    &.onyx-file-upload--small {
+      height: calc(
+        var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
+      );
+      padding: 0 var(--onyx-density-sm);
+      border-style: solid;
+    }
     &:enabled {
       cursor: pointer;
 
@@ -546,25 +560,9 @@ const shouldShowFileList = computed(() => {
         color: var(--onyx-color-text-icons-neutral-medium);
       }
 
-      &.onyx-file-upload--medium {
-        padding: var(--onyx-density-xs);
-        .onyx-file-upload__icon {
-          padding: var(--onyx-density-xs) var(--onyx-density-sm);
-        }
-      }
-
       &.onyx-file-upload--small {
-        height: calc(
-          var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
-        );
-        padding: 0 var(--onyx-density-sm);
-        border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-border-color);
-        &:hover {
-          background-color: var(--onyx-file-upload-small-hover-background-color);
-          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-active-border-color);
-        }
         &:focus-within {
-          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-active-border-color);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-border-color);
           outline: var(--onyx-outline-width) solid var(--onyx-file-upload-small-outline-color);
         }
 
