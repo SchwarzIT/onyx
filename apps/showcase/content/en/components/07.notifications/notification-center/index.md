@@ -6,6 +6,10 @@ The notification center is a combination of multiple components to achieve displ
 
 ## Examples
 
+Since a notification center is very specific to an application, we only provide an example here and no dedicated notification center component. This way, it can be fully customized as needed.
+
 ### Basic
+
+To show a new temporary notification, use the [useNotifications()](/components/notifications/notifications) composable.
 
 :component-example{name="Basic" layout="fullWidth"}

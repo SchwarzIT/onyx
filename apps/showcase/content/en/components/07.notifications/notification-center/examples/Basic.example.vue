@@ -5,7 +5,7 @@ import {
   iconCheckRead,
   iconCircleAttention,
   iconInbox,
-  iconSettings,
+  iconLogout,
 } from "@sit-onyx/icons";
 import {
   OnyxAccordion,
@@ -26,12 +26,10 @@ import {
   OnyxSidebar,
   OnyxUnstableNavButton,
   OnyxUserMenu,
-  SKELETON_INJECTED_SYMBOL,
   useNotification,
-  useSkeletonContext,
   type OnyxNotificationCardProps,
 } from "sit-onyx";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 /**
  * Custom notification type for your project. This can also include custom properties depending in
@@ -43,12 +41,6 @@ type MyNotification = OnyxNotificationCardProps & {
    */
   description: string;
 };
-
-const props = withDefaults(defineProps<MyNotification>(), {
-  skeleton: SKELETON_INJECTED_SYMBOL,
-});
-
-const skeleton = useSkeletonContext(props);
 
 /**
  * Store that will persist all user notifications of the application.
@@ -86,17 +78,26 @@ const useNotificationStore = () => {
   };
 };
 
-const { show } = useNotification();
+const { show: showNotification } = useNotification();
 const store = useNotificationStore();
 
 const openAccordions = ref(["unread"]);
 const isSidebarOpen = ref(false);
 
+const isLoading = ref(false);
+
+// simulate loading time when opening the notification center to demonstrate the skeleton
+watch(isSidebarOpen, (open) => {
+  if (!open) return;
+  isLoading.value = true;
+  setTimeout(() => (isLoading.value = false), 2000);
+});
+
 /**
  * Adds a new example notifications. Usually this should be provided by your backend / API
  */
 const addExampleNotification = () => {
-  const icon = Math.random() < 0.5 ? iconCircleAttention : undefined;
+  const icon = iconCircleAttention;
 
   const notification: MyNotification = {
     headline: `Example notification ${store.notifications.value.length + 1}`,
@@ -110,7 +111,7 @@ const addExampleNotification = () => {
   store.add(notification);
 
   // temporarily show a notification message to the user in the top right of the page to grab the users attention
-  show({ ...notification, icon });
+  showNotification({ ...notification, icon });
 };
 </script>
 
@@ -135,9 +136,9 @@ const addExampleNotification = () => {
 
         <template #contextArea>
           <OnyxUserMenu full-name="Jane Doe">
-            <OnyxMenuItem>
-              <OnyxIcon :icon="iconSettings" />
-              Settings
+            <OnyxMenuItem color="danger">
+              <OnyxIcon :icon="iconLogout" />
+              Logout
             </OnyxMenuItem>
           </OnyxUserMenu>
         </template>
@@ -173,22 +174,23 @@ const addExampleNotification = () => {
 
       <template #description> See all notifications from all touchpoints here. </template>
 
-      <!-- unread notifications -->
-      <div v-if="skeleton" class="notification-center__skeletons">
+      <div v-if="isLoading" class="notification-center__skeletons">
         <OnyxNotificationCard
-          v-for="n in typeof skeleton === 'number' ? skeleton : 6"
+          v-for="n in 6"
           :key="n"
           headline="Loading"
           created-at="Loading"
           skeleton
         />
       </div>
+
       <OnyxAccordion
         v-else
         v-model="openAccordions"
         class="notification-center__accordions"
         type="nested-small"
       >
+        <!-- unread notifications -->
         <OnyxAccordionItem value="unread">
           <template #header>Unread</template>
 
@@ -265,6 +267,8 @@ const addExampleNotification = () => {
 }
 
 .notification-center {
+  --onyx-sidebar-width: 26rem;
+
   &__accordions {
     :deep(.onyx-accordion-item__panel) {
       padding: 0;
