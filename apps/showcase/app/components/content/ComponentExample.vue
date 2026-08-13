@@ -49,7 +49,9 @@ const fileKey = computed(() => {
   return Object.keys(allExamples.components).find((key) => {
     return (
       key.includes(`/content/${locale.value}/`) &&
-      key.endsWith(`/${componentName.value}/examples/${props.name}.example.vue`)
+      new RegExp(
+        `/(?:\\d+\\.)?${componentName.value}/examples/${props.name}\\.example\\.vue$`,
+      ).test(key)
     );
   });
 });
@@ -198,7 +200,7 @@ const attrs = useAttrs();
         border-bottom-right-radius: inherit;
       }
 
-      :deep(.onyx-sidebar) {
+      :deep(> .onyx-app__page > .onyx-page > .onyx-page__sidebar > .onyx-sidebar) {
         --onyx-sidebar-width: 16rem;
       }
     }

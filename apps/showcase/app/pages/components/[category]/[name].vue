@@ -53,7 +53,7 @@ const activeTab = useRouteQuery("tab", "overview");
           <ContentRenderer :value="data" />
         </OnyxTab>
 
-        <OnyxTab :label="$t('components.property', 2)" value="properties">
+        <OnyxTab v-if="data.componentName" :label="$t('components.property', 2)" value="properties">
           <ComponentMeta :component="data.componentName" :package="data.package" />
         </OnyxTab>
       </OnyxTabs>
