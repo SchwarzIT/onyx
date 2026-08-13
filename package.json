@@ -33,7 +33,7 @@
     "@storybook/vue3-vite": "~10.4.6",
     "@tsconfig/node24": "^24.0.4",
     "@types/eslint": "^9.6.1",
-    "@types/jsdom": "^28.0.3",
+    "@types/jsdom": "^30.0.0",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vitest/coverage-v8": "^4.1.10",
