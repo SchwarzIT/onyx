@@ -1,5 +1,11 @@
 # @sit-onyx/nuxt
 
+## 1.1.2
+
+### Patch Changes
+
+- c2a89f6: build: generate locales at build time
+
 ## 1.1.1
 
 ### Patch Changes

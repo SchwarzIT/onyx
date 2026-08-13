@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/headless",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Headless composables for Vue",
   "homepage": "https://onyx.schwarz/development/packages/headless.html",
   "bugs": {

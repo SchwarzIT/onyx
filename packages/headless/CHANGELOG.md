@@ -1,5 +1,11 @@
 # @sit-onyx/headless
 
+## 0.12.0
+
+### Minor Changes
+
+- fe9b472: feat: implement `createDragAndDrop` composable
+
 ## 0.11.0
 
 ### Minor Changes
@@ -28,6 +34,7 @@
 
 - 8551d9a: feat(createCalendar): viewMonth updates after selecting a date
 - fc16972: feat(createSlider): Removed non-headless elements and properties
+
   - Added `getValueInPercentage` to exposed internals, which allows converting a value to a percentage value.
   - Added `track` to state, which exposes the following values:
     - start
@@ -36,10 +43,12 @@
     - endPercentage
 
   **BREAKING CHANGE**:
+
   - Removed `track` element, use the computed `track` state for rendering a track element if needed.
   - Removed `thumbContainer` element, if necessary the relative position can be calculated using `getValueInPercentage`.
 
   The concept of _marks_ was removed form the headless slider, as they don't have any special accessibility properties or meaning.
+
   - Removed option property `marks`
   - Removed type `SliderMark`
   - Removed `mark` element
@@ -59,6 +68,7 @@
 - df4fa65: feat(createSlider): adapt `mark` left position style calculation
 
   There is no additional `transform` necessary to align the marks, instead the necessary calculations parameters changed:
+
   - `positionOffset` is removed
   - `padding` is added to allow for the definition of safe-zones at the start and beginning of the trail.
   - `markWidth` is added to account it's width in the calculation and no additional transform is necessary.
@@ -66,13 +76,22 @@
   E.g.
 
   ```ts
-  mark({ value: markItem.value, label: markItem.label, positionOffset: "0.25rem" });
+  mark({
+    value: markItem.value,
+    label: markItem.label,
+    positionOffset: "0.25rem",
+  });
   ```
 
   is now
 
   ```ts
-  mark({ value: markItem.value, label: markItem.label, padding: "0.1rem", markWidth: "0.375rem" });
+  mark({
+    value: markItem.value,
+    label: markItem.label,
+    padding: "0.1rem",
+    markWidth: "0.375rem",
+  });
   ```
 
 ## 0.6.0
@@ -103,6 +122,7 @@
 - 523b7b9: refactor `createSlider` implementation
 
   Breaking changes: This change includes breaking changes. Since the `createSlider` is marked as unstable, we allow for breaking changes within minor versions.
+
   - update and optimize internal implementation
   - remove `onCommit` option, use `onChange` instead
   - prevent thumbs from overlapping each other in range mode
@@ -207,6 +227,7 @@
 - ece5641: chore: replace redundant useManagedState with defineModel
 
   The changes are mostly internal, but the typings were of `OnyxSelect` were improved:
+
   - The `modelValue` now infers a specific subtype of `SelectOptionValue` and the `options` values must match.
   - `withSearch`: Filtering of the options will not automatically disabled anymore when `searchTerm` is bound. Instead `noFilter` must be set.
 

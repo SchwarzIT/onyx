@@ -1,5 +1,36 @@
 # sit-onyx
 
+## 1.19.0
+
+### Minor Changes
+
+- fe9b472: feat(OnyxDataGrid): implement `useRowRearrange` feature
+- b4ec725: feat(theme): implement new default theme
+
+  Our default public theme (Open Source) has been updated. If you have a Schwarz Group internal project and want to use one of our internal brand themes, see our [themes documentation](https://onyx.schwarz/development/theming.html).
+
+- e1227c2: feat(OnyxFileUpload): implement OnyxFormElementV2 inside the File upload component
+
+  - add new props: error, success, message and label
+  - label will be required in V2
+
+- 708a5a7: feat(OnyxSwitch): use OnyxFormElementV2 internally. This now supports: top, left and right aligned label, `message`, `success` and `valueLabel` property
+
+  We strongly recommend to switch to a top aligned label (if you are not using a form/layout that requires left/right aligned label) to be consistent with other form elements and simplify the layout/alignment when used together in a form. To avoid a breaking change, the switch still defaults to a right aligned label but we will change this to top aligned in onyx version 2.
+
+  To already use the top label, use:
+
+  ```vue
+  <OnyxSwitch :label="{ label: 'Example label', position: 'top' }" />
+  ```
+
+### Patch Changes
+
+- 2031690: fix(OnyxSplitButton): remove 1px gap between buttons in outline mode
+- 3ac0c4e: fix(useAutofocus): autofocus is not performed when the target element is not visible or any other input element still has focus
+- 969308b: - fix(OnyxTable/OnyxDataGrid): Prevent long words from overflowing table cells.
+  - fix(OnyxCalendar): ensure weekday labels do not wrap
+
 ## 1.18.0
 
 ### Minor Changes
