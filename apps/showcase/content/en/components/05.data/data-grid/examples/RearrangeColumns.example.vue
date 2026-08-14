@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "sit-onyx";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 type Entry = {
   id: number;
