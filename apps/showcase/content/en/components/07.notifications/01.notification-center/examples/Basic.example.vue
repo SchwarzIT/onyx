@@ -2,6 +2,7 @@
 import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import {
   iconBell,
+  iconBellRing,
   iconCheckRead,
   iconCircleAttention,
   iconInbox,
@@ -154,7 +155,7 @@ const addExampleNotification = () => {
         the top of the page to open the notification center.
       </p>
 
-      <OnyxButton label="Add example notification" @click="addExampleNotification" />
+      <OnyxButton label="Show notification" :icon="iconBellRing" @click="addExampleNotification" />
     </div>
 
     <!-- NOTIFICATION CENTER -->

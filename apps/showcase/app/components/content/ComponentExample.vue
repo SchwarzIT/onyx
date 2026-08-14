@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { iconUndo } from "@sit-onyx/icons";
+import { createNotificationsProvider, NOTIFICATIONS_PROVIDER_INJECTION_KEY } from "sit-onyx";
 import type { Component } from "vue";
 import type { ComponentExampleOptions } from "../ComponentExampleOptions.vue";
 
@@ -20,6 +21,10 @@ const props = withDefaults(
      * The orientation of the example if multiple components are used.
      */
     orientation?: "horizontal" | "vertical";
+    /**
+     * Whether to override specific onyx provide/inject keys.
+     */
+    provide?: { notifications?: boolean };
   }>(),
   {
     layout: "default",
@@ -88,6 +93,11 @@ const options = ref<ComponentExampleOptions>({});
 
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
+
+if (props.provide?.notifications) {
+  const provider = createNotificationsProvider();
+  provide(NOTIFICATIONS_PROVIDER_INJECTION_KEY, provider);
+}
 </script>
 
 <template>
@@ -185,6 +195,7 @@ const attrs = useAttrs();
     .onyx-app {
       width: 100%;
       height: 100%;
+      min-height: 32rem;
       background-color: var(--onyx-color-base-background-tinted);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-radius: var(--onyx-radius-md);
