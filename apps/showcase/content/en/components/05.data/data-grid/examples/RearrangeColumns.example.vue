@@ -2,7 +2,7 @@
 import { DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "sit-onyx";
 import { computed, ref } from "vue";
 
-type TEntry = {
+type Entry = {
   id: number;
   name: string;
   age: number;
@@ -10,7 +10,7 @@ type TEntry = {
   isActive?: boolean;
 };
 
-const data: TEntry[] = [
+const data: Entry[] = [
   { id: 1, name: "Alice", age: 30, birthday: new Date("1990-01-01"), isActive: true },
   { id: 2, name: "Charlie", age: 35, birthday: new Date("1998-02-11"), isActive: false },
   { id: 3, name: "Bob", age: 25, birthday: new Date("1995-06-15"), isActive: false },
@@ -18,7 +18,7 @@ const data: TEntry[] = [
   { id: 5, name: "John", age: 42, birthday: new Date("1997-04-18"), isActive: false },
 ];
 
-const columns: ColumnConfig<TEntry>[] = [
+const columns: ColumnConfig<Entry>[] = [
   { key: "name", label: "Name" },
   { key: "age", label: "Rank" },
   { key: "birthday", label: "Birthday", type: "date" },
@@ -26,16 +26,16 @@ const columns: ColumnConfig<TEntry>[] = [
 ];
 
 // you can e.g. watch this state to save the re-arranged order in the backend
-const rearrangeState = ref<DataGridFeatures.RowRearrangeState<Entry>>({
+const rearrangeState = ref<DataGridFeatures.ColumnRearrangeState>({
   active: false,
   order: new Map(),
 });
 
-const withRowRearrange = DataGridFeatures.useRowRearrange<Entry>({
+const withRColumnRearrange = DataGridFeatures.useColumnRearrange<Entry>({
   state: rearrangeState,
 });
 
-const features = [withRowRearrange];
+const features = [withRColumnRearrange];
 </script>
 
 <template>

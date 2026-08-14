@@ -2,24 +2,27 @@
 
 @include layers.component {
   .onyx-data-grid {
-    .onyx-data-grid-header-cell {
-      display: flex;
-      align-items: center;
+    .onyx-data-grid-column-rearrange-header {
+      .onyx-data-grid-header-cell {
+        display: flex;
+        align-items: center;
 
-      // displays as contents to allow the rearrange button to be positioned at the left of the header cell.
-      &__actions {
-        display: contents;
-      }
+        // displays as contents to allow the rearrange button to be positioned at the left of the header cell.
+        &__actions {
+          display: contents;
+        }
 
-      .onyx-data-grid-column-rearrange-header__button {
-        order: -1;
-        cursor: grab;
+        .onyx-data-grid-column-rearrange-header__button {
+          order: -1;
+          cursor: grab;
 
-        &:active {
-          cursor: grabbing;
+          &:active {
+            cursor: grabbing;
+          }
         }
       }
     }
+
     .onyx-data-grid-rearrange-column--highlighted {
       position: relative;
 
