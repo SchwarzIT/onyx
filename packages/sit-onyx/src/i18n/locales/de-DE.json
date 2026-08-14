@@ -56,6 +56,10 @@
       "rearrange": "Zeilen neu anordnen",
       "reset": "Änderungen zurücksetzen",
       "dragToMove": "Zum Verschieben der Zeile ziehen"
+    },
+    "columnRearrange": {
+      "rearrange": "Spalten neu anordnen",
+      "dragToMove": "Zum Verschieben der Spalte ziehen"
     }
   },
   "validations": {

@@ -1,0 +1,46 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid {
+    .onyx-data-grid-header-cell {
+      display: flex;
+      align-items: center;
+
+      // displays as contents to allow the rearrange button to be positioned at the left of the header cell.
+      &__actions {
+        display: contents;
+      }
+
+      .onyx-data-grid-column-rearrange-header__button {
+        order: -1;
+        cursor: grab;
+
+        &:active {
+          cursor: grabbing;
+        }
+      }
+    }
+    .onyx-data-grid-rearrange-column--highlighted {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: var(--onyx-spacing-5xs);
+        background-color: var(--onyx-color-component-border-primary);
+        z-index: 100;
+        pointer-events: none;
+      }
+
+      &.onyx-data-grid-rearrange-column--highlighted-before {
+        &::after {
+          right: auto;
+          left: 0;
+        }
+      }
+    }
+  }
+}
