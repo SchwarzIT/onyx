@@ -55,6 +55,10 @@
       "rearrange": "Promijeni raspored redaka",
       "reset": "Poništi promjene",
       "dragToMove": "Povucite za pomicanje retka"
+    },
+    "columnRearrange": {
+      "rearrange": "Promijeni raspored stupaca",
+      "dragToMove": "Povucite za pomicanje stupca"
     }
   },
   "validations": {

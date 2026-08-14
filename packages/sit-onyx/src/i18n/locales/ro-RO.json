@@ -55,6 +55,10 @@
       "rearrange": "Rearanjare rânduri",
       "reset": "Resetare modificări",
       "dragToMove": "Trageți pentru a muta rândul"
+    },
+    "columnRearrange": {
+      "rearrange": "Rearanjare coloane",
+      "dragToMove": "Trageți pentru a muta coloana"
     }
   },
   "validations": {
