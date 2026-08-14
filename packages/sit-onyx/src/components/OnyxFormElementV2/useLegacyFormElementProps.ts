@@ -1,4 +1,4 @@
-import { computed, type ComputedRef } from "vue";
+import { computed, toValue, type ComputedRef, type MaybeRef } from "vue";
 import type { CustomMessageType, FormMessages } from "../../composables/useFormElementError.js";
 import { useForwardProps } from "../../utils/props.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
@@ -10,7 +10,7 @@ import type {
 } from "./types.js";
 
 type UseLegacyFormElementOptions = {
-  props: Omit<SharedFormElementProps, "label"> & Pick<OnyxFormElementV2Props, "label">;
+  props: MaybeRef<Omit<SharedFormElementProps, "label"> & Pick<OnyxFormElementV2Props, "label">>;
   errorMessages: ComputedRef<FormMessages | undefined>;
 };
 
@@ -26,17 +26,22 @@ export const useLegacyFormElementProps = ({
   errorMessages,
 }: UseLegacyFormElementOptions) => {
   const labelOptions = computed(() => {
+    const p = toValue(props);
+
     const options: FormElementV2LabelOptions =
-      typeof props.label === "object" ? props.label : { label: props.label };
-    return { hidden: props.hideLabel, tooltipText: props.labelTooltip, ...options };
+      typeof p.label === "object" ? p.label : { label: p.label };
+
+    return { hidden: p.hideLabel, tooltipText: p.labelTooltip, ...options };
   });
 
   const mappedProps = computed<OnyxFormElementV2Props>(() => {
+    const p = toValue(props);
+
     return {
-      ...props,
+      ...p,
       label: labelOptions.value,
-      message: customMessageToFormElementV2Message(props.message),
-      success: customMessageToFormElementV2Message(props.success),
+      message: customMessageToFormElementV2Message(p.message),
+      success: customMessageToFormElementV2Message(p.success),
       error: customMessageToFormElementV2Message(errorMessages.value),
     };
   });

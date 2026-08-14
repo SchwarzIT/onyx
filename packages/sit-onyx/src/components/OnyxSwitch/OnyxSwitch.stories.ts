@@ -19,7 +19,15 @@ type Story = StoryObj<typeof OnyxSwitch>;
  */
 export const Default = {
   args: {
-    label: "Switch label",
+    label: { label: "Switch label", position: "top" },
+  },
+} satisfies Story;
+
+export const WithValueLabel = {
+  tags: ["new:feature"],
+  args: {
+    label: { label: "Switch label", position: "top" },
+    valueLabel: { falsy: "Off", truthy: "On" },
   },
 } satisfies Story;
 
@@ -94,7 +102,6 @@ export const Skeleton = {
 export const CustomError = {
   args: {
     ...Default.args,
-    hideLabel: true,
     error: {
       shortMessage: "Custom error",
       longMessage: "Further explanation.",

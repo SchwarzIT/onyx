@@ -196,7 +196,8 @@ const handleDelete = () => {
       <OnyxSwitch
         v-model="state.newsletter"
         class="onyx-grid-span-full"
-        :label="$t('user.subscribeNewsletter')"
+        :label="{ label: $t('user.subscribeNewsletter'), position: 'top' }"
+        :value-label="{ truthy: $t('yes'), falsy: $t('no') }"
       />
     </div>
   </OnyxForm>

@@ -8,34 +8,29 @@
       : Nullable<File>
   "
 >
-import { iconCircleInformation, iconCloudArrowUp, iconTrash } from "@sit-onyx/icons";
+import { iconCloudArrowUp, iconTrash } from "@sit-onyx/icons";
 import { computed, ref, useTemplateRef } from "vue";
-import { useDensity } from "../../composables/density.js";
-import { useErrorClass } from "../../composables/useErrorClass.js";
 import { useFileSize } from "../../composables/useFileSize.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
-import {
-  SKELETON_INJECTED_SYMBOL,
-  useSkeletonContext,
-  type SkeletonInjected,
-} from "../../composables/useSkeletonState.js";
+import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { Nullable } from "../../types/utils.js";
-import { useRootAttrs } from "../../utils/attrs.js";
+import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { userConsole } from "../../utils/console.js";
 import { validateFileType } from "../../utils/file.js";
 import { convertBinaryPrefixToBytes } from "../../utils/numbers.js";
 import { asArray } from "../../utils/objects.js";
+import { useForwardProps } from "../../utils/props.js"; // Standard Prop Forwarding Nutzen
 import { OnyxFileUploadSVG } from "../illustrations/index.js";
 import OnyxFileCard from "../OnyxFileCard/OnyxFileCard.vue";
 import type { FileCardStatus, OnyxFileCardProps } from "../OnyxFileCard/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import { customMessageToFormElementV2Message } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../OnyxIconButton/OnyxIconButton.vue";
-import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
-import OnyxTooltip from "../OnyxTooltip/OnyxTooltip.vue";
 import OnyxVisuallyHidden from "../OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 import type { MediaType, OnyxFileUploadProps } from "./types.js";
 
@@ -50,6 +45,8 @@ const props: OnyxFileUploadProps<TMultiple> = withDefaults(
     disabled: FORM_INJECTED_SYMBOL,
     skeleton: SKELETON_INJECTED_SYMBOL,
     showError: FORM_INJECTED_SYMBOL,
+    requiredMarker: FORM_INJECTED_SYMBOL,
+    reserveMessageSpace: FORM_INJECTED_SYMBOL,
   },
 );
 
@@ -75,12 +72,8 @@ defineSlots<{
   default?(props: { file: File; props: OnyxFileCardProps }): unknown;
 }>();
 
-const skeleton = useSkeletonContext(props as { skeleton: SkeletonInjected });
-const { disabled, showError } = useFormContext(props);
-const errorClass = useErrorClass(showError);
-
+const { disabled } = useFormContext(props);
 const { t } = injectI18n();
-const { densityClass } = useDensity(props);
 const { restAttrs, rootAttrs } = useRootAttrs();
 const { formatFileSize } = useFileSize();
 
@@ -110,6 +103,15 @@ const { vCustomValidity, errorMessages } = useFormElementError({
   emit,
   error: requiredError,
 });
+
+const formElementV2Props = useForwardProps(
+  computed(() => ({
+    ...props,
+    label: props.label ?? { label: t.value("fileUpload.clickToUpload"), hidden: true },
+    error: props.error ?? customMessageToFormElementV2Message(errorMessages.value),
+  })),
+  OnyxFormElementV2,
+);
 
 const hideFiles = ref(false);
 
@@ -235,21 +237,16 @@ const shouldShowFileList = computed(() => {
 </script>
 
 <template>
-  <OnyxSkeleton
-    v-if="skeleton"
-    :class="['onyx-file-upload-skeleton', `onyx-file-upload-skeleton--${props.size}`, densityClass]"
-  />
-  <div
-    v-else
-    :class="['onyx-component', 'onyx-file-upload-wrapper', densityClass, errorClass]"
-    v-bind="rootAttrs"
+  <OnyxFormElementV2
+    v-bind="
+      mergeVueProps(formElementV2Props, rootAttrs, {
+        class: ['onyx-file-upload-wrapper', `onyx-file-upload-wrapper--${props.size}`],
+      })
+    "
+    unstyled
   >
-    <OnyxTooltip
-      :text="errorMessages?.longMessage"
-      :open="props.size !== 'small' || !errorMessages?.longMessage ? false : undefined"
-      color="danger"
-    >
-      <template #default="{ trigger }">
+    <template #default="inputProps">
+      <div class="onyx-file-upload-container">
         <button
           type="button"
           :class="[
@@ -257,7 +254,6 @@ const shouldShowFileList = computed(() => {
             `onyx-file-upload--${props.size}`,
             { 'onyx-file-upload--dragging': isDragging },
           ]"
-          v-bind="trigger"
           :disabled="disabled"
           @dragenter="handleDragEnter"
           @dragleave="isDragging = false"
@@ -299,7 +295,9 @@ const shouldShowFileList = computed(() => {
                 {{ t("fileUpload.inTotal") }})
               </template>
 
-              <template v-else-if="props.maxSize"> {{ formatFileSize(props.maxSize) }} </template>
+              <template v-else-if="props.maxSize">
+                {{ formatFileSize(props.maxSize) }}
+              </template>
               <template v-else-if="props.maxTotalSize">
                 {{ formatFileSize(props.maxTotalSize) }} {{ t("fileUpload.inTotal") }}
               </template>
@@ -315,67 +313,58 @@ const shouldShowFileList = computed(() => {
             <p v-if="props.accept?.length" class="onyx-file-upload__text onyx-text--small">
               {{ t("fileUpload.allowedFileTypes", { types: props.accept.join(", ") }) }}
             </p>
-
-            <p
-              v-if="errorMessages?.longMessage"
-              class="onyx-file-upload__required_error onyx-text--small"
-            >
-              {{ errorMessages?.longMessage }}
-              <OnyxIcon :icon="iconCircleInformation" inline />
-            </p>
           </div>
         </button>
-      </template>
-    </OnyxTooltip>
 
-    <OnyxVisuallyHidden class="onyx-file-upload__visually-hidden-input">
-      <input
-        ref="input"
-        v-custom-validity
-        aria-hidden="true"
-        tabindex="-1"
-        class="onyx-file-upload__input"
-        type="file"
-        :accept="props.accept?.length ? props.accept.join(',') : undefined"
-        :multiple="props.multiple"
-        :disabled="disabled"
-        :name="props.name"
-        v-bind="restAttrs"
-        @change="handleChange"
-      />
-    </OnyxVisuallyHidden>
+        <OnyxVisuallyHidden class="onyx-file-upload__visually-hidden-input">
+          <input
+            ref="input"
+            v-custom-validity
+            v-bind="mergeVueProps(restAttrs, inputProps)"
+            aria-hidden="true"
+            tabindex="-1"
+            class="onyx-file-upload__input"
+            type="file"
+            :accept="props.accept?.length ? props.accept.join(',') : undefined"
+            :multiple="props.multiple"
+            :name="props.name"
+            @change="handleChange"
+          />
+        </OnyxVisuallyHidden>
 
-    <OnyxSystemButton
-      v-if="props.listType === 'button' && currentFiles.length"
-      class="onyx-file-upload__list-button"
-      :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
-      @click="hideFiles = !hideFiles"
-    />
+        <OnyxSystemButton
+          v-if="props.listType === 'button' && currentFiles.length"
+          class="onyx-file-upload__list-button"
+          :label="hideFiles ? t('fileUpload.revealFilesButton') : t('fileUpload.hideFilesButton')"
+          @click="hideFiles = !hideFiles"
+        />
 
-    <div
-      v-if="shouldShowFileList"
-      :class="[
-        'onyx-file-upload__list',
-        { 'onyx-file-upload__list--max-height': props.listType === 'maxHeight' },
-      ]"
-    >
-      <template v-for="fileProps in currentFileProps" :key="fileProps.props.filename">
-        <slot :file="fileProps.file" :props="fileProps.props">
-          <OnyxFileCard v-bind="fileProps.props">
-            <template #actions>
-              <OnyxIconButton
-                color="danger"
-                :icon="iconTrash"
-                :label="t('fileUpload.removeFile')"
-                :disabled="disabled"
-                @click="removeFile(fileProps.file)"
-              />
-            </template>
-          </OnyxFileCard>
-        </slot>
-      </template>
-    </div>
-  </div>
+        <div
+          v-if="shouldShowFileList"
+          :class="[
+            'onyx-file-upload__list',
+            { 'onyx-file-upload__list--max-height': props.listType === 'maxHeight' },
+          ]"
+        >
+          <template v-for="fileProps in currentFileProps" :key="fileProps.props.filename">
+            <slot :file="fileProps.file" :props="fileProps.props">
+              <OnyxFileCard v-bind="fileProps.props">
+                <template #actions>
+                  <OnyxIconButton
+                    color="danger"
+                    :icon="iconTrash"
+                    :label="t('fileUpload.removeFile')"
+                    :disabled="disabled"
+                    @click="removeFile(fileProps.file)"
+                  />
+                </template>
+              </OnyxFileCard>
+            </slot>
+          </template>
+        </div>
+      </div>
+    </template>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
@@ -386,12 +375,9 @@ const shouldShowFileList = computed(() => {
 @include layers.component() {
   .onyx-file-upload-wrapper {
     --onyx-file-upload-max-files: 3;
-    display: flex;
-    flex-direction: column;
-    gap: var(--onyx-density-xs);
-    position: relative;
-    --onyx-file-upload-border-color: var(--onyx-color-component-border-neutral);
-    --onyx-file-upload-active-border-color: var(--onyx-color-component-border-primary-hover);
+
+    --onyx-file-upload-border-color: var(--onyx-color-component-border-secondary);
+    --onyx-file-upload-active-border-color: var(--onyx-color-component-border-secondary-hover);
     --onyx-file-upload-error-illustration-display: none;
     --onyx-file-upload-default-illustration-display: block;
     --onyx-file-upload-outline-color: var(--onyx-color-component-focus-primary);
@@ -399,17 +385,14 @@ const shouldShowFileList = computed(() => {
     --onyx-file-upload-active-label-color: var(--onyx-color-text-icons-primary-intense);
     --onyx-file-upload-hover-svg-background-color-bubble: var(--onyx-color-base-primary-800);
 
-    --onyx-file-upload-small-border-color: var(--onyx-color-base-neutral-200);
-    --onyx-file-upload-small-active-border-color: var(--onyx-color-base-neutral-400);
     --onyx-file-upload-small-hover-background-color: var(--onyx-background-color-hover);
     --onyx-file-upload-small-outline-color: var(--onyx-color-component-focus-neutral);
     --onyx-file-upload-small-dragging-border-color: var(
-      --onyx-color-component-border-primary-hover
+      --onyx-color-component-border-secondary-hover
     );
     --onyx-file-upload-small-dragging-icon-color: var(--onyx-color-text-icons-primary-bold);
 
     @include input.invalid($formElement: ".onyx-file-upload__input") {
-      --onyx-file-upload-error-message-display: inline-flex;
       --onyx-file-upload-border-color: var(--onyx-color-component-border-danger);
       --onyx-file-upload-active-border-color: var(--onyx-color-component-border-danger-hover);
       --onyx-file-upload-error-illustration-display: block;
@@ -421,8 +404,6 @@ const shouldShowFileList = computed(() => {
         --onyx-color-component-border-danger
       );
 
-      --onyx-file-upload-small-border-color: var(--onyx-color-component-border-danger);
-      --onyx-file-upload-small-active-border-color: var(--onyx-color-component-border-danger);
       --onyx-file-upload-small-hover-background-color: var(--onyx-color-base-background-blank);
       --onyx-file-upload-small-outline-color: var(--onyx-color-component-focus-danger);
       --onyx-file-upload-small-dragging-border-color: var(
@@ -430,6 +411,36 @@ const shouldShowFileList = computed(() => {
       );
       --onyx-file-upload-small-dragging-icon-color: var(--onyx-color-text-icons-danger-bold);
     }
+
+    .onyx-form-element-v2__content {
+      height: auto;
+    }
+
+    &--large .onyx-form-element-v2__content-skeleton {
+      --onyx-form-element-v2-content-height: 7lh;
+    }
+
+    &--medium .onyx-form-element-v2__content-skeleton {
+      --onyx-form-element-v2-content-height: 2lh;
+    }
+    &--small .onyx-form-element-v2__content-skeleton {
+      --onyx-form-element-v2-content-height: 1lh;
+    }
+
+    &.onyx-form-element-v2--label-left,
+    &.onyx-form-element-v2--label-right {
+      .onyx-form-element-v2__label {
+        margin-block: auto;
+      }
+    }
+  }
+
+  .onyx-file-upload-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-xs);
+    position: relative;
+    width: 100%;
 
     & .onyx-tooltip-wrapper {
       width: 100%;
@@ -458,15 +469,6 @@ const shouldShowFileList = computed(() => {
     max-width: 100%;
     width: 100%;
     text-align: center;
-
-    &--medium {
-      padding: var(--onyx-density-xs);
-      gap: var(--onyx-density-xs);
-    }
-    &--small {
-      padding: var(--onyx-density-sm);
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-base-neutral-200);
-    }
 
     &__icon {
       display: flex;
@@ -517,6 +519,20 @@ const shouldShowFileList = computed(() => {
       height: 100%;
     }
 
+    &.onyx-file-upload--medium {
+      padding: var(--onyx-density-xs);
+      .onyx-file-upload__icon {
+        padding: var(--onyx-density-xs) var(--onyx-density-sm);
+      }
+    }
+
+    &.onyx-file-upload--small {
+      height: calc(
+        var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
+      );
+      padding: 0 var(--onyx-density-sm);
+      border-style: solid;
+    }
     &:enabled {
       cursor: pointer;
 
@@ -545,14 +561,8 @@ const shouldShowFileList = computed(() => {
       }
 
       &.onyx-file-upload--small {
-        padding: var(--onyx-density-sm);
-        border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-small-border-color);
-        &:hover {
-          background-color: var(--onyx-file-upload-small-hover-background-color);
-          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-small-active-border-color);
-        }
         &:focus-within {
-          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-small-active-border-color);
+          border: var(--onyx-1px-in-rem) solid var(--onyx-file-upload-border-color);
           outline: var(--onyx-outline-width) solid var(--onyx-file-upload-small-outline-color);
         }
 
@@ -599,41 +609,12 @@ const shouldShowFileList = computed(() => {
       margin-inline: auto;
     }
 
-    &__required_error {
-      color: var(--onyx-color-text-icons-danger-intense);
-      display: var(--onyx-file-upload-error-message-display, none);
-      align-items: center;
-
-      .onyx-icon {
-        margin-left: var(--onyx-density-2xs);
-      }
-    }
-
     &__error-illustration {
       display: var(--onyx-file-upload-error-illustration-display);
     }
 
     &__default-illustration {
       display: var(--onyx-file-upload-default-illustration-display);
-    }
-  }
-
-  .onyx-file-upload-skeleton {
-    height: 7.5rem;
-    width: 20rem;
-    box-sizing: initial;
-    padding: var(--onyx-density-xl);
-
-    &--medium {
-      padding: var(--onyx-density-xs);
-      height: 3.125rem;
-      width: 16rem;
-    }
-
-    &--small {
-      padding: var(--onyx-density-sm);
-      height: 1.5rem;
-      width: 6rem;
     }
   }
 }

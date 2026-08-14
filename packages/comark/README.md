@@ -10,8 +10,8 @@ Render markdown content with [onyx](https://onyx.schwarz/) components.
 
 It's a wrapper for the [@comark/vue](https://www.npmjs.com/package/@comark/vue) package using the onyx design system created by [Schwarz Digits](https://schwarz-digits.de).
 
-For runtime parsing and rendering of markdown use the [`OnyxComark`](#onyxcomark) component.
-Otherwise use the [`OnyxComarkRenderer`](#onyxcomarkrenderer) for server and build-time parsing with less client code required.
+For runtime parsing and rendering of markdown use the [`OnyxMarkdown`](#onyxmarkdown) component.
+Otherwise use the [`OnyxMarkdownDocument`](#onyxmarkdowndocument) for server and build-time parsing with less client code required.
 
 ## Getting Started
 
@@ -31,7 +31,7 @@ Import the CSS file, either globally or in a single component:
 import "@sit-onyx/comark/style.css";
 ```
 
-## `OnyxComark`
+## `OnyxMarkdown`
 
 Simple runtime parser and renderer component for markdown.
 Just pass your markdown string:
@@ -39,7 +39,7 @@ Just pass your markdown string:
 ```vue
 <!-- App.vue -->
 <script setup lang="ts">
-import { OnyxComark } from "@sit-onyx/comark";
+import { OnyxMarkdown } from "@sit-onyx/comark";
 
 const content = `# Hello World
 
@@ -50,29 +50,28 @@ This is **markdown** with Comark components.
 <template>
   <!-- It is required to wrap OnyxComark in a Suspense block! -->
   <Suspense>
-    <OnyxComark>{{ content }}</OnyxComark>
+    <OnyxMarkdown>{{ content }}</OnyxMarkdown>
   </Suspense>
 </template>
 ```
 
-For more details check the [documentation for the `Comark` component](https://comark.dev/rendering/vue#code-comark).
+For more details check the [documentation for the `Markdown` component](https://comark.dev/rendering/vue#markdown).
 
 ## `OnyxComarkRenderer`
 
-Renders a pre-parsed ComarkTree without any parsing. Use it when you parse on the server, in a build step, or via an API, so no parser or plugin code is shipped to the browser.
+Renders a pre-parsed MarkdownDocument without any parsing. Use it when you parse on the server, in a build step, or via an API, so no parser or plugin code is shipped to the browser.
 
 ### 1. Parse on the server/buildtime
 
 ```ts
 // server.ts
-
-import { createParse } from "comark";
+import { createMarkdownParser } from "comark";
 import { readFile } from "node:fs/promises";
 
-const parse = createParse();
+const parse = createMarkdownParser();
 
 // In your server handler
-export async function getContentTree(slug: string) {
+export async function getContentDocument(slug: string) {
   const markdown = await readFile(`content/${slug}.md`, "utf-8");
   return parse(markdown);
 }
@@ -83,14 +82,15 @@ export async function getContentTree(slug: string) {
 ```vue
 <!-- ContentPage.vue -->
 <script setup lang="ts">
-import { OnyxComarkRenderer } from "@sit-onyx/comark";
+import { OnyxMarkdownDocument } from "@sit-onyx/comark";
+
 const { slug } = defineProps<{ slug: string }>();
 
 const res = await fetch(`/api/content/${slug}`);
-const tree = await res.json();
+const document = await res.json();
 </script>
 
 <template>
-  <OnyxComarkRenderer :tree="tree" />
+  <OnyxMarkdownDocument :value="document" />
 </template>
 ```

@@ -1,12 +1,25 @@
 import type { DensityProp } from "../../composables/density.js";
-import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { Nullable } from "../../types/utils.js";
 import type { BinaryPrefixedSize } from "../../utils/numbers.js";
-import type { FormInjected } from "../OnyxForm/OnyxForm.core.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 
 export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
-  Pick<SharedFormElementProps, "name" | "required" | "showError"> & {
+  Pick<SharedFormElementProps, "name" | "disabled"> &
+  Partial<
+    Pick<
+      OnyxFormElementV2Props,
+      | "label"
+      | "required"
+      | "showError"
+      | "requiredMarker"
+      | "reserveMessageSpace"
+      | "success"
+      | "message"
+      | "error"
+      | "skeleton"
+    >
+  > & {
     /**
      * Currently selected file(s).
      * If `multiple` property is enabled, this value is an array, otherwise a single file.
@@ -59,19 +72,11 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
     // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
     replace?: boolean & (TMultiple extends true ? boolean : never);
     /**
-     * Whether the upload is disabled.
-     */
-    disabled?: FormInjected<boolean>;
-    /**
      * The size of the upload container
      *
      * @default large
      */
     size?: FileUploadSize;
-    /**
-     * Whether to show a skeleton upload.
-     */
-    skeleton?: SkeletonInjected;
     /**
      * How to display the selected files. - list: Shows a list of all files (no height limit) -
      * maxHeight: Shows a list of files with a max height that when exceeding, the list becomes

@@ -1,5 +1,17 @@
 # @sit-onyx/icons
 
+## 1.12.0
+
+### Minor Changes
+
+- 0f44f10: feat: update icons
+
+  #### New
+  - client-side-encryptions
+  - faas
+  - local-data-storage
+  - workspaces
+
 ## 1.11.0
 
 ### Minor Changes

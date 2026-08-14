@@ -33,9 +33,23 @@ The card displayed for every file can be customized if needed to e.g. support ad
 
 :component-example{name="CustomActions" layout="grow"}
 
+### Message
+
+An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
+When multiple message types are defined at once, only the most relevant will be displayed (e.g. error message takes precedent over the regular message).
+
+:component-example{name="Message" layout="grow" orientation="vertical"}
+
 ### List types
 
 The list of selected files can be customized using the `listType` property to e.g. define a maximum height or use a show/hide button.
 This examples shows a custom visualization using a modal.
 
 :component-example{name="Modal" layout="grow"}
+
+### Label positions
+
+The flyout label can be positioned in several ways to support a wide variety of layouts.
+
+:component-example{name="LabelPositions" layout="grow" orientation="vertical"}
+
