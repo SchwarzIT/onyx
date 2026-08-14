@@ -23,6 +23,7 @@ const props = withDefaults(
     orientation?: "horizontal" | "vertical";
     /**
      * Whether to override specific onyx provide/inject keys.
+     * Useful if e.g. notifications should not be shown globally inside the showcase itself.
      */
     provide?: { notifications?: boolean };
   }>(),
