@@ -3,7 +3,7 @@ import { expect, test } from "../../../../playwright/a11y.js";
 import TestCase from "./TestCase.ct.vue";
 
 async function expectOrder(component: Locator, order: string[]) {
-  const headers = component.locator("thead th");
+  const headers = component.getByRole("columnheader");
   await expect(headers).toHaveCount(order.length);
 
   for (let i = 0; i < order.length; i++) {
@@ -35,9 +35,9 @@ async function dragAndDrop({
   preventUp,
   position,
 }: DragAndDropOptions): Promise<{ finish: () => Promise<void> } | void> {
-  const sourceTh = page.locator("thead th", { hasText: from });
-  const dragHandle = sourceTh.locator(".onyx-data-grid-column-rearrange-header__button");
-  const targetTh = page.locator("thead th", { hasText: to });
+  const sourceTh = page.locator("thead").getByRole("columnheader", { name: from });
+  const dragHandle = sourceTh.getByRole("button", { name: "Drag to move" });
+  const targetTh = page.locator("thead").getByRole("columnheader", { name: to });
 
   // ASSERT
   await expect(dragHandle).toBeVisible();

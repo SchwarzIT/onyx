@@ -7,9 +7,10 @@ import {
   iconX,
 } from "@sit-onyx/icons";
 import { computed, h, ref, shallowRef, toRef, toValue, type Ref, type ThHTMLAttributes } from "vue";
+import { applyArrayOrder } from "../../../../utils/applyArrayOrder.js";
 import { mergeVueProps } from "../../../../utils/attrs.js";
-import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import "./columnRearrange.scss";
+import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types.js";
 import {
   type ColumnRearrangeOptions,
@@ -19,38 +20,6 @@ import {
 import { createFeature, type DataGridFeature } from "../index.js";
 
 export const COLUMN_REARRANGE_FEATURE = Symbol("ColumnRearrange");
-
-const applyColumnOrder = <TColumn extends { key: PropertyKey }>(
-  columns: readonly TColumn[],
-  order: ReadonlyMap<PropertyKey, number>,
-): TColumn[] => {
-  if (order.size === 0) return [...columns];
-
-  const placed = new Map<number, TColumn>();
-  const unplaced: TColumn[] = [];
-
-  for (const column of columns) {
-    const assigned = order.get(column.key);
-    if (assigned == undefined) {
-      unplaced.push(column);
-    } else {
-      const existing = placed.get(assigned);
-      if (existing) unplaced.push(existing);
-      placed.set(assigned, column);
-    }
-  }
-
-  const result: TColumn[] = new Array(columns.length);
-  for (let i = 0; i < result.length; i++) {
-    const column = placed.get(i + 1);
-    if (column) result[i] = column;
-  }
-  for (let i = 0; i < result.length; i++) {
-    if (result[i] === undefined) result[i] = unplaced.shift()!;
-  }
-
-  return result;
-};
 
 export const useColumnRearrange = <TEntry extends DataGridEntry = DataGridEntry>(
   options?: ColumnRearrangeOptions,
@@ -153,7 +122,7 @@ export const useColumnRearrange = <TEntry extends DataGridEntry = DataGridEntry>
         func: (columns) => {
           if (!isEnabled.value) return columns;
 
-          const reordered = applyColumnOrder(columns, state.value.order);
+          const reordered = applyArrayOrder(columns, state.value.order, (col) => col.key);
 
           if (!state.value.active) return reordered;
 
@@ -195,24 +164,25 @@ export const useColumnRearrange = <TEntry extends DataGridEntry = DataGridEntry>
         },
       },
       header: {
-        actions: () => {
-          if (!isEnabled.value || !state.value.active) return [];
+        wrapper:
+          () =>
+          (_, { slots }) => {
+            const content = slots.default?.();
 
-          return [
-            {
-              iconComponent: {
-                iconComponent: () =>
-                  h(OnyxSystemButton, {
-                    label: ctx.i18n.t.value("dataGrid.columnRearrange.dragToMove"),
-                    icon: iconDraggableHorizontal,
-                    color: "medium",
-                    class: "onyx-data-grid-column-rearrange-header__button",
-                  }),
-                alwaysShowInHeader: true,
-              },
-            },
-          ];
-        },
+            if (!isEnabled.value || !state.value.active) {
+              return content;
+            }
+
+            return h("div", { class: "onyx-data-grid-column-rearrange-wrapper" }, [
+              h(OnyxSystemButton, {
+                label: ctx.i18n.t.value("dataGrid.columnRearrange.dragToMove"),
+                icon: iconDraggableHorizontal,
+                color: "medium",
+                class: "onyx-data-grid-column-rearrange-header__button",
+              }),
+              content,
+            ]);
+          },
       },
       actions: () => {
         if (!isEnabled.value) return [];

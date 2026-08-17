@@ -2,29 +2,22 @@
 
 @include layers.component {
   .onyx-data-grid {
-    .onyx-data-grid-column-rearrange-header {
-      .onyx-data-grid-header-cell {
-        display: flex;
-        align-items: center;
+    .onyx-data-grid-column-rearrange-wrapper {
+      display: flex;
+      align-items: center;
 
-        // displays as contents to allow the rearrange button to be positioned at the left of the header cell.
-        &__actions {
-          display: contents;
-        }
-
-        .onyx-data-grid-column-rearrange-header__button {
-          order: -1;
-          cursor: grab;
-
-          &:active {
-            cursor: grabbing;
-          }
+      .onyx-data-grid-column-rearrange-header__button {
+        cursor: grab;
+        margin-right: var(--onyx-density-xs);
+        &:active {
+          cursor: grabbing;
         }
       }
     }
 
-    .onyx-data-grid-rearrange-column--highlighted {
+    table > thead > tr > th.onyx-data-grid-rearrange-column--highlighted {
       position: relative;
+      border-right-color: var(--onyx-color-component-border-primary);
 
       &::after {
         content: "";
@@ -32,16 +25,24 @@
         top: 0;
         right: 0;
         bottom: 0;
-        width: var(--onyx-spacing-5xs);
+        width: calc(var(--onyx-spacing-5xs) - var(--onyx-1px-in-rem));
         background-color: var(--onyx-color-component-border-primary);
         z-index: 100;
         pointer-events: none;
       }
 
+      &:last-child::after {
+        width: var(--onyx-spacing-5xs);
+      }
+
       &.onyx-data-grid-rearrange-column--highlighted-before {
+        border-right-color: inherit;
+        border-left-color: var(--onyx-color-component-border-primary);
+
         &::after {
           right: auto;
           left: 0;
+          width: var(--onyx-spacing-5xs);
         }
       }
     }

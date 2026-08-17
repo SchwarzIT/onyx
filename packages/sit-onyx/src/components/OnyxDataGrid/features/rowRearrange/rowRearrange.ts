@@ -17,8 +17,9 @@ import {
   type Ref,
   type TdHTMLAttributes,
 } from "vue";
-import { mergeVueProps } from "../../../../utils/attrs.js";
+import { applyArrayOrder } from "../../../../utils/applyArrayOrder.js";
 import "./rowRearrange.scss";
+import { mergeVueProps } from "../../../../utils/attrs.js";
 import OnyxSystemButton from "../../../OnyxSystemButton/OnyxSystemButton.vue";
 import type { DataGridEntry } from "../../types.js";
 import {
@@ -32,48 +33,6 @@ import { createFeature, type DataGridFeature } from "../index.js";
 export const ROW_REARRANGE_FEATURE = Symbol("RowRearrange");
 export const ROW_REARRANGE_COLUMN_KEY = Symbol("RowRearrangeColumn");
 const ROW_REARRANGE_COLUMN_TYPE = Symbol();
-
-/**
- * Given a list of entries and the current `order` map, return a new array with
- * entries sorted by their assigned index. Entries missing from the map keep
- * their original relative position and fill the remaining slots.
- */
-const applyOrder = <TEntry extends DataGridEntry>(
-  entries: Readonly<TEntry>[],
-  order: ReadonlyMap<TEntry["id"], number>,
-): Readonly<TEntry>[] => {
-  if (order.size === 0) return entries;
-
-  const placed = new Map<number, Readonly<TEntry>>();
-  const unplaced: Readonly<TEntry>[] = [];
-
-  // Separate entries into those with an assigned position and those without.
-  // Later insertions win if two entries claim the same position (mirrors the
-  // previous sequential behavior for that edge case).
-  for (const entry of entries) {
-    const assigned = order.get(entry.id);
-    if (assigned == undefined) {
-      unplaced.push(entry);
-    } else {
-      const existing = placed.get(assigned);
-      if (existing) unplaced.push(existing);
-      placed.set(assigned, entry);
-    }
-  }
-
-  // Build the final list by placing assigned entries at their 1-based index
-  // and filling the remaining slots with unplaced entries in original order.
-  const result: Readonly<TEntry>[] = new Array(entries.length);
-  for (let i = 0; i < result.length; i++) {
-    const entry = placed.get(i + 1);
-    if (entry) result[i] = entry;
-  }
-  for (let i = 0; i < result.length; i++) {
-    if (result[i] === undefined) result[i] = unplaced.shift()!;
-  }
-
-  return result;
-};
 
 export const useRowRearrange = <TEntry extends DataGridEntry>(
   options?: RowRearrangeOptions<TEntry>,
@@ -182,7 +141,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
         order: Number.MIN_SAFE_INTEGER,
         func: (entries) => {
           if (!isEnabled.value) return entries;
-          return applyOrder(entries, state.value.order);
+          return applyArrayOrder(entries, state.value.order, (entry) => entry.id);
         },
       },
       actions: () => {
