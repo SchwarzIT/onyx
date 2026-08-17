@@ -16,7 +16,7 @@ jobs:
       pull-requests: write
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@b09bb98e06d4d774595224525879c09bc6e98c40 # v2.20.1
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
         with:
           egress-policy: audit
 
@@ -29,7 +29,7 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: Create Pull Request
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
+        uses: changesets/action@198f833dd7d863100ea6e28967bc9a9fdefadb0a # v2.1.0
         with:
           publish: "exit 1" # Fail on publish - Should always only create a PR
           createGithubReleases: false
