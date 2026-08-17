@@ -15,7 +15,7 @@ catalog:
   nuxt: 4.5.2
   playwright: 1.62.1
   playwright-core: 1.62.1
-  sass-embedded: 1.100.0
+  sass-embedded: 1.102.0
   typescript: 6.0.3
   unplugin-dts: 1.0.3
   vite: 8.2.1

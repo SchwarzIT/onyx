@@ -29,7 +29,7 @@
     "stylelint": "stylelint \"src/**/*.css\""
   },
   "dependencies": {
-    "deepmerge-ts": "^7.1.5"
+    "deepmerge-ts": "^7.1.6"
   },
   "devDependencies": {
     "@sit-onyx/icons": "workspace:^",
