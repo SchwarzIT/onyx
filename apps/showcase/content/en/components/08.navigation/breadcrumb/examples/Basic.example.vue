@@ -19,21 +19,27 @@ import {
       </OnyxNavBar>
     </template>
 
-    <OnyxPageLayout>
-      <OnyxBreadcrumb class="breadcrumb">
+    <OnyxPageLayout no-padding>
+      <OnyxBreadcrumb class="onyx-grid-layout breadcrumb">
         <OnyxBreadcrumbItem href="/teams">Teams</OnyxBreadcrumbItem>
         <OnyxBreadcrumbItem href="/teams/onyx">onyx</OnyxBreadcrumbItem>
       </OnyxBreadcrumb>
 
-      <OnyxHeadline is="h2">Page headline</OnyxHeadline>
+      <div class="onyx-grid-layout">
+        <OnyxHeadline is="h2">Page headline</OnyxHeadline>
 
-      Example page content...
+        Example page content...
+      </div>
     </OnyxPageLayout>
   </OnyxAppLayout>
 </template>
 
 <style lang="scss" scoped>
 .breadcrumb {
-  margin-bottom: var(--onyx-grid-gutter);
+  padding-block: var(--onyx-grid-gutter);
+
+  + .onyx-grid-layout {
+    padding-top: 0;
+  }
 }
 </style>
