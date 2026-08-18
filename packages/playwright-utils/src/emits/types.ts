@@ -19,12 +19,14 @@ import type { ComponentExposed } from "vue-component-type-helpers";
  */
 export type PickEmitsFromProps<T> = {
   // component emits start with `on`
-  -readonly [key in keyof T as key extends `on${string}`
-    ? // exclude onVnode emits
-      key extends `onVnode${string}`
-      ? never
-      : key
-    : never]: NonNullable<T[key]>;
+  -readonly [
+    key in keyof T as key extends `on${string}`
+      ? // exclude onVnode emits
+        key extends `onVnode${string}`
+        ? never
+        : key
+      : never
+  ]: NonNullable<T[key]>;
 };
 
 /**
