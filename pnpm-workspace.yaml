@@ -15,13 +15,13 @@ catalog:
   nuxt: 4.5.2
   playwright: 1.62.1
   playwright-core: 1.62.1
-  sass-embedded: 1.100.0
+  sass-embedded: 1.102.0
   typescript: 6.0.3
   unplugin-dts: 1.0.3
   vite: 8.2.1
   vue: 3.5.41
-  vue-component-meta: 3.3.9
-  vue-tsc: 3.3.9
+  vue-component-meta: 3.3.10
+  vue-tsc: 3.3.10
 
 # Security settings (See: https://pnpm.io/supply-chain-security)
 trustPolicy: "no-downgrade"
