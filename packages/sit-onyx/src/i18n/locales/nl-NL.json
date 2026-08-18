@@ -55,6 +55,10 @@
       "rearrange": "Rijen herschikken",
       "reset": "Wijzigingen resetten",
       "dragToMove": "Sleep om de rij te verplaatsen"
+    },
+    "columnRearrange": {
+      "rearrange": "Kolommen herschikken",
+      "dragToMove": "Sleep om de kolom te verplaatsen"
     }
   },
   "validations": {

@@ -56,6 +56,10 @@
       "rearrange": "Rearrange rows",
       "reset": "Reset changes",
       "dragToMove": "Drag to move row"
+    },
+    "columnRearrange": {
+      "rearrange": "Rearrange columns",
+      "dragToMove": "Drag to move column"
     }
   },
   "validations": {

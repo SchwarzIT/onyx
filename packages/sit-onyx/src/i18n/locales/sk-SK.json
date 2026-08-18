@@ -55,6 +55,10 @@
       "rearrange": "Zmeniť usporiadanie riadkov",
       "reset": "Resetovať zmeny",
       "dragToMove": "Potiahnutím presuniete riadok"
+    },
+    "columnRearrange": {
+      "rearrange": "Zmeniť usporiadanie stĺpcov",
+      "dragToMove": "Potiahnutím presuniete stĺpec"
     }
   },
   "validations": {

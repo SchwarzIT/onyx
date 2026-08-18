@@ -55,6 +55,10 @@
       "rearrange": "Reorganizar linhas",
       "reset": "Repor alterações",
       "dragToMove": "Arrastar para mover a linha"
+    },
+    "columnRearrange": {
+      "rearrange": "Reorganizar colunas",
+      "dragToMove": "Arrastar para mover a coluna"
     }
   },
   "validations": {

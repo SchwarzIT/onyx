@@ -55,6 +55,10 @@
       "rearrange": "Zmień kolejność wierszy",
       "reset": "Zresetuj zmiany",
       "dragToMove": "Przeciągnij, aby przenieść wiersz"
+    },
+    "columnRearrange": {
+      "rearrange": "Zmień kolejność kolumn",
+      "dragToMove": "Przeciągnij, aby przenieść kolumnę"
     }
   },
   "validations": {
