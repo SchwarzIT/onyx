@@ -29,6 +29,9 @@ updates:
           - major
 
     ignore:
+      # typescript v7.0 doesn't expose an API yet, the API is supposed to be made available with v7.1
+      - dependency-name: "typescript"
+        update-types: [version-update:semver-major]
       # keep this in sync with .node-version file, if we e.g. use node 20, we do not want to update the types to latest 22
       - dependency-name: "@types/node"
         update-types: [version-update:semver-major]
