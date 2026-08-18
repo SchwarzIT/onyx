@@ -21,8 +21,10 @@ import {
 
     <OnyxPageLayout no-padding>
       <OnyxBreadcrumb container>
-        <OnyxBreadcrumbItem href="/teams">Teams</OnyxBreadcrumbItem>
-        <OnyxBreadcrumbItem href="/teams/onyx">onyx</OnyxBreadcrumbItem>
+        <OnyxBreadcrumbItem href="/users">Users</OnyxBreadcrumbItem>
+        <OnyxBreadcrumbItem href="/users/jane-doe">Jane Doe</OnyxBreadcrumbItem>
+        <OnyxBreadcrumbItem href="/users/jane-doe/orders">Orders</OnyxBreadcrumbItem>
+        <OnyxBreadcrumbItem href="/users/jane-doe/orders/123456">#123456</OnyxBreadcrumbItem>
       </OnyxBreadcrumb>
 
       <div class="onyx-grid-layout">
