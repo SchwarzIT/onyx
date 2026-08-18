@@ -31,8 +31,7 @@ jobs:
       - name: Create Pull Request
         uses: changesets/action@198f833dd7d863100ea6e28967bc9a9fdefadb0a # v2.1.0
         with:
-          publish: "exit 1" # Fail on publish - Should always only create a PR
-          createGithubReleases: false
-          title: "chore: update onyx versions and changelogs for release"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          publish-script: "exit 1" # Fail on publish - Should always only create a PR
+          create-github-releases: false
+          pr-title: "chore: update onyx versions and changelogs for release"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
