@@ -38,7 +38,7 @@ const handleSubmit = () => {
 
         <OnyxInput
           v-model="data.password"
-          class="onyx-grid-span-4s"
+          class="onyx-grid-span-4"
           label="Password"
           type="password"
           :minlength="3"
