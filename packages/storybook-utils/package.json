@@ -29,7 +29,7 @@
     "stylelint": "stylelint \"src/**/*.css\""
   },
   "dependencies": {
-    "deepmerge-ts": "^7.1.5"
+    "deepmerge-ts": "^7.1.6"
   },
   "devDependencies": {
     "@sit-onyx/icons": "workspace:^",
@@ -37,7 +37,7 @@
     "prettier": "^3.9.6",
     "storybook": "~10.4.6",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.3.9"
+    "vue-component-type-helpers": "^3.3.10"
   },
   "peerDependencies": {
     "@sit-onyx/flags": "workspace:^",

@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@nuxt/content": "^3.15.2",
-    "@nuxtjs/mdc": "~0.22.2",
+    "@nuxtjs/mdc": "~0.23.1",
     "@sit-onyx/assets": "workspace:^",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/headless": "workspace:^",
@@ -30,7 +30,7 @@
     "@vueuse/core": "^14.4.0",
     "@vueuse/nuxt": "^14.4.0",
     "@vueuse/router": "^14.4.0",
-    "browserslist": "^4.28.7",
+    "browserslist": "^4.28.8",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.30",
     "sit-onyx": "workspace:^",
