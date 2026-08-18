@@ -40,6 +40,8 @@ updates:
         update-types: [version-update:semver-minor]
       - dependency-name: "@storybook/*"
         update-types: [version-update:semver-minor]
+      - dependency-name: "eslint-plugin-storybook"
+        update-types: [version-update:semver-minor]
 
   - package-ecosystem: github-actions
     directories:
