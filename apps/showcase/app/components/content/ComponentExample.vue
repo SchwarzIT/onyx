@@ -196,7 +196,7 @@ if (props.provide?.notifications) {
     .onyx-app {
       width: 100%;
       height: 100%;
-      min-height: 32rem;
+      min-height: 24rem;
       background-color: var(--onyx-color-base-background-tinted);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-radius: var(--onyx-radius-md);
