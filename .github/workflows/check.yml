@@ -23,10 +23,11 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            github
+            nodejs
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -57,10 +58,11 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            nodejs
+            github
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -129,10 +131,11 @@ jobs:
       security-events: write
 
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            code-ql
+            github
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -156,10 +159,11 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            dependency-review
+            github
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

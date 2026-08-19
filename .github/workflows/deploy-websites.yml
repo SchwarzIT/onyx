@@ -25,10 +25,12 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            github
+            cloud-foundry
+            nodejs
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -57,10 +59,12 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            github
+            cloud-foundry
+            nodejs
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -93,10 +97,12 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            github
+            cloud-foundry
+            nodejs
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -125,10 +131,13 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            github
+            cloud-foundry
+            nodejs
+            azure-devops
 
       - name: 🪝 Invoke internal demo app webhook
         uses: distributhor/workflow-webhook@2381f0e9c7b6bf061fb1405bd0804b8706116369 # v3.0.8
@@ -171,10 +180,12 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            github
+            cloud-foundry
+            nodejs
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -207,10 +218,12 @@ jobs:
     if: ${{ (inputs.environment || inputs.environment) != '' }}
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      - uses: ./.github/templates/harden-runner
         with:
-          egress-policy: audit
+          policy-list: >
+            github
+            cloud-foundry
+            nodejs
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

@@ -1,0 +1,185 @@
+name: Harden the runner
+description: Custom node setup for onyx
+
+inputs:
+  policy_list:
+    required: true
+    description: TODO
+
+runs:
+  using: "composite"
+  steps:
+    - name: Initialize policies.list file
+      shell: bash
+      run: |
+        echo "*.stepsecurity.io:443" > policies.list
+
+    - name: Add 'code-ql' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' code-ql ') }}
+      run: |
+        cat << EOF >> policies.list
+        uploads.github.com:443
+        EOF
+
+    - name: Add 'dependency-review' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' dependency-review ') }}
+      run: |
+        cat << EOF >> policies.list
+        api.deps.dev:443
+        api.securityscorecards.dev:443
+        EOF
+
+    - name: Add 'figma' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' figma ') }}
+      run: |
+        cat << EOF >> policies.list
+        api.figma.com:443
+        figma-alpha-api.s3.us-west-2.amazonaws.com:443
+        EOF
+
+    - name: Add 'ossf-scorecard' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' ossf-scorecard ') }}
+      run: |
+        cat << EOF >> policies.list
+        api.deps.dev:443
+        api.osv.dev:443
+        api.scorecard.dev:443
+        fulcio.sigstore.dev:443
+        oss-fuzz-build-logs.storage.googleapis.com:443
+        rekor.sigstore.dev:443
+        tuf-repo-cdn.sigstore.dev:443
+        www.bestpractices.dev:443
+        EOF
+
+    - name: Add 'github' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' github ') }}
+      run: |
+        cat << EOF >> policies.list
+        api.github.com:443
+        github.com:443
+        www.github.com:443
+        release-assets.githubusercontent.com:443
+        EOF
+
+    - name: Add 'nodejs' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' nodejs ') }}
+      run: |
+        cat << EOF >> policies.list
+        api.npmjs.org:443
+        registry.npmjs.org:443
+        nodejs.org:443
+        telemetry.vercel.com:443
+        turbo-remote-cache.apps.01.cf.eu01.stackit.cloud:443
+        EOF
+
+    - name: Add 'azure-devops' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' nodejs ') }}
+      run: |
+        cat << EOF >> policies.list
+        dev.azure.com:443
+        EOF
+
+    - name: Add 'release' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' nodejs ') }}
+      run: |
+        cat << EOF >> policies.list
+        fulcio.sigstore.dev:443
+        rekor.sigstore.dev:443
+        github.com:22
+        EOF
+
+    - name: Add 'playwright' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' playwright ') }}
+      run: |
+        cat << EOF >> policies.list
+        *.archive.ubuntu.com:80
+        cdn.playwright.dev:443
+        dl.google.com:443
+        storage.googleapis.com:443
+        esm.ubuntu.com:443
+        *.mozilla.org:443
+        playwright.download.prss.microsoft.com:443
+        badge.fury.io:443
+        browsersl.ist:443
+        cdn.jsdelivr.net:443
+        d25lcipzij17d.cloudfront.net:443
+        data.jsdelivr.com:443
+        example.com:443
+        onyx.schwarz:443
+        unpkg.com:443
+        EOF
+
+    - name: Add 'cloud-foundry' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' cloud-foundry ') }}
+      run: |
+        cat << EOF >> policies.list
+        packages.cloudfoundry.org:443
+        cf-cli-debian-repo.s3.amazonaws.com:443
+        log-cache.system.01.cf.eu01.stackit.cloud:443
+        api.system.01.cf.eu01.stackit.cloud:443
+        login.system.01.cf.eu01.stackit.cloud:443
+        esm.ubuntu.com:443
+        dl.google.com:443
+        turbo-remote-cache.object.storage.eu01.onstackit.cloud:443
+        EOF
+
+    - name: Add 'pip' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' pip ') }}
+      run: |
+        cat << EOF >> policies.list
+        files.pythonhosted.org:443
+        pypi.org:443
+        EOF
+
+    - name: Add 'api-schwarz' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' api-schwarz ') }}
+      run: |
+        cat << EOF >> policies.list
+        live.api.schwarz:443
+        EOF
+
+    - name: Add 'apt-get' policies
+      shell: bash
+      if: ${{ contains(inputs.policy_list, ' apt-get ') }}
+      run: |
+        cat << EOF >> policies.list
+        *.archive.ubuntu.com:443
+        *.archive.ubuntu.com:80
+        archive.ubuntu.com:443
+        mirror.enzu.com:443
+        mirror.enzu.com:80
+        esm.ubuntu.com:443
+        motd.ubuntu.com:443
+        security.ubuntu.com:443
+        packages.microsoft.com:443
+        _https._tcp.dl.google.com:443
+        _https._tcp.esm.ubuntu.com:443
+        _https._tcp.motd.ubuntu.com:443
+        EOF
+
+    - name: Set Policies
+      shell: bash
+      run: |
+        {
+          echo 'ALLOWED_ENDPOINTS<<EOF'
+          cat policies.list
+          echo EOF
+        } >> "$GITHUB_ENV"
+
+    - name: "🛃 Harden the runner (Secure outbound calls)"
+      uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
+      with:
+        egress-policy: block
+        allowed-endpoints: ${{ env.ALLOWED_ENDPOINTS }}
