@@ -161,6 +161,7 @@ test.describe("OnyxDatePickerV2 Interactions", () => {
       await component.getByRole("button", { name: "Saturday, October 5," }).click();
 
       // ASSERT
+      await expectEmit(onUpdateViewMonth, 1, [MOCK_NOW]);
       await expectEmit(onUpdateModelValue, 1, [{ start: new Date(2024, 9, 5), end: undefined }]);
 
       // ACT
@@ -206,7 +207,7 @@ test.describe("OnyxDatePickerV2 Interactions", () => {
       await expectEmit(onUpdateModelValue, 6, [
         { start: new Date(2024, 10, 30), end: new Date(2024, 11, 19) },
       ]);
-      await expectEmit(onUpdateViewMonth, 1, [new Date(2024, 10, 1)]);
+      await expectEmit(onUpdateViewMonth, 2, [new Date(2024, 10, 1)]);
     });
 
     await test.step("should always show neighboring months", async () => {
@@ -216,7 +217,7 @@ test.describe("OnyxDatePickerV2 Interactions", () => {
       // ASSERT
       await expect(component.getByRole("button", { name: "December 2024" })).toBeVisible();
       await expect(component.getByRole("button", { name: "January 2025" })).toBeVisible();
-      await expectEmit(onUpdateViewMonth, 2, [new Date(2024, 11, 1)]);
+      await expectEmit(onUpdateViewMonth, 3, [new Date(2024, 11, 1)]);
 
       // ACT
       await component.getByRole("button", { name: "Previous month" }).nth(1).click();
@@ -224,7 +225,7 @@ test.describe("OnyxDatePickerV2 Interactions", () => {
       // ASSERT
       await expect(component.getByRole("button", { name: "November 2024" })).toBeVisible();
       await expect(component.getByRole("button", { name: "December 2024" })).toBeVisible();
-      await expectEmit(onUpdateViewMonth, 3, [new Date(2024, 10, 1)]);
+      await expectEmit(onUpdateViewMonth, 4, [new Date(2024, 10, 1)]);
     });
   });
 });
