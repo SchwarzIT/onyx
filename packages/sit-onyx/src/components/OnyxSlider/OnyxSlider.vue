@@ -272,7 +272,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 .onyx-slider {
   @include layers.component() {
     // Colors
-    --onyx-slider-rail-background: var(--onyx-color-base-neutral-200);
+    --onyx-slider-rail-background: var(--onyx-color-base-neutral-300);
     --onyx-slider-track-background: var(--onyx-color-base-neutral-600);
     --onyx-slider-thumb-background: var(--onyx-color-base-neutral-600);
     --onyx-slider-thumb-border-color: var(--onyx-color-base-neutral-800);
@@ -286,7 +286,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
     --onyx-slider-thumb-size: 1.25rem;
 
     // Interactive state colors
-    --onyx-slider-rail-background-interactive: var(--onyx-color-base-neutral-200);
+    --onyx-slider-rail-background-interactive: var(--onyx-color-base-neutral-300);
     --onyx-slider-track-background-interactive: var(--onyx-color-base-primary-500);
     --onyx-slider-thumb-background-interactive: var(--onyx-color-base-primary-500);
     --onyx-slider-thumb-border-color-interactive: var(--onyx-color-base-primary-500);
