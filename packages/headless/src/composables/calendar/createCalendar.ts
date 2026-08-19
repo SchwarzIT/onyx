@@ -89,7 +89,13 @@ export const createCalendar = createBuilder((options: CreateCalendarOptions) => 
     viewMonth,
     (newViewMonth) => {
       if (!newViewMonth) return;
-      focusedDate.value = newViewMonth;
+      // if new date is out of current month, automatically switch the focused date
+      if (
+        focusedDate.value.getFullYear() !== viewMonth.value.getFullYear() ||
+        focusedDate.value.getMonth() !== viewMonth.value.getMonth()
+      ) {
+        focusedDate.value = new Date(newViewMonth);
+      }
     },
     { immediate: true },
   );
@@ -124,11 +130,9 @@ export const createCalendar = createBuilder((options: CreateCalendarOptions) => 
     };
   });
 
-  const isFocused = computed(() => {
-    return (date: Date) => {
-      return focusedDate.value?.toDateString() === date.toDateString();
-    };
-  });
+  const isFocused = computed(
+    () => (date: Date) => focusedDate.value?.toDateString() === date.toDateString(),
+  );
 
   const isDisabled = computed(() => {
     return (date: Date): boolean => {
