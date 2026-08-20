@@ -17,6 +17,46 @@ The individual nav items can either be standalone or contain nested children tha
 
 :component-example{name="Basic" layout="fullWidth"}
 
+### Nested nav items
+
+Nav items can contain nested children which can be used to represent a hierarchy of pages. The nesting can also contain multiple layers.
+
+<steps>
+
+::step
+#headline
+Children
+
+#default
+Use child nav items that are shown when hovering the parent nav item. The parent can optionally also contain a link.
+
+:component-example{name="Nested" layout="fullWidth"}
+::
+
+::step
+#headline
+Internal drilldown
+
+#default
+When multiple layers of children are defined, an internal drilldown is used by default that supports navigation between the child layers.
+
+:component-example{name="NestedInternal" layout="fullWidth"}
+::
+
+::step
+#headline
+External drilldown
+
+#default
+Additional, the drilldown can be external which displays the nested child layers using multiple flyouts. Please only use a limit amount of layers with the external drilldown since the available screen size can be limited on smaller screens.
+
+:component-example{name="NestedExternal" layout="fullWidth"}
+::
+
+</steps>
+
+<br />
+
 ### Context area
 
 Use the context area on the right of the nav bar to show global system-related information and interactions such as the user's login or application language. The nav bar also supports a `globalContextArea` which will not be moved to a flyout menu in mobile mode.
