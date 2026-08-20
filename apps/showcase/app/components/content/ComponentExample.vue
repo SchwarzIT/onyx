@@ -208,7 +208,7 @@ if (props.provide?.notifications) {
       }
 
       :deep(.onyx-app__page) {
-        border-bottom-left-radius: inherit;
+        border-radius: inherit;
       }
 
       :deep(.onyx-app__nav:has(.onyx-nav-bar--vertical)) {
