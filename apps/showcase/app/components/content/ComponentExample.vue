@@ -208,7 +208,7 @@ if (props.provide?.notifications) {
       }
 
       :deep(.onyx-app__page) {
-        border-bottom-left-radius: inherit;
+        border-radius: inherit;
       }
 
       :deep(.onyx-app__nav:has(.onyx-nav-bar--vertical)) {
@@ -224,7 +224,12 @@ if (props.provide?.notifications) {
         }
       }
 
-      :deep(> .onyx-app__page > .onyx-page > .onyx-page__sidebar > .onyx-sidebar) {
+      :deep(
+        > .onyx-app__page
+          > .onyx-page
+          > .onyx-page__sidebar
+          > .onyx-sidebar:not(.onyx-sidebar--temporary)
+      ) {
         --onyx-sidebar-width: 16rem;
       }
     }

@@ -98,7 +98,17 @@ export const useSidebarNavigation = async <
 
   const navigation = computed(() => {
     // support multiple sidebars / roots so different pages can have their own sub-sidebar
-    const root = findDeepestRoot(allItems.value, route.path);
+    let root = findDeepestRoot(allItems.value, route.path);
+
+    // if the current path is not found in the navigation, fall back to parent paths
+    // e.g. /components/buttons/not-found -> /components/buttons -> /components
+    if (!root) {
+      for (const path of getPathAncestors(route.path)) {
+        root = findDeepestRoot(allItems.value, path);
+        if (root) break;
+      }
+    }
+
     if (!root) return allItems.value;
     return root.children ?? [root];
   });
@@ -193,3 +203,18 @@ export const useSidebarNavigation = async <
 
   return { navigation, allItems, previousRootItem };
 };
+
+/**
+ * Returns all ancestor paths of the given path, from deepest to shallowest.
+ * e.g. "/components/buttons/icon-button"
+ * -> ["/components/buttons/icon-button", "/components/buttons", "/components", "/"]
+ */
+function getPathAncestors(path: string): string[] {
+  const segments = path.split("/").filter(Boolean).slice(0, -1);
+  const ancestors: string[] = [];
+  for (let i = segments.length; i > 0; i--) {
+    ancestors.push("/" + segments.slice(0, i).join("/"));
+  }
+  ancestors.push("/");
+  return ancestors;
+}
