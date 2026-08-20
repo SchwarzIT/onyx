@@ -368,6 +368,8 @@ const tooltipStyles = computed<StyleValue>(() => {
         /* default styles target position "top": wedge points down, apex at trigger's top edge */
         top: calc(anchor(top) - var(--offset) - var(--onyx-tooltip-wedge-size));
         left: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
+        // The box of the wedge blocks clicks and hover effects, so we disable its pointer-events
+        pointer-events: none;
       }
     }
 
