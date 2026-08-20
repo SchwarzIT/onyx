@@ -3,13 +3,13 @@ title: Sidebar
 componentName: OnyxSidebar
 ---
 
-A sidebar is displayed either on the left or right edge of the application to show additional information. It can shown either permanently or only temporarily after user interaction.
+A sidebar is displayed either on the left or right edge of the application to show additional information. It can be shown either permanently or only temporarily based on the user interaction.
 
 ## Examples
 
 ### Alignments
 
-A basic sidebar is shown permanently on the left or right side of the application. It can contain up to three sections: header, body and footer. The header and footer are sticky while the body becomes scrollable if the content is too large for the available screen height.
+A basic sidebar is shown permanently on the left or right side of the application. It contains up to three sections: header, body and footer. The header and footer are sticky while the body becomes scrollable if the content is too large for the available height.
 
 The sidebar can manually be resized by the user by dragging the border. Double clicking the border will reset the width to the default. Resizing can be disabling using the `resizable` property.
 

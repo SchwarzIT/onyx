@@ -9,7 +9,7 @@ The table of contents component is used to display a list of sections/headings i
 
 ### Basic
 
-We recommend to position the table of contents on the right of the content with a minimum width of 8rem and a maximum width of 15rem. It should also be fixed so it does not scroll with the page content. The links are highlighted as active automatically based on the current link and scroll position (requires [headline](/components/navigation/headline) components inside the page content with the corresponding hash).
+The table of contents should be on the right of the content with a minimum width of `8rem` and a maximum width of `15rem`. It should also use `position: fixed`, so it does not scroll with the page content. The links are highlighted as active automatically based on the current link and scroll position (requires [headline](/components/navigation/headline) components inside the page content with a matching [hash](/components/navigation/headline#hash) property).
 
 :component-example{name="Basic" layout="fullWidth"}
 
