@@ -124,6 +124,9 @@ const positionAndAlignment = computed(() => {
   if (toolTipPosition.value.includes(" ")) {
     return toolTipPosition.value;
   }
+  if (toolTipPosition.value === "left" || toolTipPosition.value === "right") {
+    return `${toolTipPosition.value} center`;
+  }
   return `${toolTipPosition.value} ${alignment.value === "right" ? "left" : alignment.value === "left" ? "right" : "center"}`;
 });
 

@@ -127,7 +127,6 @@ const { componentRef, isVisible } = isTopLevel
   <!-- Desktop nav button directly in vertical navbar  -->
   <OnyxTooltip
     v-else-if="isExpanded === false && isTopLevel && isVisible"
-    alignment="right"
     position="right"
     without-wedge
   >
