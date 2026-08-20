@@ -1,6 +1,7 @@
 ---
 title: User menu
 componentName: OnyxUserMenu
+navigation: false
 ---
 
 The user menu displays user-related information and actions and is intended to be used inside the [navigation bar](/components/navigation/nav-bar).

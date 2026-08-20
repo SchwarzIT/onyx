@@ -1,6 +1,7 @@
 ---
 title: Timer
 componentName: OnyxTimer
+navigation: false
 ---
 
 Countdown timer, e.g. for when the user's login session expires.

@@ -13,9 +13,19 @@ The nav bar is intended to be used within the [app layout](/components/layouts/a
 
 A basic nav bar contains the application name and logo (if one exists) and navigation items linking to the main pages of the application. On smaller screen sizes, the nav bar automatically switches to an optimized mobile mode.
 
-The individual nav items can either be standalone or contain nested children that are shown when hovering the parent nav item. For a full list of nav item examples, please refer to the [nav item](/components/navigation/nav-item) component. Nav items can also link to external applications.
+The individual nav items can either be standalone or contain nested children that are shown when hovering the parent nav item.
 
 :component-example{name="Basic" layout="fullWidth"}
+
+<br />
+
+<div class="onyx-grid">
+<link-card class="onyx-grid-span-4" headline="Nav item" link="/components/navigation/nav-item">
+For a full list of nav item examples, please refer to the nav item component.
+</link-card>
+</div>
+
+<br />
 
 ### Nested nav items
 
@@ -74,7 +84,7 @@ Display the currently logged in user with additional actions such as logout, set
 </link-card>
 
 <link-card class="onyx-grid-span-4" headline="Nav button" link="/components/navigation/nav-button">
-Button to provide additional nav bar context actions such as language selection, notifications and more. Supports text and icon.
+Button to provide additional nav bar context actions such as language selection, notifications and more.
 </link-card>
 
 <link-card class="onyx-grid-span-4" headline="Timer" link="/components/navigation/timer">
@@ -87,6 +97,18 @@ Manage global notifications for the application.
 
 <link-card class="onyx-grid-span-4" headline="Global search" link="/components/search-and-filter/global-search">
 Provide a global search to allow the user to quickly find relevant content.
+</link-card>
+
+<link-card class="onyx-grid-span-4" headline="Language menu item" link="/components/navigation/language-menu-item">
+Pre-built menu item to display and change the application language.
+</link-card>
+
+<link-card class="onyx-grid-span-4" headline="Color scheme menu item" link="/components/navigation/color-scheme-menu-item">
+Pre-built menu item to display and change the color scheme / appearance (light/dark) mode.
+</link-card>
+
+<link-card class="onyx-grid-span-4" headline="Color scheme dialog" link="/components/navigation/color-scheme-dialog">
+Pre-built modal to change the color scheme / appearance (light/dark) mode.
 </link-card>
 
 </div>

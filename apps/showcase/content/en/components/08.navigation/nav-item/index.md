@@ -1,6 +1,7 @@
 ---
 title: Nav item
 componentName: OnyxNavItem
+navigation: false
 ---
 
 The nav item is used to build the [navigation bar](/components/navigation/nav-bar) component and not intended to be used standalone.

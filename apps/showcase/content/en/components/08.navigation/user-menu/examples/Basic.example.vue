@@ -15,16 +15,8 @@ const colorScheme = ref<ColorSchemeValue>("auto");
 const locale = ref("en");
 
 const languages: SelectDialogOption[] = [
-  {
-    label: "English",
-    value: "en",
-    icon: flagUS,
-  },
-  {
-    label: "Deutsch",
-    value: "de",
-    icon: flagDE,
-  },
+  { label: "English", value: "en", icon: flagUS },
+  { label: "Deutsch", value: "de", icon: flagDE },
 ];
 
 const handleLogout = () => {
