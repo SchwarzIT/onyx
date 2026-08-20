@@ -224,7 +224,12 @@ if (props.provide?.notifications) {
         }
       }
 
-      :deep(> .onyx-app__page > .onyx-page > .onyx-page__sidebar > .onyx-sidebar) {
+      :deep(
+        > .onyx-app__page
+          > .onyx-page
+          > .onyx-page__sidebar
+          > .onyx-sidebar:not(.onyx-sidebar--temporary)
+      ) {
         --onyx-sidebar-width: 16rem;
       }
     }
