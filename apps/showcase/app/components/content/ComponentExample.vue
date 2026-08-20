@@ -209,7 +209,19 @@ if (props.provide?.notifications) {
 
       :deep(.onyx-app__page) {
         border-bottom-left-radius: inherit;
-        border-bottom-right-radius: inherit;
+      }
+
+      :deep(.onyx-app__nav:has(.onyx-nav-bar--vertical)) {
+        border-bottom-left-radius: inherit;
+
+        .onyx-nav-bar--vertical,
+        .onyx-sidebar__body {
+          border-top-left-radius: inherit;
+        }
+
+        .onyx-nav-bar--vertical {
+          border-bottom-left-radius: inherit;
+        }
       }
 
       :deep(> .onyx-app__page > .onyx-page > .onyx-page__sidebar > .onyx-sidebar) {

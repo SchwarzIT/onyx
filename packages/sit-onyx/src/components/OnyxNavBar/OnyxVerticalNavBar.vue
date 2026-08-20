@@ -255,5 +255,9 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
       width: 100%;
     }
   }
+
+  .onyx-nav-button {
+    width: 100%;
+  }
 }
 </style>
