@@ -1,6 +1,7 @@
 ---
 title: Color scheme menu item
 componentName: OnyxColorSchemeMenuItem
+navigation: false
 ---
 
 Pre-built [menu item](/components/basic/menu-item) for the [user menu](/components/navigation/user-menu) that can be used inside the [nav bar](/components/navigation/nav-bar) to display the current color scheme (light/dark mode) to the user and allow changing it using a dialog.
