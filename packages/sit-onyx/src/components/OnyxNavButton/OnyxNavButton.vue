@@ -26,6 +26,7 @@ const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
     :class="[
       'onyx-component',
       'onyx-nav-button',
+      'onyx-truncation-ellipsis',
       { 'onyx-nav-button--primary': props.color === 'primary' },
     ]"
     :aria-label="props.hideLabel ? props.label : undefined"

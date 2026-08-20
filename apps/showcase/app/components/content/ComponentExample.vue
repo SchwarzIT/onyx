@@ -196,7 +196,7 @@ if (props.provide?.notifications) {
     .onyx-app {
       width: 100%;
       height: 100%;
-      min-height: 32rem;
+      min-height: 24rem;
       background-color: var(--onyx-color-base-background-tinted);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-radius: var(--onyx-radius-md);
@@ -209,7 +209,19 @@ if (props.provide?.notifications) {
 
       :deep(.onyx-app__page) {
         border-bottom-left-radius: inherit;
-        border-bottom-right-radius: inherit;
+      }
+
+      :deep(.onyx-app__nav:has(.onyx-nav-bar--vertical)) {
+        border-bottom-left-radius: inherit;
+
+        .onyx-nav-bar--vertical,
+        .onyx-sidebar__body {
+          border-top-left-radius: inherit;
+        }
+
+        .onyx-nav-bar--vertical {
+          border-bottom-left-radius: inherit;
+        }
       }
 
       :deep(> .onyx-app__page > .onyx-page > .onyx-page__sidebar > .onyx-sidebar) {
