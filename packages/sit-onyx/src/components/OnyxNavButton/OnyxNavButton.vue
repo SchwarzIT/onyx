@@ -17,6 +17,13 @@ const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   color: "neutral",
 });
 
+defineSlots<{
+  /**
+   * You can replace the label of the navButton with your custom content.
+   */
+  default?(): unknown;
+}>();
+
 const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
 </script>
 
@@ -32,8 +39,10 @@ const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
     :aria-label="props.hideLabel ? props.label : undefined"
     :title="props.hideLabel ? props.label : undefined"
   >
-    <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <span v-if="!props.hideLabel" class="onyx-nav-button__labels">{{ props.label }}</span>
+    <slot>
+      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      <span v-if="!props.hideLabel" class="onyx-nav-button__labels">{{ props.label }}</span>
+    </slot>
   </ButtonOrLinkLayout>
 </template>
 
