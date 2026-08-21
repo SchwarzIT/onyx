@@ -84,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Obligatoriu",
-      "fullError": "Câmpul este gol, este obligatoriu și trebuie completat."
+      "fullError": "Câmpul este gol, este obligatoriu și trebuie completat.",
+      "whitespaceError": "Vă rugăm să introduceți un text valid (spațiile goale nu sunt permise)."
     },
     "stepMismatch": {
       "preview": "Număr invalid",
