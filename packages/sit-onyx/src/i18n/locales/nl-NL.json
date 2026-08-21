@@ -84,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Verplicht",
-      "fullError": "Het veld is leeg, het is verplicht en moet worden ingevuld."
+      "fullError": "Het veld is leeg, het is verplicht en moet worden ingevuld.",
+      "whitespaceError": "Voer een geldige tekst in (alleen spaties zijn niet toegestaan)."
     },
     "stepMismatch": {
       "preview": "Ongeldig getal",

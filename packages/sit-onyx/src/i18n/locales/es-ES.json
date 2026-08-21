@@ -84,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Obligatorio",
-      "fullError": "El campo está vacío, es obligatorio y debe rellenarse."
+      "fullError": "El campo está vacío, es obligatorio y debe rellenarse.",
+      "whitespaceError": "Por favor, introduzca un texto válido (no se permiten solo espacios)."
     },
     "stepMismatch": {
       "preview": "Número no válido",

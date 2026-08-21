@@ -12,6 +12,7 @@ import {
   useVModel,
   type FormElementV2Tooltip,
 } from "sit-onyx";
+import { useWhitespaceValidation } from "sit-onyx";
 import { computed, provide, ref, useTemplateRef, watch, watchEffect, type StyleValue } from "vue";
 import EditorToolbar from "./EditorToolbar.vue";
 import { OnyxStarterKit } from "./extensions/starterKit.js";
@@ -52,6 +53,7 @@ const modelValue = useVModel({
   key: "modelValue",
   default: "<p></p>",
 });
+const { whitespaceError } = useWhitespaceValidation({ modelValue, props });
 
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss -- documented in props JSDoc that extensions should not be changed at runtime
 const editor = useEditor({
@@ -129,6 +131,13 @@ const error = computed<string | FormElementV2Tooltip | undefined>(() => {
     return {
       label: t.value("validations.valueMissing.preview"),
       tooltipText: t.value("validations.valueMissing.fullError"),
+    };
+  }
+
+  if (whitespaceError.value) {
+    return {
+      label: whitespaceError.value.shortMessage,
+      tooltipText: whitespaceError.value.longMessage,
     };
   }
 

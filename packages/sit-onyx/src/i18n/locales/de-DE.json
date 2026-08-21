@@ -85,7 +85,8 @@
     },
     "valueMissing": {
       "preview": "Pflichtfeld",
-      "fullError": "Das Feld ist leer, es ist ein Pflichtfeld und muss ausgefüllt werden."
+      "fullError": "Das Feld ist leer, es ist ein Pflichtfeld und muss ausgefüllt werden.",
+      "whitespaceError": "Bitte geben Sie einen gültigen Text ein (nur Leerzeichen sind nicht erlaubt)."
     },
     "stepMismatch": {
       "preview": "Ungültige Zahl",

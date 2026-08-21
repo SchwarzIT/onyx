@@ -85,7 +85,8 @@
     },
     "valueMissing": {
       "preview": "Required",
-      "fullError": "The field is empty, it is mandatory and must be filled in."
+      "fullError": "The field is empty, it is mandatory and must be filled in.",
+      "whitespaceError": "Please enter a valid text (spaces only are not allowed)."
     },
     "stepMismatch": {
       "preview": "Invalid number",
