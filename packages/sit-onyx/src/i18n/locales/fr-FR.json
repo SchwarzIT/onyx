@@ -84,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Requis",
-      "fullError": "Le champ est vide, il est obligatoire et doit être rempli."
+      "fullError": "Le champ est vide, il est obligatoire et doit être rempli.",
+      "whitespaceError": "Veuillez saisir un texte valide (les espaces seuls ne sont pas autorisés)."
     },
     "stepMismatch": {
       "preview": "Nombre invalide",
