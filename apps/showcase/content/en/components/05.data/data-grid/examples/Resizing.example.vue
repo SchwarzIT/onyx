@@ -27,7 +27,6 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
 
 const withResizing = DataGridFeatures.useResizing<Entry>({
   // options here..
-
 });
 
 const features = [withResizing];
