@@ -8,7 +8,7 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
   OnyxFormElementV2Props &
     Pick<SharedFormElementProps, "name" | "placeholder" | "readonly" | "disabled"> &
     AutofocusProp &
-    Omit<OnyxCalendarProps<TSelection>, "size" | "disabled"> &
+    Omit<OnyxCalendarProps<TSelection>, "size" | "disabled" | "hoverDate"> &
     Pick<OnyxInputProps, "hideClearIcon"> & {
       /**
        * Whether to show two calendars in range mode.

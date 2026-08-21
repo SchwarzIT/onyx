@@ -9,7 +9,7 @@ export default {};
 
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
 import { iconCalendar, iconXSmall } from "@sit-onyx/icons";
-import { computed, useTemplateRef, type HTMLAttributes } from "vue";
+import { computed, ref, useTemplateRef, watch, type HTMLAttributes } from "vue";
 import { useAutofocus } from "../../composables/useAutoFocus.js";
 import { useClearButton } from "../../composables/useClearButton.js";
 import { useFormElementError } from "../../composables/useFormElementError.js";
@@ -17,7 +17,12 @@ import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js"
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
-import { isValidDate } from "../../utils/date.js";
+import {
+  isValidDate,
+  previousMonthForDate,
+  nextMonthForDate,
+  type DateValue,
+} from "../../utils/date.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxCalendar from "../OnyxCalendar/OnyxCalendar.vue";
 import type {
@@ -26,7 +31,6 @@ import type {
   OnyxCalendarSelectionMode,
   OnyxCalendarValueBySelection,
 } from "../OnyxCalendar/types.js";
-import type { DateValue } from "../OnyxDatePicker/types.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
 import OnyxFormElementAction from "../OnyxFormElementAction/OnyxFormElementAction.vue";
 import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
@@ -98,11 +102,26 @@ const formElementError = computed<FormElementV2Tooltip | undefined>(() => {
 });
 
 const modelValue = useVModel({ props, emit, key: "modelValue" });
-const viewMonth = useVModel({
+const viewMonth = useVModel<OnyxDatePickerV2Props<TSelection>, "viewMonth", Date>({
   key: "viewMonth",
   props,
   emit,
   default: () => new Date(),
+});
+
+const hoverDate = ref<Date>();
+
+const updateViewMonth = (newValue: DateValue, offset = false) => {
+  if (offset) {
+    viewMonth.value = previousMonthForDate(new Date(newValue));
+  } else {
+    viewMonth.value = new Date(newValue);
+  }
+};
+
+const normalizedViewMonth = computed(() => {
+  const date = new Date(viewMonth.value);
+  return new Date(date.getFullYear(), date.getMonth(), 1);
 });
 
 const popoverOpen = useVModel({ props, emit, key: "open", default: false });
@@ -119,6 +138,27 @@ const handleDateSelect = (date: OnyxCalendarValueBySelection<TSelection>) => {
     popoverOpen.value = false;
   }
 };
+
+watch(
+  popoverOpen,
+  (isOpen) => {
+    if (!isOpen) return;
+
+    const value = modelValue.value;
+    let newFocusDate: Date | undefined;
+
+    if (Array.isArray(value)) {
+      newFocusDate = value.at(0);
+    } else if (value instanceof Date) {
+      newFocusDate = value;
+    } else {
+      newFocusDate = value?.start;
+    }
+
+    viewMonth.value = newFocusDate ? new Date(newFocusDate) : new Date();
+  },
+  { immediate: true },
+);
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
@@ -168,6 +208,7 @@ const calendarForwardProps = useForwardProps(props, OnyxCalendar);
 const calendarProps = computed(() => {
   return {
     ...calendarForwardProps.value,
+    modelValue: modelValue.value,
     viewMonth: undefined, // is handled via v-model separately
     class: [
       "onyx-date-picker-v2__calendar",
@@ -217,6 +258,7 @@ defineExpose({ input });
         v-bind="mergeVueProps(inputProps, restAttrs)"
         ref="inputRef"
         v-custom-validity
+        autocomplete="off"
         :value="formattedDate"
         :disabled="disabled || props.loading"
         :readonly="props.readonly"
@@ -249,10 +291,18 @@ defineExpose({ input });
 
     <template #popover>
       <div class="onyx-date-picker-v2__calendar-wrapper">
-        <OnyxCalendar v-bind="calendarProps" v-model:view-month="viewMonth" />
+        <OnyxCalendar
+          v-bind="calendarProps"
+          v-model:hover-date="hoverDate"
+          :view-month="normalizedViewMonth"
+          @update:view-month="(event) => updateViewMonth(event)"
+        />
         <OnyxCalendar
           v-if="props.selectionMode === 'range' && props.multiView"
           v-bind="calendarProps"
+          v-model:hover-date="hoverDate"
+          :view-month="nextMonthForDate(normalizedViewMonth)"
+          @update:view-month="(event) => updateViewMonth(event, true)"
         />
       </div>
     </template>
