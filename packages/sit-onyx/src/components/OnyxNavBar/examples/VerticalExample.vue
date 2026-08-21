@@ -18,6 +18,7 @@ import {
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
+  OnyxNotificationDot,
   OnyxPageLayout,
   OnyxTag,
   OnyxUnstableNavButton,
@@ -90,7 +91,14 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
             hide-label
             :icon="iconBell"
             label="Notification"
-          />
+          >
+            <OnyxNotificationDot
+              :class="['my-notification-dot', { 'my-notification-dot--expanded': expanded }]"
+            >
+              <OnyxIcon :icon="iconBell" />
+            </OnyxNotificationDot>
+            <span v-if="expanded">Notification</span>
+          </component>
         </template>
       </OnyxNavBar>
     </template>

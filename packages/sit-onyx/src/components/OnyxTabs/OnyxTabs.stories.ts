@@ -2,6 +2,8 @@ import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxNotificationDot from "../OnyxNotificationDot/OnyxNotificationDot.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTab from "../OnyxTab/OnyxTab.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
@@ -52,8 +54,28 @@ export const Default = {
         OnyxTab,
         { value: "tab-4" },
         {
-          default: () => "Panel content 3...",
+          default: () => "Panel content 4...",
           tab: () => ["Tab 4", h(OnyxBadge, { dot: true, color: "warning" })],
+        },
+      ),
+      h(
+        OnyxTab,
+        { value: "tab-5" },
+        {
+          default: () => "Panel content 5...",
+          tab: () => [
+            h(
+              OnyxNotificationDot,
+
+              {
+                color: "warning",
+              },
+              {
+                default: () => h(OnyxIcon, { icon: iconPlaceholder }),
+              },
+            ),
+            "Tab 5",
+          ],
         },
       ),
     ],

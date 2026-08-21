@@ -16,7 +16,7 @@ defineSlots<{
 </script>
 
 <template>
-  <div class="onyx-component onyx-notification-dot">
+  <div class="onyx-component onyx-notification-dot onyx-density-default">
     <slot></slot>
     <OnyxBadge v-if="!props.hidden" class="onyx-notification-dot__badge" :color="props.color" dot />
   </div>
@@ -31,7 +31,7 @@ defineSlots<{
       var(--onyx-notification-dot-offset, 0rem) - var(--onyx-density-3xs)
     );
     position: relative;
-    width: max-content;
+    display: flex;
     max-width: 100%;
 
     &__badge {
