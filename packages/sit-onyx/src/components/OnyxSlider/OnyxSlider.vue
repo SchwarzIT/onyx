@@ -292,7 +292,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
     --onyx-slider-thumb-border-color-interactive: var(--onyx-color-base-primary-500);
 
     // Disabled state colors
-    --onyx-slider-background-disabled: var(--onyx-color-base-neutral-300);
+    --onyx-slider-background-disabled: var(--onyx-color-base-neutral-400);
     --onyx-slider-mark-color-disabled: var(--onyx-color-text-icons-neutral-soft);
 
     --onyx-slider-offset: calc(0.375rem + 2 * var(--onyx-1px-in-rem));
