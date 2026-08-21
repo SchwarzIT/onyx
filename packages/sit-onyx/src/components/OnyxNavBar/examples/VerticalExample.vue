@@ -86,12 +86,7 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
             label="Search"
             hide-label
           />
-          <component
-            :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem"
-            hide-label
-            :icon="iconBell"
-            label="Notification"
-          >
+          <component :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem" label="Notification">
             <OnyxNotificationDot
               :class="['my-notification-dot', { 'my-notification-dot--expanded': expanded }]"
             >
