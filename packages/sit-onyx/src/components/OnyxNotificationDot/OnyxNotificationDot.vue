@@ -32,6 +32,7 @@ defineSlots<{
     );
     position: relative;
     display: flex;
+    width: max-content;
     max-width: 100%;
 
     &__badge {
