@@ -1,0 +1,176 @@
+/* -------------------------------------------------------------------------- *
+ *  Light / dark mode plumbing
+ *
+ *  Onyx uses `light-dark()` under the hood, so we enable both color schemes
+ *  on :root. Consumers can force a mode with `color-scheme: light|dark` on a
+ *  parent element or with the standard `data-bs-theme` attribute below.
+ * -------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+}
+
+[data-bs-theme="light"] {
+  color-scheme: light;
+}
+
+[data-bs-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root {
+  /* Body styles */
+  --bs-body-font-family: var(--onyx-font-family-paragraph);
+  --bs-body-font-size: var(--onyx-font-size-md);
+  --bs-body-font-weight: var(--onyx-font-weight-regular);
+  --bs-body-line-height: var(--onyx-font-line-height-md);
+  --bs-body-color: var(--onyx-color-text-icons-neutral-intense);
+  --bs-body-bg: var(--onyx-color-base-background-tinted);
+}
+
+.fusion-container {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--onyx-color-text-icons-neutral-intense);
+    font-weight: var(--onyx-font-weight-semibold);
+  }
+
+  h1 {
+    font-size: var(--onyx-font-size-xl);
+    line-height: var(--onyx-font-line-height-xl);
+    font-family: var(--onyx-font-family-h1);
+  }
+
+  h2 {
+    font-size: var(--onyx-font-size-lg);
+    line-height: var(--onyx-font-line-height-lg);
+    font-family: var(--onyx-font-family-h2);
+  }
+
+  h3 {
+    font-size: var(--onyx-font-size-md);
+    line-height: var(--onyx-font-line-height-md);
+    font-family: var(--onyx-font-family-h3);
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: var(--onyx-font-size-sm);
+    line-height: var(--onyx-font-line-height-sm);
+    font-family: var(--onyx-font-family-h4);
+  }
+
+  .left-title {
+    color: var(--onyx-color-text-icons-neutral-intense);
+    font-weight: var(--onyx-font-weight-semibold);
+    font-size: var(--onyx-font-size-md);
+    line-height: var(--onyx-font-line-height-md);
+    font-family: var(--onyx-font-family-h3);
+  }
+
+  .fusion-div {
+    font-family: var(--onyx-font-family-paragraph);
+    background-color: var(--onyx-color-base-background-blank);
+    border-radius: var(--onyx-radius-md);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    box-shadow: none;
+    padding: var(--onyx-density-md);
+  }
+
+  .fusion-stat-content-grey {
+    color: var(--onyx-color-text-icons-neutral-medium);
+    font-weight: var(--onyx-font-weight-semibold);
+    font-size: var(--onyx-font-size-md);
+    line-height: var(--onyx-font-line-height-md);
+    font-family: var(--onyx-font-family-h3);
+  }
+
+  .fusion-stat-content-green,
+  .fusion-stat-content-red,
+  .fusion-stat-content-fw-normal {
+    font-weight: var(--onyx-font-weight-semibold);
+    font-size: var(--onyx-font-size-lg);
+    line-height: var(--onyx-font-line-height-lg);
+    font-family: var(--onyx-font-family-h2);
+  }
+
+  .fusion-stat-content-fw-normal {
+    color: var(--onyx-color-text-icons-neutral-intense);
+  }
+
+  /**
+  * Custom AD grid theme with onyx
+  */
+  .ag-theme-alpine {
+    --ag-background-color: var(--onyx-color-base-background-blank);
+    --ag-foreground-color: var(--onyx-color-text-icons-neutral-intense);
+    --ag-border-color: var(--onyx-color-component-border-neutral);
+    --ag-secondary-border-color: var(--onyx-color-component-border-neutral);
+    --ag-header-background-color: var(--onyx-color-base-neutral-200);
+    --ag-header-foreground-color: var(--onyx-color-text-icons-neutral-medium);
+    --ag-odd-row-background-color: var(--onyx-color-base-background-tinted);
+    --ag-control-panel-background-color: var(--onyx-color-base-background-tinted);
+    --ag-border-radius: var(--onyx-radius-sm);
+    --ag-font-family: var(--onyx-font-family-data);
+    --ag-range-selection-border-color: var(--onyx-color-component-border-primary);
+    --ag-row-hover-color: var(--onyx-color-base-neutral-200);
+    --ag-input-focus-border-color: var(--onyx-color-component-focus-primary);
+
+    .ag-header-cell.ag-header-cell-filtered {
+      background-color: var(--onyx-color-base-neutral-300);
+    }
+  }
+
+  /**
+  * Plotly chart styles. We need to use "!important" since Plotly inlines the styles.
+  */
+  .js-plotly-plot {
+    .legendtext,
+    .ytick text,
+    .xtick text,
+    .cbaxis text {
+      font-family: var(--onyx-font-family-paragraph) !important;
+      fill: var(--onyx-color-text-icons-neutral-medium) !important;
+      font-size: var(--onyx-font-size-sm) !important;
+      line-height: var(--onyx-font-line-height-sm) !important;
+      font-weight: var(--onyx-font-weight-regular) !important;
+    }
+
+    .xgrid,
+    .ygrid {
+      stroke: var(--onyx-color-component-border-neutral) !important;
+    }
+
+    .xlines-above,
+    .ticks,
+    .zl {
+      stroke: var(--onyx-color-component-border-neutral-hover) !important;
+    }
+
+    .plotly [data-title] {
+      /* tooltip */
+      &::after {
+        background-color: var(--onyx-color-base-neutral-900);
+        color: var(--onyx-color-text-icons-neutral-inverted);
+      }
+
+      /* wedge */
+      &::before {
+        border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) var(--onyx-color-base-neutral-900);
+      }
+    }
+
+    .plotly:hover .modebar-group {
+      background-color: var(--onyx-color-base-neutral-900) !important;
+    }
+
+    .modebar-btn .icon path {
+      fill: var(--onyx-color-text-icons-neutral-inverted) !important;
+    }
+  }
+}
