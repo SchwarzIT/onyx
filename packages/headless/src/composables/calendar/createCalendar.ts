@@ -67,35 +67,34 @@ export const createCalendar = createBuilder((options: CreateCalendarOptions) => 
     return names.slice(index).concat(names.slice(0, index));
   });
 
-  // check if view month contains today, else default to first day of month
-  const initialFocusedDate = () => {
-    const today = new Date();
-    const view = viewMonth.value;
+  const focusedDate = ref<Date>();
 
-    const isTodayInViewMonth =
-      today.getFullYear() === view.getFullYear() && today.getMonth() === view.getMonth();
-
-    if (isTodayInViewMonth) {
-      return today;
-    } else {
-      return new Date(view.getFullYear(), view.getMonth(), 1);
-    }
-  };
-
-  const focusedDate = ref(initialFocusedDate());
-
-  // sync focusDate with viewMonth
+  /**
+   * Sync focusDate with viewMonth: Use the first of the following dates, where the date is in the
+   * current viewMonth: - focused date - selected date - first day in month
+   */
   watch(
     viewMonth,
     (newViewMonth) => {
-      if (!newViewMonth) return;
-      // if new date is out of current month, automatically switch the focused date
       if (
-        focusedDate.value.getFullYear() !== viewMonth.value.getFullYear() ||
-        focusedDate.value.getMonth() !== viewMonth.value.getMonth()
+        focusedDate.value?.getFullYear() === newViewMonth.getFullYear() &&
+        focusedDate.value?.getMonth() === newViewMonth.getMonth()
       ) {
-        focusedDate.value = new Date(newViewMonth);
+        return;
       }
+
+      const value = toValue(options.modelValue);
+      if (!value) return;
+      let newFocusDate: Date | undefined;
+      if (Array.isArray(value)) {
+        newFocusDate = value.length ? new Date(value[0]!) : undefined;
+      } else if (typeof value === "object" && !(value instanceof Date)) {
+        newFocusDate = new Date(value.start);
+      } else {
+        newFocusDate = new Date(value);
+      }
+      focusedDate.value =
+        newFocusDate || new Date(newViewMonth.getFullYear(), newViewMonth.getMonth(), 1);
     },
     { immediate: true },
   );
