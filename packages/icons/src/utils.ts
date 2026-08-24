@@ -5,7 +5,7 @@ export {
    * Metadata for all available onyx icons.
    */
   default as ICON_METADATA,
-} from "./metadata.json";
+} from "./metadata.json" with { type: "json" };
 
 export * from "./types.js";
 

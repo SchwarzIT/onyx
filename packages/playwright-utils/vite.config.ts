@@ -2,7 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
-import packageJson from "./package.json";
+import packageJson from "./package.json" with { type: "json" };
 
 const jsxImportSource = "playwright";
 

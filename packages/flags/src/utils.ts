@@ -5,7 +5,7 @@ export {
    * Metadata for all available onyx flags.
    */
   default as FLAG_METADATA,
-} from "./metadata.json";
+} from "./metadata.json" with { type: "json" };
 
 export * from "./types.js";
 
