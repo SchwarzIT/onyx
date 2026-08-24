@@ -20,7 +20,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@changesets/cli": "^3.0.0",
+    "@changesets/cli": "^3.0.1",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
     "@eslint-community/eslint-utils": "^4.10.1",
     "@eslint/compat": "^2.1.0",
@@ -54,7 +54,7 @@
     "lint-staged": "^17.3.0",
     "nuxt": "catalog:",
     "oxfmt": "~0.64.0",
-    "publint": "^0.3.23",
+    "publint": "^0.3.24",
     "rimraf": "^6.1.3",
     "simple-git-hooks": "^2.13.1",
     "storybook": "~10.4.6",
