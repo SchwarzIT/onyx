@@ -1,8 +1,9 @@
 import { computed, type Ref } from "vue";
 import { injectI18n } from "../i18n/index.js";
+import type { Nullable } from "../types/utils.js";
 
 export type WhitespaceValidationOptions = {
-  modelValue: Ref<string | undefined | null>;
+  modelValue?: Ref<Nullable<string>>;
   props: { required?: boolean };
 };
 
@@ -11,9 +12,10 @@ export const useWhitespaceValidation = ({ modelValue, props }: WhitespaceValidat
 
   const whitespaceError = computed(() => {
     if (!props.required) return undefined;
-    const rawText = String(modelValue.value ?? "").replace(/<[^>]*>/g, "");
 
-    if (rawText.length > 0 && rawText.trim().length === 0) {
+    const val = modelValue?.value ?? "";
+
+    if (val.length > 0 && val.trim().length === 0) {
       return {
         shortMessage: t.value("validations.valueMissing.preview"),
         longMessage: t.value("validations.valueMissing.whitespaceError"),

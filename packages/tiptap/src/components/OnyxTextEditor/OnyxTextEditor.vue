@@ -53,7 +53,6 @@ const modelValue = useVModel({
   key: "modelValue",
   default: "<p></p>",
 });
-const { whitespaceError } = useWhitespaceValidation({ modelValue, props });
 
 // eslint-disable-next-line vue/no-setup-props-reactivity-loss -- documented in props JSDoc that extensions should not be changed at runtime
 const editor = useEditor({
@@ -78,6 +77,10 @@ const editor = useEditor({
     modelValue.value = newValue;
   },
 });
+
+const textValue = computed(() => editor.value?.getText());
+
+const { whitespaceError } = useWhitespaceValidation({ modelValue: textValue, props });
 
 watch([modelValue, editor], ([newValue]) => {
   if (!editor.value) return;
