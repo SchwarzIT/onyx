@@ -1,31 +1,9 @@
-/* -------------------------------------------------------------------------- *
- *  Light / dark mode plumbing
- *
- *  Onyx uses `light-dark()` under the hood, so we enable both color schemes
- *  on :root. Consumers can force a mode with `color-scheme: light|dark` on a
- *  parent element or with the standard `data-bs-theme` attribute below.
- * -------------------------------------------------------------------------- */
-
-:root {
-  color-scheme: light dark;
-}
-
-[data-bs-theme="light"] {
-  color-scheme: light;
-}
-
-[data-bs-theme="dark"] {
-  color-scheme: dark;
-}
-
-:root {
-  /* Body styles */
-  --bs-body-font-family: var(--onyx-font-family-paragraph);
-  --bs-body-font-size: var(--onyx-font-size-md);
-  --bs-body-font-weight: var(--onyx-font-weight-regular);
-  --bs-body-line-height: var(--onyx-font-line-height-md);
-  --bs-body-color: var(--onyx-color-text-icons-neutral-intense);
-  --bs-body-bg: var(--onyx-color-base-background-tinted);
+body:has(.fusion-container) {
+  font-family: var(--onyx-font-family-paragraph);
+  background-color: var(--onyx-color-base-background-tinted);
+  color: var(--onyx-color-text-icons-neutral-intense);
+  font-size: var(--onyx-font-size-md);
+  line-height: var(--onyx-font-line-height-md);
 }
 
 .fusion-container {
@@ -66,6 +44,7 @@
   }
 
   .left-title {
+    /* based on h3 */
     color: var(--onyx-color-text-icons-neutral-intense);
     font-weight: var(--onyx-font-weight-semibold);
     font-size: var(--onyx-font-size-md);
@@ -83,6 +62,7 @@
   }
 
   .fusion-stat-content-grey {
+    /* based on h3 */
     color: var(--onyx-color-text-icons-neutral-medium);
     font-weight: var(--onyx-font-weight-semibold);
     font-size: var(--onyx-font-size-md);
@@ -93,6 +73,7 @@
   .fusion-stat-content-green,
   .fusion-stat-content-red,
   .fusion-stat-content-fw-normal {
+    /* based on h2 */
     font-weight: var(--onyx-font-weight-semibold);
     font-size: var(--onyx-font-size-lg);
     line-height: var(--onyx-font-line-height-lg);
@@ -104,7 +85,7 @@
   }
 
   /**
-  * Custom AD grid theme with onyx
+  * Custom AG grid theme with onyx
   */
   .ag-theme-alpine {
     --ag-background-color: var(--onyx-color-base-background-blank);
