@@ -67,7 +67,7 @@ export const createCalendar = createBuilder((options: CreateCalendarOptions) => 
     return names.slice(index).concat(names.slice(0, index));
   });
 
-  const focusedDate = ref<Date>();
+  const focusedDate = ref<Date>(new Date());
 
   /**
    * Sync focusDate with viewMonth: Use the first of the following dates, where the date is in the
@@ -77,8 +77,8 @@ export const createCalendar = createBuilder((options: CreateCalendarOptions) => 
     viewMonth,
     (newViewMonth) => {
       if (
-        focusedDate.value?.getFullYear() === newViewMonth.getFullYear() &&
-        focusedDate.value?.getMonth() === newViewMonth.getMonth()
+        focusedDate.value.getFullYear() === newViewMonth.getFullYear() &&
+        focusedDate.value.getMonth() === newViewMonth.getMonth()
       ) {
         return;
       }
