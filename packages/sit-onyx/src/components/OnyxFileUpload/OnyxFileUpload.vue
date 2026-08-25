@@ -376,8 +376,8 @@ const shouldShowFileList = computed(() => {
   .onyx-file-upload-wrapper {
     --onyx-file-upload-max-files: 3;
 
-    --onyx-file-upload-border-color: var(--onyx-color-component-border-neutral);
-    --onyx-file-upload-active-border-color: var(--onyx-color-component-border-neutral-hover);
+    --onyx-file-upload-border-color: var(--onyx-color-component-border-secondary);
+    --onyx-file-upload-active-border-color: var(--onyx-color-component-border-secondary-hover);
     --onyx-file-upload-error-illustration-display: none;
     --onyx-file-upload-default-illustration-display: block;
     --onyx-file-upload-outline-color: var(--onyx-color-component-focus-primary);

@@ -227,7 +227,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       border-radius: var(--onyx-basic-dialog-border-radius) var(--onyx-basic-dialog-border-radius) 0
         0;
       margin-top: var(--onyx-density-xs);
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
     &__end-of-list {
       padding: 0 var(--onyx-density-md) var(--onyx-density-xs) var(--onyx-density-md);
@@ -247,7 +247,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       padding: var(--onyx-density-xs) var(--onyx-global-search-padding);
       background-color: var(--onyx-color-base-background-tinted);
       color: var(--onyx-color-text-icons-neutral-soft);
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-top: none;
       border-radius: 0 0 var(--onyx-basic-dialog-border-radius)
         var(--onyx-basic-dialog-border-radius);

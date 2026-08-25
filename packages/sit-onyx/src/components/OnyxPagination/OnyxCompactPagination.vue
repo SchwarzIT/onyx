@@ -163,7 +163,7 @@ const valueLabel = computed(() =>
         &:focus-visible {
           margin-left: var(--onyx-outline-width);
           border-left: var(--onyx-pagination-border-size) solid
-            var(--onyx-color-component-border-neutral);
+            var(--onyx-color-component-border-secondary);
         }
       }
 

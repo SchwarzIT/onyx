@@ -111,7 +111,7 @@ const hasDescription = computed(() => !!slots.description);
       flex-direction: column;
       gap: var(--onyx-density-2xs);
       padding: var(--onyx-density-sm) var(--onyx-modal-padding-inline);
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
 
     &__headline {

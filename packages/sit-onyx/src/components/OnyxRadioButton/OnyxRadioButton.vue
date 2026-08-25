@@ -103,7 +103,7 @@ useAutofocus(input, props);
 .onyx-radio-button {
   @include layers.component() {
     --onyx-radio-button-cursor: pointer;
-    --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-neutral);
+    --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-secondary);
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-background-blank);
     --onyx-radio-button-selector-outline-color: var(--onyx-color-base-primary-200);
     --onyx-radio-button-selector-outline-width: 0;
@@ -119,7 +119,7 @@ useAutofocus(input, props);
     }
 
     &:has(&__selector:hover) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-neutral-hover);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-secondary-hover);
     }
 
     &:has(&__selector:checked) {
@@ -132,7 +132,7 @@ useAutofocus(input, props);
       --onyx-radio-button-selector-border-color: var(--onyx-radio-button-selector-background-color);
     }
     &:has(&__selector:focus-visible) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-neutral);
+      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-secondary);
       --onyx-radio-button-selector-outline-width: var(--onyx-radio-button-selector-margin);
     }
     &:has(&__selector:invalid) {

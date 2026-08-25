@@ -22,7 +22,7 @@
 }
 
 @mixin define-shared-styles($base-selector, $vertical-padding) {
-  --border-color: var(--onyx-color-component-border-neutral);
+  --border-color: var(--onyx-color-component-border-secondary);
   --border-radius: var(--onyx-radius-component-input);
   --hover-border-color: var(--onyx-color-component-border-primary-hover);
   --selection-color: var(--onyx-color-base-primary-200);
@@ -79,11 +79,11 @@
     // styles for readonly but NOT disabled
     &:has(#{$base-selector}__native:enabled:read-only) {
       &:hover {
-        --border-color: var(--onyx-color-component-border-neutral-hover);
+        --border-color: var(--onyx-color-component-border-secondary-hover);
       }
 
       &:has(#{$base-selector}__native:focus, #{$base-selector}__native--show-focus) {
-        --border-color: var(--onyx-color-component-border-neutral);
+        --border-color: var(--onyx-color-component-border-secondary);
         --outline-color: var(--onyx-color-component-focus-neutral);
       }
     }

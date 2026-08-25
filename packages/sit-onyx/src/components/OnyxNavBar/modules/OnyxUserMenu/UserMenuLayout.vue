@@ -121,13 +121,13 @@ const { t } = injectI18n();
     }
 
     &__footer {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       padding: var(--onyx-spacing-4xs) var(--onyx-spacing-md);
     }
 
     &__mobile-footer {
       margin-top: var(--onyx-spacing-2xs);
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-radius: var(--onyx-radius-sm);
       font-size: var(--onyx-font-size-sm);
       line-height: var(--onyx-font-line-height-sm);

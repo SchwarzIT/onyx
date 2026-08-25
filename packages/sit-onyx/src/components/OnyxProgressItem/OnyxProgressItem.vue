@@ -131,7 +131,7 @@ const icon = computed(() => {
     &--default,
     &--visited {
       --onyx-progress-item-background-color: transparent;
-      --onyx-progress-item-border-color: var(--onyx-color-component-border-neutral);
+      --onyx-progress-item-border-color: var(--onyx-color-component-border-secondary);
       --onyx-progress-item-color: var(--onyx-color-text-icons-neutral-intense);
 
       &:enabled {
@@ -142,7 +142,7 @@ const icon = computed(() => {
 
         &:focus-visible {
           --onyx-progress-item-background-color: transparent;
-          --onyx-progress-item-border-color: var(--onyx-color-component-border-neutral-hover);
+          --onyx-progress-item-border-color: var(--onyx-color-component-border-secondary-hover);
         }
       }
     }

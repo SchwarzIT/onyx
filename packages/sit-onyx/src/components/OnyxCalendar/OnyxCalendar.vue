@@ -362,7 +362,7 @@ useOutsideClick({
 .onyx-calendar {
   @include layers.component() {
     --onyx-calendar-border-radius: var(--onyx-radius-md);
-    --onyx-calendar-border-color: var(--onyx-color-component-border-secondary);
+    --onyx-calendar-border-color: var(--onyx-color-component-border-neutral);
     display: flex;
     flex-direction: column;
     flex-grow: 1;

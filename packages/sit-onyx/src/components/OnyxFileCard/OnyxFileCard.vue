@@ -143,7 +143,7 @@ const link = computed(() => {
 .onyx-file-card {
   @include layers.component() {
     position: relative;
-    border-color: var(--onyx-color-component-border-neutral);
+    border-color: var(--onyx-color-component-border-secondary);
     &__show-error {
       // position the input for the native error message & make it visually hidden
       bottom: var(--onyx-file-card-icon-padding);
@@ -227,7 +227,7 @@ const link = computed(() => {
 
     &:hover {
       background-color: var(--onyx-color-base-background-tinted);
-      border-color: var(--onyx-color-component-border-neutral-hover);
+      border-color: var(--onyx-color-component-border-secondary-hover);
     }
 
     $colors: primary, neutral, danger, warning, success, info;

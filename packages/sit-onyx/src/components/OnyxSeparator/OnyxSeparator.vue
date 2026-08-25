@@ -31,7 +31,7 @@ const isVertical = computed(() => {
   @include layers.component() {
     --onyx-separator-size: var(--onyx-1px-in-rem);
     --onyx-separator-min-size: 2rem;
-    background-color: var(--onyx-color-component-border-secondary);
+    background-color: var(--onyx-color-component-border-neutral);
     height: var(--onyx-separator-size);
     min-width: var(--onyx-separator-min-size);
 

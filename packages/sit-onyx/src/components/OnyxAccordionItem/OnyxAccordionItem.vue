@@ -112,7 +112,7 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
     --onyx-accordion-item-padding: var(--onyx-density-md);
     --onyx-accordion-item-gap: var(--onyx-density-md);
     --onyx-accordion-item-border: var(--onyx-1px-in-rem) solid
-      var(--onyx-color-component-border-secondary);
+      var(--onyx-color-component-border-neutral);
     --onyx-accordion-item-border-focus: none;
     --onyx-accordion-item-border-radius: var(--onyx-radius-md);
     --onyx-accordion-item-font-size: var(--onyx-font-size-md);

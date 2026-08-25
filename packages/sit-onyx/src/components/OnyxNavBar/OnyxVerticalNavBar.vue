@@ -187,7 +187,7 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
   }
   .onyx-nav-bar {
     &__app {
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-right: none;
       width: 100%;
 
@@ -224,7 +224,7 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
       align-items: start;
     }
     &__footer {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     }
     &__collapse-button {
       color: var(--onyx-color-text-icons-neutral-medium);

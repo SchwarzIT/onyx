@@ -94,7 +94,7 @@ provide(BREADCRUMB_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
 .onyx-breadcrumb {
   @include layers.component() {
     &--container {
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       background-color: var(--onyx-color-base-background-blank);
 
       .onyx-breadcrumb__list {

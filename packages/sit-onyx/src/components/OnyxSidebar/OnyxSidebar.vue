@@ -207,7 +207,7 @@ watch(currentRoute, () => (isModalOpen.value = false), { deep: true });
 
 .onyx-sidebar {
   @include layers.component() {
-    --onyx-sidebar-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+    --onyx-sidebar-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     --onyx-sidebar-padding: var(--onyx-density-md);
     --onyx-sidebar-width: 20rem;
     --onyx-sidebar-min-width: 4rem;
