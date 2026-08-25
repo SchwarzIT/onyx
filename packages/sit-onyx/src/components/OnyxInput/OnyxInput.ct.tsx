@@ -456,3 +456,10 @@ test("should display pattern error", async ({ mount }) => {
   await expect(input).toHaveValue("123");
   await expect(component.getByText("Only letters are allowed").first()).toBeVisible();
 });
+
+test("should show an error if only a whiteSpace is entered", async ({ mount }) => {
+  const component = await mount(<OnyxInput label="Label" modelValue={" "} required showError />);
+
+  // ASSERT
+  await expect(component.getByText("RequiredPlease enter a valid").first()).toBeVisible();
+});

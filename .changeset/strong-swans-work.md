@@ -1,6 +1,6 @@
 ---
-"@sit-onyx/tiptap": minor
-"sit-onyx": minor
+"@sit-onyx/tiptap": patch
+"sit-onyx": patch
 ---
 
-feat(OnyxInput, OnyxTextarea, OnyxTextEditor): implement whitespace validation for required fields
+fix(OnyxInput, OnyxTextarea, OnyxTextEditor): show error when `required` and user only entered (white)spaces
