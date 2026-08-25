@@ -172,7 +172,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
 
 .onyx-table-wrapper {
   @include layers.component() {
-    --onyx-table-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+    --onyx-table-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);

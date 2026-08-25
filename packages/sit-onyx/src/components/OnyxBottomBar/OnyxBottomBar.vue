@@ -54,7 +54,7 @@ const { densityClass } = useDensity(props);
     container-type: inline-size;
 
     &--border {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
     }
 
     &__content {

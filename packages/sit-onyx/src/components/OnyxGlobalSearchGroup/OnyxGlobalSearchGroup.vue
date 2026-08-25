@@ -95,7 +95,7 @@ const skeletonCount = computed(() => {
     list-style: none;
 
     &:not(:first-of-type) {
-      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+      border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
     }
 
     &__headline {

@@ -151,8 +151,7 @@ const displayPagesNumbers = computed(() => {
         align-items: center;
         padding: var(--onyx-pagination-padding-vertical);
         height: var(--onyx-pagination-height);
-        border: var(--onyx-pagination-border-size) solid
-          var(--onyx-color-component-border-secondary);
+        border: var(--onyx-pagination-border-size) solid var(--onyx-color-component-border-neutral);
         border-left: none;
         border-right-color: var(--onyx-color-component-border-neutral);
         background-color: inherit;
@@ -204,12 +203,11 @@ const displayPagesNumbers = computed(() => {
           border-radius: var(--onyx-pagination-border-radius) 0 0
             var(--onyx-pagination-border-radius);
           border-left: var(--onyx-pagination-border-size) solid
-            var(--onyx-color-component-border-secondary);
+            var(--onyx-color-component-border-neutral);
         }
         &:last-of-type {
           border-radius: 0 var(--onyx-pagination-border-radius) var(--onyx-pagination-border-radius)
             0;
-          border-right-color: var(--onyx-color-component-border-secondary);
         }
       }
 

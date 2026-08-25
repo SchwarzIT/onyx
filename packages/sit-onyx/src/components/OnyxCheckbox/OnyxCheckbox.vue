@@ -166,13 +166,13 @@ useAutofocus(input, props);
     }
 
     &:hover {
-      @include define-hover-border($state: ":enabled", $color: secondary-hover);
+      @include define-hover-border($state: ":enabled", $color: primary-hover);
       @include define-hover-border($state: ":user-invalid", $color: danger-hover);
     }
 
     &:has(&__input:focus-visible) {
-      @include define-focus-ring($state: ":enabled", $color: secondary);
-      @include define-hover-border($state: ":enabled", $color: secondary);
+      @include define-focus-ring($state: ":enabled", $color: primary);
+      @include define-hover-border($state: ":enabled", $color: primary);
 
       @include define-focus-ring($state: ":user-invalid", $color: danger);
       @include define-hover-border($state: ":user-invalid", $color: danger);

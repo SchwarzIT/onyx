@@ -760,7 +760,7 @@ defineExpose({ input: inputRef });
       list-style: none;
 
       &:not(:last-of-type) {
-        border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+        border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
       }
     }
     &__group:not(:last-of-type) {
@@ -779,7 +779,7 @@ defineExpose({ input: inputRef });
     &__search {
       position: sticky;
       top: 0;
-      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+      border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
     }
 
     &__loading {
