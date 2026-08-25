@@ -57,6 +57,8 @@ export * from "./components/OnyxDataGrid/OnyxDataGridRenderer/types.js";
 export { default as OnyxDataGrid } from "./components/OnyxDataGrid/OnyxDataGrid.vue";
 export * from "./components/OnyxDataGrid/types.js";
 
+export { default as OnyxUnstableDataGridFormElementWrapper } from "./components/OnyxDataGrid/features/DataGridFormElementWrapper.vue";
+
 export * as DataGridFeatures from "./components/OnyxDataGrid/features/all.js";
 export * from "./components/OnyxDataGrid/features/index.js";
 
@@ -344,4 +346,5 @@ export { useResizeObserver } from "./composables/useResizeObserver.js";
 export * from "./utils/attrs.js";
 export * from "./utils/props.js";
 export * from "./utils/router.js";
+export { type DateValue } from "./utils/date.js";
 export { normalizedIncludes } from "./utils/strings.js";

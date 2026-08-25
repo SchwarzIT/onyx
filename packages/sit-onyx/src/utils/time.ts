@@ -1,4 +1,4 @@
-import type { DateValue } from "../components/OnyxDatePicker/types.js";
+import type { DateValue } from "./date.js";
 
 /**
  * Calculate seconds, minutes and hours for a given number of milliseconds.

@@ -33,8 +33,8 @@
     "@nuxt/test-utils": ">= 4",
     "@playwright/experimental-ct-vue": "catalog:",
     "@vitejs/plugin-vue": ">= 6",
-    "sass-embedded": ">= 1.102.0",
-    "vite": ">= 8.2.1"
+    "sass-embedded": ">= 1.103.1",
+    "vite": ">= 8.2.2"
   },
   "engines": {
     "node": ">=20"

@@ -343,6 +343,12 @@ const COMPONENTS: Components = {
       open: false,
     },
   },
+  OnyxUnstableDataGridFormElementWrapper: {
+    props: {
+      label: "Label",
+      is: ALL_EXPORTS.OnyxInput,
+    },
+  },
 };
 
 describe("components", () => {

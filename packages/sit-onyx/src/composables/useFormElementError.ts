@@ -1,10 +1,10 @@
 import { computed, ref, toValue, watch, type MaybeRef, type MaybeRefOrGetter } from "vue";
-import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types.js";
+import type { OnyxDatePickerProps } from "../components/OnyxDatePicker/types.js";
 import type { FormElementV2Tooltip } from "../components/OnyxFormElementV2/types.js";
 import type { InputType } from "../components/OnyxInput/types.js";
 import { injectI18n } from "../i18n/index.js";
 import enUS from "../i18n/locales/en-US.json";
-import { isValidDate } from "../utils/date.js";
+import { isValidDate, type DateValue } from "../utils/date.js";
 import { getFirstInvalidType } from "../utils/validity.js";
 import { useCustomValidity, type UseFormValidityOptions } from "./useCustomValidity.js";
 import type { MaxLength } from "./useLenientMaxLengthValidation.js";
