@@ -18,6 +18,7 @@ import {
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
+  OnyxNotificationDot,
   OnyxPageLayout,
   OnyxTag,
   OnyxUnstableNavButton,
@@ -85,12 +86,12 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
             label="Search"
             hide-label
           />
-          <component
-            :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem"
-            hide-label
-            :icon="iconBell"
-            label="Notification"
-          />
+          <component :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem" label="Notification">
+            <OnyxNotificationDot>
+              <OnyxIcon :icon="iconBell" />
+            </OnyxNotificationDot>
+            <span v-if="expanded">Notification</span>
+          </component>
         </template>
       </OnyxNavBar>
     </template>
