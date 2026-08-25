@@ -81,6 +81,28 @@ const getNormalizedDate = computed(() => {
 });
 
 /**
+ * Whether the raw value coming from the native date input still has an incomplete (mid-typing)
+ * year.
+ *
+ * A native `<input type="date|datetime-local">` fires an `input` event on *every* segment change
+ * as soon as the entered segments form a *valid* date. While the user types the year digit by
+ * digit (e.g. "2" → "20" → "202" → "2026"), the field briefly holds valid dates with a 1–3 digit
+ * year. The setter below fed each of those through `dateToISOString`, which zero-pads the year and
+ * wrote the result straight back into the input via `v-model`, overwriting the segment the user
+ * was typing (the year "danced" 0002 → 0020 → 0202 → …). This made date entry unusable, most
+ * visibly in locales the browser renders as `dd/mm/yyyy` (e.g. es-ES).
+ *
+ * The native input serialises its value as `YYYY-MM-DD` and ZERO-PADS the year while typing, so
+ * the raw string is "0002-06-15", "0020-06-15", … — i.e. the year part is always 4 chars. We
+ * therefore compare the NUMERIC year (< 1000), not the string length. A complete date, a value
+ * picked from the calendar popup, or clearing the field all pass through unchanged.
+ */
+const hasIncompleteYear = (raw: string): boolean => {
+  const yearPart = raw.split("-")[0];
+  return /^\d+$/.test(yearPart) && Number(yearPart) < 1000;
+};
+
+/**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
 const modelValue = useVModel({
@@ -91,6 +113,12 @@ const modelValue = useVModel({
 const value = computed({
   get: () => getNormalizedDate.value(modelValue.value),
   set: (value) => {
+    // Ignore intermediate values while the year is still being typed. Because `modelValue` stays
+    // unchanged, the getter keeps returning the previous string and Vue performs no DOM writeback,
+    // so the native input keeps the user's in-progress input untouched.
+    if (value != null && value !== "" && hasIncompleteYear(value)) {
+      return;
+    }
     const newDate = new Date(value ?? "");
     // If the type is `datetime-local`, we always use UTC as a timezone to minimize edge-cases for our users.
     modelValue.value = dateToISOString(newDate, props.type === "date" ? "date" : "datetime-utc");

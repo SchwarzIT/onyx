@@ -127,3 +127,52 @@ test("should show max errors", async ({ mount }) => {
   await expect(component).toContainText("Too high");
   await expect(component).toContainText("Input value must be less than or equal to 12/06/2024");
 });
+
+test("does not emit zero-padded intermediate years while typing the year segment", async ({
+  mount,
+}) => {
+  // ARRANGE
+  const onUpdateModelValue = createEmitSpy<typeof OnyxDatePicker, "onUpdate:modelValue">();
+  const component = await mount(OnyxDatePicker, {
+    props: { label: "label", "onUpdate:modelValue": onUpdateModelValue },
+  });
+  const input = component.getByLabel("label");
+
+  // ACT
+  // Type the date segment by segment. Unlike `.fill()` (which sets the whole value at once),
+  // `pressSequentially` drives the native date input's segment editor, reproducing the bug where
+  // the year briefly holds 1-3 digit values (0002 -> 0020 -> 0202) that used to be written back.
+  await input.focus();
+  await input.pressSequentially("06152026");
+
+  // ASSERT
+  // The field ends on the intended complete date...
+  await expect(input).toHaveValue("2026-06-15");
+  // ...and only the final value is emitted - never the 0002/0020/0202 intermediates.
+  await expectEmit(onUpdateModelValue, 1, ["2026-06-15"]);
+});
+
+test("still commits a complete date and supports clearing (guard does not over-block)", async ({
+  mount,
+}) => {
+  // ARRANGE
+  const onUpdateModelValue = createEmitSpy<typeof OnyxDatePicker, "onUpdate:modelValue">();
+  const component = await mount(OnyxDatePicker, {
+    props: { label: "label", "onUpdate:modelValue": onUpdateModelValue },
+  });
+  const input = component.getByLabel("label");
+
+  // ACT - a complete date set at once (mirrors a calendar-popup selection)
+  await input.fill("2026-03-10");
+
+  // ASSERT - a real 4-digit year is NOT blocked by the guard
+  await expect(input).toHaveValue("2026-03-10");
+  await expectEmit(onUpdateModelValue, 1, ["2026-03-10"]);
+
+  // ACT - clearing still works
+  await input.clear();
+
+  // ASSERT
+  await expect(input).toHaveValue("");
+  await expectEmit(onUpdateModelValue, 2, [undefined]);
+});
