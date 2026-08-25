@@ -57,6 +57,8 @@ export * from "./components/OnyxDataGrid/OnyxDataGridRenderer/types.js";
 export { default as OnyxDataGrid } from "./components/OnyxDataGrid/OnyxDataGrid.vue";
 export * from "./components/OnyxDataGrid/types.js";
 
+export { default as OnyxUnstableDataGridFormElementWrapper } from "./components/OnyxDataGrid/features/DataGridFormElementWrapper.vue";
+
 export * as DataGridFeatures from "./components/OnyxDataGrid/features/all.js";
 export * from "./components/OnyxDataGrid/features/index.js";
 
