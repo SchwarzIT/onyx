@@ -876,9 +876,10 @@ test("should support min/max length", async ({ mount }) => {
 });
 
 test("should show an error if only a whiteSpace is entered", async ({ mount }) => {
-  const component = await mount(
-    <OnyxTextEditor label="Label" modelValue={" "} required showError />,
-  );
+  const component = await mount(<OnyxTextEditor label="Label" required showError />);
+
+  const input = component.getByRole("textbox");
+  await input.fill(" ");
 
   // ASSERT
   await expect(component.getByText("RequiredPlease enter a valid").first()).toBeVisible();
