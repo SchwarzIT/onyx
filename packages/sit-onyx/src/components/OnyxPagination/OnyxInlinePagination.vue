@@ -154,7 +154,6 @@ const displayPagesNumbers = computed(() => {
         border: var(--onyx-pagination-border-size) solid
           var(--onyx-color-component-border-secondary);
         border-left: none;
-        border-right-color: var(--onyx-color-component-border-secondary);
         background-color: inherit;
         color: inherit;
         aspect-ratio: 1;
