@@ -185,6 +185,7 @@ defineSlots<{
       height: max-content;
       width: max-content;
       padding: var(--onyx-density-2xs);
+      border-radius: var(--onyx-radius-full);
     }
   }
 }
