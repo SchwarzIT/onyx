@@ -138,17 +138,12 @@ test("does not emit zero-padded intermediate years while typing the year segment
   });
   const input = component.getByLabel("label");
 
-  // ACT
-  // Type the date segment by segment. Unlike `.fill()` (which sets the whole value at once),
-  // `pressSequentially` drives the native date input's segment editor, reproducing the bug where
-  // the year briefly holds 1-3 digit values (0002 -> 0020 -> 0202) that used to be written back.
+  // ACT - type segment by segment (pressSequentially, not fill) to drive the year digit by digit
   await input.focus();
   await input.pressSequentially("06152026");
 
-  // ASSERT
-  // The field ends on the intended complete date...
+  // ASSERT - only the final value is emitted, never the 0002/0020/0202 intermediates
   await expect(input).toHaveValue("2026-06-15");
-  // ...and only the final value is emitted - never the 0002/0020/0202 intermediates.
   await expectEmit(onUpdateModelValue, 1, ["2026-06-15"]);
 });
 
