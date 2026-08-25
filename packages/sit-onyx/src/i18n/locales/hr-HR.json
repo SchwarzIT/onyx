@@ -84,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Obavezno",
-      "fullError": "Polje je prazno, obavezno je i mora se ispuniti."
+      "fullError": "Polje je prazno, obavezno je i mora se ispuniti.",
+      "whitespaceError": "Molimo unesite važeći tekst (samo razmaci nisu dopušteni)."
     },
     "stepMismatch": {
       "preview": "Nevažeći broj",

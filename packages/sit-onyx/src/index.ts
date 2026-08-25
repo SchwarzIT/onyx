@@ -324,6 +324,7 @@ export { getFormMessages } from "./composables/useFormElementError.js";
 export * from "./composables/useLink.js";
 export * from "./composables/useShortcut.js";
 export * from "./composables/useSkeletonState.js";
+export { useWhitespaceValidation } from "./composables/useWhitespaceValidation.js";
 export { SKELETON_INJECTED_SYMBOL } from "./composables/useSkeletonState.js";
 export { useVModel, type UseVModelOptions } from "./composables/useVModel.js";
 

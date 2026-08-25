@@ -84,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "필수 항목",
-      "fullError": "필드가 비어 있습니다. 필수 항목이므로 반드시 입력해야 합니다."
+      "fullError": "필드가 비어 있습니다. 필수 항목이므로 반드시 입력해야 합니다.",
+      "whitespaceError": "유효한 텍스트를 입력하세요 (공백만으로는 허용되지 않습니다)."
     },
     "stepMismatch": {
       "preview": "유효하지 않은 숫자",
