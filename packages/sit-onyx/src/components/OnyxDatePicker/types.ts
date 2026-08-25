@@ -1,4 +1,5 @@
 import type { Nullable } from "../../types/index.js";
+import type { DateValue } from "../../utils/date.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxDatePickerProps = Omit<SharedFormElementProps, "placeholder"> & {
@@ -27,8 +28,3 @@ export type OnyxDatePickerProps = Omit<SharedFormElementProps, "placeholder"> & 
    */
   max?: DateValue;
 };
-
-/**
- * Data types that are parsable as date via `new Date()`.
- */
-export type DateValue = ConstructorParameters<typeof Date>[0];

@@ -1,7 +1,7 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
 import type { Nullable } from "../../types/utils.js";
-import type { DateValue } from "../OnyxDatePicker/types.js";
+import type { DateValue } from "../../utils/date.js";
 
 export type OnyxCalendarProps<TSelection extends OnyxCalendarSelectionMode> = DensityProp & {
   /**
@@ -81,6 +81,12 @@ export type OnyxCalendarProps<TSelection extends OnyxCalendarSelectionMode> = De
    * Whether to show week numbers in the calendar.
    */
   showCalendarWeeks?: boolean;
+
+  /**
+   * The date is used to highlight the currently hovered date range in the `range` selection mode.
+   * Usually there is no need to set this and it's main purpose to be used internally.
+   */
+  hoverDate?: Nullable<Date>;
 };
 
 export type OnyxCalendarSelectionMode = "single" | "multiple" | "range";
