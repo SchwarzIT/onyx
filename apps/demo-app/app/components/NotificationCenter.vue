@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { iconBell, iconBellRing, iconCheckRead, iconCircleAttention } from "@sit-onyx/icons";
 import { promiseTimeout } from "@vueuse/core";
-import { useGlobalFAB, useNotification } from "sit-onyx";
+import { OnyxIcon, OnyxUnstableNavButton, useGlobalFAB, useNotification } from "sit-onyx";
 import type { MyNotification } from "~/stores/notification-store";
 
 const store = useNotificationStore();
 const { t } = useI18n();
 
 const isSidebarOpen = ref(false);
-
+const props = defineProps<{ isVertical?: boolean; expanded: boolean }>();
 // simulate loading notifications
 const skeleton = ref(0);
 watch(isSidebarOpen, async (open) => {
@@ -61,14 +61,18 @@ onUnmounted(() => globalFAB.remove(id));
 </script>
 
 <template>
-  <OnyxNotificationDot :hidden="!store.unreadNotifications.length">
-    <OnyxUnstableNavButton
-      :label="$t('notification.headline')"
-      :icon="iconBell"
-      hide-label
-      @click="isSidebarOpen = true"
-    />
-  </OnyxNotificationDot>
+  <OnyxUnstableNavButton
+    :label="$t('notification.headline')"
+    hide-label="auto"
+    @click="isSidebarOpen = true"
+  >
+    <OnyxNotificationDot :hidden="!store.unreadNotifications.length">
+      <OnyxIcon :icon="iconBell" />
+    </OnyxNotificationDot>
+    <span v-if="props.isVertical && props.expanded">
+      {{ $t("notification.headline") }}
+    </span>
+  </OnyxUnstableNavButton>
 
   <OnyxSidebar
     class="notification-center"

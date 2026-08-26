@@ -8,9 +8,11 @@ export default {};
 </script>
 
 <script lang="ts" setup>
+import { computed, inject } from "vue";
 import { useForwardProps } from "../../utils/props.js";
 import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import { NAV_BAR_IS_EXPANDED_INJECTION_KEY } from "../OnyxNavBar/types.js";
 import type { OnyxNavButtonProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
@@ -24,6 +26,15 @@ defineSlots<{
   default?(): unknown;
 }>();
 
+const isExpanded = inject(NAV_BAR_IS_EXPANDED_INJECTION_KEY, undefined);
+
+const isLabelHidden = computed(() => {
+  if (props.hideLabel === "auto") {
+    return !isExpanded?.value;
+  }
+  return Boolean(props.hideLabel);
+});
+
 const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
 </script>
 
@@ -36,12 +47,12 @@ const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
       'onyx-truncation-ellipsis',
       { 'onyx-nav-button--primary': props.color === 'primary' },
     ]"
-    :aria-label="props.hideLabel ? props.label : undefined"
-    :title="props.hideLabel ? props.label : undefined"
+    :aria-label="isLabelHidden ? props.label : undefined"
+    :title="isLabelHidden ? props.label : undefined"
   >
     <slot>
       <OnyxIcon v-if="props.icon" :icon="props.icon" />
-      <span v-if="!props.hideLabel" class="onyx-nav-button__labels">{{ props.label }}</span>
+      <span v-if="!isLabelHidden" class="onyx-nav-button__labels">{{ props.label }}</span>
     </slot>
   </ButtonOrLinkLayout>
 </template>
