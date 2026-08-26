@@ -16,7 +16,7 @@ export type RowRearrangeOptions<TEntry extends DataGridEntry> = {
    * Whether to hide all default UI actions to activate the rearrange mode.
    * Useful when custom triggers are used. You must set the `state` manually then.
    */
-  headless?: boolean;
+  headless?: MaybeRef<boolean>;
 };
 
 export type RowRearrangeState<TEntry extends DataGridEntry> = {

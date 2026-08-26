@@ -42,6 +42,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
     const state = toRef(options?.state ?? { active: false, order: new Map() }) as Ref<
       RowRearrangeState<TEntry>
     >;
+    const isHeadless = computed(() => toValue(options?.headless) ?? false);
 
     /**
      * ID of the row currently being dragged.
@@ -136,7 +137,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
 
     return {
       name: ROW_REARRANGE_FEATURE,
-      watch: [isEnabled, state, targetOrder],
+      watch: [isEnabled, state, targetOrder, isHeadless],
       mutation: {
         order: Number.MIN_SAFE_INTEGER,
         func: (entries) => {
@@ -145,7 +146,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
         },
       },
       actions: () => {
-        if (!isEnabled.value || options?.headless) return [];
+        if (!isEnabled.value || isHeadless.value) return [];
 
         if (state.value.active) {
           const group: DataGridActionGroup = {

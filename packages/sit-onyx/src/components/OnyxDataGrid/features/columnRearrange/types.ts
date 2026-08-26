@@ -1,4 +1,4 @@
-import type { MaybeRefOrGetter, Ref } from "vue";
+import type { MaybeRef, MaybeRefOrGetter, Ref } from "vue";
 
 export type ColumnRearrangeState = {
   /**
@@ -28,5 +28,5 @@ export type ColumnRearrangeOptions = {
    * Whether to hide all default UI actions to activate the rearrange mode.
    * Useful when custom triggers are used. You must set the `state` manually then.
    */
-  headless?: boolean;
+  headless?: MaybeRef<boolean>;
 };

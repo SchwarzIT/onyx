@@ -215,3 +215,18 @@ test("should support save button", async ({ mount, page }) => {
   expect(state).toStrictEqual({ isActive: 2 });
   await expect(rearrangeButton).toBeVisible();
 });
+
+test("should support headless mode", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestCase);
+  const rearrangeButton = component.getByRole("button", { name: "Rearrange columns" });
+
+  // ASSERT
+  await expect(rearrangeButton).toBeVisible();
+
+  // ACT
+  await component.update({ props: { headless: true } });
+
+  // ASSERT
+  await expect(rearrangeButton).toBeHidden();
+});
