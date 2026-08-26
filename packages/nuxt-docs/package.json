@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/nuxt-docs",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "Nuxt layer/template for creating documentations with the onyx design system",
   "bugs": {
     "url": "https://github.com/SchwarzIT/onyx/issues"

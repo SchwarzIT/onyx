@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/tiptap",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A rich text editor powered by the Tiptap editor and the onyx design system created by Schwarz Digits",
   "bugs": {
     "url": "https://github.com/SchwarzIT/onyx/issues"
