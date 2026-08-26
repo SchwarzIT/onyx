@@ -1,6 +1,6 @@
 import { computed, onMounted, onUnmounted, ref, unref, type MaybeRef } from "vue";
-import type { DateValue } from "../components/OnyxDatePicker/types.js";
 import { injectI18n } from "../i18n/index.js";
+import type { DateValue } from "../utils/date.js";
 
 export type UseRelativeTimeFormatOptions = {
   /**

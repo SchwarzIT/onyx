@@ -6,27 +6,31 @@ import vue from "@vitejs/plugin-vue";
 import { DiagnosticCategory } from "typescript";
 import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
-import packageJson from "./package.json";
+import packageJson from "./package.json" with { type: "json" };
+
+const isStorybook = process.env.STORYBOOK === "true";
 
 // https://vitejs.dev/config
 export default defineConfig({
   ...VITE_BASE_CONFIG,
   plugins: [
-    dts({
-      processor: "vue",
-      tsconfigPath: "./tsconfig.app.json",
-      compilerOptions: { composite: false },
-      beforeWriteFile: (filePath) => {
-        if (filePath.endsWith(".vue.d.ts")) {
-          return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
-        }
-      },
-      afterDiagnostic: async (diagnostics) => {
-        if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
-          throw new Error("Build aborted due to TypeScript errors in the library!");
-        }
-      },
-    }),
+    isStorybook
+      ? undefined
+      : dts({
+          processor: "vue",
+          tsconfigPath: "./tsconfig.app.json",
+          compilerOptions: { composite: false },
+          beforeWriteFile: (filePath) => {
+            if (filePath.endsWith(".vue.d.ts")) {
+              return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
+            }
+          },
+          afterDiagnostic: async (diagnostics) => {
+            if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
+              throw new Error("Build aborted due to TypeScript errors in the library!");
+            }
+          },
+        }),
     vue(),
     extractComponentMeta({
       tsconfigPath: getFilePath("tsconfig.app.json"),

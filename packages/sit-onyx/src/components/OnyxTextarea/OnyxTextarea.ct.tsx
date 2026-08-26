@@ -515,4 +515,11 @@ test("should not cause the page to grow for large inputs", async ({ mount, page 
   expect(pageHeight).toBeCloseTo(textareaBb!.height, -2);
 });
 
+test("should show an error if only a whiteSpace is entered", async ({ mount }) => {
+  const component = await mount(<OnyxTextarea label="Label" modelValue={" "} required showError />);
+
+  // ASSERT
+  await expect(component.getByText("RequiredPlease enter a valid").first()).toBeVisible();
+});
+
 testMaxLengthBehavior(OnyxTextarea);

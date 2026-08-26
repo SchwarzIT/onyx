@@ -34,7 +34,6 @@ const isLabelHidden = computed(() => {
   }
   return Boolean(props.hideLabel);
 });
-
 const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
 </script>
 

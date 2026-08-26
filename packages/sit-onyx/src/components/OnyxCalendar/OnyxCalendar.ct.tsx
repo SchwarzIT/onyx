@@ -197,20 +197,21 @@ test("range mode", async ({ mount, page }) => {
 
   // focus-visible start end middle today
   await page.mouse.move(0, 0);
-  await page.keyboard.press("ArrowLeft");
+  await page.keyboard.press("ArrowRight");
   await expect(component).toHaveScreenshot("range-focus-outside.png");
 
-  await page.keyboard.press("ArrowRight");
-  await expect(component).toHaveScreenshot("range-focus-start.png");
-  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("ArrowLeft");
+  await expect(component).toHaveScreenshot("range-focus-end.png");
+
+  await page.keyboard.press("ArrowLeft");
   await expect(component).toHaveScreenshot("range-focus-middle.png");
 
-  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowLeft");
   await expect(component).toHaveScreenshot("range-focus-today.png");
 
-  await page.keyboard.press("ArrowRight");
-  await page.keyboard.press("ArrowRight");
-  await expect(component).toHaveScreenshot("range-focus-end.png");
+  await page.keyboard.press("ArrowUp");
+  await page.keyboard.press("ArrowLeft");
+  await expect(component).toHaveScreenshot("range-focus-start.png");
 
   // week number hovered disabled // inside min
   await weekNumberDisabled.hover();

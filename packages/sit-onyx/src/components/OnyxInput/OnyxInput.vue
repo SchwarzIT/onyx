@@ -7,6 +7,7 @@ import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
+import { useWhitespaceValidation } from "../../composables/useWhitespaceValidation.js";
 import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
@@ -87,10 +88,12 @@ const normalizedPattern = computed(() => {
 });
 
 const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
+const { whitespaceError } = useWhitespaceValidation({ modelValue, props });
 
 const error = computed(() => {
   if (props.error) return props.error;
   if (maxLengthError.value) return maxLengthError.value;
+  if (whitespaceError.value) return whitespaceError.value;
   return undefined;
 });
 

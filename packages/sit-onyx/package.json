@@ -1,6 +1,6 @@
 {
   "name": "sit-onyx",
-  "version": "1.19.0",
+  "version": "1.20.0",
   "description": "A design system and Vue.js component library created by Schwarz Digits",
   "homepage": "https://onyx.schwarz",
   "bugs": {
@@ -66,8 +66,8 @@
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.3.10",
-    "vue-i18n": "^11.4.8",
+    "vue-component-type-helpers": "^3.3.11",
+    "vue-i18n": "^11.4.9",
     "vue-router": "^5.2.0"
   },
   "peerDependencies": {

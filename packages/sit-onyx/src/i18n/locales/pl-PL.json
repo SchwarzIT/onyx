@@ -84,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Wymagane",
-      "fullError": "Pole jest puste, jest obowiązkowe i musi zostać wypełnione."
+      "fullError": "Pole jest puste, jest obowiązkowe i musi zostać wypełnione.",
+      "whitespaceError": "Wprowadź prawidłowy tekst (same spacje nie są dozwolone)."
     },
     "stepMismatch": {
       "preview": "Nieprawidłowa liczba",

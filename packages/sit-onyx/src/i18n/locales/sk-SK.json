@@ -84,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Povinné",
-      "fullError": "Pole je prázdne, je povinné a musí byť vyplnené."
+      "fullError": "Pole je prázdne, je povinné a musí byť vyplnené.",
+      "whitespaceError": "Zadajte platný text (samotné medzery nie sú povolené)."
     },
     "stepMismatch": {
       "preview": "Neplatné číslo",

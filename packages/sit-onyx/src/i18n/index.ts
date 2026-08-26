@@ -1,7 +1,7 @@
 import { computed, inject, readonly, toRef, type App, type InjectionKey, type MaybeRef } from "vue";
-import type { DateValue } from "../components/OnyxDatePicker/types.js";
 import type { FlattenedKeysOf, TranslationValue } from "../types/i18n.js";
 import type { DeepPartial } from "../types/utils.js";
+import type { DateValue } from "../utils/date.js";
 import { DATETIME_FORMATS, type DatetimeFormat } from "./datetime-formats.js";
 import enUS from "./locales/en-US.json";
 import { NUMBER_FORMATS, type NumberFormat } from "./number-formats.js";

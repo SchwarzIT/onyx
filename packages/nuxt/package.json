@@ -35,7 +35,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^3.4.1",
+    "@nuxt/devtools": "^3.4.2",
     "@nuxt/kit": "^4.5.2",
     "@nuxt/module-builder": "^1.0.3",
     "@nuxt/schema": "^4.5.2",
@@ -46,7 +46,7 @@
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
     "unbuild": "^3.6.1",
-    "vue-i18n": "^11.4.8"
+    "vue-i18n": "^11.4.9"
   },
   "peerDependencies": {
     "sit-onyx": "workspace:^"
