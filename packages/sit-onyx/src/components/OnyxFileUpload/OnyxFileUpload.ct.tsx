@@ -1,5 +1,9 @@
 import type { Locator, Page } from "@playwright/test";
-import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
+import {
+  createEmitSpy,
+  expectEmit,
+  type MatrixScreenshotTestOptions,
+} from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
@@ -301,9 +305,7 @@ test("should have hide button", async ({ mount, page }) => {
 
 test("should show required error message", async ({ mount, page }) => {
   // ARRANGE
-  let submitted = false;
-  const onSubmit = () => (submitted = true);
-
+  const onSubmit = createEmitSpy<typeof FormTestCase, "onFormSubmit">();
   const component = await mount(<FormTestCase onFormSubmit={onSubmit} />);
 
   const button = component.getByRole("button", { name: "Click to select" });
@@ -322,5 +324,5 @@ test("should show required error message", async ({ mount, page }) => {
   await component.getByRole("button", { name: "Submit" }).click();
 
   // ASSERT
-  await expect(() => expect(submitted).toBe(true)).toPass();
+  await expectEmit(onSubmit, 1, []);
 });
