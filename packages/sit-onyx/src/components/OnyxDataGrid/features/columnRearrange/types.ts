@@ -24,4 +24,9 @@ export type ColumnRearrangeOptions = {
    * The current column rearrange state.
    */
   state?: Ref<ColumnRearrangeState>;
+  /**
+   * Whether to hide all default UI actions to activate the rearrange mode.
+   * Useful when custom triggers are used. You must set the `state` manually then.
+   */
+  headless?: boolean;
 };

@@ -145,7 +145,7 @@ export const useRowRearrange = <TEntry extends DataGridEntry>(
         },
       },
       actions: () => {
-        if (!isEnabled.value) return [];
+        if (!isEnabled.value || options?.headless) return [];
 
         if (state.value.active) {
           const group: DataGridActionGroup = {
