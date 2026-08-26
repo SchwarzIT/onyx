@@ -1,5 +1,5 @@
 ---
-"sit-onyx": patch
+"sit-onyx": minor
 ---
 
-fix: update neutral and secondary borders in several components
+feat: update neutral and secondary borders in several components
