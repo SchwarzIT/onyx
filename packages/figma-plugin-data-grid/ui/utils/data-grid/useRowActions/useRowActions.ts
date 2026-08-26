@@ -12,8 +12,8 @@ export type UseRowActionsOptions<TEntry extends DataGridEntry> = {
   actions: (row: TEntry, ctx: DataGridFeatureContext) => VNode[];
 };
 
-const ACTION_COLUMN_KEY = Symbol();
-const ACTION_COLUMN_TYPE = Symbol();
+const ACTION_COLUMN_KEY = Symbol("ActionColumn");
+const ACTION_COLUMN_TYPE = Symbol("ActionColumnType");
 
 /**
  * Re-usable onyx data grid feature for adding an action column to each row.
