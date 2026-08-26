@@ -1,5 +1,11 @@
 # @sit-onyx/tiptap
 
+## 0.3.1
+
+### Patch Changes
+
+- 917cff4: fix(OnyxInput, OnyxTextarea, OnyxTextEditor): show error when `required` and user only entered (white)spaces
+
 ## 0.3.0
 
 ### Minor Changes

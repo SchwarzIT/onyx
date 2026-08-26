@@ -1,5 +1,28 @@
 # sit-onyx
 
+## 1.20.0
+
+### Minor Changes
+
+- ca5345f: feat(OnyxDataGrid): implement `useColumnRearrange` feature
+- b534d90: feat(OnyxUnstableNavButton): add default slot to allow rendering custom content
+- bd30001: feat: export `OnyxUnstableDataGridFormElementWrapper` component
+
+### Patch Changes
+
+- aa251f9: fix(OnyxTooltip): Fix invisible box of tooltip wedge blocking mouse events like clicks and hover effects
+- 161b543: fix(OnyxNavBar): ensure nav buttons are full width when used inside a vertical nav bar
+- 59f34da: fix(OnyxDatePickerV2): Synchronize hoverDate and viewMonth state for calenders in multi-view mode
+
+  - Calendars will change in unison if either of them switches the month
+  - When selecting a range, the hover state is synced between both
+
+- 2e212a4: feat(OnyxSlider): change rail color for higher contrast
+- 59da793: fix(OnyxVerticalNavbar): fix tooltip positions to be displayed next to nav items
+- c32d0a2: fix(OnyxButton): use correct border radius for skeleton
+- 917cff4: fix(OnyxInput, OnyxTextarea, OnyxTextEditor): show error when `required` and user only entered (white)spaces
+- bd30001: fix(OnyxBadge): ensure `dot` is always circle in all themes and densities
+
 ## 1.19.0
 
 ### Minor Changes
