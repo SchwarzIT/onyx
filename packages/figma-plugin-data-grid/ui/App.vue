@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { iconToolTable } from "@sit-onyx/icons";
 import {
   OnyxAppLayout,
   OnyxBottomBar,
@@ -9,6 +10,8 @@ import {
 } from "sit-onyx";
 import { ref } from "vue";
 import ColumnsDataGrid from "./components/ColumnsDataGrid.vue";
+import ExtraSection from "./components/sections/ExtraSection.vue";
+import RowSection from "./components/sections/RowSection.vue";
 import { postPluginMessage } from "./composables/usePluginMessage.js";
 import type { GenerateDataGridPayload } from "./types/index.js";
 
@@ -24,7 +27,12 @@ const handleGenerate = () => {
 
 const data = ref<GenerateDataGridPayload>({
   mode: "basic",
-  columns: [],
+  columns: [{ headline: "Headline", type: "text" }],
+  rows: {
+    count: 5,
+    stroke: "grid",
+    style: "striped",
+  },
 });
 
 const modeOptions: OnyxSegmentedControlOption<GenerateDataGridPayload["mode"]>[] = [
@@ -40,6 +48,10 @@ const modeOptions: OnyxSegmentedControlOption<GenerateDataGridPayload["mode"]>[]
         <OnyxSegmentedControl v-model="data.mode" :options="modeOptions" />
 
         <ColumnsDataGrid v-model="data.columns" />
+
+        <RowSection v-model="data" />
+
+        <ExtraSection v-if="data.mode === 'advanced'" v-model="data" />
       </div>
 
       <template #footer>
@@ -48,6 +60,7 @@ const modeOptions: OnyxSegmentedControlOption<GenerateDataGridPayload["mode"]>[]
             label="Generate data grid"
             type="submit"
             :loading="isLoading"
+            :icon="iconToolTable"
             @click="handleGenerate"
           />
         </OnyxBottomBar>

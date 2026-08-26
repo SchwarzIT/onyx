@@ -34,6 +34,22 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
   return [
     { key: "id", label: "Order", width: "max-content" },
     { key: "headline", label: "Headline" },
+    {
+      key: "type",
+      label: "Typ",
+      type: {
+        name: "select",
+        options: {
+          options: [
+            { label: "Text", value: "text" },
+            { label: "Checkbox", value: "checkbox" },
+            { label: "Icon", value: "icon" },
+            { label: "System button", value: "systemButton" },
+            { label: "Tag", value: "tag" },
+          ],
+        },
+      },
+    },
   ];
 });
 
@@ -69,14 +85,17 @@ const withRowActions = useRowActions<Entry>({
         label: "Delete",
         icon: iconTrash,
         color: "danger",
-        onClick: handleDelete(row),
+        onClick: () => handleDelete(row),
       }),
     ];
   },
 });
 
 function handleAddColumn() {
-  const newColumns: ColumnDefinition[] = [...props.modelValue, { headline: "Headline" }];
+  const newColumns: ColumnDefinition[] = [
+    ...props.modelValue,
+    { headline: "Headline", type: "text" },
+  ];
   emit("update:modelValue", newColumns);
 }
 
@@ -91,3 +110,9 @@ const features = [withCustomTypes, withEditing, withRowActions];
 <template>
   <OnyxDataGrid :headline="{ text: 'Columns', rowCount: true }" :columns :data :features />
 </template>
+
+<style lang="scss" scoped>
+:deep(td) {
+  align-content: center;
+}
+</style>
