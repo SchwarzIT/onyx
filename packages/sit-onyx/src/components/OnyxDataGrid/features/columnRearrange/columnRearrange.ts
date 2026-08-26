@@ -30,6 +30,8 @@ export const useColumnRearrange = <TEntry extends DataGridEntry = DataGridEntry>
       options?.state ?? { active: false, order: new Map() },
     ) as Ref<ColumnRearrangeState>;
 
+    const isHeadless = computed(() => toValue(options?.headless) ?? false);
+
     const draggedColumn = shallowRef<{ key: PropertyKey; th: HTMLElement | null }>();
     const targetOrder = ref<number>();
     const isHandleClicked = ref(false);
@@ -117,7 +119,7 @@ export const useColumnRearrange = <TEntry extends DataGridEntry = DataGridEntry>
 
     return {
       name: COLUMN_REARRANGE_FEATURE,
-      watch: [isEnabled, state, targetOrder, draggedColumn],
+      watch: [isEnabled, state, targetOrder, draggedColumn, isHeadless],
       modifyColumns: {
         func: (columns) => {
           if (!isEnabled.value) return columns;
@@ -185,7 +187,7 @@ export const useColumnRearrange = <TEntry extends DataGridEntry = DataGridEntry>
           },
       },
       actions: () => {
-        if (!isEnabled.value) return [];
+        if (!isEnabled.value || isHeadless.value) return [];
 
         if (state.value.active) {
           const group: DataGridActionGroup = {

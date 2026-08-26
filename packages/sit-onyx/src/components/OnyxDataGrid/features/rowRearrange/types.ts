@@ -12,6 +12,11 @@ export type RowRearrangeOptions<TEntry extends DataGridEntry> = {
    * The current row rearrange state.
    */
   state?: Ref<RowRearrangeState<TEntry>>;
+  /**
+   * Whether to hide all default UI actions to activate the rearrange mode.
+   * Useful when custom triggers are used. You must set the `state` manually then.
+   */
+  headless?: MaybeRef<boolean>;
 };
 
 export type RowRearrangeState<TEntry extends DataGridEntry> = {

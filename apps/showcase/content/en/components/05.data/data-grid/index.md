@@ -330,13 +330,13 @@ When the user has a selection inside the row (e.g. marked text to copy), the cli
 
 ### Rearrange rows
 
-Allows the user to rearrange the order of rows using drag-and-drop. Technically, the rearrange state contains a map of changed row IDs and their corresponding new order (starting from 1 for the first row).
+Allows the user to rearrange the order of rows using drag-and-drop. Technically, the rearrange state contains a map of changed row IDs and their corresponding new order (starting from 1 for the first row). The global action buttons can also be overridden when custom triggers are used to active the rearrange mode.
 
 :component-example{name="RearrangeRows" layout="fullWidth"}
 
 ### Rearrange columns
 
-Allows the user to rearrange the order of columns using drag-and-drop. Technically, the rearrange state contains a map of changed column keys and their corresponding new order (starting from 1 for the first column).
+Allows the user to rearrange the order of columns using drag-and-drop. Technically, the rearrange state contains a map of changed column keys and their corresponding new order (starting from 1 for the first column). The global action buttons can also be overridden when custom triggers are used to active the rearrange mode.
 
 :component-example{name="RearrangeColumns" layout="fullWidth"}
 

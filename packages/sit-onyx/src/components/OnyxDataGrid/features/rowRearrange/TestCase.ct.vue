@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import OnyxDataGrid from "../../OnyxDataGrid.vue";
 import type { ColumnConfig } from "../index.js";
 import { useRowRearrange } from "./rowRearrange.js";
@@ -10,6 +10,10 @@ type TEntry = {
   name: string;
   age: number;
 };
+
+const props = defineProps<{
+  headless?: boolean;
+}>();
 
 const emit = defineEmits<{
   "update:state": [order: Record<number, number>];
@@ -37,7 +41,10 @@ watch(
   { deep: true },
 );
 
-const withRowRearrange = useRowRearrange<TEntry>({ state });
+const withRowRearrange = useRowRearrange<TEntry>({
+  state,
+  headless: computed(() => props.headless),
+});
 const features = [withRowRearrange];
 </script>
 
