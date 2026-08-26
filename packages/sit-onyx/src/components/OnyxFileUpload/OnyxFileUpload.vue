@@ -320,7 +320,14 @@ const shouldShowFileList = computed(() => {
           <input
             ref="input"
             v-custom-validity
-            v-bind="mergeVueProps(restAttrs, inputProps)"
+            v-bind="
+              mergeVueProps(restAttrs, {
+                ...inputProps,
+                // we must NOT define required on the input here since this does not work
+                // with our validation and will make the input invalid even if files are selected
+                required: undefined,
+              })
+            "
             aria-hidden="true"
             tabindex="-1"
             class="onyx-file-upload__input"
