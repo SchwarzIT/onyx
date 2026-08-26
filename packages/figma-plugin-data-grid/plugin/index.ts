@@ -25,7 +25,6 @@ async function runPlugin() {
 
 async function generateDataGrid(_message: unknown) {
   throw new Error("Not implemented yet");
-  // figma.closePlugin();
 }
 
 /**
