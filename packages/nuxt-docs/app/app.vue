@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { useScrollBehavior } from "./composables/useScrollBehavior.js";
-
 defineSlots<{
   /**
    * Page content. Can e.g. be used to display a custom error page inside `error.vue`.
