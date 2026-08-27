@@ -1,7 +1,7 @@
 import type { ShallowRef } from "vue";
 import { computed, toValue, useRoute, useRuntimeHook } from "#imports";
 
-export type UseScrollBehaviorOptions = {
+export type UseOnyxScrollBehaviorOptions = {
   /**
    * Template ref to the application's root element (typically the `<OnyxAppLayout>` component).
    */
@@ -9,11 +9,11 @@ export type UseScrollBehaviorOptions = {
 };
 
 /**
- * Composable for applying router scroll behavior.
+ * Composable for applying router scroll behavior when using the onyx design system.
  * Note: The default Vue Router scroll behavior does not work for because onyx uses
  * a different scroll container (.onyx-page__main) instead of the html/body element.
  */
-export const useScrollBehavior = (options: UseScrollBehaviorOptions) => {
+export const useOnyxScrollBehavior = (options: UseOnyxScrollBehaviorOptions) => {
   const route = useRoute();
   const element = computed<Element | null>(() => {
     const root = toValue(options.root);

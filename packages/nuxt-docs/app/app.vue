@@ -7,7 +7,7 @@ defineSlots<{
 }>();
 
 const app = useTemplateRef("app");
-useScrollBehavior({ root: app });
+useOnyxScrollBehavior({ root: app });
 </script>
 
 <template>
