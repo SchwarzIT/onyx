@@ -39,7 +39,7 @@
     "commander": "^15.0.0"
   },
   "optionalDependencies": {
-    "svgo": "^4.0.2"
+    "svgo": "^4.1.0"
   },
   "engines": {
     "node": ">=20"
