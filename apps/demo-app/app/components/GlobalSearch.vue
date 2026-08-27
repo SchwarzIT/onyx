@@ -76,7 +76,7 @@ const searchGroups = computed(() => {
   <OnyxUnstableNavButton
     label="Open global search"
     :icon="iconSearch"
-    hide-label="auto"
+    hide-label
     @click="isOpen = true"
   />
 

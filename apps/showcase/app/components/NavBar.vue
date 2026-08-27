@@ -30,7 +30,7 @@ const getLinkProps = computed(() => {
 
     <template #contextArea>
       <ColorSchemeSwitch v-if="!$colorMode.forced" />
-      <OnyxSeparator orientation="vertical" />
+      <OnyxSeparator />
       <UserMenu />
     </template>
   </NavBar>

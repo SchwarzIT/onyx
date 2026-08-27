@@ -69,19 +69,10 @@ const orientation = computed(() => (isVertical.value ? "vertical" : "horizontal"
       <DensitySwitch />
       <LocaleSwitch />
       <GlobalSearch />
-      <OnyxSeparator
-        :class="{ 'navbar-separator--horizontal': isVertical }"
-        :orientation="isVertical ? 'horizontal' : 'vertical'"
-      />
+      <OnyxSeparator />
       <NotificationCenter :is-vertical :expanded />
 
       <UserMenu :position="isVertical ? 'right' : 'auto'" />
     </template>
   </NavBar>
 </template>
-
-<style lang="scss" scoped>
-.navbar-separator--horizontal {
-  width: 100%;
-}
-</style>

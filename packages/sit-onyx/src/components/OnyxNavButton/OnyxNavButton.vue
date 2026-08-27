@@ -29,10 +29,10 @@ defineSlots<{
 const isExpanded = inject(NAV_BAR_IS_EXPANDED_INJECTION_KEY, undefined);
 
 const isLabelHidden = computed(() => {
-  if (props.hideLabel === "auto") {
+  if (isExpanded?.value) {
     return !isExpanded?.value;
   }
-  return Boolean(props.hideLabel);
+  return props.hideLabel;
 });
 const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
 </script>

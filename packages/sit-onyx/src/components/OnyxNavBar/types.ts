@@ -75,10 +75,15 @@ export const NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY = Symbol() as InjectionKey<
 
 /**
  * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the
- * nav bar to communicate child components whether they should render horizontal or vertical.
+ * nav bar to communicate child components whether the vertical Navbar is expanded.
  */
 export const NAV_BAR_IS_EXPANDED_INJECTION_KEY = Symbol() as InjectionKey<Ref<boolean>>;
 
+/**
+ * [Vue injection key](https://vuejs.org/guide/components/provide-inject) that is provided by the
+ * nav bar to communicate child components whether they should render horizontal or vertical.
+ */
+export const NAV_BAR_ORIENTATION_INJECTION_KEY = Symbol() as InjectionKey<Ref<NavBarOrientation>>;
 export type OnyxNavBarSlots = {
   /**
    * [`OnyxNavItem`](/docs/navigation-navbar-modules-navitem--docs) components should be placed and

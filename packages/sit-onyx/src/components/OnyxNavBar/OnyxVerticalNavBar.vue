@@ -220,10 +220,10 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
     }
     &__context,
     &__footer {
+      align-items: initial;
       flex-direction: column;
       width: 100%;
       padding: var(--onyx-spacing-2xs);
-      align-items: start;
     }
     &__footer {
       border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
