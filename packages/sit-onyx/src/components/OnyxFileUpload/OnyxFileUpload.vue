@@ -388,7 +388,7 @@ const shouldShowFileList = computed(() => {
     --onyx-file-upload-small-hover-background-color: var(--onyx-background-color-hover);
     --onyx-file-upload-small-outline-color: var(--onyx-color-component-focus-neutral);
     --onyx-file-upload-small-dragging-border-color: var(
-      --onyx-color-component-border-secondary-hover
+      --onyx-color-component-border-primary-hover
     );
     --onyx-file-upload-small-dragging-icon-color: var(--onyx-color-text-icons-primary-bold);
 

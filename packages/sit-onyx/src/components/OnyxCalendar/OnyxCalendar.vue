@@ -370,6 +370,7 @@ useOutsideClick({
 .onyx-calendar {
   @include layers.component() {
     --onyx-calendar-border-radius: var(--onyx-radius-md);
+    --onyx-calendar-border-color: var(--onyx-color-component-border-neutral);
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -405,7 +406,7 @@ useOutsideClick({
 
       table {
         width: 100%;
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+        border: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
         border-radius: var(--onyx-calendar-border-radius);
         table-layout: fixed;
         overflow: hidden;
@@ -418,14 +419,14 @@ useOutsideClick({
           justify-content: center;
           align-items: center;
           background-color: var(--onyx-color-base-neutral-200);
-          border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+          border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
           font-family: var(--onyx-font-family-h4);
           font-weight: var(--onyx-font-weight-semibold);
           font-size: var(--onyx-font-size-sm);
           line-height: var(--onyx-font-line-height-sm);
 
           &[scope="row"] {
-            border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+            border-right: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
           }
         }
 
@@ -453,14 +454,14 @@ useOutsideClick({
     &--big {
       table {
         th {
-          border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+          border-right: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
           &:last-of-type {
             border-right: none;
           }
         }
         td {
-          border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-          border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+          border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
+          border-right: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
           &:last-of-type {
             border-right: none;
             // to fix aspect-ratio for last column
