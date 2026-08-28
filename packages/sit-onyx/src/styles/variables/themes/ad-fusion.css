@@ -1,3 +1,16 @@
+/**
+* Custom theme for AD Fusion charts.
+* Note: The chart colors must be defined in Plotly (Python) directly and are NOT applied by this CSS file.
+* Use the following onyx CSS variables to determine the actual HEX color depending on the current onyx theme and light/dark mode:
+* - primary (e.g. lidl blue): --onyx-color-text-icons-primary-intense
+* - orange/yellow:            --onyx-color-base-quantitatives-200
+* - blue:                     --onyx-color-base-quantitatives-500
+* - red:                      --onyx-color-base-quantitatives-300
+* - green:                    --onyx-color-base-quantitatives-400
+*
+* @version 1.0.0
+*/
+
 body:has(.fusion-container) {
   font-family: var(--onyx-font-family-paragraph);
   background-color: var(--onyx-color-base-background-tinted);
