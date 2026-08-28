@@ -1,9 +1,14 @@
 import type { Locator, Page } from "@playwright/test";
-import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
+import {
+  createEmitSpy,
+  expectEmit,
+  type MatrixScreenshotTestOptions,
+} from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import type { Nullable } from "../../types/utils.js";
+import FormTestCase from "./FormTestCase.ct.vue";
 import OnyxFileUpload from "./OnyxFileUpload.vue";
 import type { FileUploadSize } from "./types.js";
 const hooks: MatrixScreenshotTestOptions["hooks"] = {
@@ -300,9 +305,8 @@ test("should have hide button", async ({ mount, page }) => {
 
 test("should show required error message", async ({ mount, page }) => {
   // ARRANGE
-  const component = await mount(
-    <OnyxFileUpload required showError style={{ padding: "1rem", width: "32rem" }} />,
-  );
+  const onSubmit = createEmitSpy<typeof FormTestCase, "onFormSubmit">();
+  const component = await mount(<FormTestCase onFormSubmit={onSubmit} />);
 
   const button = component.getByRole("button", { name: "Click to select" });
   const errorMessage = component.getByText("You need to upload at least one file").first();
@@ -315,4 +319,10 @@ test("should show required error message", async ({ mount, page }) => {
 
   // ASSERT
   await expect(errorMessage).toBeHidden();
+
+  // ACT
+  await component.getByRole("button", { name: "Submit" }).click();
+
+  // ASSERT
+  await expectEmit(onSubmit, 1, []);
 });
