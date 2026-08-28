@@ -1,16 +1,16 @@
-import { type Writable, Readable } from "node:stream";
+import { Readable, Writable } from "node:stream";
 import { buffer } from "node:stream/consumers";
 import { pipeline } from "node:stream/promises";
 import type { ReadableStream } from "node:stream/web";
 import { createGunzip } from "node:zlib";
 import { getPackageManifest } from "query-registry";
-import tarStream, { type Headers } from "tar-stream";
+import tarStream, { type Header } from "tar-stream";
 
 class SuccessfulAbort {
   constructor() {}
 }
 
-type Result = { headers: Headers; data: Buffer };
+type Result = { header: Header; data: Buffer };
 
 type PackageIdentifier = {
   name: string;
@@ -76,13 +76,13 @@ function createTarFileSearcher(
   filenames: string[],
   results: Result[],
   abortController: AbortController,
-): Writable {
+) {
   const searchFile = tarStream.extract();
 
-  searchFile.on("entry", async (headers, stream, next) => {
-    if (filenames.includes(headers.name)) {
+  searchFile.on("entry", async (header, stream, next) => {
+    if (filenames.includes(header.name)) {
       const data = await buffer(stream);
-      results.push({ headers, data });
+      results.push({ header, data });
     }
     if (results.length === filenames.length) {
       // found the relevant files, stop further processing
@@ -94,5 +94,5 @@ function createTarFileSearcher(
     }
   });
 
-  return searchFile;
+  return searchFile as unknown as Writable;
 }
