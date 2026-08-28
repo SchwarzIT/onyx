@@ -28,8 +28,10 @@ trustPolicy: "no-downgrade"
 trustPolicyExclude:
   - "chokidar@4.0.3" # See https://github.com/paulmillr/chokidar/issues/1440
   - "semver@6.3.1" # See https://github.com/npm/node-semver/issues/838
+  - "pino@9.14.0" # See https://github.com/pinojs/pino/issues/2392
 minimumReleaseAge: 2880 # Wait two days after a new version release - This is in sync with the `dependabot.yml` `cooldown` config
 allowBuilds:
+  "@modelcontextprotocol/inspector": false # Script is only needed for the local development of `@modelcontextprotocol/inspector` itself
   "@parcel/watcher": true # Downloads binary
   "better-sqlite3": true # Downloads binary
   "esbuild": true # Downloads binary
