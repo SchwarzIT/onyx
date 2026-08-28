@@ -9,16 +9,10 @@ catalogs:
     '@types/node':
       specifier: 24.13.3
       version: 24.13.3
-    chart.js:
-      specifier: 4.5.1
-      version: 4.5.1
     unplugin-dts:
       specifier: 1.0.3
       version: 1.0.3
     vue-component-meta:
-      specifier: 3.3.11
-      version: 3.3.11
-    vue-tsc:
       specifier: 3.3.11
       version: 3.3.11
 
@@ -686,9 +680,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 24.13.3
-      '@types/tar-stream':
-        specifier: ^3.1.4
-        version: 3.1.4
       '@types/unist':
         specifier: ^3.0.3
         version: 3.0.3
@@ -4103,9 +4094,6 @@ packages:
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
-
-  '@types/tar-stream@3.1.4':
-    resolution: {integrity: sha512-921gW0+g29mCJX0fRvqeHzBlE/XclDaAG0Ousy1LCghsOhvaKacDeRGEVzQP9IPfKn8Vysy7FEXAIxycpc/CMg==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -13687,10 +13675,6 @@ snapshots:
       csstype: 3.2.3
 
   '@types/resolve@1.20.2': {}
-
-  '@types/tar-stream@3.1.4':
-    dependencies:
-      '@types/node': 26.2.0
 
   '@types/tough-cookie@4.0.5': {}
 
