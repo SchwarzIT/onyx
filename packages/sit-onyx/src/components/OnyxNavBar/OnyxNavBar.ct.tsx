@@ -625,7 +625,7 @@ test("should toggle OnyxNavButton label visibility based on vertical navbar expa
   );
 
   const navButton = component.getByRole("button", { name: "Settings" });
-  const labelElement = component.locator(".onyx-nav-button__labels");
+  const labelElement = navButton.getByText("Settings");
 
   // ASSERT
   await expect(labelElement).toBeHidden();
@@ -636,5 +636,4 @@ test("should toggle OnyxNavButton label visibility based on vertical navbar expa
 
   // ASSERT
   await expect(labelElement).toBeVisible();
-  await expect(labelElement).toHaveText("Settings");
 });
