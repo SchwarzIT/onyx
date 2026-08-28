@@ -52,7 +52,7 @@ const handleLogout = () => {
             </template>
           </OnyxFlyoutMenu>
 
-          <OnyxSeparator />
+          <OnyxSeparator orientation="vertical" />
 
           <OnyxUserMenu v-if="user" :full-name="user.name" description="Description">
             <OnyxMenuItem label="Settings" :icon="iconSettings" link="/settings" />

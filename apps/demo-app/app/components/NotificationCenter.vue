@@ -8,7 +8,7 @@ const store = useNotificationStore();
 const { t } = useI18n();
 
 const isSidebarOpen = ref(false);
-const props = defineProps<{ isVertical?: boolean; expanded: boolean }>();
+const props = defineProps<{ isVertical?: boolean; expanded?: boolean }>();
 // simulate loading notifications
 const skeleton = ref(0);
 watch(isSidebarOpen, async (open) => {

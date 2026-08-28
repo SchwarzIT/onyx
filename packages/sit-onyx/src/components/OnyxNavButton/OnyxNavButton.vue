@@ -29,7 +29,7 @@ defineSlots<{
 const isExpanded = inject(NAV_BAR_IS_EXPANDED_INJECTION_KEY, undefined);
 
 const isLabelHidden = computed(() => {
-  if (isExpanded?.value) {
+  if (isExpanded) {
     return !isExpanded?.value;
   }
   return props.hideLabel;

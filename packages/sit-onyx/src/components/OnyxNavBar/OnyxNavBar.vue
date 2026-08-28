@@ -1,15 +1,10 @@
 <script setup lang="ts" generic="T extends NavBarOrientation">
-import { computed, provide, useTemplateRef } from "vue";
+import { computed, useTemplateRef } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { useForwardProps } from "../../utils/props.js";
 import OnyxHorizontalNavBar from "./OnyxHorizontalNavBar.vue";
 import OnyxVerticalNavBar from "./OnyxVerticalNavBar.vue";
-import {
-  NAV_BAR_ORIENTATION_INJECTION_KEY,
-  type NavBarOrientation,
-  type OnyxNavBarProps,
-  type OnyxNavBarSlots,
-} from "./types.js";
+import { type NavBarOrientation, type OnyxNavBarProps, type OnyxNavBarSlots } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNavBarProps<T>>(), {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
@@ -50,11 +45,6 @@ const closeMobileMenus = () => {
     navBar.value.closeMobileMenus();
   }
 };
-
-provide(
-  NAV_BAR_ORIENTATION_INJECTION_KEY,
-  computed(() => props.orientation),
-);
 
 defineExpose({
   /**

@@ -1,21 +1,17 @@
 <script lang="ts" setup>
-import { computed, inject, toValue } from "vue";
-import {
-  MOBILE_NAV_BAR_INJECTION_KEY,
-  NAV_BAR_ORIENTATION_INJECTION_KEY,
-} from "../OnyxNavBar/types.js";
+import { computed, inject } from "vue";
+import { MOBILE_NAV_BAR_INJECTION_KEY } from "../OnyxNavBar/types.js";
 import type { OnyxSeparatorProps } from "./types.js";
 
-const props = defineProps<OnyxSeparatorProps>();
+const props = withDefaults(defineProps<OnyxSeparatorProps>(), {
+  orientation: "horizontal",
+});
 
 // using explicit "undefined" fallback value here to avoid "cannot find symbol" console warning
 const isMobileNavBar = inject(MOBILE_NAV_BAR_INJECTION_KEY, undefined);
-const navBarOrientation = inject(NAV_BAR_ORIENTATION_INJECTION_KEY, undefined);
 
 const isVertical = computed(() => {
-  if (props.orientation !== undefined) return props.orientation === "vertical";
-  if (toValue(isMobileNavBar)) return false;
-  return toValue(navBarOrientation) === "horizontal";
+  return props.orientation === "vertical" && !isMobileNavBar?.value;
 });
 </script>
 
@@ -24,7 +20,7 @@ const isVertical = computed(() => {
     class="onyx-component onyx-separator"
     :class="{ 'onyx-separator--vertical': isVertical }"
     role="separator"
-    :aria-orientation="isVertical ? 'vertical' : 'horizontal'"
+    :aria-orientation="props.orientation"
   ></div>
 </template>
 

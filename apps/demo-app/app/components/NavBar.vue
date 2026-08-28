@@ -69,7 +69,7 @@ const orientation = computed(() => (isVertical.value ? "vertical" : "horizontal"
       <DensitySwitch />
       <LocaleSwitch />
       <GlobalSearch />
-      <OnyxSeparator />
+      <OnyxSeparator orientation="vertical" />
       <NotificationCenter :is-vertical :expanded />
 
       <UserMenu :position="isVertical ? 'right' : 'auto'" />

@@ -612,3 +612,29 @@ test("should switch to mobile correctly", async ({ mount, page }) => {
     });
   }
 });
+
+test("should toggle OnyxNavButton label visibility based on vertical navbar expanded state", async ({
+  mount,
+}) => {
+  const component = await mount(
+    <OnyxNavBar orientation="vertical">
+      <template v-slot:contextArea>
+        <OnyxNavButton label="Settings" icon={iconPlaceholder} />
+      </template>
+    </OnyxNavBar>,
+  );
+
+  const navButton = component.getByRole("button", { name: "Settings" });
+  const labelElement = component.locator(".onyx-nav-button__labels");
+
+  // ASSERT
+  await expect(labelElement).toBeHidden();
+  await expect(navButton).toHaveAttribute("title", "Settings");
+
+  // ACT
+  await component.getByRole("menuitem", { name: "Expand" }).click();
+
+  // ASSERT
+  await expect(labelElement).toBeVisible();
+  await expect(labelElement).toHaveText("Settings");
+});
