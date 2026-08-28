@@ -43,7 +43,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-parse": "^11.0.0",
     "remark-stringify": "^11.0.0",
-    "tar-stream": "^3.2.0",
+    "tar-stream": "^3.2.1",
     "typescript": "catalog:",
     "unified": "^11.0.5",
     "unplugin-dts": "catalog:",
