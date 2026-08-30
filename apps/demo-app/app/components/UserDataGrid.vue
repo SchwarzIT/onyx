@@ -7,7 +7,6 @@ import {
   OnyxSystemButton,
   useToast,
   type ColumnConfig,
-  type ColumnGroupConfig,
   type TypeRenderMap,
 } from "sit-onyx";
 
@@ -35,13 +34,7 @@ type UserEntry = Omit<TUserFromApi, "address"> &
     isAdmin: boolean;
   };
 
-const userColumns = computed<
-  ColumnConfig<
-    UserEntry,
-    ColumnGroupConfig,
-    keyof ReturnType<typeof userCustomType>["typeRenderer"]
-  >[]
->(() => [
+const userColumns = computed<ColumnConfig<UserEntry, typeof userFeatures>[]>(() => [
   { key: "image", label: t("dataGrid.userTable.image"), type: "image", width: "min-content" },
   { key: "firstName", label: t("dataGrid.userTable.firstName") },
   { key: "lastName", label: t("dataGrid.userTable.lastName") },

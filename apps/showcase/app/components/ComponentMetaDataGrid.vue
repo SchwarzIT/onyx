@@ -4,8 +4,6 @@ import {
   DataGridFeatures,
   OnyxDataGrid,
   type ColumnConfig,
-  type ColumnGroupConfig,
-  type ColumnTypesFromFeatures,
   type TypeRenderMap,
 } from "sit-onyx";
 import type { PropertyMeta, PropertyMetaSchema } from "vue-component-meta";
@@ -35,9 +33,6 @@ export type ComponentMetaItem = {
 };
 
 type TEntry = ComponentMetaItem & { id: string };
-type CustomColumnTypes = ColumnTypesFromFeatures<
-  [typeof customDataGridColumnTypes<TEntry>, typeof withCustomTypes]
->;
 
 const props = defineProps<{
   /**
@@ -74,7 +69,7 @@ const data = computed(() => {
 });
 
 const columns = computed(() => {
-  const _columns: ColumnConfig<TEntry, ColumnGroupConfig, CustomColumnTypes>[] = [
+  const _columns: ColumnConfig<TEntry, typeof features>[] = [
     {
       key: "name",
       label: t("name"),

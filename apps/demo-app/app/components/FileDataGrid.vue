@@ -7,7 +7,6 @@ import {
   OnyxIconButton,
   useFileSize,
   type ColumnConfig,
-  type ColumnGroupConfig,
   type MediaType,
   type TypeRenderMap,
 } from "sit-onyx";
@@ -43,13 +42,7 @@ const data = computed(() =>
   })),
 );
 
-const columns = computed<
-  ColumnConfig<
-    FileEntry,
-    ColumnGroupConfig,
-    keyof ReturnType<typeof customColumnTypes>["typeRenderer"]
-  >[]
->(() => {
+const columns = computed<ColumnConfig<FileEntry, typeof features>[]>(() => {
   return [
     { key: "name", label: t("documents.file.filename") },
     { key: "size", label: t("documents.file.size"), type: "fileSize" },
