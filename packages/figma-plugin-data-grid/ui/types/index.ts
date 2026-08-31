@@ -12,6 +12,7 @@ export type ColumnDefinition = {
   id: string;
   headline: string;
   type: ColumnType;
+  width: "hug" | "auto" | number;
 };
 
 export type ColumnType = "text" | "checkbox" | "icon" | "systemButton" | "tag";

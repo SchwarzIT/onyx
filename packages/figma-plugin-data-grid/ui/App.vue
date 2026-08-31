@@ -48,7 +48,7 @@ const modeOptions: OnyxSegmentedControlOption<GenerateDataGridPayload["mode"]>[]
       <div class="content onyx-density-compact">
         <OnyxSegmentedControl v-model="data.mode" :options="modeOptions" />
 
-        <ColumnsDataGrid v-model="data.columns" />
+        <ColumnsDataGrid v-model="data.columns" :mode="data.mode" />
 
         <RowSection v-model="data" />
 

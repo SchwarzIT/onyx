@@ -11,14 +11,16 @@ import {
   type ColumnTypesFromFeatures,
 } from "sit-onyx";
 import { computed, h, ref, watch } from "vue";
-import type { ColumnDefinition } from "../types/index.js";
+import type { ColumnDefinition, GenerateDataGridPayload } from "../types/index.js";
 import { useRowActions } from "../utils/data-grid/useRowActions/useRowActions.js";
 import { getDefaultColumnDefinition } from "../utils/misc.js";
+import ColumnWidthFormElement from "./ColumnWidthFormElement.vue";
 
 type CustomColumnTypes = ColumnTypesFromFeatures<[typeof withCustomTypes]>;
 
 const props = defineProps<{
   modelValue: ColumnDefinition[];
+  mode: GenerateDataGridPayload["mode"];
   skeleton?: boolean;
 }>();
 
@@ -26,30 +28,39 @@ const emit = defineEmits<{
   "update:modelValue": [columns: ColumnDefinition[]];
 }>();
 
-const columns = computed<ColumnConfig<ColumnDefinition, ColumnGroupConfig, CustomColumnTypes>[]>(
-  () => {
-    return [
-      { key: "id", label: "Order", width: "max-content", type: "order" },
-      { key: "headline", label: "Headline" },
-      {
-        key: "type",
-        label: "Typ",
-        type: {
-          name: "select",
-          options: {
-            options: [
-              { label: "Text", value: "text" },
-              { label: "Checkbox", value: "checkbox" },
-              { label: "Icon", value: "icon" },
-              { label: "System button", value: "systemButton" },
-              { label: "Tag", value: "tag" },
-            ],
-          },
+const columns = computed(() => {
+  const _columns: ColumnConfig<ColumnDefinition, ColumnGroupConfig, CustomColumnTypes>[] = [
+    { key: "id", label: "Order", width: "max-content", type: "order" },
+    { key: "headline", label: "Headline" },
+    {
+      key: "type",
+      label: "Typ",
+      width: "12rem",
+      type: {
+        name: "select",
+        options: {
+          options: [
+            { label: "Text", value: "text" },
+            { label: "Checkbox", value: "checkbox" },
+            { label: "Icon", value: "icon" },
+            { label: "System button", value: "systemButton" },
+            { label: "Tag", value: "tag" },
+          ],
         },
       },
-    ];
-  },
-);
+    },
+  ];
+
+  if (props.mode === "advanced") {
+    _columns.push({
+      key: "width",
+      label: "Width",
+      type: "columnWidth",
+    });
+  }
+
+  return _columns;
+});
 
 const withCustomTypes = createFeature(() => ({
   name: Symbol("customTypes"),
@@ -70,6 +81,14 @@ const withCustomTypes = createFeature(() => ({
         component: ({ row }) => {
           const index = props.modelValue.findIndex((i) => i.id === row.id);
           return index === -1 ? "-" : index + 1;
+        },
+      },
+    }),
+    columnWidth: DataGridFeatures.createTypeRenderer<object, ColumnDefinition>({
+      cell: {
+        component: ({ row, metadata, ...rest }) => {
+          if (!metadata?.editable) return row.width;
+          return h(ColumnWidthFormElement, { ...rest, modelValue: row.width });
         },
       },
     }),

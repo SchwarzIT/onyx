@@ -9,5 +9,6 @@ export function getDefaultColumnDefinition(): ColumnDefinition {
     id: nanoid(),
     headline: "Headline",
     type: "text",
+    width: "auto",
   };
 }
