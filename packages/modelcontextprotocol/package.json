@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@adobe/css-tools": "^4.5.0",
-    "@modelcontextprotocol/inspector": "^2.3.0",
+    "@modelcontextprotocol/inspector": "^2.4.0",
     "@sit-onyx/shared": "workspace:^",
     "@types/mdast": "^4.0.4",
     "@types/node": "catalog:",
@@ -50,7 +50,7 @@
     "vite": "catalog:",
     "vue-component-meta": "catalog:",
     "yaml": "^2.9.0",
-    "zod": "^4.4.3"
+    "zod": "^4.5.2"
   },
   "engines": {
     "node": ">=20"
