@@ -17,7 +17,7 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@nuxt/content": "^3.15.2",
+    "@nuxt/content": "^3.16.0",
     "@nuxtjs/mdc": "~0.23.1",
     "@sit-onyx/assets": "workspace:^",
     "@sit-onyx/flags": "workspace:^",
@@ -36,7 +36,7 @@
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-i18n": "^11.4.10",
-    "vue-router": "^5.2.0"
+    "vue-router": "^5.3.0"
   },
   "devDependencies": {
     "vue-component-meta": "catalog:"
