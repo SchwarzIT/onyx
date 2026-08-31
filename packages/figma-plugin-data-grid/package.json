@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@sit-onyx/icons": "workspace:^",
+    "nanoid": "^6.0.1",
     "sit-onyx": "workspace:^",
     "vue": "catalog:"
   },

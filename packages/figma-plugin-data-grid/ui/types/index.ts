@@ -9,6 +9,7 @@ export type GenerateDataGridPayload = {
 };
 
 export type ColumnDefinition = {
+  id: string;
   headline: string;
   type: ColumnType;
 };

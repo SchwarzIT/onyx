@@ -1,19 +1,21 @@
 <script setup lang="ts">
 import { iconPlus, iconTrash } from "@sit-onyx/icons";
 import {
+  applyArrayOrder,
   createFeature,
   DataGridFeatures,
   OnyxDataGrid,
   OnyxIconButton,
   type ColumnConfig,
+  type ColumnGroupConfig,
+  type ColumnTypesFromFeatures,
 } from "sit-onyx";
-import { computed, h, ref } from "vue";
+import { computed, h, ref, watch } from "vue";
 import type { ColumnDefinition } from "../types/index.js";
 import { useRowActions } from "../utils/data-grid/useRowActions/useRowActions.js";
+import { getDefaultColumnDefinition } from "../utils/misc.js";
 
-type Entry = ColumnDefinition & {
-  id: number;
-};
+type CustomColumnTypes = ColumnTypesFromFeatures<[typeof withCustomTypes]>;
 
 const props = defineProps<{
   modelValue: ColumnDefinition[];
@@ -24,34 +26,30 @@ const emit = defineEmits<{
   "update:modelValue": [columns: ColumnDefinition[]];
 }>();
 
-const data = computed(() => {
-  return props.modelValue.map<Entry>((column, index) => {
-    return { ...column, id: index + 1 };
-  });
-});
-
-const columns = computed<ColumnConfig<Entry>[]>(() => {
-  return [
-    { key: "id", label: "Order", width: "max-content" },
-    { key: "headline", label: "Headline" },
-    {
-      key: "type",
-      label: "Typ",
-      type: {
-        name: "select",
-        options: {
-          options: [
-            { label: "Text", value: "text" },
-            { label: "Checkbox", value: "checkbox" },
-            { label: "Icon", value: "icon" },
-            { label: "System button", value: "systemButton" },
-            { label: "Tag", value: "tag" },
-          ],
+const columns = computed<ColumnConfig<ColumnDefinition, ColumnGroupConfig, CustomColumnTypes>[]>(
+  () => {
+    return [
+      { key: "id", label: "Order", width: "max-content", type: "order" },
+      { key: "headline", label: "Headline" },
+      {
+        key: "type",
+        label: "Typ",
+        type: {
+          name: "select",
+          options: {
+            options: [
+              { label: "Text", value: "text" },
+              { label: "Checkbox", value: "checkbox" },
+              { label: "Icon", value: "icon" },
+              { label: "System button", value: "systemButton" },
+              { label: "Tag", value: "tag" },
+            ],
+          },
         },
       },
-    },
-  ];
-});
+    ];
+  },
+);
 
 const withCustomTypes = createFeature(() => ({
   name: Symbol("customTypes"),
@@ -66,11 +64,40 @@ const withCustomTypes = createFeature(() => ({
       },
     ];
   },
+  typeRenderer: {
+    order: DataGridFeatures.createTypeRenderer<object, ColumnDefinition>({
+      cell: {
+        component: ({ row }) => {
+          const index = props.modelValue.findIndex((i) => i.id === row.id);
+          return index === -1 ? "-" : index + 1;
+        },
+      },
+    }),
+  },
 }));
 
-const editState = ref<DataGridFeatures.EditState<Entry>>({});
+const editState = ref<DataGridFeatures.EditState<ColumnDefinition>>({});
 
-const withEditing = DataGridFeatures.useEditing<Entry>({
+// apply edit changes
+watch(
+  editState,
+  () => {
+    if (!Object.keys(editState.value)) return;
+
+    const rows = props.modelValue.slice();
+
+    Object.entries(editState.value).forEach(([id, editValue], index) => {
+      const row = rows.find((row) => row.id === id);
+      if (!row || !editValue) return;
+      rows[index] = { ...rows[index], ...editValue };
+    });
+
+    emit("update:modelValue", rows);
+  },
+  { deep: true },
+);
+
+const withEditing = DataGridFeatures.useEditing<ColumnDefinition>({
   mode: "manual",
   editState,
   columns: {
@@ -78,7 +105,7 @@ const withEditing = DataGridFeatures.useEditing<Entry>({
   },
 });
 
-const withRowActions = useRowActions<Entry>({
+const withRowActions = useRowActions<ColumnDefinition>({
   actions: (row) => {
     return [
       h(OnyxIconButton, {
@@ -91,24 +118,48 @@ const withRowActions = useRowActions<Entry>({
   },
 });
 
+const rowRearrangeState = ref<DataGridFeatures.RowRearrangeState<ColumnDefinition>>({
+  active: true,
+  order: new Map(),
+});
+
+// apply rearrange
+watch(
+  () => rowRearrangeState.value.order,
+  (newOrder) => {
+    if (!newOrder.size) return;
+    const orderedData = applyArrayOrder(props.modelValue, newOrder, (item) => item.id);
+    emit("update:modelValue", orderedData);
+    rowRearrangeState.value.order.clear();
+  },
+  { deep: true },
+);
+
+const withRowRearrange = DataGridFeatures.useRowRearrange<ColumnDefinition>({
+  state: rowRearrangeState,
+  headless: true,
+});
+
 function handleAddColumn() {
-  const newColumns: ColumnDefinition[] = [
-    ...props.modelValue,
-    { headline: "Headline", type: "text" },
-  ];
+  const newColumns: ColumnDefinition[] = [...props.modelValue, getDefaultColumnDefinition()];
   emit("update:modelValue", newColumns);
 }
 
-function handleDelete(row: Entry) {
-  const newColumns = data.value.filter((column) => column.id !== row.id);
+function handleDelete(row: ColumnDefinition) {
+  const newColumns = props.modelValue.filter((column) => column.id !== row.id);
   emit("update:modelValue", newColumns);
 }
 
-const features = [withCustomTypes, withEditing, withRowActions];
+const features = [withCustomTypes, withEditing, withRowActions, withRowRearrange];
 </script>
 
 <template>
-  <OnyxDataGrid :headline="{ text: 'Columns', rowCount: true }" :columns :data :features />
+  <OnyxDataGrid
+    :headline="{ text: 'Columns', rowCount: true }"
+    :columns
+    :data="props.modelValue"
+    :features
+  />
 </template>
 
 <style lang="scss" scoped>

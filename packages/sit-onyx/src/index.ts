@@ -348,3 +348,4 @@ export * from "./utils/props.js";
 export * from "./utils/router.js";
 export { type DateValue } from "./utils/date.js";
 export { normalizedIncludes } from "./utils/strings.js";
+export { applyArrayOrder } from "./utils/applyArrayOrder.js";

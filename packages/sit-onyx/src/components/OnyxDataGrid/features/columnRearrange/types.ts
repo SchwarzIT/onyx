@@ -9,6 +9,8 @@ export type ColumnRearrangeState = {
   /**
    * Map of rearranged columns. Key = columns ID, value = new order (starting from 1). Only
    * contains changed/rearranged columns and not necessarily all available columns.
+   *
+   * You might want to use the `applyArrayOrder()` utility.
    */
   order: Map<PropertyKey, number>;
 };

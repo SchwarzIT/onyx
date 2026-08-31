@@ -14,6 +14,7 @@ import ExtraSection from "./components/sections/ExtraSection.vue";
 import RowSection from "./components/sections/RowSection.vue";
 import { postPluginMessage } from "./composables/usePluginMessage.js";
 import type { GenerateDataGridPayload } from "./types/index.js";
+import { getDefaultColumnDefinition } from "./utils/misc.js";
 
 const isLoading = ref(false);
 
@@ -27,7 +28,7 @@ const handleGenerate = () => {
 
 const data = ref<GenerateDataGridPayload>({
   mode: "basic",
-  columns: [{ headline: "Headline", type: "text" }],
+  columns: [getDefaultColumnDefinition()],
   rows: {
     count: 5,
     stroke: "grid",
