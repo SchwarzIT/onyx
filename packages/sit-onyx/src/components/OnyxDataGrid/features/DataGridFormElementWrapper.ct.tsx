@@ -155,10 +155,9 @@ test(`DataGridFormElementWrapper with OnyxSwitch`, async ({ mount }) => {
     ),
   );
 
-  const inputLabel = mounted.locator(".onyx-switch__click-area");
   const input = mounted.getByLabel(LABEL);
   await expect(input).toBeChecked();
-  await inputLabel.click();
+  await input.click();
 
   await expectEmit(onUpdateModelValue, 1, [false]);
 });
