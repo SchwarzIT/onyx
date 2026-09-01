@@ -34,7 +34,7 @@
     "@changesets/write": "^1.0.1",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/vite-plugin-svg": "workspace:^",
-    "tsx": "^4.23.12",
+    "tsx": "^4.23.13",
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vite-plugin-static-copy": "^4.1.1"
