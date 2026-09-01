@@ -307,12 +307,12 @@
   );
   --onyx-color-component-border-disabled: var(--onyx-color-base-neutral-200);
   --onyx-color-component-border-neutral: light-dark(
-    var(--onyx-color-base-neutral-300),
-    var(--onyx-color-base-neutral-400)
-  );
-  --onyx-color-component-border-neutral-hover: light-dark(
     var(--onyx-color-base-neutral-400),
     var(--onyx-color-base-neutral-500)
+  );
+  --onyx-color-component-border-neutral-hover: light-dark(
+    var(--onyx-color-base-neutral-500),
+    var(--onyx-color-base-neutral-600)
   );
   --onyx-color-component-border-primary: light-dark(
     var(--onyx-color-base-primary-600),
@@ -320,12 +320,12 @@
   );
   --onyx-color-component-border-primary-hover: var(--onyx-color-base-primary-800);
   --onyx-color-component-border-secondary: light-dark(
-    var(--onyx-color-base-neutral-400),
-    var(--onyx-color-base-neutral-500)
+    var(--onyx-color-base-neutral-300),
+    var(--onyx-color-base-neutral-400)
   );
   --onyx-color-component-border-secondary-hover: light-dark(
-    var(--onyx-color-base-primary-400),
-    var(--onyx-color-base-primary-500)
+    var(--onyx-color-base-neutral-400),
+    var(--onyx-color-base-neutral-500)
   );
   --onyx-color-component-border-success: light-dark(
     var(--onyx-color-base-success-800),
