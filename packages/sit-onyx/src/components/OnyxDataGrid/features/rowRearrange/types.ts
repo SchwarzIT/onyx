@@ -28,6 +28,8 @@ export type RowRearrangeState<TEntry extends DataGridEntry> = {
   /**
    * Map of rearranged rows. Key = row ID, value = new order (starting from 1). Only contains
    * changed/rearranged rows and not necessarily all available rows.
+   *
+   * You might want to use the `applyArrayOrder()` utility.
    */
   order: Map<TEntry["id"], number>;
 };

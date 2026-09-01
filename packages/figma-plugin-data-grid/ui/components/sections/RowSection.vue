@@ -34,7 +34,13 @@ const strokeOptions = [
         </div>
       </div>
 
-      <div v-if="data.mode === 'advanced'" class="onyx-grid-span-4 container">
+      <div
+        :class="[
+          'onyx-grid-span-4',
+          'container',
+          { 'container--hidden': data.mode !== 'advanced' },
+        ]"
+      >
         <OnyxHeadline is="h3">Appearance</OnyxHeadline>
         <SegmentedControl v-model="data.rows.style" label="Style" :options="styleOptions" />
         <SegmentedControl v-model="data.rows.stroke" label="Stroke" :options="strokeOptions" />
@@ -49,5 +55,10 @@ const strokeOptions = [
   display: flex;
   flex-direction: column;
   gap: var(--onyx-density-sm);
+
+  // we use visibility instead of v-if so the layout does not jump when switching between basic/advanced mode
+  &--hidden {
+    visibility: hidden;
+  }
 }
 </style>

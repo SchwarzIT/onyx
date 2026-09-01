@@ -6,7 +6,8 @@ const MESSAGE_HANDLERS: Record<string, (data?: any) => Promise<void>> = {
 runPlugin();
 
 async function runPlugin() {
-  figma.showUI(__html__, { width: 720, height: 560 });
+  // width = "sm" breakpoint - 1
+  figma.showUI(__html__, { width: 768, height: 560 });
 
   figma.ui.onmessage = async (msg) => {
     const handler = MESSAGE_HANDLERS[msg.type];
