@@ -2,6 +2,7 @@
   .onyx-data-grid-row-actions-cell {
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     gap: var(--onyx-density-2xs);
   }

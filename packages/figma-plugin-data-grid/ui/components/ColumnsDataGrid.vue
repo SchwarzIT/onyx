@@ -184,5 +184,8 @@ const features = [withCustomTypes, withEditing, withRowActions, withRowRearrange
 <style lang="scss" scoped>
 :deep(td) {
   align-content: center;
+
+  // define min-height so the layout does not jump when switched between basic/advanced mode
+  min-height: calc(2.125rem + 2 * var(--onyx-table-padding-block));
 }
 </style>
