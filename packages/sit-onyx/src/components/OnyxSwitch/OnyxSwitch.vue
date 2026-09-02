@@ -143,6 +143,8 @@ useAutofocus(input, props);
 
     --onyx-switch-spinner-color: inherit;
 
+    justify-content: left;
+
     .onyx-form-element-v2 {
       &__content-skeleton {
         height: var(--onyx-switch-input-height);
