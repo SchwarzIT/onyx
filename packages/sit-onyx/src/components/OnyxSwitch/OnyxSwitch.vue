@@ -129,7 +129,6 @@ useAutofocus(input, props);
     );
     --onyx-switch-cursor: pointer;
     --onyx-switch-container-padding: var(--onyx-1px-in-rem);
-    // icon size + padding top/bottom + border top/bottom
     --onyx-switch-label-padding-vertical: var(--onyx-density-xs);
     --onyx-switch-transform: var(--onyx-1px-in-rem);
     --onyx-switch-toggle-background-color: var(--onyx-color-base-neutral-300);
@@ -142,6 +141,8 @@ useAutofocus(input, props);
     --onyx-switch-icon-transform: none;
 
     --onyx-switch-spinner-color: inherit;
+
+    justify-content: left;
 
     .onyx-form-element-v2 {
       &__content-skeleton {
