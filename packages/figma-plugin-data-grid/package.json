@@ -20,7 +20,7 @@
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@figma/plugin-typings": "^1.136.0",
+    "@figma/plugin-typings": "^1.137.0",
     "@fontsource-variable/source-code-pro": "^5.3.0",
     "@fontsource-variable/source-sans-3": "^5.3.0",
     "@sit-onyx/shared": "workspace:^",
