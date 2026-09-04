@@ -243,6 +243,7 @@ export type UseFocusStateHooksOptions = {
  * state.
  *
  * States:
+ *
  * - hover: will hover the center of the component
  * - active: will hold the mouse down on the center of the component
  * - focus-visible: press Tab key to focus component

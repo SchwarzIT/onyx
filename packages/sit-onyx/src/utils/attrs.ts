@@ -122,6 +122,7 @@ type MergeVuePropsResult<T extends unknown[]> =
 
 /**
  * Extends the Vue's `mergeProp` function, so that it
+ *
  * - doesn't complain about nullish parameters
  * - is also able to merge `ref` properties
  */

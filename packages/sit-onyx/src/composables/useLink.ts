@@ -94,6 +94,7 @@ const shouldHandleNavigation = (e: MouseEvent) => {
 
 /**
  * Normalized the given href by:
+ *
  * - convert "" to "/"
  * - remove trailing slashes (only if href is not "/" itself)
  * - trim whitespaces
