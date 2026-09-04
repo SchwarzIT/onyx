@@ -105,10 +105,10 @@ watch(
 
     const rows = props.modelValue.slice();
 
-    Object.entries(editState.value).forEach(([id, editValue], index) => {
+    Object.entries(editState.value).forEach(([id, editValue]) => {
       const row = rows.find((row) => row.id === id);
       if (!row || !editValue) return;
-      rows[index] = { ...rows[index], ...editValue };
+      rows[rows.indexOf(row)] = { ...row, ...editValue };
     });
 
     emit("update:modelValue", rows);
