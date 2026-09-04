@@ -4,6 +4,7 @@
 export default {
   plugins: ["stylelint-no-unsupported-browser-features"],
   rules: {
+    "unit-disallowed-list": ["vh"],
     "plugin/no-unsupported-browser-features": [
       true,
       {
@@ -22,4 +23,12 @@ export default {
       },
     ],
   },
+  overrides: [
+    {
+      files: ["src/.vitepress/dist/assets/style.*.css"],
+      rules: {
+        "unit-disallowed-list": null,
+      },
+    },
+  ],
 };

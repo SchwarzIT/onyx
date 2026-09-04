@@ -49,7 +49,7 @@ import {
   &__toc {
     position: sticky;
     top: var(--onyx-grid-margin-vertical);
-    max-height: calc(100vh - var(--onyx-nav-bar-height) - 2 * var(--onyx-grid-margin-vertical));
+    max-height: calc(100dvh - var(--onyx-nav-bar-height) - 2 * var(--onyx-grid-margin-vertical));
   }
 
   &__content {

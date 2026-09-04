@@ -106,7 +106,7 @@ test.describe("FAB offset", () => {
     const customOffset = { x: "42px", y: "10rem" };
 
     await mount(
-      <div style={{ height: "100vh", width: "50vw" }}>
+      <div style={{ height: "100dvh", width: "50vw" }}>
         <OnyxFAB
           label="Test FAB"
           alignment="right"

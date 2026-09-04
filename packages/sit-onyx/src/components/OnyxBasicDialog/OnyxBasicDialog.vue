@@ -134,7 +134,7 @@ defineExpose({
     padding: 0;
 
     max-width: calc(100vw - 2 * var(--onyx-basic-dialog-screen-gap));
-    max-height: calc(100vh - 2 * var(--onyx-basic-dialog-screen-gap));
+    max-height: calc(100dvh - 2 * var(--onyx-basic-dialog-screen-gap));
 
     position: fixed;
     top: 0;

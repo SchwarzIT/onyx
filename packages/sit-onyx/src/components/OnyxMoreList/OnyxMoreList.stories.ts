@@ -75,7 +75,7 @@ export const TopToBottom = {
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div style="height: 95vh;"><story /></div>',
+      template: '<div style="height: 95dvh;"><story /></div>',
     }),
   ],
 } satisfies Story;
@@ -97,7 +97,7 @@ export const BottomToTop = {
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div style="height: 95vh;"><story /></div>',
+      template: '<div style="height: 95dvh;"><story /></div>',
     }),
   ],
 } satisfies Story;
