@@ -17,7 +17,7 @@ test.beforeEach(async ({ page }) => {
      }
 
      .onyx-page {
-        height: 100vh;
+        height: 100dvh;
         width: 100vw;
      }
      `,

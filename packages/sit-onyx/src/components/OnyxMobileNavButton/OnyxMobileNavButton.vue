@@ -130,7 +130,7 @@ const isOpen = computed(() => !props.disabled && props.open);
       content: "";
       background-color: var(--onyx-color-component-opacity-backdrop);
       width: 100%;
-      height: 100vh;
+      height: 100dvh;
       display: block;
       cursor: pointer;
 

@@ -4,6 +4,7 @@
 export default {
   plugins: ["stylelint-no-unsupported-browser-features"],
   rules: {
+    "unit-disallowed-list": ["vh"],
     "plugin/no-unsupported-browser-features": [
       true,
       {

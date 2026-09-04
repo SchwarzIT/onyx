@@ -114,6 +114,6 @@ const features = [withCustomTypes, withFiltering, withSorting, withStickyColumns
 
 <style lang="scss" scoped>
 .data-grid {
-  max-height: 90vh;
+  max-height: 90dvh;
 }
 </style>

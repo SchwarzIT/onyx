@@ -388,7 +388,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 
   &__grid-wrapper {
     overflow: hidden;
-    min-height: 70vh;
+    min-height: 70dvh;
     container-type: inline-size;
   }
 
