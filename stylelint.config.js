@@ -23,4 +23,12 @@ export default {
       },
     ],
   },
+  overrides: [
+    {
+      files: ["src/.vitepress/dist/assets/style.*.css"],
+      rules: {
+        "unit-disallowed-list": null,
+      },
+    },
+  ],
 };
