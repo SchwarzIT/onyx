@@ -21,6 +21,7 @@ export type OnyxFlyoutMenuProps = Pick<OnyxBasicPopoverProps, "alignment" | "pos
   disabled?: boolean;
   /**
    * Defines how nested menu items are rendered and behave.
+   *
    * - `internal`: Nested items expand within current menu.
    * - `external`: Nested items open in a separate, adjacent flyout menu.
    */

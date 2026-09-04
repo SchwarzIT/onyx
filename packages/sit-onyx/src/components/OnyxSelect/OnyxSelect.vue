@@ -175,6 +175,7 @@ const arrayValue = computed(() => asArray(modelValue.value)) as ComputedRef<TVal
 
 /**
  * Contains an array of labels that will be shown in the input.
+ *
  * - contains props.valueLabel as array if it is set
  * - else, contains all found labels of the options that match the current modelValue
  */

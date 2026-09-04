@@ -108,6 +108,7 @@ export const createSlider = createBuilder(
 
     /**
      * Normalizes the given slider (values) by ensuring that:
+     *
      * 1. Value is between min and max range
      * 2. Values are matching the `step` property (are multiples of it)
      * 3. Are sorted ascending (if range mode)

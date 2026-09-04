@@ -4,6 +4,7 @@ type Callback = () => void | (() => Promise<void>);
 
 /**
  * Mocks the following vue lifecycle functions:
+ *
  * - onBeforeMount
  * - onMounted
  * - onBeforeUnmount

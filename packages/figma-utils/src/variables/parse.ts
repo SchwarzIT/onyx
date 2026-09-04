@@ -101,10 +101,11 @@ export const parseFigmaVariables = (
 
 /**
  * Resolves the given Figma variable value to a string value. Value types:
+ *
  * - number: converted to rem, e.g. 16 => "1rem"
  * - color: converted to HEX color, e.g. {r:1, g: 1, b: 1, a: 1} => "#ffffff"
- * - alias: referenced with variable name, e.g. "--primary-100" => "{--primary-100}"
- * (curly brackets will indicate that the value is an alias / reference)
+ * - alias: referenced with variable name, e.g. "--primary-100" => "{--primary-100}" (curly brackets
+ *   will indicate that the value is an alias / reference)
  *
  * @param value Figma variable value
  * @param allVariables Object of all variables. Needed for variables that use aliases.
@@ -161,6 +162,7 @@ export const rgbaToHex = (value: RGBAValue): string => {
 
 /**
  * Normalizes the given variable name by apply these transformations:
+ *
  * - replace slashes with "-"
  * - replace whitespace with "-"
  * - replace "+" with "-"

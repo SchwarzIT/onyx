@@ -151,6 +151,7 @@ export const useSidebarNavigation = async <
 
   /**
    * Finds the "previous root" (parent root) for a given current path within the navigation tree.
+   *
    * - If depth >= 2: returns the previous root item
    * - If depth == 1: returns the first item in the navigation (typically a "Home" item)
    * - If depth == 0: returns undefined (no back button needed)

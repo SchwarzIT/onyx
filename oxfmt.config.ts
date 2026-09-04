@@ -7,6 +7,7 @@ export default defineConfig({
   jsdoc: {
     commentLineStrategy: "multiline",
     lineWrappingStyle: "balance",
+    capitalizeDescriptions: false,
   },
   ignorePatterns: [
     // MDC syntax with YAML properties for components is not supported yet

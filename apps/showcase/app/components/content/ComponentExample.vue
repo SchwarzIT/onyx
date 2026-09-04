@@ -12,6 +12,7 @@ const props = withDefaults(
     name: string;
     /**
      * Component preview layout.
+     *
      * - default: Pre-defined Limited width
      * - fullWidth: Full width
      * - grow: Same as "default" but children use "flex-grow" to grow the available width
