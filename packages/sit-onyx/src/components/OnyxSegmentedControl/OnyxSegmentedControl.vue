@@ -66,7 +66,7 @@ const handleChange = (value: TValue) => {
     border-radius: var(--onyx-radius-component-segmented-control-outside);
     overflow: auto;
     max-width: 100%;
-    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+    border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
     &:has(.onyx-segmented-control-element__icon):not(:has(.onyx-segmented-control-element__text)) {
       width: fit-content;
