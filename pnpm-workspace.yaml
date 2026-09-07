@@ -4,7 +4,7 @@ packages:
 
 catalog:
   "@playwright/experimental-ct-vue": 1.62.1
-  "@playwright/test": 1.63.0
+  "@playwright/test": 1.62.1
   "@vue/compiler-core": 3.5.42
   "@vue/compiler-dom": 3.5.42
   "@vue/compiler-sfc": 3.5.42
@@ -13,8 +13,8 @@ catalog:
   "@types/node": 24.13.3
   chart.js: 4.5.1
   nuxt: 4.5.2
-  playwright: 1.63.0
-  playwright-core: 1.63.0
+  playwright: 1.62.1
+  playwright-core: 1.62.1
   sass-embedded: 1.104.0
   typescript: 6.0.3
   unplugin-dts: 1.1.0
