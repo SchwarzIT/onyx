@@ -47,7 +47,7 @@
     transparent
   );
 
-  min-height: calc(100vh - var(--onyx-nav-bar-height));
+  min-height: calc(100dvh - var(--onyx-nav-bar-height));
   background: var(--onyx-color-base-background-blank);
   background: linear-gradient(
     60deg,
