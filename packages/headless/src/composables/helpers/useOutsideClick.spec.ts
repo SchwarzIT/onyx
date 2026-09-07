@@ -1,12 +1,15 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
-import { mockVueLifecycle } from "../../utils/vitest.js";
 import { useOutsideClick } from "./useOutsideClick.js";
+
+vi.mock("vue", async (original) => ({
+  ...((await original()) as typeof import("vue")),
+  onBeforeMount: vi.fn((cb) => cb()),
+}));
 
 describe("useOutsideClick", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockVueLifecycle();
   });
 
   test("should be defined", () => {

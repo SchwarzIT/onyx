@@ -42,6 +42,7 @@ nuxt.d.ts
 .nuxtrc
 .output
 coverage
+.vitest
 
 # Build outputs
 storybook-static
