@@ -51,7 +51,7 @@
     "eslint-plugin-vuejs-accessibility": "^2.6.0",
     "jsdom": "^30.0.1",
     "lightningcss": "^1.33.0",
-    "lint-staged": "^17.4.1",
+    "lint-staged": "^17.5.0",
     "nuxt": "catalog:",
     "oxfmt": "~0.66.0",
     "publint": "^0.3.24",
