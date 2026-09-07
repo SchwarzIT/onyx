@@ -13,6 +13,12 @@ export default defineNuxtConfig({
   typescript: { typeCheck: "build" },
   modules: ["@sit-onyx/nuxt", "@nuxt/content", "@nuxtjs/color-mode", "@nuxtjs/i18n"],
   css: ["@fontsource-variable/source-code-pro", "@fontsource-variable/source-sans-3"],
+  content: {
+    experimental: {
+      // use native Node sqlite so we don't need "better-sqlite3" dependency
+      sqliteConnector: "native",
+    },
+  },
   i18n: {
     defaultLocale: "en",
     // we explicitly don't define any default locales here so the project is fully in charge if defining which locales to use.
