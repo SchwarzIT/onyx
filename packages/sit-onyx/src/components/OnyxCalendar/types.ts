@@ -60,6 +60,7 @@ export type OnyxCalendarProps<TSelection extends OnyxCalendarSelectionMode> = De
 
   /**
    * The visual size of the calendar.
+   *
    * - "big": larger layout with more spacing and bigger text
    * - "small": compact layout
    * - "auto": adjusts based on container or viewport

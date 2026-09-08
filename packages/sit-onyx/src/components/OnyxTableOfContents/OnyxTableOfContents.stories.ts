@@ -8,6 +8,7 @@ import OnyxTableOfContents from "./OnyxTableOfContents.vue";
  * links to the corresponding sections.
  *
  * When integrating into a page layout, it is recommended to position it:
+ *
  * - right aligned
  * - fixed / does not scroll when the page content scrolls
  * - min width: 8rem

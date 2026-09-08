@@ -82,7 +82,7 @@ const tagClasses = computed(() => [
         @if $color == "primary" {
           --onyx-tag-border-color: var(--onyx-color-component-border-primary);
         } @else if $color == "neutral" {
-          --onyx-tag-border-color: var(--onyx-color-component-border-secondary);
+          --onyx-tag-border-color: var(--onyx-color-component-border-neutral);
         } @else {
           --onyx-tag-border-color: var(--onyx-color-base-#{$color}-400);
         }

@@ -55,7 +55,7 @@ const slots = defineSlots<{
 
 .onyx-app {
   @include layers.component() {
-    height: 100vh;
+    height: 100dvh;
     width: 100vw;
     display: grid;
     grid-template-rows: max-content 1fr;

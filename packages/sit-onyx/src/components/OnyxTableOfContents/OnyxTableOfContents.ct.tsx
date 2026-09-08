@@ -133,37 +133,37 @@ test("should auto activate items on scroll", async ({ mount }) => {
           </OnyxTableOfContents>
         </template>
 
-        <div style={{ height: "110vh" }}>
+        <div style={{ height: "110dvh" }}>
           <OnyxHeadline is="h2" hash="1">
             Section 1
           </OnyxHeadline>
         </div>
 
-        <div style={{ height: "110vh" }}>
+        <div style={{ height: "110dvh" }}>
           <OnyxHeadline is="h2" hash="2">
             Section 2
           </OnyxHeadline>
         </div>
 
-        <div style={{ height: "20vh" }}>
+        <div style={{ height: "20dvh" }}>
           <OnyxHeadline is="h2" hash="3">
             Section 3
           </OnyxHeadline>
         </div>
 
-        <div style={{ height: "20vh" }}>
+        <div style={{ height: "20dvh" }}>
           <OnyxHeadline is="h2" hash="4">
             Section 4
           </OnyxHeadline>
         </div>
 
-        <div style={{ height: "210vh" }}>
+        <div style={{ height: "210dvh" }}>
           <OnyxHeadline is="h2" hash="5">
             Section 5
           </OnyxHeadline>
         </div>
 
-        <div style={{ height: "210vh" }}>
+        <div style={{ height: "210dvh" }}>
           <OnyxHeadline is="h2" hash="6">
             Section 6
           </OnyxHeadline>

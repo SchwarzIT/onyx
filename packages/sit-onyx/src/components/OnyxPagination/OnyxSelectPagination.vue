@@ -178,7 +178,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       align-items: center;
       padding: var(--onyx-pagination-padding-vertical) var(--onyx-density-sm);
       height: var(--onyx-pagination-height);
-      border: 0 solid var(--onyx-color-component-border-secondary);
+      border: 0 solid var(--onyx-color-component-border-neutral);
       border-width: var(--onyx-pagination-border-size) 0;
       text-align: center;
       color: var(--onyx-color-text-icons-neutral-soft);
@@ -194,7 +194,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       padding: var(--onyx-pagination-padding-vertical);
       height: var(--onyx-pagination-height);
       background-color: var(--onyx-color-base-background-blank);
-      border: var(--onyx-pagination-border-size) solid var(--onyx-color-component-border-secondary);
+      border: var(--onyx-pagination-border-size) solid var(--onyx-color-component-border-neutral);
       color: inherit;
 
       &:first-of-type {

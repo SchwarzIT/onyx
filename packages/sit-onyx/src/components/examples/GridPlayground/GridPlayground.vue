@@ -332,7 +332,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
   overflow: scroll;
-  height: 100vh;
+  height: 100dvh;
   container-type: inline-size;
 
   &__container {
@@ -388,7 +388,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 
   &__grid-wrapper {
     overflow: hidden;
-    min-height: 70vh;
+    min-height: 70dvh;
     container-type: inline-size;
   }
 

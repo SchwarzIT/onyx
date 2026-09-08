@@ -184,7 +184,7 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
 
       &::details-content {
         height: 0;
-        overflow: clip;
+        clip-path: inset(0);
         transition:
           content-visibility var(--onyx-accordion-toggle-duration) ease,
           height var(--onyx-accordion-toggle-duration) ease;

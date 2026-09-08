@@ -11,7 +11,7 @@ const options: SelectDialogOption[] = [
   { label: "Option 3", value: "option-3", description: "Example description for this option." },
 ];
 
-const selectedValue = ref(options[0].value);
+const selectedValue = ref(options[0]!.value);
 </script>
 
 <template>

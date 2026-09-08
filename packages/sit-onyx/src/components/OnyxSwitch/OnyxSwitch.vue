@@ -178,7 +178,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
 
     &__frame {
       position: absolute;
-      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+      border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       height: var(--onyx-switch-frame-height);
       border-radius: var(--onyx-radius-full);
       width: $input-width;
@@ -344,7 +344,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
           background-color: var(--onyx-color-base-neutral-400);
         }
         .onyx-switch__frame {
-          border-color: var(--onyx-color-component-border-secondary-hover);
+          border-color: var(--onyx-color-component-border-neutral-hover);
         }
         &:has(.onyx-switch__input:checked) .onyx-switch__container {
           background-color: var(--onyx-color-component-cta-default-hover);
@@ -400,7 +400,7 @@ $input-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-cont
     }
     &:has(.onyx-switch__input:disabled.onyx-switch__loading) {
       .onyx-switch__frame {
-        border-color: var(--onyx-color-component-border-secondary);
+        border-color: var(--onyx-color-component-border-neutral);
       }
     }
     &.onyx-form-element-v2--label-right:not(:has(.onyx-switch__display-label)),

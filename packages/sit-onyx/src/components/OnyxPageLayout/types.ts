@@ -3,6 +3,7 @@ import type { SkeletonProvidedProp } from "../../composables/useSkeletonState.js
 export type OnyxPageLayoutProps = Partial<SkeletonProvidedProp> & {
   /**
    * How the footer is aligned when used together with a sidebar.
+   *
    * - full: footer will span the full screen width below the sidebar/page.
    * - page: footer will be restricted to the page width and is placed aside the sidebar.
    */

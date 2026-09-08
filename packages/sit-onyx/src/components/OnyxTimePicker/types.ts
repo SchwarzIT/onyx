@@ -32,6 +32,7 @@ export type OnyxTimePickerProps<TType extends TimePickerType = TimePickerType> =
     AutofocusProp & {
       /**
        * Specifies the type of time picker input.
+       *
        * - 'default': Free text input with validation.
        * - 'select': Displays a dropdown list with pre-generated time options.
        *

@@ -31,6 +31,7 @@ export type OnyxSliderProps<TSliderMode extends SliderMode> = Omit<
      * For a single mode, pass a single number. For range model pass an array with two numbers.
      *
      * Recommended defaults (if your project has no specific initial value):
+     *
      * - `single` mode: middle of the range → `(min + max) / 2`.
      * - `range` mode: full range → `[min, max]`.
      */

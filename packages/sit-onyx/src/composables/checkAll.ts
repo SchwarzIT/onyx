@@ -27,6 +27,7 @@ export const useCheckAll = <TValue extends SelectOptionValue = SelectOptionValue
   return {
     /**
      * Current "select all" checkbox state.
+     *
      * - checked if all options are checked
      * - indeterminate if at least one but not all options are checked
      * - unchecked if no options are checked
@@ -34,9 +35,9 @@ export const useCheckAll = <TValue extends SelectOptionValue = SelectOptionValue
     state: useSelectAllCheckboxState(enabledOptionValues, modelValue),
     /**
      * Provides an update for the checkbox list with
+     *
      * - all option values if "select all" was checked
-     * - an empty list if "select all" was unchecked
-     * Does not touch the state of disabled checkboxes
+     * - an empty list if "select all" was unchecked Does not touch the state of disabled checkboxes
      */
     handleChange: (isChecked: boolean) => {
       // options that are currently in modelValue but not "enabled" shall not be touched

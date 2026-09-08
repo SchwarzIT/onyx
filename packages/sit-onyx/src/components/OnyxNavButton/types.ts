@@ -9,6 +9,7 @@ export type OnyxNavButtonProps = Pick<OnyxButtonProps, "disabled" | "link" | "la
   hideLabel?: boolean;
   /**
    * Main button color.
+   *
    * - neutral: Used for custom nav bar actions
    * - primary: Used for "Login" buttons
    */

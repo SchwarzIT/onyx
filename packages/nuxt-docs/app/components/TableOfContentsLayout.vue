@@ -50,7 +50,7 @@ defineSlots<{
   &__toc {
     position: sticky;
     top: var(--onyx-grid-margin-vertical);
-    height: calc(100vh - var(--onyx-nav-bar-height) - 2 * var(--onyx-grid-margin-vertical));
+    height: calc(100dvh - var(--onyx-nav-bar-height) - 2 * var(--onyx-grid-margin-vertical));
   }
 
   // hide TOC on smaller screens
