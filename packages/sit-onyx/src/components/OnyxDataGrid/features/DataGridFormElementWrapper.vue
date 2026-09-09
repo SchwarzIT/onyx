@@ -92,6 +92,9 @@ const bind = computed(() => {
   }
 
   .onyx-data-grid-form-wrapper {
+    &.onyx-switch {
+      flex-direction: row;
+    }
     &.onyx-slider {
       padding: var(--onyx-density-xs) var(--onyx-density-sm);
     }
