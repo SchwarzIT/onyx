@@ -1,4 +1,10 @@
 <script lang="ts" setup>
+import light from "@shikijs/themes/github-dark";
+import dark from "@shikijs/themes/github-light";
+import { OnyxMarkdownDocument } from "@sit-onyx/comark";
+import { parseMarkdown } from "comark";
+import shiki from "comark/plugins/shiki";
+
 const props = defineProps<{
   code: string;
   language: string;
@@ -12,7 +18,11 @@ ${props.code}
 `;
 });
 
-const { data: ast } = await useAsyncData(snippet, () => parseMarkdown(snippet.value));
+const { data: value } = await useAsyncData(snippet, () =>
+  parseMarkdown(snippet.value, {
+    plugins: [shiki({ themes: { light, dark } })],
+  }),
+);
 </script>
 
 <!-- eslint-disable-next-line vue/no-root-v-if -->
@@ -21,10 +31,5 @@ const { data: ast } = await useAsyncData(snippet, () => parseMarkdown(snippet.va
     We need to override the components here to force using the regular pre and code components.
     This way, the renderer does not use the globally defined ProsePre and ProseCode components which have their own styling, features etc.
      -->
-  <MDCRenderer
-    v-if="ast"
-    :body="ast.body"
-    :data="ast.data"
-    :components="{ pre: 'pre', code: 'code' }"
-  />
+  <OnyxMarkdownDocument v-if="value" :value :components="{ pre: 'pre', code: 'code' }" />
 </template>

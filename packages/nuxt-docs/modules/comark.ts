@@ -1,18 +1,18 @@
-import * as onyxMdc from "@sit-onyx/mdc";
+import * as onyxComark from "@sit-onyx/comark";
 import { addComponent, defineNuxtModule } from "nuxt/kit";
 
 export default defineNuxtModule({
   meta: {
-    name: "@sit-onyx/mdc",
+    name: "@sit-onyx/comark",
   },
   setup(options, nuxt) {
-    nuxt.options.css.push("@sit-onyx/mdc/style.css");
+    nuxt.options.css.push("@sit-onyx/comark/style.css");
 
-    Object.keys(onyxMdc)
+    Object.keys(onyxComark)
       .filter((namedExport) => namedExport.startsWith("Prose"))
       .forEach((component) => {
         addComponent({
-          filePath: "@sit-onyx/mdc",
+          filePath: "@sit-onyx/comark",
           name: component,
           export: component,
           global: true, // required by Nuxt content
