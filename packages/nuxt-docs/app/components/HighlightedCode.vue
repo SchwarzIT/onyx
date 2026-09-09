@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import light from "@shikijs/themes/github-dark";
-import dark from "@shikijs/themes/github-light";
+import dark from "@shikijs/themes/github-dark";
+import light from "@shikijs/themes/github-light";
 import { OnyxMarkdownDocument } from "@sit-onyx/comark";
 import { parseMarkdown } from "comark";
 import shiki from "comark/plugins/shiki";
