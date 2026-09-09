@@ -29,6 +29,7 @@
     "test:playwright": "pnpm dev:prepare && cd playground && pnpm test:playwright"
   },
   "dependencies": {
+    "@shikijs/themes": "^4.4.3",
     "@sit-onyx/comark": "workspace:^"
   },
   "devDependencies": {
@@ -56,10 +57,9 @@
     "@nuxt/content": ">= 3",
     "@nuxtjs/color-mode": ">= 4",
     "@nuxtjs/i18n": ">= 10",
-    "@shikijs/themes": ">= 4",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
-    "comark": "^0.6.2",
+    "comark": ">= 0.6.0",
     "sass-embedded": ">= 1",
     "sit-onyx": "workspace:^"
   },
