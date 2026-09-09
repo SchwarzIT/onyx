@@ -107,8 +107,8 @@ useAutofocus(input, props);
         v-if="props.valueLabel"
         class="onyx-switch__display-label"
         :class="[`onyx-switch-truncation-${props.truncation} onyx-truncation-${props.truncation}`]"
-        :data-value-label-truthy="props.valueLabel?.truthy"
-        :data-value-label-falsy="props.valueLabel?.falsy"
+        :data-value-label-truthy="props.valueLabel.truthy"
+        :data-value-label-falsy="props.valueLabel.falsy"
         aria-hidden="true"
       ></span>
     </template>
@@ -155,8 +155,7 @@ useAutofocus(input, props);
 
       &__input-container {
         position: relative;
-        width: 100%;
-        height: 100%;
+        flex-grow: 0;
       }
 
       &__body {
@@ -209,6 +208,7 @@ useAutofocus(input, props);
 
     &__input {
       // Make input invisible, but clickable and detectable for Playwright
+      // This is different from *visually-hidden*, as the box has an actual width and height and is positioned over its parent.
       position: absolute;
       border: none;
       background: transparent;
