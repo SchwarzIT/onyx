@@ -33,3 +33,10 @@ const { data: value } = await useAsyncData(snippet, () =>
      -->
   <OnyxMarkdownDocument v-if="value" :value :components="{ pre: 'pre', code: 'code' }" />
 </template>
+
+<style scoped>
+.onyx-markdown-document {
+  /* Overwrite font-family, because otherwise it will be reset to the non-mono font-family */
+  font-family: inherit;
+}
+</style>
