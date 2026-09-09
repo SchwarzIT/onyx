@@ -902,6 +902,9 @@ importers:
       '@nuxtjs/color-mode':
         specifier: ^4.0.1
         version: 4.0.1(magic-string@1.2.3)(magicast@0.5.4)(oxc-parser@0.141.0)(rolldown@1.2.7)(unplugin@3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(sass-embedded@1.104.0)(sass@1.104.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.0)))
+      '@nuxtjs/mdc':
+        specifier: ~0.23.1
+        version: 0.23.1(magic-string@1.2.3)(magicast@0.5.4)(oxc-parser@0.141.0)(rolldown@1.2.7)(supports-color@10.2.2)(unplugin@3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(sass-embedded@1.104.0)(sass@1.104.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.0)))
       '@playwright/experimental-ct-vue':
         specifier: 1.62.1
         version: 1.62.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(sass-embedded@1.104.0)(sass@1.104.0)(terser@5.51.2)(tsx@4.23.13)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(sass-embedded@1.104.0)(sass@1.104.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.0))(vue@3.5.42(typescript@6.0.3))(yaml@2.9.0)
@@ -920,33 +923,9 @@ importers:
       comark:
         specifier: ^0.6.2
         version: 0.6.2(shiki@4.4.3)
-      debug:
-        specifier: ^4.4.3
-        version: 4.4.3(supports-color@10.2.2)
-      extend:
-        specifier: ^3.0.2
-        version: 3.0.2
       nuxt:
         specifier: 4.5.2
         version: 4.5.2(d87c9ffa5b93adb6e0ff480c92dc4e7b)
-      parse5:
-        specifier: ^8.0.1
-        version: 8.0.1
-      rehype-raw:
-        specifier: ^7.0.0
-        version: 7.0.0
-      remark-emoji:
-        specifier: ^5.0.2
-        version: 5.0.2
-      remark-gfm:
-        specifier: ^4.0.1
-        version: 4.0.1(supports-color@10.2.2)
-      remark-mdc:
-        specifier: ^3.11.1
-        version: 3.11.1(supports-color@10.2.2)
-      remark-rehype:
-        specifier: ^11.1.2
-        version: 11.1.2
       sass-embedded:
         specifier: 1.104.0
         version: 1.104.0
@@ -956,12 +935,6 @@ importers:
       typescript:
         specifier: 6.0.3
         version: 6.0.3
-      unified:
-        specifier: ^11.0.5
-        version: 11.0.5
-      unist-util-visit:
-        specifier: ^5.1.0
-        version: 5.1.0
       vue:
         specifier: 3.5.42
         version: 3.5.42(typescript@6.0.3)
