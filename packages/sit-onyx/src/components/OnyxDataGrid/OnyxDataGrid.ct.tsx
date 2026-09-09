@@ -89,7 +89,7 @@ test("should not resize in a loop when empty and used in a modal without explici
   const box1 = (await modal.boundingBox())!;
 
   const handle = await modal.elementHandle();
-  await handle!.waitForElementState("stable");
+  await handle.waitForElementState("stable");
 
   const box2 = (await modal.boundingBox())!;
 
