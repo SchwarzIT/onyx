@@ -29,7 +29,8 @@
     "test:playwright": "pnpm dev:prepare && cd playground && pnpm test:playwright"
   },
   "dependencies": {
-    "@sit-onyx/mdc": "workspace:^"
+    "@shikijs/themes": "^4.4.3",
+    "@sit-onyx/comark": "workspace:^"
   },
   "devDependencies": {
     "@fontsource-variable/source-code-pro": "^5.3.0",
@@ -43,6 +44,7 @@
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
+    "comark": "^0.6.2",
     "nuxt": "catalog:",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
@@ -55,9 +57,9 @@
     "@nuxt/content": ">= 3",
     "@nuxtjs/color-mode": ">= 4",
     "@nuxtjs/i18n": ">= 10",
-    "@nuxtjs/mdc": ">= 0.20.2",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/nuxt": "workspace:^",
+    "comark": ">= 0.6.0",
     "sass-embedded": ">= 1",
     "sit-onyx": "workspace:^"
   },
