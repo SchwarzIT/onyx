@@ -15,8 +15,9 @@ export type Orderable = {
 };
 
 /**
- * One pattern that we use and provide in the feature API is the ability to provide mappers for configurations and data.
- * The `OrderableMapping` is an abstraction of this pattern, where any count of mappers can be defined.
+ * One pattern that we use and provide in the feature API is the ability to provide mappers for
+ * configurations and data. The `OrderableMapping` is an abstraction of this pattern, where any
+ * count of mappers can be defined.
  */
 export type OrderableMapping<T> = SingleOrderableMapping<T> | SingleOrderableMapping<T>[];
 

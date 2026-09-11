@@ -5,7 +5,7 @@ export {
    * Metadata for all available onyx flags.
    */
   default as FLAG_METADATA,
-} from "./metadata.json";
+} from "./metadata.json" with { type: "json" };
 
 export * from "./types.js";
 
@@ -42,10 +42,10 @@ export const groupFlagsByContinent = (flagMetadata: Record<string, FlagMetadata>
  * Transform a flag file name to its corresponding JavaScript import name.
  *
  * @example
- * ```ts
- * "DE.svg" => "flagDE"
- * // e.g. used as 'import { flagDE } from "@sit-onyx/flags"'
- * ```
+ *   ```ts
+ *   "DE.svg" => "flagDE"
+ *   // e.g. used as 'import { flagDE } from "@sit-onyx/flags"'
+ *   ```;
  */
 export const getFlagImportName = (flagName: string) => {
   return `flag${flagName.replace(".svg", "").replaceAll("-", "_")}`;

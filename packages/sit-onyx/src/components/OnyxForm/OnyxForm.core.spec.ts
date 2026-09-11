@@ -96,7 +96,9 @@ test("should update when changed", () => {
   const formProps = reactive({ disabled: false, showError: true });
   provideFormContext(formProps);
 
-  const localProps = reactive({ disabled: FORM_INJECTED_SYMBOL as FormInjected<boolean> });
+  const localProps = reactive<{ disabled: FormInjected<boolean> }>({
+    disabled: FORM_INJECTED_SYMBOL,
+  });
   const { disabled } = useFormContext(localProps);
   expect(disabled.value).toBe(false);
 

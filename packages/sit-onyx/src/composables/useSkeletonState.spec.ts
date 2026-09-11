@@ -84,7 +84,9 @@ test("should update when changed", () => {
   const pageLayoutProps = reactive({ skeleton: false });
   provideSkeletonContext(pageLayoutProps);
 
-  const localProps = reactive({ skeleton: SKELETON_INJECTED_SYMBOL as SkeletonInjected });
+  const localProps = reactive<{ skeleton: SkeletonInjected }>({
+    skeleton: SKELETON_INJECTED_SYMBOL,
+  });
   const skeleton = useSkeletonContext(localProps);
   expect(skeleton.value).toBe(false);
 

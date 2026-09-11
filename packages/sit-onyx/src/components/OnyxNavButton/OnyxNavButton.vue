@@ -1,21 +1,39 @@
 <script lang="ts">
 /**
+ * @deprecated This component is still under active development and its API might change in patch
+ *   releases.
  * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
  */
 export default {};
 </script>
 
 <script lang="ts" setup>
+import { computed, inject } from "vue";
 import { useForwardProps } from "../../utils/props.js";
 import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import { NAV_BAR_IS_EXPANDED_INJECTION_KEY } from "../OnyxNavBar/types.js";
 import type { OnyxNavButtonProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxNavButtonProps>(), {
   color: "neutral",
 });
 
+defineSlots<{
+  /**
+   * You can replace the label of the navButton with your custom content.
+   */
+  default?(): unknown;
+}>();
+
+const isExpanded = inject(NAV_BAR_IS_EXPANDED_INJECTION_KEY, undefined);
+
+const isLabelHidden = computed(() => {
+  if (isExpanded) {
+    return !isExpanded?.value;
+  }
+  return props.hideLabel;
+});
 const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
 </script>
 
@@ -25,13 +43,16 @@ const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
     :class="[
       'onyx-component',
       'onyx-nav-button',
+      'onyx-truncation-ellipsis',
       { 'onyx-nav-button--primary': props.color === 'primary' },
     ]"
-    :aria-label="props.hideLabel ? props.label : undefined"
-    :title="props.hideLabel ? props.label : undefined"
+    :aria-label="isLabelHidden ? props.label : undefined"
+    :title="isLabelHidden ? props.label : undefined"
   >
-    <OnyxIcon v-if="props.icon" :icon="props.icon" />
-    <span v-if="!props.hideLabel" class="onyx-nav-button__labels">{{ props.label }}</span>
+    <slot>
+      <OnyxIcon v-if="props.icon" :icon="props.icon" />
+      <span v-if="!isLabelHidden" class="onyx-nav-button__labels">{{ props.label }}</span>
+    </slot>
   </ButtonOrLinkLayout>
 </template>
 
@@ -64,7 +85,6 @@ const buttonOrLinkLayoutProps = useForwardProps(props, ButtonOrLinkLayout);
     &--primary {
       --onyx-nav-button-background: var(--onyx-color-base-primary-100);
       --onyx-nav-button-background-hover: var(--onyx-color-base-primary-200);
-      --onyx-nav-button-color: var(--onyx-color-text-icons-primary-bold);
       --onyx-nav-button-outline-color: var(--onyx-color-base-primary-300);
     }
 

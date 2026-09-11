@@ -74,6 +74,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
   @include layers.component() {
     --onyx-button-padding-vertical: var(--onyx-density-xs);
     --onyx-button-padding-inline: var(--onyx-density-sm);
+    --onyx-button-border-radius: var(--onyx-radius-component-button);
   }
 }
 
@@ -91,7 +92,6 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
     --onyx-button-border-color-disabled: transparent;
     --onyx-button-outline-color: var(--onyx-color-component-focus-primary);
     --onyx-button-border-width: var(--onyx-1px-in-rem);
-    --onyx-button-border-radius: var(--onyx-radius-component-button);
 
     &--primary {
       &.onyx-button--default {
@@ -107,7 +107,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
       &.onyx-button--outline {
         --onyx-button-background-color-hover: var(--onyx-color-base-primary-100);
-        --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-primary-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-primary-soft);
         --onyx-button-border-color: var(--onyx-color-base-primary-400);
         --onyx-button-border-color-disabled: var(--onyx-color-base-primary-200);
@@ -115,7 +115,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
       &.onyx-button--plain {
         --onyx-button-background-color-hover: var(--onyx-color-base-primary-100);
-        --onyx-button-text-color: var(--onyx-color-text-icons-primary-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-primary-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-primary-soft);
       }
     }
@@ -129,21 +129,21 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
         --onyx-button-background-color-disabled: var(--onyx-color-base-background-blank);
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-soft);
-        --onyx-button-border-color: var(--onyx-color-base-neutral-400);
+        --onyx-button-border-color: var(--onyx-color-component-border-neutral);
         --onyx-button-border-color-disabled: var(--onyx-color-base-neutral-200);
       }
 
       &.onyx-button--outline {
         --onyx-button-background-color-hover: var(--onyx-color-base-neutral-200);
-        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-soft);
-        --onyx-button-border-color: var(--onyx-color-base-neutral-400);
+        --onyx-button-border-color: var(--onyx-color-component-border-neutral);
         --onyx-button-border-color-disabled: var(--onyx-color-base-neutral-200);
       }
 
       &.onyx-button--plain {
         --onyx-button-background-color-hover: var(--onyx-color-base-neutral-200);
-        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-neutral-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-soft);
       }
     }
@@ -172,7 +172,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
 
       &.onyx-button--plain {
         --onyx-button-background-color-hover: var(--onyx-color-base-danger-100);
-        --onyx-button-text-color: var(--onyx-color-text-icons-danger-intense);
+        --onyx-button-text-color: var(--onyx-color-text-icons-danger-bold);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-danger-medium);
       }
     }
@@ -243,6 +243,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       height: calc(1.5rem + 2 * var(--onyx-button-padding-vertical));
       display: inline-block;
       vertical-align: middle;
+      border-radius: var(--onyx-button-border-radius);
     }
 
     .onyx-ripple {

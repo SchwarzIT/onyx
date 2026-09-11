@@ -34,16 +34,18 @@ defineSlots<{
    */
   headline?(bindings: Pick<OnyxAlertModalProps, "label">): unknown;
   /**
-   * Slot to display custom actions at the bottom of the modal, e.g. buttons for confirm or cancelling the current user workflow.
-   * Focus is automatically set to the first focusable element inside the modal dialog.
-   * If this is a button, it should be the least destructive action, to prevent users from accidentally confirming non-reversible actions.
+   * Slot to display custom actions at the bottom of the modal, e.g. buttons for confirm or
+   * cancelling the current user workflow. Focus is automatically set to the first focusable element
+   * inside the modal dialog. If this is a button, it should be the least destructive action, to
+   * prevent users from accidentally confirming non-reversible actions.
    *
-   * If you have to, you can use the `autofocus` button attribute to force the initial focus on another button.
+   * If you have to, you can use the `autofocus` button attribute to force the initial focus on
+   * another button.
    *
    * @example
-   * ```vue
-   * <OnyxButton label="Cancel" color="neutral" mode="plain" autofocus />
-   * ```
+   *   ```vue
+   *   <OnyxButton label="Cancel" color="neutral" mode="plain" autofocus />
+   *   ```;
    */
   actions?(): unknown;
 }>();

@@ -4,8 +4,9 @@ import { ref } from "vue";
  * Execute a callback, when all added promise are settled (either resolved or rejected).
  * It allows for more promises to be added while waiting.
  *
- * @param cb callback to execute when all added promise are settled.
- * @returns an object with an add function and the active state which is true as long as any promise is running.
+ * @param cb Callback to execute when all added promise are settled.
+ * @returns An object with an add function and the active state which is true as long as any promise
+ *   is running.
  */
 export const useAllSettled = (cb?: () => void) => {
   const active = ref(false);

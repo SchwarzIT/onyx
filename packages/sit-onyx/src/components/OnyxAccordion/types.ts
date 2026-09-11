@@ -9,7 +9,7 @@ export type OnyxAccordionProps<TValue extends PropertyKey> = DensityProp & {
    */
   modelValue?: Nullable<TValue[]>;
   /**
-   *  if `true`, only one accordion item can be open at the same time.
+   * If `true`, only one accordion item can be open at the same time.
    */
   exclusive?: boolean;
   /**
@@ -21,8 +21,9 @@ export type OnyxAccordionProps<TValue extends PropertyKey> = DensityProp & {
    */
   skeleton?: SkeletonInjected;
   /**
-   * Accordion type. Will have different visual representations.
-   * Please note that "nested-large" and "nested-small" should only be used inside other components like e.g. the [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--default).
+   * Accordion type. Will have different visual representations. Please note that "nested-large" and
+   * "nested-small" should only be used inside other components like e.g. the
+   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--default).
    */
   type?: AccordionType;
 };
@@ -34,6 +35,7 @@ export type AccordionInjectionKey<TValue extends PropertyKey> = InjectionKey<{
   openItems: Readonly<Ref<PropertyKey[]>>;
   /**
    * Function to update the open state of an AccordionItem.
+   *
    * @param id - The unique ID of the AccordionItem.
    * @param value - Whether the AccordionItem should be open (true) or closed (false).
    */

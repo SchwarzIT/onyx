@@ -8,7 +8,8 @@ const props = defineProps<{
 
 defineSlots<{
   /**
-   * Content / value to display. Is needed in addition to `value` property so its searchable via Nuxt content global search.
+   * Content / value to display. Is needed in addition to `value` property so its searchable via
+   * Nuxt content global search.
    */
   default(): unknown;
 }>();

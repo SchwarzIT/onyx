@@ -78,7 +78,8 @@ export const Required = {
 } satisfies Story;
 
 /**
- * This example shows a disabled select that can not be edited and is therefore not included in any form data.
+ * This example shows a disabled select that can not be edited and is therefore not included in any
+ * form data.
  */
 export const Disabled = {
   args: {

@@ -146,6 +146,10 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
 
 <style lang="scss">
 .onyx-nav-bar--vertical {
+  // 2x navItem padding + 2x verticalNavBar padding + item width + border
+  --onyx-vertical-navbar-collapsed-width: calc(
+    4 * var(--onyx-spacing-2xs) + 1.5rem + var(--onyx-1px-in-rem)
+  );
   .onyx-tooltip {
     --offset: var(--onyx-spacing-2xs);
   }
@@ -155,8 +159,7 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
       max-height: fit-content;
     }
   }
-  // 2x navItem padding + 2x verticalNavBar padding + item width
-  width: calc(4 * var(--onyx-spacing-2xs) + 24px);
+  width: var(--onyx-vertical-navbar-collapsed-width);
   min-width: 0;
   &:not(&.onyx-nav-bar--expanded) {
     .onyx-user-menu {
@@ -217,10 +220,10 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
     }
     &__context,
     &__footer {
+      align-items: initial;
       flex-direction: column;
       width: 100%;
       padding: var(--onyx-spacing-2xs);
-      align-items: start;
     }
     &__footer {
       border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
@@ -253,6 +256,10 @@ provide(NAV_BAR_MORE_LIST_TARGET_INJECTION_KEY, useTemplateRef("moreList"));
     .onyx-flyout-menu {
       width: 100%;
     }
+  }
+
+  .onyx-nav-button {
+    width: 100%;
   }
 }
 </style>

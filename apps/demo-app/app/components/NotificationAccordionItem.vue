@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import { iconInbox } from "@sit-onyx/icons";
-import { OnyxAccordionItem, OnyxEmpty, OnyxIcon, OnyxNotificationCard } from "sit-onyx";
-import { useI18n } from "vue-i18n";
 import type { MyNotification } from "../stores/notification-store.js";
 
 const { t } = useI18n();

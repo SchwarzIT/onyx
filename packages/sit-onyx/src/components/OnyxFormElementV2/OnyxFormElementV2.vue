@@ -1,13 +1,14 @@
 <script lang="ts">
 /**
+ * @deprecated This component is still under active development and its API might change in patch
+ *   releases.
  * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
  */
 export default {};
 </script>
 
 <script lang="ts" setup>
-import { computed, useId } from "vue";
+import { computed, useId, type HTMLAttributes } from "vue";
 import { useDensity } from "../../composables/density.js";
 import { useErrorClass } from "../../composables/useErrorClass.js";
 import {
@@ -29,15 +30,26 @@ import type {
   OnyxFormElementV2Slots,
 } from "./types.js";
 
-const props = withDefaults(defineProps<OnyxFormElementV2Props>(), {
-  skeleton: SKELETON_INJECTED_SYMBOL,
-  requiredMarker: FORM_INJECTED_SYMBOL,
-  showError: FORM_INJECTED_SYMBOL,
-  reserveMessageSpace: FORM_INJECTED_SYMBOL,
-  open: undefined,
-  popoverOptions: () => ({ fitParent: true }),
-  id: () => useId(),
-});
+const props = withDefaults(
+  defineProps<
+    OnyxFormElementV2Props & {
+      /**
+       * *Wether it's unstyled, in which case it resets the styles of the content area (where the
+       * main form element resides)
+       */
+      unstyled?: boolean;
+    }
+  >(),
+  {
+    skeleton: SKELETON_INJECTED_SYMBOL,
+    requiredMarker: FORM_INJECTED_SYMBOL,
+    showError: FORM_INJECTED_SYMBOL,
+    reserveMessageSpace: FORM_INJECTED_SYMBOL,
+    open: undefined,
+    popoverOptions: () => ({ fitParent: true }),
+    id: () => useId(),
+  },
+);
 
 const emit = defineEmits<{
   /**
@@ -59,7 +71,7 @@ const label = computed<FormElementV2LabelOptions>(() => {
   return { label: props.label };
 });
 
-const inputProps = computed(() => {
+const inputProps = computed<HTMLAttributes>(() => {
   return {
     id: props.id,
     class: ["onyx-form-element-v2__input", "onyx-truncation-ellipsis"],
@@ -71,6 +83,10 @@ const inputProps = computed(() => {
           "aria-label": label.value.label,
         }
       : {}),
+    // prevent showing virtual keyboards on e.g. smartphones
+    // since the input is not editable if a popover exists
+    // see: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inputmode
+    ...(slots.popover ? { inputmode: "none" } : {}),
   };
 });
 
@@ -86,7 +102,10 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       'onyx-form-element-v2',
       densityClass,
       errorClass,
-      { [`onyx-form-element-v2--label-${label.position}`]: label.position !== 'top' },
+      {
+        [`onyx-form-element-v2--label-${label.position}`]: label.position !== 'top',
+        'onyx-form-element-v2--unstyled': props.unstyled,
+      },
     ]"
   >
     <OnyxFormElementV2Label
@@ -165,7 +184,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
     --onyx-form-element-v2-border-radius: var(--onyx-radius-component-input);
     --onyx-form-element-v2-border-size: var(--onyx-1px-in-rem);
     --onyx-form-element-v2-border-color: var(--onyx-color-component-border-neutral);
-    --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-primary-hover);
+    --onyx-form-element-v2-border-color-hover: var(--onyx-color-component-border-neutral-hover);
     --onyx-form-element-v2-border-color-focus: var(--onyx-color-component-border-primary);
     --onyx-form-element-v2-background: var(--onyx-color-base-background-blank);
     --onyx-form-element-v2-background-hover: var(--onyx-form-element-v2-background);
@@ -258,9 +277,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
       > .onyx-form-element-v2__label {
         width: max-content;
-        padding-block: calc(
-          var(--onyx-form-element-v2-padding-block) + var(--onyx-form-element-v2-border-size)
-        );
+        padding-block: calc(var(--onyx-form-element-v2-padding-block));
         line-height: var(--onyx-font-line-height-md);
       }
     }
@@ -475,6 +492,21 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       height: calc(
         var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
       );
+    }
+  }
+  &--unstyled {
+    > .onyx-form-element-v2__body {
+      > .onyx-form-element-v2__content {
+        background-color: transparent;
+        > .onyx-form-element-v2__input-container {
+          border: none;
+          outline: none;
+          &:focus-within,
+          &:hover {
+            background-color: transparent;
+          }
+        }
+      }
     }
   }
 }

@@ -50,6 +50,15 @@
     "loadMore": "Načítať viac",
     "editing": {
       "label": "{column} s ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Zmeniť usporiadanie riadkov",
+      "reset": "Resetovať zmeny",
+      "dragToMove": "Potiahnutím presuniete riadok"
+    },
+    "columnRearrange": {
+      "rearrange": "Zmeniť usporiadanie stĺpcov",
+      "dragToMove": "Potiahnutím presuniete stĺpec"
     }
   },
   "validations": {
@@ -75,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Povinné",
-      "fullError": "Pole je prázdne, je povinné a musí byť vyplnené."
+      "fullError": "Pole je prázdne, je povinné a musí byť vyplnené.",
+      "whitespaceError": "Zadajte platný text (samotné medzery nie sú povolené)."
     },
     "stepMismatch": {
       "preview": "Neplatné číslo",
@@ -352,5 +362,13 @@
   },
   "accordion": {
     "toggle": "Kliknutím prepnete obsah"
-  }
+  },
+  "search": {
+    "filterLabel": "zobraziť filter vyhľadávania",
+    "leadingShortcutPlaceholder": "Napísať",
+    "trailingShortcutPlaceholder": "na vyhľadávanie",
+    "label": "Hľadať",
+    "selectFilter": "Vybrať filter"
+  },
+  "save": "Uložiť"
 }

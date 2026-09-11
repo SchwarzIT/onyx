@@ -1,5 +1,30 @@
 # @sit-onyx/nuxt
 
+## 1.1.2
+
+### Patch Changes
+
+- c2a89f6: build: generate locales at build time
+
+## 1.1.1
+
+### Patch Changes
+
+- 50997cf: fix(nuxt): Fix loading of i18n locales
+
+  This fixes the following issue / warning:
+  `WARN Failed to load messages for locale "en" Failed loading locale (en): /@fs/@sit-onyx/nuxt/dist/runtime/locales/en-US.js — You need to define 'export default' that will return the locale messages.`Ï
+
+## 1.1.0
+
+### Minor Changes
+
+- 416a3ea: feat: support more languages
+
+  The following languages are now supported: Bulgarian, Czech, Spanish, French, Croatian, Italian, Korean (updated), Dutch, Polish, Portuguese, Romanian and Slovak
+
+  For a full list, please refer to the [i18n documentation](https://onyx.schwarz/development/i18n.html#build-in-languages).
+
 ## 1.0.1
 
 ### Patch Changes

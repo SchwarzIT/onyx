@@ -1,10 +1,10 @@
 import { computed, ref, toValue, watch, type MaybeRef, type MaybeRefOrGetter } from "vue";
-import type { DateValue, OnyxDatePickerProps } from "../components/OnyxDatePicker/types.js";
+import type { OnyxDatePickerProps } from "../components/OnyxDatePicker/types.js";
 import type { FormElementV2Tooltip } from "../components/OnyxFormElementV2/types.js";
 import type { InputType } from "../components/OnyxInput/types.js";
 import { injectI18n } from "../i18n/index.js";
 import enUS from "../i18n/locales/en-US.json";
-import { isValidDate } from "../utils/date.js";
+import { isValidDate, type DateValue } from "../utils/date.js";
 import { getFirstInvalidType } from "../utils/validity.js";
 import { useCustomValidity, type UseFormValidityOptions } from "./useCustomValidity.js";
 import type { MaxLength } from "./useLenientMaxLengthValidation.js";
@@ -27,12 +27,15 @@ export type FormMessages = {
    */
   hidden?: boolean;
 };
+
 export type CustomValidityProp = {
   /**
    * Custom error message to show. Takes precedence over intrinsic error messages.
    */
   error?: CustomMessageType;
 };
+
+export type CustomValidationMessages = Partial<Record<keyof ValidityState, AnyFormError>>;
 
 export type FormValidationProps = {
   error?: CustomMessageType;
@@ -46,12 +49,14 @@ export type FormValidationProps = {
 };
 
 export type AnyFormError = CustomMessageType | FormElementV2Tooltip;
+
 export type UseFormElementErrorOptions = Omit<
   UseFormValidityOptions<FormValidationProps>,
   "error" | "props"
 > & {
   props: MaybeRef<Omit<FormValidationProps, "error"> & { error?: AnyFormError }>;
   error?: MaybeRefOrGetter<AnyFormError | undefined>;
+  customErrorMessages?: MaybeRefOrGetter<CustomValidationMessages | undefined>;
 };
 
 /**
@@ -63,7 +68,8 @@ export const TRANSLATED_INPUT_TYPES = Object.keys(
 export type TranslatedInputType = (typeof TRANSLATED_INPUT_TYPES)[number];
 
 /**
- * Transforms a customMessage into the format needed to display an error preview and extended message
+ * Transforms a customMessage into the format needed to display an error preview and extended
+ * message
  */
 export const getFormMessages = (customMessage?: CustomMessageType): FormMessages | undefined => {
   if (!customMessage) return;
@@ -77,8 +83,8 @@ export const getFormMessages = (customMessage?: CustomMessageType): FormMessages
 };
 
 /**
- * Returns a string combining short + long message or just the customMessage if it was provided as single string.
- * Will be used e.g. for customInvalidity and showing a tooltip e.g. in RadioButtons
+ * Returns a string combining short + long message or just the customMessage if it was provided as
+ * single string. Will be used e.g. for customInvalidity and showing a tooltip e.g. in RadioButtons
  */
 export const getFormMessageText = (error?: CustomMessageType): string | undefined => {
   if (!error) return;
@@ -149,6 +155,16 @@ export const useFormElementError = (options: UseFormElementErrorOptions) => {
       return errors;
     }
     if (!errorType) return;
+
+    // Check for custom override for this specific native error type (e.g., patternMismatch)
+    const customMessages = toValue(options.customErrorMessages);
+    if (customMessages && errorType in customMessages) {
+      const specificError = customMessages[errorType as keyof CustomValidationMessages];
+      if (specificError) {
+        return getFormMessages(normalizeError(specificError));
+      }
+    }
+
     const maxlength = typeof props.maxlength === "object" ? props.maxlength.max : props.maxlength;
     const validationData = {
       value: props.modelValue?.toString(),

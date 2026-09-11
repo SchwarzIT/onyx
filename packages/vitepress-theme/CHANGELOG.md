@@ -1,5 +1,11 @@
 # @sit-onyx/vitepress-theme
 
+## 1.1.0
+
+### Minor Changes
+
+- 397511f: feat: Update icon background gradient to match new icon
+
 ## 1.0.0
 
 ### Major Changes

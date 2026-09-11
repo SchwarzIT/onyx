@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 defineSlots<{
   /**
-   * Default slot to place the avatars.
+   * Use the default slot to show one or more `OnyxAvatar` components.
    */
   default(): unknown;
 }>();

@@ -1,0 +1,36 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid {
+    .onyx-data-grid-row-rearrange-cell {
+      --onyx-table-padding-inline: var(--onyx-table-padding-block);
+      cursor: grab;
+
+      &:active {
+        cursor: grabbing;
+      }
+
+      &__button {
+        cursor: inherit;
+      }
+    }
+
+    .onyx-data-grid-rearrange-row--highlighted {
+      &::after {
+        content: "";
+        display: block;
+        background-color: var(--onyx-color-component-border-primary);
+        height: var(--onyx-spacing-5xs);
+        z-index: 100;
+        grid-column: 1 / -1;
+        align-self: flex-end;
+      }
+
+      &.onyx-data-grid-rearrange-row--highlighted-before {
+        &::after {
+          align-self: flex-start;
+        }
+      }
+    }
+  }
+}

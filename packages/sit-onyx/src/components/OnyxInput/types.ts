@@ -1,3 +1,4 @@
+import type { CustomMessageType } from "../../composables/useFormElementError.js";
 import type { SharedTextInputProps } from "../../composables/useLenientMaxLengthValidation.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
@@ -6,15 +7,16 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
   Pick<OnyxFormElementV2Props, "label"> &
   SharedTextInputProps & {
     /**
-     * Input type.
-     * For numeric inputs, we recommend using the [OnyxStepper](https://storybook.onyx.schwarz/?path=/docs/form-elements-stepper--docs).
-     * For date inputs, refer to the [OnyxDatePicker](https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs).
+     * Input type. For numeric inputs, we recommend using the
+     * [OnyxStepper](https://storybook.onyx.schwarz/?path=/docs/form-elements-stepper--docs). For
+     * date inputs, refer to the
+     * [OnyxDatePicker](https://storybook.onyx.schwarz/?path=/docs/form-elements-datepicker--docs).
      */
     type?: InputType;
     /**
      * Pattern the value must match to be valid.
      */
-    pattern?: string | RegExp;
+    pattern?: InputPattern | { value: InputPattern; error: CustomMessageType };
     /**
      * Whether to hide the check icon when the input is in a success state.
      *
@@ -32,9 +34,9 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
      */
     showPassword?: boolean;
     /**
-     * Whether to disable the inline padding for the leading and trailing slot.
-     * Useful when placing full-size components like OnyxSelect or OnyxFormElementAction inside.
-     * When set to `true`, use custom CSS with the `var(--onyx-form-element-v2-padding-inline)` to apply padding if needed.
+     * Whether to disable the inline padding for the leading and trailing slot. Useful when placing
+     * full-size components like OnyxSelect or OnyxFormElementAction inside. When set to `true`, use
+     * custom CSS with the `var(--onyx-form-element-v2-padding-inline)` to apply padding if needed.
      *
      * Will become the default in version 2.
      */
@@ -43,3 +45,4 @@ export type OnyxInputProps = Omit<SharedFormElementProps, "label"> &
 
 export const INPUT_TYPES = ["email", "password", "search", "tel", "text", "url"] as const;
 export type InputType = (typeof INPUT_TYPES)[number];
+type InputPattern = string | RegExp;

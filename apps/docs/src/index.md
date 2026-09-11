@@ -4,11 +4,13 @@ layout: home
 markdownStyles: false
 
 hero:
-  name: onyx.web
-  text: design system
-  tagline: A design system and Vue.js component library created by Schwarz IT.
+  name: Onyx
+  text: |
+    Application
+    Design System
+  tagline: A design system and Vue.js component library created by Schwarz Digits.
   image:
-    src: /images/logo-signet-light.svg
+    src: /favicon.svg
     alt: Logo of the Schwarz Group
   actions:
     - theme: brand
@@ -38,7 +40,7 @@ features:
       dark: /icons/figma-light.svg
       alt: Figma logo
   - title: Open Source
-    details: Open Source and free to use. Released under the Apache-2.0 License.
+    details: Anyone can inspect, review, modify, and improve the code. But Open Source isn't a free ride — continuous development and maintenance require resources that internal Schwarz Group projects should support.
     icon:
       light: /icons/github-dark.svg
       dark: /icons/github-light.svg

@@ -8,14 +8,14 @@ import OnyxMenuItem from "../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxSplitButton from "./OnyxSplitButton.vue";
 
 /**
- * The SplitButton is used to have multiple actions alongside a group of similar actions.
- * The main action will be displayed on the left and will be triggered immediately after clicking.
- * On the right side and behind an icon are multiple actions which can be individual or can extend the functionality of the main action.
+ * The SplitButton is used to have multiple actions alongside a group of similar actions. The main
+ * action will be displayed on the left and will be triggered immediately after clicking. On the
+ * right side and behind an icon are multiple actions which can be individual or can extend the
+ * functionality of the main action.
  */
 const meta: Meta<typeof OnyxSplitButton> = {
   title: "Buttons/SplitButton",
   component: OnyxSplitButton,
-  tags: ["new:component"],
   argTypes: {
     icon: defineIconSelectArgType(),
     ...withNativeEventLogging(["onClick"]),

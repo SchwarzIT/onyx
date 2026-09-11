@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import {
   iconBell,
   iconBrowserTerminal,
@@ -17,6 +18,7 @@ import {
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
+  OnyxNotificationDot,
   OnyxPageLayout,
   OnyxTag,
   OnyxUnstableNavButton,
@@ -40,16 +42,20 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
       <OnyxNavBar
         v-model:expanded="expanded"
         app-name="App name"
-        logo-url="/onyx-logo.svg"
+        :logo-url
         :orientation="isMobile ? 'horizontal' : 'vertical'"
       >
         <OnyxNavItem label="Router Link" link="#router-link" active :icon="iconPlaceholder" />
-        <OnyxNavItem label="External Link" link="https://it.schwarz/" :icon="iconPlaceholder" />
+        <OnyxNavItem
+          label="External Link"
+          link="https://schwarz-digits.de/"
+          :icon="iconPlaceholder"
+        />
         <OnyxNavItem label="Nesting" :icon="iconPlaceholder">
           <template #children>
             <OnyxNavItem label="Item 1" link="#nested-router-link" />
             <OnyxNavItem label="Item 2" />
-            <OnyxNavItem label="Item 3" link="https://it.schwarz/" />
+            <OnyxNavItem label="Item 3" link="https://schwarz-digits.de/" />
           </template>
         </OnyxNavItem>
 
@@ -80,12 +86,12 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
             label="Search"
             hide-label
           />
-          <component
-            :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem"
-            hide-label
-            :icon="iconBell"
-            label="Notification"
-          />
+          <component :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem" label="Notification">
+            <OnyxNotificationDot>
+              <OnyxIcon :icon="iconBell" />
+            </OnyxNotificationDot>
+            <span v-if="expanded">Notification</span>
+          </component>
         </template>
       </OnyxNavBar>
     </template>

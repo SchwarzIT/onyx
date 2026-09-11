@@ -1,13 +1,14 @@
 import { fileURLToPath, URL } from "node:url";
 import { DiagnosticCategory } from "typescript";
+import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
 import { dependencies } from "./package.json" with { type: "json" };
+import { skillMdPlugin } from "./skill-md.vite.js";
 
 export default defineConfig({
   plugins: [
+    skillMdPlugin(),
     dts({
-      rollupTypes: true,
       afterDiagnostic: async (diagnostics) => {
         if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
           throw new Error("Build aborted due to TypeScript errors in the library!");
@@ -30,7 +31,9 @@ export default defineConfig({
   },
 });
 
-/** Gets the given path while ensuring cross-platform and correct decoding */
+/**
+ * Gets the given path while ensuring cross-platform and correct decoding
+ */
 function getFilePath(path: string) {
   return fileURLToPath(new URL(path, import.meta.url));
 }

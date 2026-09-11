@@ -1,7 +1,7 @@
 import { test } from "@playwright/experimental-ct-vue";
 import type { Page } from "@playwright/test";
-import TestCalendar from "./TestCalendar.vue";
 import { calendarTesting } from "./createCalendar.testing.js";
+import TestCalendar from "./TestCalendar.vue";
 const getTestOptions = (page: Page) => ({
   page,
   calendarGrid: page.getByRole("grid"),

@@ -2,13 +2,15 @@ import { iconPlaceholder } from "@sit-onyx/icons";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
+import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import OnyxInput from "./OnyxInput.vue";
 
 /**
- * Text inputs are essential UI elements where users can enter textual information.
- * These components play a fundamental role in facilitating user interactions and data input within applications and websites.
+ * Text inputs are essential UI elements where users can enter textual information. These components
+ * play a fundamental role in facilitating user interactions and data input within applications and
+ * websites.
  */
 const meta: Meta<typeof OnyxInput> = {
   title: "Form Elements/Input",
@@ -20,7 +22,6 @@ const meta: Meta<typeof OnyxInput> = {
     }),
   ],
   argTypes: {
-    pattern: { type: "string" },
     leading: { control: { disable: true } },
     leadingIcons: { control: { disable: true } },
     trailing: { control: { disable: true } },
@@ -73,7 +74,8 @@ export const Readonly = {
 } satisfies Story;
 
 /**
- * This example shows a disabled input that can not be edited and is therefore not included in any form data.
+ * This example shows a disabled input that can not be edited and is therefore not included in any
+ * form data.
  */
 export const Disabled = {
   args: {
@@ -217,7 +219,6 @@ export const WithMessageTooltip = {
 } satisfies Story;
 
 export const LeftLabel = {
-  tags: ["new:feature"],
   args: {
     label: {
       label: "Label",
@@ -226,8 +227,12 @@ export const LeftLabel = {
   },
 } satisfies Story;
 
+export const WithCopyButton = createAdvancedStoryExample(
+  "OnyxInput",
+  "CopyExample",
+) satisfies Story;
+
 export const Slots = {
-  tags: ["new:feature"],
   args: {
     label: { label: Default.args.label, tooltipText: "Label tooltip" },
     disableSlotPadding: true,

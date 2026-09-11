@@ -31,7 +31,8 @@ const badgeClasses = computed(() => [
 
 defineSlots<{
   /**
-   * Badge content.
+   * The content of the badge. Don't provide interactive content.
+   * If the `dot` or `icon` prop is set the slot content is not rendered.
    */
   default?(): unknown;
 }>();
@@ -85,16 +86,17 @@ defineSlots<{
 
   @include layers.component() {
     --onyx-badge-background-color: var(--onyx-color-component-cta-default);
+    --onyx-badge-color: var(--onyx-color-base-neutral-100);
     --onyx-badge-hover-background-color: var(--onyx-color-component-cta-default-hover);
     --onyx-badge-focus-color: var(--onyx-color-component-focus-primary);
-    --onyx-badge-active-background-color: var(--onyx-color-base-primary-700);
-
+    --onyx-badge-active-background-color: var(--onyx-color-base-secondary-900);
+    --onyx-badge-active-color: var(--onyx-color-base-neutral-100);
     display: inline-block;
     max-width: 100%;
     padding: var(--onyx-density-3xs) var(--onyx-density-sm);
     border-radius: var(--onyx-radius-component-badge);
     background-color: var(--onyx-badge-background-color);
-    color: var(--onyx-color-text-icons-neutral-inverted);
+    color: var(--onyx-badge-color);
     font-family: var(--onyx-font-family-paragraph);
     font-style: normal;
     vertical-align: middle;
@@ -133,6 +135,11 @@ defineSlots<{
 
     &--active {
       background-color: var(--onyx-badge-active-background-color);
+      color: var(--onyx-badge-active-color);
+    }
+
+    &--primary {
+      --onyx-badge-color: var(--onyx-color-text-icons-neutral-button);
     }
 
     &--neutral {
@@ -146,25 +153,25 @@ defineSlots<{
       --onyx-badge-background-color: var(--onyx-color-base-danger-500);
       --onyx-badge-hover-background-color: var(--onyx-color-base-danger-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-danger);
-      --onyx-badge-active-background-color: var(--onyx-color-base-danger-700);
+      --onyx-badge-active-background-color: var(--onyx-color-base-danger-800);
     }
 
     &--warning {
-      --onyx-badge-background-color: var(--onyx-color-base-warning-500);
+      --onyx-badge-background-color: var(--onyx-color-base-warning-800);
       --onyx-badge-hover-background-color: var(--onyx-color-base-warning-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-warning);
       --onyx-badge-active-background-color: var(--onyx-color-base-warning-700);
     }
 
     &--success {
-      --onyx-badge-background-color: var(--onyx-color-base-success-500);
+      --onyx-badge-background-color: var(--onyx-color-base-success-800);
       --onyx-badge-hover-background-color: var(--onyx-color-base-success-200);
       --onyx-badge-focus-color: var(--onyx-color-component-focus-success);
       --onyx-badge-active-background-color: var(--onyx-color-base-success-700);
     }
 
     &--info {
-      --onyx-badge-background-color: var(--onyx-color-base-info-500);
+      --onyx-badge-background-color: var(--onyx-color-base-info-800);
       --onyx-badge-hover-background-color: var(--onyx-color-base-info-200);
       --onyx-badge-focus-color: var(--onyx-color-base-info-200);
       --onyx-badge-active-background-color: var(--onyx-color-base-info-700);
@@ -178,6 +185,7 @@ defineSlots<{
       height: max-content;
       width: max-content;
       padding: var(--onyx-density-2xs);
+      border-radius: var(--onyx-radius-full);
     }
   }
 }

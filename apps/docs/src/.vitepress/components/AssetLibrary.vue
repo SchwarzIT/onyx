@@ -16,13 +16,15 @@ export type Asset<TData = unknown> = {
   /**
    * Unique ID of the asset.
    *
-   * @example Icon name, country code
+   * @example
+   *   Icon name, country code
    */
   id: string;
   /**
    * Readable name of the asset.
    *
-   * @example Icon name, country name
+   * @example
+   *   Icon name, country name
    */
   name: string;
   /**

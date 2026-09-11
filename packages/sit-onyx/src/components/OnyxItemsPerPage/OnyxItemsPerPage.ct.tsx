@@ -36,6 +36,7 @@ test.describe("Screenshot tests (label alignment)", () => {
     name: "Items per page (label alignment)",
     columns: ["default"],
     rows: ["right", "left", "hidden"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxItemsPerPage
         modelValue={10}
@@ -66,6 +67,7 @@ test.describe("Screenshot tests (truncation)", () => {
     name: "Items per page (truncation)",
     columns: ["default"],
     rows: ["default"],
+    fastNoIsolation: true,
     component: () => (
       <div style={{ width: "10rem" }}>
         <OnyxItemsPerPage options={PER_PAGE_OPTIONS} modelValue={10} />

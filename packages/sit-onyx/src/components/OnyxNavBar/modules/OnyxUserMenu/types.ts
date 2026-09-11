@@ -6,11 +6,13 @@ export type OnyxUserMenuProps = Pick<OnyxFlyoutMenuProps, "alignment" | "positio
   /**
    * Full user name.
    *
-   * @example "John Doe"
+   * @example
+   *   "John Doe";
    */
   fullName: string;
   /**
-   * User avatar. If unset or an error occurs while loading, a fallback will be displayed with the username initials.
+   * User avatar. If unset or an error occurs while loading, a fallback will be displayed with the
+   * username initials.
    */
   avatar?: string | Omit<OnyxAvatarProps, "size">;
   /**

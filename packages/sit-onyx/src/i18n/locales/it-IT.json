@@ -50,6 +50,15 @@
     "loadMore": "Carica altro",
     "editing": {
       "label": "{column} con ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Riorganizza righe",
+      "reset": "Reimposta modifiche",
+      "dragToMove": "Trascina per spostare la riga"
+    },
+    "columnRearrange": {
+      "rearrange": "Riorganizza colonne",
+      "dragToMove": "Trascina per spostare la colonna"
     }
   },
   "validations": {
@@ -75,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Obbligatorio",
-      "fullError": "Il campo è vuoto, è obbligatorio e deve essere compilato."
+      "fullError": "Il campo è vuoto, è obbligatorio e deve essere compilato.",
+      "whitespaceError": "Inserisci un testo valido (non sono ammessi solo spazi)."
     },
     "stepMismatch": {
       "preview": "Numero non valido",
@@ -352,5 +362,13 @@
   },
   "accordion": {
     "toggle": "Clicca per mostrare/nascondere il contenuto"
-  }
+  },
+  "search": {
+    "filterLabel": "mostra filtro di ricerca",
+    "leadingShortcutPlaceholder": "Digitare",
+    "trailingShortcutPlaceholder": "per cercare",
+    "label": "Cerca",
+    "selectFilter": "Seleziona filtro"
+  },
+  "save": "Salva"
 }

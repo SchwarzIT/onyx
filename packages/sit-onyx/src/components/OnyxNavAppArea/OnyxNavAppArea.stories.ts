@@ -1,7 +1,7 @@
+import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import { withNativeEventLogging } from "@sit-onyx/storybook-utils";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxNavAppArea from "./OnyxNavAppArea.vue";
-
 /**
  * App area of the `OnyxNavBar`. Is not intended to be used outside of the nav bar.
  */
@@ -20,6 +20,6 @@ type Story = StoryObj<typeof OnyxNavAppArea>;
 export const Default = {
   args: {
     appName: "App name",
-    logoUrl: "/onyx-logo.svg",
+    logoUrl,
   },
 } satisfies Story;

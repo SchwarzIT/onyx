@@ -7,6 +7,7 @@
   "back": "Back",
   "close": "Close",
   "now": "Now",
+  "save": "Save",
   "breadcrumb": {
     "label": "Breadcrumb navigation",
     "home": "Home"
@@ -50,7 +51,16 @@
     "editing": {
       "label": "{column} with ID {id}"
     },
-    "loadMore": "Load more"
+    "loadMore": "Load more",
+    "rowRearrange": {
+      "rearrange": "Rearrange rows",
+      "reset": "Reset changes",
+      "dragToMove": "Drag to move row"
+    },
+    "columnRearrange": {
+      "rearrange": "Rearrange columns",
+      "dragToMove": "Drag to move column"
+    }
   },
   "validations": {
     "tooShort": {
@@ -75,7 +85,8 @@
     },
     "valueMissing": {
       "preview": "Required",
-      "fullError": "The field is empty, it is mandatory and must be filled in."
+      "fullError": "The field is empty, it is mandatory and must be filled in.",
+      "whitespaceError": "Please enter a valid text (spaces only are not allowed)."
     },
     "stepMismatch": {
       "preview": "Invalid number",
@@ -264,6 +275,13 @@
     "copied": "Copied!",
     "failed": "Failed!",
     "tabLabel": "Code"
+  },
+  "search": {
+    "label": "Search",
+    "filterLabel": "Toggle filters",
+    "selectFilter": "Select filters",
+    "leadingShortcutPlaceholder": "Type",
+    "trailingShortcutPlaceholder": "to search"
   },
   "globalSearch": {
     "label": "Global search",

@@ -58,7 +58,8 @@ export type AutofocusProp = {
    * Can only be enabled for one element inside a page/dialog/popover.
    * Note: Has no effect when set after the component has been mounted.
    *
-   * **UX / Accessibility**: autofocus should be used carefully since it can reduce usability and accessibility for users.
+   * **UX / Accessibility**: autofocus should be used carefully since it can reduce usability and
+   * accessibility for users.
    */
   autofocus?: boolean;
 };

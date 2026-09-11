@@ -8,17 +8,18 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
   OnyxFormElementV2Props &
     Pick<SharedFormElementProps, "name" | "placeholder" | "readonly" | "disabled"> &
     AutofocusProp &
-    Omit<OnyxCalendarProps<TSelection>, "size" | "disabled"> &
+    Omit<OnyxCalendarProps<TSelection>, "size" | "disabled" | "hoverDate"> &
     Pick<OnyxInputProps, "hideClearIcon"> & {
       /**
        * Whether to show two calendars in range mode.
        */
-      multiView?: TSelection extends "range" ? boolean : never;
+      // "boolean &" is needed to correctly generate the runtime prop value, see: https://github.com/vuejs/core/issues/13787#issuecomment-3209755164
+      multiView?: boolean & (TSelection extends "range" ? boolean : never);
       /**
        * Disable specific dates to select individually.
        *
        * @example
-       * `(date: Date) => date.getDay() === 0 || date.getDay() === 6`
+       *   `(date: Date) => date.getDay() === 0`;
        */
       disabledDays?: (date: Date) => boolean;
     };

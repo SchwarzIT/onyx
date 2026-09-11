@@ -90,8 +90,9 @@ export const useOpenAlignment = (
      */
     openAlignment,
     /**
-     * Detects in which direction a popover should be aligned, depending on the available space in each direction.
-     * Should only be called onBeforeMount or later to support server side rendering.
+     * Detects in which direction a popover should be aligned, depending on the available space in
+     * each direction. Should only be called onBeforeMount or later to support server side
+     * rendering.
      */
     updateOpenAlignment,
   };

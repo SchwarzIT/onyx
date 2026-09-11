@@ -6,7 +6,8 @@ import OnyxNavButton from "../OnyxNavButton/OnyxNavButton.vue";
 import OnyxNotificationDot from "./OnyxNotificationDot.vue";
 
 /**
- * Displays a dot indicator for an arbitrary component. Useful to e.g. build a [notification center](/story/notifications-examples-notificationcenter--default).
+ * Displays a dot indicator for an arbitrary component. Useful to e.g. build a [notification
+ * center](/story/notifications-examples-notificationcenter--default).
  */
 const meta: Meta<typeof OnyxNotificationDot> = {
   title: "Notifications/NotificationDot",

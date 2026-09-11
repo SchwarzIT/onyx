@@ -1,39 +1,29 @@
-import { Features } from "lightningcss";
 import { globSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { Features } from "lightningcss";
+
+const monorepoRoot = fileURLToPath(new URL("../../", import.meta.url));
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
-  modules: ["nuxt-studio", "nuxt-auth-utils", "@vueuse/nuxt"],
+  modules: ["nuxt-auth-utils", "@vueuse/nuxt"],
+  css: ["@sit-onyx/tiptap/style.css"],
   app: {
     head: {
-      link: [{ rel: "icon", href: "/onyx-logo.svg" }],
+      link: [{ rel: "icon", href: "/favicon.svg" }],
     },
   },
   i18n: {
     defaultLocale: "en",
     locales: [{ code: "en", language: "en-US", file: "en-US.json", name: "English" }],
   },
-  studio: {
-    dev: process.env.NUXT_STUDIO_DEV_DISABLED !== "true",
-    // git repository configuration
-    repository: {
-      provider: "github",
-      owner: "SchwarzIT",
-      repo: "onyx",
-      rootDir: "apps/showcase",
-      private: false,
-      // Nuxt Studio does not yet support creating Pull Requests. Since our main branch is protected, we use a
-      // different branch here so Nuxt Studio can push the changes there directly and we can create the PR manually for now
-      branch: "nuxt-studio",
-    },
-    meta: {
-      // see: https://nuxt.studio/setup#components-meta
-      components: {
-        exclude: ["Prose*"],
-      },
+  content: {
+    experimental: {
+      // use native Node sqlite so we don't need "better-sqlite3" dependency
+      sqliteConnector: "native",
     },
   },
   vite: {
@@ -43,6 +33,14 @@ export default defineNuxtConfig({
         exclude: Features.LightDark,
       },
     },
+    server: {
+      fs: {
+        allow: [monorepoRoot],
+      },
+    },
+  },
+  alias: {
+    "#root": monorepoRoot,
   },
   imports: {
     transform: {

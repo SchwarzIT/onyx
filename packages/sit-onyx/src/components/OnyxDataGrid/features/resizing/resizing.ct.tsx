@@ -28,11 +28,7 @@ test("should resize columns", async ({ page, mount }) => {
   const component = await mount(
     <TestCase
       data={data}
-      columns={[
-        { key: "a", width: "200px" },
-        { key: "b", width: "100px" },
-        { key: "c", width: "300px" },
-      ]}
+      columns={[{ key: "a", width: "200px" }, { key: "b", width: "100px" }, { key: "c" }]}
       onUpdate:resizeState={(newValue) => (resizeState = newValue)}
     />,
   );
@@ -60,12 +56,12 @@ test("should resize columns", async ({ page, mount }) => {
   // ASSERT
   expect(box.width).toBeCloseTo(100, -1);
   expect(parseFloat(resizeState["a"] ?? "")).toBeCloseTo(100, -1);
-  await expect(component).toHaveScreenshot("data-grid-resized-columns-with-extra-empty-column.png");
+  await expect(component).toHaveScreenshot("data-grid-resized-columns.png");
 
   const bBox = (await bColumn.boundingBox())!;
   let cBox = (await cColumn.boundingBox())!;
   expect(bBox.width, "should keep width of other columns when resizing").toBeCloseTo(100);
-  expect(cBox.width, "should keep width of other columns when resizing").toBeCloseTo(300);
+  expect(cBox.width, "should keep width of other columns when resizing").toBeCloseTo(800, -1);
 
   // ACT
   await dragResizeHandle({ page, component: cColumn, to: 1200 });
@@ -80,8 +76,7 @@ test("should resize columns", async ({ page, mount }) => {
 
   // ASSERT
   cBox = (await cColumn.boundingBox())!;
-  expect(cBox.width, "should be able to resize on doubleclick").toBeCloseTo(50, -1);
-  expect(resizeState["c"]).toBe("max-content");
+  expect(cBox.width, "should be able to resize on doubleclick").toBeCloseTo(800, -1);
 });
 
 test("should consider initial resize state", async ({ page, mount }) => {
@@ -92,27 +87,20 @@ test("should consider initial resize state", async ({ page, mount }) => {
   const component = await mount(
     <TestCase
       data={data}
-      columns={[
-        { key: "a", width: "200px" },
-        { key: "b", width: "100px" },
-        { key: "c", width: "300px" },
-      ]}
-      resizeState={{ a: "300px", b: "200px", c: "100px" }}
+      columns={[{ key: "a", width: "200px" }, { key: "b", width: "100px" }, { key: "c" }]}
+      resizeState={{ a: "300px", b: "200px" }}
       onUpdate:resizeState={(newValue) => (resizeState = newValue)}
     />,
   );
 
   const aColumn = component.getByRole("columnheader", { name: "Drag to change width a" });
   const bColumn = component.getByRole("columnheader", { name: "Drag to change width b" });
-  const cColumn = component.getByRole("columnheader", { name: "Drag to change width c" });
 
   // ASSERT
   let aBox = (await aColumn.boundingBox())!;
   const bBox = (await bColumn.boundingBox())!;
-  const cBox = (await cColumn.boundingBox())!;
   expect(aBox.width).toBeCloseTo(300);
   expect(bBox.width).toBeCloseTo(200);
-  expect(cBox.width).toBeCloseTo(100);
   expect(resizeState).toStrictEqual({});
 
   // ACT

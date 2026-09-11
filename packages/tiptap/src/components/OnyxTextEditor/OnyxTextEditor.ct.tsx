@@ -875,6 +875,16 @@ test("should support min/max length", async ({ mount }) => {
   await expect(errorMessage).toContainText("Too long, maximum 6 characters allowed");
 });
 
+test("should show an error if only a whiteSpace is entered", async ({ mount }) => {
+  const component = await mount(<OnyxTextEditor label="Label" required showError />);
+
+  const input = component.getByRole("textbox");
+  await input.fill(" ");
+
+  // ASSERT
+  await expect(component.getByText("RequiredPlease enter a valid").first()).toBeVisible();
+});
+
 /**
  * Expects that the given editor toolbar flyout option is selected.
  */

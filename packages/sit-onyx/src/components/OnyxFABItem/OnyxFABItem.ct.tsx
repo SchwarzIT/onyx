@@ -27,6 +27,7 @@ test.describe("Screenshot tests (icon)", () => {
     name: "FAB item (item)",
     columns: ["default", "link"],
     rows: ["text", "icon", "text-icon"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <ul role="menu" style={{ display: "contents" }}>
         <OnyxFABItem

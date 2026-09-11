@@ -3,7 +3,7 @@ import { Features } from "lightningcss";
 import { deprecations, type Deprecation } from "sass-embedded";
 import type { UserConfig } from "vite";
 
-export const VITE_BASE_CONFIG = {
+export const VITE_BASE_CONFIG: UserConfig = {
   plugins: [vue()],
   css: {
     lightningcss: {
@@ -22,4 +22,4 @@ export const VITE_BASE_CONFIG = {
   /**
    * ⚠️ Global test config should be defined in the root "vitest.config.ts, instead of here!" ⚠️
    */
-} as const satisfies UserConfig;
+};

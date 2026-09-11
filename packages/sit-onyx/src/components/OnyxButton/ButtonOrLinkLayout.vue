@@ -13,7 +13,7 @@ const props = withDefaults(
 
 defineSlots<{
   /**
-   * Button content.
+   * Button content. Must be simple, textual content.
    */
   default(): unknown;
 }>();

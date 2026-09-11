@@ -3,9 +3,10 @@ import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxAppLayout from "./OnyxAppLayout.vue";
 
 /**
- * Layout component that structures your application. Will define scroll containers correctly, so e.g. the nav bar is excluded in the page scroll.
- * Supports slots for common global app elements, e.g. the nav bar and page content.
- * Recommended to be used once in the root of your application (typically the App.vue file).
+ * Layout component that structures your application. Will define scroll containers correctly, so
+ * e.g. the nav bar is excluded in the page scroll. Supports slots for common global app elements,
+ * e.g. the nav bar and page content. Recommended to be used once in the root of your application
+ * (typically the App.vue file).
  */
 const meta: Meta<typeof OnyxAppLayout> = {
   title: "Layout/AppLayout",

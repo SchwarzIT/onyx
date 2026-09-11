@@ -12,6 +12,7 @@ import {
   type AriaAttributes,
   type MaybeRefOrGetter,
   type Ref,
+  type StyleValue,
   type VNode,
 } from "vue";
 import { useDensity } from "../../composables/density.js";
@@ -45,6 +46,7 @@ const props = withDefaults(defineProps<OnyxTooltipProps>(), {
   alignment: "auto",
   alignsWithEdge: false,
   open: undefined,
+  disabled: false,
 });
 
 const emit = defineEmits<{
@@ -56,9 +58,11 @@ const emit = defineEmits<{
 
 defineSlots<{
   /**
-   * Default slot where the parent content is placed that controls the open/close state of the tooltip.
+   * Default slot where the parent content is placed that controls the open/close state of the
+   * tooltip.
    *
-   * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the `open` prop is not `hover`!
+   * **Accessibility**: You must ensure that the trigger attributes are bound to a button when the
+   * `open` prop is not `hover`!
    */
 
   //TODO: fix the attribute type
@@ -74,6 +78,7 @@ defineSlots<{
 const { densityClass } = useDensity(props);
 const { t } = injectI18n();
 
+const isDisabled = toRef(() => props.disabled);
 const isVisible = useVModel({
   props,
   emit,
@@ -119,6 +124,9 @@ const positionAndAlignment = computed(() => {
   if (toolTipPosition.value.includes(" ")) {
     return toolTipPosition.value;
   }
+  if (toolTipPosition.value === "left" || toolTipPosition.value === "right") {
+    return `${toolTipPosition.value} center`;
+  }
   return `${toolTipPosition.value} ${alignment.value === "right" ? "left" : alignment.value === "left" ? "right" : "center"}`;
 });
 
@@ -130,8 +138,19 @@ const createPattern = () =>
 const ariaPattern = shallowRef(createPattern());
 watch(triggerType, () => (ariaPattern.value = createPattern()));
 
+watch(
+  isDisabled,
+  (value) => {
+    if (value) isVisible.value = false;
+  },
+  { immediate: true },
+);
+
 const tooltip = computed(() => ariaPattern.value?.elements.tooltip);
-const triggerElementProps = computed(() => toValue<object>(ariaPattern.value?.elements.trigger));
+const triggerElementProps = computed(() => {
+  if (isDisabled.value) return {};
+  return toValue<object>(ariaPattern.value?.elements.trigger);
+});
 
 const alignsWithEdge = toRef(() => props.alignsWithEdge);
 const fitParent = toRef(() => props.fitParent);
@@ -158,6 +177,7 @@ const updateDirections = () => {
 
 useGlobalEventListener({
   type: "resize",
+  disabled: isDisabled,
   listener: () => updateDirections(),
 });
 
@@ -225,11 +245,11 @@ watch(
 
 const anchorName = `--anchor-${useId()}`;
 
-const tooltipStyles = computed(() => {
+const tooltipStyles = computed<StyleValue>(() => {
   if (useragentSupportsAnchorApi.value) {
     return {
       width: tooltipWidth.value,
-      "position-anchor": anchorName,
+      "position-anchor": "var(--onyx-tooltip-anchor)",
       "position-area": positionAndAlignment.value,
     };
   }
@@ -260,10 +280,11 @@ const tooltipStyles = computed(() => {
   <div
     ref="tooltipWrapperRefEl"
     :class="['onyx-component', 'onyx-tooltip-wrapper', densityClass]"
-    :style="`anchor-name: ${anchorName}`"
+    :style="{ '--onyx-tooltip-anchor': anchorName }"
   >
     <!-- we are using inline "style" here since using v-bind causes hydration errors in Nuxt / SSR -->
     <div
+      v-if="!isDisabled"
       ref="tooltipRefEl"
       v-bind="tooltip"
       :class="['onyx-tooltip', 'onyx-text--small', 'onyx-truncation-multiline', tooltipClasses]"
@@ -282,24 +303,25 @@ const tooltipStyles = computed(() => {
 <style lang="scss">
 @use "../../styles/mixins/layers";
 
-$wedge-size: 0.5rem;
-
 .onyx-tooltip {
   @include layers.component() {
     /**
      * CSS [length](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length) value that can be used to add an extra offset/margin the tooltip.
      */
     --offset: 0rem;
+    --onyx-tooltip-wedge-size: 0.5rem;
+    --onyx-tooltip-max-width: 19rem;
 
     position: fixed;
     min-width: var(--onyx-spacing-3xl);
     width: max-content;
-    max-width: 19rem;
+    // prevent tooltip from overflowing the available viewport width
+    max-width: min(var(--onyx-tooltip-max-width), 100vw);
     height: max-content;
     overflow: hidden;
     padding: 0;
 
-    --offset-with-wedge: calc(var(--offset) + #{$wedge-size});
+    --offset-with-wedge: calc(var(--offset) + var(--onyx-tooltip-wedge-size));
     --background-color: var(--onyx-color-base-neutral-900);
     --color: var(--onyx-color-text-icons-neutral-inverted);
 
@@ -338,27 +360,42 @@ $wedge-size: 0.5rem;
 
       &::after {
         content: " ";
-        position: absolute;
-        /* At the bottom of the tooltip */
-        top: 100%;
-        left: 50%;
-        width: 2 * $wedge-size;
-        height: 2 * $wedge-size;
-        margin-left: -$wedge-size;
-        border-width: $wedge-size;
+        position: fixed;
+        position-anchor: var(--onyx-tooltip-anchor);
+        width: calc(2 * var(--onyx-tooltip-wedge-size));
+        height: calc(2 * var(--onyx-tooltip-wedge-size));
+        border-width: var(--onyx-tooltip-wedge-size);
         border-style: solid;
         border-color: var(--background-color) transparent transparent;
         white-space: normal;
+        /* default styles target position "top": wedge points down, apex at trigger's top edge */
+        top: calc(anchor(top) - var(--offset) - var(--onyx-tooltip-wedge-size));
+        left: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
+        // The box of the wedge blocks clicks and hover effects, so we disable its pointer-events
+        pointer-events: none;
       }
+    }
+
+    &--dont-support-anchor .onyx-tooltip--content::after {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: calc(-1 * var(--onyx-tooltip-wedge-size));
     }
     &--position-bottom {
       .onyx-tooltip--content {
         margin: var(--offset-with-wedge) 0 0 0;
 
         &::after {
-          top: -2 * $wedge-size;
           border-color: transparent transparent var(--background-color);
+          top: calc(anchor(bottom) + var(--offset) - var(--onyx-tooltip-wedge-size));
+          left: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
         }
+      }
+
+      &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+        top: calc(-2 * var(--onyx-tooltip-wedge-size));
+        left: 50%;
       }
     }
 
@@ -367,13 +404,19 @@ $wedge-size: 0.5rem;
         margin: 0 var(--offset-with-wedge) 0 0;
 
         &::after {
-          right: 0;
-          left: 100%;
-          transform: translateX($wedge-size);
-          top: 50%;
-          margin-top: -$wedge-size;
           border-color: transparent transparent transparent var(--background-color);
+          top: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
+          left: calc(anchor(left) - var(--offset) - var(--onyx-tooltip-wedge-size));
         }
+      }
+
+      &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+        right: 0;
+        left: 100%;
+        transform: translateX(var(--onyx-tooltip-wedge-size));
+        top: 50%;
+        margin-left: 0;
+        margin-top: calc(-1 * var(--onyx-tooltip-wedge-size));
       }
     }
 
@@ -382,14 +425,19 @@ $wedge-size: 0.5rem;
         margin: 0 0 0 var(--offset-with-wedge);
 
         &::after {
-          left: 0;
-          right: 100%;
-          transform: translateX(-$wedge-size);
-
-          top: 50%;
-          margin-top: -$wedge-size;
           border-color: transparent var(--background-color) transparent transparent;
+          top: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
+          left: calc(anchor(right) + var(--offset) - var(--onyx-tooltip-wedge-size));
         }
+      }
+
+      &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+        left: 0;
+        right: 100%;
+        transform: translateX(calc(-1 * var(--onyx-tooltip-wedge-size)));
+        top: 50%;
+        margin-left: 0;
+        margin-top: calc(-1 * var(--onyx-tooltip-wedge-size));
       }
     }
     &--without-wedge,
@@ -413,15 +461,15 @@ $wedge-size: 0.5rem;
       margin: var(--offset-with-wedge) var(--offset-with-wedge) 0 0;
     }
     &--position-bottom-right .onyx-tooltip--content {
-      margin: $wedge-size 0 0 $wedge-size;
+      margin: var(--onyx-tooltip-wedge-size) 0 0 var(--onyx-tooltip-wedge-size);
     }
     &--alignment-left {
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {
-        left: calc(-1 * anchor-size(width) / 2 - 2 * $wedge-size);
+        left: calc(-1 * anchor-size(width) / 2 - 2 * var(--onyx-tooltip-wedge-size));
         &.onyx-tooltip--dont-support-anchor {
-          transform: translateX(calc(-2 * $wedge-size));
+          transform: translateX(calc(-2 * var(--onyx-tooltip-wedge-size)));
         }
         &.onyx-tooltip--aligns-with-edge {
           transform: translateX(100%);
@@ -431,8 +479,11 @@ $wedge-size: 0.5rem;
         }
         .onyx-tooltip--content {
           &::after {
-            left: 2 * $wedge-size;
+            left: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
           }
+        }
+        &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+          left: calc(2 * var(--onyx-tooltip-wedge-size));
         }
       }
     }
@@ -440,9 +491,9 @@ $wedge-size: 0.5rem;
       // only apply for top and bottom positions
       &.onyx-tooltip--position-top,
       &.onyx-tooltip--position-bottom {
-        right: calc(-1 * anchor-size(width) / 2 - 2 * $wedge-size);
+        right: calc(-1 * anchor-size(width) / 2 - 2 * var(--onyx-tooltip-wedge-size));
         &.onyx-tooltip--dont-support-anchor {
-          transform: translateX(calc(2 * $wedge-size));
+          transform: translateX(calc(2 * var(--onyx-tooltip-wedge-size)));
         }
         &.onyx-tooltip--aligns-with-edge {
           transform: translateX(-100%);
@@ -452,8 +503,11 @@ $wedge-size: 0.5rem;
         }
         .onyx-tooltip--content {
           &::after {
-            left: calc(100% - 2 * $wedge-size);
+            left: calc(anchor(center) - var(--onyx-tooltip-wedge-size));
           }
+        }
+        &.onyx-tooltip--dont-support-anchor .onyx-tooltip--content::after {
+          left: calc(100% - 2 * var(--onyx-tooltip-wedge-size));
         }
       }
     }
@@ -462,6 +516,7 @@ $wedge-size: 0.5rem;
 
 .onyx-tooltip-wrapper {
   @include layers.component() {
+    anchor-name: var(--onyx-tooltip-anchor);
     position: relative;
     width: max-content;
     height: max-content;

@@ -43,8 +43,8 @@ export type OnyxButtonProps = DensityProp &
      */
     skeleton?: SkeletonInjected;
     /**
-     * If set, the button will be rendered as link.
-     * Note that not all button properties are supported when used as link, e.g. `disabled`, `type` and `autofocus` are not supported.
+     * If set, the button will be rendered as link. Note that not all button properties are
+     * supported when used as link, e.g. `disabled`, `type` and `autofocus` are not supported.
      */
     link?: WithLinkProp["link"];
   };

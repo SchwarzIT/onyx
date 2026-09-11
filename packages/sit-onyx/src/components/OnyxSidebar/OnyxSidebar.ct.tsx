@@ -22,7 +22,7 @@ test.beforeEach(async ({ page }) => {
   await page.addStyleTag({
     content: `
     body { margin: 0; }
-    .onyx-sidebar { height: 100vh; }
+    .onyx-sidebar { height: 100dvh; }
     `,
   });
 });

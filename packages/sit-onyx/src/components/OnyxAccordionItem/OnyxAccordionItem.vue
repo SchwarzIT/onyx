@@ -18,12 +18,12 @@ const props = withDefaults(defineProps<OnyxAccordionItemProps>(), {
 
 defineSlots<{
   /**
-   * Displays the header content.
+   * Displays the header content, which is always visible.
    */
   header(): unknown;
 
   /**
-   * Displays the panel content.
+   * Displays the panel content, which is visible when the accordion item is open.
    */
   default?(): unknown;
 }>();
@@ -122,6 +122,8 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
     --onyx-accordion-item-chevron-rotation: 0deg;
     --onyx-accordion-item-chevron-rotation-open: 180deg;
 
+    --onyx-accordion-item-header-gap: var(--onyx-density-xs);
+
     // colors
     --onyx-accordion-item-color: var(--onyx-color-text-icons-neutral-medium);
     --onyx-accordion-item-color-hover: var(--onyx-color-text-icons-neutral-intense);
@@ -182,7 +184,7 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
 
       &::details-content {
         height: 0;
-        overflow: clip;
+        clip-path: inset(0);
         transition:
           content-visibility var(--onyx-accordion-toggle-duration) ease,
           height var(--onyx-accordion-toggle-duration) ease;
@@ -228,12 +230,23 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
       }
     }
 
+    &__header-content {
+      display: flex;
+      align-items: center;
+      gap: var(--onyx-accordion-item-header-gap);
+      flex-grow: 1;
+    }
+
     &--nested-large,
     &--nested-small {
       .onyx-accordion-item__header {
         position: sticky;
         top: 0;
         z-index: var(--onyx-z-index-sticky-content);
+      }
+
+      .onyx-accordion-item__header-content {
+        flex-grow: 0;
       }
     }
 

@@ -30,21 +30,21 @@ type LocalProps = {
 export const SKELETON_INJECTED_SYMBOL = Symbol("SKELETON_INJECTED_SYMBOL");
 export type SKELETON_INJECTED = symbol; // we can't use `typeof SKELETON_INJECTED_SYMBOL` as vue is unable to infer its type: https://github.com/SchwarzIT/onyx/issues/1980
 /**
- * Prop type used by child elements, which indicates that the prop value is taken from the parent by default.
- * The prop **MUST** use `SKELETON_INJECTED_SYMBOL` as default value.
- * `useSkeletonContext` is used to access the injected parent property.
+ * Prop type used by child elements, which indicates that the prop value is taken from the parent by
+ * default. The prop **MUST** use `SKELETON_INJECTED_SYMBOL` as default value. `useSkeletonContext`
+ * is used to access the injected parent property.
  *
  * NOTE: The number type is used only for OnyxRadioGroup and OnyxCheckboxGroup components.
  * NOTE: The number type is not intended to be used by other properties with boolean skeleton prop.
  *
  * @example
- * ```ts
- * const props = withDefaults(defineProps<OnyxComponentProps>(), {
- *   skeleton: SKELETON_INJECTED_SYMBOL,
- * });
+ *   ```ts
+ *   const props = withDefaults(defineProps<OnyxComponentProps>(), {
+ *     skeleton: SKELETON_INJECTED_SYMBOL,
+ *   });
  *
- * const skeleton = useSkeletonContext(props);
- * ```
+ *   const skeleton = useSkeletonContext(props);
+ *   ```;
  */
 
 export type SkeletonInjected = symbol | boolean | number;
@@ -73,26 +73,27 @@ export const provideSkeletonContext = (
 
 const DEFAULT_SKELETON_INJECTION_CONTEXT = createSkeletonInjectionContext();
 /**
- * Provides the injected parent property (if available).
- * Otherwise a defined default is used.
- * A prop defined on the child component will always take precedence over the injected parent property.
+ * Provides the injected parent property (if available). Otherwise a defined default is used. A prop
+ * defined on the child component will always take precedence over the injected parent property.
  *
  * The prop **MUST** use `SKELETON_INJECTED_SYMBOL` as default value.
  * The type `SkeletonInjected<T>` can be used as PropType wrapper.
  *
  * @example
- * ```ts
- * const props = withDefaults(defineProps<OnyxComponentProps>(), {
- *   skeleton: SKELETON_INJECTED_SYMBOL, // By default, the parent injected value is used
- * });
+ *   ```ts
+ *   const props = withDefaults(defineProps<OnyxComponentProps>(), {
+ *     skeleton: SKELETON_INJECTED_SYMBOL, // By default, the parent injected value is used
+ *   });
  *
- * const skeleton = useSkeletonContext(props);
- * ```
+ *   const skeleton = useSkeletonContext(props);
+ *   ```;
  */
 export const useSkeletonContext = (props: Reactive<LocalProps>) => {
   return inject(
     SKELETON_INJECTION_KEY,
-    /** Default */
+    /**
+     * Default
+     */
     DEFAULT_SKELETON_INJECTION_CONTEXT,
   )(props);
 };

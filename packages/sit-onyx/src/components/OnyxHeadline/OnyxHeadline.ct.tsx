@@ -8,6 +8,7 @@ test.describe("Screenshot tests", () => {
     name: "Headline",
     columns: ["default", "skeleton"],
     rows: HEADLINE_TYPES,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxHeadline is={row} skeleton={column === "skeleton"}>
         Hello World
@@ -21,6 +22,7 @@ test.describe("Screenshot tests (visual size)", () => {
     name: "Headline (visual sizes)",
     columns: ["h1", "h2", "h3", "h4"],
     rows: HEADLINE_TYPES,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxHeadline is={row} showAs={column}>
         Hello World

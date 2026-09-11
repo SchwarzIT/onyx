@@ -50,6 +50,15 @@
     "loadMore": "Učitaj više",
     "editing": {
       "label": "{column} s ID-jem {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Promijeni raspored redaka",
+      "reset": "Poništi promjene",
+      "dragToMove": "Povucite za pomicanje retka"
+    },
+    "columnRearrange": {
+      "rearrange": "Promijeni raspored stupaca",
+      "dragToMove": "Povucite za pomicanje stupca"
     }
   },
   "validations": {
@@ -75,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Obavezno",
-      "fullError": "Polje je prazno, obavezno je i mora se ispuniti."
+      "fullError": "Polje je prazno, obavezno je i mora se ispuniti.",
+      "whitespaceError": "Molimo unesite važeći tekst (samo razmaci nisu dopušteni)."
     },
     "stepMismatch": {
       "preview": "Nevažeći broj",
@@ -352,5 +362,13 @@
   },
   "accordion": {
     "toggle": "Kliknite za prikaz/skrivanje sadržaja"
-  }
+  },
+  "search": {
+    "filterLabel": "prikaži filtar pretraživanja",
+    "leadingShortcutPlaceholder": "Upišite",
+    "trailingShortcutPlaceholder": "za pretraživanje",
+    "label": "Pretraživanje",
+    "selectFilter": "Odaberi filtar"
+  },
+  "save": "Spremi"
 }

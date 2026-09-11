@@ -12,6 +12,7 @@ import {
   useVModel,
   type FormElementV2Tooltip,
 } from "sit-onyx";
+import { useWhitespaceValidation } from "sit-onyx";
 import { computed, provide, ref, useTemplateRef, watch, watchEffect, type StyleValue } from "vue";
 import EditorToolbar from "./EditorToolbar.vue";
 import { OnyxStarterKit } from "./extensions/starterKit.js";
@@ -77,6 +78,10 @@ const editor = useEditor({
   },
 });
 
+const textValue = computed(() => editor.value?.getText());
+
+const { whitespaceError } = useWhitespaceValidation({ modelValue: textValue, props });
+
 watch([modelValue, editor], ([newValue]) => {
   if (!editor.value) return;
   if (newValue === editor.value.getHTML()) return;
@@ -110,8 +115,9 @@ const counter = computed(() => {
 });
 
 /**
- * The Tiptap editor uses a contenteditable div so it does not support the native CSS ":invalid" for showing the error.
- * To workaround this, the track if the value has ever been changed and consider this as "touched" / interacted.
+ * The Tiptap editor uses a contenteditable div so it does not support the native CSS ":invalid" for
+ * showing the error. To workaround this, the track if the value has ever been changed and consider
+ * this as "touched" / interacted.
  */
 const isTouched = ref(false);
 watch(modelValue, () => (isTouched.value = true), { once: true });
@@ -128,6 +134,13 @@ const error = computed<string | FormElementV2Tooltip | undefined>(() => {
     return {
       label: t.value("validations.valueMissing.preview"),
       tooltipText: t.value("validations.valueMissing.fullError"),
+    };
+  }
+
+  if (whitespaceError.value) {
+    return {
+      label: whitespaceError.value.shortMessage,
+      tooltipText: whitespaceError.value.longMessage,
     };
   }
 

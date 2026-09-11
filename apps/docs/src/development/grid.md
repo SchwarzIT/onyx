@@ -15,7 +15,7 @@ The dynamic grid has the following advantages over a fixed column grid:
 - Elements in the grid are wrapped on smaller breakpoints per default
 - Single Elements keep their approximate size over multiple breakpoints per default
 - Ensures reasonable minimal and maximal size for individual elements
-  :::
+:::
 
 Grid elements span the number of columns that is assigned to them.
 If there are less columns available than an element is assigned, it will span all columns of the row.

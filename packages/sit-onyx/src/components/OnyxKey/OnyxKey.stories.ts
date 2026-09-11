@@ -3,10 +3,11 @@ import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxKey from "./OnyxKey.vue";
 
 /**
- * The key component displays a single keyboard key with support for specific operating system symbols (macOS, Windows).
- * Useful for documentation, tutorials and displaying keyboard shortcuts.
+ * The key component displays a single keyboard key with support for specific operating system
+ * symbols (macOS, Windows). Useful for documentation, tutorials and displaying keyboard shortcuts.
  *
- * For representing keyboard shortcuts, use the [OnyxShortcut](/docs/basic-shortcut--docs) component.
+ * For representing keyboard shortcuts, use the [OnyxShortcut](/docs/basic-shortcut--docs)
+ * component.
  */
 const meta: Meta<typeof OnyxKey> = {
   title: "Support/Key",

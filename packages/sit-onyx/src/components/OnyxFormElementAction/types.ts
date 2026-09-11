@@ -20,9 +20,9 @@ export type OnyxFormElementActionProps = DensityProp & {
    */
   type?: "button" | "toggle";
   /**
-   * Visual size.
-   * - default: Useful for standalone actions, e.g. inside leading/trialing slot of form elements
-   * - small: Useful for inline actions, e.g. inside the leadingIcons/trailingIcons slot of form elements (clear button etc.)
+   * Visual size. - default: Useful for standalone actions, e.g. inside leading/trialing slot of
+   * form elements - small: Useful for inline actions, e.g. inside the leadingIcons/trailingIcons
+   * slot of form elements (clear button etc.)
    */
   size?: "sm" | "lg";
   /**
@@ -35,8 +35,8 @@ export type OnyxFormElementActionProps = DensityProp & {
    */
   showOnFocus?: boolean;
   /**
-   * Whether the button is (visually) highlighted.
-   * If set to "auto", it is automatically highlighted when the parent form element has focus, open popover or is hovered.
+   * Whether the button is (visually) highlighted. If set to "auto", it is automatically highlighted
+   * when the parent form element has focus, open popover or is hovered.
    */
   highlighted?: boolean | "auto";
   /**

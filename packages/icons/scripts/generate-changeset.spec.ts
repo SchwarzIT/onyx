@@ -1,5 +1,5 @@
-import writeChangeset from "@changesets/write";
 import { exec } from "node:child_process";
+import writeChangeset from "@changesets/write";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { generateChangeset } from "./generate-changeset.js";
 

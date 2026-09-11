@@ -24,7 +24,9 @@ const skeleton = useSkeletonContext(props);
 const forwardProps = useForwardProps(props, ButtonOrLinkLayout);
 
 defineSlots<{
-  /** Slot for an custom icon. Will have no effect if property `icon` is passed. */
+  /**
+   * Slot for an custom icon. Will have no effect if property `icon` is passed.
+   */
   default(): unknown;
 }>();
 </script>

@@ -3,11 +3,12 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "rootDir": "./src",
-    "baseUrl": ".",
     "types": ["node", "@sit-onyx/vite-plugin-svg/virtual"],
     "outDir": "./dist",
     "declaration": true,
     "verbatimModuleSyntax": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+    "module": "preserve"
   }
 }

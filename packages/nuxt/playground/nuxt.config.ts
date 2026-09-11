@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ["../src/module", "@nuxtjs/i18n"],
+  modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
   devtools: { enabled: true },
   compatibilityDate: "2024-07-08",
   css: ["@fontsource-variable/source-sans-3", "@fontsource-variable/source-code-pro"],

@@ -28,11 +28,13 @@ export type OnyxBasicDialogProps = DensityProp & {
    */
   alert?: boolean;
   /**
-   * How to align the dialog horizontally. If "left" or "right", the modal will also be made full height.
+   * How to align the dialog horizontally. If "left" or "right", the modal will also be made full
+   * height.
    */
   alignment?: DialogAlignment;
   /**
    * The intensity of the backdrop.
+   *
    * @default "soft"
    */
   backdrop?: "soft" | "medium";

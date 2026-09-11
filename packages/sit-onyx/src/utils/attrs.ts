@@ -22,29 +22,27 @@ import { userConsole } from "./console.js";
  * Make sure to call `defineOptions({ inheritAttrs: false });`.
  *
  * @example
- * ```vue
- * <script setup>
+ *   ```vue
+ *   <script setup>
  *   defineOptions({ inheritAttrs: false });
  *   const { rootAttrs, restAttrs } = useRootAttrs();
- * </script>
- * <template>
+ *   </script>
+ *   <template>
  *   <div class="onyx-component" v-bind="rootAttrs">
- *    <!-- ... -->
- *      <input
- *        // some other attributes...
- *        v-bind="restAttrs"
- *      />
- *    <!-- ... -->
+ *   <!-- ... -->
+ *   <input
+ *   // some other attributes...
+ *   v-bind="restAttrs"
+ *   />
+ *   <!-- ... -->
  *   </div>
- * </template>
+ *   </template>
  */
 export const useRootAttrs = <T extends Pick<HTMLAttributes, "class" | "style">>() => {
   // endregion docs
   const attrs = useAttrs();
 
-  const rootAttrs = computed(
-    () => ({ class: attrs["class"], style: attrs["style"] }) as Pick<T, "class" | "style">,
-  );
+  const rootAttrs = computed(() => ({ class: attrs["class"], style: attrs["style"] }));
 
   const restAttrs = computed(() => {
     const rest = { ...attrs };
@@ -124,8 +122,9 @@ type MergeVuePropsResult<T extends unknown[]> =
 
 /**
  * Extends the Vue's `mergeProp` function, so that it
- *   - doesn't complain about nullish parameters
- *   - is also able to merge `ref` properties
+ *
+ * - doesn't complain about nullish parameters
+ * - is also able to merge `ref` properties
  */
 export const mergeVueProps = <T extends (VProps | null | undefined)[]>(...args: T | []) =>
   args.reduce((prev, curr) => {

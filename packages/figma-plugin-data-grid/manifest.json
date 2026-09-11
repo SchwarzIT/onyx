@@ -1,0 +1,11 @@
+{
+  "name": "Onyx - DataGrid Studio",
+  "id": "1674034444595259620",
+  "api": "1.0.0",
+  "main": "./dist/plugin/index.js",
+  "ui": "dist/ui/index.html",
+  "enableProposedApi": false,
+  "documentAccess": "dynamic-page",
+  "editorType": ["figma", "dev"],
+  "capabilities": ["inspect"]
+}

@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxPagination from "./OnyxPagination.vue";
 
 /**
- * Pagination can be used in cases where a lot of data exists that should not be shown or loaded all at once.
- * The user can select a page for which data should be shown, e.g. inside a [table](/docs/data-table--docs).
+ * Pagination can be used in cases where a lot of data exists that should not be shown or loaded all
+ * at once. The user can select a page for which data should be shown, e.g. inside a
+ * [table](/docs/data-table--docs).
  */
 const meta: Meta<typeof OnyxPagination> = {
   title: "Data/Pagination",
@@ -34,7 +35,6 @@ export const Inline = {
 } satisfies Story;
 
 export const Compact = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     type: "compact",

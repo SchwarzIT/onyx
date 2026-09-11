@@ -1,5 +1,5 @@
-import { defineOnyxPlaywrightConfigCT } from "@sit-onyx/shared/playwright.config.base";
 import { fileURLToPath } from "node:url";
+import { defineOnyxPlaywrightConfigCT } from "@sit-onyx/shared/playwright.config.base";
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -20,7 +20,9 @@ export default defineOnyxPlaywrightConfigCT({
   },
 });
 
-/** Gets the given path while ensuring cross-platform and correct decoding */
+/**
+ * Gets the given path while ensuring cross-platform and correct decoding
+ */
 function getFilePath(path: string) {
   return fileURLToPath(new URL(path, import.meta.url));
 }

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 import { log } from "node:console";
+import { stat } from "node:fs/promises";
 import { parseArgs, type ParseArgsOptionsConfig } from "node:util";
 import packageJson from "../package.json" with { type: "json" };
+import { writeSkillFiles } from "./resources/skills.js";
 import { run as http } from "./server/http.js";
 import { createServer } from "./server/server.js";
 import { run as stdio } from "./server/stdio.js";
@@ -25,6 +27,14 @@ if (import.meta.main) {
       short: "r",
       default: false,
     },
+    writeSkills: {
+      type: "string",
+      short: "w",
+    },
+    exclude: {
+      type: "string",
+      short: "e",
+    },
     help: {
       type: "boolean",
       short: "h",
@@ -38,7 +48,7 @@ if (import.meta.main) {
   } satisfies ParseArgsOptionsConfig;
 
   const {
-    values: { transport, version, help, resourcesAsTools },
+    values: { transport, version, help, resourcesAsTools, writeSkills, exclude },
   } = parseArgs({
     args: process.argv.slice(2),
     options,
@@ -54,22 +64,31 @@ Usage:
     onyx-mcp [options]
 
 Options:
- -t, --transport <stdio|http> Which kind of MCP server should be started (default: stdio).
- -r, --resourcesAsTools       Some LLM Coding Assistants (e.g. Gemini) are not able to to use MCP resources (yet). 
-                              This setting makes resources also available as tools to support these Coding Assistants.
- -h, --help                   Show this help text and quit.
- -v, --version                Show version number and quit.`);
+ -t, --transport <"stdio"|"http"> Which kind of MCP server should be started (default: stdio). 
+                                  The "http" transport considers PORT and HOST environment variables, when starting the server.
+ -r, --resourcesAsTools           Some LLM Coding Assistants (e.g. Gemini) are not able to to use MCP resources (yet). 
+                                  This setting makes resources also available as tools to support these Coding Assistants.
+ -w, --writeSkills <directory>    Write skill resources to SKILL.md files in the specified directory.
+ -e, --exclude <regex-pattern>    Exclude/Filter capabilities by their URI. E.g. '-e "skill"' to exclude skills.
+ -h, --help                       Show this help text and quit.
+ -v, --version                    Show version number and quit.`);
     process.exit(0);
   } else if (version) {
     log(packageJson.version);
+    process.exit(0);
+  } else if (writeSkills) {
+    const stats = await stat(writeSkills);
+    if (!stats.isDirectory()) {
+      throw new Error(`${writeSkills} is not a directory`);
+    }
+    await writeSkillFiles(writeSkills);
     process.exit(0);
   } else {
     if (!Object.keys(SUPPORTED_TRANSPORTS).includes(transport)) {
       throw new Error(`Unsupported transport: ${transport}`);
     }
-
-    const server = createServer({ resourcesAsTools });
-    await SUPPORTED_TRANSPORTS[transport as SupportedTransport](server);
+    const getServer = () => createServer({ resourcesAsTools, exclude });
+    await SUPPORTED_TRANSPORTS[transport as SupportedTransport](getServer);
   }
 }
 

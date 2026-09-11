@@ -1,5 +1,4 @@
-import "dotenv/config";
-import { createClient, getBugFixingRatio, getMeanStorySize, getThroughput } from "../src/index.js";
+import { createClient, getBugFixingRatio, getMeanStorySize, getThroughput } from "../dist/index.js";
 
 const client = createClient({
   organization: "SchwarzIT",

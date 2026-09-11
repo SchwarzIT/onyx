@@ -66,13 +66,16 @@ const GROUPED_DEMO_OPTIONS = [
  * facilitating single or multi-selection based on the context in which it is employed.
  *
  * ### Keyboard shortcuts
+ *
  * The following keyboard shortcuts are available:
+ *
  * - **Tab**: Focuses / blurs the select
  * - **Arrow down**: Focuses the next option
  * - **Arrow up**: Focuses the previous option
  * - **Home**: Focuses the first option
  * - **End**: Focuses the last option
- * - **Enter/Space**: Selects currently focused option. Select with space is only working when `withSearch` is disabled.
+ * - **Enter/Space**: Selects currently focused option. Select with space is only working when
+ *   `withSearch` is disabled.
  * - **Other characters**: Focuses first option that starts with the pressed key
  */
 const meta: Meta<typeof OnyxSelect> = {
@@ -242,9 +245,9 @@ export const Empty = {
 } satisfies Story;
 
 /**
- * This example shows a select with search functionality.
- * The filtering of the options will be handled automatically by onyx.
- * _Info: the property `searchTerm` is disabled in this example, as it should stay undefined for the example to work._
+ * This example shows a select with search functionality. The filtering of the options will be
+ * handled automatically by onyx. _Info: the property `searchTerm` is disabled in this example, as
+ * it should stay undefined for the example to work._
  */
 export const WithSearch: Story = {
   args: {
@@ -254,10 +257,11 @@ export const WithSearch: Story = {
 };
 
 /**
- * This example shows a custom search functionality that disables the integrated filtering by onyx by using `v-model:searchTerm`.
- * The custom search accepts either numbers or option labels as search input to show the matching options.
- * Note that `valueLabel` needs to be kept up to date as onyx can't find the label if the options are filtered manually.
- * **Tip**: You can use our `normalizedIncludes()` utility function for this use case.
+ * This example shows a custom search functionality that disables the integrated filtering by onyx
+ * by using `v-model:searchTerm`. The custom search accepts either numbers or option labels as
+ * search input to show the matching options. Note that `valueLabel` needs to be kept up to date as
+ * onyx can't find the label if the options are filtered manually. **Tip**: You can use our
+ * `normalizedIncludes()` utility function for this use case.
  */
 export const WithCustomSearch = createAdvancedStoryExample("OnyxSelect", "CustomSearchExample");
 
@@ -283,8 +287,8 @@ export const Loading = {
 } satisfies Story;
 
 /**
- * This example shows a select with lazy loading. The `lazyLoad` event will be emitted if the user scrolls
- * to the end of the options.
+ * This example shows a select with lazy loading. The `lazyLoad` event will be emitted if the user
+ * scrolls to the end of the options.
  */
 export const LazyLoading = createAdvancedStoryExample("OnyxSelect", "LazyLoadingExample");
 
@@ -304,7 +308,8 @@ export const Readonly = {
 } satisfies Story;
 
 /**
- * This example shows a disabled select that can not be edited and is therefore not included in any form data.
+ * This example shows a disabled select that can not be edited and is therefore not included in any
+ * form data.
  */
 export const Disabled = {
   args: {
@@ -347,9 +352,9 @@ export const MultilineOptions = {
 } satisfies Story;
 
 /**
- * `valueLabel` can be set to control the text that represents the current selection.
- * This can be used e.g. to show a text for a previous selection even though not all
- * existing options are provided to OnyxSelect yet so the `modelValue` can't be found in the `options`.
+ * `valueLabel` can be set to control the text that represents the current selection. This can be
+ * used e.g. to show a text for a previous selection even though not all existing options are
+ * provided to OnyxSelect yet so the `modelValue` can't be found in the `options`.
  */
 export const WithCustomValueLabel = {
   args: {
@@ -385,7 +390,6 @@ export const WithRightAlignment = {
 } satisfies Story;
 
 export const LeftLabel = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     label: {
@@ -396,7 +400,6 @@ export const LeftLabel = {
 } satisfies Story;
 
 export const Slots = {
-  tags: ["new:feature"],
   args: {
     ...Default.args,
     label: { label: Default.args.label, tooltipText: "Label tooltip" },

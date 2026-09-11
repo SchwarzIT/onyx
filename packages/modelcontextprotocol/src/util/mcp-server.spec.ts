@@ -4,8 +4,8 @@ import type { RegisterableResource } from "../types.js";
 import { resourceToTool } from "./mcp-server.js";
 
 describe("resourceToTool", () => {
-  test("should map resource to tool correctly", async () => {
-    const testResource: RegisterableResource = [
+  test("should map resource with template to tool correctly", async () => {
+    const testResource: RegisterableResource<true> = [
       "test-title",
       new ResourceTemplate("test://sit-onyx/{parameter-1}/{parameter-2}", {
         list: undefined,
@@ -53,6 +53,57 @@ describe("resourceToTool", () => {
             mimeType: "text/markdown",
             text: "# Test Text",
             uri: "test://sit-onyx/value-1/value-2",
+          },
+          type: "resource",
+        },
+      ],
+    });
+  });
+
+  test("should map resource without template to tool correctly", async () => {
+    const testResource: RegisterableResource<false> = [
+      "test-title",
+      "test://sit-onyx/static",
+      {
+        title: "Test Title",
+        description: "Test Description",
+        mimeType: "text/markdown",
+      },
+      async (uri: URL) => ({
+        contents: [
+          {
+            uri: uri.href,
+            text: "# Test Text",
+            mimeType: "text/markdown",
+          },
+        ],
+      }),
+    ];
+
+    const [name, config, handler] = resourceToTool(testResource);
+
+    expect(name).toBe("test-title");
+    expect(config).toMatchObject({
+      annotations: {
+        destructiveHint: false,
+        idempotentHint: true,
+        readOnlyHint: true,
+      },
+      description: "Test Description",
+      title: "Test Title",
+    });
+    expect(config.inputSchema).toBeUndefined();
+    await expect(
+      handler({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Simplify testing
+      } as any),
+    ).resolves.toMatchObject({
+      content: [
+        {
+          resource: {
+            mimeType: "text/markdown",
+            text: "# Test Text",
+            uri: "test://sit-onyx/static",
           },
           type: "resource",
         },

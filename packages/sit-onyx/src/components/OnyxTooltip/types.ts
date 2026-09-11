@@ -17,6 +17,10 @@ export type ToggletipOptions = {
 
 export type OnyxTooltipProps = DensityProp & {
   /**
+   * Whether the tooltip is disabled. If true, the tooltip will not be shown.
+   */
+  disabled?: boolean;
+  /**
    * Text to display inside the tooltip.
    * Must be set unless the custom "tooltip" slot is used.
    */
@@ -47,10 +51,11 @@ export type OnyxTooltipProps = DensityProp & {
    */
   open?: Nullable<boolean>;
   /**
-   * Whether the tooltip is triggered on hover or click. Can also be an object with additional options.
+   * Whether the tooltip is triggered on hover or click. Can also be an object with additional
+   * options.
    *
-   * - hover: tooltip - describes the associated element
-   * - click: toggletip - gives additional information about in the current context
+   * - Hover: tooltip - describes the associated element
+   * - Click: toggletip - gives additional information about in the current context
    *
    * The "toggletip" is implemented using an aria-live region.
    * See also: https://inclusive-components.design/tooltips-toggletips/

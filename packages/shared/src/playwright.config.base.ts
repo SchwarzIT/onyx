@@ -30,6 +30,8 @@ export const vuePluginOptions: Options = {
       // comments can cause issues for components where classes
       // are not merged correctly, e.g. when using `<OnyxIcon class="custom-class" />`
       comments: false,
+      // needed for Vitest to not throw errors for the native HTML `<search>` element
+      isCustomElement: (tag) => tag === "search",
     },
   },
 };

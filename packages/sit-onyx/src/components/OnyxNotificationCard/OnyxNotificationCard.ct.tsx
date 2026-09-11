@@ -22,6 +22,7 @@ test.describe("Screenshot tests", () => {
     name: "Notification card",
     columns: DENSITIES,
     rows: ["default", "unread", "actions", "separator", "icon", "skeleton"],
+    fastNoIsolation: true,
     component: (column, row) => {
       const card = (
         <OnyxNotificationCard

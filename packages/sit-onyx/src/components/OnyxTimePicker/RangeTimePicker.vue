@@ -61,7 +61,9 @@ const range = computed(() => {
   return modelValue.value;
 });
 
-/** Custom error message for range (start-end) validation. */
+/**
+ * Custom error message for range (start-end) validation.
+ */
 const rangeError = computed<string | undefined>((previousError) => {
   // error should only be shown after closing the popover (or if an error existed previously)
   // so the popover does not jump around while entering values

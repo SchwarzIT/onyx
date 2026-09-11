@@ -6,7 +6,8 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxNotificationMessage from "./OnyxNotificationMessage.vue";
 
 /**
- * Single notification message component. Is mainly intended to be used with the [OnyxNotifications](/docs/notifications-notifications--docs).
+ * Single notification message component. Is mainly intended to be used with the
+ * [OnyxNotifications](/docs/notifications-notifications--docs).
  */
 const meta: Meta<typeof OnyxNotificationMessage> = {
   title: "Support/NotificationMessage",

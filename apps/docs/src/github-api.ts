@@ -3,9 +3,10 @@ import { cached } from "./cached.js";
 /**
  * Executes a GET request to the given GitHub API route.
  *
- * @param apiRoute API route without "https://api.github.com/". Must not start with a trailing slash.
- * @throws Error if API request was not successful
+ * @param apiRoute API route without "https://api.github.com/". Must not start with a trailing
+ *   slash.
  * @returns JSON response body.
+ * @throws Error if API request was not successful
  */
 export const executeGitHubRequest = async (apiRoute: string) => {
   // GitHub token can be used to have a higher rate limit (useful if used in CI)

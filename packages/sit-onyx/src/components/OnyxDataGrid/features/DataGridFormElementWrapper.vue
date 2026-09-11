@@ -1,3 +1,12 @@
+<script lang="ts">
+/**
+ * @deprecated This component is still under active development and its API might change in patch
+ *   releases.
+ * @experimental
+ */
+export default {};
+</script>
+
 <script
   setup
   lang="ts"

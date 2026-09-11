@@ -1,6 +1,6 @@
-import { ComponentMetaSchema, MDC } from "#components";
 import { createFeature, DataGridFeatures, type DataGridEntry, type TypeRenderMap } from "sit-onyx";
 import type { PropertyMetaSchema } from "vue-component-meta";
+import { ComponentMetaSchema, MDC } from "#components";
 import "./data-grid.scss";
 
 export type RequiredTypeRendererOptions<TEntry extends DataGridEntry> = {

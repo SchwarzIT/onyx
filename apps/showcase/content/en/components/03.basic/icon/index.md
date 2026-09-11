@@ -1,0 +1,36 @@
+---
+title: Icon
+componentName: OnyxIcon
+---
+
+Icons enhance visual communication and accessibility within the interface. We recommend using our official icons listed below but any SVG icon library is compatible with our design system.
+
+## Installation
+
+To use our official icon library, install it into your project first:
+
+:npm-install-code-tabs{packages="@sit-onyx/icons"}
+
+## Examples
+
+### Sizes
+
+To ensure a consistent look and usage across multiple pages and applications, the component offers several predefined sizes. Set `size="inline"` to use the current text size, which is useful for embedding the icon within continuous text.
+
+:component-example{name="Sizes" layout="fullWidth"}
+
+### Colors
+
+Several colors are available to emphasize the icon's meaning. See our [color documentation](/introduction/foundation/colors#colors) for more information. If no color is set explicitly (default), the icon will use the current text color defined by the parent element.
+
+:component-example{name="Colors" layout="fullWidth"}
+
+### Metadata
+
+We also include some metadata for each icon such as the category and aliases which can e.g. be used to group icons.
+
+:component-example{name="Metadata" layout="grow"}
+
+## Available icons
+
+:icon-overview

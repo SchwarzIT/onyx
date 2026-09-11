@@ -4,7 +4,8 @@ import { defineIconSelectArgType } from "../../utils/storybook.js";
 import OnyxToastMessage from "./OnyxToastMessage.vue";
 
 /**
- * Single toast message component. Is mainly intended to be used with the [OnyxToast](/docs/feedback-toast--docs).
+ * Single toast message component. Is mainly intended to be used with the
+ * [OnyxToast](/docs/feedback-toast--docs).
  */
 const meta: Meta<typeof OnyxToastMessage> = {
   title: "Support/ToastMessage",

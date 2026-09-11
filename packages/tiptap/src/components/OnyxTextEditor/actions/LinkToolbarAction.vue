@@ -1,16 +1,8 @@
 <script lang="ts" setup>
-import { iconCheckSmall, iconLink } from "@sit-onyx/icons";
+import { iconLink } from "@sit-onyx/icons";
 import type { Editor } from "@tiptap/vue-3";
-import {
-  injectI18n,
-  OnyxBottomBar,
-  OnyxButton,
-  OnyxDialog,
-  OnyxForm,
-  OnyxIcon,
-  OnyxInput,
-} from "sit-onyx";
-import { ref, useId, watch } from "vue";
+import { injectI18n, OnyxUnstableEditLinkDialog, type EditLinkValue } from "sit-onyx";
+import { ref, watch } from "vue";
 import OnyxEditorToolbarAction from "../../OnyxEditorToolbarAction/OnyxEditorToolbarAction.vue";
 
 const props = defineProps<{
@@ -18,17 +10,15 @@ const props = defineProps<{
 }>();
 
 const { t } = injectI18n();
-const id = useId();
 const open = ref(false);
-
-const state = ref({ href: "", text: "" });
+const state = ref<EditLinkValue>({ href: "" });
 
 watch(
   open,
   (isOpen) => {
     if (!isOpen) {
       // reset state if dialog closes
-      state.value = { href: "", text: "" };
+      state.value = { href: "" };
       return;
     }
 
@@ -38,16 +28,16 @@ watch(
 
     if (props.editor) {
       const { from, to, empty } = props.editor.state.selection;
-      const text = empty ? "" : props.editor.state.doc.textBetween(from, to);
-      state.value.text = text;
+      const label = empty ? "" : props.editor.state.doc.textBetween(from, to);
+      state.value.label = label;
     }
   },
   { immediate: true },
 );
 
-const handleSubmit = () => {
-  const href = state.value.href.trim();
-  const text = state.value.text.trim();
+const handleUpdateValue = (newValue?: EditLinkValue) => {
+  const href = newValue?.href.trim();
+  const label = newValue?.label?.trim() || href;
   if (!href) return removeLink();
 
   props.editor
@@ -57,7 +47,7 @@ const handleSubmit = () => {
     .insertContent([
       {
         type: "text",
-        text,
+        text: label,
         marks: [{ type: "link", attrs: { href } }],
       },
     ])
@@ -75,11 +65,10 @@ const removeLink = () => {
 </script>
 
 <template>
-  <OnyxDialog
+  <OnyxUnstableEditLinkDialog
     v-model:open="open"
-    class="onyx-editor-link-action"
-    :label="t('editor.link.edit')"
-    density="compact"
+    :model-value="state"
+    @update:model-value="handleUpdateValue"
   >
     <template #trigger="{ trigger }">
       <OnyxEditorToolbarAction
@@ -90,51 +79,5 @@ const removeLink = () => {
         :disabled="!props.editor?.can().chain().toggleLink().run()"
       />
     </template>
-
-    <!-- using v-if here so the form validation is reset when the dialog closes -->
-    <OnyxForm
-      v-if="open"
-      :id
-      class="onyx-editor-link-action__content"
-      @submit.prevent="handleSubmit"
-    >
-      <OnyxInput v-model="state.text" :label="t('editor.link.text')" required />
-
-      <OnyxInput v-model="state.href" :label="t('editor.link.link')" type="url" autofocus>
-        <template #leadingIcons>
-          <OnyxIcon :icon="iconLink" />
-        </template>
-      </OnyxInput>
-    </OnyxForm>
-
-    <template #footer>
-      <OnyxBottomBar density="compact">
-        <OnyxButton :label="t('cancel')" color="neutral" mode="outline" @click="open = false" />
-        <OnyxButton :label="t('apply')" :icon="iconCheckSmall" :form="id" type="submit" />
-      </OnyxBottomBar>
-    </template>
-  </OnyxDialog>
+  </OnyxUnstableEditLinkDialog>
 </template>
-
-<style lang="scss">
-@use "sit-onyx/src/styles/mixins/layers.scss";
-
-.onyx-editor-link-action {
-  @include layers.component() {
-    &__content {
-      padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
-      display: flex;
-      flex-direction: column;
-      gap: var(--onyx-density-md);
-    }
-
-    .onyx-basic-popover__dialog {
-      width: 16rem;
-    }
-
-    .onyx-dialog__headline-content {
-      justify-content: flex-start;
-    }
-  }
-}
-</style>

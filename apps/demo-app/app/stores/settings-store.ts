@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import type { Density } from "sit-onyx";
 
 export type UserSettings = {

@@ -6,7 +6,8 @@ import type { OnyxTranslations } from "./index.js";
 /**
  * Gets all nested keys of the given translation entry as a flattened array.
  *
- * @example ["key", "key.nested.child"]
+ * @example
+ *   ["key", "key.nested.child"];
  */
 function getFlattenedTranslationKeys(key: string, value: TranslationValue): string[] {
   if (typeof value === "string") return [key];

@@ -4,7 +4,8 @@ import { createAdvancedStoryExample, defineIconSelectArgType } from "../../utils
 import OnyxBadge from "./OnyxBadge.vue";
 
 /**
- * Badges provide concise, prominent additional information associated with a parent object, displayed as text, icons, or numbers to highlight key details.
+ * Badges provide concise, prominent additional information associated with a parent object,
+ * displayed as text, icons, or numbers to highlight key details.
  */
 const meta: Meta<typeof OnyxBadge> = {
   title: "Basic/Badge",

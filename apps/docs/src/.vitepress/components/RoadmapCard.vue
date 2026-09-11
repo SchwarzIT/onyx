@@ -2,11 +2,17 @@
 import { computed } from "vue";
 
 const props = defineProps<{
-  /** Title. If a number is passed it will be formatted with `.toLocaleString()` */
+  /**
+   * Title. If a number is passed it will be formatted with `.toLocaleString()`
+   */
   title: string | number;
-  /** Description / sub title. */
+  /**
+   * Description / sub title.
+   */
   description: string;
-  /** Link to open. */
+  /**
+   * Link to open.
+   */
   href?: string;
 }>();
 

@@ -20,6 +20,7 @@ test.describe("Screenshot tests", () => {
     name: "Timer",
     columns: ["default", "with-label"],
     rows: ["seconds", "minutes", "hours"],
+    fastNoIsolation: true,
     component: (column, row) => {
       const endTimes: Record<typeof row, Date> = {
         seconds: getEndDate(30 * 1000),

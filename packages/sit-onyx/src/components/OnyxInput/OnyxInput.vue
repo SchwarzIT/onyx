@@ -7,6 +7,7 @@ import { useFormElementError } from "../../composables/useFormElementError.js";
 import { useLenientMaxLengthValidation } from "../../composables/useLenientMaxLengthValidation.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
+import { useWhitespaceValidation } from "../../composables/useWhitespaceValidation.js";
 import { injectI18n } from "../../i18n/index.js";
 import { mergeVueProps, useRootAttrs } from "../../utils/attrs.js";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
@@ -64,16 +65,6 @@ defineOptions({ inheritAttrs: false });
 const { rootAttrs, restAttrs } = useRootAttrs();
 const { t } = injectI18n();
 
-const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
-const error = computed(() => props.error ?? maxLengthError.value);
-const { vCustomValidity, errorMessages } = useFormElementError({ props, emit, error });
-const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
-
-const patternSource = computed(() => {
-  if (props.pattern instanceof RegExp) return props.pattern.source;
-  return props.pattern;
-});
-
 const input = useTemplateRef("input");
 defineExpose({
   /**
@@ -81,6 +72,43 @@ defineExpose({
    */
   input,
 });
+
+const normalizedPattern = computed(() => {
+  const { pattern } = props;
+  if (!pattern) return;
+
+  const isConfigObj = typeof pattern === "object" && !(pattern instanceof RegExp);
+  const value = isConfigObj ? pattern.value : pattern;
+  const error = isConfigObj ? pattern.error : undefined;
+
+  return {
+    source: value instanceof RegExp ? value.source : value,
+    error,
+  };
+});
+
+const { maxLength, maxLengthError } = useLenientMaxLengthValidation({ modelValue, props });
+const { whitespaceError } = useWhitespaceValidation({ modelValue, props });
+
+const error = computed(() => {
+  if (props.error) return props.error;
+  if (maxLengthError.value) return maxLengthError.value;
+  if (whitespaceError.value) return whitespaceError.value;
+  return undefined;
+});
+
+const customErrorMessages = computed(() => ({
+  patternMismatch: normalizedPattern.value?.error,
+}));
+
+const { vCustomValidity, errorMessages } = useFormElementError({
+  props,
+  emit,
+  error,
+  customErrorMessages,
+});
+
+const { formElementV2Props } = useLegacyFormElementProps({ props, errorMessages });
 
 const { disabled } = useFormContext(props);
 useAutofocus(input, props);
@@ -127,7 +155,7 @@ const { showClearButton } = useClearButton({ props, modelValue });
         :autocomplete="props.autocomplete"
         :autofocus="props.autofocus"
         :name="props.name"
-        :pattern="patternSource"
+        :pattern="normalizedPattern?.source"
         :readonly="props.readonly"
         :disabled="disabled || props.loading"
         :maxlength="maxLength"

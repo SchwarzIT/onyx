@@ -8,6 +8,7 @@ test.describe("Screenshot tests", () => {
     name: "File type icon",
     columns: ["default"],
     rows: SUPPORTED_FILE_TYPE_ICON_MEDIA_TYPES,
+    fastNoIsolation: true,
     component: (column, row) => <OnyxFileTypeIcon type={row} />,
   });
 });

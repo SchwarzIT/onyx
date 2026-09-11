@@ -4,7 +4,9 @@ import OnyxResizeHandle from "./OnyxResizeHandle.vue";
 import type { ResizeHandleAlignment } from "./types.js";
 
 const props = defineProps<{
-  /** Alignment of the resize handle */
+  /**
+   * Alignment of the resize handle
+   */
   alignment?: ResizeHandleAlignment;
 }>();
 

@@ -50,7 +50,7 @@ defineSlots<{
   &__toc {
     position: sticky;
     top: var(--onyx-grid-margin-vertical);
-    height: calc(100vh - var(--onyx-nav-bar-height) - 2 * var(--onyx-grid-margin-vertical));
+    height: calc(100dvh - var(--onyx-nav-bar-height) - 2 * var(--onyx-grid-margin-vertical));
   }
 
   // hide TOC on smaller screens
@@ -64,6 +64,10 @@ defineSlots<{
   }
 
   &__content {
+    // when using a grid inside the content, it should reflect only the available
+    // content width as breakpoint instead of the whole page (including the TOC)
+    container-type: inline-size;
+
     // remove the top margin of the first child since its redundant to the page padding
     :deep(> div > :first-child) {
       margin-top: 0;

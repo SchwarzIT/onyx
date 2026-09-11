@@ -20,17 +20,21 @@ export type FormProps = {
   disabled?: boolean;
   /**
    * Configures if and when errors are shown.
+   *
    * - `true`: errors will be shown initially.
-   * - `false`: errors will never be shown. ⚠️ Only the displaying of the error is effected! An error will still block submission!
-   * - "touched": only shows an error *after* a user has significantly interacted with the input, see [\:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo)
+   * - `false`: errors will never be shown. ⚠️ Only the displaying of the error is effected! An error
+   *   will still block submission!
+   * - "touched": only shows an error _after_ a user has significantly interacted with the input, see
+   *   [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo)
    *
    * @default "touched"
    */
   showError?: ShowErrorMode;
   /**
    * How to display the required / optional marker.
-   * - optional: will show an `(optional)` text after the label for optional form elements.
-   * - required: will show an `*` indicator for required inputs after the label instead.
+   *
+   * - Optional: will show an `(optional)` text after the label for optional form elements.
+   * - Required: will show an `*` indicator for required inputs after the label instead.
    *
    * No marker will be visible if the label is hidden.
    *
@@ -68,17 +72,21 @@ export type FormInjectedProps = {
   disabled?: FormInjected<boolean>;
   /**
    * Configures if and when errors are shown.
+   *
    * - `true`: errors will be shown initially.
-   * - `false`: errors will never be shown. ⚠️ Only the displaying of the error is effected! An error can still block submission!
-   * - "touched": only shows an error *after* a user has significantly interacted with the input, see [\:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo)
+   * - `false`: errors will never be shown. ⚠️ Only the displaying of the error is effected! An error
+   *   can still block submission!
+   * - "touched": only shows an error _after_ a user has significantly interacted with the input, see
+   *   [:user-invalid](https://drafts.csswg.org/selectors/#user-invalid-pseudo)
    *
    * @default Inherits value from closest `<OnyxForm>` component or `touched` if none exists
    */
   showError?: FormInjected<ShowErrorMode>;
   /**
    * How to display the required / optional marker.
-   * - optional: will show an `(optional)` text after the label for optional form elements.
-   * - required: will show an `*` indicator for required inputs after the label instead.
+   *
+   * - Optional: will show an `(optional)` text after the label for optional form elements.
+   * - Required: will show an `*` indicator for required inputs after the label instead.
    *
    * No marker will be visible if the label is hidden.
    *
@@ -101,19 +109,19 @@ export type FormInjectedProps = {
 export const FORM_INJECTED_SYMBOL = Symbol("FORM_INJECTED_SYMBOL");
 export type FORM_INJECTED = symbol; // we can't use `typeof FORM_INJECTED_SYMBOL` as vue is unable to infer its type: https://github.com/SchwarzIT/onyx/issues/1980
 /**
- * Prop type used by form child elements, which indicates that the prop value is taken from the parent form by default.
- * The props **MUST** use `FORM_INJECTED_SYMBOL` as default value.
+ * Prop type used by form child elements, which indicates that the prop value is taken from the
+ * parent form by default. The props **MUST** use `FORM_INJECTED_SYMBOL` as default value.
  * `useFormContext` is used to access the injected form properties.
  *
  * @example
- * ```ts
- * const props = withDefaults(defineProps<OnyxComponentProps>(), {
- *   readonly: FORM_INJECTED_SYMBOL,
- *   disabled: FORM_INJECTED_SYMBOL,
- * });
+ *   ```ts
+ *   const props = withDefaults(defineProps<OnyxComponentProps>(), {
+ *     readonly: FORM_INJECTED_SYMBOL,
+ *     disabled: FORM_INJECTED_SYMBOL,
+ *   });
  *
- * const { disabled, readonly } = useFormContext(props);
- * ```
+ *   const { disabled, readonly } = useFormContext(props);
+ *   ```;
  */
 export type FormInjected<T> = T | FORM_INJECTED;
 
@@ -160,27 +168,28 @@ export const provideFormContext = (formProps: Reactive<FormProps> | undefined) =
 
 const DEFAULT_FORM_INJECTION_CONTEXT = createFormInjectionContext();
 /**
- * Provides the injected form properties (if available).
- * Otherwise a defined default is used.
- * A prop defined on the child component will always take precedence over the injected form properties.
+ * Provides the injected form properties (if available). Otherwise a defined default is used. A prop
+ * defined on the child component will always take precedence over the injected form properties.
  *
  * The props **MUST** use `FORM_INJECTED_SYMBOL` as default value.
  * The type `FormInjected<T>` can be used as PropType wrapper.
  *
  * @example
- * ```ts
- * const props = withDefaults(defineProps<OnyxComponentProps>(), {
- *   readonly: FORM_INJECTED_SYMBOL, // By default, the forms injected value is used
- *   disabled: FORM_INJECTED_SYMBOL, // By default, the forms injected value is used
- * });
+ *   ```ts
+ *   const props = withDefaults(defineProps<OnyxComponentProps>(), {
+ *     readonly: FORM_INJECTED_SYMBOL, // By default, the forms injected value is used
+ *     disabled: FORM_INJECTED_SYMBOL, // By default, the forms injected value is used
+ *   });
  *
- * const { disabled, readonly } = useFormContext(props);
- * ```
+ *   const { disabled, readonly } = useFormContext(props);
+ *   ```;
  */
 export const useFormContext = (props: Reactive<FormInjectedProps>) => {
   return inject(
     FORM_INJECTION_KEY,
-    /** Default */
+    /**
+     * Default
+     */
     DEFAULT_FORM_INJECTION_CONTEXT,
   )(toRef(props));
 };

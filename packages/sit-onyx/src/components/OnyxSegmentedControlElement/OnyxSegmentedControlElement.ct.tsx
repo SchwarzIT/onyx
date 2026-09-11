@@ -8,6 +8,7 @@ test.describe("Screenshot tests", () => {
     name: "Segmented Control Element",
     columns: DENSITIES,
     rows: ["default", "icon", "labelAndIcon"],
+    fastNoIsolation: true,
     component: (column, row) => {
       return (
         <OnyxSegmentedControlElement

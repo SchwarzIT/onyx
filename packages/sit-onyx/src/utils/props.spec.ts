@@ -1,9 +1,9 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 import { reactive } from "vue";
+import { useForwardProps } from "./props.js";
 import PropsForwardTestCaseSpec from "./PropsForwardTestCase.spec.vue";
 import PropsTestCase, { type PropsTestCaseProps } from "./PropsTestCase.spec.vue";
-import { useForwardProps } from "./props.js";
 
 describe("useForwardProps", () => {
   test(`should work for empty props`, () => {

@@ -12,7 +12,7 @@ The WCAG are split into three levels:
 - A (lowest)
 - AA (mid-range)
 - AAA (highest)
-  :::
+:::
 
 To make sure products are accessible to everyone, onyx is committed to follow the four principles of the Web Content Accessibility Guidelines as well as being compliant with level `AA` for all of our components:
 

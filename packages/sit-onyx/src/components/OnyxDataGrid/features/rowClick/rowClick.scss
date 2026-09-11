@@ -1,0 +1,9 @@
+@use "../../../../styles/mixins/layers.scss";
+
+@include layers.component {
+  .onyx-data-grid__row {
+    > td:not(.onyx-data-grid__cell--not-clickable) {
+      cursor: pointer;
+    }
+  }
+}

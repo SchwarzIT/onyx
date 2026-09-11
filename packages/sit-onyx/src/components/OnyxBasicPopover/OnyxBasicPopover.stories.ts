@@ -5,8 +5,9 @@ import OnyxButton from "../OnyxButton/OnyxButton.vue";
 import OnyxBasicPopover from "./OnyxBasicPopover.vue";
 
 /**
- * The Popover component is a supportive element for Menus, designed to display elements above the main page content.
- * It remains anchored to the default content, providing additional options or information.
+ * The Popover component is a supportive element for Menus, designed to display elements above the
+ * main page content. It remains anchored to the default content, providing additional options or
+ * information.
  */
 const meta: Meta<typeof OnyxBasicPopover> = {
   title: "Support/BasicPopover",

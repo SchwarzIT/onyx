@@ -119,7 +119,8 @@ const expectToBeSelected = async (selectedItem: Locator) =>
 export type CheckLocator = (option: Locator) => Promise<boolean>;
 
 /**
- * Test an implementation of the combobox based on https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
+ * Test an implementation of the combobox based on
+ * https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
  */
 export const comboboxSelectOnlyTesting = async (
   page: Page,

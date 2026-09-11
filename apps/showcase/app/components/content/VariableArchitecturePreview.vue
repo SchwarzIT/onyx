@@ -47,7 +47,7 @@ const descriptionId = useId();
           <OnyxIcon :icon="iconNavigationArrow" />
 
           <div class="variable__value">
-            <span>onyx-color-onyx-purple-800</span>
+            <span>onyx-color-system-purple-800</span>
             <div
               class="variable__color"
               :style="{ backgroundColor: 'var(--onyx-color-text-icons-info-intense)' }"
@@ -59,7 +59,7 @@ const descriptionId = useId();
           <OnyxIcon :icon="iconNavigationArrow" />
 
           <div class="variable__value">
-            <span>onyx-color-onyx-purple-500</span>
+            <span>onyx-color-system-purple-500</span>
             <div
               class="variable__color"
               :style="{ backgroundColor: 'var(--onyx-color-text-icons-info-intense)' }"

@@ -50,6 +50,15 @@
     "loadMore": "Încărcare mai multe",
     "editing": {
       "label": "{column} cu ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Rearanjare rânduri",
+      "reset": "Resetare modificări",
+      "dragToMove": "Trageți pentru a muta rândul"
+    },
+    "columnRearrange": {
+      "rearrange": "Rearanjare coloane",
+      "dragToMove": "Trageți pentru a muta coloana"
     }
   },
   "validations": {
@@ -75,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Obligatoriu",
-      "fullError": "Câmpul este gol, este obligatoriu și trebuie completat."
+      "fullError": "Câmpul este gol, este obligatoriu și trebuie completat.",
+      "whitespaceError": "Vă rugăm să introduceți un text valid (spațiile goale nu sunt permise)."
     },
     "stepMismatch": {
       "preview": "Număr invalid",
@@ -352,5 +362,13 @@
   },
   "accordion": {
     "toggle": "Faceți clic pentru a comuta conținutul"
-  }
+  },
+  "search": {
+    "filterLabel": "afișare filtru de căutare",
+    "leadingShortcutPlaceholder": "Tastați",
+    "trailingShortcutPlaceholder": "pentru a căuta",
+    "label": "Căutare",
+    "selectFilter": "Selectare filtru"
+  },
+  "save": "Salvare"
 }

@@ -10,6 +10,7 @@ import type {
 import type {
   BooleanCellOptions,
   DateCellOptions,
+  LinkCellOptions,
   NumberCellOptions,
   SelectCellOptions,
   StringCellOptions,
@@ -29,7 +30,8 @@ it("should be ensured that ColumnTypesFromFeatures unwraps correctly", () => {
     | ColumnConfigTypeOption<"time", DateCellOptions>
     | ColumnConfigTypeOption<"timestamp", DateCellOptions>
     | ColumnConfigTypeOption<"skeleton", StringCellOptions>
-    | ColumnConfigTypeOption<"boolean", BooleanCellOptions>;
+    | ColumnConfigTypeOption<"boolean", BooleanCellOptions>
+    | ColumnConfigTypeOption<"link", LinkCellOptions>;
 
   // should support passing a single feature
   expectTypeOf<

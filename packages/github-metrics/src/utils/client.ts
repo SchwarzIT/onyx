@@ -11,7 +11,8 @@ import type {
 import { findIterationByDate } from "./github.js";
 
 /**
- * Creates a new client that can be used to collect metrics from a GitHub project / interact with the GitHub GraphQL API.
+ * Creates a new client that can be used to collect metrics from a GitHub project / interact with
+ * the GitHub GraphQL API.
  */
 export function createClient(options: CreateClientOptions) {
   /**

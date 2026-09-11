@@ -22,13 +22,13 @@ export type OnyxToastMessageProps = DensityProp & {
    */
   duration?: number;
   /**
-   * Whether the toast is clickable.
-   * Enabling this will present the whole toast message element as a button element, but also hide the close button.
+   * Whether the toast is clickable. Enabling this will present the whole toast message element as a
+   * button element, but also hide the close button.
    */
   clickable?: boolean;
   /**
-   * Icon to display. By default, an icon will be displayed depending on the current `color` property.
-   * Can be set to `false` to hide the icon.
+   * Icon to display. By default, an icon will be displayed depending on the current `color`
+   * property. Can be set to `false` to hide the icon.
    */
   icon?: string | false;
 };

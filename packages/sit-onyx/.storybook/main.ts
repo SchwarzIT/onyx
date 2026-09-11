@@ -1,6 +1,6 @@
-import type { StorybookConfig } from "@storybook/vue3-vite";
 import { readFileSync } from "fs";
 import { fileURLToPath } from "node:url";
+import type { StorybookConfig } from "@storybook/vue3-vite";
 import { mergeConfig } from "vite";
 
 const onyxLayers = readFileSync(
@@ -23,7 +23,10 @@ const config: StorybookConfig = {
   framework: {
     name: "@storybook/vue3-vite",
     options: {
-      docgen: "vue-component-meta",
+      docgen: {
+        plugin: "vue-component-meta",
+        tsconfig: "tsconfig.app.json",
+      },
     },
   },
   core: {

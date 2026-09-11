@@ -21,6 +21,15 @@ const tableHead = (
     </tr>
   </template>
 );
+const tableHeadLong = (
+  <template v-slot:head>
+    <tr>
+      {Array.from({ length: 20 }, (_, i) => (
+        <th key={`column-${i + 1}`}>Column {i + 1}</th>
+      ))}
+    </tr>
+  </template>
+);
 
 const tableBody = [
   <tr>
@@ -174,11 +183,12 @@ test.describe("Screenshot tests (scrolling)", () => {
 test.describe("Screenshot tests (hover)", () => {
   executeMatrixScreenshotTest({
     name: "Table (empty variations)",
-    columns: ["default", "no-header"],
+    columns: ["default", "long-table", "no-header"],
     rows: ["default", "custom-empty"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxTable style="width: 20rem;">
-        {column === "default" ? tableHead : undefined}
+        {column === "default" ? tableHead : column === "long-table" ? tableHeadLong : undefined}
         {row === "custom-empty" ? (
           <template v-slot:empty>
             <OnyxEmpty>Custom empty</OnyxEmpty>
@@ -226,6 +236,7 @@ test.describe("Screenshot tests (slots)", () => {
       "headline-actions",
       "bottomLeft-pagination",
     ],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxTable style={{ width: column === "small" ? "18rem" : "28rem" }}>
         {tableHead}
@@ -265,6 +276,31 @@ test.describe("Screenshot tests (slots)", () => {
             <OnyxPagination modelValue={1} pages={42} />
           </template>
         )}
+      </OnyxTable>
+    ),
+  });
+});
+
+test.describe("Screenshot tests (overflow)", () => {
+  executeMatrixScreenshotTest({
+    name: "Table (text overflow)",
+    columns: ["default"],
+    rows: ["default"],
+    fastNoIsolation: true,
+    component: () => (
+      <OnyxTable style={{ width: "18rem" }} tableAttrs={{ style: { tableLayout: "fixed" } }}>
+        <template v-slot:head>
+          <tr>
+            <th>very.long.header.email.address@example.com</th>
+            <th>Short</th>
+            <th>Multiple words header text</th>
+          </tr>
+        </template>
+        <tr>
+          <td>john.doe.very.long.email.address@example.com</td>
+          <td>Short</td>
+          <td>Multiple words inside cell</td>
+        </tr>
       </OnyxTable>
     ),
   });

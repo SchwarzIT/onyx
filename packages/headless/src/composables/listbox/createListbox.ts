@@ -24,7 +24,8 @@ export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends 
    */
   controlled?: boolean;
   /**
-   * Controls the opened/visible state of the listbox. When expanded the activeOption can be controlled via the keyboard.
+   * Controls the opened/visible state of the listbox. When expanded the activeOption can be
+   * controlled via the keyboard.
    */
   isExpanded?: MaybeRef<boolean>;
   /**
@@ -77,8 +78,8 @@ export type CreateListboxOptions<TValue extends ListboxValue, TMultiple extends 
 );
 
 /**
- * Composable for creating a accessibility-conform listbox.
- * For supported keyboard shortcuts, see: https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
+ * Composable for creating a accessibility-conform listbox. For supported keyboard shortcuts, see:
+ * https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable/
  */
 export const createListbox = createBuilder(
   <TValue extends ListboxValue, TMultiple extends boolean = false>(

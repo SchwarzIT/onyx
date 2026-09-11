@@ -5,8 +5,9 @@ import { NAV_BAR_MORE_LIST_INJECTION_KEY } from "../OnyxNavBar/types.js";
 import OnyxMoreList from "./OnyxMoreList.vue";
 
 /**
- * Support component for rendering a horizontal list of components with a "+ more" indicator.
- * If using custom or not natively supported components, make sure to implement the `useMoreListChild()` composable in all child components.
+ * Support component for rendering a horizontal list of components with a "+ more" indicator. If
+ * using custom or not natively supported components, make sure to implement the
+ * `useMoreListChild()` composable in all child components.
  */
 const meta: Meta<typeof OnyxMoreList> = {
   title: "Support/MoreList",
@@ -74,7 +75,7 @@ export const TopToBottom = {
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div style="height: 95vh;"><story /></div>',
+      template: '<div style="height: 95dvh;"><story /></div>',
     }),
   ],
 } satisfies Story;
@@ -96,7 +97,7 @@ export const BottomToTop = {
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div style="height: 95vh;"><story /></div>',
+      template: '<div style="height: 95dvh;"><story /></div>',
     }),
   ],
 } satisfies Story;

@@ -26,7 +26,7 @@ export const parseComponentsToIcons = (options: ParseIconComponentsOptions): Par
     .map<ParsedIcon>((component) => {
       return {
         id: component.node_id,
-        name: component.name,
+        name: component.name.trim(),
         category: component.containing_frame.name.trim(),
         aliases: component.description
           .split(options.aliasSeparator ?? ",")

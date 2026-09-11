@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<OnyxBreadcrumbItemProps>(), {
 
 defineSlots<{
   /**
-   * Item content / page name.
+   * Name of the page or breadcrumb step. Must be simple, textual content.
    */
   default(): unknown;
 }>();

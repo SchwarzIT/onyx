@@ -19,6 +19,7 @@ test.describe("screenshot tests", () => {
       name: `Radio group (${orientation})`,
       columns: DENSITIES,
       rows: ["default", "label", "skeleton"],
+      fastNoIsolation: true,
       component: (column, row) => (
         <OnyxRadioGroup
           modelValue={EXAMPLE_OPTIONS[0].value}
@@ -39,6 +40,7 @@ test.describe("screenshot tests (truncation)", () => {
     name: "Radio group (truncation)",
     columns: DENSITIES,
     rows: ["default"],
+    fastNoIsolation: true,
     component: (column) => (
       <OnyxRadioGroup
         modelValue={EXAMPLE_OPTIONS[0].value}

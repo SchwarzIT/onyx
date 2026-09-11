@@ -12,8 +12,8 @@ test.describe("Screenshot tests", () => {
     hooks: {
       beforeEach: async (component, page, column, row) => {
         /**
-         *  TODO: Prepare the component before the screenshot
-         *  e.g.:
+         * TODO: Prepare the component before the screenshot
+         * e.g.:
          */
         if (row === "hover") await component.hover();
         if (row === "focus-visible") await page.keyboard.press("Tab");

@@ -1,25 +1,22 @@
 {
   "name": "@sit-onyx/github-metrics",
-  "description": "Utilities for collecting metrics for GitHub projects",
   "version": "0.1.0",
-  "type": "module",
-  "author": "Schwarz IT KG",
-  "license": "Apache-2.0",
-  "sideEffects": false,
-  "engines": {
-    "node": ">=20"
+  "description": "Utilities for collecting metrics for GitHub projects",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
   },
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/github-metrics"
   },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
   "files": [
     "dist"
   ],
+  "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -27,13 +24,16 @@
     }
   },
   "scripts": {
-    "dev": "tsx ./scripts/onyx.ts",
+    "dev": "pnpm run '/^dev:/'",
+    "dev:build": "pnpm run build --watch",
+    "dev:run": "node --env-file-if-exists=.env --watch --experimental-strip-types ./scripts/onyx.ts",
     "build": "rm -rf ./dist && tsc",
     "test": "vitest"
   },
   "devDependencies": {
-    "@sit-onyx/shared": "workspace:^",
-    "dotenv": "^17.4.2",
-    "tsx": "^4.22.0"
+    "@sit-onyx/shared": "workspace:^"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

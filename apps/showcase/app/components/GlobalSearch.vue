@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import GlobalSearch from "#layers/onyx/app/components/GlobalSearch.vue";
 import type { Collections } from "@nuxt/content";
+import GlobalSearch from "#layers/onyx/app/components/GlobalSearch.vue";
 
 const { loggedIn } = useUserSession();
 const { locale } = useI18n();

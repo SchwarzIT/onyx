@@ -11,10 +11,11 @@ export type CreateTooltipOptions = {
 };
 
 /**
- * Create a tooltip as described in https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role
- * Its visibility is toggled on hover or focus.
- * A tooltip MUST be used to describe the associated trigger element. E.g. The usage with the ⓘ would be incorrect.
- * To provide contextual information use the `createToggletip`.
+ * Create a tooltip as described in
+ * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role Its visibility
+ * is toggled on hover or focus. A tooltip MUST be used to describe the associated trigger element.
+ * E.g. The usage with the ⓘ would be incorrect. To provide contextual information use the
+ * `createToggletip`.
  */
 export const createTooltip = createBuilder(({ debounce, isVisible }: CreateTooltipOptions) => {
   const tooltipId = useId();

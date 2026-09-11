@@ -1,0 +1,13 @@
+{
+  "include": ["plugin"],
+  "compilerOptions": {
+    "rootDir": "./plugin",
+    "outDir": "./dist/plugin",
+    "target": "es6",
+    "lib": ["es6"],
+    "strict": true,
+    "declaration": false,
+    "types": ["plugin-typings"],
+    "typeRoots": ["./node_modules/@figma"]
+  }
+}

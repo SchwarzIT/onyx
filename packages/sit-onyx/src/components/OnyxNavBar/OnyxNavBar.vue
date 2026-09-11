@@ -58,7 +58,10 @@ defineExpose({
    * const route = useRoute();
    * const navBar = useTemplateRef("navBar");
    *
-   * watch(() => route.path, () => navBar.value?.closeMobileMenus());
+   * watch(
+   *   () => route.path,
+   *   () => navBar.value?.closeMobileMenus(),
+   * );
    * ```
    */
   closeMobileMenus,

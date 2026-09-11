@@ -64,6 +64,7 @@ test.describe("Screenshot tests (status)", () => {
     name: "File card (status)",
     columns: ["default", "custom-icon", "truncated"],
     rows: ONYX_COLORS,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxFileCard
         filename="filename.pdf"
@@ -82,6 +83,7 @@ test.describe("Screenshot tests (progress)", () => {
     name: "File card (progress)",
     columns: ["default", "custom-icon", "truncated"],
     rows: ONYX_COLORS,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxFileCard
         filename="filename.pdf"

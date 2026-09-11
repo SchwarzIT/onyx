@@ -19,13 +19,13 @@ import { QUANTITATIVE_COLOR_STEPS, getCSSVariableValue, hexToRgb } from "./utils
  * Styles will be updated accordingly if the application is switched between light/dark mode.
  *
  * @example
- * ```ts
- * import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
- * import { Chart, registerables } from "chart.js";
+ *   ```ts
+ *   import { registerOnyxPlugin } from "@sit-onyx/chartjs-plugin";
+ *   import { Chart, registerables } from "chart.js";
  *
- * Chart.register(...registerables);
- * registerOnyxPlugin(Chart);
- * ```
+ *   Chart.register(...registerables);
+ *   registerOnyxPlugin(Chart);
+ *   ```;
  */
 export const registerOnyxPlugin = (chart: typeof Chart) => {
   //
@@ -109,7 +109,9 @@ const plugin: Plugin<ChartType, undefined> = {
    * of the chart.
    */
   beforeLayout: (chart) => {
-    /** Color offset / index so every dataset gets a unique color. */
+    /**
+     * Color offset / index so every dataset gets a unique color.
+     */
     let colorOffset = 0;
 
     chart.config.data.datasets.forEach((dataset, index) => {
@@ -185,8 +187,9 @@ const createColorGetter = (color: string) => {
  *
  * @param dataset Dataset to colorize
  * @param offset Offset for the colors. Useful if multiple datasets are used inside a chart which
- * should have different colors.
- * @param allData Set this to true for doughnut, pie and polar area chart type so every data has a separate color.
+ *   should have different colors.
+ * @param allData Set this to true for doughnut, pie and polar area chart type so every data has a
+ *   separate color.
  */
 const colorizeDataset = (dataset: ChartDataset, offset = 0, allData = false) => {
   const borderColorizer = () => {

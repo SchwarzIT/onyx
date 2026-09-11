@@ -4,7 +4,7 @@
       <div class="hero__content">
         <div class="hero__headlines">
           <OnyxHeadline is="h1" class="hero__headline">
-            <i18n-t keypath="app.hero.headline">
+            <i18n-t keypath="app.hero.headline" scope="global">
               <template #onyx>
                 <span class="hero__accent">onyx</span>
               </template>
@@ -18,7 +18,11 @@
 
         <div class="hero__actions">
           <OnyxButton :label="$t('components.component', 2)" link="/components" />
-          <OnyxButton :label="$t('gettingStarted')" mode="outline" link="/introduction" />
+          <OnyxButton
+            :label="$t('gettingStarted')"
+            mode="outline"
+            link="/introduction/getting-started/installation"
+          />
         </div>
       </div>
     </div>
@@ -43,7 +47,7 @@
     transparent
   );
 
-  min-height: calc(100vh - var(--onyx-nav-bar-height));
+  min-height: calc(100dvh - var(--onyx-nav-bar-height));
   background: var(--onyx-color-base-background-blank);
   background: linear-gradient(
     60deg,

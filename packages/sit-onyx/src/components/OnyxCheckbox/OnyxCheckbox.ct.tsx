@@ -83,8 +83,8 @@ test.describe("Screenshot tests", () => {
       return (
         <OnyxCheckbox
           style={{
-            ...(row !== "default" && { paddingBottom: "3rem" }),
-            ...(column === "hideLabel" && { paddingRight: "3rem" }),
+            ...(row !== "default" && { marginBottom: "3rem" }),
+            ...(column === "hideLabel" && { marginRight: "3rem" }),
           }}
           label="Test label"
           modelValue={column === "checked"}
@@ -157,6 +157,7 @@ test.describe("Screenshot tests", () => {
     name: "Checkbox (other)",
     columns: ["default", "hideLabel"],
     rows: ["required", "optional", "skeleton"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxCheckbox
         label="Test label"

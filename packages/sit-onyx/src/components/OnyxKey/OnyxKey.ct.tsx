@@ -30,6 +30,7 @@ test.describe("Screenshot tests", () => {
     name: "Key",
     columns: ["default"],
     rows: ["default", "highlight", "truncated", "skeleton"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxKey
         name={row === "truncated" ? "MediaPlayPause" : "A"}

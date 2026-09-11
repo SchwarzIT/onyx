@@ -10,7 +10,7 @@ export type OnyxCodeTabsProps<TValue extends PropertyKey = PropertyKey> = Omit<
 export const CODE_TABS_INJECTION_KEY = Symbol() as InjectionKey<{
   /**
    * A map of tab values to their corresponding code snippets.
-   * key = tab value, value = code snippet.
+   * key = tab value, value = code source.
    */
-  tabs: Ref<Map<PropertyKey, string>>;
+  tabs: Ref<Map<PropertyKey, string | HTMLElement>>;
 }>;

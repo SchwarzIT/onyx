@@ -53,7 +53,7 @@
       d="M494,726.5c90,23,263-30,282-90"
       transform="translate(-31.39089 -100.5)"
       fill="none"
-      stroke="var(--onyx-error-svg-background-color-cable)"
+      stroke="var(--onyx-error-svg-background-color)"
       stroke-miterlimit="10"
       stroke-width="2"
     />
@@ -61,7 +61,7 @@
       d="M341,359.5s130-36,138,80-107,149-17,172"
       transform="translate(-31.39089 -100.5)"
       fill="none"
-      stroke="var(--onyx-error-svg-background-color-cable)"
+      stroke="var(--onyx-error-svg-background-color)"
       stroke-miterlimit="10"
       stroke-width="2"
     />
@@ -69,7 +69,7 @@
       d="M215.40233,637.78332s39.0723-10.82,41.47675,24.04449-32.15951,44.78287-5.10946,51.69566"
       transform="translate(-31.39089 -100.5)"
       fill="none"
-      stroke="var(--onyx-error-svg-background-color-cable)"
+      stroke="var(--onyx-error-svg-background-color)"
       stroke-miterlimit="10"
       stroke-width="2"
     />
@@ -302,11 +302,22 @@
 
 .onyx-error-svg {
   @include layers.component() {
-    --onyx-error-svg-background-color: var(--onyx-color-neutral-steel-900);
-    --onyx-error-svg-background-color-accent: var(--onyx-color-neutral-steel-800);
-    --onyx-error-svg-background-color-device-controls: var(--onyx-color-neutral-steel-200);
-    --onyx-error-svg-background-color-cable: var(--onyx-color-neutral-steel-700);
-    --onyx-error-svg-background-color-circle: var(--onyx-color-base-neutral-200);
+    --onyx-error-svg-background-color: light-dark(
+      var(--onyx-color-base-neutral-900),
+      var(--onyx-color-base-neutral-200)
+    );
+    --onyx-error-svg-background-color-accent: light-dark(
+      var(--onyx-color-base-neutral-800),
+      var(--onyx-color-base-neutral-400)
+    );
+    --onyx-error-svg-background-color-device-controls: light-dark(
+      var(--onyx-color-base-neutral-200),
+      var(--onyx-color-base-neutral-900)
+    );
+    --onyx-error-svg-background-color-circle: light-dark(
+      var(--onyx-color-base-neutral-200),
+      var(--onyx-color-base-neutral-600)
+    );
     --onyx-error-svg-background-color-primary: var(--onyx-color-base-primary-500);
     --onyx-error-svg-background-color-face: #fff;
   }

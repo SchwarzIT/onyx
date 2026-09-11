@@ -1,5 +1,46 @@
 # @sit-onyx/nuxt-docs
 
+## 0.7.4
+
+### Patch Changes
+
+- d871730: fix(nuxt-docs): show correct sidebar root when page is not found
+
+  When a page is not found, the sidebar previously included all available pages, even if a custom sidebar root was defined. This is now fixed so that if e.g. a root is defined for "/components" and a non-existing page is opened (e.g. "/components/buttons/not-found"), the sidebar will still correctly show all items inside the "/components" root.
+
+## 0.7.3
+
+### Patch Changes
+
+- 07a0fec: fix(nuxt-docs): correctly include module to register prose components
+
+## 0.7.2
+
+### Patch Changes
+
+- Updated dependencies [6a14c64]
+  - @sit-onyx/mdc@0.3.0
+
+## 0.7.1
+
+### Patch Changes
+
+- 3efb8bc: fix(sidebar-layout): Define content section of TOC layout as container so the actual content width is considered when using the onyx grid
+- b2197a5: fix(useCollection): Prevent 404 when the route seems to begin with a locale, but doesn't actually match a locale prefix.
+
+  This fixes cases where e.g. the route is `/design` for locale `de` which was incorrectly detected as locale prefix (`/de/design`) although no prefix is used in this case.
+
+## 0.7.0
+
+### Minor Changes
+
+- 2a8ce5f: feat(useCollection): require `collection` name to be passed in as parameter
+- 2a8ce5f: feat: support passing a `path` option to set which collection path should be queried. By default, the current path will be used instead of the `slug` route parameter
+- 2a8ce5f: feat: a fatal 404 error is thrown when the collection item does not exist
+- 2a8ce5f: feat: `useSeoMeta()` is automatically called to define the SEO meta for the current collection item
+- b20feec: feat(useSidebarNavigation): support new `fields` option to include custom fields for the navigation items
+- 2a8ce5f: refactor(useSidebarNavigation)!: require `collection` name to be passed in as parameter
+
 ## 0.6.0
 
 ### Minor Changes
@@ -97,6 +138,7 @@
   You can browse all available icons in our [icon library](https://onyx.schwarz/icons.html). Important: You need the define the icon name in kebab-case, so e.g. for the "User Settings" icon, use "user-settings".
 
   Other changes:
+
   - remove default back button from the nav bar. If needed, you can re-add it by [customizing the nav bar](https://onyx.schwarz/development/packages/nuxt-docs.html#customization)
   - sidebar items that are new sidebar roots now show an arrow icon to indicate that there is nested content
   - fix "Failed to resolve dependency: @nuxtjs/mdc" warning when running the dev server

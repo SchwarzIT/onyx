@@ -42,7 +42,7 @@ const listItemProps = useForwardProps(props, OnyxListItem);
 
     <OnyxIcon v-if="props.icon" :icon="props.icon" />
 
-    <span :class="[`onyx-truncation-${props.truncation}`]">
+    <span :class="['onyx-select-option__content', `onyx-truncation-${props.truncation}`]">
       <slot></slot>
     </span>
   </OnyxListItem>
@@ -61,6 +61,10 @@ const listItemProps = useForwardProps(props, OnyxListItem);
       flex-shrink: 0;
 
       @include checkbox.styles();
+    }
+
+    &__content {
+      flex-grow: 1;
     }
   }
 }

@@ -3,8 +3,9 @@ import type { BaseSelectOption } from "../../types/index.js";
 import OnyxRadioGroup from "./OnyxRadioGroup.vue";
 
 /**
- * Radio buttons in UI design are interactive elements that allow users to make a single selection from a set of mutually exclusive options.
- * Users can choose only one option at the time, making radio buttons ideal for scenarios where a single, distinct choice is required.
+ * Radio buttons in UI design are interactive elements that allow users to make a single selection
+ * from a set of mutually exclusive options. Users can choose only one option at the time, making
+ * radio buttons ideal for scenarios where a single, distinct choice is required.
  */
 const meta: Meta<typeof OnyxRadioGroup> = {
   title: "Form Elements/RadioGroup",
@@ -57,8 +58,8 @@ export const Horizontal = {
 } satisfies Story;
 
 /**
- * A radio group with long labels that will be truncated.
- * You can set the "truncation" property of the options to choose between the different truncation types.
+ * A radio group with long labels that will be truncated. You can set the "truncation" property of
+ * the options to choose between the different truncation types.
  */
 export const WithTruncation = {
   args: {

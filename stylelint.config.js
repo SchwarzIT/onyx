@@ -1,7 +1,10 @@
-/** @type {import('stylelint').Config} */
+/**
+ * @type {import("stylelint").Config}
+ */
 export default {
   plugins: ["stylelint-no-unsupported-browser-features"],
   rules: {
+    "unit-disallowed-list": ["vh"],
     "plugin/no-unsupported-browser-features": [
       true,
       {
@@ -14,9 +17,19 @@ export default {
           "css-scrollbar",
           "css-touch-action",
           "css3-cursors",
+          "css3-cursors-grab",
         ],
         ignorePartialSupport: true,
       },
     ],
   },
+  overrides: [
+    // disable strict "vh" unit check for docs since VitePress uses "vh" internally which we can not replace
+    {
+      files: ["apps/docs/src/.vitepress/dist/assets/style.*.css"],
+      rules: {
+        "unit-disallowed-list": null,
+      },
+    },
+  ],
 };

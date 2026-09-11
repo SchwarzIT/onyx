@@ -1,5 +1,14 @@
 # @sit-onyx/flags
 
+## 1.3.0
+
+### Minor Changes
+
+- 8035a8d: feat: update flags
+
+  #### Modified
+  - ES-CE
+
 ## 1.2.0
 
 ### Minor Changes

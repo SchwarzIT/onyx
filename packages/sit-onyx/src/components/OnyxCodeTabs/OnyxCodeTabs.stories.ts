@@ -7,13 +7,14 @@ import OnyxCodeTabs from "./OnyxCodeTabs.vue";
 /**
  * Component for displaying one or multiple code snippets.
  *
- * This component does NOT take care of proper syntax highlighting. If you want to use syntax highlighting, consider using a library like [Shiki](https://shiki.style/)
- * or [Nuxt content](https://content.nuxt.com/docs/files/markdown#code-highlighting) and add the highlighted HTML using the slot of the passed OnyxCodeTab component.
+ * This component does NOT take care of proper syntax highlighting. If you want to use syntax
+ * highlighting, consider using a library like [Shiki](https://shiki.style/) or [Nuxt
+ * content](https://content.nuxt.com/docs/files/markdown#code-highlighting) and add the highlighted
+ * HTML using the slot of the passed OnyxCodeTab component.
  */
 const meta: Meta<typeof OnyxCodeTabs> = {
   title: "Documentation/CodeTabs",
   component: OnyxCodeTabs as Meta["component"],
-  tags: ["new:component"],
   argTypes: {
     default: { control: { disable: true } },
   },

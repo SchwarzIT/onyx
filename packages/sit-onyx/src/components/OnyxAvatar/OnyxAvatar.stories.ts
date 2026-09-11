@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxAvatar from "./OnyxAvatar.vue";
 
 /**
- * Avatars visually represent users with profile images or initials, adding a personal touch to applications by displaying the user’s identity in a compact form.
+ * Avatars visually represent users with profile images or initials, adding a personal touch to
+ * applications by displaying the user’s identity in a compact form.
  */
 const meta: Meta<typeof OnyxAvatar> = {
   title: "Basic/Avatar",

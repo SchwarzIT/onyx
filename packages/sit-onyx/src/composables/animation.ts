@@ -11,11 +11,12 @@ const isAlreadyTriggered = new Set<string>();
 const IDLE_TIMEOUT = 200;
 
 /**
- * `requestIdleCallback` is not available in Safari, so we use `setTimeout` with a timeout of 0 as a primitive polyfill.
+ * `requestIdleCallback` is not available in Safari, so we use `setTimeout` with a timeout of 0 as a
+ * primitive polyfill.
  */
 const onIdleCallback =
   globalThis.window && "requestIdleCallback" in globalThis.window
-    ? globalThis.window.requestIdleCallback // eslint-disable-line compat/compat -- we monkey patch requestIdleCallback for compatibility using `setTimeout`
+    ? globalThis.window.requestIdleCallback.bind(globalThis.window) // eslint-disable-line compat/compat -- we monkey patch requestIdleCallback for compatibility using `setTimeout`
     : (cb: () => void, _: IdleRequestOptions) => setTimeout(cb, 0);
 
 const syncAnimations = (animationName: string) => {
@@ -30,8 +31,8 @@ const syncAnimations = (animationName: string) => {
 };
 
 /**
- * This function allows to synchronizes CSS animations with the same name across the entire document.
- * The sync will not be executed immediately and is deemed "low-priority".
+ * This function allows to synchronizes CSS animations with the same name across the entire
+ * document. The sync will not be executed immediately and is deemed "low-priority".
  */
 export const requestAnimationSync = (animationName: string) => {
   if (isAlreadyTriggered.has(animationName)) {

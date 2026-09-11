@@ -2,14 +2,21 @@ import { readFileSync } from "node:fs";
 import { defineLoader } from "vitepress";
 
 export type Data = {
-  /** List of available onyx languages. */
+  /**
+   * List of available onyx languages.
+   */
   languages: Language[];
 };
 
 export type Language = {
-  /** @example "en-US" */
+  /**
+   * @example
+   *   "en-US";
+   */
   name: string;
-  /** JSON content of the translations / messages */
+  /**
+   * JSON content of the translations / messages
+   */
   fileContent: object;
 };
 
@@ -18,6 +25,7 @@ export { data };
 
 /**
  * Build-Time data loader to get a list of available languages
+ *
  * @see https://vitepress.dev/guide/data-loading
  */
 export default defineLoader({

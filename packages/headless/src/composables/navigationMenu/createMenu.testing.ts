@@ -13,8 +13,9 @@ export type NavigationMenuTestingOptions = {
 };
 
 /**
- * Playwright utility for executing accessibility testing for a navigation menu.
- * Will check aria attributes and keyboard shortcuts as defined in https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
+ * Playwright utility for executing accessibility testing for a navigation menu. Will check aria
+ * attributes and keyboard shortcuts as defined in
+ * https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
  */
 export const navigationTesting = async ({ nav, buttons }: NavigationMenuTestingOptions) => {
   /**

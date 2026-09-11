@@ -253,7 +253,11 @@ test("Screenshot test (open DatePickerV2)", async ({ mount, page }) => {
   const LABEL = "test-label";
   const mounted = await mount(
     table(
-      <DataGridFormElementWrapper is={OnyxDatePickerV2} label={LABEL} modelValue={"2020-12-31"} />,
+      <DataGridFormElementWrapper
+        is={OnyxDatePickerV2}
+        label={LABEL}
+        modelValue={new Date("2020-12-31")}
+      />,
     ),
   );
 

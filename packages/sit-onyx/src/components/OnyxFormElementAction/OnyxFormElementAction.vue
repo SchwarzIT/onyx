@@ -1,7 +1,8 @@
 <script lang="ts">
 /**
+ * @deprecated This component is still under active development and its API might change in patch
+ *   releases.
  * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
  */
 export default {};
 </script>
@@ -113,7 +114,13 @@ const toggleAttrs = computed(() =>
     display: var(--onyx-form-element-action-display);
 
     &__button {
-      all: initial;
+      appearance: none;
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      box-sizing: border-box;
       color: var(--onyx-form-element-action-color);
 
       &[aria-pressed="true"] {

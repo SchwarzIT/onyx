@@ -2,7 +2,14 @@ import { create, type ThemeVars } from "storybook/theming";
 import type { Viewport } from "storybook/viewport";
 import { ONYX_BREAKPOINTS as RAW_ONYX_BREAKPOINTS, type OnyxBreakpoint } from "./breakpoints.js";
 
-export type BrandDetails = Pick<ThemeVars, "brandTitle" | "brandImage" | "brandUrl">;
+export type BrandDetails = Pick<ThemeVars, "brandTitle" | "brandUrl"> & {
+  brandImage:
+    | string
+    | {
+        dark: string;
+        light: string;
+      };
+};
 
 /**
  * Get the computed value for a CSS custom property.
@@ -21,7 +28,10 @@ export const createTheme = (base: "light" | "dark" = "light", brandDetails?: Bra
   return create({
     brandTitle: brandDetails?.brandTitle,
     brandUrl: brandDetails?.brandUrl,
-    brandImage: brandDetails?.brandImage,
+    brandImage:
+      typeof brandDetails?.brandImage === "object"
+        ? brandDetails.brandImage[base]
+        : brandDetails?.brandImage,
     brandTarget: "_blank",
     base,
 
@@ -58,7 +68,9 @@ const getDarkTheme = (): Partial<ThemeVars> => {
   });
 };
 
-/** Define a full onyx Storybook color theme based on the given 5 main colors. */
+/**
+ * Define a full onyx Storybook color theme based on the given 5 main colors.
+ */
 const defineTheme = (colors: {
   text: string;
   textMuted: string;
@@ -93,7 +105,9 @@ const defineTheme = (colors: {
   } satisfies Partial<ThemeVars>;
 };
 
-/** All available Storybook breakpoints / viewports supported by onyx. */
+/**
+ * All available Storybook breakpoints / viewports supported by onyx.
+ */
 export const ONYX_BREAKPOINTS = Object.entries(RAW_ONYX_BREAKPOINTS).reduce(
   (obj, [name, width]) => {
     const breakpoint = name as OnyxBreakpoint;
@@ -119,6 +133,8 @@ export const ONYX_BREAKPOINTS = Object.entries(RAW_ONYX_BREAKPOINTS).reduce(
 
 /**
  * Converts a rem string into a numeric value with a rem base of 16.
- * @example "1rem" => 16
+ *
+ * @example
+ *   "1rem" => 16
  */
 const remToNumber = (value: string) => +value.replace("rem", "") * 16;

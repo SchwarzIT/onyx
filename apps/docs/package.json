@@ -2,13 +2,16 @@
   "name": "@sit-onyx/docs-app",
   "version": "0.0.1",
   "private": true,
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "apps/docs"
   },
-  "license": "Apache-2.0",
-  "author": "Schwarz IT KG",
+  "files": [
+    "src/.vitepress"
+  ],
   "type": "module",
   "imports": {
     "#src/.vitepress/browser-loader.data": {
@@ -16,9 +19,6 @@
       "default": "./src/.vitepress/browser-loader.data.ts"
     }
   },
-  "files": [
-    "src/.vitepress"
-  ],
   "scripts": {
     "build": "pnpm run '/type-check|build-only/'",
     "build-only": "vitepress build src",
@@ -30,6 +30,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "devDependencies": {
+    "@sit-onyx/assets": "workspace:^",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
@@ -37,14 +38,15 @@
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/tiptap": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
+    "browserslist": "^4.28.9",
     "chart.js": "catalog:",
-    "postcss": "^8.5.14",
+    "postcss": "^8.5.28",
     "sass-embedded": "catalog:",
     "sit-onyx": "workspace:^",
     "vite": "catalog:",
-    "vitepress": "2.0.0-alpha.17",
+    "vitepress": "2.0.0-alpha.20",
     "vue": "catalog:",
-    "vue-chartjs": "^5.3.3"
+    "vue-chartjs": "^5.3.4"
   },
   "engines": {
     "node": ">=20"

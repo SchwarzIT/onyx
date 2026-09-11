@@ -7,21 +7,25 @@ import {
   type OnyxNumberFormatOptions,
 } from "../../../i18n/index.js";
 import { OnyxIcon, OnyxVisuallyHidden, type SelectOption } from "../../../index.js";
+import type { DateValue } from "../../../utils/date.js";
 import { allObjectEntries } from "../../../utils/objects.js";
 import { parseTimeSeconds } from "../../../utils/time.js";
 import OnyxDatePicker from "../../OnyxDatePicker/OnyxDatePicker.vue";
-import type { DateValue } from "../../OnyxDatePicker/types.js";
+import { parseLinkValue } from "../../OnyxEditLinkDialog/utils.js";
 import type { OnyxIconProps } from "../../OnyxIcon/types.js";
 import OnyxInput from "../../OnyxInput/OnyxInput.vue";
+import OnyxLink from "../../OnyxLink/OnyxLink.vue";
+import type { OnyxLinkProps } from "../../OnyxLink/types.js";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
 import OnyxStepper from "../../OnyxStepper/OnyxStepper.vue";
 import OnyxSwitch from "../../OnyxSwitch/OnyxSwitch.vue";
 import OnyxTimePicker from "../../OnyxTimePicker/OnyxTimePicker.vue";
 import type { DataGridEntry } from "../types.js";
 import DataGridFormElementWrapper from "./DataGridFormElementWrapper.vue";
+import LinkEditor from "./editing/LinkEditor.vue";
 import HeaderCell from "./HeaderCell.vue";
-import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from "./index.js";
 import "./renderer.scss";
+import { type DataGridFeatureDescription, type TypeRenderer, type TypeRenderMap } from "./index.js";
 
 export const FALLBACK_RENDER_VALUE = "-";
 
@@ -162,6 +166,31 @@ export const STRING_RENDERER = createTypeRenderer<StringCellOptions>({
             modelValue,
           })
         : stringFormatter(modelValue, metadata?.typeOptions),
+  },
+});
+
+export type LinkCellOptions = Partial<OnyxLinkProps>;
+
+export const LINK_RENDERER = createTypeRenderer<LinkCellOptions>({
+  header: { component: HeaderCell },
+  cell: {
+    component: ({ metadata, modelValue }) => {
+      if (metadata?.editable) {
+        return h(LinkEditor, { modelValue });
+      }
+
+      const link = parseLinkValue(modelValue);
+      if (!link) return fallback();
+
+      return h(
+        OnyxLink,
+        {
+          ...metadata?.typeOptions,
+          ...link,
+        },
+        () => link.label || link.href,
+      );
+    },
   },
 });
 

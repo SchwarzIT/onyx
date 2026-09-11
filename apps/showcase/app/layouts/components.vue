@@ -17,7 +17,7 @@ const { navigation } = await useSidebarNavigation({
 <template>
   <OnyxPageLayout>
     <template #sidebar>
-      <OnyxSidebar label="Label">
+      <OnyxSidebar :label="$t('onyx.navigation.navigationHeadline')">
         <NestableSidebarItem
           :item="{
             title: $t('components.all'),

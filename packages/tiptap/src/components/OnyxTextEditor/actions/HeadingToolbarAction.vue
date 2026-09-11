@@ -2,10 +2,10 @@
 import { iconH1, iconH2, iconH3, iconH4, iconParagraphText } from "@sit-onyx/icons";
 import type { Editor } from "@tiptap/vue-3";
 import { injectI18n } from "sit-onyx";
-import type { EditorToolbarFlyoutOption } from "src/components/OnyxEditorToolbarFlyout/types.js";
 import { computed, toRef } from "vue";
 import { type HeadingLevel, useEditorUtils } from "../../../composables/useEditorUtils.js";
 import OnyxEditorToolbarFlyout from "../../OnyxEditorToolbarFlyout/OnyxEditorToolbarFlyout.vue";
+import type { EditorToolbarFlyoutOption } from "../../OnyxEditorToolbarFlyout/types.js";
 
 const props = defineProps<{
   editor?: Editor;

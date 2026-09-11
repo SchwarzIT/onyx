@@ -1,17 +1,23 @@
 {
   "name": "sit-onyx",
-  "description": "A design system and Vue.js component library created by Schwarz IT",
-  "version": "1.13.1",
-  "type": "module",
-  "author": "Schwarz IT KG",
+  "version": "1.20.0",
+  "description": "A design system and Vue.js component library created by Schwarz Digits",
+  "homepage": "https://onyx.schwarz",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
   "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
+  "author": "Schwarz Digits IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/sit-onyx"
   },
   "files": [
     "dist",
     "src/styles"
   ],
+  "type": "module",
   "module": "./dist/index.esm-bundler.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -28,15 +34,6 @@
     "./dist/*": "./dist/*",
     "./package.json": "./package.json"
   },
-  "homepage": "https://onyx.schwarz",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
-    "directory": "packages/sit-onyx"
-  },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
   "scripts": {
     "dev": "storybook dev -p 6006 --no-open",
     "build": "tsx ./build/index.ts && tsc -p tsconfig.locales.json --composite false",
@@ -47,33 +44,38 @@
     "test:playwright": "playwright install && playwright test",
     "stylelint": "stylelint \"dist/**/*.css\""
   },
-  "peerDependencies": {
-    "@sit-onyx/icons": "workspace:^",
-    "typescript": ">= 5.2.2",
-    "vue": ">= 3.5.0"
-  },
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.3",
+    "@axe-core/playwright": "^4.13.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
+    "@sit-onyx/assets": "workspace:^",
     "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/headless": "workspace:^",
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
-    "@storybook/addon-a11y": "^10.4.0",
+    "@sit-onyx/vite-plugin-component-meta": "workspace:^",
+    "@storybook/addon-a11y": "~10.4.6",
     "@vue/compiler-dom": "catalog:",
-    "@vue/test-utils": "^2.4.10",
-    "axe-core": "^4.11.4",
+    "@vue/test-utils": "^2.5.0",
+    "axe-core": "^4.13.0",
     "postcss-scss": "^4.0.9",
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^3.1.0",
-    "tsx": "^4.22.0",
+    "tsx": "^4.23.13",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:",
     "vue": "catalog:",
-    "vue-component-meta": "catalog:",
-    "vue-component-type-helpers": "^3.2.9",
-    "vue-docgen-api": "^4.79.2",
-    "vue-i18n": "^11.4.2",
-    "vue-router": "^5.0.7"
+    "vue-component-type-helpers": "^3.3.11",
+    "vue-i18n": "^11.4.10",
+    "vue-router": "^5.3.1"
+  },
+  "peerDependencies": {
+    "@sit-onyx/icons": "workspace:^",
+    "typescript": ">= 5.2.2",
+    "vue": ">= 3.5.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

@@ -50,6 +50,15 @@
     "loadMore": "Зареждане на още",
     "editing": {
       "label": "{column} с ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Пренареждане на редове",
+      "reset": "Нулиране на промените",
+      "dragToMove": "Плъзнете, за да преместите ред"
+    },
+    "columnRearrange": {
+      "rearrange": "Пренареждане на колони",
+      "dragToMove": "Плъзнете, за да преместите колона"
     }
   },
   "validations": {
@@ -75,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Задължително",
-      "fullError": "Полето е празно, то е задължително и трябва да бъде попълнено."
+      "fullError": "Полето е празно, то е задължително и трябва да бъде попълнено.",
+      "whitespaceError": "Моля, въведете валиден текст (не се допускат само интервали)."
     },
     "stepMismatch": {
       "preview": "Невалидно число",
@@ -352,5 +362,13 @@
   },
   "accordion": {
     "toggle": "Кликнете, за да превключите съдържанието"
-  }
+  },
+  "search": {
+    "filterLabel": "показване на филтър за търсене",
+    "leadingShortcutPlaceholder": "Въведете",
+    "trailingShortcutPlaceholder": "за търсене",
+    "label": "Търсене",
+    "selectFilter": "Избор на филтър"
+  },
+  "save": "Запазване"
 }

@@ -11,8 +11,9 @@ type ComponentEmits<Props extends ComponentProps<unknown>> = keyof {
 };
 
 /**
- * Wraps the original component and adds [Storybook action logging](https://storybook.js.org/docs/essentials/actions).
- * This is useful for slotted child components that emit relevant events.
+ * Wraps the original component and adds [Storybook action
+ * logging](https://storybook.js.org/docs/essentials/actions). This is useful for slotted child
+ * components that emit relevant events.
  *
  * Returns a wrapped component, which can be used in place of the original component.
  *
@@ -52,7 +53,8 @@ export const createActionLoggerWrapper =
   };
 
 /**
- * Adds actions for all argTypes of the 'event' category, so that they are logged via the actions plugin.
+ * Adds actions for all argTypes of the 'event' category, so that they are logged via the actions
+ * plugin.
  */
 export const enhanceEventArgTypes: ArgTypesEnhancer = ({ argTypes }) => {
   Object.values(argTypes)
@@ -76,18 +78,18 @@ export const enhanceEventArgTypes: ArgTypesEnhancer = ({ argTypes }) => {
  * Will be documented in a extra "Relevant HTML events" section in the Storybook documentation.
  *
  * @example
- * ```typescript
- * const meta: Meta<typeof OnyxButton> = {
- *   title: "Buttons/Button",
- *   component: OnyxButton,
- *   argTypes: {
- *     somethingElse: { ...someOtherArgType },
- *     ...withNativeEventLogging(["onClick"]),
- *  },
- *};
- * ```
+ *   ```typescript
+ *   const meta: Meta<typeof OnyxButton> = {
+ *     title: "Buttons/Button",
+ *     component: OnyxButton,
+ *     argTypes: {
+ *       somethingElse: { ...someOtherArgType },
+ *       ...withNativeEventLogging(["onClick"]),
+ *     },
+ *   };
+ *   ```;
  *
- * @param relevantEvents a list of event names that should be logged
+ * @param relevantEvents A list of event names that should be logged
  * @returns Storybook ArgTypes object
  */
 export const withNativeEventLogging = (relevantEvents: (keyof Events)[]) =>
@@ -109,6 +111,7 @@ export const withNativeEventLogging = (relevantEvents: (keyof Events)[]) =>
 export type WithVModelDecoratorOptions = {
   /**
    * The matcher for the v-model events.
+   *
    * @default /^update:/
    */
   filter: (argType: StrictInputType, index: number, array: StrictInputType[]) => boolean;
@@ -120,13 +123,13 @@ export type WithVModelDecoratorOptions = {
  * This ensures that the story and component props stay in sync.
  *
  * @example
- * ```ts
- * // .storybook/preview.ts
+ *   ```ts
+ *   // .storybook/preview.ts
  *
- * {
- *   decorators: [withVModelDecorator()]
- * }
- * ```
+ *   {
+ *     decorators: [withVModelDecorator()];
+ *   }
+ *   ```;
  */
 
 export const withVModelDecorator = (options?: WithVModelDecoratorOptions): Decorator => {
@@ -182,7 +185,9 @@ export const withVModelDecorator = (options?: WithVModelDecoratorOptions): Decor
   };
 };
 
-/** Capitalizes the first letter of the given string */
+/**
+ * Capitalizes the first letter of the given string
+ */
 const capitalizeFirstLetter = (value: string) => {
   return value.charAt(0).toUpperCase() + value.slice(1);
 };

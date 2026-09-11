@@ -35,7 +35,9 @@ export default function vitePluginSVG(options: PluginOptions): Plugin {
   const typeDefinitionPath = "virtual__vite-plugin-svg.d.ts";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
-  /** Gets the given path while ensuring cross-platform and correct decoding */
+  /**
+   * Gets the given path while ensuring cross-platform and correct decoding
+   */
   const getFilePath = (path: string) => fileURLToPath(new URL(path, options.base));
 
   return {

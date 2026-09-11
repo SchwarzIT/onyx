@@ -1,5 +1,37 @@
 # @sit-onyx/modelcontextprotocol
 
+## 0.4.0
+
+### Minor Changes
+
+- 666498e: feat: Add '--exclude' flag for disabling specific resources
+
+### Patch Changes
+
+- 666498e: fix(sit-onyx://skill/*): Refined and improved existing skills
+
+## 0.3.0
+
+### Minor Changes
+
+- 077680e: feat: Add `onyx-install-mcp` skill
+
+### Patch Changes
+
+- 077680e: fix(list-components): Ignore and don't list pre-release versions anymore
+- 077680e: fix(get-component-api): Add hint when no `events`, `slots`, `props` or `exposed` are defined
+
+## 0.2.0
+
+### Minor Changes
+
+- ef69ed2: feat: Implement support for providing and writing skills via onyx-mcp CLI
+- ef69ed2: feat: Implement `list-css-design-tokens` resource
+
+### Patch Changes
+
+- ff6379e: fix: http transport (server) only accepting the very first connection
+
 ## 0.1.0
 
 ### Minor Changes

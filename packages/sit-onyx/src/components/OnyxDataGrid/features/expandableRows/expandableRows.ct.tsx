@@ -55,3 +55,28 @@ test("should expand rows", async ({ mount, makeAxeBuilder }) => {
   // ASSERT
   await expectRowCount(3);
 });
+
+test("should not render header actions from other features", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(
+    <TestCase
+      columns={[
+        { key: "a", label: "A" },
+        { key: "b", label: "B" },
+      ]}
+      data={[]}
+      enableSorting
+    />,
+  );
+
+  // ASSERT
+  await expect(
+    component.getByRole("columnheader").first().getByRole("button"),
+    "should hide header actions for expandable column",
+  ).toBeHidden();
+
+  await expect(
+    component.getByRole("columnheader").nth(1).getByRole("button"),
+    "should show header actions for regular columns",
+  ).toBeVisible();
+});

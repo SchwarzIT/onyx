@@ -15,7 +15,9 @@ export const debounce = <TArgs extends unknown[]>(
     clearTimeout(timer);
     timer = setTimeout(() => handler(...lastArgs), toValue(timeout));
   };
-  /** Abort the currently debounced action, if any. */
+  /**
+   * Abort the currently debounced action, if any.
+   */
   func.abort = () => clearTimeout(timer);
 
   return func;

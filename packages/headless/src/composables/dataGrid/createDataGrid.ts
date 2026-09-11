@@ -23,11 +23,13 @@ const ROW_ID_DATA_ATTR = "data-onyx-row-id";
 const ROW_INDEX_ARIA_ATTR = "aria-rowindex";
 
 /**
- * We support two different render modes for the data grid:
- *   - `static`: The complete grid is rendered immediately and on first mount, so that all rows, all cells and all data is available in the DOM.
- *   - `lazy`: The grid only shows a part of the complete data and more parts are rendered as seen fit.
+ * We support two different render modes for the data grid: - `static`: The complete grid is
+ * rendered immediately and on first mount, so that all rows, all cells and all data is available in
+ * the DOM. - `lazy`: The grid only shows a part of the complete data and more parts are rendered as
+ * seen fit.
  *
- * To accommodate both modes without overhead we use different resolvers for each, as the `StaticResolver` needs way less metadata to work.
+ * To accommodate both modes without overhead we use different resolvers for each, as the
+ * `StaticResolver` needs way less metadata to work.
  */
 type IndexResolver = {
   mapCellToIndex: (cell: HTMLTableCellElement) => number;
@@ -97,11 +99,13 @@ export type LazyOptions<Lazy extends boolean> = Lazy extends true
   ? {
       lazy: MaybeRefOrGetter<{
         /**
-         * total number of rows that are viewable, this includes rows that are hidden because they are out of view
+         * Total number of rows that are viewable, this includes rows that are hidden because they
+         * are out of view
          */
         totalRows: number | "unknown";
         /**
-         * total number of columns that are viewable, this includes columns that are hidden because they are out of view
+         * Total number of columns that are viewable, this includes columns that are hidden because
+         * they are out of view
          */
         totalCols: number | "unknown";
 
@@ -151,7 +155,8 @@ export const createDataGrid = createBuilder(
     const selectedCellEl = createElRef<HTMLElement>();
 
     /**
-     * Tracks if the latest `resolveCell` promise is finished, if successful the focus can be moved to the resolved cell.
+     * Tracks if the latest `resolveCell` promise is finished, if successful the focus can be moved
+     * to the resolved cell.
      */
     const focusQueue = useLastSettled<Nullable<HTMLElement>>((success, cell) => {
       if (success) {
@@ -220,7 +225,7 @@ export const createDataGrid = createBuilder(
     });
 
     /**
-     * when a cell is focused programmatically or by click, it becomes the currently selected cell.
+     * When a cell is focused programmatically or by click, it becomes the currently selected cell.
      */
     const onFocusin = (event: FocusEvent) => {
       setSelected(event.target as HTMLElement);
@@ -320,9 +325,10 @@ export const createDataGrid = createBuilder(
       },
       state: {
         /**
-         * Indicates that the data grid expects a content change soon, e.g. because more or other data is loaded.
-         * If `loading` is passed in via the options, this will mirror its value.
-         * Otherwise it will be dynamically set based on the running state of the `requestLazyLoad` promises.
+         * Indicates that the data grid expects a content change soon, e.g. because more or other
+         * data is loaded. If `loading` is passed in via the options, this will mirror its value.
+         * Otherwise it will be dynamically set based on the running state of the `requestLazyLoad`
+         * promises.
          */
         busy,
       },

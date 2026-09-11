@@ -34,7 +34,7 @@ const emit = defineEmits<{
    */
   validityChange: [validity: ValidityState];
   /**
-   * update modeValue
+   * Update modeValue
    */
   "update:modelValue": [value?: Nullable<number>];
 }>();
@@ -59,7 +59,8 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 
 /**
  * Used to detect user interaction to simulate the behavior of :user-invalid for the native input
- * because the native browser :user-invalid does not trigger when the value is changed via Arrow up/down or increase/decrease buttons
+ * because the native browser :user-invalid does not trigger when the value is changed via Arrow
+ * up/down or increase/decrease buttons
  */
 const wasTouched = ref(false);
 

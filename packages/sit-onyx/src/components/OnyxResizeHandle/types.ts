@@ -10,8 +10,8 @@ export type OnyxResizeHandleProps = {
    */
   min?: number;
   /**
-   * Whether the resizing is currently active/dragging.
-   * Useful if the resize handle is rerendered based on some conditions but the dragging state should be kept.
+   * Whether the resizing is currently active/dragging. Useful if the resize handle is rerendered
+   * based on some conditions but the dragging state should be kept.
    */
   active?: boolean;
   /**

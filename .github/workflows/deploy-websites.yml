@@ -26,12 +26,12 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
       - name: "🛒 Checkout Repository"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: ./.github/templates/node-setup
 
@@ -58,12 +58,12 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
       - name: "🛒 Checkout Repository"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: ./.github/templates/node-setup
 
@@ -94,12 +94,12 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
       - name: "🛒 Checkout Repository"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: ./.github/templates/node-setup
 
@@ -126,7 +126,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
@@ -141,7 +141,7 @@ jobs:
           webhook_secret: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_SECRET }}
 
       - name: "🛒 Checkout Repository"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: ./.github/templates/node-setup
 
@@ -172,23 +172,17 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
       - name: "🛒 Checkout Repository"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: ./.github/templates/node-setup
 
       - name: 🛠️ Build Showcase
         run: pnpm build:all --filter=@sit-onyx/showcase
-        env:
-          # the Nuxt Studio env variables currently need to be provided during the build and can not be dynamically injected during runtime
-          # see: https://github.com/nuxt-content/nuxt-studio/issues/139#issuecomment-3749269074
-          # we also added these env variables to our global turbo.json so turborepo correctly passes the env variables to the build process
-          STUDIO_GITHUB_CLIENT_ID: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_ID }}
-          STUDIO_GITHUB_CLIENT_SECRET: ${{ secrets.NUXT_STUDIO_GITHUB_CLIENT_SECRET }}
 
       - name: Copy .node-version file
         # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
@@ -214,12 +208,12 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
       - name: "🛒 Checkout Repository"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: ./.github/templates/node-setup
 

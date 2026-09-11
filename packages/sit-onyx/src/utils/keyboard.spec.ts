@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { keyboardEventToKey, type KeyboardKey } from "./keyboard.js";
+import { keyboardEventToKey } from "./keyboard.js";
 
 const createKeyboardEvent = (key: string, code?: string) => {
   return new KeyboardEvent("keydown", { key, code });
@@ -318,7 +318,7 @@ describe("keyboardEventToKey", () => {
       const result = keyboardEventToKey(event);
 
       // ASSERT
-      expect(result).toBe("unknown" as KeyboardKey);
+      expect(result).toBe("unknown");
     });
   });
 

@@ -12,6 +12,7 @@ test.describe("Screenshot tests", () => {
     name: "Info card",
     columns: DENSITIES,
     rows: ONYX_COLORS,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxInfoCard
         color={row}
@@ -55,6 +56,7 @@ test.describe("Screenshot tests (slots)", () => {
     name: "Info card (slots)",
     columns: ["default", "closeable"],
     rows: ["headline", "headline+description", "description", "headline+description+no-icon"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxInfoCard
         headline={row.includes("headline") ? "Headline" : undefined}

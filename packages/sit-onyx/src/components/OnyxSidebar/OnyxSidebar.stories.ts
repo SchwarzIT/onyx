@@ -35,3 +35,8 @@ export const Grid = {
 export const Right = {
   ...createAdvancedStoryExample("OnyxSidebar", "RightExample"),
 } satisfies Story;
+
+export const TreeView = {
+  tags: ["unstable"],
+  ...createAdvancedStoryExample("OnyxSidebar", "TreeViewExample"),
+} satisfies Story;

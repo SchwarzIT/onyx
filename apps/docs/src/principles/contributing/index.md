@@ -9,7 +9,7 @@ import nodeVersion from "../../../../../.node-version?raw";
 
 # Contribution Guide
 
-When contributing to onyx, please respect the [Schwarz IT Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md) and our [technical guidelines](/principles/technical-guidelines).
+When contributing to onyx, please respect the [Schwarz Digits Code of Conduct](https://github.com/SchwarzIT/.github/blob/main/CODE_OF_CONDUCT.md) and our [technical guidelines](/principles/technical-guidelines).
 
 ::: info Target audience
 This document is directed at people that are developing **for** onyx.
@@ -41,8 +41,8 @@ Here is a list of the most commonly used global scripts that you can run in the 
 
 ```sh
 pnpm install # install all dependencies
-pnpm lint:fix:all # lint and fix all packages with eslint
-pnpm format:all # format all files with prettier
+pnpm lint:fix:all # lint and fix all packages
+pnpm format:all # format all files
 pnpm dev <package-name> # run dev mode for the given `<package-name>`, e.g. "pnpm dev sit-onyx"
 ```
 

@@ -32,9 +32,10 @@ export type CreateSliderOptions<TValue extends SliderValue = SliderValue> = {
    */
   step?: MaybeRef<number>;
   /**
-   * Step size to increase/decrease the slider value when changing the value via keyboard while pressing the "Shift" key.
+   * Step size to increase/decrease the slider value when changing the value via keyboard while
+   * pressing the "Shift" key.
    *
-   * default 10% of the total range (max - min)
+   * Default 10% of the total range (max - min)
    */
   shiftStep?: MaybeRef<number | undefined>;
   /**
@@ -107,6 +108,7 @@ export const createSlider = createBuilder(
 
     /**
      * Normalizes the given slider (values) by ensuring that:
+     *
      * 1. Value is between min and max range
      * 2. Values are matching the `step` property (are multiples of it)
      * 3. Are sorted ascending (if range mode)

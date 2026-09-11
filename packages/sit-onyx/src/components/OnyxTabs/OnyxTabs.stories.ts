@@ -2,15 +2,23 @@ import { iconPlaceholder } from "@sit-onyx/icons";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { h } from "vue";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+import OnyxNotificationDot from "../OnyxNotificationDot/OnyxNotificationDot.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
 import OnyxTab from "../OnyxTab/OnyxTab.vue";
 import OnyxTag from "../OnyxTag/OnyxTag.vue";
 import OnyxTabs from "./OnyxTabs.vue";
 
 /**
- * Tabs organize content into separate viewports within the same page, helping users navigate and manage large sets of information without page reloads, improving accessibility and flow. They are perfect for single page web applications, or for web pages capable of displaying different subjects.
+ * Tabs organize content into separate viewports within the same page, helping users navigate and
+ * manage large sets of information without page reloads, improving accessibility and flow. They are
+ * perfect for single page web applications, or for web pages capable of displaying different
+ * subjects.
+ *
  * ### Keyboard shortcuts
+ *
  * The following keyboard shortcuts are available:
+ *
  * - **Tab**: Focuses / blurs the currently selected tab
  * - **Arrow right**: Focuses the next tab (or first tab if last tab is selected)
  * - **Arrow left**: Focuses the previous tab (or last tab if first tab is selected)
@@ -46,8 +54,28 @@ export const Default = {
         OnyxTab,
         { value: "tab-4" },
         {
-          default: () => "Panel content 3...",
+          default: () => "Panel content 4...",
           tab: () => ["Tab 4", h(OnyxBadge, { dot: true, color: "warning" })],
+        },
+      ),
+      h(
+        OnyxTab,
+        { value: "tab-5" },
+        {
+          default: () => "Panel content 5...",
+          tab: () => [
+            h(
+              OnyxNotificationDot,
+
+              {
+                color: "warning",
+              },
+              {
+                default: () => h(OnyxIcon, { icon: iconPlaceholder }),
+              },
+            ),
+            "Tab 5",
+          ],
         },
       ),
     ],

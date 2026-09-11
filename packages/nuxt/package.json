@@ -1,22 +1,22 @@
 {
   "name": "@sit-onyx/nuxt",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "description": "A Nuxt module to easily integrate onyx into Nuxt projects",
-  "type": "module",
-  "author": "Schwarz IT KG",
-  "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
-  },
   "homepage": "https://onyx.schwarz",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
   "repository": {
     "type": "git",
     "url": "https://github.com/SchwarzIT/onyx",
     "directory": "packages/nuxt"
   },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/types.d.mts",
@@ -24,33 +24,34 @@
       "require": "./dist/module.mjs"
     }
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "dev": "nuxi dev playground",
-    "dev:build": "nuxi build playground",
-    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "build": "pnpm run dev:prepare && nuxt-module-build build",
+    "dev": "pnpm run dev:prepare && nuxi dev playground",
+    "dev:build": "pnpm run dev:prepare && nuxi build playground",
+    "dev:prepare": "pnpm run build && nuxi prepare playground",
+    "build": "nuxt-module-build prepare && nuxt-module-build build",
     "type-check": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
     "test": "vitest",
     "test:playwright": "playwright install && playwright test",
     "test:coverage": "vitest run --coverage"
   },
-  "peerDependencies": {
-    "sit-onyx": "workspace:^"
-  },
   "devDependencies": {
-    "@nuxt/devtools": "^3.2.4",
-    "@nuxt/kit": "^4.4.5",
-    "@nuxt/module-builder": "^1.0.2",
-    "@nuxt/schema": "^4.4.5",
-    "@nuxt/test-utils": "^4.0.3",
-    "@nuxtjs/i18n": "^10.3.0",
+    "@nuxt/devtools": "^3.4.2",
+    "@nuxt/kit": "^4.5.2",
+    "@nuxt/module-builder": "^1.0.3",
+    "@nuxt/schema": "^4.5.2",
+    "@nuxt/test-utils": "^4.2.0",
+    "@nuxtjs/i18n": "^10.6.0",
     "@sit-onyx/shared": "workspace:^",
     "nuxt": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
-    "vue-i18n": "^11.4.2"
+    "unbuild": "^3.6.1",
+    "vue-i18n": "^11.4.10"
+  },
+  "peerDependencies": {
+    "sit-onyx": "workspace:^"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

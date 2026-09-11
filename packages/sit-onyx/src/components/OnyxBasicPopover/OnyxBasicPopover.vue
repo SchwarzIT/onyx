@@ -270,7 +270,7 @@ const popoverStyles = computed(() => {
       min-width: var(--onyx-basic-popover-min-width);
       max-width: var(--onyx-basic-popover-max-width);
       height: max-content;
-      max-height: calc(100vh - 2 * var(--onyx-grid-margin));
+      max-height: calc(100dvh - 2 * var(--onyx-grid-margin));
       width: max-content;
       font-family: var(--onyx-font-family-paragraph);
 

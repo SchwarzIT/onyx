@@ -11,7 +11,7 @@ const allOptions: SelectOption<number>[] = [
   { value: 5, label: "Option Five" },
 ];
 
-const value = ref(allOptions[0].value);
+const value = ref(allOptions[0]!.value);
 const searchTerm = ref("2");
 
 // we need to manually manage the value label since the filtered options passed to the OynxSelect

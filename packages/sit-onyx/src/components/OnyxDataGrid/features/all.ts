@@ -1,12 +1,16 @@
+export * from "./dataGridActions/types.js";
 export * from "./editing/types.js";
 export * from "./expandableRows/types.js";
 export * from "./filtering/types.js";
 export * from "./hideColumns/types.js";
 export * from "./pagination/types.js";
 export * from "./resizing/types.js";
+export * from "./rowClick/types.js";
 export * from "./selection/types.js";
 export * from "./sorting/types.js";
 export * from "./stickyColumns/types.js";
+export * from "./rowRearrange/types.js";
+export * from "./columnRearrange/types.js";
 
 export { useEditing } from "./editing/editing.js";
 export { useExpandableRows } from "./expandableRows/expandableRows.js";
@@ -15,6 +19,9 @@ export { useHideColumns } from "./hideColumns/hideColumns.js";
 export { usePagination } from "./pagination/pagination.js";
 export * from "./renderer.js";
 export { useResizing } from "./resizing/resizing.js";
+export { useRowClick } from "./rowClick/rowClick.js";
 export { useSelection } from "./selection/selection.js";
 export { useSorting } from "./sorting/sorting.js";
 export { useStickyColumns } from "./stickyColumns/stickyColumns.js";
+export { useRowRearrange } from "./rowRearrange/rowRearrange.js";
+export { useColumnRearrange } from "./columnRearrange/columnRearrange.js";

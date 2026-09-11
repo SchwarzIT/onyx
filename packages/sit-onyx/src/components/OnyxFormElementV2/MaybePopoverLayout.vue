@@ -58,8 +58,9 @@ const blockTyping = (event: KeyboardEvent) => {
 };
 
 /**
- * When using a popover, the native input is effectively readonly, so the :user-invalid CSS will never apply.
- * To workaround this, the track if the select has ever been closed and consider this as "touched" / interacted.
+ * When using a popover, the native input is effectively readonly, so the :user-invalid CSS will
+ * never apply. To workaround this, the track if the select has ever been closed and consider this
+ * as "touched" / interacted.
  */
 const isTouched = ref(false);
 const stopWatch = watch(open, (newOpen, oldOpen) => {

@@ -5,15 +5,15 @@ export const MathUtils = {
   clamp: (number: number, min: number, max: number) => Math.max(Math.min(number, max), min),
   /**
    * Returns the count of decimal places in a number.
+   *
    * @param number - The number to check.
    * @returns The count of decimal places.
-   *
    * decimals(1.23); // 2
    * decimals(10);   // 0
    */
   decimalsCount: (number: number) => String(number).split(".")[1]?.length ?? 0,
   /**
-   *  Converts a value within a range to a percentage (0-100).
+   * Converts a value within a range to a percentage (0-100).
    *
    * @param value - The value to convert.
    * @param min - The minimum allowed value.

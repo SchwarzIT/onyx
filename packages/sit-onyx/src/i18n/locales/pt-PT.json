@@ -50,6 +50,15 @@
     "loadMore": "Carregar mais",
     "editing": {
       "label": "{column} com ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Reorganizar linhas",
+      "reset": "Repor alterações",
+      "dragToMove": "Arrastar para mover a linha"
+    },
+    "columnRearrange": {
+      "rearrange": "Reorganizar colunas",
+      "dragToMove": "Arrastar para mover a coluna"
     }
   },
   "validations": {
@@ -75,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Obrigatório",
-      "fullError": "O campo está vazio, é obrigatório e deve ser preenchido."
+      "fullError": "O campo está vazio, é obrigatório e deve ser preenchido.",
+      "whitespaceError": "Por favor, introduza um texto válido (espaços apenas não são permitidos)."
     },
     "stepMismatch": {
       "preview": "Número inválido",
@@ -352,5 +362,13 @@
   },
   "accordion": {
     "toggle": "Clique para mostrar/ocultar o conteúdo"
-  }
+  },
+  "search": {
+    "filterLabel": "mostrar filtro de pesquisa",
+    "leadingShortcutPlaceholder": "Digite",
+    "trailingShortcutPlaceholder": "para pesquisar",
+    "label": "Pesquisar",
+    "selectFilter": "Selecionar Filtro"
+  },
+  "save": "Guardar"
 }

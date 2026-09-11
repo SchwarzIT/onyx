@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { isInternalLink, type SharedLinkProps } from "sit-onyx";
+import { type SharedLinkProps } from "sit-onyx";
 import type { DetailsItem } from "../DetailsList.vue";
 
 const props = defineProps<{
@@ -13,16 +13,10 @@ defineSlots<{
    */
   default(): unknown;
 }>();
-
-const normalizedLink = computed<SharedLinkProps | undefined>(() => {
-  if (!props.link) return;
-  const link: SharedLinkProps = typeof props.link === "string" ? { href: props.link } : props.link;
-  return { target: isInternalLink(link.href) ? undefined : "_blank", ...link };
-});
 </script>
 
 <template>
-  <OnyxCard class="card onyx-grid-span-4" :link="normalizedLink">
+  <OnyxCard class="card onyx-grid-span-4" :link="props.link">
     <div class="card__preview">
       <slot></slot>
     </div>

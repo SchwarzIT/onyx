@@ -1,5 +1,5 @@
-import { computed, useAsyncData, useI18n, useLocalePath, useRoute } from "#imports"; // since nuxt 4.3 the auto-imports don't work for this composable anymore; Might be related to https://github.com/nuxt/nuxt/issues/22342
 import type { Collections, ContentNavigationItem } from "@nuxt/content";
+import { computed, useAsyncData, useI18n, useLocalePath, useRoute } from "#imports"; // since nuxt 4.3 the auto-imports don't work for this composable anymore; Might be related to https://github.com/nuxt/nuxt/issues/22342
 
 export type SidebarNavigationItem<TCollection extends keyof Collections = keyof Collections> = {
   title: string;
@@ -20,11 +20,11 @@ export type SidebarNavigationItem<TCollection extends keyof Collections = keyof 
  * Custom navigation options. Can be set via the `.navigation.yml` file inside of a content folder.
  *
  * @example
- * ```yaml
- * # .navigation.yml
- * sidebar:
- *    root: true
- * ```
+ *   ```yaml
+ *   # .navigation.yml
+ *   sidebar:
+ *   root: true
+ *   ```;
  */
 export type SidebarNavigationOptions = {
   /**
@@ -98,14 +98,24 @@ export const useSidebarNavigation = async <
 
   const navigation = computed(() => {
     // support multiple sidebars / roots so different pages can have their own sub-sidebar
-    const root = findDeepestRoot(allItems.value, route.path);
+    let root = findDeepestRoot(allItems.value, route.path);
+
+    // if the current path is not found in the navigation, fall back to parent paths
+    // e.g. /components/buttons/not-found -> /components/buttons -> /components
+    if (!root) {
+      for (const path of getPathAncestors(route.path)) {
+        root = findDeepestRoot(allItems.value, path);
+        if (root) break;
+      }
+    }
+
     if (!root) return allItems.value;
     return root.children ?? [root];
   });
 
   /**
-   * Finds the "previous root" (parent root) for the currently active route within the navigation tree.
-   * Useful to e.g. display a back button to traverse up the navigation tree.
+   * Finds the "previous root" (parent root) for the currently active route within the navigation
+   * tree. Useful to e.g. display a back button to traverse up the navigation tree.
    */
   const previousRootItem = computed(() => findPreviousRootItem(allItems.value, route.path));
 
@@ -117,7 +127,9 @@ export const useSidebarNavigation = async <
     items: SidebarNavigationItem<TCollection>[],
     currentPath: string,
   ): SidebarNavigationItem<TCollection> | undefined {
-    /** Helper function to check if a path exists anywhere in a node's subtree */
+    /**
+     * Helper function to check if a path exists anywhere in a node's subtree
+     */
     const containsPath = (node: SidebarNavigationItem, path: string): boolean => {
       if (node.path === path) return true;
       return node.children?.some((child) => containsPath(child, path)) ?? false;
@@ -139,6 +151,7 @@ export const useSidebarNavigation = async <
 
   /**
    * Finds the "previous root" (parent root) for a given current path within the navigation tree.
+   *
    * - If depth >= 2: returns the previous root item
    * - If depth == 1: returns the first item in the navigation (typically a "Home" item)
    * - If depth == 0: returns undefined (no back button needed)
@@ -191,3 +204,18 @@ export const useSidebarNavigation = async <
 
   return { navigation, allItems, previousRootItem };
 };
+
+/**
+ * Returns all ancestor paths of the given path, from deepest to shallowest.
+ * e.g. "/components/buttons/icon-button"
+ * -> ["/components/buttons/icon-button", "/components/buttons", "/components", "/"]
+ */
+function getPathAncestors(path: string): string[] {
+  const segments = path.split("/").filter(Boolean).slice(0, -1);
+  const ancestors: string[] = [];
+  for (let i = segments.length; i > 0; i--) {
+    ancestors.push("/" + segments.slice(0, i).join("/"));
+  }
+  ancestors.push("/");
+  return ancestors;
+}

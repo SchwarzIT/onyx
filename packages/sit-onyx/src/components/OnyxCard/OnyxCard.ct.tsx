@@ -42,3 +42,12 @@ test("should render as link", async ({ page, mount }) => {
   // ASSERT
   await expect(page).toHaveURL(/^http:\/\/localhost:\d*\/#test$/);
 });
+
+test("should render as button", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(<OnyxCard clickable>Card content</OnyxCard>);
+
+  // ASSERT
+  await expect(component).toHaveRole("button");
+  await expect(component).toHaveAttribute("type", "button");
+});

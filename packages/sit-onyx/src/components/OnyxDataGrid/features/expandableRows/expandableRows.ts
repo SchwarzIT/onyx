@@ -73,6 +73,10 @@ export const useExpandableRows = <TEntry extends DataGridEntry>(
       },
       typeRenderer: {
         [BUTTON_COLUMN_TYPE]: createTypeRenderer({
+          header: {
+            // ensure no header actions are rendered from other features like sorting, filtering etc.
+            component: () => null,
+          },
           cell: {
             tdAttributes: {
               class: "onyx-data-grid-expand-cell",

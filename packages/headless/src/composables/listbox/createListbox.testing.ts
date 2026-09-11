@@ -21,8 +21,9 @@ export type ListboxTestingOptions = {
 };
 
 /**
- * Playwright utility for executing accessibility testing for a listbox.
- * Will check aria attributes and keyboard shortcuts as defined in https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable.
+ * Playwright utility for executing accessibility testing for a listbox. Will check aria attributes
+ * and keyboard shortcuts as defined in
+ * https://www.w3.org/WAI/ARIA/apg/patterns/listbox/examples/listbox-scrollable.
  */
 export const listboxTesting = async ({
   page,

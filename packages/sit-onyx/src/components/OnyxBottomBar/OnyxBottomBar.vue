@@ -8,11 +8,13 @@ const props = withDefaults(defineProps<OnyxBottomBarProps>(), {
 
 defineSlots<{
   /**
-   * Bottom bar content. This slot is left aligned and should be used by buttons and icon buttons.
+   * Bottom bar content. This slot is left aligned and can be used to provide `OnyxButton` and
+   * `OnyxIconButton` components.
    */
   left?(): unknown;
   /**
-   * Bottom bar content. This slot is right aligned and should be used by buttons and icon buttons.
+   * Bottom bar content. This slot is right aligned and can be used to provide `OnyxButton` and
+   * `OnyxIconButton` components.
    */
   default?(): unknown;
 }>();

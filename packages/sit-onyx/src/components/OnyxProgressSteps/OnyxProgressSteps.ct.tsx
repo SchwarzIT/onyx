@@ -16,6 +16,7 @@ test.describe("Screenshot tests", () => {
     name: "Progress steps",
     columns: ORIENTATIONS,
     rows: DENSITIES,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxProgressSteps
         density={row}
@@ -33,6 +34,7 @@ test.describe("Screenshot tests (visited)", () => {
     name: "Progress steps (visited steps)",
     columns: ORIENTATIONS,
     rows: DENSITIES,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxProgressSteps
         density={row}
@@ -50,6 +52,7 @@ test.describe("Screenshot tests (skeleton)", () => {
     name: "Progress steps (skeleton)",
     columns: ORIENTATIONS,
     rows: DENSITIES,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxProgressSteps density={row} orientation={column} steps={STEPS} skeleton />
     ),

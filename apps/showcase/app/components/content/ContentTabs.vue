@@ -2,10 +2,11 @@
 import { createTabs } from "@sit-onyx/headless";
 import { iconCode, iconToolColorFill } from "@sit-onyx/icons";
 import type { SelectOption } from "sit-onyx";
+import figmaIcon from "~/assets/images/figma.svg?raw";
 import nuxtIcon from "~/assets/images/nuxt.svg?raw";
 import vueIcon from "~/assets/images/vue.svg?raw";
 
-type ContentTabValue = "dev" | "ux" | "vue" | "nuxt";
+type ContentTabValue = "dev" | "ux" | "vue" | "nuxt" | "figma";
 
 const slots = defineSlots<{
   [T in ContentTabValue]?: () => unknown;
@@ -22,6 +23,7 @@ const options = computed(() => {
     { label: t("roles.uxContent"), value: "ux", icon: iconToolColorFill },
     { label: "Vue", value: "vue", icon: vueIcon },
     { label: "Nuxt", value: "nuxt", icon: nuxtIcon },
+    { label: "Figma", value: "figma", icon: figmaIcon },
   ] satisfies SelectOption<ContentTabValue>[];
 
   return tabs
@@ -38,7 +40,7 @@ const { elements } = createTabs({
 
 <template>
   <div>
-    <div class="tablist" v-bind="elements.tablist.value">
+    <div class="tablist onyx-grid-container" v-bind="elements.tablist.value">
       <OnyxCard
         v-for="option in options"
         :key="option.value"
@@ -75,7 +77,7 @@ const { elements } = createTabs({
   --tab-color: var(--onyx-color-text-icons-neutral-intense);
   --tab-icon-color: var(--onyx-color-text-icons-primary-intense);
 
-  flex-grow: 1;
+  flex: 1;
   flex-direction: row;
   justify-content: center;
   cursor: pointer;

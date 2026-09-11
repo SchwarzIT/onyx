@@ -3,8 +3,8 @@
   setup
   generic="
     TModelValue extends SelectOptionValue | SelectOptionValue[],
-    TMultiple extends TModelValue extends any[] ? true : false | undefined,
-    TValue extends TModelValue extends (infer TInner)[] ? TInner : TModelValue
+    TMultiple extends (TModelValue extends any[] ? true : false | undefined),
+    TValue extends (TModelValue extends (infer TInner)[] ? TInner : TModelValue)
   "
 >
 import {
@@ -175,6 +175,7 @@ const arrayValue = computed(() => asArray(modelValue.value)) as ComputedRef<TVal
 
 /**
  * Contains an array of labels that will be shown in the input.
+ *
  * - contains props.valueLabel as array if it is set
  * - else, contains all found labels of the options that match the current modelValue
  */
@@ -216,7 +217,9 @@ watch(
   { immediate: true },
 );
 
-/** unique ID to identify the `select all` checkbox */
+/**
+ * Unique ID to identify the `select all` checkbox
+ */
 const CHECK_ALL_ID = useId() as TValue;
 
 /**
@@ -324,6 +327,7 @@ const onSelect = (selectedOption: TValue) => {
     return;
   }
   if (!props.multiple) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
     modelValue.value = selectedOption as unknown as TModelValue;
     return;
   }
@@ -496,6 +500,7 @@ const blockTyping = (event: KeyboardEvent) => {
 
 const clearValue = () => {
   const value = props.multiple ? [] : undefined;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   modelValue.value = value as typeof modelValue.value;
 };
 

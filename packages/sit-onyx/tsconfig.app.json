@@ -9,12 +9,12 @@
     "src/**/*.ct.*",
     "src/**/*.spec.*",
     "src/**/*.stories.ts",
+    "src/utils/storybook.ts",
     "src/**/*.ct.vue",
     "src/playwright/**/*"
   ],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
     "lib": ["ES2022", "DOM"],
     "rootDir": "./src"
   }

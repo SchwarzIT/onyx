@@ -4,7 +4,7 @@
     "@vue/tsconfig/tsconfig.lib.json",
     "@sit-onyx/shared/tsconfig.json"
   ],
-  "include": ["env.d.ts", "src/**/*"],
+  "include": ["env.d.ts", "src/**/*", "src/.vitepress/**/*"],
   "exclude": [
     "src/**/*.ct.*",
     "src/**/*.spec.*",
@@ -14,7 +14,6 @@
   ],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
     "lib": ["ES2022", "DOM"],
     "rootDir": "./src"
   }

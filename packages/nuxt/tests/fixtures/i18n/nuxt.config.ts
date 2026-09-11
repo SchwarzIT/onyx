@@ -1,4 +1,4 @@
-import MyModule from "../../../src/module.js";
+import MyModule from "../../../dist/module.mjs";
 
 export default defineNuxtConfig({
   modules: [MyModule, "@nuxtjs/i18n"],

@@ -36,12 +36,19 @@ const slots = defineSlots<{
   endOfList?(props: {
     /**
      * Helper to make an element navigable.
+     *
      * @param value - Must be a unique name (e.g., 'show-all').
      */
     getOptionProps: typeof getOptionProps;
-    /** The value of the currently highlighted option. */
+    /**
+     * The value of the currently highlighted option.
+     */
     activeValue?: string;
   }): unknown;
+  /**
+   * Slot to pass leading content that is displayed before the `default` slot.
+   */
+  leading?(): unknown;
 }>();
 
 const { t } = injectI18n();
@@ -56,6 +63,7 @@ const searchTerm = useVModel({
 
 const dialog = useTemplateRef("dialog");
 const dialogElement = computed(() => dialog.value?.dialog);
+const hasContent = () => !!slots.default || !!slots.endOfList || !!slots.leading;
 
 /**
  * Value of the currently active/highlighted option.
@@ -115,7 +123,10 @@ const headless = createComboBox({
 /**
  * Generates the necessary props to make a custom element (e.g., a "Show all" button)
  * navigable via arrow keys.
- * * @param value - A unique identifier for this option. Must be unique within the entire search component.
+ * *
+ *
+ * @param value - A unique identifier for this option. Must be unique within the entire search
+ *   component.
  * @returns An object containing the required ARIA roles, IDs, and the current active state.
  */
 const getOptionProps = (value: string) => {
@@ -157,22 +168,22 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     </OnyxInput>
 
     <!-- using v-show instead of v-if because the input has a aria-controls attribute which needs to point to a existing listbox -->
-    <div
-      v-show="!!slots.default"
-      class="onyx-global-search__body"
-      v-bind="headless.elements.listbox.value"
-    >
-      <slot></slot>
+    <div v-show="hasContent()" class="onyx-global-search__body">
+      <slot name="leading"></slot>
+      <div v-show="!!slots.default || !!slots.endOfList" v-bind="headless.elements.listbox.value">
+        <slot></slot>
 
-      <div v-if="!!slots.endOfList" class="onyx-global-search__end-of-list">
-        <slot
-          name="endOfList"
-          :get-option-props="getOptionProps"
-          :active-value="activeValue"
-        ></slot>
+        <div v-if="!!slots.endOfList" class="onyx-global-search__end-of-list">
+          <slot
+            name="endOfList"
+            :get-option-props="getOptionProps"
+            :active-value="activeValue"
+          ></slot>
+        </div>
       </div>
     </div>
-    <div v-show="!!slots.default" class="onyx-global-search__footer onyx-text--small">
+
+    <div v-show="hasContent()" class="onyx-global-search__footer onyx-text--small">
       <span class="onyx-global-search__shortcut">
         <OnyxKey name="ArrowUp" />
         <OnyxKey name="ArrowDown" />
@@ -278,6 +289,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
       display: flex;
       flex-direction: column;
       max-width: 100%;
+      overflow: visible; // needed to show focus-visible outline on input
     }
 
     &__input {

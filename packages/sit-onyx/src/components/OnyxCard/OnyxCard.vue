@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useDensity } from "../../composables/density.js";
-import { extractLinkProps } from "../../utils/router.js";
-import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
+import ButtonOrLinkLayout from "../OnyxButton/ButtonOrLinkLayout.vue";
 import type { OnyxCardProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCardProps>(), {
@@ -18,19 +17,24 @@ defineSlots<{
 
 const { densityClass } = useDensity(props);
 
-const linkProps = computed(() =>
-  props.link != undefined ? extractLinkProps(props.link) : undefined,
-);
+const classes = computed(() => [
+  "onyx-component",
+  "onyx-card",
+  densityClass.value,
+  "onyx-truncation-multiline",
+  "onyx-text",
+]);
 </script>
 
 <template>
-  <component
-    :is="linkProps ? OnyxRouterLink : props.clickable ? 'button' : 'div'"
-    v-bind="linkProps"
-    :class="['onyx-component', 'onyx-card', densityClass, 'onyx-truncation-multiline', 'onyx-text']"
-  >
+  <!-- eslint-disable sitOnyx/require-root-class -- added via "classes" -->
+  <ButtonOrLinkLayout v-if="props.link || props.clickable" :class="classes" :link="props.link">
     <slot></slot>
-  </component>
+  </ButtonOrLinkLayout>
+
+  <div v-else :class="classes">
+    <slot></slot>
+  </div>
 </template>
 
 <style lang="scss">

@@ -5,20 +5,31 @@ const props = defineProps<{
   /**
    * Full component name.
    *
-   * @example OnyxButton.
+   * @example
+   *   OnyxButton.
    */
   component: string;
+  /**
+   * The name of the npm package that the component belongs to.
+   */
+  package?: string;
 }>();
 
-const meta = computed(() => getComponentMeta(props.component));
+const { data: meta, status } = await useAsyncData(
+  () => `component-meta-${props.package}-${props.component}`,
+  () => getComponentMeta(props.component, props.package),
+);
 
 // build time breaker to guarantee that no non-existing components are used
 // see "prerender" config in nuxt.config.ts
 watchEffect(() => {
+  // ensure "useAsyncData()" call is ready to be accessed
+  if (status.value !== "success") return;
+
   if (!meta.value) {
     throw createError({
       statusCode: 404,
-      statusMessage: `Component meta not found for component "${props.component}".`,
+      statusMessage: `Component meta not found for component "${props.component}" in package "${props.package}".`,
       // throwing a fatal error  will fail during SSR / prerendering
       fatal: true,
     });
@@ -29,7 +40,7 @@ const mappedEvents = computed(() => {
   return meta.value?.events.map<ComponentMetaItem>((event) => ({
     name: event.name,
     description: event.description,
-    schema: event.type,
+    schema: event.type === "[]" ? undefined : event.type,
   }));
 });
 

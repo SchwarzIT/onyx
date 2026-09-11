@@ -24,6 +24,31 @@ test.describe("Screenshot tests", () => {
     },
   });
 
+  executeMatrixScreenshotTest({
+    name: "Switch (label position)",
+    columns: ["top", "left", "right"],
+    rows: ["unchecked", "checked"],
+    component: (column, row) => (
+      <OnyxSwitch
+        label={{ label: "Test label", position: column }}
+        modelValue={row === "checked"}
+      />
+    ),
+  });
+
+  executeMatrixScreenshotTest({
+    name: "Switch (value label)",
+    columns: ["top", "left", "right"],
+    rows: ["unchecked", "checked"],
+    component: (column, row) => (
+      <OnyxSwitch
+        label={{ label: "Test label", position: column }}
+        modelValue={row === "checked"}
+        valueLabel={{ truthy: "Active", falsy: "Inactive" }}
+      />
+    ),
+  });
+
   for (const state of ["disabled", "loading"] as const) {
     executeMatrixScreenshotTest({
       name: `Switch (${state})`,
@@ -59,7 +84,7 @@ test.describe("Screenshot tests", () => {
           : "Test error";
       return (
         <OnyxSwitch
-          style={row !== "default" ? "padding-bottom: 3rem;" : ""}
+          style={row !== "default" ? "margin-bottom: 3rem;" : ""}
           label="Test label"
           modelValue={column === "checked"}
           error={error}
@@ -85,10 +110,11 @@ test.describe("Screenshot tests", () => {
 
         // wait for the tooltip to show up reliably
         if (["focus-visible", "hover"].includes(row)) {
-          await expect(
-            component.getByRole("tooltip"),
-            `should show error tooltip for ${row} and ${column}`,
-          ).toBeVisible();
+          if (column === "longError") {
+            await expect(component.getByText("ErrorFurther infoFurther info")).toBeVisible();
+          } else {
+            await expect(component.getByText("Test errorTest errorTest error")).toBeVisible();
+          }
         }
       },
     },
@@ -98,6 +124,7 @@ test.describe("Screenshot tests", () => {
     name: "Switch (truncation + required/optional)",
     columns: ["default", "required", "optional"],
     rows: TRUNCATION_TYPES,
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxSwitch
         style={{ maxWidth: "12rem" }}
@@ -113,6 +140,7 @@ test.describe("Screenshot tests", () => {
     name: "Switch (densities)",
     columns: DENSITIES,
     rows: ["unchecked", "checked", "loading", "skeleton"],
+    fastNoIsolation: true,
     component: (column, row) => (
       <OnyxSwitch
         label="Test label"

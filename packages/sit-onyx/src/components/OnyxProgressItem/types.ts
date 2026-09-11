@@ -11,12 +11,13 @@ export type OnyxProgressItemProps = DensityProp & {
    */
   value: number;
   /**
-   * The status of the progress item which indicates whether the item is currently active, upcoming or already visited/completed.
+   * The status of the progress item which indicates whether the item is currently active, upcoming
+   * or already visited/completed.
    */
   status?: ProgressItemStatus;
   /**
-   * Icon to display instead of the numeric indicator.
-   * If `status` is "completed", "visited" or "invalid", the icon will be pre-defined so passing a different icon does not work then.
+   * Icon to display instead of the numeric indicator. If `status` is "completed", "visited" or
+   * "invalid", the icon will be pre-defined so passing a different icon does not work then.
    */
   icon?: string;
   /**

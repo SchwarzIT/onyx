@@ -1,6 +1,7 @@
 import type { HTMLAttributes } from "vue";
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
+import type { TruncationType } from "../../types/fonts.js";
 import type { Nullable } from "../../types/utils.js";
 import type { OnyxBasicPopoverProps } from "../OnyxBasicPopover/types.js";
 import type { FormInjectedProps } from "../OnyxForm/OnyxForm.core.js";
@@ -62,7 +63,7 @@ export type OnyxFormElementV2Slots = {
    */
   leading?(): unknown;
   /**
-   * Optional inner icons to display before the input but after the `leading` slot.
+   * Optional inner icons (`OnyxIcon`) to display before the input but after the `leading` slot.
    * Will be hidden when `loading` property is set.
    */
   leadingIcons?(): unknown;
@@ -95,6 +96,10 @@ export type FormElementV2LabelOptions = FormElementV2Tooltip & {
    * For accessibility / screen readers, the aria-label will still be set.
    */
   hidden?: boolean;
+  /**
+   * How to truncate the label if it exceeds the max width.
+   */
+  truncation?: TruncationType;
 };
 
 export type FormElementV2Tooltip = {

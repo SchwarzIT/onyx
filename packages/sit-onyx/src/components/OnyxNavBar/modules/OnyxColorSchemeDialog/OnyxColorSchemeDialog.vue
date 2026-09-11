@@ -58,6 +58,7 @@ const options = computed<SelectDialogOption<ColorSchemeValue>[]>(() => {
     :label="t('colorScheme.headline')"
     :options
     :open="props.open"
+    :model-value
     @update:open="emit('update:open', $event)"
     @update:model-value="emit('update:modelValue', $event)"
   >

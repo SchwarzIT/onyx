@@ -4,7 +4,7 @@ import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
 import OnyxFilterBadge from "./OnyxFilterBadge.vue";
 
 test.describe("Screenshot tests", () => {
-  const state = ["default", "hover", "focus-visible", "active"];
+  const state = ["default", "hover", "focus-visible", "active", "skeleton"];
   executeMatrixScreenshotTest({
     name: "Filter badge",
     columns: DENSITIES,
@@ -14,6 +14,7 @@ test.describe("Screenshot tests", () => {
         label="Badge"
         density={column}
         active={row === "active"}
+        skeleton={row === "skeleton"}
         style={{ margin: "2rem" }}
       />
     ),

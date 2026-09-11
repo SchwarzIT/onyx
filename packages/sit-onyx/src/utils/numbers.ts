@@ -21,7 +21,8 @@ export const applyLimits = (
  * Supports both decimal and whole-number rounding based on the precision provided.
  *
  * @param value - The number to round, or `undefined` to return an empty string.
- * @param precision - The number of decimal places for rounding (e.g., 0.01 for 2 decimals). Can also be negative.
+ * @param precision - The number of decimal places for rounding (e.g., 0.01 for 2 decimals). Can
+ *   also be negative.
  * @returns The rounded number as a string. Returns an empty string if `value` is `undefined`.
  */
 export const roundToPrecision = (value: number | undefined, precision: number): string => {
@@ -34,7 +35,8 @@ export const roundToPrecision = (value: number | undefined, precision: number): 
 /**
  * Data size (with binary prefix). Represents a multiple of 1024 bytes.
  *
- * @example "4MiB" = 4 * 1024 * 1024 = 4_194_304 bytes
+ * @example
+ *   "4MiB" = 4 * 1024 * 1024 = 4_194_304 bytes
  */
 export type BinaryPrefixedSize = `${number}${IECPrefixSymbol}B`;
 
@@ -64,7 +66,8 @@ export const IEC_PREFIX_SYMBOLS = [
 export type IECPrefixSymbol = (typeof IEC_PREFIX_SYMBOLS)[number];
 
 /**
- * Converts a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) to its decimal representation in bytes.
+ * Converts a [binary prefixed size](https://en.wikipedia.org/wiki/Binary_prefix) to its decimal
+ * representation in bytes.
  */
 export const convertBinaryPrefixToBytes = (size: BinaryPrefixedSize | number): number => {
   if (typeof size === "number") {
@@ -79,7 +82,8 @@ export const convertBinaryPrefixToBytes = (size: BinaryPrefixedSize | number): n
 /**
  * Formats the given number of bytes into a string using `Intl.NumberFormatter`.
  *
- * The native `Intl.NumberFormatter` displays 1GB as 1BB (billion bytes) etc. so this formatter fixes this to correctly display gigabyte, terabyte and petabyte.
+ * The native `Intl.NumberFormatter` displays 1GB as 1BB (billion bytes) etc. so this formatter
+ * fixes this to correctly display gigabyte, terabyte and petabyte.
  */
 export const formatBytesToString = (locale: string, bytes: number) => {
   const supportedUnits = ["byte", "kilobyte", "megabyte", "gigabyte", "terabyte", "petabyte"];

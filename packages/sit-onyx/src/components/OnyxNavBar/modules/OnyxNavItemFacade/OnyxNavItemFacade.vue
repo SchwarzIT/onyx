@@ -120,7 +120,7 @@ const hasChildren = computed(() => !!slots.children);
       --onyx-list-item-color-selected: var(--onyx-color-component-nav-label);
       background-color: var(--onyx-list-item-background-selected);
       border-color: var(--onyx-color-base-primary-200);
-      color: var(--onyx-color-text-icons-primary-bold);
+      color: var(--onyx-color-text-icons-neutral-intense);
       font-weight: 600;
     }
 

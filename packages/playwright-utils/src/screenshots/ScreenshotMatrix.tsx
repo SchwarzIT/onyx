@@ -18,7 +18,8 @@ export type ScreenshotMatrixProps = {
    */
   browserName: string;
   /**
-   * Matrix children. Must contain column/row labels and screenshots for each column-row combination.
+   * Matrix children. Must contain column/row labels and screenshots for each column-row
+   * combination.
    */
   children: unknown[];
 };

@@ -1,5 +1,5 @@
-import { FigmaVariablesApiResponse, Variable, VariableValue } from "src/index.js";
 import { describe, expect, test } from "vitest";
+import { FigmaVariablesApiResponse, Variable, VariableValue } from "../index.js";
 import {
   DEFAULT_MODE_NAME,
   normalizeVariableName,

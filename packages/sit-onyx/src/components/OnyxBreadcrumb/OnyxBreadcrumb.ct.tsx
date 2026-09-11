@@ -15,8 +15,9 @@ test.describe("Screenshot tests", () => {
       return (
         <OnyxBreadcrumb
           container={column === "container"}
-          home={column === "custom-home" ? { label: "Custom home" } : undefined}
+          home={column === "custom-home" ? { label: "Home" } : undefined}
           skeleton={column === "skeleton"}
+          style={{ width: "16rem" }}
         >
           {Array.from({ length: itemCount }, (_, index) => (
             <OnyxBreadcrumbItem href="#" active={index === itemCount - 1}>

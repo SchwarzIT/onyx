@@ -139,6 +139,16 @@
     "category": "Arrows",
     "aliases": ["organize-pointers", "Pfeile", "sortieren", "ordnen"]
   },
+  "artificial-intelligence": {
+    "category": "Software & Services",
+    "aliases": [
+      "Chatbot",
+      "Technologie",
+      "Künstliche Intelligenz (KI)",
+      "Einrichtungsassistent",
+      "Generativ"
+    ]
+  },
   "attachment": {
     "category": "Action & Interface",
     "aliases": ["document", "upload", "Anhang", "Dokument"]
@@ -146,6 +156,10 @@
   "audio": {
     "category": "File & Type",
     "aliases": ["sound", "music", "Audio", "Klang", "Note"]
+  },
+  "backpack": {
+    "category": "Transport & Travel",
+    "aliases": []
   },
   "bag": {
     "category": "Commerce & Shopping",
@@ -551,6 +565,10 @@
   "circle-x": {
     "category": "Essentials",
     "aliases": ["remove", "cancel", "abbrechen", "entfernen"]
+  },
+  "client-side-encryptions": {
+    "category": "Software & Services",
+    "aliases": ["workspaces"]
   },
   "clipboard": {
     "category": "File & Type",
@@ -1054,6 +1072,10 @@
   "eye-shine": {
     "category": "Action & Interface",
     "aliases": ["sparkle-view", "open-eye", "visible"]
+  },
+  "faas": {
+    "category": "Software & Services",
+    "aliases": ["function as a service"]
   },
   "face-id": {
     "category": "Security & Protection",
@@ -1574,6 +1596,10 @@
     "category": "Kitchen & Food",
     "aliases": ["bread | bakery | Brot | Gebäck | Bernd-das-Brot | Toast"]
   },
+  "local-data-storage": {
+    "category": "Software & Services",
+    "aliases": ["workspaces"]
+  },
   "location-pin": {
     "category": "Navigation",
     "aliases": ["marker", "location", "Lokalisierungs-Pin", "Standort-Markierung"]
@@ -1721,6 +1747,18 @@
   "message": {
     "category": "Communication",
     "aliases": ["chat", "text", "Nachricht", "Chat"]
+  },
+  "message-AI": {
+    "category": "Communication",
+    "aliases": [
+      "Chatbot",
+      "Nachricht",
+      "Textnachricht",
+      "Sprechblase",
+      "Eingabeaufforderung",
+      "Künstliche Intelligenz (KI)",
+      "Chat"
+    ]
   },
   "message-conversation": {
     "category": "Communication",
@@ -1938,6 +1976,10 @@
     "category": "Network & Infrastructure",
     "aliases": ["protect-access", "secure-password", "Passwort-Sperre", "Passwort-sichern"]
   },
+  "pathsign": {
+    "category": "Navigation",
+    "aliases": []
+  },
   "paypal": {
     "category": "Finance",
     "aliases": ["online-payment", "digital-wallet", "Online-Zahlung", "digitale Geldbörse"]
@@ -2153,7 +2195,7 @@
     "category": "Various",
     "aliases": ["excellence", "award", "price", "Standard"]
   },
-  "quote ": {
+  "quote": {
     "category": "Tools & Shapes",
     "aliases": []
   },
@@ -2196,6 +2238,20 @@
   "robot": {
     "category": "Objects",
     "aliases": ["roboter", "machine"]
+  },
+  "robot-AI": {
+    "category": "Objects",
+    "aliases": [
+      "Chatbot",
+      "Roboter",
+      "Generierung",
+      "Erstellung",
+      "Künstliche Intelligenz (KI)",
+      "Einrichtungsassistent",
+      "KI",
+      "Bot",
+      "Assistent"
+    ]
   },
   "robot-manufacture": {
     "category": "Objects",
@@ -2547,6 +2603,10 @@
   "tag-disabled": {
     "category": "Business & Statistics",
     "aliases": ["label-off", "price-tag-off", "Etikett deaktiviert", "Preisschild aus"]
+  },
+  "telemetry-router": {
+    "category": "Software & Services",
+    "aliases": ["service"]
   },
   "terminal-checkout": {
     "category": "Commerce & Shopping",
@@ -3030,6 +3090,10 @@
     "aliases": ["wifi", "wireless-network", "Empfang"]
   },
   "workflows": {
+    "category": "Software & Services",
+    "aliases": []
+  },
+  "workspaces": {
     "category": "Software & Services",
     "aliases": []
   },

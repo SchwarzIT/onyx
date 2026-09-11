@@ -4,6 +4,7 @@ type Callback = () => void | (() => Promise<void>);
 
 /**
  * Mocks the following vue lifecycle functions:
+ *
  * - onBeforeMount
  * - onMounted
  * - onBeforeUnmount
@@ -11,7 +12,8 @@ type Callback = () => void | (() => Promise<void>);
  *
  * `onBeforeMount` and `onMounted` callbacks are executed immediately.
  * `onBeforeUnmount` and `onUnmounted` are executed when the returned callback is run.
- * @returns a callback to trigger the run of `onBeforeUnmount` and `onUnmounted`
+ *
+ * @returns A callback to trigger the run of `onBeforeUnmount` and `onUnmounted`
  */
 export const mockVueLifecycle = () => {
   const { callbacks } = vi.hoisted(() => ({

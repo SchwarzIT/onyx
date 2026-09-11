@@ -1,6 +1,6 @@
 {
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
     "test:playwright": "playwright install && playwright test"
   }

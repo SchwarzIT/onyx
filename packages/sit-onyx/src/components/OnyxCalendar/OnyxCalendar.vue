@@ -1,11 +1,3 @@
-<script lang="ts">
-/**
- * @experimental
- * @deprecated This component is still under active development and its API might change in patch releases.
- */
-export default {};
-</script>
-
 <script lang="ts" setup generic="TSelection extends OnyxCalendarSelectionMode">
 import {
   createCalendar,
@@ -59,11 +51,16 @@ const emit = defineEmits<{
    * Emitted when the viewed Month changes
    */
   "update:viewMonth": [newDate: Date];
+  /**
+   * Emitted when in `range` selection mode and selecting dates.
+   */
+  "update:hoverDate": [newDate: Date];
 }>();
 
 const slots = defineSlots<{
   /**
    * Optional slot that is displayed below at the right of the Header.
+   * Can be used to provide `OnyxIconButton` or `OnyxButton` components.
    */
   actions?(): unknown;
   /**
@@ -89,6 +86,13 @@ const modelValue = useVModel({
 
 const viewMonth = useVModel({
   key: "viewMonth",
+  props,
+  emit,
+  default: () => new Date(),
+});
+
+const hoverDate = useVModel({
+  key: "hoverDate",
   props,
   emit,
   default: () => new Date(),
@@ -155,14 +159,14 @@ const handleMonthSelect = (month: number) => {
   isPickerOpen.value = false;
 };
 
-const hoveredDate = ref<Date>();
-
 const hoverHandlers = (day: RenderDay) => {
   if (selectionMode.value !== "range" || isDisabled.value(day.date)) return {};
 
   return {
-    onMouseenter: () => (hoveredDate.value = day.date),
-    onFocusin: () => (hoveredDate.value = day.date),
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
+    onMouseenter: () => (hoverDate.value = day.date as typeof hoverDate.value),
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
+    onFocusin: () => (hoverDate.value = day.date as typeof hoverDate.value),
   } satisfies HTMLAttributes;
 };
 
@@ -175,14 +179,11 @@ const getDayRangeType = computed(() => {
   return (date: Date): CalendarCellRangeType | undefined => {
     const currentRange =
       props.selectionMode === "range" ? (modelValue.value as Nullable<DateRange>) : undefined;
-    if (!currentRange || currentRange.end || !hoveredDate.value) return getRangeType.value(date);
+    if (!currentRange || currentRange.end || !hoverDate.value) return getRangeType.value(date);
 
     return getRangeType.value(date, {
       start: currentRange.start,
-      end:
-        hoveredDate.value.getTime() === currentRange.start.getTime()
-          ? undefined
-          : hoveredDate.value,
+      end: hoverDate.value.getTime() === currentRange.start.getTime() ? undefined : hoverDate.value,
     });
   };
 });
@@ -192,6 +193,7 @@ const selectWeek = (week: RenderWeek) => {
     start: week.days[0]!.date,
     end: week.days.at(-1)!.date,
   };
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   modelValue.value = newRange as unknown as typeof modelValue.value;
 };
 const getWeekNumberProps = computed(() => {
@@ -368,13 +370,17 @@ useOutsideClick({
 .onyx-calendar {
   @include layers.component() {
     --onyx-calendar-border-radius: var(--onyx-radius-md);
+    --onyx-calendar-border-color: var(--onyx-color-component-border-neutral);
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     gap: var(--onyx-density-sm);
     color: var(--onyx-color-text-icons-neutral-medium);
     font-family: var(--onyx-font-family-paragraph);
     $calendar-week-column-width: 2.5rem;
     $calendar-day-number-display-width: 2rem;
+
+    min-width: 18rem;
 
     &__header {
       display: flex;
@@ -400,7 +406,7 @@ useOutsideClick({
 
       table {
         width: 100%;
-        border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+        border: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
         border-radius: var(--onyx-calendar-border-radius);
         table-layout: fixed;
         overflow: hidden;
@@ -413,14 +419,14 @@ useOutsideClick({
           justify-content: center;
           align-items: center;
           background-color: var(--onyx-color-base-neutral-200);
-          border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+          border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
           font-family: var(--onyx-font-family-h4);
           font-weight: var(--onyx-font-weight-semibold);
           font-size: var(--onyx-font-size-sm);
           line-height: var(--onyx-font-line-height-sm);
 
           &[scope="row"] {
-            border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+            border-right: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
           }
         }
 
@@ -448,14 +454,14 @@ useOutsideClick({
     &--big {
       table {
         th {
-          border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+          border-right: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
           &:last-of-type {
             border-right: none;
           }
         }
         td {
-          border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-          border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+          border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
+          border-right: var(--onyx-1px-in-rem) solid var(--onyx-calendar-border-color);
           &:last-of-type {
             border-right: none;
             // to fix aspect-ratio for last column

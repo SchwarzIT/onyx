@@ -1,11 +1,16 @@
 import type { Nullable } from "../../types/index.js";
+import type { DateValue } from "../../utils/date.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 
 export type OnyxDatePickerProps = Omit<SharedFormElementProps, "placeholder"> & {
   /**
    * A date string compliant with [ISO8601](https://en.wikipedia.org/wiki/ISO_8601).
-   * @example "date.toISOString()"
-   * @example "2011-10-31"
+   *
+   * @example
+   *   "date.toISOString()";
+   *
+   * @example
+   *   "2011-10-31";
    */
   modelValue?: Nullable<string>;
   /**
@@ -13,16 +18,13 @@ export type OnyxDatePickerProps = Omit<SharedFormElementProps, "placeholder"> & 
    */
   type?: "date" | "datetime-local";
   /**
-   * Min. / earliest selectable date (inclusive).
-   * When using `type="datetime-local"`, the user can still select a invalid time but the datepicker will show an error.
+   * Min. / earliest selectable date (inclusive). When using `type="datetime-local"`, the user can
+   * still select a invalid time but the datepicker will show an error.
    */
   min?: DateValue;
   /**
-   * Max. / latest selectable date (inclusive).
-   * When using `type="datetime-local"`, the user can still select a invalid time but the datepicker will show an error.
+   * Max. / latest selectable date (inclusive). When using `type="datetime-local"`, the user can
+   * still select a invalid time but the datepicker will show an error.
    */
   max?: DateValue;
 };
-
-/** Data types that are parsable as date via `new Date()`. */
-export type DateValue = ConstructorParameters<typeof Date>[0];

@@ -50,6 +50,7 @@ test.describe("Screenshot tests (skeleton)", () => {
     name: "Code tabs (skeleton)",
     columns: ["default"],
     rows: ["default"],
+    fastNoIsolation: true,
     component: () => (
       <OnyxCodeTabs modelValue="tab-1" skeleton>
         <OnyxCodeTab value="tab-1" code="" language="ts" />

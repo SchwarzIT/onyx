@@ -60,6 +60,7 @@ test.describe("Screenshot tests (other)", () => {
     name: "Global search option (other)",
     columns: ["default"],
     rows: ["truncation"],
+    fastNoIsolation: true,
     component: () => (
       <OnyxGlobalSearchOption
         style={{ width: "8rem" }}

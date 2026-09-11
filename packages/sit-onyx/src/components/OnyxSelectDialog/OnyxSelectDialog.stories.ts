@@ -3,8 +3,9 @@ import { createAdvancedStoryExample } from "../../utils/storybook.js";
 import OnyxSelectDialog from "./OnyxSelectDialog.vue";
 
 /**
- * Pre-built dialog where the user can select one value from a given list of options.
- * This component is e.g. internally used by the [OnyxColorSchemeDialog](/docs/navigation-navbar-modules-colorschemedialog--docs).
+ * Pre-built dialog where the user can select one value from a given list of options. This component
+ * is e.g. internally used by the
+ * [OnyxColorSchemeDialog](/docs/navigation-navbar-modules-colorschemedialog--docs).
  *
  * ### Keyboard support
  *

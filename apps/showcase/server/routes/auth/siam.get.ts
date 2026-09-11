@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
 
       const redirectTo = getCookie(event, REDIRECT_COOKIE_NAME) ?? "/";
       deleteCookie(event, REDIRECT_COOKIE_NAME);
-      return sendRedirect(event, redirectTo);
+      return void sendRedirect(event, redirectTo, 302);
     },
   });
 

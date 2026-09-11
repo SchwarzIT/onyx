@@ -13,6 +13,7 @@ export type OnyxTableProps = DensityProp & {
   withVerticalBorders?: boolean;
   /**
    * Whether the table will only scroll in a page context and will not scroll internally.
+   *
    * - `false` => the table header will stick to the top of the **table** when it has a limited height
    * - `true` => the table header will stick to the top of the **page** when scrolling the page
    * - Warning: Don't set a max-height/width on the table when `withPageScrolling` is set.
@@ -34,11 +35,11 @@ export type OnyxTableProps = DensityProp & {
    */
   tableAttrs?: HTMLAttributes;
   /**
-   * Defines how overflows of text content in cells (`td`-elements) are handled.
-   * The cell can either grow to multiple lines (`'multiline'`) or truncate the text (`'ellipsis'`).
-   * The `'ellipsis'` mode will only show an ellipsis, when a (maximum) width has been defined for a cell/column.
+   * Defines how overflows of text content in cells (`td`-elements) are handled. The cell can either
+   * grow to multiple lines (`'multiline'`) or truncate the text (`'ellipsis'`). The `'ellipsis'`
+   * mode will only show an ellipsis, when a (maximum) width has been defined for a cell/column.
    *
-   * @default 'multiline'
+   * @default "multiline"
    */
   truncation?: TruncationType;
 };
@@ -64,11 +65,13 @@ export type OnyxTableSlots = {
    */
   headline?(): unknown;
   /**
-   * Optional slot for showing table actions above the table (top right). See OnyxIconButton and OnyxButton component.
+   * Optional slot for showing table actions above the table (top right). See OnyxIconButton and
+   * OnyxButton component.
    */
   actions?(): unknown;
   /**
-   * Optional slot for displaying a pagination below the table (bottom right). See OnyxPagination component.
+   * Optional slot for displaying a pagination below the table (bottom right). See OnyxPagination
+   * component.
    */
   pagination?(): unknown;
   /**
@@ -79,7 +82,8 @@ export type OnyxTableSlots = {
 };
 
 /**
- * Table group that is rendered as `<colgroup>` and corresponding `<th scope="colgroup">` inside the table.
+ * Table group that is rendered as `<colgroup>` and corresponding `<th scope="colgroup">` inside the
+ * table.
  */
 export type TableColumnGroup = {
   /**

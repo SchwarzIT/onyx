@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxHeadline from "./OnyxHeadline.vue";
 
 /**
- * Headlines organize and structure content, guiding the user through different sections and conveying the hierarchy of information.
+ * Headlines organize and structure content, guiding the user through different sections and
+ * conveying the hierarchy of information.
  */
 const meta: Meta<typeof OnyxHeadline> = {
   title: "Navigation/Headline",
@@ -34,7 +35,8 @@ export const Default = {
 } satisfies Story;
 
 /**
- * This example shows a default h1 headline with a hash URL that can be copied by clicking the headline.
+ * This example shows a default h1 headline with a hash URL that can be copied by clicking the
+ * headline.
  */
 export const WithHash = {
   args: {

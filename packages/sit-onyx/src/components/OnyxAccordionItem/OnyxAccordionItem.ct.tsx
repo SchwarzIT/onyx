@@ -1,5 +1,25 @@
+import { iconPlaceholder } from "@sit-onyx/icons";
 import { expect, test } from "../../playwright/a11y.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
 import OnyxAccordionItem from "../OnyxAccordionItem/OnyxAccordionItem.vue";
+import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
+
+test.describe("Screenshot tests", () => {
+  executeMatrixScreenshotTest({
+    name: "Accordion item",
+    columns: ["default"],
+    rows: ["default"],
+    component: () => (
+      <OnyxAccordionItem value="1">
+        <template v-slot:header>
+          <OnyxIcon icon={iconPlaceholder} />
+          Example label
+        </template>
+        Content
+      </OnyxAccordionItem>
+    ),
+  });
+});
 
 test("should apply the disabled state", async ({ mount, page }) => {
   // ARRANGE

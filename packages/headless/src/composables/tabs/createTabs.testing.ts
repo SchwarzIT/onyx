@@ -4,14 +4,15 @@ import type { Locator, Page } from "@playwright/test";
 export type TabsTestingOptions = {
   page: Page;
   /**
-   * Locator of the tabs component. Must have at least 3 tabs where the first one is initially selected.
+   * Locator of the tabs component. Must have at least 3 tabs where the first one is initially
+   * selected.
    */
   tablist: Locator;
 };
 
 /**
- * Playwright utility for executing accessibility testing for tabs.
- * Will check aria attributes and keyboard shortcuts as defined in https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
+ * Playwright utility for executing accessibility testing for tabs. Will check aria attributes and
+ * keyboard shortcuts as defined in https://www.w3.org/WAI/ARIA/apg/patterns/tabs/
  */
 export const tabsTesting = async (options: TabsTestingOptions) => {
   await expect(options.tablist, 'tablist element must have role "tablist"').toHaveRole("tablist");

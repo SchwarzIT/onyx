@@ -1,8 +1,8 @@
+import { fileURLToPath, URL } from "node:url";
 import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import vue from "@vitejs/plugin-vue";
-import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
-import packageJson from "./package.json";
+import packageJson from "./package.json" with { type: "json" };
 
 const jsxImportSource = "playwright";
 
@@ -29,7 +29,9 @@ export default defineConfig({
   },
 });
 
-/** Gets the given path while ensuring cross-platform and correct decoding */
+/**
+ * Gets the given path while ensuring cross-platform and correct decoding
+ */
 function getFilePath(path: string) {
   return fileURLToPath(new URL(path, import.meta.url));
 }

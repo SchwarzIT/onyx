@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   /**
-   * label of the column
+   * Label of the column
    */
   label: string;
 }>();
@@ -33,6 +33,9 @@ const slots = defineSlots<{
     &__actions {
       display: inline-flex;
       gap: var(--onyx-density-2xs);
+    }
+    &__label {
+      max-width: 100%;
     }
   }
 }

@@ -50,6 +50,15 @@
     "loadMore": "더 불러오기",
     "editing": {
       "label": "ID가 {id}인 {column}"
+    },
+    "rowRearrange": {
+      "rearrange": "행 재정렬",
+      "reset": "변경사항 재설정",
+      "dragToMove": "드래그하여 행 이동"
+    },
+    "columnRearrange": {
+      "rearrange": "열 재정렬",
+      "dragToMove": "드래그하여 열 이동"
     }
   },
   "validations": {
@@ -75,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "필수 항목",
-      "fullError": "필드가 비어 있습니다. 필수 항목이므로 반드시 입력해야 합니다."
+      "fullError": "필드가 비어 있습니다. 필수 항목이므로 반드시 입력해야 합니다.",
+      "whitespaceError": "유효한 텍스트를 입력하세요 (공백만으로는 허용되지 않습니다)."
     },
     "stepMismatch": {
       "preview": "유효하지 않은 숫자",
@@ -352,5 +362,13 @@
   },
   "accordion": {
     "toggle": "클릭하여 콘텐츠 열기/닫기"
-  }
+  },
+  "search": {
+    "filterLabel": "검색 필터 표시",
+    "leadingShortcutPlaceholder": "입력",
+    "trailingShortcutPlaceholder": "하여 검색",
+    "label": "검색",
+    "selectFilter": "필터 선택"
+  },
+  "save": "저장"
 }

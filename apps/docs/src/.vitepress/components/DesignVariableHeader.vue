@@ -2,16 +2,24 @@
 import { OnyxButton, OnyxHeadline } from "sit-onyx";
 
 const props = defineProps<{
-  /** Headline to show on the left side of the header. */
+  /**
+   * Headline to show on the left side of the header.
+   */
   headline?: string;
-  /** Available tab buttons. Active tab can be set with the `modelValue` property. */
+  /**
+   * Available tab buttons. Active tab can be set with the `modelValue` property.
+   */
   tabs?: readonly string[];
-  /** Currently active tab. */
+  /**
+   * Currently active tab.
+   */
   modelValue?: string;
 }>();
 
 const emit = defineEmits<{
-  /** emitted when the user selects a tab. */
+  /**
+   * Emitted when the user selects a tab.
+   */
   "update:modelValue": [value: string];
 }>();
 </script>

@@ -3,8 +3,9 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxEditorToolbarFlyout from "./OnyxEditorToolbarFlyout.vue";
 
 /**
- * Support component for representing a flyout to select from multiple grouped toolbar actions of the text editor.
- * Will automatically show the icon of the currently active option and will be disabled when the editor is disabled.
+ * Support component for representing a flyout to select from multiple grouped toolbar actions of
+ * the text editor. Will automatically show the icon of the currently active option and will be
+ * disabled when the editor is disabled.
  */
 const meta: Meta<typeof OnyxEditorToolbarFlyout> = {
   title: "Support/EditorToolbarFlyout",

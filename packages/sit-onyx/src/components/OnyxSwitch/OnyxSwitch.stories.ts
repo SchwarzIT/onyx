@@ -2,8 +2,9 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxSwitch from "./OnyxSwitch.vue";
 
 /**
- * Switches are a common UI element used to control binary states, such as on/off, enable/disable/, or active/inactive.
- * They consist of a toggle mechanism that allow users to switch between two distinct states with a simple interaction.
+ * Switches are a common UI element used to control binary states, such as on/off, enable/disable/,
+ * or active/inactive. They consist of a toggle mechanism that allow users to switch between two
+ * distinct states with a simple interaction.
  */
 const meta: Meta<typeof OnyxSwitch> = {
   title: "Form Elements/Switch",
@@ -18,7 +19,15 @@ type Story = StoryObj<typeof OnyxSwitch>;
  */
 export const Default = {
   args: {
-    label: "Switch label",
+    label: { label: "Switch label", position: "top" },
+  },
+} satisfies Story;
+
+export const WithValueLabel = {
+  tags: ["new:feature"],
+  args: {
+    label: { label: "Switch label", position: "top" },
+    valueLabel: { falsy: "Off", truthy: "On" },
   },
 } satisfies Story;
 
@@ -65,7 +74,8 @@ export const HiddenLabel = {
 } satisfies Story;
 
 /**
- * A switch with truncation. You can set the "truncation" property to choose between the different truncation types.
+ * A switch with truncation. You can set the "truncation" property to choose between the different
+ * truncation types.
  */
 export const WithTruncation = {
   args: {
@@ -92,7 +102,6 @@ export const Skeleton = {
 export const CustomError = {
   args: {
     ...Default.args,
-    hideLabel: true,
     error: {
       shortMessage: "Custom error",
       longMessage: "Further explanation.",

@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { h } from "vue";
+import { computed, h } from "vue";
 import type { OnyxDataGridProps } from "../../../../index.js";
 import { DataGridFeatures, OnyxDataGrid } from "../../../../index.js";
 
-const { columns, data } = defineProps<
+const props = defineProps<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- for simplicity we use any here
-  Pick<OnyxDataGridProps<any, any, any, any, any, any>, "columns" | "data">
+  Pick<OnyxDataGridProps<any, any, any, any, any, any>, "columns" | "data"> & {
+    enableSorting?: boolean;
+  }
 >();
 
 const withExpandableRows = DataGridFeatures.useExpandableRows({
@@ -15,7 +17,11 @@ const withExpandableRows = DataGridFeatures.useExpandableRows({
   ],
 });
 
-const features = [withExpandableRows];
+const withSorting = DataGridFeatures.useSorting({
+  enabled: computed(() => props.enableSorting),
+});
+
+const features = [withExpandableRows, withSorting];
 </script>
 
 <template>

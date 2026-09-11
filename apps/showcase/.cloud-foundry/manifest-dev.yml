@@ -2,7 +2,7 @@
 ---
 applications:
   - name: onyx-showcase-dev
-    memory: 96M
+    memory: 256M
     buildpacks:
       - https://github.com/cloudfoundry/nodejs-buildpack
     command: node dist/server/index.mjs

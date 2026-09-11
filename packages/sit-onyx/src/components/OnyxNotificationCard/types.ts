@@ -1,6 +1,6 @@
 import type { DensityProp } from "../../composables/density.js";
 import type { SkeletonInjected } from "../../composables/useSkeletonState.js";
-import type { DateValue } from "../OnyxDatePicker/types.js";
+import type { DateValue } from "../../utils/date.js";
 
 export type OnyxNotificationCardProps = DensityProp & {
   /**

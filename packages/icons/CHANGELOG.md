@@ -1,5 +1,45 @@
 # @sit-onyx/icons
 
+## 1.12.0
+
+### Minor Changes
+
+- 0f44f10: feat: update icons
+
+  #### New
+  - client-side-encryptions
+  - faas
+  - local-data-storage
+  - workspaces
+
+## 1.11.0
+
+### Minor Changes
+
+- 5857f5a: feat: update icons
+
+  #### New
+  - artificial-intelligence
+  - message-AI
+  - robot-AI
+
+## 1.10.1
+
+### Patch Changes
+
+- 3efb8bc: fix: remove whitespaces from `quote` icon name
+
+## 1.10.0
+
+### Minor Changes
+
+- 0bb52be: feat: update icons
+
+  #### New
+  - backpack
+  - pathsign
+  - telemetry-router
+
 ## 1.9.1
 
 ### Patch Changes
@@ -514,6 +554,7 @@
 - 5ac259d: feat(icons): update icons
 
   The new available icons are:
+
   - chevron-down-up
   - plus-minus
   - server-lock

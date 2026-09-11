@@ -29,7 +29,8 @@ export type OnyxIconButtonProps = DensityProp &
      */
     loading?: boolean;
     /**
-     * The icon which will be displayed. The custom content in the `default` won't have an effect if the `icon` property is set.
+     * The icon which will be displayed. The custom content in the `default` won't have an effect if
+     * the `icon` property is set.
      */
     icon?: string;
     /**

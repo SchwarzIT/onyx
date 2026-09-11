@@ -7,6 +7,7 @@
   "back": "Zurück",
   "close": "Schließen",
   "now": "Jetzt",
+  "save": "Speichern",
   "breadcrumb": {
     "label": "Brotkrümelnavigation",
     "home": "Startseite"
@@ -50,7 +51,16 @@
     "editing": {
       "label": "{column} mit der ID {id}"
     },
-    "loadMore": "Mehr laden"
+    "loadMore": "Mehr laden",
+    "rowRearrange": {
+      "rearrange": "Zeilen neu anordnen",
+      "reset": "Änderungen zurücksetzen",
+      "dragToMove": "Zum Verschieben der Zeile ziehen"
+    },
+    "columnRearrange": {
+      "rearrange": "Spalten neu anordnen",
+      "dragToMove": "Zum Verschieben der Spalte ziehen"
+    }
   },
   "validations": {
     "tooShort": {
@@ -75,7 +85,8 @@
     },
     "valueMissing": {
       "preview": "Pflichtfeld",
-      "fullError": "Das Feld ist leer, es ist ein Pflichtfeld und muss ausgefüllt werden."
+      "fullError": "Das Feld ist leer, es ist ein Pflichtfeld und muss ausgefüllt werden.",
+      "whitespaceError": "Bitte gib einen gültigen Text ein (nur Leerzeichen sind nicht erlaubt)."
     },
     "stepMismatch": {
       "preview": "Ungültige Zahl",
@@ -274,6 +285,13 @@
       "select": "Auswählen"
     },
     "system": "System"
+  },
+  "search": {
+    "label": "Suche",
+    "filterLabel": "Filter umschalten",
+    "selectFilter": "Filter auswählen",
+    "leadingShortcutPlaceholder": "Tippe",
+    "trailingShortcutPlaceholder": "zum suchen"
   },
   "timePicker": {
     "placeholder": {

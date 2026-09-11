@@ -1,5 +1,4 @@
 import { onBeforeUnmount, onMounted, ref, watch, type Ref } from "vue";
-
 import { getTemplateRefElement, type VueTemplateRefElement } from "./useResizeObserver.js";
 export type UseIntersectionObserverOptions = {
   /**
@@ -11,7 +10,7 @@ export type UseIntersectionObserverOptions = {
   /**
    * Margin around the root element.
    *
-   * @default '0px'
+   * @default "0px"
    */
   rootMargin?: string;
   /**

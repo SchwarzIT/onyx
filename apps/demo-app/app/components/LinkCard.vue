@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconArrowSmallRight, iconExpandWindow } from "@sit-onyx/icons";
-import { OnyxCard, type OnyxCardProps, OnyxIcon, extractLinkProps, isInternalLink } from "sit-onyx";
+import { type OnyxCardProps, extractLinkProps, isInternalLink } from "sit-onyx";
 
 export type LinkCardProps = Required<Pick<OnyxCardProps, "link">> & {
   /**

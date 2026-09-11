@@ -6,6 +6,10 @@
 }
 
 .VPHomeHero {
+  .heading .text {
+    white-space: pre; // use the exact line-breaks as defined
+  }
+
   .image-src {
     border-radius: 12px; // same as feature section in home page
   }

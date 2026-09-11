@@ -102,7 +102,7 @@ describe("mergeVueProps", () => {
   test("should be able to merge proxied", () => {
     const newValue = "new-value";
     const ref1 = vue.ref();
-    const result = mergeVueProps({} as vue.VNodeProps, vue.reactive({ ref: ref1 }));
+    const result = mergeVueProps({}, vue.reactive({ ref: ref1 }));
 
     const targetRef = result.ref;
     targetRef.value = newValue;

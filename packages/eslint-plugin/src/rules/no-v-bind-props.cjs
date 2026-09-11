@@ -2,7 +2,9 @@
 
 const utils = require("eslint-plugin-vue/dist/utils/index.js").default;
 
-/** @type {import('eslint').Rule.RuleModule} */
+/**
+ * @type {import("eslint").Rule.RuleModule}
+ */
 module.exports = {
   meta: {
     type: "problem",
@@ -29,7 +31,9 @@ module.exports = {
       boundProps: `All props are bound directly using v-bind="{{ name }}", this is usually a mistake! Props which are not defined by the target will be rendered as attributes and have unintended side-effects!`,
     },
   },
-  /** @param {import('eslint').Rule.RuleContext} context */
+  /**
+   * @param {import("eslint").Rule.RuleContext} context
+   */
   create(context) {
     const ignores = context.options?.[0]?.ignores;
     if (ignores && new RegExp(ignores).test(context.filename)) {
@@ -38,13 +42,16 @@ module.exports = {
 
     /**
      * Used to track the names of the defined props objects
+     *
      * @type {string[]}
      */
     const propsIdentifiers = ["$props"];
 
     return utils.compositingVisitors(
       utils.defineScriptSetupVisitor(context, {
-        /** @param {import("vue-eslint-parser/ast/nodes").Node} node */
+        /**
+         * @param {import("vue-eslint-parser/ast/nodes").Node} node
+         */
         onDefinePropsEnter(node) {
           while (node.parent != null && node.type !== "VariableDeclaration") {
             node = node.parent;
@@ -58,7 +65,9 @@ module.exports = {
         },
       }),
       utils.defineTemplateBodyVisitor(context, {
-        /** @param {import("vue-eslint-parser/ast/nodes").VAttribute} node */
+        /**
+         * @param {import("vue-eslint-parser/ast/nodes").VAttribute} node
+         */
         "VAttribute[directive=true][key.name.name='bind'][key.argument=null]"(node) {
           const name = node.value?.expression?.name;
           if (!name) {

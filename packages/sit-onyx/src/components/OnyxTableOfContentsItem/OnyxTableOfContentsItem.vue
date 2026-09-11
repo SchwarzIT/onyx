@@ -8,6 +8,7 @@ import {
 import { extractLinkProps } from "../../utils/router.js";
 import OnyxRouterLink from "../OnyxRouterLink/OnyxRouterLink.vue";
 import OnyxSkeleton from "../OnyxSkeleton/OnyxSkeleton.vue";
+import { useTocContext } from "../OnyxTableOfContents/useTocContext.js";
 import type { OnyxTableOfContentsItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxTableOfContentsItemProps>(), {
@@ -22,7 +23,8 @@ const slots = defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional nested children to display. Recommended to use the `OnyxTableOfContentsItem` component here.
+   * Optional nested children to display. Recommended to use the `OnyxTableOfContentsItem` component
+   * here.
    */
   children?(): unknown;
 }>();
@@ -31,6 +33,13 @@ const { densityClass } = useDensity(props);
 
 const link = computed(() => extractLinkProps(props.link));
 const skeleton = useSkeletonContext(props);
+
+const { isVisible } = useTocContext({ href: computed(() => link.value.href) });
+
+const isActive = computed(() => {
+  if (props.active !== "auto") return props.active;
+  return isVisible.value;
+});
 </script>
 
 <template>
@@ -46,7 +55,7 @@ const skeleton = useSkeletonContext(props);
       :class="[
         'onyx-toc-item__link',
         'onyx-truncation-ellipsis',
-        { 'onyx-router-link--active': props.active !== 'auto' && props.active },
+        { 'onyx-router-link--active': isActive },
       ]"
       :href="link.href"
       :target="link.target"
@@ -105,6 +114,7 @@ const skeleton = useSkeletonContext(props);
       &:hover {
         background-color: var(--onyx-toc-item-background-hover);
         color: var(--onyx-toc-item-color-hover);
+        --onyx-toc-item-indicator-color: var(--onyx-color-component-border-neutral-hover);
       }
 
       &:focus-visible {
@@ -114,7 +124,6 @@ const skeleton = useSkeletonContext(props);
       }
 
       &.onyx-router-link--active {
-        --onyx-toc-item-background-hover: var(--onyx-color-base-primary-100);
         --onyx-toc-item-background-focus: var(--onyx-toc-item-background-hover);
         --onyx-toc-item-color: var(--onyx-color-text-icons-primary-intense);
         --onyx-toc-item-color-hover: var(--onyx-color-text-icons-primary-bold);

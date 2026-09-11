@@ -1,12 +1,18 @@
-import { onBeforeUnmount, onMounted, ref, watch, type Ref } from "vue";
+import { onBeforeUnmount, onMounted, ref, toValue, watch, type Ref } from "vue";
 
 export type UseResizeObserverOptions = {
   /**
    * Sets which box model the observer will observe changes to.
    *
-   * @default 'content-box'
+   * @default "content-box"
    */
   box?: ResizeObserverBoxOptions;
+  /**
+   * Whether the observer is disabled.å
+   *
+   * @default false
+   */
+  disabled?: Ref<boolean>;
 };
 
 /**
@@ -24,6 +30,8 @@ export const useResizeObserver = (
   const box = options?.box ?? "content-box";
   const width = ref(0);
   const height = ref(0);
+
+  const isDisabled = ref(options?.disabled ?? false);
 
   const callback: ResizeObserverCallback = (entries) => {
     const entry = entries[0];
@@ -45,24 +53,24 @@ export const useResizeObserver = (
     if (!("ResizeObserver" in window)) return;
     const observer = new ResizeObserver(callback);
 
-    if (!target) {
-      observer.observe(document.documentElement, { box });
-      return;
-    }
+    const targetElement = target ?? document.documentElement;
 
     watch(
-      target,
-      (newTargetRef, oldTargetRef) => {
+      [() => toValue(targetElement), isDisabled],
+      ([newTargetRef, disabled], [oldTargetRef]) => {
         const newTarget = getTemplateRefElement(newTargetRef);
         const oldTarget = getTemplateRefElement(oldTargetRef);
 
-        if (oldTarget) observer?.unobserve(oldTarget);
-        if (newTarget) observer?.observe(newTarget, { box });
-        else {
-          // target was removed (e.g. with v-if so we need to reset the size manually)
+        if (oldTarget) observer.unobserve(oldTarget);
+
+        // target was removed (e.g. with v-if) or observer is disabled so we need to reset the size manually
+        if (!newTarget || disabled) {
           width.value = 0;
           height.value = 0;
+          return;
         }
+
+        observer.observe(newTarget, { box });
       },
       { immediate: true },
     );

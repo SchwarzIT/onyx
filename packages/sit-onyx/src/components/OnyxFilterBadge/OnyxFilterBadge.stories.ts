@@ -3,11 +3,11 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxFilterBadge from "./OnyxFilterBadge.vue";
 
 /**
- * Badges are succinct textual labels that provide single-worded information or hints to their related parent element.
+ * Badges are succinct textual labels that provide single-worded information or hints to their
+ * related parent element.
  */
 const meta: Meta<typeof OnyxFilterBadge> = {
   title: "Search & Filter/FilterBadge",
-  tags: ["new:component"],
   component: OnyxFilterBadge,
   argTypes: {
     ...withNativeEventLogging(["onClick"]),

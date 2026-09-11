@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { dateToISOString, isValidDate } from "./date.js";
+import { dateToISOString, isValidDate, nextMonthForDate, previousMonthForDate } from "./date.js";
 
 describe("isValidDate", () => {
   test.each([
@@ -13,6 +13,29 @@ describe("isValidDate", () => {
     { input: new Date(), isValid: true },
   ])("should determine correctly if $input is a valid date", ({ input, isValid }) => {
     expect(isValidDate(input)).toBe(isValid);
+  });
+});
+
+describe("nextMonthForDate", () => {
+  test.each([
+    { input: new Date(2001, 0, 1), expected: new Date(2001, 1, 1) },
+    { input: new Date(2001, 0, 31), expected: new Date(2001, 1, 1) },
+    { input: new Date(2001, 11, 31), expected: new Date(2002, 0, 1) },
+    { input: new Date(2001, 0, 31, 23, 59, 59), expected: new Date(2001, 1, 1) },
+  ])("should determine the date of the following month for $input", ({ input, expected }) => {
+    const result = nextMonthForDate(input).getTime();
+    expect(result).toBe(expected.getTime());
+  });
+});
+
+describe("previousMonthForDate", () => {
+  test.each([
+    { input: new Date(2001, 0, 1), expected: new Date(2000, 11, 1) },
+    { input: new Date(2001, 0, 31), expected: new Date(2000, 11, 1) },
+    { input: new Date(2001, 0, 31, 23, 59, 59), expected: new Date(2000, 11, 1) },
+  ])("should determine the date of the following month for $input", ({ input, expected }) => {
+    const result = previousMonthForDate(input).getTime();
+    expect(result).toBe(expected.getTime());
   });
 });
 

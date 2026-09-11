@@ -50,6 +50,15 @@
     "loadMore": "Načíst další",
     "editing": {
       "label": "{column} s ID {id}"
+    },
+    "rowRearrange": {
+      "rearrange": "Změnit uspořádání řádků",
+      "reset": "Resetovat změny",
+      "dragToMove": "Táhnutím přesunete řádek"
+    },
+    "columnRearrange": {
+      "rearrange": "Změnit uspořádání sloupců",
+      "dragToMove": "Táhnutím přesunete sloupec"
     }
   },
   "validations": {
@@ -75,7 +84,8 @@
     },
     "valueMissing": {
       "preview": "Povinné",
-      "fullError": "Pole je prázdné, je povinné a musí být vyplněno."
+      "fullError": "Pole je prázdné, je povinné a musí být vyplněno.",
+      "whitespaceError": "Zadejte prosím platný text (pouze mezery nejsou povoleny)."
     },
     "stepMismatch": {
       "preview": "Neplatné číslo",
@@ -352,5 +362,13 @@
   },
   "accordion": {
     "toggle": "Kliknutím přepnete obsah"
-  }
+  },
+  "search": {
+    "filterLabel": "zobrazit filtr vyhledávání",
+    "leadingShortcutPlaceholder": "Napsat",
+    "trailingShortcutPlaceholder": "pro vyhledávání",
+    "label": "Hledat",
+    "selectFilter": "Vybrat filtr"
+  },
+  "save": "Uložit"
 }

@@ -1,6 +1,6 @@
-import { Command } from "commander";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { Command } from "commander";
 import { writeIconMetadata } from "../icons/generate.js";
 import { parseComponentsToIcons } from "../icons/parse.js";
 import { fetchFigmaComponents, fetchFigmaSVGs } from "../index.js";

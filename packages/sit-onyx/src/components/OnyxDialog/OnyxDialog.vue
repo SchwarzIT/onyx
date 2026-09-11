@@ -27,7 +27,8 @@ const slots = defineSlots<{
    */
   trigger?(params: {
     /**
-     * Attributes and event listeners that must be bound to an interactive element (button or link), that should act as the dialog trigger.
+     * Attributes and event listeners that must be bound to an interactive element (button or link),
+     * that should act as the dialog trigger.
      */
     trigger: object;
   }): unknown;
@@ -108,13 +109,9 @@ const isExpanded = useVModel({
     --onyx-dialog-padding-inline: var(--onyx-density-md);
     --onyx-basic-dialog-padding: 0;
     width: fit-content;
+
     .onyx-basic-popover__dialog {
       --onyx-basic-popover-max-width: calc(100% - 2 * (var(--onyx-density-md)));
-    }
-
-    .onyx-basic-dialog__content {
-      display: flex;
-      flex-direction: column;
     }
 
     &__header {

@@ -9,4 +9,10 @@ export type OnyxGlobalSearchGroupProps = DensityProp & {
    * Whether to show skeleton options.
    */
   skeleton?: boolean | number;
+  /**
+   * Orientation of the component.
+   *
+   * @default "vertical"
+   */
+  orientation?: "horizontal" | "vertical";
 };

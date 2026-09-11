@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+import { provide, reactive } from "vue";
 import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
+import { TOC_CONTEXT_INJECTION_KEY } from "../OnyxTableOfContents/useTocContext.js";
 import type { OnyxPageLayoutProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPageLayoutProps>(), {
@@ -12,17 +14,21 @@ const slots = defineSlots<{
    */
   default(): unknown;
   /**
-   * Optional (left) sidebar.
-   * Recommended component: [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs)
+   * Optional (left) sidebar. Recommended component:
+   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs)
    *
-   * For semantic HTML, it is recommended to use HTML elements like `<aside>` here, which is already the case when using the [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs).
+   * For semantic HTML, it is recommended to use HTML elements like `<aside>` here, which is already
+   * the case when using the
+   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs).
    */
   sidebar?(): unknown;
   /**
-   * Optional (right) sidebar.
-   * Recommended component: [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs)
+   * Optional (right) sidebar. Recommended component:
+   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs)
    *
-   * For semantic HTML, it is recommended to use HTML elements like `<aside>` here, which is already the case when using the [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs).
+   * For semantic HTML, it is recommended to use HTML elements like `<aside>` here, which is already
+   * the case when using the
+   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs).
    */
   sidebarRight?(): unknown;
   /**
@@ -33,6 +39,11 @@ const slots = defineSlots<{
 }>();
 
 provideSkeletonContext(props);
+
+provide(TOC_CONTEXT_INJECTION_KEY, {
+  visibleHashes: reactive(new Set<string>()),
+  tocItems: reactive(new Set<string>()),
+});
 </script>
 
 <template>

@@ -8,7 +8,9 @@
 // Rule Definition
 //------------------------------------------------------------------------------
 
-/** @type {import("eslint-plugin-vue/dist/utils/index.js").RuleModule} */
+/**
+ * @type {import("eslint-plugin-vue/dist/utils/index.js").RuleModule}
+ */
 module.exports = {
   meta: {
     type: "problem",
@@ -27,9 +29,10 @@ module.exports = {
   create(context) {
     /**
      * Checks a node to see if any problems should be reported.
+     *
+     * @private
      * @param {ASTNode} node The node to check.
      * @returns {void}
-     * @private
      */
     function checkNode(node) {
       if (/\.d\.(\w+\.)?tsx?$/.test(context.filename)) {

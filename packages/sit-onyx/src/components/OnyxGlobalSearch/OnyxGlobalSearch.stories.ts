@@ -5,7 +5,7 @@ import OnyxGlobalSearch from "./OnyxGlobalSearch.vue";
 const meta: Meta<typeof OnyxGlobalSearch> = {
   title: "Search & Filter/GlobalSearch",
   component: OnyxGlobalSearch,
-  tags: ["new:component"],
+  tags: ["new:component", "!autodocs"], // The default example looks broken on the docs page and as it doesn't provide any additional value anyways, we just disable it.
   parameters: {
     layout: "fullscreen",
   },

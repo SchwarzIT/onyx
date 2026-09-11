@@ -1,16 +1,22 @@
 {
   "name": "@sit-onyx/headless",
+  "version": "0.12.0",
   "description": "Headless composables for Vue",
-  "version": "0.10.0",
-  "type": "module",
-  "author": "Schwarz IT KG",
+  "homepage": "https://onyx.schwarz/development/packages/headless.html",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
   "license": "Apache-2.0",
-  "engines": {
-    "node": ">=20"
+  "author": "Schwarz Digits IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/headless"
   },
   "files": [
     "dist"
   ],
+  "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -22,19 +28,17 @@
       "default": "./dist/playwright.js"
     }
   },
-  "homepage": "https://onyx.schwarz/development/packages/headless.html",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SchwarzIT/onyx",
-    "directory": "packages/headless"
-  },
-  "bugs": {
-    "url": "https://github.com/SchwarzIT/onyx/issues"
-  },
   "scripts": {
     "build": "vite build",
     "test": "vitest",
     "test:playwright": "playwright install && playwright test"
+  },
+  "devDependencies": {
+    "@sit-onyx/shared": "workspace:^",
+    "@vue/compiler-dom": "catalog:",
+    "unplugin-dts": "catalog:",
+    "vite": "catalog:",
+    "vue": "catalog:"
   },
   "peerDependencies": {
     "@playwright/experimental-ct-vue": "catalog:",
@@ -42,9 +46,7 @@
     "typescript": ">= 5",
     "vue": ">= 3.5.0"
   },
-  "devDependencies": {
-    "@sit-onyx/shared": "workspace:^",
-    "@vue/compiler-dom": "catalog:",
-    "vue": "catalog:"
+  "engines": {
+    "node": ">=20"
   }
 }

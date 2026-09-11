@@ -7,7 +7,8 @@ import OnyxFABItem from "../OnyxFABItem/OnyxFABItem.vue";
 import OnyxFAB from "./OnyxFAB.vue";
 
 /**
- * A floating action button (FAB) is a fixed/sticky action button that appears at the bottom corner of a screen.
+ * A floating action button (FAB) is a fixed/sticky action button that appears at the bottom corner
+ * of a screen.
  */
 const meta: Meta<typeof OnyxFAB> = {
   title: "Buttons/FAB",

@@ -57,6 +57,8 @@ export * from "./components/OnyxDataGrid/OnyxDataGridRenderer/types.js";
 export { default as OnyxDataGrid } from "./components/OnyxDataGrid/OnyxDataGrid.vue";
 export * from "./components/OnyxDataGrid/types.js";
 
+export { default as OnyxUnstableDataGridFormElementWrapper } from "./components/OnyxDataGrid/features/DataGridFormElementWrapper.vue";
+
 export * as DataGridFeatures from "./components/OnyxDataGrid/features/all.js";
 export * from "./components/OnyxDataGrid/features/index.js";
 
@@ -212,6 +214,9 @@ export * from "./components/OnyxSelect/types.js";
 export { default as OnyxItemsPerPage } from "./components/OnyxItemsPerPage/OnyxItemsPerPage.vue";
 export * from "./components/OnyxItemsPerPage/types.js";
 
+export { default as OnyxUnstableSearch } from "./components/OnyxSearch/OnyxSearch.vue";
+export * from "./components/OnyxSearch/types.js";
+
 export { default as OnyxSelectDialog } from "./components/OnyxSelectDialog/OnyxSelectDialog.vue";
 export * from "./components/OnyxSelectDialog/types.js";
 
@@ -308,7 +313,16 @@ export * from "./components/OnyxKey/types.js";
 export { default as OnyxUnstableShortcut } from "./components/OnyxShortcut/OnyxShortcut.vue";
 export * from "./components/OnyxShortcut/types.js";
 
+export { default as OnyxUnstableTreeView } from "./components/OnyxTreeView/OnyxTreeView.vue";
+export * from "./components/OnyxTreeView/types.js";
+
+export { default as OnyxUnstableTreeViewItem } from "./components/OnyxTreeViewItem/OnyxTreeViewItem.vue";
+export * from "./components/OnyxTreeViewItem/types.js";
+
 export { default as OnyxComponentShowcase } from "./components/examples/ComponentShowcase/ComponentShowcase.vue";
+
+export { default as OnyxUnstableEditLinkDialog } from "./components/OnyxEditLinkDialog/OnyxEditLinkDialog.vue";
+export * from "./components/OnyxEditLinkDialog/types.js";
 
 export { FORM_INJECTED_SYMBOL, useFormContext } from "./components/OnyxForm/OnyxForm.core.js";
 export * from "./composables/density.js";
@@ -319,6 +333,7 @@ export { getFormMessages } from "./composables/useFormElementError.js";
 export * from "./composables/useLink.js";
 export * from "./composables/useShortcut.js";
 export * from "./composables/useSkeletonState.js";
+export { useWhitespaceValidation } from "./composables/useWhitespaceValidation.js";
 export { SKELETON_INJECTED_SYMBOL } from "./composables/useSkeletonState.js";
 export { useVModel, type UseVModelOptions } from "./composables/useVModel.js";
 
@@ -329,8 +344,17 @@ export { createOnyx } from "./utils/plugin.js";
 
 export * from "./components/illustrations/index.js";
 export * from "./composables/themeTransition.js";
+export {
+  useMoreList,
+  useMoreListChild,
+  type MoreListInjectionKey,
+  type UseMoreListOptions,
+} from "./composables/useMoreList.js";
+export { useCopy, type UseCopyOptions } from "./composables/useCopy.js";
 export { useResizeObserver } from "./composables/useResizeObserver.js";
 export * from "./utils/attrs.js";
 export * from "./utils/props.js";
 export * from "./utils/router.js";
+export { type DateValue } from "./utils/date.js";
 export { normalizedIncludes } from "./utils/strings.js";
+export { applyArrayOrder } from "./utils/applyArrayOrder.js";

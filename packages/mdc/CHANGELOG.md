@@ -1,5 +1,11 @@
 # @sit-onyx/mdc
 
+## 0.3.0
+
+### Minor Changes
+
+- 6a14c64: feat: Links that are determined to be external will now open in a new tab per default
+
 ## 0.2.0
 
 ### Minor Changes

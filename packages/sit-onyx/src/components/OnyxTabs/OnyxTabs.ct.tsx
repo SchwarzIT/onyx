@@ -59,6 +59,7 @@ test.describe("Screenshot tests (custom content)", () => {
     name: "Tabs (custom content)",
     columns: DENSITIES,
     rows: ["icon", "badge", "icon-badge"],
+    fastNoIsolation: true,
     component: (column, row) => {
       return (
         <OnyxTabs label="Example tabs" modelValue="tab-1" density={column}>
@@ -93,6 +94,7 @@ for (const type of ["default", "skeleton"] as const) {
       name: `Tabs (sizes, ${type})`,
       columns: DENSITIES,
       rows: ["h2", "h3", "h4"],
+      fastNoIsolation: true,
       component: (column, row) => {
         return (
           <OnyxTabs

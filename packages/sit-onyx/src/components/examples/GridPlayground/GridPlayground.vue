@@ -27,9 +27,9 @@ import OnyxHeadline from "../../OnyxHeadline/OnyxHeadline.vue";
 import OnyxIcon from "../../OnyxIcon/OnyxIcon.vue";
 import OnyxIconButton from "../../OnyxIconButton/OnyxIconButton.vue";
 import OnyxLink from "../../OnyxLink/OnyxLink.vue";
-import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
 import OnyxMenuItem from "../../OnyxNavBar/modules/OnyxMenuItem/OnyxMenuItem.vue";
 import OnyxUserMenu from "../../OnyxNavBar/modules/OnyxUserMenu/OnyxUserMenu.vue";
+import OnyxNavBar from "../../OnyxNavBar/OnyxNavBar.vue";
 import OnyxSelect from "../../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../../OnyxSelect/types.js";
 import OnyxSeparator from "../../OnyxSeparator/OnyxSeparator.vue";
@@ -332,7 +332,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
   color: var(--onyx-color-text-icons-neutral-intense);
   background-color: var(--onyx-color-base-background-tinted);
   overflow: scroll;
-  height: 100vh;
+  height: 100dvh;
   container-type: inline-size;
 
   &__container {
@@ -388,7 +388,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
 
   &__grid-wrapper {
     overflow: hidden;
-    min-height: 70vh;
+    min-height: 70dvh;
     container-type: inline-size;
   }
 

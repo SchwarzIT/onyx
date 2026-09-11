@@ -1,5 +1,5 @@
-import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import { fileURLToPath } from "node:url";
+import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
 import { defineConfig } from "vite";
 import packageJson from "./package.json";
 

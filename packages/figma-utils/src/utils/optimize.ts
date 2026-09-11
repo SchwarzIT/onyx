@@ -3,7 +3,8 @@ import { optimize, PluginConfig } from "svgo";
 /**
  * Optimizes the given SVG content for usage inside an icon library using [svgo](https://svgo.dev).
  * Will apply the following optimizations:
- * - remove dimensions (height/width) so it can be set via CSS
+ *
+ * - Remove dimensions (height/width) so it can be set via CSS
  * - "preset-default" to reduce file size and redundant information
  * - (only if type "icon"): remove all fills so the color can be set via CSS
  */

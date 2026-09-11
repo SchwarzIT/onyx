@@ -1,31 +1,41 @@
 /// <reference types="vitest/config" />
-import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
-import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
+import { VITE_BASE_CONFIG } from "@sit-onyx/shared/vite.config.base";
+import { extractComponentMeta } from "@sit-onyx/vite-plugin-component-meta";
+import vue from "@vitejs/plugin-vue";
 import { DiagnosticCategory } from "typescript";
+import dts from "unplugin-dts/vite";
 import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
-import packageJson from "./package.json";
+import packageJson from "./package.json" with { type: "json" };
+
+const isStorybook = process.env.STORYBOOK === "true";
 
 // https://vitejs.dev/config
 export default defineConfig({
   ...VITE_BASE_CONFIG,
   plugins: [
-    dts({
-      tsconfigPath: "./tsconfig.app.json",
-      compilerOptions: { composite: false },
-      beforeWriteFile: (filePath) => {
-        if (filePath.endsWith(".vue.d.ts")) {
-          return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
-        }
-      },
-      afterDiagnostic: async (diagnostics) => {
-        if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
-          throw new Error("Build aborted due to TypeScript errors in the library!");
-        }
-      },
-    }),
+    isStorybook
+      ? undefined
+      : dts({
+          processor: "vue",
+          tsconfigPath: "./tsconfig.app.json",
+          compilerOptions: { composite: false },
+          beforeWriteFile: (filePath) => {
+            if (filePath.endsWith(".vue.d.ts")) {
+              return { filePath: filePath.replace(".vue.d.ts", ".d.vue.ts") };
+            }
+          },
+          afterDiagnostic: async (diagnostics) => {
+            if (diagnostics.some((d) => d.category === DiagnosticCategory.Error)) {
+              throw new Error("Build aborted due to TypeScript errors in the library!");
+            }
+          },
+        }),
     vue(),
+    extractComponentMeta({
+      tsconfigPath: getFilePath("tsconfig.app.json"),
+      include: /\.vue$/,
+    }),
   ],
   build: {
     lib: {
@@ -36,7 +46,12 @@ export default defineConfig({
     },
     rolldownOptions: {
       // make sure to externalize dependencies that shouldn't be bundled into the library
-      external: Object.keys(packageJson.peerDependencies),
+      external: [
+        // ensure to externalize all tiptap packages and sub-paths of them
+        // see: https://github.com/ueberdosis/tiptap/issues/3869#issuecomment-2167931620
+        /^@tiptap\/.+$/,
+        ...Object.keys(packageJson.peerDependencies),
+      ],
     },
   },
   test: {
@@ -56,7 +71,9 @@ export default defineConfig({
   },
 });
 
-/** Gets the given path while ensuring cross-platform and correct decoding */
+/**
+ * Gets the given path while ensuring cross-platform and correct decoding
+ */
 function getFilePath(path: string) {
   return fileURLToPath(new URL(path, import.meta.url));
 }

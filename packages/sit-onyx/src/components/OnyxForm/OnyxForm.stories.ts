@@ -6,7 +6,9 @@ import OnyxToast from "../OnyxToast/OnyxToast.vue";
 import OnyxForm from "./OnyxForm.vue";
 
 /**
- * Forms are comprehensive components designed for collecting user inputs, including fields like text inputs, dropdowns, steppers, and more. With built-in validation and error handling, this flexible component adapts well to different input needs.
+ * Forms are comprehensive components designed for collecting user inputs, including fields like
+ * text inputs, dropdowns, steppers, and more. With built-in validation and error handling, this
+ * flexible component adapts well to different input needs.
  */
 const meta: Meta<typeof OnyxForm> = {
   title: "Form Elements/Form",

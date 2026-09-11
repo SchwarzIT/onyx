@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import OnyxAccordionItem from "./OnyxAccordionItem.vue";
 
 /**
- * A single accordion item component. Should be used with the [OnyxAccordion](/docs/navigation-accordion--docs) component.
+ * A single accordion item component. Should be used with the
+ * [OnyxAccordion](/docs/navigation-accordion--docs) component.
  */
 const meta: Meta<typeof OnyxAccordionItem> = {
   title: "Support/AccordionItem",
@@ -20,7 +21,9 @@ const meta: Meta<typeof OnyxAccordionItem> = {
 export default meta;
 type Story = StoryObj<typeof OnyxAccordionItem>;
 
-/** Standard AccordionItem*/
+/**
+ * Standard AccordionItem
+ */
 export const Default = {
   args: {
     header: "Title",

@@ -9,30 +9,29 @@ import { requiredGlobalType, withRequired } from "./required.js";
 import { ONYX_BREAKPOINTS, createTheme, type BrandDetails } from "./theme.js";
 
 /**
- * Creates a default Storybook preview configuration for 'onyx' with the following features:
- * - Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single story)
- * - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`)
- * - Setup for dark mode (including docs page). Requires addon `@vueless/storybook-dark-mode` to be enabled in .storybook/main.ts file
- * - Custom Storybook theme using onyx colors (light and dark mode)
- * - Configure viewports / breakpoints as defined by onyx
- * - Logs Vue emits as Storybook events
- *
- * @param overrides Custom preview / overrides, will be deep merged with the default preview.
+ * Creates a default Storybook preview configuration for 'onyx' with the following features: -
+ * Improved controls (sorting and expanded controls so descriptions etc. are also shown in a single
+ * story) - Improved Vue-specific code highlighting (e.g. using `@` instead of `v-on:`) - Setup for
+ * dark mode (including docs page). Requires addon `@vueless/storybook-dark-mode` to be enabled in
+ * .storybook/main.ts file - Custom Storybook theme using onyx colors (light and dark mode) -
+ * Configure viewports / breakpoints as defined by onyx - Logs Vue emits as Storybook events
  *
  * @example
- * ```ts
- * // .storybook/preview.ts
- * const preview = {
+ *   ```ts
+ *   // .storybook/preview.ts
+ *   const preview = {
  *   // you need to destructure here because as of Storybook 7.6
  *   // it can not statically analyze that the `preview` variable is an object
  *   ...createPreview({
- *     // custom preview / overrides
- *     },
+ *   // custom preview / overrides
+ *   },
  *   }),
- * };
+ *   };
  *
- * export default preview;
- * ```
+ *   export default preview;
+ *   ```
+ *
+ * @param overrides Custom preview / overrides, will be deep merged with the default preview.
  */
 export const createPreview = <T extends Preview = Preview>(
   overrides?: T,
@@ -85,6 +84,7 @@ export const createPreview = <T extends Preview = Preview>(
            * Use a custom transformer for the story source code to better fit to our
            * Vue.js code because storybook per default does not render it exactly how
            * we want it to look.
+           *
            * @see https://storybook.js.org/docs/react/api/doc-block-source
            */
           transform: sourceCodeTransformer,
@@ -137,7 +137,7 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
   /**
    * A list of additional JavaScript imports to be added at the top of the source code.
    *
-   * key = module/package name to import from, value: set of imports to import from the package
+   * Key = module/package name to import from, value: set of imports to import from the package
    */
   const additionalImports = new Map<string, Set<string>>();
 
@@ -151,8 +151,9 @@ export const sourceCodeTransformer = async (originalSourceCode: string): Promise
   additionalImports.set("sit-onyx", usedOnyxComponents);
 
   /**
-   * List of npm packages to replace the source code with.
-   * The source code will be checked for any import of the package and (if its used), the code will be replaced by the corresponding import.
+   * List of npm packages to replace the source code with. The source code will be checked for any
+   * import of the package and (if its used), the code will be replaced by the corresponding
+   * import.
    */
   const packagesToReplace = [
     { name: "@sit-onyx/icons", data: await import("@sit-onyx/icons") },
@@ -254,6 +255,7 @@ export const replaceAll = (value: string, searchValue: string | RegExp, replaceV
 
 /**
  * Escapes the given string value to be used in `new RegExp()`.
+ *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions#escaping
  */
 export const escapeRegExp = (string: string) => {

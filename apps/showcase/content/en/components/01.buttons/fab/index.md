@@ -9,7 +9,7 @@ A floating action button (FAB) is a fixed/sticky action button that appears at t
 
 ### Basic
 
-The FAB supports text and icons.
+The FAB supports text and icons. It is positioned in the bottom right corner of the screen by default. For demonstration purposes, the examples on this page are displayed in place.
 
 :component-example{name="Basic" style="height: 5rem"}
 
@@ -21,7 +21,7 @@ While the label is technically required for accessibility reasons, it can visual
 
 ### Left aligned
 
-While the FAB is left aligned by default, it can optionally be right aligned.
+While the FAB is right aligned by default, it can optionally be left aligned.
 
 :component-example{name="Right" style="height: 5rem"}
 
@@ -41,6 +41,10 @@ Use the `--onyx-fab-offset-x` and `--onyx-fab-offset-y` CSS variables for this, 
 ### Global FAB
 
 In your application, you might need to show multiple FABs from within different pages / components. We support a universal `useGlobalFAB()` composable for this so you can easily add/remove FABs from anywhere in your application and have them displayed automatically.
+
+The FABs for this example are shown at the bottom right of your screen.
+
+:component-example{name="GlobalFAB" style="height: 6rem"}
 
 <prose-details>
 <prose-summary>Show prerequisites / manual setup</prose-summary>
@@ -62,7 +66,3 @@ import { OnyxGlobalFAB } from "sit-onyx";
 ```
 
 </prose-details>
-
-The FABs for this example are shown at the bottom right if your screen.
-
-:component-example{name="GlobalFAB" style="height: 6rem"}

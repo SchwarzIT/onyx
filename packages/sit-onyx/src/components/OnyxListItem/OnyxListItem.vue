@@ -3,6 +3,7 @@ import { useDensity } from "../../composables/density.js";
 import type { OnyxListItemProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxListItemProps>(), {
+  is: "li",
   active: false,
   disabled: false,
   selected: false,
@@ -20,7 +21,8 @@ const { densityClass } = useDensity(props);
 </script>
 
 <template>
-  <li
+  <component
+    :is="props.is"
     :class="{
       'onyx-component': true,
       'onyx-list-item': true,
@@ -33,7 +35,7 @@ const { densityClass } = useDensity(props);
     }"
   >
     <slot></slot>
-  </li>
+  </component>
 </template>
 
 <style lang="scss">
@@ -42,7 +44,7 @@ const { densityClass } = useDensity(props);
 .onyx-list-item {
   @include layers.component() {
     --onyx-list-item-color: var(--onyx-color-text-icons-neutral-intense);
-    --onyx-list-item-color-selected: var(--onyx-color-text-icons-primary-bold);
+    --onyx-list-item-color-selected: var(--onyx-color-text-icons-neutral-intense);
     --onyx-list-item-background: var(--onyx-color-base-background-blank);
     --onyx-list-item-background-hover: var(--onyx-color-base-primary-100);
     --onyx-list-item-background-selected: var(--onyx-color-base-primary-200);

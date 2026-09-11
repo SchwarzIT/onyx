@@ -136,6 +136,41 @@ test("should render custom tooltip content", async ({ mount }) => {
   await expect(tooltip).toContainText("Custom slot content");
 });
 
+test("should handle disabled state correctly", async ({ mount }) => {
+  // ARRANGE
+  const component = await mount(TestWrapper, {
+    props: {
+      text: "Test tooltip",
+      trigger: "click",
+      disabled: true,
+    },
+  });
+
+  const tooltip = component.getByRole("status");
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
+
+  // ACT
+  await component.click();
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
+
+  // ACT
+  await component.update({ props: { disabled: false } });
+  await component.click();
+
+  // ASSERT
+  await expect(tooltip).toBeVisible();
+
+  // ACT
+  await component.update({ props: { disabled: true } });
+
+  // ASSERT
+  await expect(tooltip).toBeHidden();
+});
+
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
     name: "Tooltip",
@@ -248,4 +283,21 @@ test.describe("Positioning Screenshot tests", () => {
       );
     },
   });
+});
+
+test("should have max-width and position wedge correctly", async ({ mount, page }) => {
+  // ARRANGE
+  await page.setViewportSize({ width: 128, height: 160 });
+
+  await mount(
+    <TestWrapper
+      text="Very long tooltip text that should be truncated if viewport is too small"
+      open
+      position="bottom"
+      alignment="right"
+    />,
+  );
+
+  // ASSERT
+  await expect(page).toHaveScreenshot("truncated.png");
 });

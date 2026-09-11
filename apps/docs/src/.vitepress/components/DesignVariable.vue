@@ -3,13 +3,21 @@ import { iconCheck, iconCopy } from "@sit-onyx/icons";
 import { OnyxIcon } from "sit-onyx";
 
 const props = defineProps<{
-  /** Variable name. */
+  /**
+   * Variable name.
+   */
   name: string;
-  /** Color value to display as preview */
+  /**
+   * Color value to display as preview
+   */
   color?: string;
-  /** If true, the user will be able to click the variable to copy its value. */
+  /**
+   * If true, the user will be able to click the variable to copy its value.
+   */
   allowCopy?: boolean;
-  /** If true, a "copied" text will be displayed to indicate that the value has been copied. */
+  /**
+   * If true, a "copied" text will be displayed to indicate that the value has been copied.
+   */
   isCopied?: boolean;
 }>();
 

@@ -1,10 +1,14 @@
 import type { Locator, Page } from "@playwright/test";
-import type { MatrixScreenshotTestOptions } from "@sit-onyx/playwright-utils";
+import {
+  createEmitSpy,
+  expectEmit,
+  type MatrixScreenshotTestOptions,
+} from "@sit-onyx/playwright-utils";
 import { DENSITIES } from "../../composables/density.js";
-import enUs from "../../i18n/locales/en-US.json" with { type: "json" };
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import type { Nullable } from "../../types/utils.js";
+import FormTestCase from "./FormTestCase.ct.vue";
 import OnyxFileUpload from "./OnyxFileUpload.vue";
 import type { FileUploadSize } from "./types.js";
 const hooks: MatrixScreenshotTestOptions["hooks"] = {
@@ -28,6 +32,7 @@ test.describe("Screenshot tests", () => {
       rows: ["default", "hover", "focus-visible", "dragging", "disabled", "skeleton"],
       component: (column, row) => (
         <OnyxFileUpload
+          style={{ width: "25rem" }}
           density={column}
           size={size}
           disabled={row === "disabled"}
@@ -47,6 +52,7 @@ test.describe("Screenshot tests (max. file sizes)", () => {
       rows: ["default", "hover", "focus-visible", "dragging"],
       component: (column) => (
         <OnyxFileUpload
+          style={{ width: "25rem" }}
           size={size}
           accept={column.includes("types") ? [".pdf", ".jpg", ".png"] : undefined}
           maxSize={column.includes("size") ? "4MiB" : undefined}
@@ -77,6 +83,7 @@ test.describe("Screenshot tests (required error states)", () => {
           required
           showError
           style={{
+            width: "25rem",
             marginBottom: row === "focus-visible" || row === "hover" ? "2rem" : undefined,
             marginRight: row === "focus-visible" || row === "hover" ? "12rem" : undefined,
           }}
@@ -298,20 +305,24 @@ test("should have hide button", async ({ mount, page }) => {
 
 test("should show required error message", async ({ mount, page }) => {
   // ARRANGE
-  const component = await mount(
-    <OnyxFileUpload required showError style={{ padding: "1rem", width: "32rem" }} />,
-  );
+  const onSubmit = createEmitSpy<typeof FormTestCase, "onFormSubmit">();
+  const component = await mount(<FormTestCase onFormSubmit={onSubmit} />);
 
   const button = component.getByRole("button", { name: "Click to select" });
-  const errorMessage = component.locator(".onyx-file-upload__required_error");
+  const errorMessage = component.getByText("You need to upload at least one file").first();
 
   // ASSERT
   await expect(errorMessage).toBeVisible();
-  await expect(errorMessage).toHaveText(enUs.fileUpload.requiredError);
 
   // ACT
   await selectFiles(page, button, 1);
 
   // ASSERT
   await expect(errorMessage).toBeHidden();
+
+  // ACT
+  await component.getByRole("button", { name: "Submit" }).click();
+
+  // ASSERT
+  await expectEmit(onSubmit, 1, []);
 });

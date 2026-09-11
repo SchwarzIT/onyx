@@ -138,7 +138,8 @@ defineExpose({
   @include layers.component() {
     padding: 0;
     border: none;
-    max-width: max-content;
+    width: max-content;
+    max-width: 100%;
     min-width: unset;
     $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
 
@@ -155,14 +156,9 @@ defineExpose({
       &--vertical {
         flex-direction: column;
 
-        .onyx-checkbox-group {
-          &__option {
-            width: 100%;
-          }
-
-          &__check-all {
-            border-bottom: $check-all-border;
-          }
+        .onyx-checkbox-group__check-all {
+          width: 100%;
+          border-bottom: $check-all-border;
         }
       }
 

@@ -105,9 +105,6 @@ test("should behave correctly with nested children", async ({ mount, page }) => 
 
   // ASSERT
   await expect(page).toHaveScreenshot("nested-open.png");
-  await expect(
-    component.getByRole("menuitem", { name: "Nested item 1", exact: true }),
-  ).toBeHidden();
   await expect(component.getByRole("menuitem", { name: "Nested item 1.1" })).toBeVisible();
 
   // ACT

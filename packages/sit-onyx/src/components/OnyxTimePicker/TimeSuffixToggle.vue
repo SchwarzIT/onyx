@@ -56,6 +56,7 @@ const isChecked = computed({
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0;
 
     &__input {
       position: absolute;

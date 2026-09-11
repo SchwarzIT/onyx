@@ -17,11 +17,11 @@ export type GlobalFABProvider = {
    */
   items: ComputedRef<Ref<ProvidedFABItem>[]>;
   /**
-   * add the FABOption.
+   * Add the FABOption.
    */
   add: (item: MaybeRefOrGetter<ProvidedFABItem>) => void;
   /**
-   * removes the FABOption with the given `id`.
+   * Removes the FABOption with the given `id`.
    */
   remove: (id: ProvidedFABItem["id"]) => void;
 };
@@ -57,11 +57,11 @@ export const GLOBAL_FAB_PROVIDER_INJECTION_KEY = Symbol() as InjectionKey<Global
  * Should be provided once on global app level with:
  *
  * @example
- * ```ts
- * import { createGlobalFABProvider, GLOBAL_FAB_PROVIDER_INJECTION_KEY } from "sit-onyx";
+ *   ```ts
+ *   import { createGlobalFABProvider, GLOBAL_FAB_PROVIDER_INJECTION_KEY } from "sit-onyx";
  *
- * app.provide(GLOBAL_FAB_PROVIDER_INJECTION_KEY, createGlobalFABProvider());
- * ```
+ *   app.provide(GLOBAL_FAB_PROVIDER_INJECTION_KEY, createGlobalFABProvider());
+ *   ```;
  */
 export const createGlobalFABProvider = (): GlobalFABProvider => {
   const items = shallowRef<Ref<ProvidedFABItem>[]>([]);

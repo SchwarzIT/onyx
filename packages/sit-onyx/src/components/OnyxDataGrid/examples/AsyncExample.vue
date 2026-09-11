@@ -37,7 +37,9 @@ const columns: ColumnConfig<Entry>[] = [
  * ====================
  */
 
-/** Whether the data is currently loading. */
+/**
+ * Whether the data is currently loading.
+ */
 const isLoading = ref(false);
 watch(data, () => (isLoading.value = false)); // whenever the data changes, we turn off the loading state again
 
@@ -68,8 +70,9 @@ watch([filterState, sortState, () => paginationState.value.current], simulateAsy
  * This function simulates a delay when fetching data and applying filters, sorting and pagination.
  * It also sets the loading state while the data is being fetched.
  *
- * Note: You can ignore this function for the purpose if this example.
- * As this is a simplified example, requirements of real-world applications like error handling and edge cases are not considered.
+ * Note: You can ignore this function for the purpose if this example. As this is a simplified
+ * example, requirements of real-world applications like error handling and edge cases are not
+ * considered.
  */
 async function simulateAsyncUpdate() {
   isLoading.value = true;

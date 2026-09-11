@@ -22,24 +22,24 @@ const overrides = [
     name: 'Martin Hofmann',
     core: true,
     title: 'Product Owner',
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/"
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/"
   },
   {
     login: "jannick-ux",
     name: 'Jannick Keller',
     core: true,
     title: 'Design Lead',
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/",
   },
   {
     login: "flubnau",
     name: 'Florian Lubnau',
     core: true,
     title: 'Designer',
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/",
     links: [
       { icon: 'github', link: 'https://github.com/flubnau' },
     ],
@@ -49,8 +49,8 @@ const overrides = [
     name: 'Nadine Baranzew',
     core: true,
     title: 'Designer',
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/",
     links: [
       { icon: 'github', link: 'https://github.com/Guergchen' },
     ],
@@ -60,15 +60,15 @@ const overrides = [
     name: 'Jonathan Leo Carle',
     core: true,
     title: 'Engineering Lead',
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/",
   },
   {
     login: "BoppLi",
     name: 'Linda Bopp',
     core: false,
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/",
     desc: "Former Core Member 🫡",
   },
   {
@@ -76,8 +76,8 @@ const overrides = [
     name: 'Lars Rickert',
     core: true,
     title: 'Engineer',
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/",
   },
   {
     login: "MajaZarkova",
@@ -90,8 +90,8 @@ const overrides = [
     name: 'Christian Bußhoff',
     core: true,
     title: 'Engineer',
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/",
   },
   {
     login: "rhoggs-bot-test-account",
@@ -100,14 +100,14 @@ const overrides = [
   {
     login: "oemueller",
     name: "Oliver Müller",
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/",
   },
   {
     login: "markbrockhoff",
     name: "Mark Brockhoff",
-    org: "Schwarz IT",
-    orgLink: "https://it.schwarz/",
+    org: "Schwarz Digits",
+    orgLink: "https://schwarz-digits.de/",
   }
 ];
 
@@ -138,7 +138,7 @@ const contributors = mapped.filter(m => !bots.includes(m) && !coreMembers.includ
     <VPTeamPageTitle>
       <template #title>Meet the team 👋</template>
       <template #lead>
-        onyx is maintained by a dedicated team at <a href="https://it.schwarz">Schwarz IT</a>. Below you will find the core members of our team.
+        onyx is maintained by a dedicated team at <a href="https://schwarz-digits.de">Schwarz Digits</a>. Below you will find the core members of our team.
         <br><br>
         Are you looking for a bug report or feature request?
         <br><br>

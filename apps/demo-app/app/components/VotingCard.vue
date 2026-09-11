@@ -7,7 +7,6 @@ import {
   iconThumbsUp,
   iconTrash,
 } from "@sit-onyx/icons";
-import { OnyxCard } from "sit-onyx";
 
 const likes = ref(12);
 const dislikes = ref(1);
