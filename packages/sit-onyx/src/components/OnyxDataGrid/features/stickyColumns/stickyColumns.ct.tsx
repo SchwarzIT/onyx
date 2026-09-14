@@ -1,11 +1,11 @@
 import { expect, test } from "../../../../playwright/a11y.js";
 import TestCase from "./TestCase.ct.vue";
 
-const getTestData = () => [
-  {
-    id: 1,
-    a: "1",
-    b: "a",
+const getTestData = (count = 5) =>
+  Array.from({ length: count }, (_, index) => ({
+    id: index + 1,
+    a: `A${index + 1}`,
+    b: "B",
     c: "C",
     d: "D",
     e: "E",
@@ -22,92 +22,8 @@ const getTestData = () => [
     p: "P",
     q: "Q",
     r: "R",
-  },
-  {
-    id: 2,
-    a: "1",
-    b: "a",
-    c: "C",
-    d: "D",
-    e: "E",
-    f: "F",
-    g: "G",
-    h: "H",
-    i: "I",
-    j: "J",
-    k: "K",
-    l: "L",
-    m: "M",
-    n: "N",
-    o: "O",
-    p: "P",
-    q: "Q",
-    r: "R",
-  },
-  {
-    id: 3,
-    a: "1",
-    b: "a",
-    c: "C",
-    d: "D",
-    e: "E",
-    f: "F",
-    g: "G",
-    h: "H",
-    i: "I",
-    j: "J",
-    k: "K",
-    l: "L",
-    m: "M",
-    n: "N",
-    o: "O",
-    p: "P",
-    q: "Q",
-    r: "R",
-  },
-  {
-    id: 4,
-    a: "1",
-    b: "a",
-    c: "C",
-    d: "D",
-    e: "E",
-    f: "F",
-    g: "G",
-    h: "H",
-    i: "I",
-    j: "J",
-    k: "K",
-    l: "L",
-    m: "M",
-    n: "N",
-    o: "O",
-    p: "P",
-    q: "Q",
-    r: "R",
-  },
-  {
-    id: 5,
-    a: "1",
-    b: "a",
-    c: "C",
-    d: "D",
-    e: "E",
-    f: "F",
-    g: "G",
-    h: "H",
-    i: "I",
-    j: "J",
-    k: "K",
-    l: "L",
-    m: "M",
-    n: "N",
-    o: "O",
-    p: "P",
-    q: "Q",
-    r: "R",
-  },
-];
+  }));
+
 const columns = [
   "a",
   "b",
@@ -223,7 +139,7 @@ test("multiple stickyColumns", async ({ mount }) => {
   }
 
   await expect(
-    component.getByRole("row", { name: "f g c e h i j k l m n o p q r d b a" }),
+    component.getByRole("row", { name: "f g c e h i j k l m n o p q r d b a", exact: true }),
     "Columns should have the correct order",
   ).toBeAttached();
 
@@ -420,4 +336,34 @@ test("scrolling triggered by filtering overflow shouldn't close search box", asy
   await expect(
     component.getByRole("button", { name: "Remove search term for column" }),
   ).toBeHidden();
+});
+
+test("should keep sticky column visible when scrolled vertically and horizontally", async ({
+  mount,
+}) => {
+  // ARRANGE
+  const component = await mount(
+    <TestCase
+      data={getTestData(25)}
+      columns={columns}
+      stickyColumnsOptions={{ columns: ["a"] }}
+      style={{ height: "10rem" }}
+    />,
+  );
+  const stickyColumn = component.getByRole("columnheader", { name: "a", exact: true });
+
+  // ACT
+  await component.getByRole("cell", { name: "A20", exact: true }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(stickyColumn).toBeVisible();
+  await expect(component).toHaveScreenshot("data-grid-sticky-columns-scroll-y.png");
+
+  // ACT
+  const targetRow = component.getByRole("row", { name: /A20/ });
+  await targetRow.getByRole("cell", { name: "K", exact: true }).scrollIntoViewIfNeeded();
+
+  // ASSERT
+  await expect(stickyColumn).toBeVisible();
+  await expect(component).toHaveScreenshot("data-grid-sticky-columns-scroll-xy.png");
 });
