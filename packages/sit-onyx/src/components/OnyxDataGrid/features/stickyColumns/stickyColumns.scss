@@ -27,29 +27,11 @@
     }
 
     th.onyx-data-grid-sticky-columns--sticky.isScrolled {
-      &::before {
-        display: none;
-      }
-      &:hover {
-        background-color: var(--onyx-color-base-neutral-200);
-      }
-      z-index: calc(var(--onyx-z-index-sticky-content) + 1);
-    }
-
-    td.onyx-data-grid-sticky-columns--sticky.isScrolled {
       z-index: var(--onyx-z-index-sticky-content);
     }
 
-    .onyx-data-grid {
-      .onyx-data-grid-sticky-columns--sticky {
-        &.isScrolled {
-          &.right {
-            & ~ .right {
-              box-shadow: none;
-            }
-          }
-        }
-      }
+    td.onyx-data-grid-sticky-columns--sticky.isScrolled {
+      z-index: calc(var(--onyx-z-index-sticky-content) - 1);
     }
   }
   .dark .onyx-data-grid .onyx-data-grid-sticky-columns--sticky {

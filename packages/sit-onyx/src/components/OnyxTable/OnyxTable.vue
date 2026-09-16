@@ -291,7 +291,7 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
             &:hover,
             // support forcing hover with a class, useful when e.g. using resize handles
             &.hover {
-              background: var(--onyx-color-base-neutral-300);
+              background: var(--onyx-color-component-border-neutral);
             }
           }
         }
@@ -328,28 +328,15 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
           }
         }
       }
+    }
 
-      // column hover styles
-      &:not(:has(.onyx-table__empty)) {
-        > tr > th:not(.onyx-table__colgroup):hover,
-      // support forcing hover with a class, useful when e.g. using resize handles
-      > tr > th.hover {
-          &::before {
-            background-color: color-mix(
-              in srgb,
-              var(--onyx-color-base-neutral-500),
-              transparent 85%
-            );
-            content: "";
-            height: var(--onyx-table-observed-height);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            bottom: 0;
-            z-index: calc(var(--onyx-table-z-index-cell) - 1);
-            // needed in order for other components like buttons etc. to be clickable and to prevent showing the column hover effect when hovering down over a row
-            pointer-events: none;
+    // column hover styles
+    &:not(:has(.onyx-table__empty)) {
+      @for $i from 1 through 99 {
+        &:has(thead tr > th:nth-child(#{$i}):not(.onyx-table__colgroup):hover),
+        &:has(thead tr > th:nth-child(#{$i}).hover) {
+          > tbody > tr > td:nth-child(#{$i})::before {
+            background-color: var(--onyx-color-base-neutral-200);
           }
         }
       }
