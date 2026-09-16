@@ -29,7 +29,7 @@ jobs:
       - uses: ./.github/templates/node-setup
 
       - name: Create Pull Request
-        uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
           publish-script: "exit 1" # Fail on publish - Should always only create a PR
           create-github-releases: false
