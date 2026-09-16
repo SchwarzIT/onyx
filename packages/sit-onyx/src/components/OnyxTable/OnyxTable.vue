@@ -334,8 +334,10 @@ const headlineId = computed(() => (slots.headline ? _headlineId : undefined));
     &:not(:has(.onyx-table__empty)) {
       @for $i from 1 through 99 {
         &:has(thead tr > th:nth-child(#{$i}):not(.onyx-table__colgroup):hover),
-        &:has(thead tr > th:nth-child(#{$i}).hover) > tbody > tr > td:nth-child(#{$i})::before {
-          background-color: var(--onyx-color-base-neutral-200);
+        &:has(thead tr > th:nth-child(#{$i}).hover) {
+          > tbody > tr > td:nth-child(#{$i})::before {
+            background-color: var(--onyx-color-base-neutral-200);
+          }
         }
       }
     }
