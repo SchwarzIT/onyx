@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TocLink } from "@nuxtjs/mdc";
+import type { TocLink } from "comark/plugins/toc";
 
 const props = defineProps<{
   toc: TocLink[];
