@@ -52,7 +52,7 @@ onMounted(() => (isMounted.value = true));
 .onyx-color-scheme-menu-item {
   @include layers.component() {
     &__value {
-      color: var(--onyx-color-text-icons-neutral-soft);
+      color: var(--onyx-color-text-icons-neutral-medium);
     }
 
     .onyx-color-scheme-dialog {
