@@ -6,6 +6,7 @@ import type { OnyxPageLayoutProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxPageLayoutProps>(), {
   footerAlignment: "full",
+  skeleton: undefined,
 });
 
 const slots = defineSlots<{
