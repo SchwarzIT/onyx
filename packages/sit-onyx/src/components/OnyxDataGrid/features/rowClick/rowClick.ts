@@ -5,8 +5,11 @@ import {
   type DataGridEntry,
   type DataGridEntryOptions,
 } from "../../types.js";
-import { createFeature, type DataGridFeature } from "../index.js";
+import { BUTTON_COLUMN_KEY } from "../expandableRows/expandableRows.js";
 import "./rowClick.scss";
+import { createFeature, type DataGridFeature } from "../index.js";
+import { ROW_REARRANGE_COLUMN_KEY } from "../rowRearrange/rowRearrange.js";
+import { SELECTION_COLUMN } from "../selection/selection.js";
 import type { RowClickOptions } from "./types.js";
 
 export const ROW_CLICK_FEATURE = Symbol("rowClick");
@@ -27,6 +30,14 @@ export const useRowClick = <TEntry extends DataGridEntry>(options: RowClickOptio
      */
     const isCellEnabled = computed(() => {
       return (row: TEntry, column: keyof TEntry) => {
+        if (
+          column === SELECTION_COLUMN ||
+          column === BUTTON_COLUMN_KEY ||
+          column === ROW_REARRANGE_COLUMN_KEY
+        ) {
+          return false;
+        }
+
         if (typeof options.enabled === "function") {
           return options.enabled(row, column) ?? isFeatureEnabled.value;
         }
@@ -43,7 +54,10 @@ export const useRowClick = <TEntry extends DataGridEntry>(options: RowClickOptio
       if (hasSelection(rowElement)) return;
 
       // check if cell is configured to not be clickable
-      const cellElement = target.closest("td");
+      const path = event.composedPath();
+      const cellElement =
+        path.find((el): el is HTMLElement => el instanceof HTMLElement && el.tagName === "TD") ||
+        target.closest("td");
       if (cellElement?.classList.contains(notClickableClass)) {
         return;
       }
