@@ -2,4 +2,4 @@
 "sit-onyx": patch
 ---
 
-fix(OnyxColorSchemeMenuItem): changed value color for better readability
+fix(OnyxColorSchemeMenuItem): changed color of current value to improve readability
