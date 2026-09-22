@@ -30,12 +30,12 @@
     "@vueuse/core": "^14.4.0",
     "@vueuse/nuxt": "^14.4.0",
     "@vueuse/router": "^14.4.0",
-    "browserslist": "^4.28.9",
+    "browserslist": "^4.29.0",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.30",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
-    "vue-i18n": "^11.4.10",
+    "vue-i18n": "^11.4.12",
     "vue-router": "^5.3.1"
   },
   "devDependencies": {
