@@ -12,23 +12,23 @@ const route = useRoute();
 
 const primaryLinks = computed(() => [
   {
-    label: t("footer.primaryNav.getStarted"),
+    label: t("footer.navigation.getStarted"),
     href: "/introduction/getting-started/installation",
   },
-  { label: t("footer.primaryNav.components"), href: "/components" },
+  { label: t("footer.navigation.components"), href: "/components" },
   {
-    label: t("footer.primaryNav.demo"),
+    label: t("footer.navigation.demo"),
     href: loggedIn.value ? "https://demo-internal.onyx.schwarz" : "https://demo.onyx.schwarz",
   },
-  { label: t("footer.primaryNav.playground"), href: "https://playground.onyx.schwarz" },
-  { label: t("footer.primaryNav.colorsAndThemes"), href: "/introduction/foundation/colors" },
-  { label: t("footer.primaryNav.changelog"), href: "/introduction/getting-started/changelog" },
+  { label: t("footer.navigation.playground"), href: "https://playground.onyx.schwarz" },
+  { label: t("footer.navigation.colorsAndThemes"), href: "/introduction/foundation/colors" },
+  { label: t("footer.navigation.changelog"), href: "/introduction/getting-started/changelog" },
 ]);
 
 const legalLinks = computed(() => [
-  { label: t("footer.legalNav.termsOfUse"), href: "#" },
-  { label: t("footer.legalNav.privacyPolicy"), href: "#" },
-  { label: t("footer.legalNav.imprint"), href: "#" },
+  { label: t("footer.navigation.termsOfUse"), href: "#" },
+  { label: t("footer.navigation.privacyPolicy"), href: "#" },
+  { label: t("footer.navigation.imprint"), href: "#" },
 ]);
 
 const socialLinks = [
@@ -64,7 +64,7 @@ const copyright = computed(() => t("footer.copyright", { year: new Date().getFul
           :src="{ light: logoOnLight, dark: logoOnDark }"
         />
 
-        <nav :aria-label="t('footer.primaryNav.getStarted')" class="footer__nav">
+        <nav :aria-label="t('footer.navigation.getStarted')" class="footer__nav">
           <OnyxLink
             v-for="link in primaryLinks"
             :key="link.label"
@@ -91,13 +91,13 @@ const copyright = computed(() => t("footer.copyright", { year: new Date().getFul
     <div class="footer__row">
       <div class="footer__content onyx-grid-layout">
         <div class="footer__brand-owner">
-          <span class="footer__brand-owner-text">{{ t("footer.brandOwnerPrefix") }}</span>
+          <span class="footer__brand-owner-text">{{ t("footer.openSource") }}</span>
           <OnyxRouterLink href="https://schwarz-digits.de" target="_blank">
             <OnyxIcon class="footer__brand-owner-logo" :icon="schwarzDigitsLogo" size="16px" />
           </OnyxRouterLink>
         </div>
 
-        <nav :aria-label="t('footer.legalNav.termsOfUse')" class="footer__nav footer__nav--legal">
+        <nav :aria-label="t('footer.navigation.termsOfUse')" class="footer__nav footer__nav--legal">
           <OnyxLink
             v-for="link in legalLinks"
             :key="link.label"

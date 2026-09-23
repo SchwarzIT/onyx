@@ -118,18 +118,15 @@
     "anonymous": "Anonymous"
   },
   "footer": {
-    "brandOwnerPrefix": "Open Source project of",
-    "brandOwnerLogoAlt": "Schwarz Digits",
+    "openSource": "Open Source project of",
     "copyright": "© {year} Schwarz Digits IT",
-    "primaryNav": {
+    "navigation": {
       "getStarted": "Get started",
       "components": "Components",
       "demo": "Demo",
       "playground": "Playground",
       "changelog": "Changelog",
-      "colorsAndThemes": "Colors & Themes"
-    },
-    "legalNav": {
+      "colorsAndThemes": "Colors & Themes",
       "termsOfUse": "Terms of use",
       "privacyPolicy": "Privacy policy",
       "imprint": "Imprint"
