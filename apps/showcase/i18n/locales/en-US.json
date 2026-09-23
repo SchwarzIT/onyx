@@ -116,5 +116,24 @@
     "headline": "The Supporters",
     "error": "Error while loading contributors",
     "anonymous": "Anonymous"
-  }
+  },
+  "footer": {
+    "brandOwnerPrefix": "Open Source project of",
+    "brandOwnerLogoAlt": "Schwarz Digits",
+    "copyright": "© {year} Schwarz Digits IT",
+    "primaryNav": {
+      "getStarted": "Get started",
+      "components": "Components",
+      "demo": "Demo",
+      "playground": "Playground",
+      "changelog": "Changelog",
+      "colorsAndThemes": "Colors & Themes"
+    },
+    "legalNav": {
+      "termsOfUse": "Terms of use",
+      "privacyPolicy": "Privacy policy",
+      "imprint": "Imprint"
+    }
+  },
+  "documentation": "Documentation"
 }

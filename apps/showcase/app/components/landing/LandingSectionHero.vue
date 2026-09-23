@@ -5,13 +5,6 @@ import { version as onyxVersion } from "sit-onyx/package.json";
 
 <template>
   <section class="hero">
-    <img
-      class="hero__background"
-      aria-hidden="true"
-      src="~/assets/images/hero-background.svg"
-      alt=""
-    />
-
     <div class="hero__layout onyx-grid-layout">
       <div class="hero__content">
         <img :src="logoUrl" :alt="$t('app.hero.logoAlt')" class="hero__logo" />
@@ -74,18 +67,6 @@ import { version as onyxVersion } from "sit-onyx/package.json";
     color-mix(in srgb, var(--onyx-color-base-primary-500) 22.5%, transparent) 0%,
     transparent 100%
   );
-
-  &__background {
-    width: 100%;
-    height: 30%;
-    object-fit: cover;
-    object-position: bottom;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0.3;
-    pointer-events: none;
-  }
 
   &__layout {
     height: 100%;

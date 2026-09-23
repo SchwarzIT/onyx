@@ -39,6 +39,7 @@
     "vue-router": "^5.3.1"
   },
   "devDependencies": {
+    "@octokit/types": "^18.0.0",
     "vue-component-meta": "catalog:"
   }
 }

@@ -3,24 +3,20 @@ definePageMeta({
   layout: false,
   colorMode: "dark", // force dark mode
 });
-
-useHead({
-  htmlAttrs: {
-    class: "onyx-theme-digits",
-  },
-});
 </script>
 
 <template>
-  <OnyxPageLayout no-padding>
-    <LandingSectionHero />
+  <NuxtLayout name="default">
+    <template #hero>
+      <LandingSectionHero />
+    </template>
 
-    <div class="onyx-grid-layout sections">
+    <div class="sections">
       <LandingSectionOffers />
       <LandingSectionTeam />
       <LandingSectionContributors />
     </div>
-  </OnyxPageLayout>
+  </NuxtLayout>
 </template>
 
 <style lang="scss" scoped>
