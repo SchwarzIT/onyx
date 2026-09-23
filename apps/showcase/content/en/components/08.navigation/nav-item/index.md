@@ -18,22 +18,22 @@ Please refer to the nav bar component for a full list of examples.
 
 The nav item is automatically highlighted active if the current page matches the nav item link. Custom content is supported.
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 
 
 ### Children
 
 Hierarchical page structures can be displayed using children that are shown when hovering the parent item.
 
-:component-example{name="Nested"}
+<<< ./examples/Nested.example.vue preview=true 
 
 ### Internal drilldown
 
 When multiple layers of children are defined, an internal drilldown is used by default that supports navigation between the child layers.
 
-:component-example{name="NestedInternal"}
+<<< ./examples/NestedInternal.example.vue preview=true 
 
 ### External drilldown
 
 Additional, the drilldown can be external which displays the nested child layers using multiple flyouts. Please only use a limit amount of layers with the external drilldown since the available screen size can be limited on smaller screens.
 
-:component-example{name="NestedExternal"}
+<<< ./examples/NestedExternal.example.vue preview=true 

@@ -1,6 +1,8 @@
-import { globSync } from "node:fs";
+import { hash } from "node:crypto";
+import { globSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { Features } from "lightningcss";
+import { addComponent, createResolver } from "nuxt/kit";
 
 const monorepoRoot = fileURLToPath(new URL("../../", import.meta.url));
 
@@ -9,7 +11,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
-  modules: ["nuxt-auth-utils", "@vueuse/nuxt"],
+  modules: ["nuxt-auth-utils", "@vueuse/nuxt", "nuxt-llms"],
   css: ["@sit-onyx/tiptap/style.css"],
   app: {
     head: {
@@ -25,6 +27,11 @@ export default defineNuxtConfig({
       // use native Node sqlite so we don't need "better-sqlite3" dependency
       sqliteConnector: "native",
     },
+  },
+  llms: {
+    domain: "https://your-site.com",
+    title: "Your Site Name",
+    description: "A brief description of your site",
   },
   vite: {
     css: {
@@ -50,6 +57,46 @@ export default defineNuxtConfig({
     },
   },
   hooks: {
+    async "content:file:beforeParse"(ctx) {
+      if (ctx.file.extension !== ".md") {
+        return;
+      }
+      const inlineMatcher = /^<<< (.+?)$/dgm;
+
+      const { body, dirname = "." } = ctx.file;
+      const regExpMatches = body.matchAll(inlineMatcher);
+      const matches = Array.from(regExpMatches).reverse();
+
+      let newBody = body;
+      for (const match of matches) {
+        const [path, ...parameters] = match[1]?.trim().split(" ") || [];
+        if (!path) {
+          continue;
+        }
+        const [complete] = match.indices || [];
+        const [start, end] = complete || [];
+
+        const { resolve } = createResolver(dirname);
+        const componentPath = resolve(path);
+        const sourceCode = readFileSync(componentPath, "utf-8");
+        if (parameters.includes("preview=true")) {
+          const exampleComponentName = `Example${hash("sha-1", componentPath)}`;
+          addComponent({ name: exampleComponentName, filePath: componentPath, global: true });
+          console.log("addComponent ==> ", componentPath);
+          parameters.push(`previewComponent=${exampleComponentName}`);
+        }
+        const before = newBody.slice(undefined, start);
+        const after = newBody.slice(end);
+        const fileType = path.split(".").at(-1);
+        const fileName = path.split("/").at(-1);
+        newBody = `${before}
+\`\`\`${fileType} [${fileName}] ${parameters.join(" ")}
+${sourceCode}
+\`\`\`
+${after}`;
+      }
+      ctx.file.body = newBody;
+    },
     // see: https://nuxt.com/docs/4.x/getting-started/prerendering#prerenderroutes-nuxt-hook
     async "prerender:routes"(ctx) {
       const componentDirs = globSync("content/en/components/*/*");

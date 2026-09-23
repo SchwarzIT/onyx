@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { iconUndo } from "@sit-onyx/icons";
 import { createNotificationsProvider, NOTIFICATIONS_PROVIDER_INJECTION_KEY } from "sit-onyx";
-import type { Component } from "vue";
 import type { ComponentExampleOptions } from "../ComponentExampleOptions.vue";
 
 const props = withDefaults(
   defineProps<{
     /**
-     * Example file name (without ".example.vue" extension).
+     * Example file name (without ".example.vue preview=true" extension).
      */
-    name: string;
+    previewComponent: string;
     /**
      * Component preview layout.
      *
@@ -34,62 +33,13 @@ const props = withDefaults(
   },
 );
 
-const { locale } = useI18n();
-const route = useRoute();
+defineSlots<{ default: unknown }>();
 
 const activeTab = ref("preview");
 
-// Vite analyzes these glob imports at build time
-const allExamples = {
-  components: import.meta.glob<Component>("~~/content/*/components/**/examples/*.example.vue", {
-    import: "default",
-  }),
-  sourceCodes: import.meta.glob<string>("~~/content/*/components/**/examples/*.example.vue", {
-    import: "default",
-    query: "?raw",
-  }),
-};
-
-const componentName = computed(() => route.params.name);
-
-const fileKey = computed(() => {
-  return Object.keys(allExamples.components).find((key) => {
-    return (
-      key.includes(`/content/${locale.value}/`) &&
-      new RegExp(
-        `/(?:\\d+\\.)?${componentName.value}/examples/${props.name}\\.example\\.vue$`,
-      ).test(key)
-    );
-  });
-});
-
-// build time breaker to guarantee that no non-existing examples are used
-// see "prerender" config in nuxt.config.ts
-watchEffect(() => {
-  if (!fileKey.value) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: `Example "${props.name}" not found for component "${componentName.value}".`,
-      // throwing a fatal error  will fail during SSR / prerendering
-      fatal: true,
-    });
-  }
-});
-
-const ExampleComponent = computed(() => {
-  const component = allExamples.components[fileKey.value ?? ""];
-  return component ? defineAsyncComponent(component) : undefined;
-});
-
-const { data: exampleCode } = await useAsyncData(
-  () => `example-code-${componentName.value}-${props.name}-${locale.value}`,
-  async () => {
-    const code = (await allExamples.sourceCodes[fileKey.value ?? ""]?.()) ?? "";
-    if (!code) return;
-    const markdown = `\`\`\`vue\n${code.trim()}\n\`\`\``;
-    return parseMarkdown(markdown);
-  },
-);
+const ExampleComponent = computed(() => resolveComponent(props.previewComponent));
+console.log("props.previewComponent ==> ", props.previewComponent);
+console.log("resolveComponent ==> ", ExampleComponent);
 
 const options = ref<ComponentExampleOptions>({});
 
@@ -120,14 +70,15 @@ if (props.provide?.notifications) {
               { [`example__preview-wrapper--${props.orientation}`]: props.orientation },
             ]"
           >
-            <ExampleComponent />
+            <component :is="ExampleComponent" v-if="ExampleComponent" />
           </div>
         </OnyxCard>
       </OnyxTab>
 
       <OnyxTab :label="$t('components.code')" value="code" density="compact">
-        <!-- we use a build time breaker so the "v-if" here is only used for TypeScript -->
-        <MDC v-if="exampleCode" class="example__code" :value="exampleCode" />
+        <div class="example__code">
+          <slot></slot>
+        </div>
       </OnyxTab>
 
       <template #actions>

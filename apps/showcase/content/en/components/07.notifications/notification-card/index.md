@@ -11,7 +11,7 @@ Used to display (system / user) notifications, e.g. to build a [notification cen
 
 The notification shows a required headline, description and creation date. A relative time is displayed automatically. Optionally, an icon and unread indicator (dot) can be displayed.
 
-:component-example{name="Basic" layout="grow"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow"
 
 ### Actions
 
@@ -19,10 +19,10 @@ Two types of custom actions can be displayed to provide additional functionality
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Hover the card to see the header actions.</p>
 
-:component-example{name="Actions" layout="grow"}
+<<< ./examples/Actions.example.vue preview=true  layout="grow"
 
 ### Skeleton
 
 Use the skeleton on initial load while the data for the notification is being loaded.
 
-:component-example{name="Skeleton" layout="grow"}
+<<< ./examples/Skeleton.example.vue preview=true  layout="grow"
