@@ -26,5 +26,9 @@ const { data: collection } = await useCollection({
     </template>
 
     <slot></slot>
+
+    <template #pageFooter>
+      <Footer />
+    </template>
   </SidebarLayout>
 </template>

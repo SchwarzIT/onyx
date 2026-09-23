@@ -15,7 +15,7 @@ const { navigation } = await useSidebarNavigation({
 </script>
 
 <template>
-  <OnyxPageLayout>
+  <OnyxPageLayout no-padding>
     <template #sidebar>
       <OnyxSidebar :label="$t('onyx.navigation.navigationHeadline')">
         <NestableSidebarItem
@@ -36,6 +36,10 @@ const { navigation } = await useSidebarNavigation({
       </OnyxSidebar>
     </template>
 
-    <slot></slot>
+    <div class="onyx-grid-layout">
+      <slot></slot>
+    </div>
+
+    <Footer />
   </OnyxPageLayout>
 </template>

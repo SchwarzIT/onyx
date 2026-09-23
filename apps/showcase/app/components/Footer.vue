@@ -8,6 +8,7 @@ import youtubeIcon from "~/assets/images/social/youtube.svg?raw";
 
 const { t } = useI18n();
 const { loggedIn } = useUserSession();
+const route = useRoute();
 
 const primaryLinks = computed(() => [
   {
@@ -52,7 +53,7 @@ const copyright = computed(() => t("footer.copyright", { year: new Date().getFul
 </script>
 
 <template>
-  <footer class="footer">
+  <footer :class="['footer', { 'footer--tinted': route.path === '/' }]">
     <div class="footer__row">
       <div class="footer__content onyx-grid-layout">
         <OnyxImage
@@ -122,6 +123,11 @@ const copyright = computed(() => t("footer.copyright", { year: new Date().getFul
   font-size: var(--onyx-font-size-sm);
   line-height: var(--onyx-font-line-height-sm);
   margin-top: clamp(2rem, 6vw, 8rem);
+  background-color: var(--onyx-color-base-background-blank);
+
+  &--tinted {
+    background-color: var(--onyx-color-base-background-tinted);
+  }
 
   &__row {
     &:last-of-type {
@@ -154,6 +160,10 @@ const copyright = computed(() => t("footer.copyright", { year: new Date().getFul
     display: flex;
     justify-content: flex-end;
     gap: var(--onyx-density-xs);
+
+    :deep(.onyx-icon-button) {
+      color: currentColor;
+    }
   }
 
   &__logo {
