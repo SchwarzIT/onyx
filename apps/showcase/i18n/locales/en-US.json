@@ -13,8 +13,13 @@
   },
   "app": {
     "hero": {
-      "headline": "Welcome to {onyx}.\nA design system for\nenterprise applications.",
-      "description": "A design system and Vue.js component library created by Schwarz Digits IT."
+      "tagline": "The stable and flexible application design system for brands of the Schwarz group.",
+      "getStarted": "Get started",
+      "browseComponents": "Browse components",
+      "logoAlt": "Onyx Application Design System",
+      "current": "Current: v{version}",
+      "builtOn": "Built with {vue}",
+      "brand": "Official brand of {schwarzDigits}"
     }
   },
   "components": {

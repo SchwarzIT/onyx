@@ -1,28 +1,63 @@
+<script lang="ts" setup>
+import logoUrl from "@sit-onyx/assets/onyx-brand/logo-on-dark.svg";
+import { version as onyxVersion } from "sit-onyx/package.json";
+</script>
+
 <template>
   <section class="hero">
-    <div class="onyx-grid-layout">
+    <img
+      class="hero__background"
+      aria-hidden="true"
+      src="~/assets/images/hero-background.svg"
+      alt=""
+    />
+
+    <div class="hero__layout onyx-grid-layout">
       <div class="hero__content">
-        <div class="hero__headlines">
-          <OnyxHeadline is="h1" class="hero__headline">
-            <i18n-t keypath="app.hero.headline" scope="global">
-              <template #onyx>
-                <span class="hero__accent">onyx</span>
+        <img :src="logoUrl" :alt="$t('app.hero.logoAlt')" class="hero__logo" />
+
+        <div class="hero__body">
+          <OnyxHeadline is="h1" class="hero__tagline"> {{ $t("app.hero.tagline") }} </OnyxHeadline>
+
+          <div class="hero__actions">
+            <OnyxButton
+              :label="$t('app.hero.getStarted')"
+              color="primary"
+              link="/introduction/getting-started/installation"
+            />
+            <OnyxButton
+              :label="$t('app.hero.browseComponents')"
+              color="neutral"
+              link="/components"
+            />
+          </div>
+
+          <div class="hero__meta">
+            <span>{{ $t("app.hero.current", { version: onyxVersion }) }}</span>
+            <span>·</span>
+
+            <i18n-t keypath="app.hero.builtOn" scope="global" tag="span">
+              <template #vue>
+                <OnyxLink href="https://vuejs.org" target="_blank" :with-external-icon="false">
+                  Vue.js
+                </OnyxLink>
               </template>
             </i18n-t>
-          </OnyxHeadline>
 
-          <OnyxHeadline is="h2" class="hero__description">
-            {{ $t("app.hero.description") }}
-          </OnyxHeadline>
-        </div>
+            <span>·</span>
 
-        <div class="hero__actions">
-          <OnyxButton :label="$t('components.component', 2)" link="/components" />
-          <OnyxButton
-            :label="$t('gettingStarted')"
-            mode="outline"
-            link="/introduction/getting-started/installation"
-          />
+            <i18n-t keypath="app.hero.brand" scope="global" tag="span">
+              <template #schwarzDigits>
+                <OnyxLink
+                  href="https://schwarz-digits.de"
+                  target="_blank"
+                  :with-external-icon="false"
+                >
+                  Schwarz Digits
+                </OnyxLink>
+              </template>
+            </i18n-t>
+          </div>
         </div>
       </div>
     </div>
@@ -33,99 +68,93 @@
 @use "sit-onyx/breakpoints.scss";
 
 .hero {
-  --hero-headline-size: 4.5rem;
-  --hero-background-size: 90%;
-  --hero-color-gradient-neutral: color-mix(
-    in srgb,
-    var(--onyx-color-base-neutral-100) 40%,
-    transparent
-  );
-
-  --hero-color-gradient-primary: color-mix(
-    in srgb,
-    var(--onyx-color-base-primary-300) 40%,
-    transparent
-  );
-
-  min-height: calc(100dvh - var(--onyx-nav-bar-height));
-  background: var(--onyx-color-base-background-blank);
-  background: linear-gradient(
-    60deg,
-    var(--hero-color-gradient-neutral),
-    var(--hero-color-gradient-primary),
-    var(--hero-color-gradient-neutral)
-  );
   position: relative;
+  background: radial-gradient(
+    50% 42.5% at 50% 30%,
+    color-mix(in srgb, var(--onyx-color-base-primary-500) 22.5%, transparent) 0%,
+    transparent 100%
+  );
 
-  @include breakpoints.screen(max, lg) {
-    --hero-headline-size: 3rem;
-  }
-
-  @include breakpoints.screen(max, md) {
-    --hero-background-size: 70%;
-  }
-
-  @include breakpoints.screen(max, sm) {
-    --hero-background-size: 60%;
-  }
-
-  @include breakpoints.screen(max, xs) {
-    --hero-headline-size: 2rem;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 2rem;
-    right: 0;
+  &__background {
     width: 100%;
+    height: 30%;
+    object-fit: cover;
+    object-position: bottom;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+  }
+
+  &__layout {
     height: 100%;
-    opacity: 0.5;
-    background-image: url("~/assets/images/hero.webp");
-    background-repeat: no-repeat;
-    background-size: auto var(--hero-background-size);
-    background-position: right -18rem bottom;
+    min-height: calc(90dvh - var(--onyx-nav-bar-height));
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &__content {
     display: flex;
     flex-direction: column;
-    gap: var(--onyx-density-xl);
-    padding-block: var(--onyx-density-xl);
-
-    > * {
-      z-index: 1;
-    }
+    align-items: center;
+    justify-content: center;
+    gap: var(--onyx-density-2xl);
+    max-width: 40rem;
   }
 
-  &__headlines {
+  &__logo {
+    width: 30rem;
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0.5rem 0.75rem rgb(0 0 0 / 0.15));
+  }
+
+  &__body {
     display: flex;
     flex-direction: column;
-    gap: var(--onyx-density-sm);
-    white-space: pre-line;
+    align-items: center;
+    gap: var(--onyx-density-xl);
+    width: 100%;
   }
 
-  &__headline {
-    color: var(--onyx-color-text-icons-primary-intense);
-    font-size: var(--hero-headline-size);
-    line-height: var(--hero-headline-size);
-    font-weight: var(--onyx-font-weight-500);
-    text-transform: uppercase;
-  }
-
-  &__accent {
+  &__tagline {
+    font-family: var(--onyx-font-family-h1);
+    font-size: var(--onyx-font-size-xl);
+    line-height: var(--onyx-font-line-height-xl);
+    font-weight: var(--onyx-font-weight-semibold);
     color: var(--onyx-color-text-icons-neutral-intense);
-  }
+    text-align: center;
 
-  &__description {
-    color: var(--onyx-color-text-icons-primary-intense);
+    @include breakpoints.screen(max, xs) {
+      font-size: var(--onyx-font-size-lg);
+      line-height: var(--onyx-font-line-height-lg);
+    }
   }
 
   &__actions {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--onyx-density-xs);
     flex-wrap: wrap;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--onyx-density-xs);
+    font-size: var(--onyx-font-size-sm);
+    line-height: var(--onyx-font-line-height-sm);
+
+    :deep(.onyx-link) {
+      &:not(:hover, :focus, :active) {
+        color: inherit;
+      }
+    }
   }
 }
 </style>
