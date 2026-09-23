@@ -11,7 +11,7 @@ The menu item represents a single action inside of a parent menu component such 
 
 The basic menu item supports a label and an optional icon.
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 
 
 ### Nested options
 

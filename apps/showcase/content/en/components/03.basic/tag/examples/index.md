@@ -11,13 +11,13 @@ Tags provide additional information or hints related to their parent element. Th
 
 Tags are displayed using a required label and an optional icon if needed.
 
-:component-example{name="Basic"}
+<<< ./Basic.example.vue preview=true 
 
 ### Colors
 
 Several colors are supported to highlight the semantic meaning of the related data. See our [color documentation](/introduction/foundation/colors#colors) for more information.
 
-:component-example{name="Colors" layout="fullWidth"}
+<<< ./Colors.example.vue preview=true  layout="fullWidth"
 
 ### Clickable
 
@@ -25,4 +25,4 @@ Tags are non-interactive by default. Use the `clickable` property to support tri
 
 **Tip:** For search and filter related tags, we recommend using our [filter tag](/components/search-and-filter/filter-tag).
 
-:component-example{name="Clickable"}
+<<< ./Clickable.example.vue preview=true 

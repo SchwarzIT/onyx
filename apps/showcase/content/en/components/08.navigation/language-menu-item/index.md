@@ -12,4 +12,4 @@ Pre-built [menu item](/components/basic/menu-item) for the [user menu](/componen
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Hover the user menu to see the language menu item.</p>
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 

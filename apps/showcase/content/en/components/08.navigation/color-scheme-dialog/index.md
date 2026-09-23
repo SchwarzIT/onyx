@@ -10,4 +10,4 @@ Pre-built dialog where the user can select which color scheme (light/dark mode) 
 
 ### Basic
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 

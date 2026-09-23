@@ -11,22 +11,22 @@ The segmented control is an interactive element that allow users to make a singl
 
 The segmented control consists out of at least two options that display a label and an option icon. We recommend to either show an icon for all options or to use only labels but not to mix those two options.
 
-:component-example{name="Basic" layout="grow"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow"
 
 ### Icons only
 
 The option label can optionally be hidden so only an icon is shown. In this mode, the component only takes up the width that the options need and does not stretch to the available width.
 
-:component-example{name="Icons"}
+<<< ./examples/Icons.example.vue preview=true 
 
 ### Disabled
 
 Individual options can be disabled to prevent user selection.
 
-:component-example{name="Disabled" layout="grow"}
+<<< ./examples/Disabled.example.vue preview=true  layout="grow"
 
 ### Skeleton
 
 Use the skeleton on initial page load while the data for the segmented control options are being loaded.
 
-:component-example{name="Skeleton" layout="grow"}
+<<< ./examples/Skeleton.example.vue preview=true  layout="grow"

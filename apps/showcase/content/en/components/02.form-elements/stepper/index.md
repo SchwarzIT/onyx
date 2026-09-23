@@ -11,7 +11,7 @@ The stepper component lets users input numerical values and adjust them incremen
 
 The stepper includes a increase/decrease button by default that can optionally be hidden. The step size defaults to 1 but can be customized using the `stepSize` property.
 
-:component-example{name="Basic" layout="grow" orientation="vertical"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Precision
 
@@ -19,7 +19,7 @@ You can use the `precision` property to restrict how many decimal places are sho
 
 The `stepSize` must be compatible with the defined precision.
 
-:component-example{name="Precision" layout="grow"}
+<<< ./examples/Precision.example.vue preview=true  layout="grow"
 
 ### Formatting
 
@@ -36,7 +36,7 @@ Locale formatting
 #default
 When simply enabling the `formatNumber` property, the value will be formatted depending on the current locale / language of the application. This means e.g. a dot is used to separate the integer and fractional part in Englisch while a comma is used in German.
 
-:component-example{name="Formatting" layout="grow"}
+<<< ./examples/Formatting.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -47,7 +47,7 @@ Custom formatting
 Alternatively, a full custom formatter can be defined that returns a custom text for the current value.
 
 
-:component-example{name="CustomFormatter" layout="grow"}
+<<< ./examples/CustomFormatter.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -57,7 +57,7 @@ Alignment
 #default
 The value is centered by default but can optionally be left or right aligned. All alignment options can be used in combination with custom formatting.
 
-:component-example{name="Alignment" layout="grow" orientation="vertical"}
+<<< ./examples/Alignment.example.vue preview=true  layout="grow" orientation="vertical"
 ::
 
 </steps>
@@ -68,27 +68,27 @@ The value is centered by default but can optionally be left or right aligned. Al
 
 Readonly and disabled are used to indicate that the stepper is currently not editable.
 
-:component-example{name="Readonly" layout="grow"}
+<<< ./examples/Readonly.example.vue preview=true  layout="grow"
 
 The loading state is used after a user interaction to indicate that the triggered action is currently loading / in progress. On the other hand, the skeleton should be used on initial page load when the data for the page / stepper is initially loaded.
 
-:component-example{name="Loading" layout="grow"}
+<<< ./examples/Loading.example.vue preview=true  layout="grow"
 
 ### Message
 
 An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
 When multiple message types are defined at once, only the most relevant will be displayed (e.g. error message takes precedent over the regular message).
 
-:component-example{name="Message" layout="grow" orientation="vertical"}
+<<< ./examples/Message.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Slots
 
 Multiple slots are supported to pass in custom content if needed. Note that the default increment and decrement button will be hidden if a custom leading or trailing slot is passed.
 
-:component-example{name="Slots" layout="grow"}
+<<< ./examples/Slots.example.vue preview=true  layout="grow"
 
 ### Label positions
 
 The stepper label can be positioned in several ways to support a wide variety of layouts.
 
-:component-example{name="LabelPositions" layout="grow" orientation="vertical"}
+<<< ./examples/LabelPositions.example.vue preview=true  layout="grow" orientation="vertical"
