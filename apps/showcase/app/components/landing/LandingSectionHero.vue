@@ -84,11 +84,12 @@ import { version as onyxVersion } from "sit-onyx/package.json";
     top: 0;
     left: 0;
     opacity: 0.3;
+    pointer-events: none;
   }
 
   &__layout {
     height: 100%;
-    min-height: calc(90dvh - var(--onyx-nav-bar-height));
+    min-height: calc(85dvh - var(--onyx-nav-bar-height));
     width: 100%;
     display: flex;
     align-items: center;
