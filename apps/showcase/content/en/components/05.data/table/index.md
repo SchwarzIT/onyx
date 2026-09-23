@@ -15,28 +15,28 @@ For most cases, we recommend to use the data grid instead. Please refer to the [
 
 A basic table displays rows in a pre-defined set of columns. The table header is optional. The cell content is fully customizable.
 
-:component-example{name="Basic" layout="fullWidth"}
+<<< ./examples/Basic.example.vue preview=true  layout="fullWidth"
 
 ### Striped
 
 Striped rows can be enabled where every even row has a different background color.
 
-:component-example{name="Striped" layout="fullWidth"}
+<<< ./examples/Striped.example.vue preview=true  layout="fullWidth"
 
 ### Vertical borders
 
 Use vertical borders to separate the columns more clearly and achieve a grid look.
 
-:component-example{name="VerticalBorders" layout="fullWidth"}
+<<< ./examples/VerticalBorders.example.vue preview=true  layout="fullWidth"
 
 ### Slots
 
 The table supports four custom slots around the main table to add custom content such as headline, actions or pagination.
 
-:component-example{name="Slots" layout="fullWidth"}
+<<< ./examples/Slots.example.vue preview=true  layout="fullWidth"
 
 ### Column groups
 
 Columns can be grouped to visually group related columns.
 
-:component-example{name="ColumnGroups" layout="fullWidth"}
+<<< ./examples/ColumnGroups.example.vue preview=true  layout="fullWidth"

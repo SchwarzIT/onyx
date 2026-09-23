@@ -22,7 +22,7 @@ Default
 #default
 This type is the default and should be used when a simple and subtle separation of the page content is desired.
 
-:component-example{name="Basic" layout="grow"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -32,7 +32,7 @@ Card
 #default
 To achieve a clearer separation and structure of the page content, the `card` type can be used.
 
-:component-example{name="Card" layout="grow"}
+<<< ./examples/Card.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -42,7 +42,7 @@ Nested large
 #default
 The `nested-large` type is optimized to be used inside of other containers or components such as sidebar. It is **not** intended to be used standalone on the main page content.
 
-:component-example{name="NestedLarge" layout="fullWidth"}
+<<< ./examples/NestedLarge.example.vue preview=true  layout="fullWidth"
 ::
 
 ::step
@@ -52,7 +52,7 @@ Nested small
 #default
 Identically to the large type, `nested-small` is optimized to be used inside of other containers or components such as sidebar. It is also **not** intended to be used standalone on the main page content.
 
-:component-example{name="NestedSmall" layout="fullWidth"}
+<<< ./examples/NestedSmall.example.vue preview=true  layout="fullWidth"
 ::
 
 </steps>
@@ -63,22 +63,22 @@ Identically to the large type, `nested-small` is optimized to be used inside of 
 
 The optional exclusive mode can be enabled so only one item can be opened at a time. Opening another item will automatically close the previously opened item. This can be useful to focus the users attention to a single item.
 
-:component-example{name="Exclusive" layout="grow"}
+<<< ./examples/Exclusive.example.vue preview=true  layout="grow"
 
 ### Custom content
 
 Each accordion item supports custom content inside the header and body. The header should not contain interactive elements since its only used for toggling the content.
 
-:component-example{name="CustomContent" layout="grow"}
+<<< ./examples/CustomContent.example.vue preview=true  layout="grow"
 
 ### Disabled
 
 The disabled state is used to indicate that the accordion is currently not interactive and the content can not be toggled. Individual items or the whole accordion can be disabled.
 
-:component-example{name="Disabled" layout="grow"}
+<<< ./examples/Disabled.example.vue preview=true  layout="grow"
 
 ### Skeleton
 
 The skeleton should be used on initial page load when the data for the page / accordion is initially loaded.
 
-:component-example{name="Skeleton" layout="grow"}
+<<< ./examples/Skeleton.example.vue preview=true  layout="grow"

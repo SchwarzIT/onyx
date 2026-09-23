@@ -20,7 +20,7 @@ If you are unsure which component to use or there is no reasonable explicit requ
 
 A very basic data grid contains one or multiple columns and a set of data to display in rows. Each column has a type that defines how the value is displayed. See the [available column types](#column-types) below.
 
-:component-example{name="Basic" layout="grow"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow"
 
 ### Column types
 
@@ -35,7 +35,7 @@ String / Text <onyx-tag label="Default" />
 #default
 Displays the value as text and is the default type for all columns.
 
-:component-example{name="ColumnTypeString" layout="grow"}
+<<< ./examples/ColumnTypeString.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -45,7 +45,7 @@ Number
 #default
 Displays the value as a formatted number depending on the current application language. Optionally, a custom format can be defined using [Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat).
 
-:component-example{name="ColumnTypeNumber" layout="grow"}
+<<< ./examples/ColumnTypeNumber.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -55,7 +55,7 @@ Date & Time
 #default
 Multiple column types are supported to display date, datetime, time and timestamp depending on the current application language. Optionally, a custom format can be defined using [Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat).
 
-:component-example{name="ColumnTypeDate" layout="fullWidth"}
+<<< ./examples/ColumnTypeDate.example.vue preview=true  layout="fullWidth"
 ::
 
 ::step
@@ -65,7 +65,7 @@ Select
 #default
 The select type allows the developer to define a set of available options where the corresponding text is displayed depending on the value. This is particularly useful when the value is technically an enum but a user-friendly translated label should be shown. When used in combination with the [editing](#editing) feature, the user can change the value based on the predefined list of options.
 
-:component-example{name="ColumnTypeSelect" layout="grow"}
+<<< ./examples/ColumnTypeSelect.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -75,7 +75,7 @@ Link
 #default
 Allows displaying links to other pages or applications. Optionally supports defining a custom display label.
 
-:component-example{name="ColumnTypeLink" layout="grow"}
+<<< ./examples/ColumnTypeLink.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -85,7 +85,7 @@ Fallback text
 #default
 For every column, a fallback text is shown when the cell is empty. By default, "-" is used but a custom text can be defined if needed.
 
-:component-example{name="ColumnTypeFallback" layout="grow"}
+<<< ./examples/ColumnTypeFallback.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -102,19 +102,19 @@ Custom column types can be implemented for full flexibility on how the data is d
 
 All columns are equally sized by default. The width of every column can be adjusted if needed using any valid value accepted by [grid-template-columns](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid-template-columns). So the column can e.g. have a fixed width using a static value like `4rem`, a flexible value like `1fr` or `max-content`, or a minimum and maximum width using the [minmax](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/minmax) function.
 
-:component-example{name="ColumnWidth" layout="fullWidth"}
+<<< ./examples/ColumnWidth.example.vue preview=true  layout="fullWidth"
 
 ### Skeleton
 
 The skeleton should be used on initial page load when the data for the page / data grid is initially loaded.
 
-:component-example{name="Skeleton" layout="grow"}
+<<< ./examples/Skeleton.example.vue preview=true  layout="grow"
 
 ### Grouped columns
 
 Column groups can be used to visually group columns that are related.
 
-:component-example{name="ColumnGroups" layout="fullWidth"}
+<<< ./examples/ColumnGroups.example.vue preview=true  layout="fullWidth"
 
 ### Global actions
 
@@ -122,7 +122,7 @@ Global actions allow the user to trigger custom actions for the data that are pl
 
 Actions are defined using a custom feature. See the [custom feature section](#slots) below for further information.
 
-:component-example{name="GlobalActions" layout="grow"}
+<<< ./examples/GlobalActions.example.vue preview=true  layout="grow"
 
 ## Features
 
@@ -143,7 +143,7 @@ Internal
 #default
 The data is sorted internally by default considering all available data.
 
-:component-example{name="Sorting" layout="fullWidth"}
+<<< ./examples/Sorting.example.vue preview=true  layout="fullWidth"
 ::
 
 ::step
@@ -153,7 +153,7 @@ Async
 #default
 Alternatively, the sorting can be done asynchronously by an external service, e.g. by a backend or API so the data grid does not sort the data itself. Important: Set the `async` property on the data grid to disable the internal data transformations.
 
-:component-example{name="SortingAsync" layout="grow"}
+<<< ./examples/SortingAsync.example.vue preview=true  layout="grow"
 ::
 
 </steps>
@@ -171,7 +171,7 @@ Internal
 #default
 The data is filtered internally by default considering all available data.
 
-:component-example{name="Filtering" layout="grow"}
+<<< ./examples/Filtering.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -181,7 +181,7 @@ Async
 #default
 Alternatively, the filtering can be done asynchronously by an external service, e.g. by a backend or API so the data grid does not filter the data itself. Important: Set the `async` property on the data grid to disable the internal data transformations.
 
-:component-example{name="FilteringAsync" layout="grow"}
+<<< ./examples/FilteringAsync.example.vue preview=true  layout="grow"
 ::
 
 </steps>
@@ -199,7 +199,7 @@ Select <onyx-tag label="Default" />
 #default
 The select type uses our [pagination](/components/data/pagination) component to show a page select on the bottom right.
 
-:component-example{name="Pagination" layout="grow"}
+<<< ./examples/Pagination.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -209,7 +209,7 @@ Lazy loading
 #default
 With lazy loading, more data is automatically displayed when the user scrolls to the end of the data grid. You **must** set a maximum height when using lazy loading.
 
-:component-example{name="PaginationLazy" layout="grow"}
+<<< ./examples/PaginationLazy.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -219,7 +219,7 @@ Button loading
 #default
 Button loading is similar to lazy loading but requires the user to manually click a "load more" button to load the next page of data.
 
-:component-example{name="PaginationButton" layout="grow"}
+<<< ./examples/PaginationButton.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -229,7 +229,7 @@ Async
 #default
 Alternatively, the pagination can be done asynchronously by an external service, e.g. by a backend or API. This is especially useful for performance optimization when not all available data should be loaded at once. Async pagination is compatible with all modes mentioned above. Important: Set the `async` property on the data grid to disable the internal data transformations.
 
-:component-example{name="PaginationAsync" layout="grow"}
+<<< ./examples/PaginationAsync.example.vue preview=true  layout="grow"
 ::
 
 </steps>
@@ -249,7 +249,7 @@ Manual
 #default
 All rows are editable at once and the rows do not switch between display and edit mode automatically. You have full control over how the editing is enabled, saved, cancelled, etc. In this example we use custom buttons but you can also use auto-save or custom logic.
 
-:component-example{name="EditingInline" layout="fullWidth"}
+<<< ./examples/EditingInline.example.vue preview=true  layout="fullWidth"
 ::
 
 </steps>
@@ -260,7 +260,7 @@ One or multiple columns can be made sticky on the left or right side of the data
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Scroll the data grid horizontally below to see the sticky columns in action.</p>
 
-:component-example{name="StickyColumns" layout="grow"}
+<<< ./examples/StickyColumns.example.vue preview=true  layout="grow"
 
 ### Selection
 
@@ -292,13 +292,13 @@ When checking the "Select all" checkbox in the column header, the data grid auto
 
 </steps>
 
-:component-example{name="Selection" layout="grow"}
+<<< ./examples/Selection.example.vue preview=true  layout="grow"
 
 <br />
 
 The checkboxes can optionally be only shown on hover:
 
-:component-example{name="SelectionHover" layout="grow"}
+<<< ./examples/SelectionHover.example.vue preview=true  layout="grow"
 
 ### Resizing
 
@@ -306,19 +306,19 @@ Allows the user to manually change the width of columns by dragging the right bo
 
 To ensure the overall table size does not shrink, an empty filler column is added to the right if the columns do not take up the full width.
 
-:component-example{name="Resizing" layout="grow"}
+<<< ./examples/Resizing.example.vue preview=true  layout="grow"
 
 ### Hide columns
 
 Allows the user to hide or show columns. Can also be used by the developer to hide specific columns by default that the user can show manually if needed.
 
-:component-example{name="HideColumns" layout="grow"}
+<<< ./examples/HideColumns.example.vue preview=true  layout="grow"
 
 ### Expandable rows
 
 Allows expanding additional content for each row. We do **NOT recommend** showing nested tables inside the expanded rows. Prefer using e.g. a [modal](/components/feedback/modal) instead if needed.
 
-:component-example{name="ExpandableRows" layout="grow"}
+<<< ./examples/ExpandableRows.example.vue preview=true  layout="grow"
 
 ### Row click
 
@@ -326,19 +326,19 @@ Allows the user to click a row to perform any custom action defined by the devel
 
 When the user has a selection inside the row (e.g. marked text to copy), the click will be disabled.
 
-:component-example{name="RowClick" layout="grow"}
+<<< ./examples/RowClick.example.vue preview=true  layout="grow"
 
 ### Rearrange rows
 
 Allows the user to rearrange the order of rows using drag-and-drop. Technically, the rearrange state contains a map of changed row IDs and their corresponding new order (starting from 1 for the first row). The global action buttons can also be overridden when custom triggers are used to active the rearrange mode.
 
-:component-example{name="RearrangeRows" layout="fullWidth"}
+<<< ./examples/RearrangeRows.example.vue preview=true  layout="fullWidth"
 
 ### Rearrange columns
 
 Allows the user to rearrange the order of columns using drag-and-drop. Technically, the rearrange state contains a map of changed column keys and their corresponding new order (starting from 1 for the first column). The global action buttons can also be overridden when custom triggers are used to active the rearrange mode.
 
-:component-example{name="RearrangeColumns" layout="fullWidth"}
+<<< ./examples/RearrangeColumns.example.vue preview=true  layout="fullWidth"
 
 ## Build a custom feature
 
@@ -438,7 +438,7 @@ Simple type
 #default
 A simple custom type displays the value for every column in the same way, e.g. by adding a copy button to copy the cell content.
 
-:component-example{name="TypeRenderer" layout="grow"}
+<<< ./examples/TypeRenderer.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -448,7 +448,7 @@ Data-specific type
 #default
 Column types have access to the full row data. This can be useful to create a custom column type that e.g. combines multiple values of the row to display them inside a single cell. The example below adds an email link to the name.
 
-:component-example{name="TypeRendererEntry" layout="grow"}
+<<< ./examples/TypeRendererEntry.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -458,7 +458,7 @@ Reusable type with options
 #default
 Options can be defined for a custom column type that can then be set per data grid to customize how the column type is rendered. This is especially useful for reusable types that are used across multiple data grids. The following example defines a "tag" column type that can be used in multiple data grids but can be customized via options to change the tag properties (color, icon etc.) based on the row data.
 
-:component-example{name="TypeRendererOptions" layout="grow"}
+<<< ./examples/TypeRendererOptions.example.vue preview=true  layout="grow"
 ::
 
 </steps>
@@ -471,7 +471,7 @@ You can also add additional attributes to the `<td>` and `<th>` element of the c
 
 In the example below, a new column is added automatically combined with a [custom column type](#type-renderer-column-types) to display row actions.
 
-:component-example{name="ModifyColumns" layout="grow"}
+<<< ./examples/ModifyColumns.example.vue preview=true  layout="grow"
 
 ### Modify rows
 
@@ -479,7 +479,7 @@ Rows can be modified within a feature to e.g. add additional rows or edit/remove
 
 You can also add additional row options such as `<tr>` attributes which are useful for adding event/click handlers, classes for changing styles etc.
 
-:component-example{name="ModifyRows" layout="grow"}
+<<< ./examples/ModifyRows.example.vue preview=true  layout="grow"
 
 ### Header
 
@@ -500,7 +500,7 @@ Set the `showFlyoutMenu` option to force showing the action inside the flyout me
 
 We strongly recommend using the [system button](/components/buttons/system-button) as `iconComponent` and the [menu item](/components/basic/menu-item) component for `menuItems`.
 
-:component-example{name="HeaderActions" layout="grow"}
+<<< ./examples/HeaderActions.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -512,7 +512,7 @@ In addition to the header actions, a wrapper component can be defined that is pl
 
 <em style="color: var(--onyx-color-text-icons-info-intense)">Hover over the column header in this example to see a tooltip.</em>
 
-:component-example{name="HeaderWrapper" layout="grow"}
+<<< ./examples/HeaderWrapper.example.vue preview=true  layout="grow"
 ::
 
 </steps>
@@ -530,7 +530,7 @@ Headline
 #default
 We strongly recommend using the `headline` property of the data grid to add a headline. It also supports showing a row count and other properties of the [headline](/components/navigation/headline) component. In case custom content is needed, the `headline` slot can be extended using a custom feature:
 
-:component-example{name="SlotHeadline" layout="grow"}
+<<< ./examples/SlotHeadline.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -540,7 +540,7 @@ Actions
 #default
 Global actions can be placed at the top right of the data grid. We strongly recommend passing the [actions with a feature](#global-actions) which ensures a consistent usage and will automatically truncate them into a flyout if the available width is too small. If you still need to add custom content, you can use the `actions` slot:
 
-:component-example{name="SlotActions" layout="grow"}
+<<< ./examples/SlotActions.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -550,7 +550,7 @@ Bottom left
 #default
 Allows placing any custom content, e.g. for showing an additional description, legend etc.
 
-:component-example{name="SlotBottomLeft" layout="grow"}
+<<< ./examples/SlotBottomLeft.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -560,7 +560,7 @@ Pagination
 #default
 We strongly recommend using the [pagination feature](#pagination) instead of the slot directly. In case custom content is needed, the `pagination` slot can be extended using a custom feature:
 
-:component-example{name="SlotPagination" layout="grow"}
+<<< ./examples/SlotPagination.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -570,6 +570,6 @@ Empty
 #default
 Allows customizing the default empty state when there is no data available. We recommend using the [empty component](/components/data/empty) here.
 
-:component-example{name="SlotEmpty" layout="grow"}
+<<< ./examples/SlotEmpty.example.vue preview=true  layout="grow"
 ::
 </steps>

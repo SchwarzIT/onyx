@@ -11,17 +11,17 @@ An icon button serves as a compact, label-free version of a traditional [button]
 
 The icon button supports the same colors as the regular button. For further information on when to use which colors, please refer to the [button documentation](/components/buttons/button).
 
-:component-example{name="Colors"}
+<<< ./examples/Colors.example.vue preview=true
 
 ### Loading & Skeleton
 
 The loading state is used after a user interaction to indicate that the triggered action is currently loading / in progress. On the other hand, the skeleton should be used on initial page load when the data for the page / button is initially loaded.
 
-:component-example{name="Loading"}
+<<< ./examples/Loading.example.vue preview=true
 
 ### Disabled
 
 The icon button can be disabled to indicate that its associated action is currently not available.
 For an improved user experience, it should be clear to the user _why_ the icon button is disabled.
 
-:component-example{name="Disabled"}
+<<< ./examples/Disabled.example.vue preview=true

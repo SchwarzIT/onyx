@@ -14,4 +14,4 @@ You can also use a custom trigger instead of this menu item by manually using th
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Hover the user menu to see the color scheme menu item.</p>
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 

@@ -29,7 +29,7 @@ In the following examples, we are using our [grid system](/introduction/foundati
 
 This example shows a basic form with some validations. Click the submit button before entering any values to see the form validation in action.
 
-:component-example{name="Basic" layout="grow"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow"
 
 ### External submit buttons
 
@@ -37,7 +37,7 @@ For some layouts, it might be required to place the submit button technically ou
 
 To "connect" such external submit button, simply add an ID to the form and define the HTML [form](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/form) attribute with the same ID on the button. This way, the form validation, submit etc. still work as expected, even when the submit button is not placed inside the form.
 
-:component-example{name="Modal"}
+<<< ./examples/Modal.example.vue preview=true 
 
 ### Required / optional marker
 
@@ -46,16 +46,16 @@ When most form elements are required with only a few being optional, you can use
 
 We strongly recommend to use only **one** marker type per form.
 
-:component-example{name="OptionalMarker" layout="grow"}
+<<< ./examples/OptionalMarker.example.vue preview=true  layout="grow"
 
 ### Disabled
 
 The form can be disabled which will automatically disabled all form elements used inside the form such as inputs, selects etc. This can be useful when e.g. disabling the form while loading / submitting so the user can not edit any data while its being processed.
 
-:component-example{name="Disabled" layout="grow"}
+<<< ./examples/Disabled.example.vue preview=true  layout="grow"
 
 ### Skeleton
 
 The skeleton state should be used on initial page load when the data for the page / form is initially loaded. For convenience, the skeleton can be set once on the form and all form elements inside will automatically be displayed as skeleton.
 
-:component-example{name="Skeleton" layout="grow"}
+<<< ./examples/Skeleton.example.vue preview=true  layout="grow"

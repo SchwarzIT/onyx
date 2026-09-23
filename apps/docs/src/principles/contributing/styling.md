@@ -16,7 +16,7 @@ By putting all our styles into layers they can also be easily overwritten by use
 Therefore, the `@include layers.component()` mixin must be used.
 It will put the contained rules into the `onyx.component` layer and normalize stylings.
 
-<<< ./styling-example.vue#layer {scss}
+<<< ./styling.example.vue#layer preview=true {scss}
 
 ## Custom density styles
 
@@ -25,4 +25,4 @@ In exceptional cases it might be necessary to apply special style rules for the 
 
 You can use our density mixins in this case:
 
-<<< ./styling-example.vue#densities {scss}
+<<< ./styling.example.vue#densities preview=true {scss}

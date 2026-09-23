@@ -8,6 +8,14 @@ export default defineNuxtModule({
   setup() {
     const globalComponents = ["OnyxTag", "OnyxHeadline"];
 
+    addComponent({
+      filePath: "../app/components/",
+      name: "ProsePre",
+      export: "ProsePre",
+      global: true,
+      priority: 0,
+    });
+
     // register specific components globally so they can be used in markdown files
     globalComponents.forEach((component) => {
       addComponent({

@@ -17,13 +17,13 @@ For general recommendations on how to use images, please refer to our:
 
 The image component enforces high accessibility standards by e.g. requiring to define an alternative text as well as a width and height to prevent layout shifts. You can still define a custom size using CSS.
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 
 
 ### Light and dark mode
 
 You can also define a different image for light and for dark mode which will automatically be displayed depending on the current theme.
 
-:component-example{name="LightDark"}
+<<< ./examples/LightDark.example.vue preview=true 
 
 ### Shapes
 
@@ -36,7 +36,7 @@ The image supports multiple common shapes / border styles.
 Rounded
 
 #default
-:component-example{name="Rounded"}
+<<< ./examples/Rounded.example.vue preview=true 
 ::
 
 ::step
@@ -44,7 +44,7 @@ Rounded
 Circle
 
 #default
-:component-example{name="Circle"}
+<<< ./examples/Circle.example.vue preview=true 
 ::
 
 ::step
@@ -52,7 +52,7 @@ Circle
 Clipped
 
 #default
-:component-example{name="Clipped" layout="fullWidth"}
+<<< ./examples/Clipped.example.vue preview=true  layout="fullWidth"
 ::
 
 </steps>
@@ -63,4 +63,4 @@ Clipped
 
 The skeleton can be used on initial page load when the data for the page / image is initially loaded.
 
-:component-example{name="Skeleton"}
+<<< ./examples/Skeleton.example.vue preview=true 

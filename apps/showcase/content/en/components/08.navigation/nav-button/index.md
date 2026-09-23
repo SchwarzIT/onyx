@@ -13,16 +13,16 @@ The nav button is intended to be used exclusively inside the [nav bar](/componen
 
 The button can either trigger a custom action or open a link.
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 
 
 ### Icon button
 
 The label can optionally be hidden to use an icon-only button.
 
-:component-example{name="Icon"}
+<<< ./examples/Icon.example.vue preview=true 
 
 ### Primary
 
 The `primary` color is exclusively intended for "Login" buttons.
 
-:component-example{name="Primary"}
+<<< ./examples/Primary.example.vue preview=true 

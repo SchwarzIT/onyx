@@ -234,7 +234,7 @@ const eslintCommentsConfig = {
 };
 
 const showcaseConfig = {
-  files: ["apps/showcase/content/**/*.example.vue"],
+  files: ["apps/showcase/content/**/*.example.vue preview=true"],
   rules: {
     "@typescript-eslint/no-unused-vars": "warn",
   },

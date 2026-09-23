@@ -11,7 +11,7 @@ The select is a fundamental element utilized across various components such as d
 
 A single value can be selected out of all available options by default.
 
-:component-example{name="Basic" layout="grow"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow"
 
 ### Multiple
 
@@ -37,7 +37,7 @@ Selected options are automatically sorted first after selecting, closing and re-
 
 </steps>
 
-:component-example{name="Multiple" layout="grow" orientation="vertical"}
+<<< ./examples/Multiple.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Search
 
@@ -54,7 +54,7 @@ Default search
 #default
 The default search logic filters the options based on their label (not case-sensitive).
 
-:component-example{name="Search" layout="grow"}
+<<< ./examples/Search.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -64,7 +64,7 @@ Custom search logic
 #default
 For full flexibility, the internal default search logic can be disabled so you can filter the options manually. Since the passed options only include the filtered options with this approach, it is **mandatory** that you manage the `valueLabel` property yourself so that the current selection is still displayed, even if it is currently not included in the filtered options.
 
-:component-example{name="CustomSearch" layout="grow"}
+<<< ./examples/CustomSearch.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -74,7 +74,7 @@ Async search
 #default
 When the options are provided by a backend service and should not be loaded immediately, async search can be used to optimize performance and only load relevant options. After the user typed in a search term, matching options are loaded asynchronously.
 
-:component-example{name="AsyncSearch" layout="grow"}
+<<< ./examples/AsyncSearch.example.vue preview=true  layout="grow"
 ::
 
 </steps>
@@ -96,7 +96,7 @@ Lazy loading
 #default
 With lazy loading, more options are loaded automatically when the user scrolls to the end of the list. You can optionally define a scroll offset to trigger the lazy loading earlier, e.g. when scrolling to the third last option.
 
-:component-example{name="LazyLoading" layout="grow"}
+<<< ./examples/LazyLoading.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -106,7 +106,7 @@ Load more button
 #default
 Using a load more button is similar to lazy loading but instead of automatically loading more options, the user needs to manually click on a button.
 
-:component-example{name="ButtonLoading" layout="grow"}
+<<< ./examples/ButtonLoading.example.vue preview=true  layout="grow"
 ::
 
 </steps>
@@ -117,41 +117,41 @@ Using a load more button is similar to lazy loading but instead of automatically
 
 Each option can additionally be displayed with custom content. You must display the label any apply ellipsis truncation manually if needed. See our [typography documentation](/introduction/foundation/typography#usage) for further information on how to apply truncation.
 
-:component-example{name="CustomOptions" layout="grow"}
+<<< ./examples/CustomOptions.example.vue preview=true  layout="grow"
 
 ### Groups
 
 Options can also be grouped to provide additional structure and clearance for related options.
 
-:component-example{name="Groups" layout="grow"}
+<<< ./examples/Groups.example.vue preview=true  layout="grow"
 
 ### Readonly & Disabled
 
 Readonly and disabled are used to indicate that the select is currently not editable.
 
-:component-example{name="Readonly" layout="grow"}
+<<< ./examples/Readonly.example.vue preview=true  layout="grow"
 
 ### Loading & Skeleton
 
 The loading state is used after a user interaction to indicate that the triggered action is currently loading / in progress. On the other hand, the skeleton should be used on initial page load when the data for the page/select is initially loaded.
 
-:component-example{name="Loading" layout="grow"}
+<<< ./examples/Loading.example.vue preview=true  layout="grow"
 
 ### Message
 
 An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
 When multiple message types are defined at once, only the most relevant will be displayed (e.g. error message takes precedent over the regular message).
 
-:component-example{name="Message" layout="grow" orientation="vertical"}
+<<< ./examples/Message.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Slots
 
 Multiple slots are supported to pass in custom content if needed.
 
-:component-example{name="Slots" layout="grow"}
+<<< ./examples/Slots.example.vue preview=true  layout="grow"
 
 ### Label positions
 
 The select label can be positioned in several ways to support a wide variety of layouts.
 
-:component-example{name="LabelPositions" layout="grow" orientation="vertical"}
+<<< ./examples/LabelPositions.example.vue preview=true  layout="grow" orientation="vertical"

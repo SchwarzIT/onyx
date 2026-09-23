@@ -12,4 +12,4 @@ Countdown timer, e.g. for when the user's login session expires.
 
 The timer automatically shows the remaining time in an appropriate format, e.g. hours, minutes or seconds, depending on the time.
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 

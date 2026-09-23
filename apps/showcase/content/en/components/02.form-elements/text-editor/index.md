@@ -64,13 +64,13 @@ _Type in multiple rows in the example below to see the autosize in action._
 
 Additionally, the user can resize the editor manually by dragging the bottom right corner vertically. You can disable this feature using the `disableManualResize` property.
 
-:component-example{name="Basic" layout="grow" style="--preview-max-width: 34rem"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 
 ### Toolbar position
 
 The toolbar can optionally be positioned at the bottom.
 
-:component-example{name="BottomToolbar" layout="grow" style="--preview-max-width: 34rem"}
+<<< ./examples/BottomToolbar.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 
 ### Extensions
 
@@ -87,7 +87,7 @@ The editor uses a custom `OnyxStarterKit` by default which is based on the [Tipt
 
 To override / customize the extensions used by the editor, use the `extensions` property to pass in custom extensions which will fully replace the default config. You can either re-use and configure the default `OnyxStarterKit` here or use your own starter kits / extensions.
 
-:component-example{name="StarterKit" layout="grow" style="--preview-max-width: 34rem"}
+<<< ./examples/StarterKit.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 ::
 
 ::step
@@ -103,7 +103,7 @@ Additionally, the editor can be extended with custom extensions and actions whic
 
 <br />
 
-:component-example{name="CustomActions" layout="grow" style="--preview-max-width: 42rem"}
+<<< ./examples/CustomActions.example.vue preview=true  layout="grow" style="--preview-max-width: 42rem"
 ::
 
 </steps>
@@ -113,7 +113,7 @@ Additionally, the editor can be extended with custom extensions and actions whic
 
 The editor can be disabled to indicate that it is currently not editable.
 
-:component-example{name="Disabled" layout="grow" style="--preview-max-width: 34rem"}
+<<< ./examples/Disabled.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 
 ### Min and max length
 
@@ -121,23 +121,23 @@ When a min or maxlength is defined, the user must enter at least `min` and at mo
 
 Tiptap's [CharacterCount extension](https://tiptap.dev/docs/editor/extensions/functionality/character-count) is used to determine the character count.
 
-:component-example{name="MinMaxLength" layout="grow" style="--preview-max-width: 34rem"}
+<<< ./examples/MinMaxLength.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 
 ### Loading & Skeleton
 
 The loading state is used after a user interaction to indicate that the triggered action is currently loading / in progress. On the other hand, the skeleton should be used on initial page load when the data for the page / editor is initially loaded.
 
-:component-example{name="Loading" layout="grow" orientation="vertical" style="--preview-max-width: 34rem"}
+<<< ./examples/Loading.example.vue preview=true  layout="grow" orientation="vertical" style="--preview-max-width: 34rem"
 
 ### Message
 
 An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
 When multiple message types are defined at once, only the most relevant will be displayed (e.g. error is preferred over the regular message).
 
-:component-example{name="Message" layout="grow" orientation="vertical" style="--preview-max-width: 34rem"}
+<<< ./examples/Message.example.vue preview=true  layout="grow" orientation="vertical" style="--preview-max-width: 34rem"
 
 ### Label positions
 
 The editor label can be positioned in several ways to support a wide variety of layouts.
 
-:component-example{name="LabelPositions" layout="grow" orientation="vertical" style="--preview-max-width: 34rem"}
+<<< ./examples/LabelPositions.example.vue preview=true  layout="grow" orientation="vertical" style="--preview-max-width: 34rem"

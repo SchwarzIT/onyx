@@ -14,4 +14,4 @@ Refer to the [menu item](/components/basic/menu-item) component for further info
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Hover over the user menu to open the flyout with actions.</p>
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 

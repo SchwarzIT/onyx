@@ -11,28 +11,28 @@ Info cards are used to display informational content to the user or implement er
 
 A basic info card includes a headline and description text but can also only contain one of them. The default icon can be changed using the `icon` property or removed completely by setting the value to `false`.
 
-:component-example{name="Basic" layout="grow"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow"
 
 ### Colors
 
 Different colors are supported depending on the semantical meaning of the information. See our [color documentation](/introduction/foundation/colors#colors) for when to use which color.
 
-:component-example{name="Colors" layout="grow" orientation="vertical"}
+<<< ./examples/Colors.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Closable
 
 For temporary or one-time information, the info card can be closable which allows the user to close it.
 
-:component-example{name="Closable" layout="grow"}
+<<< ./examples/Closable.example.vue preview=true  layout="grow"
 
 ### Buttons
 
 Additional buttons are supported to perform custom actions.
 
-:component-example{name="Buttons" layout="grow"}
+<<< ./examples/Buttons.example.vue preview=true  layout="grow"
 
 ### Header actions
 
 Custom actions can be displayed inside the header using a [flyout menu](/components/basic/flyout-menu). See the [menu item](/components/basic/menu-item) component for all available options.
 
-:component-example{name="HeaderActions" layout="grow"}
+<<< ./examples/HeaderActions.example.vue preview=true  layout="grow"

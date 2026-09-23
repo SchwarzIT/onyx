@@ -13,25 +13,25 @@ The split button supports the same styles as the regular [button](/components/bu
 
 See the [button](/components/buttons/button#primary) documentation for when to use primary buttons.
 
-:component-example{name="Primary"}
+<<< ./examples/Primary.example.vue preview=true 
 
 ### Neutral
 
 See the [button](/components/buttons/button#neutral) documentation for when to use neutral buttons.
 
-:component-example{name="Neutral"}
+<<< ./examples/Neutral.example.vue preview=true 
 
 ### Danger
 
 See the [button](/components/buttons/button#danger) documentation for when to use danger buttons.
 
-:component-example{name="Danger"}
+<<< ./examples/Danger.example.vue preview=true 
 
 ### Icons
 
 An optional icon can be placed on either the left or the right side of the label.
 
-:component-example{name="Icons"}
+<<< ./examples/Icons.example.vue preview=true 
 
 ### Loading & Skeleton
 
@@ -39,10 +39,10 @@ The loading state is used after a user interaction to indicate that the triggere
 
 On the other hand, the skeleton should be used on initial page load when the data for the page / button is initially loaded.
 
-:component-example{name="Loading"}
+<<< ./examples/Loading.example.vue preview=true 
 
 ### Hover
 
 By default, the additional actions are opened on click but you can configure them to optionally show of hover instead.
 
-:component-example{name="Hover"}
+<<< ./examples/Hover.example.vue preview=true 
