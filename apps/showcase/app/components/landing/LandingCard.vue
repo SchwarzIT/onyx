@@ -3,7 +3,6 @@ import { iconArrowSmallRight } from "@sit-onyx/icons";
 import type { SharedLinkProps } from "#root/packages/sit-onyx/dist";
 
 const props = defineProps<{
-  headline: string;
   link?: string | SharedLinkProps;
 }>();
 
@@ -13,12 +12,9 @@ defineSlots<{
 </script>
 
 <template>
-  <OnyxCard class="offer-card">
+  <GradientCard class="offer-card">
     <div class="offer-card__content">
-      <OnyxHeadline is="h3" show-as="h2">{{ props.headline }}</OnyxHeadline>
-      <div class="onyx-text--small">
-        <slot></slot>
-      </div>
+      <slot></slot>
     </div>
 
     <OnyxButton
@@ -30,21 +26,13 @@ defineSlots<{
       :icon="iconArrowSmallRight"
       :link="props.link"
     />
-  </OnyxCard>
+  </GradientCard>
 </template>
 
 <style lang="scss" scoped>
 .offer-card {
-  border-radius: var(--onyx-radius-lg);
-  padding: var(--onyx-density-xl);
-  justify-content: space-between;
   gap: var(--onyx-density-xl);
-  flex: 1;
-  background: radial-gradient(
-    ellipse at bottom right,
-    color-mix(in srgb, var(--onyx-color-base-primary-500) 10%, transparent) 0%,
-    transparent 100%
-  );
+  justify-content: space-between;
 
   &__content {
     display: flex;

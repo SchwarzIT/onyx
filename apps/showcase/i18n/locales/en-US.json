@@ -107,5 +107,9 @@
     }
   },
   "copiedToClipboard": "Copied to clipboard!",
-  "checkOut": "Check out"
+  "checkOut": "Check out",
+  "team": {
+    "headline": "The Team",
+    "description": "onyx is maintained by a dedicated team at Schwarz Digits, focused on designing and implementing new components and processes for a seamless user experience. We place a strong emphasis on ARIA patterns and accessibility to ensure our solutions are inclusive and usable for everyone."
+  }
 }
