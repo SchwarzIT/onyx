@@ -18,6 +18,7 @@ useHead({
     <div class="onyx-grid-layout sections">
       <LandingSectionOffers />
       <LandingSectionTeam />
+      <LandingSectionContributors />
     </div>
   </OnyxPageLayout>
 </template>
@@ -26,6 +27,6 @@ useHead({
 .sections {
   display: flex;
   flex-direction: column;
-  gap: 14rem;
+  gap: clamp(6rem, 10vw, 14rem);
 }
 </style>
