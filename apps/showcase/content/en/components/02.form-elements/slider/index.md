@@ -11,13 +11,13 @@ Sliders allow users to select a value (or a range of two values) inside a given 
 
 The default slider supports selecting a single value within the given min/max range. The step size can be configured if needed but defaults to 1.
 
-:component-example{name="Basic" layout="grow"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow"
 
 ### Range
 
 The range mode can be used so select a range of two values.
 
-:component-example{name="Range" layout="grow"}
+<<< ./examples/Range.example.vue preview=true  layout="grow"
 
 ### Marks
 
@@ -25,7 +25,7 @@ Marks can be used to show visual "steps" inside the slider track which can optio
 
 The `mark` slot can be used to provide custom content for each mark such as icons.
 
-:component-example{name="Marks" layout="grow" orientation="vertical"}
+<<< ./examples/Marks.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Controls
 
@@ -40,7 +40,7 @@ Icon control
 #default
 The icon control shows two additional buttons for increasing and decreasing the value. It is only supported for the single mode.
 
-:component-example{name="IconControl" layout="grow"}
+<<< ./examples/IconControl.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -50,7 +50,7 @@ Input control
 #default
 The input control shows an additional input where the user can type in to change the current value. This control is supported for both the single and the range mode.
 
-:component-example{name="InputControl" layout="grow"}
+<<< ./examples/InputControl.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -60,7 +60,7 @@ Value control
 #default
 The value control is not interactive and shows the min and max value of the slider.
 
-:component-example{name="ValueControl" layout="grow"}
+<<< ./examples/ValueControl.example.vue preview=true  layout="grow"
 ::
 
 </steps>
@@ -71,17 +71,17 @@ The value control is not interactive and shows the min and max value of the slid
 
 The disabled is used to indicate that the slider is currently not editable.
 
-:component-example{name="Disabled" layout="grow"}
+<<< ./examples/Disabled.example.vue preview=true  layout="grow"
 
 ### Skeleton
 
 The skeleton should be used on initial page load when the data for the page / slider is initially loaded.
 
-:component-example{name="Skeleton" layout="grow"}
+<<< ./examples/Skeleton.example.vue preview=true  layout="grow"
 
 ### Message
 
 An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
 When multiple message types are defined at once, only the most relevant will be displayed (e.g. error message takes precedent over the regular message).
 
-:component-example{name="Message" layout="grow" orientation="vertical"}
+<<< ./examples/Message.example.vue preview=true  layout="grow" orientation="vertical"

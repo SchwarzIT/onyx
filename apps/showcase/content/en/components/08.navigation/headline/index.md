@@ -16,7 +16,7 @@ For all information about our typography system, please refer to:
 
 The headline supports six semantical types (h1 to h6) which should match the page hierarchy and should not skip levels. Visually, only h1 to h4 are supported so h5 and h6 will have the same styles as h4. The visual size can be changed independently from the semantic type using the `showAs` property.
 
-:component-example{name="Types" orientation="vertical" }
+<<< ./examples/Types.example.vue preview=true  orientation="vertical" 
 
 ### Hash
 
@@ -24,10 +24,10 @@ Mostly known from documentations, the headline can optionally define a "hash". T
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Hover over and click the headline to copy the link to it.</p>
 
-:component-example{name="Hash"}
+<<< ./examples/Hash.example.vue preview=true 
 
 ### Skeleton
 
 Use the skeleton on initial page load while the data for the headline is currently loading.
 
-:component-example{name="Skeleton"}
+<<< ./examples/Skeleton.example.vue preview=true 

@@ -11,16 +11,16 @@ A breadcrumb component is a secondary navigation element that displays a user's 
 
 The breadcrumb is always positioned above the main page content and contains the previous and current page of the application's navigation hierarchy. The breadcrumb items are automatically highlighted based on the current route/page of the application.
 
-:component-example{name="Basic" layout="fullWidth"}
+<<< ./examples/Basic.example.vue preview=true  layout="fullWidth"
 
 ### Container
 
 The container breadcrumb can optionally be used and placed directly below the nav bar.
 
-:component-example{name="Container" layout="fullWidth"}
+<<< ./examples/Container.example.vue preview=true  layout="fullWidth"
 
 ### Skeleton
 
 Use the skeleton while the data for either the whole breadcrumb of specific items / pages is loaded on initial page load.
 
-:component-example{name="Skeleton" layout="fullWidth"}
+<<< ./examples/Skeleton.example.vue preview=true  layout="fullWidth"

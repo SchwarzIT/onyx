@@ -20,7 +20,7 @@ The sidebar can manually be resized by the user by dragging the border. Double c
 Left
 
 #default
-:component-example{name="Left" layout="fullWidth"}
+<<< ./examples/Left.example.vue preview=true  layout="fullWidth"
 ::
 
 ::step
@@ -28,7 +28,7 @@ Left
 Right
 
 #default
-:component-example{name="Right" layout="fullWidth"}
+<<< ./examples/Right.example.vue preview=true  layout="fullWidth"
 ::
 
 </steps>
@@ -39,13 +39,13 @@ Right
 
 Use a temporary sidebar to show the additional content only after user interaction, e.g. when clicking a row inside a [data grid](/components/data/data-grid).
 
-:component-example{name="Temporary" layout="fullWidth"}
+<<< ./examples/Temporary.example.vue preview=true  layout="fullWidth"
 
 ### Tree view
 
 To display hierarchical data, use a [tree view](/components/navigation/tree-view) component inside the sidebar.
 
-:component-example{name="TreeView" layout="fullWidth"}
+<<< ./examples/TreeView.example.vue preview=true  layout="fullWidth"
 
 ### Grid
 
@@ -53,4 +53,4 @@ The sidebar also supports using our grid system to easy build responsive layouts
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Resize the sidebar by dragging the border to see the grid in action.</p>
 
-:component-example{name="Grid" layout="fullWidth"}
+<<< ./examples/Grid.example.vue preview=true  layout="fullWidth"

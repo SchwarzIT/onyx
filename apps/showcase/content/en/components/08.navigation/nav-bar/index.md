@@ -15,7 +15,7 @@ A basic nav bar contains the application name and logo (if one exists) and navig
 
 The individual nav items can either be standalone or contain nested children that are shown when hovering the parent nav item.
 
-:component-example{name="Basic" layout="fullWidth"}
+<<< ./examples/Basic.example.vue preview=true  layout="fullWidth"
 
 <br />
 
@@ -40,7 +40,7 @@ Children
 #default
 Use child nav items that are shown when hovering the parent nav item. The parent can optionally also contain a link.
 
-:component-example{name="Nested" layout="fullWidth"}
+<<< ./examples/Nested.example.vue preview=true  layout="fullWidth"
 ::
 
 ::step
@@ -50,7 +50,7 @@ Internal drilldown
 #default
 When multiple layers of children are defined, an internal drilldown is used by default that supports navigation between the child layers.
 
-:component-example{name="NestedInternal" layout="fullWidth"}
+<<< ./examples/NestedInternal.example.vue preview=true  layout="fullWidth"
 ::
 
 ::step
@@ -60,7 +60,7 @@ External drilldown
 #default
 Additional, the drilldown can be external which displays the nested child layers using multiple flyouts. Please only use a limit amount of layers with the external drilldown since the available screen size can be limited on smaller screens.
 
-:component-example{name="NestedExternal" layout="fullWidth"}
+<<< ./examples/NestedExternal.example.vue preview=true  layout="fullWidth"
 ::
 
 </steps>
@@ -71,7 +71,7 @@ Additional, the drilldown can be external which displays the nested child layers
 
 Use the context area on the right of the nav bar to show global system-related information and interactions such as the user's login or application language. The nav bar also supports a `globalContextArea` which will not be moved to a flyout menu in mobile mode.
 
-:component-example{name="ContextArea" layout="fullWidth"}
+<<< ./examples/ContextArea.example.vue preview=true  layout="fullWidth"
 
 <br />
 
@@ -119,10 +119,10 @@ Pre-built modal to change the color scheme / appearance (light/dark) mode.
 
 An optional back button can be displayed to allow the user to navigate back to the previously opened page.
 
-:component-example{name="BackButton" layout="fullWidth"}
+<<< ./examples/BackButton.example.vue preview=true  layout="fullWidth"
 
 ### Vertical
 
 The nav bar can also be displayed vertically depending on the application layout. It can then be expanded and collapsed. Each nav item **must** define an icon so they can be correctly displayed when collapsed. We strongly recommend to automatically switch to a horizontal nav bar on smaller screens.
 
-:component-example{name="Vertical" layout="fullWidth"}
+<<< ./examples/Vertical.example.vue preview=true  layout="fullWidth"

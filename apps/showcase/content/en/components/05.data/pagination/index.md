@@ -11,13 +11,13 @@ Pagination can be used in cases where a lot of data exists that should not be sh
 
 The pagination supports different display types. The default "select" allows the user to either navigate using a previous/next button or jump to a specific page using a select which can optionally be disabled.
 
-:component-example{name="Select"}
+<<< ./examples/Select.example.vue preview=true 
 
 ### Inline
 
 The inline type is a more classic-style pagination. When using it, keep in mind that the component might not work ideally on small screen sizes.
 
-:component-example{name="Inline"}
+<<< ./examples/Inline.example.vue preview=true 
 
 ### Compact
 
@@ -25,16 +25,16 @@ A compact type of the pagination, ideally for small screen sizes. It supports a 
 
 For all pagination types, you can enable the `autoCompact` property which will automatically switch to the compact type when the available width is smaller than the specified [breakpoint](/introduction/foundation/breakpoints-and-grid#breakpoints).
 
-:component-example{name="Compact"}
+<<< ./examples/Compact.example.vue preview=true 
 
 ### Disabled
 
 The pagination can be disabled to prevent the user to switch to another page. For types that include a page select (such as [select](#select) and [compact](#compact)), the select can be disabled individually if needed using the `disableFlyout` property.
 
-:component-example{name="Disabled"}
+<<< ./examples/Disabled.example.vue preview=true 
 
 ### Skeleton
 
 The skeleton can be used on initial page load when the data for the page / pagination is initially loaded.
 
-:component-example{name="Skeleton"}
+<<< ./examples/Skeleton.example.vue preview=true 
