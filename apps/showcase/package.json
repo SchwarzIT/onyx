@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@octokit/types": "^18.0.0",
+    "nuxt-llms": "^0.2.0",
     "vue-component-meta": "catalog:"
   }
 }
