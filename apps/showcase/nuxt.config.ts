@@ -1,10 +1,16 @@
 import { hash } from "node:crypto";
-import { globSync, readFileSync } from "node:fs";
+import { globSync } from "node:fs";
+import { access, constants, glob, mkdir, readFile, unlink, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Features } from "lightningcss";
 import { addComponent, createResolver } from "nuxt/kit";
 
 const monorepoRoot = fileURLToPath(new URL("../../", import.meta.url));
+
+const CUSTOM_CACHE = fileURLToPath(
+  new URL("./node_modules/.cache/register-components/", import.meta.url),
+);
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -77,13 +83,17 @@ export default defineNuxtConfig({
         const [start, end] = complete || [];
 
         const { resolve } = createResolver(dirname);
-        const componentPath = resolve(path);
-        const sourceCode = readFileSync(componentPath, "utf-8");
+        const filePath = resolve(path);
+        const sourceCode = await readFile(filePath, "utf-8");
         if (parameters.includes("preview=true")) {
-          const exampleComponentName = `Example${hash("sha-1", componentPath)}`;
-          addComponent({ name: exampleComponentName, filePath: componentPath, global: true });
-          console.log("addComponent ==> ", componentPath);
-          parameters.push(`previewComponent=${exampleComponentName}`);
+          const hashValue = hash("sha-1", sourceCode).substring(0, 8);
+          const name = `Example${hashValue}`;
+          await mkdir(CUSTOM_CACHE, { recursive: true });
+          await writeFile(
+            join(CUSTOM_CACHE, `${hashValue}.json`),
+            JSON.stringify({ name, filePath }),
+          );
+          parameters.push(`previewComponent=${name}`);
         }
         const before = newBody.slice(undefined, start);
         const after = newBody.slice(end);
@@ -96,6 +106,25 @@ ${sourceCode}
 ${after}`;
       }
       ctx.file.body = newBody;
+    },
+    async ready() {
+      try {
+        await access(CUSTOM_CACHE, constants.R_OK);
+        const files = glob(join(CUSTOM_CACHE, "*.json"));
+        for await (const file of files) {
+          const raw = await readFile(file, { encoding: "utf-8" });
+          const { filePath, name } = JSON.parse(raw) as { filePath: string; name: string };
+          try {
+            await access(filePath, constants.R_OK);
+            addComponent({ name, filePath, global: true, priority: 1 });
+          } catch (_) {
+            // file path to example doesn't exist? Delete file
+            unlink(file).catch(() => {});
+          }
+        }
+      } catch (_) {
+        // no cache file - nothing to do
+      }
     },
     // see: https://nuxt.com/docs/4.x/getting-started/prerendering#prerenderroutes-nuxt-hook
     async "prerender:routes"(ctx) {
