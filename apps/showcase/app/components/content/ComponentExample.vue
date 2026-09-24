@@ -38,8 +38,6 @@ defineSlots<{ default: unknown }>();
 const activeTab = ref("preview");
 
 const ExampleComponent = computed(() => resolveComponent(props.previewComponent));
-console.log("props.previewComponent ==> ", props.previewComponent);
-console.log("resolveComponent ==> ", ExampleComponent);
 
 const options = ref<ComponentExampleOptions>({});
 
