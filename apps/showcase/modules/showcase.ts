@@ -1,13 +1,8 @@
 import { hash } from "node:crypto";
-import { access, constants, glob, mkdir, readFile, unlink, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { access, constants, readFile, unlink } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { addComponent, defineNuxtModule, createResolver } from "nuxt/kit";
 import { stringSplice } from "../utils/string.js";
-
-const CUSTOM_CACHE = fileURLToPath(
-  new URL("../node_modules/.cache/register-components/", import.meta.url),
-);
 
 /**
  * 1. Each line starting with "<<< "
@@ -18,36 +13,18 @@ const CUSTOM_CACHE = fileURLToPath(
  */
 const INLINE_MATCHER = /^<<< (.+?)$/dgm;
 
-const registerExampleComponentsFromCache = async () => {
+const COLLECTION_DB = fileURLToPath(new URL("../.data/content/contents.sqlite", import.meta.url));
+const deleteCollectionDb = async () => {
   try {
-    // check if file does exist
-    await access(CUSTOM_CACHE, constants.R_OK);
-    const files = glob(join(CUSTOM_CACHE, "*.json"));
-    const promises: Promise<unknown>[] = [];
-
-    for await (const file of files) {
-      promises.push(loadGlobalComponent(file));
-    }
-
-    await Promise.allSettled(promises);
+    await access(COLLECTION_DB, constants.W_OK);
+    await unlink(COLLECTION_DB);
   } catch (_) {
-    // no cache file - nothing to do
+    // ignore
   }
 };
 
-const loadGlobalComponent = async (file: string) => {
-  const raw = await readFile(file, { encoding: "utf-8" });
-  const { filePath, name } = JSON.parse(raw) as { filePath: string; name: string };
-  try {
-    await access(filePath, constants.R_OK);
-    addComponent({ name, filePath, global: true, priority: 1 });
-  } catch (_) {
-    // file path to example doesn't exist? Then delete the cache file
-    unlink(file).catch(() => {});
-  }
-};
+await deleteCollectionDb();
 
-let isReady = false;
 export default defineNuxtModule({
   meta: {
     name: "@sit-onyx/showcase",
@@ -76,6 +53,9 @@ export default defineNuxtModule({
     });
   },
   hooks: {
+    async restart() {
+      await deleteCollectionDb();
+    },
     async "content:file:beforeParse"(ctx) {
       if (ctx.file.extension !== ".md") {
         return;
@@ -85,9 +65,6 @@ export default defineNuxtModule({
       const regExpMatches = ctx.file.body.matchAll(INLINE_MATCHER);
       // We must handle the matches in reverse order, so that replacing content between indices does not invalidate other indices.
       const matches = Array.from(regExpMatches).reverse();
-      // Ensure cache directory exists. With `recursive: true` it doesn't throw if it already exists
-      await mkdir(CUSTOM_CACHE, { recursive: true });
-
       for (const match of matches) {
         const [path, ...parameters] = match[1]?.trim().split(" ") || [];
         if (!path) {
@@ -103,11 +80,7 @@ export default defineNuxtModule({
           if (parameters.includes("preview=true")) {
             const hashValue = hash("sha-1", sourceCode).substring(0, 8);
             const name = `Example${hashValue}`;
-            await writeFile(
-              join(CUSTOM_CACHE, `${hashValue}.json`),
-              JSON.stringify({ name, filePath }),
-            );
-            isReady && addComponent({ name, filePath, global: true, priority: 1 });
+            addComponent({ name, filePath, global: true, priority: 1 });
             parameters.push(`previewComponent=${name}`);
           }
           const fileType = path.split(".").at(-1);
@@ -128,16 +101,6 @@ ${sourceCode}
           );
         }
       }
-    },
-    async ready() {
-      isReady = true;
-      /**
-       * We cannot register the components inside of the "content:file:beforeParse", because that
-       * hook only runs once and when templates are changed. Because we want to register the
-       * components reliably (on every server restart) we need to perform this action in an extra
-       * hook, e.g. "ready".
-       */
-      await registerExampleComponentsFromCache();
     },
   },
 });
