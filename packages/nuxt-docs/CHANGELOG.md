@@ -1,5 +1,12 @@
 # @sit-onyx/nuxt-docs
 
+## 0.7.5
+
+### Patch Changes
+
+- 2ab584e: use Node sqlite to prevent needing better-sqlite3 dependency
+- 468e8c6: fix(css): replace `vh` unit with `dhv` to ensure correct layout for devices with dynamic toolbars such as iPhone or iPad
+
 ## 0.7.4
 
 ### Patch Changes
