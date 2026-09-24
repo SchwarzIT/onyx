@@ -36,7 +36,7 @@
     "@types/jsdom": "^30.0.0",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "^6.0.9",
-    "@vitest/coverage-v8": "^4.1.11",
+    "@vitest/coverage-v8": "^5.0.1",
     "@vitest/eslint-plugin": "^1.6.27",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.9.0",
@@ -63,7 +63,7 @@
     "turbo": "^2.11.2",
     "typescript": "catalog:",
     "typescript-eslint": "^8.70.1",
-    "vitest": "^4.1.11",
+    "vitest": "^5.0.1",
     "vue-tsc": "catalog:"
   },
   "simple-git-hooks": {
