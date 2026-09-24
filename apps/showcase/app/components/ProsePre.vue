@@ -43,7 +43,6 @@ const previewComponent = computed(() =>
     .find((p) => p.startsWith("previewComponent="))
     ?.replace("previewComponent=", ""),
 );
-console.log("previewComponent ==> ", previewComponent);
 </script>
 
 <template>
