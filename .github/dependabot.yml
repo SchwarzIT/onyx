@@ -15,18 +15,17 @@ updates:
         patterns:
           - "@playwright/*"
           - "playwright*"
+        update-types: [patch, minor, major]
 
       typescript:
         patterns:
           - typescript
+        update-types: [patch, minor, major]
 
       minor:
-        update-types:
-          - minor
-          - patch
+        update-types: [patch, minor]
       major:
-        update-types:
-          - major
+        update-types: [major]
 
     ignore:
       # typescript v7.0 doesn't expose an API yet, the API is supposed to be made available with v7.1
@@ -41,6 +40,12 @@ updates:
       - dependency-name: "@storybook/*"
         update-types: [version-update:semver-minor]
       - dependency-name: "eslint-plugin-storybook"
+        update-types: [version-update:semver-minor]
+      # Playwright component tests are deprecated so we ignore Playwright updates until we migrated to prevent version conflicts
+      # see: https://github.com/SchwarzIT/onyx/issues/6195
+      - dependency-name: "@playwright/*"
+        update-types: [version-update:semver-minor]
+      - dependency-name: "playwright*"
         update-types: [version-update:semver-minor]
 
   - package-ecosystem: github-actions
