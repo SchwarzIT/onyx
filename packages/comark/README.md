@@ -57,9 +57,9 @@ This is **markdown** with Comark components.
 
 For more details check the [documentation for the `Markdown` component](https://comark.dev/rendering/vue#markdown).
 
-## `OnyxComarkRenderer`
+## `OnyxMarkdownDocument`
 
-Renders a pre-parsed MarkdownDocument without any parsing. Use it when you parse on the server, in a build step, or via an API, so no parser or plugin code is shipped to the browser.
+Renders a pre-parsed `MarkdownDocument` without any parsing. Use it when you parse on the server, in a build step, or via an API, so no parser or plugin code is shipped to the browser.
 
 ### 1. Parse on the server/buildtime
 
@@ -79,18 +79,20 @@ export async function getContentDocument(slug: string) {
 
 ### 2. Render the parsed tree
 
-```vue
+```html
 <!-- ContentPage.vue -->
 <script setup lang="ts">
-import { OnyxMarkdownDocument } from "@sit-onyx/comark";
+  import { OnyxMarkdownDocument } from "@sit-onyx/comark";
 
-const { slug } = defineProps<{ slug: string }>();
+  const { slug } = defineProps<{ slug: string }>();
 
-const res = await fetch(`/api/content/${slug}`);
-const document = await res.json();
+  const res = await fetch(`/api/content/${slug}`);
+  const document = await res.json();
 </script>
 
 <template>
   <OnyxMarkdownDocument :value="document" />
 </template>
 ```
+
+For more details check the [documentation for the `MarkdownDocument` component](https://comark.dev/rendering/vue#markdowndocument).
