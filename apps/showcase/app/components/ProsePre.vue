@@ -37,16 +37,19 @@ defineSlots<{
   default(): unknown;
 }>();
 
-const previewComponent = computed(() =>
-  props.meta
-    ?.split(" ")
-    .find((p) => p.startsWith("previewComponent="))
-    ?.replace("previewComponent=", ""),
+const metaProps = computed<Record<string, string>>(() => {
+  const parts = props.meta?.split(" ").map((part) => part.split("=")) || [];
+  const cleaned = parts.map(([key, value]) => [key, value?.replaceAll(/^"|"$/g, "")]); // remove leading and trailing quotes from value
+  return Object.fromEntries(cleaned);
+});
+
+const previewComponent = computed(
+  () => "previewComponent" in metaProps.value && metaProps.value.previewComponent,
 );
 </script>
 
 <template>
-  <ComponentExample v-if="previewComponent" :preview-component>
+  <ComponentExample v-if="previewComponent" :preview-component v-bind="metaProps">
     <ProsePre v-bind="props"><slot></slot></ProsePre>
   </ComponentExample>
   <ProsePre v-else v-bind="props"><slot></slot></ProsePre>

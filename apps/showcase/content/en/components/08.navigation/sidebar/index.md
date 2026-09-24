@@ -20,7 +20,7 @@ The sidebar can manually be resized by the user by dragging the border. Double c
 Left
 
 #default
-<<< ./examples/Left.example.vue preview=true  layout="fullWidth"
+<<< ./examples/Left.example.vue preview=true layout="fullWidth"
 ::
 
 ::step
@@ -28,7 +28,7 @@ Left
 Right
 
 #default
-<<< ./examples/Right.example.vue preview=true  layout="fullWidth"
+<<< ./examples/Right.example.vue preview=true layout="fullWidth"
 ::
 
 </steps>
