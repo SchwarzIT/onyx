@@ -41,8 +41,8 @@ updates:
         update-types: [version-update:semver-minor]
       - dependency-name: "eslint-plugin-storybook"
         update-types: [version-update:semver-minor]
-      # Playwright component tests are deprecated so we ignore Playwright updates until
-      # we migrated to prevent version conflicts
+      # Playwright component tests are deprecated so we ignore Playwright updates until we migrated to prevent version conflicts
+      # see: https://github.com/SchwarzIT/onyx/issues/6195
       - dependency-name: "@playwright/*"
         update-types: [version-update:semver-minor]
       - dependency-name: "playwright*"
