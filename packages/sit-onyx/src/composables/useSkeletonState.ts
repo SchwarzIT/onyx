@@ -61,8 +61,9 @@ const createSkeletonInjectionContext =
 
     return computed(() => {
       if (typeof props.skeleton !== "symbol") {
-        return props.skeleton;
+        return props.skeleton === true ? 3 : props.skeleton;
       }
+
       if (props.skeleton !== SKELETON_INJECTED_SYMBOL) {
         userConsole?.warn(
           `skeleton prop is an recognized symbol: %o which is not identical to the symbol %o. This should not happen and is probably a bug in onyx.`,
