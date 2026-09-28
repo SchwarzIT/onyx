@@ -54,6 +54,11 @@ ${sourceCode}
  * Must be called in the
  * [`content:file:beforeParse`](https://content.nuxt.com/docs/advanced/hooks#contentfilebeforeparse)
  * of the nuxt-content module.
+ *
+ * Known limitations:
+ *
+ * - No hot module reloading for inlined files. Changes are only visible after restarting nuxt.
+ * - No support for regions (`file.ts#region`).
  */
 export const inlineCodeExamples = async (
   ctx: FileBeforeParseHook,
