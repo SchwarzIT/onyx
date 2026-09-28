@@ -28,6 +28,7 @@ export default defineNuxtModule({
   meta: {
     name: "@sit-onyx/showcase",
   },
+
   defaults: {},
   setup() {
     const globalComponents = ["OnyxTag", "OnyxHeadline"];
