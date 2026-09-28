@@ -2,21 +2,15 @@ import { hash } from "node:crypto";
 import { access, constants, glob, mkdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { addComponent, defineNuxtModule, createResolver } from "nuxt/kit";
-import { stringSplice } from "../utils/string.js";
+import { addComponent, defineNuxtModule } from "nuxt/kit";
+import { inlineCodeExamples } from "./utils/inline-code-examples.js";
 
+export const VUE_EXAMPLES_RENDER_PROP_NAME = "preview";
+export const VUE_EXAMPLES_RENDER_COMPONENT_PROP = "previewComponent";
 const CUSTOM_CACHE = fileURLToPath(
   new URL("../node_modules/.cache/register-components/", import.meta.url),
 );
 
-/**
- * 1. Each line starting with "<<< "
- * 2. Put everything until the next linebreak into a group.
- * 3. g=global, m=each line, d=enable indices
- *
- * . . . . . . . . . . | 1. | 2. | 3. |
- */
-const INLINE_MATCHER = /^<<< (.+?)$/dgm;
 
 const registerExampleComponentsFromCache = async () => {
   try {
@@ -43,7 +37,7 @@ const loadGlobalComponent = async (file: string) => {
     addComponent({ name, filePath, global: true, priority: 1 });
   } catch (_) {
     // file path to example doesn't exist? Then delete the cache file
-    unlink(file).catch(() => {});
+    unlink(file).catch(() => { });
   }
 };
 
@@ -52,6 +46,7 @@ export default defineNuxtModule({
   meta: {
     name: "@sit-onyx/showcase",
   },
+
   defaults: {},
   setup() {
     const globalComponents = ["OnyxTag", "OnyxHeadline"];
@@ -77,30 +72,12 @@ export default defineNuxtModule({
   },
   hooks: {
     async "content:file:beforeParse"(ctx) {
-      if (ctx.file.extension !== ".md") {
-        return;
-      }
-
-      const { dirname = "." } = ctx.file;
-      const regExpMatches = ctx.file.body.matchAll(INLINE_MATCHER);
-      // We must handle the matches in reverse order, so that replacing content between indices does not invalidate other indices.
-      const matches = Array.from(regExpMatches).reverse();
       // Ensure cache directory exists. With `recursive: true` it doesn't throw if it already exists
       await mkdir(CUSTOM_CACHE, { recursive: true });
-
-      for (const match of matches) {
-        const [path, ...parameters] = match[1]?.trim().split(" ") || [];
-        if (!path) {
-          continue;
-        }
-        const [complete] = match.indices || [];
-        const [start, end] = complete || [];
-
-        try {
-          const { resolve } = createResolver(dirname);
-          const filePath = resolve(path);
-          const sourceCode = await readFile(filePath, "utf-8");
-          if (parameters.includes("preview=true")) {
+      await inlineCodeExamples(ctx, {
+        vue: async ({ filePath, fileName, fileType, parameters, getFileContent }) => {
+          const sourceCode = await getFileContent();
+          if (parameters.includes(`${VUE_EXAMPLES_RENDER_PROP_NAME}=true`)) {
             const hashValue = hash("sha-1", sourceCode).substring(0, 8);
             const name = `Example${hashValue}`;
             await writeFile(
@@ -108,26 +85,15 @@ export default defineNuxtModule({
               JSON.stringify({ name, filePath }),
             );
             isReady && addComponent({ name, filePath, global: true, priority: 1 });
-            parameters.push(`previewComponent=${name}`);
+            parameters.push(`${VUE_EXAMPLES_RENDER_COMPONENT_PROP}=${name}`);
           }
-          const fileType = path.split(".").at(-1);
-          const fileName = path.split("/").at(-1);
-          const codeblock = `
+          return `
 \`\`\`${fileType} [${fileName}] ${parameters.join(" ")}
 ${sourceCode}
 \`\`\`
 `;
-          ctx.file.body = stringSplice(ctx.file.body, start!, end!, codeblock);
-        } catch (error) {
-          // eslint-disable-next-line no-console -- We need to inform the developer here:
-          console.warn(
-            "Unable to inline component example in file '",
-            ctx.file.id,
-            "' because of\n",
-            error,
-          );
-        }
-      }
+        },
+      });
     },
     async ready() {
       isReady = true;
