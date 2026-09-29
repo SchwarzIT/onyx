@@ -17,7 +17,7 @@
       "getStarted": "Get started",
       "browseComponents": "Browse components",
       "logoAlt": "Onyx Application Design System",
-      "current": "Current: v{version}",
+      "current": "Current",
       "builtOn": "Built with {vue}",
       "brand": "Official brand of {schwarzDigits}"
     }
@@ -110,7 +110,7 @@
   "checkOut": "Check out",
   "team": {
     "headline": "The Team",
-    "description": "onyx is maintained by a dedicated team at Schwarz Digits, focused on designing and implementing new components and processes for a seamless user experience. We place a strong emphasis on ARIA patterns and accessibility to ensure our solutions are inclusive and usable for everyone."
+    "description": "Powered by a dedicated team at Schwarz Digits, Onyx delivers seamless components and processes tailored to your users. We prioritize top-tier accessibility and ARIA standards, ensuring you receive fully inclusive solutions that work brilliantly for every user."
   },
   "contributors": {
     "headline": "The Supporters",
