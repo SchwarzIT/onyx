@@ -36,29 +36,29 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
           </p>
 
           <div class="components">
-            <div class="onyx-grid">
-              <div class="components__flex onyx-grid-span-full">
-                <OnyxCheckbox hide-label value="example-value" />
-                <OnyxRadioButton hide-label value="example-value" />
-                <OnyxTag label="Tag" color="primary" />
-                <OnyxTag label="Tag" color="neutral" />
-                <OnyxBadge color="neutral">Badge</OnyxBadge>
-                <OnyxBadge color="danger">Badge</OnyxBadge>
+            <div class="components__content">
+              <div class="onyx-grid">
+                <div class="components__flex onyx-grid-span-full">
+                  <OnyxCheckbox label="Checkbox" value="example-value" model-value hide-label />
+                  <OnyxSwitch :label="{ label: 'Switch', hidden: true }" />
+                  <OnyxTag label="Tag" color="primary" />
+                  <OnyxBadge color="danger">Badge</OnyxBadge>
+                </div>
+
+                <OnyxSplitButton
+                  class="onyx-grid-span-2 onyx-grid-xs-span-4"
+                  label="Button"
+                  mode="outline"
+                >
+                  <template #options>
+                    <OnyxMenuItem label="Action 1" />
+                  </template>
+                </OnyxSplitButton>
+
+                <OnyxButton class="onyx-grid-span-2 onyx-grid-xs-span-4" label="Button" />
+
+                <OnyxUnstableSearch class="onyx-grid-span-full" placeholder="Search..." />
               </div>
-
-              <OnyxSplitButton
-                class="onyx-grid-span-2 onyx-grid-xs-span-4"
-                label="Outline"
-                mode="outline"
-              >
-                <template #options>
-                  <OnyxMenuItem label="Action 1" />
-                </template>
-              </OnyxSplitButton>
-
-              <OnyxButton class="onyx-grid-span-2 onyx-grid-xs-span-4" label="Primary" />
-
-              <OnyxUnstableSearch class="onyx-grid-span-full" placeholder="Search..." />
             </div>
           </div>
         </LandingCard>
@@ -104,19 +104,29 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
 }
 
 .components {
-  container-type: inline-size;
   pointer-events: none;
   margin-top: var(--onyx-density-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__content {
+    max-width: 32rem;
+    container-type: inline-size;
+    width: 100%;
+  }
 
   :deep(.onyx-button) {
     width: 100%;
+    overflow: hidden;
   }
 
   &__flex {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--onyx-density-xs);
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: var(--onyx-density-2xs) var(--onyx-grid-gutter);
   }
 }
 </style>
