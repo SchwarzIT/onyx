@@ -26,7 +26,10 @@ import { version as onyxVersion } from "sit-onyx/package.json";
           </div>
 
           <div class="hero__meta">
-            <span>{{ $t("app.hero.current", { version: onyxVersion }) }}</span>
+            <span>
+              {{ $t("app.hero.current") }}:
+              <OnyxLink href="/introduction/getting-started/changelog">v{{ onyxVersion }}</OnyxLink>
+            </span>
             <span>·</span>
 
             <i18n-t keypath="app.hero.builtOn" scope="global" tag="span">

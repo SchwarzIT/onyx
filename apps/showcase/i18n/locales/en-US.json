@@ -17,7 +17,7 @@
       "getStarted": "Get started",
       "browseComponents": "Browse components",
       "logoAlt": "Onyx Application Design System",
-      "current": "Current: v{version}",
+      "current": "Current",
       "builtOn": "Built with {vue}",
       "brand": "Official brand of {schwarzDigits}"
     }
