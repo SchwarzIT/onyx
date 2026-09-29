@@ -66,6 +66,7 @@ const { formElementV2Props: legacyFormElementProps } = useLegacyFormElementProps
 const formElementV2Props = computed(() => {
   return {
     ...legacyFormElementProps.value,
+    id: props.id,
     loading: false, // hide FormElementV2 loading indicator because we use a custom one for the switch
     label: normalizedLabel.value,
   };
