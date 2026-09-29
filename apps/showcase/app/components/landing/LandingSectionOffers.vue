@@ -38,6 +38,8 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
           <div class="components">
             <div class="onyx-grid">
               <div class="components__flex onyx-grid-span-full">
+                <OnyxCheckbox hide-label value="example-value" />
+                <OnyxRadioButton hide-label value="example-value" />
                 <OnyxTag label="Tag" color="primary" />
                 <OnyxTag label="Tag" color="neutral" />
                 <OnyxBadge color="neutral">Badge</OnyxBadge>
