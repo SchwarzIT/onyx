@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
-  modules: ["nuxt-auth-utils", "@vueuse/nuxt", "nuxt-llms"],
+  modules: ["nuxt-auth-utils", "@vueuse/nuxt"],
   css: ["@sit-onyx/tiptap/style.css"],
   app: {
     head: {
@@ -25,11 +25,6 @@ export default defineNuxtConfig({
       // use native Node sqlite so we don't need "better-sqlite3" dependency
       sqliteConnector: "native",
     },
-  },
-  llms: {
-    domain: "https://your-site.com",
-    title: "Your Site Name",
-    description: "A brief description of your site",
   },
   vite: {
     css: {
