@@ -34,6 +34,7 @@
     "browserslist": "^4.29.0",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.30",
+    "nuxt-llms": "^0.2.0",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-i18n": "^11.4.12",
