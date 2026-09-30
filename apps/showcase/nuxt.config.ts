@@ -40,9 +40,7 @@ export default defineNuxtConfig({
     },
   },
   llms: {
-    domain: "https://your-site.com",
-    title: "Your Site Name",
-    description: "A brief description of your site",
+    domain: "https://onyx-showcase-dev.apps.01.cf.eu01.stackit.cloud",
   },
   vite: {
     css: {
