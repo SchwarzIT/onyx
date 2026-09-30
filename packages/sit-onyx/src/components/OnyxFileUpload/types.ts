@@ -9,6 +9,7 @@ export type OnyxFileUploadProps<TMultiple extends boolean> = DensityProp &
   Partial<
     Pick<
       OnyxFormElementV2Props,
+      | "id"
       | "label"
       | "required"
       | "showError"

@@ -7,8 +7,8 @@ import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import OnyxCheckboxGroup from "../OnyxCheckboxGroup/OnyxCheckboxGroup.vue";
 import OnyxDatePicker from "../OnyxDatePicker/OnyxDatePicker.vue";
 import OnyxDatePickerV2 from "../OnyxDatePickerV2/OnyxDatePickerV2.vue";
+import OnyxFileUpload from "../OnyxFileUpload/OnyxFileUpload.vue";
 import OnyxInput from "../OnyxInput/OnyxInput.vue";
-import OnyxRadioButton from "../OnyxRadioButton/OnyxRadioButton.vue";
 import OnyxRadioGroup from "../OnyxRadioGroup/OnyxRadioGroup.vue";
 import OnyxSelect from "../OnyxSelect/OnyxSelect.vue";
 import type { SelectOption } from "../OnyxSelect/types.js";
@@ -64,6 +64,7 @@ const ALL_FORM_ELEMENTS = {
   OnyxButton: inferProps(OnyxButton, { label: "OnyxButton" }, (page) =>
     page.getByText("OnyxButton", { exact: true }),
   ),
+  OnyxFileUpload: inferProps(OnyxFileUpload, { label: "OnyxFileUpload" }),
 };
 
 const expectForAll = async (
@@ -88,6 +89,7 @@ const FORM_ELEMENTS_WITH_MESSAGE_AREA = {
   OnyxDatePickerV2: ALL_FORM_ELEMENTS["OnyxDatePickerV2"],
   OnyxTimePicker: ALL_FORM_ELEMENTS["OnyxTimePicker"],
   OnyxTextarea: ALL_FORM_ELEMENTS["OnyxTextarea"],
+  OnyxFileUpload: ALL_FORM_ELEMENTS["OnyxFileUpload"],
 };
 
 test("OnyxForm should inject show-error state", async ({ mount, page }) => {
@@ -173,28 +175,67 @@ test("OnyxForm should inject reservedMessage", async ({ mount, page }) => {
   await expect(page.locator(".onyx-form")).toHaveScreenshot("form-default.png");
 });
 
-test("FormElementTestWrapper", async ({ mount, page }) => {
-  const allFormComponents = Object.entries({
-    OnyxInput,
-    OnyxStepper,
-    OnyxTextarea,
-    OnyxCheckbox,
-    OnyxRadioButton,
-    OnyxSwitch,
-    OnyxSelect,
+test.describe("Form Element functionality", () => {
+  test("Ensure form element is focusable via exposed API", async ({ mount, page }) => {
+    const excludeList = new Set<string>([
+      "OnyxSlider",
+      "OnyxRadioGroup",
+      "OnyxCheckboxGroup",
+      "OnyxButton",
+      "OnyxFileUpload",
+    ] satisfies (keyof typeof ALL_FORM_ELEMENTS)[]);
+
+    const allFormComponents = Object.entries(ALL_FORM_ELEMENTS).filter(
+      ([name]) => !excludeList.has(name),
+    );
+
+    // ARRANGE
+    const jsx = allFormComponents.map(([name, { component, props }]) => (
+      <FormElementTestWrapper key={name} name={name} is={component} props={props} />
+    ));
+
+    await mount(<div>{jsx}</div>);
+
+    for (const [name] of allFormComponents) {
+      await page
+        .getByRole("button", {
+          name: `form-element-test-wrapper-focus-button-${name}`,
+          exact: true,
+        })
+        .click();
+      await expect(
+        page.getByLabel(`form-element-test-wrapper-label-${name}`, { exact: true }),
+      ).toBeFocused();
+    }
   });
 
-  // ARRANGE
-  const jsx = allFormComponents.map(([name, c]) => (
-    <FormElementTestWrapper name={name} is={c}></FormElementTestWrapper>
-  ));
+  test("Ensure id is applied to form element", async ({ mount, page }) => {
+    const excludeList = new Set<string>([
+      "OnyxRadioGroup",
+      "OnyxCheckboxGroup",
+    ] satisfies (keyof typeof ALL_FORM_ELEMENTS)[]);
 
-  await mount(<div>{jsx}</div>);
+    const allFormComponents = Object.entries(ALL_FORM_ELEMENTS).filter(
+      ([name]) => !excludeList.has(name),
+    );
 
-  for (const [name] of allFormComponents) {
-    await page
-      .getByRole("button", { name: `form-element-test-wrapper-focus-button-${name}` })
-      .click();
-    await expect(page.getByLabel(`form-element-test-wrapper-label-${name}`)).toBeFocused();
-  }
+    const getId = (name: string) => `form-element-${name}`;
+
+    // ARRANGE
+    const jsx = allFormComponents.map(([name, { component, props }]) => (
+      <FormElementTestWrapper
+        key={name}
+        name={name}
+        is={component}
+        props={{ ...props, id: getId(name) }}
+      />
+    ));
+
+    await mount(<div>{jsx}</div>);
+
+    for (const [name] of allFormComponents) {
+      const input = page.locator(`#${getId(name)}`);
+      await expect(input).toBeAttached();
+    }
+  });
 });
