@@ -7,7 +7,7 @@ Headlines organize and structure content, guiding the user through different sec
 For all information about our typography system, please refer to:
 
 <div class="onyx-grid">
-<link-card class="onyx-grid-span-4" headline="Typography documentation" link="/introduction/foundation/typography#usage"></link-card>
+<link-card class="onyx-grid-span-4" headline="Typography documentation" link="/docs/foundation/typography#usage"></link-card>
 </div>
 
 ## Examples

@@ -8,7 +8,7 @@ Image components are essential elements in web design, serving multiple purposes
 For general recommendations on how to use images, please refer to our:
 
 <div class="onyx-grid">
-<link-card class="onyx-grid-span-4" headline="Image foundations" link="/introduction/foundation/images"></link-card>
+<link-card class="onyx-grid-span-4" headline="Image foundations" link="/docs/foundation/images"></link-card>
 </div>
 
 ## Examples

@@ -25,8 +25,8 @@ const appName = computed(() => (route.path === "/" ? "" : t("documentation")));
 <template>
   <NavBar :logo-url :app-name>
     <OnyxNavItem
-      :label="$t('introduction')"
-      v-bind="getLinkProps('/introduction/getting-started/installation')"
+      :label="$t('documentation')"
+      v-bind="getLinkProps('/docs/getting-started/installation')"
     />
     <OnyxNavItem :label="$t('components.component', 2)" v-bind="getLinkProps('/components')" />
 

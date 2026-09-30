@@ -15,7 +15,7 @@ A basic info card includes a headline and description text but can also only con
 
 ### Colors
 
-Different colors are supported depending on the semantical meaning of the information. See our [color documentation](/introduction/foundation/colors#colors) for when to use which color.
+Different colors are supported depending on the semantical meaning of the information. See our [color documentation](/docs/foundation/colors#colors) for when to use which color.
 
 :component-example{name="Colors" layout="grow" orientation="vertical"}
 

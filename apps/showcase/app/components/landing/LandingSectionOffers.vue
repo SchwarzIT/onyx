@@ -15,7 +15,7 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
           </p>
         </div>
 
-        <LandingCard link="/introduction/foundation/colors">
+        <LandingCard link="/docs/foundation/colors">
           <OnyxHeadline is="h3" show-as="h2">Open Source to code. Built to last.</OnyxHeadline>
 
           <p class="onyx-text--default">
@@ -67,7 +67,7 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
 
       <!-- Column 3 -->
       <div :class="['offers__column', gridClass]">
-        <LandingCard link="/introduction/getting-started/first-steps/">
+        <LandingCard link="/docs/getting-started/first-steps/">
           <OnyxHeadline is="h3" show-as="h2">On brand. Seamlessly adaptive.</OnyxHeadline>
 
           <p class="onyx-text--default">
