@@ -106,8 +106,12 @@ const { vCustomValidity, errorMessages } = useFormElementError({
 
 const formElementV2Props = useForwardProps(props, OnyxFormElementV2);
 
-const label = props.label ?? { label: t.value("fileUpload.clickToUpload"), hidden: true };
-const error = props.error ?? customMessageToFormElementV2Message(errorMessages.value);
+const label = computed(
+  () => props.label ?? { label: t.value("fileUpload.clickToUpload"), hidden: true },
+);
+const error = computed(
+  () => props.error ?? customMessageToFormElementV2Message(errorMessages.value),
+);
 
 const hideFiles = ref(false);
 
