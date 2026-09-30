@@ -8,6 +8,11 @@ export const VUE_EXAMPLES_RENDER_PROP_NAME = "preview";
 export const VUE_EXAMPLES_RENDER_COMPONENT_PROP = "previewComponent";
 
 const COLLECTION_DB = fileURLToPath(new URL("../.data/content/contents.sqlite", import.meta.url));
+
+/**
+ * Delete collection db on server start and restart, otherwise "content:file:beforeParse" hook won't
+ * be called again and we are unable to register the vue components.
+ */
 const deleteCollectionDb = async () => {
   try {
     await access(COLLECTION_DB, constants.W_OK);
