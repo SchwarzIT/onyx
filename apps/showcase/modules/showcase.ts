@@ -28,11 +28,14 @@ export default defineNuxtModule({
   meta: {
     name: "@sit-onyx/showcase",
   },
-
   defaults: {},
   setup() {
     const globalComponents = ["OnyxTag", "OnyxHeadline"];
 
+    /**
+     * This component acts as proxy for the default `ProsePre` component. If a previewComponent is
+     * defined it renders the example code with a preview using the `ComponentExample` component.
+     */
     addComponent({
       filePath: "../app/components/",
       name: "ProsePre",
