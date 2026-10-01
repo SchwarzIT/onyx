@@ -18,25 +18,25 @@ The calendar is display-only by default. Custom content can be added to specific
 
 The calendar uses the current language of the application to automatically adapt weekdays, months and more.
 
-:component-example{name="Basic" layout="grow" style="--preview-max-width: 44rem"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow" style="--preview-max-width: 44rem"
 
 ### Single select
 
 Allows the user to select a single date.
 
-:component-example{name="Single" layout="grow"}
+<<< ./examples/Single.example.vue preview=true  layout="grow"
 
 ### Multiselect
 
 Allows the user to select multiple dates.
 
-:component-example{name="Multiple" layout="grow"}
+<<< ./examples/Multiple.example.vue preview=true  layout="grow"
 
 ### Range select
 
 Allows the user to select a range with a start and end date. If calendar weeks are enabled, the user can click a specific calendar week to automatically select the whole week.
 
-:component-example{name="Range" layout="grow"}
+<<< ./examples/Range.example.vue preview=true  layout="grow"
 
 ### Min, max and disabled dates
 
@@ -44,10 +44,10 @@ Specific dates can be disabled by defining a minimum or maximum date where all d
 
 In the example below, only the past and upcoming 7 days are selectable except Wednesdays.
 
-:component-example{name="MinMax" layout="grow"}
+<<< ./examples/MinMax.example.vue preview=true  layout="grow"
 
 ### Skeleton
 
 The skeleton can be used on initial page load when the data for the page / calendar is initially loaded.
 
-:component-example{name="Skeleton" layout="grow"}
+<<< ./examples/Skeleton.example.vue preview=true  layout="grow"

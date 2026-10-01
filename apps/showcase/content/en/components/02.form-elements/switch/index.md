@@ -11,27 +11,27 @@ Switches are a common UI element used to control binary states, such as on/off, 
 
 The switch can be used with or without a visual label.
 
-:component-example{name="Basic"}
+<<< ./examples/Basic.example.vue preview=true 
 
 ### Loading & Skeleton
 
 The loading state is used after a user interaction to indicate that the triggered action is currently loading / in progress. On the other hand, the skeleton should be used on initial page load when the data for the page / switch is initially loaded.
 
-:component-example{name="Loading"}
+<<< ./examples/Loading.example.vue preview=true 
 
 ### Message
 
 An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
 When multiple message types are defined at once, only the most relevant will be displayed (e.g. error message takes precedent over the regular message).
 
-:component-example{name="Message" layout="grow" orientation="vertical"}
+<<< ./examples/Message.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Disabled
 
 The switch can be disabled to indicate that its action is currently not available and the switch can not be toggled.
 For an improved user experience, it should be clear to the user _why_ the switch is disabled.
 
-:component-example{name="Disabled"}
+<<< ./examples/Disabled.example.vue preview=true 
 
 ### Label positions
 
