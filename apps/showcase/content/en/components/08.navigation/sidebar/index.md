@@ -49,7 +49,7 @@ To display hierarchical data, use a [tree view](/components/navigation/tree-view
 
 ### Grid
 
-The sidebar also supports using our grid system to easy build responsive layouts. For further information, please refer to our [grid documentation](/introduction/foundation/breakpoints-and-grid).
+The sidebar also supports using our grid system to easy build responsive layouts. For further information, please refer to our [grid documentation](/docs/foundation/breakpoints-and-grid).
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Resize the sidebar by dragging the border to see the grid in action.</p>
 

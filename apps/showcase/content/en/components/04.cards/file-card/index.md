@@ -22,7 +22,7 @@ Custom actions can be provided to support additional functionality like deleting
 ### Status
 
 Multiple status can be used to represent states like uploaded, error, warning etc. A optional progress bar can be shown.
-See our [color documentation](/introduction/foundation/colors#colors) for when to use which color.
+See our [color documentation](/docs/foundation/colors#colors) for when to use which color.
 
 :component-example{name="Status" layout="grow" orientation="vertical"}
 

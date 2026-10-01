@@ -21,7 +21,7 @@ To ensure a consistent look and usage across multiple pages and applications, th
 
 ### Colors
 
-Several colors are available to emphasize the icon's meaning. See our [color documentation](/introduction/foundation/colors#colors) for more information. If no color is set explicitly (default), the icon will use the current text color defined by the parent element.
+Several colors are available to emphasize the icon's meaning. See our [color documentation](/docs/foundation/colors#colors) for more information. If no color is set explicitly (default), the icon will use the current text color defined by the parent element.
 
 :component-example{name="Colors" layout="fullWidth"}
 

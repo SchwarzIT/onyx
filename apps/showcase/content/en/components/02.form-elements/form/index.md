@@ -23,7 +23,7 @@ Using reset buttons is not recommended. Please refer to the [MDN documentation](
 
 ## Examples
 
-In the following examples, we are using our [grid system](/introduction/foundation/breakpoints-and-grid) to easily apply responsive layouts.
+In the following examples, we are using our [grid system](/docs/foundation/breakpoints-and-grid) to easily apply responsive layouts.
 
 ### Basic
 

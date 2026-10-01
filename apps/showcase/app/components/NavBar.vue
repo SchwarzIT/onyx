@@ -5,7 +5,6 @@ import NavBar from "#layers/onyx/app/components/NavBar.vue";
 import iconGitHub from "~/assets/images/social/github.svg?raw";
 
 const localePath = useLocalePath();
-const { t } = useI18n();
 const route = useRoute();
 
 const getLinkProps = computed(() => {
@@ -18,19 +17,15 @@ const getLinkProps = computed(() => {
     } satisfies Partial<OnyxNavItemProps>;
   };
 });
-
-const appName = computed(() => (route.path === "/" ? "" : t("documentation")));
 </script>
 
 <template>
-  <NavBar :logo-url :app-name>
+  <NavBar :logo-url app-name="">
     <OnyxNavItem
-      :label="$t('introduction')"
-      v-bind="getLinkProps('/introduction/getting-started/installation')"
+      :label="$t('documentation')"
+      v-bind="getLinkProps('/docs/getting-started/installation')"
     />
     <OnyxNavItem :label="$t('components.component', 2)" v-bind="getLinkProps('/components')" />
-    <OnyxNavItem :label="$t('resources')" v-bind="getLinkProps('/resources')" />
-    <OnyxNavItem :label="$t('support')" v-bind="getLinkProps('/support')" />
 
     <template #globalContextArea>
       <GlobalSearch />

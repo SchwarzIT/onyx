@@ -16,7 +16,7 @@ import { version as onyxVersion } from "sit-onyx/package.json";
             <OnyxButton
               :label="$t('app.hero.getStarted')"
               color="primary"
-              link="/introduction/getting-started/installation"
+              link="/docs/getting-started/installation"
             />
             <OnyxButton
               :label="$t('app.hero.browseComponents')"
@@ -28,7 +28,7 @@ import { version as onyxVersion } from "sit-onyx/package.json";
           <div class="hero__meta">
             <span>
               {{ $t("app.hero.current") }}:
-              <OnyxLink href="/introduction/getting-started/changelog">v{{ onyxVersion }}</OnyxLink>
+              <OnyxLink href="/docs/getting-started/changelog">v{{ onyxVersion }}</OnyxLink>
             </span>
             <span>·</span>
 

@@ -23,7 +23,7 @@ The inline type is a more classic-style pagination. When using it, keep in mind 
 
 A compact type of the pagination, ideally for small screen sizes. It supports a previous/next button and page select which can optionally be disabled.
 
-For all pagination types, you can enable the `autoCompact` property which will automatically switch to the compact type when the available width is smaller than the specified [breakpoint](/introduction/foundation/breakpoints-and-grid#breakpoints).
+For all pagination types, you can enable the `autoCompact` property which will automatically switch to the compact type when the available width is smaller than the specified [breakpoint](/docs/foundation/breakpoints-and-grid#breakpoints).
 
 :component-example{name="Compact"}
 

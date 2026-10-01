@@ -1,8 +1,5 @@
 {
   "cssVariable": "CSS variable",
-  "introduction": "Introduction",
-  "resources": "Resources",
-  "support": "Support",
   "videoNotSupportedByBrowser": "Your browser does not support playing videos.",
   "auth": {
     "login": "Log in",

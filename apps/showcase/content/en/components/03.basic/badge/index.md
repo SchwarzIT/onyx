@@ -15,7 +15,7 @@ The badge can be display with any text, number or icon. The optional `dot` mode 
 
 ### Colors
 
-Several colors are supported to highlight the semantic meaning of the related data. See our [color documentation](/introduction/foundation/colors#colors) for more information.
+Several colors are supported to highlight the semantic meaning of the related data. See our [color documentation](/docs/foundation/colors#colors) for more information.
 
 :component-example{name="Colors" layout="fullWidth"}
 

@@ -13,7 +13,7 @@ const route = useRoute();
 const primaryLinks = computed(() => [
   {
     label: t("footer.navigation.getStarted"),
-    href: "/introduction/getting-started/installation",
+    href: "/docs/getting-started/installation",
   },
   { label: t("footer.navigation.components"), href: "/components" },
   {
@@ -21,8 +21,8 @@ const primaryLinks = computed(() => [
     href: loggedIn.value ? "https://demo-internal.onyx.schwarz" : "https://demo.onyx.schwarz",
   },
   { label: t("footer.navigation.playground"), href: "https://playground.onyx.schwarz" },
-  { label: t("footer.navigation.colorsAndThemes"), href: "/introduction/foundation/colors" },
-  { label: t("footer.navigation.changelog"), href: "/introduction/getting-started/changelog" },
+  { label: t("footer.navigation.colorsAndThemes"), href: "/docs/foundation/colors" },
+  { label: t("footer.navigation.changelog"), href: "/docs/getting-started/changelog" },
 ]);
 
 const legalLinks = computed(() => [
