@@ -16,11 +16,12 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
         </div>
 
         <LandingCard link="/introduction/foundation/colors">
-          <OnyxHeadline is="h3" show-as="h2">On brand. Seamlessly adaptive.</OnyxHeadline>
+          <OnyxHeadline is="h3" show-as="h2">Open Source to code. Built to last.</OnyxHeadline>
 
           <p class="onyx-text--default">
-            Transform your digital products across the Schwarz Group with custom-tailored,
-            brand-certified UIs that look stunning and perform effortlessly in any mode.
+            Open source belongs to everyone — anyone can review, adapt, and improve it. But
+            long-term quality isn't free. Continuous development and maintenance require resources
+            that internal Schwarz Group projects should support.
           </p>
         </LandingCard>
       </div>
@@ -67,11 +68,11 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
       <!-- Column 3 -->
       <div :class="['offers__column', gridClass]">
         <LandingCard link="/introduction/getting-started/first-steps/">
-          <OnyxHeadline is="h3" show-as="h2">Design to Code. Perfectly connected.</OnyxHeadline>
+          <OnyxHeadline is="h3" show-as="h2">On brand. Seamlessly adaptive.</OnyxHeadline>
 
           <p class="onyx-text--default">
-            Supercharge your workflow with Onyx—the ultimate developer experience powered by full
-            TypeScript precision and a bridge from Figma design to production code.
+            Transform your digital products across the Schwarz Group with custom-tailored,
+            brand-certified UIs that look stunning and perform effortlessly in any mode.
           </p>
         </LandingCard>
 
