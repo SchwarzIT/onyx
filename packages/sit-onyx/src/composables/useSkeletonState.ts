@@ -7,14 +7,14 @@ const SKELETON_INJECTION_KEY = Symbol() as InjectionKey<
 
 /**
  * Prop on the parent component.
- * It's value is provided, so that it can be used in child components.
+ * Its value is provided so that it can be used in child components.
  */
 export type SkeletonProvidedProp = {
   /**
    * Whether to show all supported child components as skeleton.
    * Can be overridden on each child component if necessary.
    */
-  skeleton: boolean;
+  skeleton?: boolean;
 };
 
 /**
@@ -49,27 +49,51 @@ export type SKELETON_INJECTED = symbol; // we can't use `typeof SKELETON_INJECTE
 
 export type SkeletonInjected = symbol | boolean | number;
 
+type SkeletonInjectionContext = (props: Reactive<LocalProps>) => ComputedRef<boolean | number>;
+
 const createSkeletonInjectionContext =
-  (parentElementProps?: SkeletonProvidedProp) =>
-  (props: Reactive<LocalProps>): ComputedRef<boolean | number> =>
-    computed(() => {
+  (
+    parentElementProps?: Reactive<SkeletonProvidedProp>,
+    parentContext?: SkeletonInjectionContext,
+  ): SkeletonInjectionContext =>
+  (props: Reactive<LocalProps>): ComputedRef<boolean | number> => {
+    const parentSkeleton = parentContext?.(props);
+
+    return computed(() => {
       if (typeof props.skeleton !== "symbol") {
-        return props.skeleton;
+        return props.skeleton === true ? 3 : props.skeleton;
       }
-      if (props.skeleton === SKELETON_INJECTED_SYMBOL) {
-        return parentElementProps?.skeleton === true ? 3 : false;
+
+      if (props.skeleton !== SKELETON_INJECTED_SYMBOL) {
+        userConsole?.warn(
+          `skeleton prop is an recognized symbol: %o which is not identical to the symbol %o. This should not happen and is probably a bug in onyx.`,
+          props.skeleton,
+          SKELETON_INJECTED_SYMBOL,
+        );
+        return false;
       }
-      userConsole?.warn(
-        `skeleton prop is an recognized symbol: %o which is not identical to the symbol %o. This should not happen and is probably a bug in onyx.`,
-        props.skeleton,
-        SKELETON_INJECTED_SYMBOL,
-      );
+
+      if (parentElementProps?.skeleton !== undefined) {
+        return parentElementProps.skeleton === true ? 3 : false;
+      }
+
+      if (parentSkeleton) {
+        return parentSkeleton.value;
+      }
       return false;
     });
+  };
 
-export const provideSkeletonContext = (
-  parentElementProps: Reactive<SkeletonProvidedProp> | undefined,
-) => provide(SKELETON_INJECTION_KEY, createSkeletonInjectionContext(parentElementProps));
+/**
+ * Provides skeleton context to child components. Automatically captures and chains
+ * any existing outer skeleton context (e.g., OnyxPageLayout -> OnyxForm).
+ */
+export const provideSkeletonContext = (parentElementProps?: Reactive<SkeletonProvidedProp>) => {
+  const parentContext = inject(SKELETON_INJECTION_KEY, undefined);
+  const context = createSkeletonInjectionContext(parentElementProps, parentContext);
+  provide(SKELETON_INJECTION_KEY, context);
+  return context;
+};
 
 const DEFAULT_SKELETON_INJECTION_CONTEXT = createSkeletonInjectionContext();
 /**

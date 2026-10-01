@@ -8,6 +8,7 @@ const props = withDefaults(defineProps<OnyxFormProps>(), {
   disabled: false,
   showError: "touched",
   reserveMessageSpace: false,
+  skeleton: undefined,
 });
 
 defineSlots<{

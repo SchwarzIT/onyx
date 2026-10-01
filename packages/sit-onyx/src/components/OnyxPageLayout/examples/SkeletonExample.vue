@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import {
   OnyxButton,
+  OnyxForm,
   OnyxInput,
   OnyxPageLayout,
   OnyxRadioGroup,
@@ -22,7 +23,7 @@ const radioOptions: RadioButtonOption[] = [
 
 <template>
   <OnyxPageLayout skeleton>
-    <form class="form" @submit.prevent="handleSubmit">
+    <OnyxForm class="form" @submit.prevent="handleSubmit">
       <OnyxInput label="Favorite band" />
 
       <OnyxInput label="Favorite password" type="password" />
@@ -34,7 +35,7 @@ const radioOptions: RadioButtonOption[] = [
         <OnyxButton label="Reset" mode="outline" type="reset" />
         <OnyxButton label="Submit" type="submit" />
       </div>
-    </form>
+    </OnyxForm>
   </OnyxPageLayout>
 </template>
 
