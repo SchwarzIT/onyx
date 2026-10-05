@@ -34,7 +34,12 @@ const props = withDefaults(
   },
 );
 
-defineSlots<{ default: unknown }>();
+defineSlots<{
+  /**
+   * Code snippet of the component.
+   */
+  default(): unknown;
+}>();
 
 const activeTab = ref("preview");
 
