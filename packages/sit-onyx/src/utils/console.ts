@@ -1,7 +1,7 @@
 /**
  * If the user environment is "development".
  */
-export const USER_DEV = process.env.NODE_ENV === "development" || import.meta.env.DEV;
+export const USER_DEV = process.env.NODE_ENV === "development";
 /**
  * Conditional, tree-shakable logging, which is only done in the users "development" environment.
  *
