@@ -12,7 +12,7 @@ Since cards a very flexible and generic components, the content highly depends o
 
 ### Basic
 
-:component-example{name="Basic" layout="grow"}
+<<< ./examples/Basic.example.vue preview=true  layout="grow"
 
 ### Clickable
 
@@ -27,7 +27,7 @@ Button
 #default
 Set the `clickable` property to use a button card that can be clicked to perform any custom action.
 
-:component-example{name="Clickable" layout="grow"}
+<<< ./examples/Clickable.example.vue preview=true  layout="grow"
 ::
 
 ::step
@@ -37,7 +37,7 @@ Link
 #default
 Alternatively, use the `link` property to add a link to another page.
 
-:component-example{name="Link" layout="grow"}
+<<< ./examples/Link.example.vue preview=true  layout="grow"
 ::
 
 </steps>
@@ -48,16 +48,16 @@ Clickable cards must **NOT** contain any interactive elements inside the content
 
 An image-based card to represent information with additional data such as image, category, tags etc.
 
-:component-example{name="Image" layout="grow"}
+<<< ./examples/Image.example.vue preview=true  layout="grow"
 
 ### Details card
 
 A details card can be used to represent and focus on data-heavy use cases.
 
-:component-example{name="Details" layout="grow"}
+<<< ./examples/Details.example.vue preview=true  layout="grow"
 
 ### KPI card
 
 KPI cards can be used to prominently display specific import values.
 
-:component-example{name="KPI" layout="grow"}
+<<< ./examples/KPI.example.vue preview=true  layout="grow"
