@@ -1,16 +1,24 @@
 <script setup lang="ts">
 import type { Collections } from "@nuxt/content";
+import type { NuxtLayouts } from "#app";
 
-definePageMeta({ layout: "sidebar" });
+definePageMeta({ layout: false });
 
 const { locale } = useI18n();
 
 const { data } = await useCollection({
   collection: computed(() => `content_${locale.value}` as keyof Collections),
 });
+
+const layout = computed<keyof NuxtLayouts>(() => {
+  const layout = data.value?.meta.layout;
+  if (layout && typeof layout === "string") return layout as keyof NuxtLayouts;
+  return "sidebar";
+});
 </script>
 
-<!-- eslint-disable-next-line vue/no-root-v-if  -- The "useCollection" will already redirect to the error page when the data is undefined but the data might still be undefined while e.g. switching to another page -->
 <template>
-  <ContentRenderer v-if="data" :value="data" />
+  <NuxtLayout :name="layout">
+    <ContentRenderer v-if="data" :value="data" />
+  </NuxtLayout>
 </template>

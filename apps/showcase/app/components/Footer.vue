@@ -26,9 +26,7 @@ const primaryLinks = computed(() => [
 ]);
 
 const legalLinks = computed(() => [
-  { label: t("footer.navigation.termsOfUse"), href: "#" },
-  { label: t("footer.navigation.privacyPolicy"), href: "#" },
-  { label: t("footer.navigation.imprint"), href: "#" },
+  { label: t("footer.navigation.compliance"), href: "/compliance" },
 ]);
 
 const socialLinks = [
@@ -97,7 +95,7 @@ const copyright = computed(() => t("footer.copyright", { year: new Date().getFul
           </OnyxRouterLink>
         </div>
 
-        <nav :aria-label="t('footer.navigation.termsOfUse')" class="footer__nav footer__nav--legal">
+        <nav :aria-label="t('footer.navigation.label')" class="footer__nav footer__nav--legal">
           <OnyxLink
             v-for="link in legalLinks"
             :key="link.label"
