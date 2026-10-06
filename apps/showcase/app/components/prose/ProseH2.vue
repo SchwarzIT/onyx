@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { OnyxHeadline } from "sit-onyx";
-import { defineProps, defineSlots } from "vue";
 
 const props = defineProps<{
   id?: string;
