@@ -124,9 +124,8 @@
       "playground": "Playground",
       "changelog": "Changelog",
       "colorsAndThemes": "Colors & Themes",
-      "termsOfUse": "Terms of use",
-      "privacyPolicy": "Privacy policy",
-      "imprint": "Imprint"
+      "compliance": "Compliance",
+      "label": "Legal links"
     }
   },
   "documentation": "Documentation"

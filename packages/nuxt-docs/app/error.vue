@@ -27,26 +27,29 @@ const _clearError = () => clearError({ redirect: localePath("/") });
 
 <template>
   <App>
-    <div class="error">
-      <OnyxErrorSVG class="error__image" />
+    <!-- error.vue does only support layouts using "NuxtLayout", see: https://nuxt.com/docs/4.x/directory-structure/app/error -->
+    <NuxtLayout name="sidebar">
+      <div class="error">
+        <OnyxErrorSVG class="error__image" />
 
-      <div class="error__headline">
-        <OnyxHeadline is="h1">{{ props.error.message }}</OnyxHeadline>
+        <div class="error__headline">
+          <OnyxHeadline is="h1">{{ props.error.message }}</OnyxHeadline>
 
-        <slot name="actions" :clear-error="_clearError">
-          <OnyxButton label="Back to home" @click="_clearError" />
+          <slot name="actions" :clear-error="_clearError">
+            <OnyxButton label="Back to home" @click="_clearError" />
+          </slot>
+        </div>
+
+        <slot name="details">
+          <OnyxAccordion>
+            <OnyxAccordionItem value="details">
+              <template #header>Technical error details</template>
+              <pre class="error__details">{{ JSON.stringify(props.error, null, 2) }}</pre>
+            </OnyxAccordionItem>
+          </OnyxAccordion>
         </slot>
       </div>
-
-      <slot name="details">
-        <OnyxAccordion>
-          <OnyxAccordionItem value="details">
-            <template #header>Technical error details</template>
-            <pre class="error__details">{{ JSON.stringify(props.error, null, 2) }}</pre>
-          </OnyxAccordionItem>
-        </OnyxAccordion>
-      </slot>
-    </div>
+    </NuxtLayout>
   </App>
 </template>
 
