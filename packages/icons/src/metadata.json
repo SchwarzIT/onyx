@@ -51,6 +51,10 @@
     "category": "People & Users",
     "aliases": ["clapping", "cheer", "Beifall", "Applaus"]
   },
+  "apple": {
+    "category": "Kitchen & Food",
+    "aliases": ["apple | obst | frisch | fresh | healthy |gesund | apfel |food | essen"]
+  },
   "apple-phone": {
     "category": "Devices & Electronics",
     "aliases": ["iOS", "Apple-Telefon", "mobile-device", "Handy", "Telefon", "Endgerät", "iphone"]
@@ -956,6 +960,10 @@
   "dremio": {
     "category": "Software & Services",
     "aliases": []
+  },
+  "drill": {
+    "category": "Objects",
+    "aliases": ["bohrmaschine | tool | drill | work"]
   },
   "driver": {
     "category": "Transport & Travel",
