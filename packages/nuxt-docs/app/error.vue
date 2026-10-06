@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, defineSlots } from "vue";
 import type { NuxtError } from "#app";
 import App from "./app.vue";
 
