@@ -1,6 +1,5 @@
 import { onMounted, watch, type Ref } from "vue";
 import type { Nullable } from "../types/utils.js";
-import { userConsole } from "../utils/console.js";
 
 const anyInputFocused = () => {
   if (!document.activeElement) {
@@ -35,13 +34,7 @@ export const useAutofocus = (
     }
 
     if (anyInputFocused()) {
-      return userConsole?.warn(
-        "Did not perform autofocus on Element ",
-        elem.value,
-        ". Because the ",
-        document.activeElement,
-        " is already focused!",
-      );
+      return;
     }
 
     if (elem.value && "checkVisibility" in elem.value) {
@@ -52,11 +45,7 @@ export const useAutofocus = (
       });
 
       if (!isVisible) {
-        return userConsole?.warn(
-          "Did not perform autofocus on Element ",
-          elem.value,
-          ". The element is not visible!",
-        );
+        return;
       }
     }
 
