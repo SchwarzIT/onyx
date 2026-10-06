@@ -1,8 +1,5 @@
 {
   "cssVariable": "CSS variable",
-  "introduction": "Introduction",
-  "resources": "Resources",
-  "support": "Support",
   "videoNotSupportedByBrowser": "Your browser does not support playing videos.",
   "auth": {
     "login": "Log in",
@@ -13,8 +10,13 @@
   },
   "app": {
     "hero": {
-      "headline": "Welcome to {onyx}.\nA design system for\nenterprise applications.",
-      "description": "A design system and Vue.js component library created by Schwarz Digits IT."
+      "tagline": "The stable and flexible application design system for brands of the Schwarz group.",
+      "getStarted": "Get started",
+      "browseComponents": "Browse components",
+      "logoAlt": "Onyx Application Design System",
+      "current": "Current",
+      "builtOn": "Built with {vue}",
+      "brand": "Official brand of {schwarzDigits}"
     }
   },
   "components": {
@@ -101,5 +103,31 @@
       }
     }
   },
-  "copiedToClipboard": "Copied to clipboard!"
+  "copiedToClipboard": "Copied to clipboard!",
+  "checkOut": "Check out",
+  "team": {
+    "headline": "The Team",
+    "description": "Powered by a dedicated team at Schwarz Digits, Onyx delivers seamless components and processes tailored to your users. We prioritize top-tier accessibility and ARIA standards, ensuring you receive fully inclusive solutions that work brilliantly for every user."
+  },
+  "contributors": {
+    "headline": "The Supporters",
+    "error": "Error while loading contributors",
+    "anonymous": "Anonymous"
+  },
+  "footer": {
+    "openSource": "Open Source project of",
+    "copyright": "© {year} Schwarz Digits IT",
+    "navigation": {
+      "getStarted": "Get started",
+      "components": "Components",
+      "demo": "Demo",
+      "playground": "Playground",
+      "changelog": "Changelog",
+      "colorsAndThemes": "Colors & Themes",
+      "termsOfUse": "Terms of use",
+      "privacyPolicy": "Privacy policy",
+      "imprint": "Imprint"
+    }
+  },
+  "documentation": "Documentation"
 }

@@ -104,13 +104,13 @@ const { vCustomValidity, errorMessages } = useFormElementError({
   error: requiredError,
 });
 
-const formElementV2Props = useForwardProps(
-  computed(() => ({
-    ...props,
-    label: props.label ?? { label: t.value("fileUpload.clickToUpload"), hidden: true },
-    error: props.error ?? customMessageToFormElementV2Message(errorMessages.value),
-  })),
-  OnyxFormElementV2,
+const formElementV2Props = useForwardProps(props, OnyxFormElementV2);
+
+const label = computed(
+  () => props.label ?? { label: t.value("fileUpload.clickToUpload"), hidden: true },
+);
+const error = computed(
+  () => props.error ?? customMessageToFormElementV2Message(errorMessages.value),
 );
 
 const hideFiles = ref(false);
@@ -238,11 +238,10 @@ const shouldShowFileList = computed(() => {
 
 <template>
   <OnyxFormElementV2
-    v-bind="
-      mergeVueProps(formElementV2Props, rootAttrs, {
-        class: ['onyx-file-upload-wrapper', `onyx-file-upload-wrapper--${props.size}`],
-      })
-    "
+    v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
+    :class="['onyx-file-upload-wrapper', `onyx-file-upload-wrapper--${props.size}`]"
+    :label
+    :error
     unstyled
   >
     <template #default="inputProps">
@@ -335,6 +334,7 @@ const shouldShowFileList = computed(() => {
             :accept="props.accept?.length ? props.accept.join(',') : undefined"
             :multiple="props.multiple"
             :name="props.name"
+            :disabled="disabled"
             @change="handleChange"
           />
         </OnyxVisuallyHidden>

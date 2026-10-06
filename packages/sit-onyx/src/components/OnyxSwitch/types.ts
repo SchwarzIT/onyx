@@ -2,12 +2,12 @@ import type { BaseSelectOption, Nullable, SelectOptionValue } from "../../types/
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
 import type { OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 
-export type OnyxSwitchProps<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
-  BaseSelectOption<TValue>,
-  "value" | "label"
+export type OnyxSwitchProps<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
+  OnyxFormElementV2Props,
+  "id" | "label"
 > &
-  Pick<SharedFormElementProps, "message" | "success"> &
-  Pick<OnyxFormElementV2Props, "label"> & {
+  Omit<BaseSelectOption<TValue>, "value" | "label"> &
+  Pick<SharedFormElementProps, "message" | "success"> & {
     /**
      * Whether the switch should be checked or not.
      */

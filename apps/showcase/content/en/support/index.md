@@ -1,4 +1,0 @@
----
-title: Support
-navigation: false
----

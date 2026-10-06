@@ -12,7 +12,7 @@ import "./expandableRows.scss";
 import type { UseExpandableRowsOptions } from "./types.js";
 
 const EXPANDABLE_ROWS_FEATURE_NAME = Symbol("ExpandableRows");
-const BUTTON_COLUMN_KEY = Symbol("ExpandButtonKey");
+export const BUTTON_COLUMN_KEY = Symbol("ExpandButtonKey");
 const BUTTON_COLUMN_TYPE = Symbol("ExpandButtonType");
 const DETAILS_COLUMN_TYPE = Symbol("ExpandDetailsType");
 

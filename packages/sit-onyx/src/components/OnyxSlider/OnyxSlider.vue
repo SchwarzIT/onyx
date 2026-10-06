@@ -162,7 +162,7 @@ const { rootAttrs, restAttrs } = useRootAttrs();
 </script>
 
 <template>
-  <OnyxFormElementV2 v-bind="mergeVueProps(formElementV2Props, rootAttrs)" unstyled>
+  <OnyxFormElementV2 v-bind="mergeVueProps(formElementV2Props, rootAttrs)" :id="props.id" unstyled>
     <template #default="inputProps">
       <div :class="['onyx-slider', 'onyx-slider__container']">
         <!-- left controls -->

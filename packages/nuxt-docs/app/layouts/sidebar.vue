@@ -21,9 +21,13 @@ const slots = defineSlots<{
    */
   hero?(): unknown;
   /**
-   * Page footer content.
+   * (Fixed) footer content.
    */
   footer?(): unknown;
+  /**
+   * Page footer content that is placed below the page content.
+   */
+  pageFooter?(): unknown;
   /**
    * Optional right sidebar.
    */
@@ -93,6 +97,8 @@ const toc = computed(() => collection.value?.body.toc?.links ?? []);
     <TableOfContentsLayout class="onyx-grid-layout" :toc>
       <slot></slot>
     </TableOfContentsLayout>
+
+    <slot name="pageFooter"></slot>
 
     <template v-if="!!slots.footer" #footer>
       <slot name="footer"></slot>

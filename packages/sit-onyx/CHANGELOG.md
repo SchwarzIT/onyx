@@ -1,5 +1,31 @@
 # sit-onyx
 
+## 1.21.0
+
+### Minor Changes
+
+- db3a4fe: feat: expose `applyArrayOrder` utility that can e.g. be useful to apply data grid rearrange rows/columns state
+- 71864ef: feat: update update border colors
+
+  All border colors have been changed slightly. If you are using any Schwarz internal theme, make sure to also update it:
+
+  ```sh
+  pnpm update "@onyx-internal/*"
+  ```
+
+- d2c3e81: feat(OnyxNavButton): automatically toggle label visibility based on vertical nav bar expanded state if used inside it.
+- d6db6ed: feat(OnyxDataGrid): support headless mode for row and column rearrange feature
+
+### Patch Changes
+
+- cfa13d4: fix(OnyxAccordionItem): fix page scroll locking issue when containing scrollable or interactive content by using clip-path for toggle animations.
+- 458aa92: fix(DataGridFeatures.useStickyColumns): Fixed issue, where headers of sticky columns disappeared when scrolled vertically
+- 2e61a9c: fix(OnyxColorSchemeMenuItem): changed color of current value to improve readability
+- 0b33de7: fix(OnyxSwitch): Fixed issue where playwright refused to check/click switch because of a failing actionability check
+- 5445651: feat(OnyxDataGrid:RowClick): Prevent `rowClick` feature from being triggered when interacting with `expandableRows`, `selection` and `rearrange` feature columns.
+- 9ca2ff3: fix(OnyxFileUpload): prevent upload being invalid even when files are selected
+- 468e8c6: fix(css): replace `vh` unit with `dhv` to ensure correct layout for devices with dynamic toolbars such as iPhone or iPad
+
 ## 1.20.0
 
 ### Minor Changes

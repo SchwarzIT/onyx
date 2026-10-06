@@ -10,6 +10,10 @@ const props = defineProps<{
    * Which component to wrap
    */
   is: Component;
+  /**
+   * Passthrough props
+   */
+  props: object;
 }>();
 
 const formElement = useTemplateRef<{ input: { focus: () => void } }>("formElement");
@@ -21,10 +25,9 @@ const formElement = useTemplateRef<{ input: { focus: () => void } }>("formElemen
     form-element-test-wrapper-focus-button-{{ props.name }}
   </button>
   <component
-    :is="props.is"
+    v-bind="props.props"
+    :is
     ref="formElement"
     :label="`form-element-test-wrapper-label-${props.name}`"
-    :options="[]"
-    :model-value="0"
   />
 </template>
