@@ -1,0 +1,25 @@
+<script lang="ts" setup>
+import { OnyxHeadline } from "sit-onyx";
+import { defineProps, defineSlots } from "vue";
+
+const props = defineProps<{
+  id?: string;
+}>();
+
+defineSlots<{
+  default(): unknown;
+}>();
+</script>
+
+<template>
+  <OnyxHeadline is="h4" show-as="h3" :hash="props.id">
+    <slot />
+  </OnyxHeadline>
+</template>
+
+<style lang="scss" scoped>
+.onyx-headline {
+  margin-top: var(--onyx-density-lg);
+  margin-bottom: var(--onyx-density-3xs);
+}
+</style>

@@ -20,6 +20,17 @@ export default defineNuxtConfig({
     defaultLocale: "en",
     locales: [{ code: "en", language: "en-US", file: "en-US.json", name: "English" }],
   },
+  components: [
+    {
+      path: "~/components",
+    },
+    {
+      path: "~/components/prose",
+      global: true,
+      pathPrefix: false,
+      priority: 2, // needed to override default prose components
+    },
+  ],
   content: {
     experimental: {
       // use native Node sqlite so we don't need "better-sqlite3" dependency
