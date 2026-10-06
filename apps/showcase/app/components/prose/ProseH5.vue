@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { OnyxHeadline } from "sit-onyx";
-
 const props = defineProps<{
   id?: string;
 }>();
