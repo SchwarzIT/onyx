@@ -21,4 +21,5 @@ export { default as ProseTbody } from "./components/prose/ProseTbody.vue";
 export { default as ProseThead } from "./components/prose/ProseThead.vue";
 export { default as ProseUl } from "./components/prose/ProseUl.vue";
 
-export { OnyxMarkdown, OnyxMarkdownDocument } from "./components/comark.js";
+export * from "./components/markdown.js";
+export * from "./components/markdown-document.js";

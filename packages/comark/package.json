@@ -24,7 +24,8 @@
       "node": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./component-meta.json": "./dist/component-meta.json"
   },
   "scripts": {
     "build": "vite build",
@@ -36,6 +37,7 @@
     "@playwright/test": "catalog:",
     "@sit-onyx/playwright-utils": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
+    "@sit-onyx/vite-plugin-component-meta": "workspace:^",
     "@vue/compiler-dom": "catalog:",
     "sit-onyx": "workspace:^",
     "unplugin-dts": "catalog:",

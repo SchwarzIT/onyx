@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
   modules: ["nuxt-auth-utils", "@vueuse/nuxt"],
-  css: ["@sit-onyx/tiptap/style.css"],
+  css: ["@sit-onyx/tiptap/style.css", "@sit-onyx/comark/style.css"],
   app: {
     head: {
       link: [{ rel: "icon", href: "/favicon.svg" }],

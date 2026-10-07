@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { MarkdownProps } from "@comark/vue";
-import { OnyxMarkdown } from "../index.js";
+import { OnyxMarkdown } from "./markdown.js";
 
 const props = defineProps<MarkdownProps>();
 </script>

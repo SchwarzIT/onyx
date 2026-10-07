@@ -486,6 +486,9 @@ importers:
       '@sit-onyx/assets':
         specifier: workspace:^
         version: link:../../packages/assets
+      '@sit-onyx/comark':
+        specifier: workspace:^
+        version: link:../../packages/comark
       '@sit-onyx/flags':
         specifier: workspace:^
         version: link:../../packages/flags
@@ -597,6 +600,9 @@ importers:
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared
+      '@sit-onyx/vite-plugin-component-meta':
+        specifier: workspace:^
+        version: link:../vite-plugin-component-meta
       '@vue/compiler-dom':
         specifier: 3.5.43
         version: 3.5.43
