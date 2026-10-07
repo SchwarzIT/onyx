@@ -17,12 +17,9 @@ const handleSubmit = () => {
 <template>
   <OnyxAppLayout>
     <OnyxPageLayout skeleton>
-      <div class="onyx-grid">
-        <div class="headline">
-          <OnyxHeadline is="h1" class="onyx-grid-span-full" :skeleton="false">
-            Example headline
-          </OnyxHeadline>
-
+      <div class="page__content">
+        <div class="page__headline">
+          <OnyxHeadline is="h1" :skeleton="false"> Example headline </OnyxHeadline>
           <OnyxButton label="Button" />
         </div>
 
@@ -36,11 +33,19 @@ const handleSubmit = () => {
 </template>
 
 <style lang="scss" scoped>
-.headline {
-  display: flex;
-  align-items: center;
-  gap: var(--onyx-density-md);
-  justify-content: space-between;
-  flex-wrap: wrap;
+.page {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--onyx-density-2xl);
+  }
+
+  &__headline {
+    display: flex;
+    align-items: center;
+    gap: var(--onyx-density-md);
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 }
 </style>
