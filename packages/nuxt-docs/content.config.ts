@@ -1,5 +1,5 @@
 import path from "node:path";
-import { defineCollection, defineContentConfig } from "@nuxt/content";
+import { defineCollection, defineContentConfig, z } from "@nuxt/content";
 
 export default defineContentConfig({
   collections: {
@@ -11,6 +11,9 @@ export default defineContentConfig({
         // include files from playground (mainly needed for this monorepo)
         { cwd: path.resolve("playground/content"), include: "en/**", prefix: "/" },
       ],
+      schema: z.object({
+        layout: z.string().optional(),
+      }),
     }),
   },
 });
