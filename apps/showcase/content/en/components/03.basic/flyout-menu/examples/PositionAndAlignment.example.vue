@@ -7,7 +7,6 @@ const handleClick = () => {
 </script>
 
 <template>
-  <!-- "open" is only used for this example so the flyout is always opened -->
   <OnyxFlyoutMenu label="Actions" position="right" alignment="center">
     <template #options>
       <OnyxMenuItem label="Item 1" @click="handleClick" />

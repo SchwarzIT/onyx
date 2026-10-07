@@ -4,7 +4,7 @@ title: Notifications
 
 Notifications are used to display (temporary) messages to the user. They are commonly used to build a [notification center](/components/notifications/notification-center).
 
-We recommend to not display at most 5 notifications at the same time to improve user experience.
+We recommend to display at most 5 notifications at the same time to improve user experience.
 
 ## Prerequisites
 
@@ -33,4 +33,4 @@ import { OnyxNotifications } from "sit-onyx";
 
 Use the `useNotification()` composable to show a new notification from anywhere in your application. The notification will close automatically after a certain time by default but you can adjust the time via the `duration` option. Set it to `0` to permanently show the notification and require the user to manually close it if needed.
 
-<<< ./examples/Basic.example.vue preview=true 
+<<< ./examples/Basic.example.vue preview=true
