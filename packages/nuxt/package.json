@@ -36,17 +36,17 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^3.4.2",
-    "@nuxt/kit": "^4.5.2",
+    "@nuxt/kit": "^4.6.0",
     "@nuxt/module-builder": "^1.0.3",
-    "@nuxt/schema": "^4.5.2",
-    "@nuxt/test-utils": "^4.3.2",
+    "@nuxt/schema": "^4.6.0",
+    "@nuxt/test-utils": "^4.3.3",
     "@nuxtjs/i18n": "^10.6.0",
     "@sit-onyx/shared": "workspace:^",
     "nuxt": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
     "unbuild": "^3.6.1",
-    "vue-i18n": "^11.4.12"
+    "vue-i18n": "^11.4.13"
   },
   "peerDependencies": {
     "sit-onyx": "workspace:^"
