@@ -12,4 +12,4 @@ Relates to #
 - [ ] If a new component is added, at least one [Playwright screenshot test](https://github.com/SchwarzIT/onyx/actions/workflows/playwright-screenshots.yml) or functional test is added
 - [ ] A changeset is added with `pnpm exec changeset add` if your changes should be released as npm package (because they affect the library usage)
 - [ ] I have performed a self review of my code ("Files changed" tab in the pull request)
-- [ ] All relevant changes are documented in the documentation app (folder `apps/docs`) if needed
+- [ ] All relevant changes are documented in the documentation app (folder `apps/showcase`) if needed
