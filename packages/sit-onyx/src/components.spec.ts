@@ -1,6 +1,6 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
 import { mount } from "@vue/test-utils";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { createSSRApp, h, type Component, type VNode } from "vue";
 import type { ComponentProps } from "vue-component-type-helpers";
 import { renderToString } from "vue/server-renderer";
@@ -352,10 +352,6 @@ const COMPONENTS: Components = {
 };
 
 describe("components", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
   test.each(
     Object.entries(COMPONENTS).map(([name, options]) => ({
       name: name as keyof typeof COMPONENTS,

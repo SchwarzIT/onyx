@@ -1,6 +1,6 @@
 import { exec } from "node:child_process";
 import writeChangeset from "@changesets/write";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { generateChangeset } from "./generate-changeset.js";
 
 vi.mock("node:child_process");
@@ -22,10 +22,6 @@ const mockExec = (output: string[]) => {
 };
 
 describe("generate-changeset.ts", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
   test("should generate changeset based on changed files", async () => {
     // ARRANGE
     const writeChangesetSpy = vi.mocked(writeChangeset);

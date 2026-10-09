@@ -17,7 +17,6 @@ describe("import-variables.ts", () => {
   } satisfies ImportVariablesCommandOptions;
 
   beforeEach(() => {
-    vi.clearAllMocks();
     vi.spyOn(console, "log").mockImplementation(() => ({}));
     vi.spyOn(process, "cwd").mockReturnValue("test-cwd");
   });

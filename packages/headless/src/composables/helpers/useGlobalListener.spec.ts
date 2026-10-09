@@ -24,7 +24,6 @@ describe("useGlobalEventListener", () => {
   let target: Ref<HTMLButtonElement>;
 
   beforeEach(() => {
-    vi.clearAllMocks();
     callbacks.onBeforeUnmountedCb = null;
     callbacks.onUnmountedCb = null;
     target = ref(document.createElement("button"));

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
 import { useOutsideClick } from "./useOutsideClick.js";
 
@@ -11,10 +11,6 @@ vi.mock("vue", async (original) => ({
 }));
 
 describe("useOutsideClick", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
   test("should be defined", () => {
     expect(useOutsideClick).toBeDefined();
   });
