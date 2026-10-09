@@ -12,7 +12,7 @@ const { data, error } = await useCollection({
 
 watch(
   error,
-  async () => {
+  () => {
     if (error.value) showError(error.value);
   },
   { immediate: true },

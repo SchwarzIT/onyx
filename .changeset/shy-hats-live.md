@@ -21,7 +21,7 @@ const { data, error } = await useCollection({ collection: "content_en" });
 
 watch(
   error,
-  async () => {
+  () => {
     if (error.value) showError(error.value);
   },
   { immediate: true },
