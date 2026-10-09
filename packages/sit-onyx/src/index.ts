@@ -138,6 +138,15 @@ export { default as OnyxListItem } from "./components/OnyxListItem/OnyxListItem.
 export { default as OnyxLoadingIndicator } from "./components/OnyxLoadingIndicator/OnyxLoadingIndicator.vue";
 export * from "./components/OnyxLoadingIndicator/types.js";
 
+export { default as OnyxMillerColumn } from "./components/OnyxMillerColumn/OnyxMillerColumn.vue";
+export * from "./components/OnyxMillerColumn/types.js";
+
+export { default as OnyxMillerItem } from "./components/OnyxMillerColumn/modules/OnyxMillerItem/OnyxMillerItem.vue";
+export * from "./components/OnyxMillerColumn/modules/OnyxMillerItem/types.js";
+
+export { default as OnyxMillerPane } from "./components/OnyxMillerColumn/modules/OnyxMillerPane/OnyxMillerPane.vue";
+export * from "./components/OnyxMillerColumn/modules/OnyxMillerPane/types.js";
+
 export { default as OnyxMiniSearch } from "./components/OnyxMiniSearch/OnyxMiniSearch.vue";
 export * from "./components/OnyxMiniSearch/types.js";
 
