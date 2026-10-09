@@ -1,4 +1,5 @@
-import { globSync } from "node:fs";
+import { globSync, readFileSync } from "node:fs";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Features } from "lightningcss";
 
@@ -50,8 +51,9 @@ export default defineNuxtConfig({
       },
     },
   },
-  alias: {
-    "#root": monorepoRoot,
+  runtimeConfig: {
+    // inline the monorepo `.browserslistrc` content at build time so its available in the Nitro server
+    browserslistrc: readFileSync(path.join(monorepoRoot, ".browserslistrc"), "utf-8"),
   },
   imports: {
     transform: {

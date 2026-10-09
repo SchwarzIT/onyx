@@ -59,6 +59,7 @@ const slots = defineSlots<{
     flex-direction: column;
     gap: var(--onyx-density-2xs);
     flex-grow: 1;
+    min-width: 0;
   }
 
   &__headline {
