@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconArrowSmallRight } from "@sit-onyx/icons";
-import type { SharedLinkProps } from "#root/packages/sit-onyx/dist";
+import type { SharedLinkProps } from "sit-onyx";
 
 const props = defineProps<{
   link?: string | SharedLinkProps;
