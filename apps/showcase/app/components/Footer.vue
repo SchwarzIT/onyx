@@ -7,8 +7,8 @@ import linkedinIcon from "~/assets/images/social/linkedin.svg?raw";
 import youtubeIcon from "~/assets/images/social/youtube.svg?raw";
 
 const { t } = useI18n();
-const { loggedIn } = useUserSession();
 const route = useRoute();
+const { demoAppLink } = useDemoApp();
 
 const primaryLinks = computed(() => [
   {
@@ -18,7 +18,7 @@ const primaryLinks = computed(() => [
   { label: t("footer.navigation.components"), href: "/components" },
   {
     label: t("footer.navigation.demo"),
-    href: loggedIn.value ? "https://demo-internal.onyx.schwarz" : "https://demo.onyx.schwarz",
+    href: demoAppLink.value,
   },
   { label: t("footer.navigation.playground"), href: "https://playground.onyx.schwarz" },
   { label: t("footer.navigation.colorsAndThemes"), href: "/docs/foundation/colors" },
