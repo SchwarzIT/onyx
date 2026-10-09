@@ -6,8 +6,8 @@ const props = defineProps<{
 </script>
 
 <template>
-  <section class="hero onyx-grid-layout">
-    <div class="hero__content">
+  <section class="hero">
+    <div class="hero__content onyx-grid-layout">
       <OnyxHeadline is="h1" class="hero__headline">{{ props.headline }}</OnyxHeadline>
 
       <p v-if="props.description" class="hero__description">
@@ -24,12 +24,12 @@ const props = defineProps<{
   --hero-headline-size: clamp(2rem, 4cqw, 3rem);
   background-color: var(--onyx-color-base-background-blank);
   border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-  padding-block: var(--onyx-density-2xl);
 
   &__content {
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-md);
+    padding-block: var(--onyx-density-2xl);
   }
 
   &__headline {
