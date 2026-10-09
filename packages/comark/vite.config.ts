@@ -30,7 +30,7 @@ export default defineConfig({
     vue(),
     extractComponentMeta({
       tsconfigPath: getFilePath("tsconfig.app.json"),
-      include: /\.vue|markdown(-document)?.ts$/,
+      include: /(\.vue|markdown\.ts|markdown-document\.ts)$/,
     }),
   ],
   build: {
