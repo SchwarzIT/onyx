@@ -30,6 +30,10 @@ const props = defineProps<{
     flex-direction: column;
     gap: var(--onyx-density-md);
     padding-block: var(--onyx-density-2xl);
+
+    @include breakpoints.container(max, sm) {
+      padding-block: var(--onyx-density-xl);
+    }
   }
 
   &__headline {
