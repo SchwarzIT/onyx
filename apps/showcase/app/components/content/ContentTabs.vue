@@ -2,6 +2,7 @@
 import { createTabs } from "@sit-onyx/headless";
 import { iconCode, iconToolColorFill } from "@sit-onyx/icons";
 import type { SelectOption } from "sit-onyx";
+import { defineSlots } from "vue";
 import figmaIcon from "~/assets/images/figma.svg?raw";
 import nuxtIcon from "~/assets/images/nuxt.svg?raw";
 import vueIcon from "~/assets/images/vue.svg?raw";
@@ -49,7 +50,7 @@ const { elements } = createTabs({
         v-bind="elements.tab.value({ value: option.value })"
       >
         <OnyxIcon v-if="option.icon" :icon="option.icon" class="tab__icon" />
-        {{ option.label }}
+        <span class="onyx-truncation-ellipsis">{{ option.label }}</span>
       </OnyxCard>
     </div>
 
