@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProsePre } from "@sit-onyx/mdc";
+import { ProsePre } from "@sit-onyx/comark";
 
 const props = withDefaults(
   defineProps<{

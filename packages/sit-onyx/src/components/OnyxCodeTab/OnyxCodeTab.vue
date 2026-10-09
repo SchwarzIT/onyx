@@ -120,6 +120,7 @@ const disabled = computed(() => {
 
     &__language {
       user-select: none;
+      flex-shrink: 0;
     }
 
     &__code-wrapper {
