@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { createComboBox } from "@sit-onyx/headless";
 import { iconSearch } from "@sit-onyx/icons";
-import { computed, provide, ref, useTemplateRef } from "vue";
+import { computed, provide, ref, useTemplateRef, type ComponentInstance } from "vue";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import { useForwardProps } from "../../utils/props.js";
@@ -61,7 +61,7 @@ const searchTerm = useVModel({
   default: "",
 });
 
-const dialog = useTemplateRef("dialog");
+const dialog = useTemplateRef<ComponentInstance<typeof OnyxBasicDialog>>("dialog");
 const dialogElement = computed(() => dialog.value?.dialog);
 const hasContent = () => !!slots.default || !!slots.endOfList || !!slots.leading;
 

@@ -9,7 +9,7 @@ export default {};
 
 <script lang="ts" setup>
 import { iconFilter, iconSearch } from "@sit-onyx/icons";
-import { computed, useTemplateRef } from "vue";
+import { computed, useTemplateRef, type ComponentInstance } from "vue";
 import { _unstableUseShortcut } from "../../composables/useShortcut.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
@@ -64,7 +64,7 @@ const inputProps = useForwardProps(props, OnyxInput);
 const { disabled } = useFormContext(props);
 const { t } = injectI18n();
 
-const inputComponent = useTemplateRef("inputComponentRef");
+const inputComponent = useTemplateRef<ComponentInstance<typeof OnyxInput>>("inputComponentRef");
 const input = computed(() => inputComponent.value?.input);
 
 const slots = defineSlots<{
