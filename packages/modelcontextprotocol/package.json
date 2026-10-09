@@ -29,11 +29,11 @@
     "build": "vite build --ssr"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.0"
+    "@modelcontextprotocol/sdk": "^1.32.1"
   },
   "devDependencies": {
     "@adobe/css-tools": "^4.5.0",
-    "@modelcontextprotocol/inspector": "^2.7.0",
+    "@modelcontextprotocol/inspector": "^2.9.0",
     "@sit-onyx/shared": "workspace:^",
     "@types/mdast": "^4.0.4",
     "@types/node": "catalog:",
@@ -43,7 +43,7 @@
     "remark-frontmatter": "^5.0.0",
     "remark-parse": "^11.0.0",
     "remark-stringify": "^11.0.0",
-    "tar-stream": "^3.2.1",
+    "tar-stream": "^3.2.2",
     "typescript": "catalog:",
     "unified": "^11.0.5",
     "unplugin-dts": "catalog:",

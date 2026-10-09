@@ -16,13 +16,11 @@ Configure and initialize the Onyx Vue 3 design system, mandatory styles, fonts, 
 2. Import style files and initialize the Onyx plugin.
 
 ```typescript
-import { createApp } from "vue";
 import { createOnyx } from "sit-onyx";
+import { createApp } from "vue";
 import App from "./App.vue";
-
 // Mandatory component styles
 import "sit-onyx/style.css";
-
 // Highly recommended global application styles (sets body background, font, etc.)
 import "sit-onyx/global.css";
 
@@ -57,13 +55,12 @@ English (`en-US`) is default and registered out-of-the-box. Additional languages
 To sync translations, import the JSON file from Onyx and register it in the `createOnyx` initialization options:
 
 ```typescript
-import { createApp } from "vue";
-import { createI18n } from "vue-i18n";
 import { createOnyx } from "sit-onyx";
-import App from "./App.vue";
-
 // Import required Onyx translation file
 import onyxDE from "sit-onyx/locales/de-DE.json";
+import { createApp } from "vue";
+import { createI18n } from "vue-i18n";
+import App from "./App.vue";
 
 const i18n = createI18n({
   legacy: false,
