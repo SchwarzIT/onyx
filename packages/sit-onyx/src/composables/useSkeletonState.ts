@@ -61,7 +61,7 @@ const createSkeletonInjectionContext =
 
     return computed(() => {
       if (typeof props.skeleton !== "symbol") {
-        return props.skeleton === true ? 3 : props.skeleton;
+        return props.skeleton;
       }
 
       if (props.skeleton !== SKELETON_INJECTED_SYMBOL) {
