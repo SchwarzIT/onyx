@@ -6,6 +6,7 @@ import iconGitHub from "~/assets/images/social/github.svg?raw";
 
 const localePath = useLocalePath();
 const route = useRoute();
+const { demoAppLink } = useDemoApp();
 
 const getLinkProps = computed(() => {
   return (link: string) => {
@@ -26,6 +27,11 @@ const getLinkProps = computed(() => {
       v-bind="getLinkProps('/docs/getting-started/installation')"
     />
     <OnyxNavItem :label="$t('components.component', 2)" v-bind="getLinkProps('/components')" />
+    <OnyxNavItem :label="$t('footer.navigation.demo')" :link="demoAppLink" />
+    <OnyxNavItem
+      :label="$t('footer.navigation.playground')"
+      link="https://playground.onyx.schwarz"
+    />
 
     <template #globalContextArea>
       <GlobalSearch />
