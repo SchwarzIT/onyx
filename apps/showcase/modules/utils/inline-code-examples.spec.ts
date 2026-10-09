@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import type { FileBeforeParseHook } from "@nuxt/content";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { type CustomHandlerMeta, inlineCodeExamples } from "./inline-code-examples.js";
 
 vi.mock("node:fs/promises", () => ({
@@ -20,10 +20,6 @@ const createMockContext = (file: Partial<FileBeforeParseHook["file"]>): FileBefo
 });
 
 describe("inlineCodeExamples", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
   describe("file extension filtering", () => {
     test.each([".json", ".ts", ".vue", ".yaml", ".txt"])(
       "should ignore file with extension '%s'",

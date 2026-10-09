@@ -36,7 +36,6 @@ const app = {
 
 beforeEach(() => {
   provided = new Map();
-  vi.clearAllMocks();
 });
 
 /**

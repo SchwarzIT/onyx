@@ -13,7 +13,6 @@ vi.mock("vue", async (importOriginal) => {
 
 describe("useShortcut", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
     vi.clearAllTimers();
     vi.useFakeTimers();
   });
