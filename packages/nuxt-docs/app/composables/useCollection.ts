@@ -43,15 +43,7 @@ export const useCollection = async <TCollection extends keyof Collections = keyo
     async () => {
       const data = await queryCollection(collection.value).path(path.value).first();
       if (data) return data;
-      throw createError({
-        status: 404,
-        message: "Page not found",
-        fatal: true,
-        data: {
-          collection: collection.value,
-          path: path.value,
-        },
-      });
+      throw createError({ status: 404, message: "Page not found", fatal: true });
     },
     {
       // when multiple parallel requests are made for the same page, "defer" will make sure only the first
