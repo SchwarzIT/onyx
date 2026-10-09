@@ -15,17 +15,14 @@ export type UseCollectionOptions<TCollection extends keyof Collections = keyof C
 
 /**
  * Composable for loading the collection data for the current route and locale.
- * Will throw an 404 error if the collection item could not be found.
- * Sets SEO data with `useSeoMeta()` automatically.
  */
 export const useCollection = async <TCollection extends keyof Collections = keyof Collections>(
   options: UseCollectionOptions<TCollection>,
 ) => {
-  const nuxtApp = useNuxtApp();
   const { locale } = useI18n();
   const route = useRoute();
-
   const collection = computed(() => toValue(options.collection));
+
   const path = computed(() => {
     let _path = toValue(options.path);
     if (_path) return _path;
@@ -39,38 +36,19 @@ export const useCollection = async <TCollection extends keyof Collections = keyo
     return _path;
   });
 
-  const { data: collectionData } = await useAsyncData(
-    () => `collection-${collection.value}-${path.value}`,
-    () => queryCollection(collection.value).path(path.value).first(),
-  );
+  const key = computed(() => `collection-${collection.value}-${path.value}`);
 
-  const data = computed<Collections[TCollection] | undefined>(() => {
-    return collectionData.value as Collections[TCollection];
-  });
-
-  watch(
-    data,
-    async (newValue) => {
-      // if data is "null", the page content was not found. "undefined" means it is not loaded yet
-      if (newValue !== null) return;
-      await nuxtApp.runWithContext(() =>
-        showError({
-          message: "Page not found",
-          statusCode: 404,
-          fatal: true,
-        }),
-      );
+  return useAsyncData(
+    key,
+    async () => {
+      const data = await queryCollection(collection.value).path(path.value).first();
+      if (data) return data;
+      throw createError({ status: 404, message: "Page not found", fatal: true });
     },
-    { immediate: true },
+    {
+      // when multiple parallel requests are made for the same page, "defer" will make sure only the first
+      // is executed and the result is shared with all other requests
+      dedupe: "defer",
+    },
   );
-
-  // runWithContext is needed due to async usage above
-  await nuxtApp.runWithContext(() => {
-    useSeoMeta({
-      title: () => data.value?.seo.title,
-      description: () => data.value?.seo.description,
-    });
-  });
-
-  return { data };
 };
