@@ -1,16 +1,32 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { ref, type Ref } from "vue";
-import { mockVueLifecycle } from "../../utils/vitest.js";
 import { useGlobalEventListener } from "./useGlobalListener.js";
 
-let unmount: () => Promise<void> | undefined;
+type Callback = () => void | (() => Promise<void>);
+
+const callbacks = {
+  onBeforeUnmountedCb: null as Callback | null,
+  onUnmountedCb: null as Callback | null,
+};
+
+const unmount = async () => {
+  await callbacks.onBeforeUnmountedCb?.();
+  await callbacks.onUnmountedCb?.();
+};
+
+vi.mock("vue", async (original) => ({
+  ...((await original()) as typeof import("vue")),
+  onBeforeMount: vi.fn((cb: Callback) => cb()),
+  onBeforeUnmount: vi.fn((cb: Callback) => (callbacks.onBeforeUnmountedCb = cb)),
+}));
 
 describe("useGlobalEventListener", () => {
   let target: Ref<HTMLButtonElement>;
 
   beforeEach(() => {
     vi.clearAllMocks();
-    unmount = mockVueLifecycle();
+    callbacks.onBeforeUnmountedCb = null;
+    callbacks.onUnmountedCb = null;
     target = ref(document.createElement("button"));
     document.body.appendChild(target.value);
   });
