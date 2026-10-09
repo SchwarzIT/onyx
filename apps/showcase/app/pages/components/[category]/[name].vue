@@ -5,8 +5,21 @@ definePageMeta({ layout: "components" });
 
 const { locale } = useI18n();
 
-const { data } = await useCollection({
+const { data, error } = await useCollection({
   collection: computed(() => `components_${locale.value}` as const),
+});
+
+watch(
+  error,
+  async () => {
+    if (error.value) showError(error.value);
+  },
+  { immediate: true },
+);
+
+useSeoMeta({
+  title: () => data.value?.seo.title,
+  description: () => data.value?.seo.description,
 });
 
 const activeTab = useRouteQuery("tab", "overview");

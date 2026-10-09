@@ -6,8 +6,21 @@ definePageMeta({ layout: false });
 
 const { locale } = useI18n();
 
-const { data } = await useCollection({
+const { data, error } = await useCollection({
   collection: computed(() => `content_${locale.value}` as keyof Collections),
+});
+
+watch(
+  error,
+  async () => {
+    if (error.value) showError(error.value);
+  },
+  { immediate: true },
+);
+
+useSeoMeta({
+  title: () => data.value?.seo.title,
+  description: () => data.value?.seo.description,
 });
 
 const layout = computed<keyof NuxtLayouts>(() => {
