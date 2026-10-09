@@ -92,7 +92,7 @@ test("should update when changed", () => {
 
   pageLayoutProps.skeleton = true;
   localProps.skeleton = true;
-  expect(skeleton.value).toBe(3);
+  expect(skeleton.value).toBe(true);
   localProps.skeleton = false;
   expect(skeleton.value).toBe(false);
 });
