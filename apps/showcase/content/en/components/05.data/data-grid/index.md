@@ -300,6 +300,12 @@ The checkboxes can optionally be only shown on hover:
 
 <<< ./examples/SelectionHover.example.vue preview=true  layout="grow"
 
+<br />
+
+Selection can be combined with global actions to execute operations on selected rows, such as batch deletion.
+
+<<< ./examples/DeleteSelection.example.vue preview=true  layout="fullWidth"
+
 ### Resizing
 
 Allows the user to manually change the width of columns by dragging the right border of the column header. Double-clicking the right border adjusts the size to the content width.
@@ -472,6 +478,20 @@ You can also add additional attributes to the `<td>` and `<th>` element of the c
 In the example below, a new column is added automatically combined with a [custom column type](#type-renderer-column-types) to display row actions.
 
 <<< ./examples/ModifyColumns.example.vue preview=true  layout="grow"
+
+<steps>
+
+::step
+#headline
+Delete action
+
+#default
+Demonstrates how to append a dedicated action column to trigger row-specific operations like deleting a record.
+
+<<< ./examples/DeleteActionColumn.example.vue preview=true  layout="fullWidth"
+::
+
+</steps>
 
 ### Modify rows
 
