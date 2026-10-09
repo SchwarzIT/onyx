@@ -64,9 +64,9 @@ Renders a pre-parsed MarkdownDocument without any parsing. Use it when you parse
 ### 1. Parse on the server/buildtime
 
 ```ts
+import { readFile } from "node:fs/promises";
 // server.ts
 import { createMarkdownParser } from "comark";
-import { readFile } from "node:fs/promises";
 
 const parse = createMarkdownParser();
 
