@@ -39,9 +39,20 @@ export const useCollection = async <TCollection extends keyof Collections = keyo
     return _path;
   });
 
-  const { data: collectionData } = await useAsyncData(
-    () => `collection-${collection.value}-${path.value}`,
-    () => queryCollection(collection.value).path(path.value).first(),
+  const key = computed(() => `collection-${collection.value}-${path.value}`);
+
+  const { data: collectionData, error } = await useAsyncData(
+    key,
+    async () => {
+      const _data = await queryCollection(collection.value).path(path.value).first();
+      if (_data) return _data;
+      throw createError({ status: 404, message: "Page not found", fatal: true });
+    },
+    {
+      // when multiple parallel requests are made for the same page, "defer" will make sure only the first
+      // is executed and the result is shared with all other requests
+      dedupe: "defer",
+    },
   );
 
   const data = computed<Collections[TCollection] | undefined>(() => {
@@ -49,17 +60,10 @@ export const useCollection = async <TCollection extends keyof Collections = keyo
   });
 
   watch(
-    data,
-    async (newValue) => {
-      // if data is "null", the page content was not found. "undefined" means it is not loaded yet
-      if (newValue !== null) return;
-      await nuxtApp.runWithContext(() =>
-        showError({
-          message: "Page not found",
-          statusCode: 404,
-          fatal: true,
-        }),
-      );
+    error,
+    async (newError) => {
+      if (!newError) return;
+      await nuxtApp.runWithContext(() => showError(newError));
     },
     { immediate: true },
   );
