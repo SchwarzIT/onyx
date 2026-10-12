@@ -486,6 +486,9 @@ importers:
       '@sit-onyx/assets':
         specifier: workspace:^
         version: link:../../packages/assets
+      '@sit-onyx/chartjs-plugin':
+        specifier: workspace:^
+        version: link:../../packages/chartjs-plugin
       '@sit-onyx/comark':
         specifier: workspace:^
         version: link:../../packages/comark
@@ -522,6 +525,9 @@ importers:
       browserslist:
         specifier: ^4.29.3
         version: 4.29.3
+      chart.js:
+        specifier: 'catalog:'
+        version: 4.5.1
       nuxt:
         specifier: 4.5.2
         version: 4.5.2(7922afe9866c8cd94215541bf7d13a72)
@@ -537,6 +543,9 @@ importers:
       vue:
         specifier: 3.5.43
         version: 3.5.43(typescript@6.0.3)
+      vue-chartjs:
+        specifier: ^5.3.4
+        version: 5.3.4(chart.js@4.5.1)(vue@3.5.43(typescript@6.0.3))
       vue-i18n:
         specifier: ^11.4.13
         version: 11.4.13(vue@3.5.43(typescript@6.0.3))
