@@ -1,13 +1,10 @@
 <script setup lang="ts">
-const { data: browsers } = await useFetch("/api/browsers", {
-  key: "supported-browsers",
-  default: () => [],
-});
+const config = useRuntimeConfig();
 </script>
 
 <template>
   <ul class="list">
-    <li v-for="browser in browsers" :key="browser.id" class="browser">
+    <li v-for="browser in config.public.browsers" :key="browser.id" class="browser">
       <img
         :src="`/images/browsers/${browser.id}.svg`"
         :alt="`Logo for ${browser.name} browser`"

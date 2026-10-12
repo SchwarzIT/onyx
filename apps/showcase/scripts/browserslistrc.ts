@@ -1,5 +1,7 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import browserslist from "browserslist";
-import { capitalize } from "vue";
+import { capitalize } from "./string.js";
 
 export type Browser = {
   /**
@@ -16,20 +18,25 @@ export type Browser = {
   version: string;
 };
 
-let cachedBrowsers: Browser[] | undefined;
+/**
+ * Gets a list of supported browsers by onyx based on the `.browserslistrc` file.
+ */
+export function getSupportedOnyxBrowsers() {
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const rootConfigPath = path.resolve(__dirname, "../../../.browserslistrc");
 
-export default defineEventHandler((event): Browser[] => {
-  if (cachedBrowsers) return cachedBrowsers;
+  const config = browserslist(null, { config: rootConfigPath });
 
-  const { browserslistrc } = useRuntimeConfig(event);
-  const config = browserslist.parseConfig(browserslistrc);
+  if (!config.length) {
+    throw new Error("Browserslist config not found");
+  }
 
   /**
    * Key = browser ID, value: supported versions
    */
   const versionsByBrowser = new Map<string, Set<string>>();
 
-  for (const entry of browserslist(config.defaults)) {
+  for (const entry of config) {
     const [id = "", version = ""] = entry.split(" ");
 
     // filter out unwanted browsers
@@ -40,7 +47,7 @@ export default defineEventHandler((event): Browser[] => {
     versionsByBrowser.set(id, set);
   }
 
-  cachedBrowsers = Array.from(versionsByBrowser.entries()).reduce((obj, [id, versions]) => {
+  return Array.from(versionsByBrowser.entries()).reduce((obj, [id, versions]) => {
     const version = sortVersions(Array.from(versions).sort())[0]!;
     obj.push({
       id,
@@ -49,9 +56,7 @@ export default defineEventHandler((event): Browser[] => {
     });
     return obj;
   }, [] as Browser[]);
-
-  return cachedBrowsers;
-});
+}
 
 /**
  * Sorts the given versions ascending.

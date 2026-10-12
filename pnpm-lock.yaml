@@ -547,6 +547,9 @@ importers:
       '@octokit/types':
         specifier: ^18.0.0
         version: 18.0.0
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.19.1
       vue-component-meta:
         specifier: 'catalog:'
         version: 3.3.12(typescript@6.0.3)
