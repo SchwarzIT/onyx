@@ -1,6 +1,6 @@
 ---
 title: Filter badge
-component: OnyxFilterBadge
+componentName: OnyxFilterBadge
 ---
 
 The filter badge is a specialized variant of the general [badge](/components/basic/badge) component that is optimized for usage inside search and filter components. It can e.g. display interactive filters that are applied on click.

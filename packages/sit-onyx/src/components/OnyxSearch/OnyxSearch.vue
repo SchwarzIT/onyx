@@ -44,6 +44,13 @@ const emit = defineEmits<{
   "update:showFilters": [value: boolean];
 }>();
 
+const slots = defineSlots<{
+  /**
+   * Filter content. Visibility can be toggled using `v-model:showFilters`.
+   */
+  default?(): unknown;
+}>();
+
 /**
  * Current value of the input.
  */
@@ -66,13 +73,6 @@ const { t } = injectI18n();
 
 const inputComponent = useTemplateRef<ComponentInstance<typeof OnyxInput>>("inputComponentRef");
 const input = computed(() => inputComponent.value?.input);
-
-const slots = defineSlots<{
-  /**
-   * Filter content. Visibility can be toggled using `v-model:showFilters`.
-   */
-  default(): unknown;
-}>();
 
 defineExpose({ input });
 
@@ -152,7 +152,7 @@ _unstableUseShortcut({
       <slot></slot>
     </OnyxModal>
 
-    <template v-else-if="showFilters">
+    <template v-else-if="showFilters && slots.default">
       <slot v-if="props.filterPosition === 'inline'"></slot>
 
       <div v-else class="onyx-search__filters">

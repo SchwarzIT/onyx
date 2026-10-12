@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxAppLayout, OnyxButton, OnyxPageLayout, OnyxSidebar } from "sit-onyx";
+import {
+  OnyxAppLayout,
+  OnyxButton,
+  OnyxPageLayout,
+  OnyxSidebar,
+  OnyxIcon,
+  OnyxSidebarItem,
+} from "sit-onyx";
 import { ref } from "vue";
 
 const isOpen = ref(false);

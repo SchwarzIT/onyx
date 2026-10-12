@@ -39,7 +39,17 @@ defineSlots<{
 
 const metaProps = computed<Record<string, string>>(() => {
   const parts = props.meta?.split(" ").map((part) => part.split("=")) || [];
-  const cleaned = parts.map(([key, value]) => [key, value?.replaceAll(/^"|"$/g, "")]); // remove leading and trailing quotes from value
+  const cleaned = parts
+    // remove leading and trailing quotes from value
+    .map(([key, value]) => [key, value?.replaceAll(/^"|"$/g, "")])
+    // parse JSON values, so e.g. "true" and "false" or numbers are correctly casted to booleans
+    .map(([key, value]) => {
+      try {
+        return [key, JSON.parse(value ?? "")];
+      } catch {
+        return [key, value];
+      }
+    });
   return Object.fromEntries(cleaned);
 });
 

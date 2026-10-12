@@ -91,6 +91,17 @@ Displays the filters inside a dedicated [modal](/components/feedback/modal).
 
 ::
 
+::step
+#headline
+Sidebar
+
+#default
+Displays the filters inside a dedicated temporary [sidebar](/components/navigation/sidebar).
+
+<<< ./examples/FiltersSidebar.example.vue preview=true layout=grow
+
+::
+
 </steps>
 
 <br />

@@ -5,9 +5,7 @@ import { OnyxAppLayout, OnyxPageLayout } from "sit-onyx";
 <template>
   <OnyxAppLayout>
     <OnyxPageLayout no-padding>
-      <section class="hero">
-        <div class="hero__content onyx-grid-layout">Place your full width hero content here...</div>
-      </section>
+      <section class="hero"></section>
 
       <div class="onyx-grid-layout">Place your main page content here...</div>
     </OnyxPageLayout>
@@ -18,9 +16,9 @@ import { OnyxAppLayout, OnyxPageLayout } from "sit-onyx";
 .hero {
   background-color: var(--onyx-color-base-background-blank);
   border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
-
-  &__content {
-    padding-block: var(--onyx-density-sm);
-  }
+  height: 8rem;
+  background-image: url("https://picsum.photos/id/13/1920/400");
+  background-size: cover;
+  background-position: center;
 }
 </style>

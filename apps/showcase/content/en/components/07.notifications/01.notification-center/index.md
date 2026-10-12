@@ -12,11 +12,4 @@ Since a notification center is very specific to an application, we only provide 
 
 To show a new temporary notification, use the [useNotifications()](/components/notifications/notifications) composable.
 
-::component-example
----
-name: Basic
-layout: fullWidth
-provide:
-    notifications: true
----
-::
+<<< ./examples/Basic.example.vue preview=true layout=fullWidth provideNotifications=true
