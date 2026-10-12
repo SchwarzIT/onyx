@@ -49,7 +49,7 @@ const { elements } = createTabs({
         v-bind="elements.tab.value({ value: option.value })"
       >
         <OnyxIcon v-if="option.icon" :icon="option.icon" class="tab__icon" />
-        {{ option.label }}
+        <span class="onyx-truncation-ellipsis">{{ option.label }}</span>
       </OnyxCard>
     </div>
 

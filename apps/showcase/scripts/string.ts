@@ -6,3 +6,8 @@ export const stringSplice = (string: string, start: number, end: number, replace
   const after = string.slice(end);
   return `${before}${replacement}${after}`;
 };
+
+export function capitalize<T extends string>(str: T): Capitalize<T> {
+  if (!str) return "" as Capitalize<T>;
+  return (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<T>;
+}

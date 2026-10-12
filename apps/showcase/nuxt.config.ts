@@ -1,8 +1,6 @@
 import { globSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 import { Features } from "lightningcss";
-
-const monorepoRoot = fileURLToPath(new URL("../../", import.meta.url));
+import { getSupportedOnyxBrowsers } from "./scripts/browserslistrc.js";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -47,14 +45,12 @@ export default defineNuxtConfig({
         exclude: Features.LightDark,
       },
     },
-    server: {
-      fs: {
-        allow: [monorepoRoot],
-      },
-    },
   },
-  alias: {
-    "#root": monorepoRoot,
+  runtimeConfig: {
+    public: {
+      // parse ".browserslistrc" at build time so they are available in the client app (since parsing requires Node runtime)
+      browsers: getSupportedOnyxBrowsers(),
+    },
   },
   imports: {
     transform: {

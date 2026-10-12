@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@octokit/types": "^18.0.0",
+    "@types/node": "catalog:",
     "vue-component-meta": "catalog:"
   }
 }

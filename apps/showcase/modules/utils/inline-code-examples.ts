@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { basename, extname } from "node:path";
 import type { FileBeforeParseHook } from "@nuxt/content";
 import { createResolver } from "nuxt/kit";
-import { stringSplice } from "../../utils/string.js";
+import { stringSplice } from "../../scripts/string.js";
 
 /**
  * 1. Each line starting with "<<< "
