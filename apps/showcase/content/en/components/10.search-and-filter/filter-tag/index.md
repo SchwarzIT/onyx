@@ -1,6 +1,6 @@
 ---
 title: Filter tag
-component: OnyxFilterTag
+componentName: OnyxFilterTag
 ---
 
 The filter tag is a specialized variant of the general [tag](/components/basic/tag) component that is optimized for usage inside search and filter components. It can e.g. display interactive filters that are applied on click.

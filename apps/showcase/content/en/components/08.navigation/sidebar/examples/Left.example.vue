@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxAppLayout, OnyxButton, OnyxHeadline, OnyxPageLayout, OnyxSidebar } from "sit-onyx";
+import {
+  OnyxAppLayout,
+  OnyxButton,
+  OnyxHeadline,
+  OnyxPageLayout,
+  OnyxSidebar,
+  OnyxIcon,
+  OnyxSidebarItem,
+} from "sit-onyx";
 </script>
 
 <template>

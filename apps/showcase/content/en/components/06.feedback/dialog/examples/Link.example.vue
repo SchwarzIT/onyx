@@ -13,13 +13,19 @@ const value = ref("");
 </script>
 
 <template>
-  <OnyxDialog label="Url" non-dismissible button-text="Open Dialog">
+  <OnyxDialog class="dialog" label="Edit link">
     <template #trigger="{ trigger }">
       <OnyxButton label="Show dialog" v-bind="trigger" />
     </template>
 
-    <template #headline>
-      <OnyxInput v-model="value" label="Link" placeholder="https://onyx.schwarz" type="url">
+    <div class="dialog__content">
+      <OnyxInput
+        v-model="value"
+        label="URL"
+        placeholder="https://onyx.schwarz"
+        type="url"
+        autofocus
+      >
         <template #leading>
           <OnyxIcon :icon="iconLink" />
         </template>
@@ -28,6 +34,16 @@ const value = ref("");
           <OnyxUnstableFormElementAction :icon="iconCopy" label="Copy" />
         </template>
       </OnyxInput>
-    </template>
+    </div>
   </OnyxDialog>
 </template>
+
+<style lang="scss" scoped>
+.dialog {
+  &__content {
+    padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
+    color: var(--onyx-color-text-icons-info-intense);
+    width: 20rem;
+  }
+}
+</style>

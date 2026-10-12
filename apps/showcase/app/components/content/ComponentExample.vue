@@ -23,10 +23,10 @@ const props = withDefaults(
      */
     orientation?: "horizontal" | "vertical";
     /**
-     * Whether to override specific onyx provide/inject keys.
+     * Whether to override / provide notifications.
      * Useful if e.g. notifications should not be shown globally inside the showcase itself.
      */
-    provide?: { notifications?: boolean };
+    provideNotifications?: boolean;
   }>(),
   {
     layout: "default",
@@ -50,7 +50,7 @@ const options = ref<ComponentExampleOptions>({});
 defineOptions({ inheritAttrs: false });
 const attrs = useAttrs();
 
-if (props.provide?.notifications) {
+if (props.provideNotifications) {
   const provider = createNotificationsProvider();
   provide(NOTIFICATIONS_PROVIDER_INJECTION_KEY, provider);
 }

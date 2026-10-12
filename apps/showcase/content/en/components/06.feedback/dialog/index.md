@@ -27,6 +27,6 @@ This example shows a help dialog that provides additional information related to
 
 ### Link input
 
-This example shows a dialog where the user can enter a link.
+This example shows a dialog where the user can enter a link. When using interactive / dynamic content, you should set a fixed width for the dialog content to prevent layout shifts.
 
 <<< ./examples/Link.example.vue preview=true

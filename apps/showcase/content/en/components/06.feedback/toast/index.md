@@ -6,6 +6,22 @@ Toasts provide immediate feedback to users after actions, offering concise, time
 
 We recommend to display at most 5 toasts at the same time to improve user experience.
 
+## Examples
+
+### Basic
+
+Use the `useToast()` composable to show a new toast from anywhere in your application. The toast will close automatically after a certain time by default but you can adjust the time via the `duration` option. Set it to `0` to permanently show the toast and require the user to manually close it if needed.
+
+Make sure that the headline is short and speaking. Use the description for longer text such as detailed error information.
+
+<<< ./examples/Basic.example.vue preview=true
+
+### Clickable
+
+A toast can also be clickable so that any custom action is triggered when the user clicks on the toast.
+
+<<< ./examples/Clickable.example.vue preview=true
+
 ## Prerequisites
 
 You must use the [OnyxAppLayout](/components/layouts/app-layout) component in the root of your application to correctly display toasts.
@@ -26,19 +42,3 @@ import { OnyxToast } from "sit-onyx";
 ```
 
 </prose-details>
-
-## Examples
-
-### Basic
-
-Use the `useToast()` composable to show a new toast from anywhere in your application. The toast will close automatically after a certain time by default but you can adjust the time via the `duration` option. Set it to `0` to permanently show the toast and require the user to manually close it if needed.
-
-Make sure that the headline is short and speaking. Use the description for longer text such as detailed error information.
-
-<<< ./examples/Basic.example.vue preview=true
-
-### Clickable
-
-A toast can also be clickable so that any custom action is triggered when the user clicks on the toast.
-
-<<< ./examples/Clickable.example.vue preview=true
