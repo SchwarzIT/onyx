@@ -23,11 +23,9 @@ export type Browser = {
  */
 export function getSupportedOnyxBrowsers() {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const rootConfigPath = path.resolve(__dirname, "../../../.browserslistrc");
+  const config = browserslist.findConfig(__dirname);
 
-  const config = browserslist(null, { config: rootConfigPath });
-
-  if (!config.length) {
+  if (!config) {
     throw new Error("Browserslist config not found");
   }
 
@@ -36,7 +34,7 @@ export function getSupportedOnyxBrowsers() {
    */
   const versionsByBrowser = new Map<string, Set<string>>();
 
-  for (const entry of config) {
+  for (const entry of browserslist(config.defaults)) {
     const [id = "", version = ""] = entry.split(" ");
 
     // filter out unwanted browsers
@@ -47,15 +45,11 @@ export function getSupportedOnyxBrowsers() {
     versionsByBrowser.set(id, set);
   }
 
-  return Array.from(versionsByBrowser.entries()).reduce((obj, [id, versions]) => {
-    const version = sortVersions(Array.from(versions).sort())[0]!;
-    obj.push({
-      id,
-      version,
-      name: capitalize(id),
-    });
-    return obj;
-  }, [] as Browser[]);
+  return Array.from(versionsByBrowser.entries()).map<Browser>(([id, versions]) => ({
+    id,
+    version: sortVersions(Array.from(versions).sort())[0]!,
+    name: capitalize(id),
+  }));
 }
 
 /**
