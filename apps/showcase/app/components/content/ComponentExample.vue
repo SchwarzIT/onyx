@@ -27,6 +27,10 @@ const props = withDefaults(
      * Useful if e.g. notifications should not be shown globally inside the showcase itself.
      */
     provideNotifications?: boolean;
+    /**
+     * Whether to wrap the render the preview component with `<ClientOnly>`, e.g. for charts.
+     */
+    clientOnly?: boolean;
   }>(),
   {
     layout: "default",
@@ -74,7 +78,13 @@ if (props.provideNotifications) {
               { [`example__preview-wrapper--${props.orientation}`]: props.orientation },
             ]"
           >
-            <component :is="ExampleComponent" v-if="ExampleComponent" />
+            <template v-if="ExampleComponent">
+              <ClientOnly v-if="props.clientOnly">
+                <component :is="ExampleComponent" />
+              </ClientOnly>
+
+              <component :is="ExampleComponent" v-else />
+            </template>
           </div>
         </OnyxCard>
       </OnyxTab>
