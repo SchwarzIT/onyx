@@ -370,5 +370,9 @@
     "label": "Zoeken",
     "selectFilter": "Filter selecteren"
   },
-  "save": "Opslaan"
+  "save": "Opslaan",
+  "errors": {
+    "backToHome": "Terug naar home",
+    "technicalDetails": "Technische foutdetails"
+  }
 }
