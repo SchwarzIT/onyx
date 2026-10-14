@@ -9,12 +9,12 @@ const route = useRoute();
 const { demoAppLink } = useDemoApp();
 
 const getLinkProps = computed(() => {
-  return (link: string) => {
+  return (link: string, base?: string) => {
     link = localePath(link);
 
     return {
       link,
-      active: route.path.startsWith(link),
+      active: route.path.startsWith(base ?? link),
     } satisfies Partial<OnyxNavItemProps>;
   };
 });
@@ -24,9 +24,10 @@ const getLinkProps = computed(() => {
   <NavBar :logo-url app-name="">
     <OnyxNavItem
       :label="$t('documentation')"
-      v-bind="getLinkProps('/docs/getting-started/installation')"
+      v-bind="getLinkProps('/docs/getting-started/installation', '/docs')"
     />
     <OnyxNavItem :label="$t('components.component', 2)" v-bind="getLinkProps('/components')" />
+    <OnyxNavItem :label="$t('icons.icon', 2)" link="/components/basic/icon#available-icons" />
     <OnyxNavItem :label="$t('footer.navigation.demo')" :link="demoAppLink" />
     <OnyxNavItem
       :label="$t('footer.navigation.playground')"
