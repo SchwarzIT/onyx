@@ -370,5 +370,9 @@
     "label": "검색",
     "selectFilter": "필터 선택"
   },
-  "save": "저장"
+  "save": "저장",
+  "errors": {
+    "backToHome": "홈으로 돌아가기",
+    "technicalDetails": "기술적 오류 세부 정보"
+  }
 }
