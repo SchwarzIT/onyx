@@ -17,18 +17,18 @@ const { data } = await useCollection({ collection: "content_en" });
 **After**:
 
 ```ts
+<script lang="ts" setup>
 const { data, error } = await useCollection({ collection: "content_en" });
-
-watch(
-  error,
-  () => {
-    if (error.value) showError(error.value);
-  },
-  { immediate: true },
-);
 
 useSeoMeta({
   title: () => data.value?.seo.title,
   description: () => data.value?.seo.description,
 });
+</script>
+
+<template>
+  <ErrorDetails v-if="error" :error />
+  <ContentRenderer v-else-if="data" :value="data" />
+</template>
+
 ```

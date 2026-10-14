@@ -367,5 +367,9 @@
   },
   "accordion": {
     "toggle": "Klicke, um den Inhalt umzuschalten"
+  },
+  "errors": {
+    "backToHome": "Zurück zur Startseite",
+    "technicalDetails": "Technische Fehlerdetails"
   }
 }

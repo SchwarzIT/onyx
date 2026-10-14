@@ -370,5 +370,9 @@
   },
   "accordion": {
     "toggle": "Click to toggle content"
+  },
+  "errors": {
+    "backToHome": "Back to home",
+    "technicalDetails": "Technical error details"
   }
 }
