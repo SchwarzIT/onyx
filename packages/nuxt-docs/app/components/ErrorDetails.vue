@@ -3,22 +3,7 @@ const props = defineProps<{
   error: Error;
 }>();
 
-defineSlots<{
-  /**
-   * Slot to override the default "Back to home" action(s).
-   *
-   * @param clearError - Function to clear the error and redirect to the home page
-   */
-  actions?(props: { clearError: typeof _clearError }): unknown;
-  /**
-   * Slot to override the error details section.
-   * By default, an accordion will be displayed that shows the technical error details.
-   */
-  details?(): unknown;
-}>();
-
 const localePath = useLocalePath();
-
 const _clearError = () => clearError({ redirect: localePath("/") });
 </script>
 
@@ -28,20 +13,15 @@ const _clearError = () => clearError({ redirect: localePath("/") });
 
     <div class="error__headline">
       <OnyxHeadline is="h1">{{ props.error.message }}</OnyxHeadline>
-
-      <slot name="actions" :clear-error="_clearError">
-        <OnyxButton :label="$t('onyx.errors.backToHome')" @click="_clearError" />
-      </slot>
+      <OnyxButton :label="$t('onyx.errors.backToHome')" @click="_clearError" />
     </div>
 
-    <slot name="details">
-      <OnyxAccordion>
-        <OnyxAccordionItem value="details">
-          <template #header>{{ $t("errors.technicalDetails") }}</template>
-          <pre class="error__details">{{ JSON.stringify(props.error, null, 2) }}</pre>
-        </OnyxAccordionItem>
-      </OnyxAccordion>
-    </slot>
+    <OnyxAccordion>
+      <OnyxAccordionItem value="details">
+        <template #header>{{ $t("errors.technicalDetails") }}</template>
+        <pre class="error__details">{{ JSON.stringify(props.error, null, 2) }}</pre>
+      </OnyxAccordionItem>
+    </OnyxAccordion>
   </div>
 </template>
 
