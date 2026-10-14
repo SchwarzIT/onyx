@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { iconGrid, iconSearchX } from "@sit-onyx/icons";
+import { normalizedIncludes } from "sit-onyx";
+
 defineSlots<{
   /**
    * Main page content.
@@ -10,22 +13,64 @@ const { locale } = useI18n();
 
 const { navigation } = await useSidebarNavigation({
   collection: computed(() => `components_${locale.value}` as const),
-  fields: ["status"],
+  fields: ["status", "componentName"],
+});
+
+const searchTerm = ref("");
+
+const filteredNavigation = computed(() => {
+  const search = searchTerm.value.trim();
+  if (!search) return navigation.value;
+
+  return navigation.value
+    .map((item) => {
+      return {
+        ...item,
+        children: item.children?.filter((child) => {
+          // support searching by title and componentName
+          return (
+            normalizedIncludes(child.title, search) ||
+            (child.fields?.componentName && normalizedIncludes(child.fields.componentName, search))
+          );
+        }),
+      };
+    })
+    .filter((item) => item.children?.length);
 });
 </script>
 
 <template>
   <OnyxPageLayout no-padding>
     <template #sidebar>
-      <OnyxSidebar :label="$t('onyx.navigation.navigationHeadline')">
-        <NestableSidebarItem
-          :item="{
-            title: $t('components.all'),
-            path: '/components',
-          }"
-        />
+      <OnyxSidebar class="sidebar" :label="$t('onyx.navigation.navigationHeadline')">
+        <template #header>
+          <OnyxSidebarItem link="/components">
+            <OnyxIcon :icon="iconGrid" />
+            <span>{{ $t("components.all") }}</span>
+          </OnyxSidebarItem>
 
-        <NestableSidebarItem v-for="item in navigation" :key="item.path" :item>
+          <OnyxUnstableSearch v-model="searchTerm" corner-radius="strong" with-shortcut />
+        </template>
+
+        <OnyxEmpty v-if="!filteredNavigation.length" class="sidebar__empty">
+          {{ $t("components.noMatches") }}
+
+          <template #buttons>
+            <OnyxButton
+              :label="$t('clearSearch')"
+              :icon="iconSearchX"
+              color="neutral"
+              @click="searchTerm = ''"
+            />
+          </template>
+        </OnyxEmpty>
+
+        <NestableSidebarItem
+          v-for="item in filteredNavigation"
+          :key="item.path"
+          :item
+          type="nested-small"
+        >
           <template #trailing="{ item: currentItem }">
             <ComponentStatusTag
               v-if="currentItem.fields?.status"
@@ -43,3 +88,16 @@ const { navigation } = await useSidebarNavigation({
     <Footer />
   </OnyxPageLayout>
 </template>
+
+<style lang="scss" scoped>
+.sidebar {
+  :deep(.onyx-sidebar__header) {
+    padding-top: var(--onyx-density-xl);
+    gap: var(--onyx-density-lg);
+  }
+
+  &__empty {
+    max-width: 100%;
+  }
+}
+</style>

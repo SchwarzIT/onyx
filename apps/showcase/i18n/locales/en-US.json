@@ -20,7 +20,8 @@
     }
   },
   "components": {
-    "all": "All components",
+    "all": "Components overview",
+    "noMatches": "No components found that match your search.",
     "component": "Component | Components",
     "property": "Property | Properties",
     "event": "Event | Events",
@@ -129,5 +130,6 @@
       "label": "Legal links"
     }
   },
-  "documentation": "Documentation"
+  "documentation": "Documentation",
+  "clearSearch": "Clear search"
 }
