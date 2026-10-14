@@ -370,5 +370,9 @@
     "label": "Hľadať",
     "selectFilter": "Vybrať filter"
   },
-  "save": "Uložiť"
+  "save": "Uložiť",
+  "errors": {
+    "backToHome": "Späť na domovskú stránku",
+    "technicalDetails": "Technické podrobnosti o chybe"
+  }
 }

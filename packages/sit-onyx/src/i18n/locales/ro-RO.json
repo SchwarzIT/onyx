@@ -370,5 +370,9 @@
     "label": "Căutare",
     "selectFilter": "Selectare filtru"
   },
-  "save": "Salvare"
+  "save": "Salvare",
+  "errors": {
+    "backToHome": "Înapoi la pagina de pornire",
+    "technicalDetails": "Detalii tehnice ale erorii"
+  }
 }
