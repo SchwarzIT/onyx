@@ -10,13 +10,15 @@ Also, `useSeoMeta()` is no longer set as well for the same reason.
 
 **Before**:
 
-```ts
+```vue
+<script lang="ts" setup>
 const { data } = await useCollection({ collection: "content_en" });
+</script>
 ```
 
 **After**:
 
-```ts
+```vue
 <script lang="ts" setup>
 const { data, error } = await useCollection({ collection: "content_en" });
 
@@ -30,5 +32,4 @@ useSeoMeta({
   <ErrorDetails v-if="error" :error />
   <ContentRenderer v-else-if="data" :value="data" />
 </template>
-
 ```
