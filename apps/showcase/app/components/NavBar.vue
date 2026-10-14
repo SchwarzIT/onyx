@@ -27,6 +27,7 @@ const getLinkProps = computed(() => {
       v-bind="getLinkProps('/docs/getting-started/installation', '/docs')"
     />
     <OnyxNavItem :label="$t('components.component', 2)" v-bind="getLinkProps('/components')" />
+    <OnyxNavItem :label="$t('icons.icon', 2)" link="/components/basic/icon#available-icons" />
     <OnyxNavItem :label="$t('footer.navigation.demo')" :link="demoAppLink" />
     <OnyxNavItem
       :label="$t('footer.navigation.playground')"

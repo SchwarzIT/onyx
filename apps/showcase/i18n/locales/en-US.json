@@ -84,6 +84,7 @@
   "description": "Description",
   "actions": "Actions",
   "icons": {
+    "icon": "Icon | Icons",
     "empty": "There are no icons matching your search.",
     "copy": {
       "code": {
