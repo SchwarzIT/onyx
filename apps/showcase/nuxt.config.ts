@@ -68,74 +68,71 @@ export default defineNuxtConfig({
   },
 });
 
-function getLegacyRedirects(): NuxtConfig["routeRules"] {
-  const getRedirect = (to: string): NonNullable<NuxtConfig["routeRules"]>[string] => {
-    return {
-      redirect: {
-        to,
-        // 307 = temporary redirect, 301 = permanent redirect
-        statusCode: to.startsWith("https://") ? 307 : 301,
-      },
-    };
+/**
+ * Gets redirects from the legacy (VitePress) documentation to the new showcase to still support old
+ * URLs.
+ */
+export function getLegacyRedirects(): NuxtConfig["routeRules"] {
+  const mapping: Record<string, string> = {
+    "/basics/accessibility": "/docs/foundation/accessibility",
+    "/basics/breakpoints-grid": "/docs/foundation/breakpoints-and-grid",
+    "/basics/colors": "/docs/foundation/colors",
+    "/basics/density": "/docs/foundation/density",
+    "/basics/iconography": "/components/basic/icon",
+    "/basics/images": "/docs/foundation/images",
+    "/basics/infographics": "/components/data/chart",
+    "/basics/layout": "/docs/foundation/layouts",
+    "/basics/motion": "/docs/foundation/animations",
+    "/basics/truncation": "/docs/foundation/typography",
+    "/basics/typography": "/docs/foundation/typography",
+    "/variables/colors": "/docs/foundation/colors",
+    "/variables/spacings": "/docs/foundation/density",
+    "/variables/fonts": "/docs/foundation/typography",
+    "/icons": "/components/basic/icon",
+    "/flags": "/components/basic/flag",
+    "/development": "/docs/getting-started/installation",
+    "/development/theming": "/docs/foundation/colors",
+    "/development/i18n": "/docs/foundation/i18n",
+    "/development/grid": "/docs/foundation/breakpoints-and-grid",
+    "/development/breakpoints": "/docs/foundation/breakpoints-and-grid",
+    "/development/density": "/docs/foundation/density",
+    "/development/typography": "/docs/foundation/typography",
+    "/development/changelog": "/docs/getting-started/changelog",
+    "/development/packages/chartjs-plugin": "/components/data/chart",
+    "/development/packages/figma-utils": "https://www.npmjs.com/package/@sit-onyx/figma-utils",
+    "/development/packages/flags": "/components/basic/flag",
+    "/development/packages/github-metrics":
+      "https://www.npmjs.com/package/@sit-onyx/github-metrics",
+    "/development/packages/headless": "https://www.npmjs.com/package/@sit-onyx/headless",
+    "/development/packages/icons": "/components/basic/icon",
+    "/development/packages/mcp": "https://www.npmjs.com/package/@sit-onyx/modelcontextprotocol",
+    "/development/packages/nuxt": "/docs/getting-started/installation",
+    "/development/packages/nuxt-docs": "https://www.npmjs.com/package/@sit-onyx/nuxt-docs",
+    "/development/packages/playwright-utils":
+      "https://www.npmjs.com/package/@sit-onyx/playwright-utils",
+    "/development/packages/storybook-utils":
+      "https://www.npmjs.com/package/@sit-onyx/storybook-utils",
+    "/development/packages/tiptap": "/components/form-elements/text-editor",
+    "/development/packages/vitepress-theme":
+      "https://www.npmjs.com/package/@sit-onyx/vitepress-theme",
+    "/about/team": "/",
   };
 
-  // TODO: also support ".html" prefixes for all routes
-  return {
-    "/basics/accessibility": getRedirect("/docs/foundation/accessibility"),
-    "/basics/breakpoints-grid": getRedirect("/docs/foundation/breakpoints-and-grid"),
-    "/basics/colors": getRedirect("/docs/foundation/colors"),
-    "/basics/density": getRedirect("/docs/foundation/density"),
-    "/basics/iconography": getRedirect("/components/basic/icon"),
-    "/basics/images": getRedirect("/docs/foundation/images"),
-    "/basics/infographics": getRedirect("/components/data/chart"),
-    "/basics/layout": getRedirect("/docs/foundation/layouts"),
-    "/basics/motion": getRedirect("/docs/foundation/animations"),
-    "/basics/truncation": getRedirect("/docs/foundation/typography"),
-    "/basics/typography": getRedirect("/docs/foundation/typography"),
-    "/variables/colors": getRedirect("/docs/foundation/colors"),
-    "/variables/spacings": getRedirect("/docs/foundation/density"),
-    "/variables/fonts": getRedirect("/docs/foundation/typography"),
-    // "/variables/borders": getRedirect("/docs/foundation/TODO"),
-    // "/variables/shadows": getRedirect("/docs/foundation/TODO"),
-    "/icons": getRedirect("/components/basic/icon"),
-    "/flags": getRedirect("/components/basic/flag"),
-    "/development": getRedirect("/docs/getting-started/installation"),
-    "/development/theming": getRedirect("/docs/foundation/colors"),
-    "/development/i18n": getRedirect("/docs/foundation/i18n"),
-    "/development/grid": getRedirect("/docs/foundation/breakpoints-and-grid"),
-    "/development/breakpoints": getRedirect("/docs/foundation/breakpoints-and-grid"),
-    "/development/density": getRedirect("/docs/foundation/density"),
-    "/development/typography": getRedirect("/docs/foundation/typography"),
-    "/development/changelog": getRedirect("/docs/getting-started/changelog"),
-    "/development/packages/chartjs-plugin": getRedirect("/components/data/chart"),
-    "/development/packages/figma-utils": getRedirect(
-      "https://www.npmjs.com/package/@sit-onyx/figma-utils",
-    ),
-    "/development/packages/flags": getRedirect("/components/basic/flag"),
-    "/development/packages/github-metrics": getRedirect(
-      "https://www.npmjs.com/package/@sit-onyx/github-metrics",
-    ),
-    "/development/packages/headless": getRedirect(
-      "https://www.npmjs.com/package/@sit-onyx/headless",
-    ),
-    "/development/packages/icons": getRedirect("/components/basic/icon"),
-    "/development/packages/mcp": getRedirect(
-      "https://www.npmjs.com/package/@sit-onyx/modelcontextprotocol",
-    ),
-    "/development/packages/nuxt": getRedirect("/docs/getting-started/installation"),
-    "/development/packages/nuxt-docs": getRedirect(
-      "https://www.npmjs.com/package/@sit-onyx/nuxt-docs",
-    ),
-    "/development/packages/playwright-utils": getRedirect(
-      "https://www.npmjs.com/package/@sit-onyx/playwright-utils",
-    ),
-    "/development/packages/storybook-utils": getRedirect(
-      "https://www.npmjs.com/package/@sit-onyx/storybook-utils",
-    ),
-    "/development/packages/tiptap": getRedirect("/components/form-elements/text-editor"),
-    "/development/packages/vitepress-theme": getRedirect(
-      "https://www.npmjs.com/package/@sit-onyx/vitepress-theme",
-    ),
-    "/about/team": getRedirect("/"),
-  };
+  return Object.entries(mapping).reduce(
+    (routeRules, [from, to]) => {
+      // generate both exact and .html rules for each entry
+      const rule: NonNullable<NuxtConfig["routeRules"]>[string] = {
+        redirect: {
+          to,
+          // 307 = temporary redirect, 301 = permanent redirect
+          statusCode: to.startsWith("https://") ? 307 : 301,
+        },
+      };
+
+      routeRules[from] = rule;
+      routeRules[`${from}.html`] = rule;
+      return routeRules;
+    },
+    {} as NonNullable<NuxtConfig["routeRules"]>,
+  );
 }
