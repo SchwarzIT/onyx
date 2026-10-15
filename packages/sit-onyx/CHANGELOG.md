@@ -1,5 +1,15 @@
 # sit-onyx
 
+## 1.21.1
+
+### Patch Changes
+
+- d9d7a53: fix(OnyxCodeTab): ensure language name does not wrap
+- 43bcdb8: fix(autofocus): prevent autofocus user warnings
+- 255a662: fix(OnyxFileUpload, OnyxSwitch, OnyxSlider): Fix `id` prop not being passed through to the internal input element
+- eb60f6b: fix(OnyxForm): inherit skeleton context from OnyxPageLayout
+- b6b6cea: fix(OnyxSearch): do not render filter slot if slot is empty/not defined
+
 ## 1.21.0
 
 ### Minor Changes

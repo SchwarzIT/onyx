@@ -1,5 +1,15 @@
 # @sit-onyx/icons
 
+## 1.13.0
+
+### Minor Changes
+
+- dda9c54: feat: update icons
+
+  #### New
+  - apple
+  - drill
+
 ## 1.12.0
 
 ### Minor Changes
