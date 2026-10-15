@@ -53,7 +53,7 @@
     "lightningcss": "^1.33.0",
     "lint-staged": "^17.6.0",
     "nuxt": "catalog:",
-    "oxfmt": "~0.72.0",
+    "oxfmt": "~0.73.0",
     "publint": "^0.3.25",
     "rimraf": "^6.1.3",
     "simple-git-hooks": "^2.14.0",
