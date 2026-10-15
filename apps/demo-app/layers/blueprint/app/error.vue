@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { NuxtError } from "#app";
-import { OnyxError } from "#components";
 import App from "./app.vue";
 
 const props = defineProps<{
