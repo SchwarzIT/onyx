@@ -31,32 +31,28 @@ const handleBackHome = () => clearError({ redirect: localePath("/") });
 </template>
 
 <style lang="scss" scoped>
-@use "sit-onyx/src/styles/mixins/layers.scss";
-
 .onyx-error {
-  @include layers.component() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--onyx-density-3xl);
+
+  &__image {
+    width: 32rem;
+    display: block;
+  }
+
+  &__headline {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--onyx-density-3xl);
+    gap: var(--onyx-density-md);
+  }
 
-    &__image {
-      width: 32rem;
-      display: block;
-    }
-
-    &__headline {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--onyx-density-md);
-    }
-
-    &__details {
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      font-family: var(--onyx-font-family-mono);
-    }
+  &__details {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-family: var(--onyx-font-family-mono);
   }
 }
 </style>
