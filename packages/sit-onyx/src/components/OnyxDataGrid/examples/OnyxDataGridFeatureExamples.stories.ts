@@ -73,6 +73,10 @@ export const ColumnRearrange: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "ColumnRearrange"),
 };
 
-export const DeleteRows: Story = {
-  ...createAdvancedStoryExample("OnyxDataGrid", "RowDeleteExamples"),
+export const DeleteRowsWithSelection: Story = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "RowDeleteSelectionExample"),
+};
+
+export const DeleteRowsInline: Story = {
+  ...createAdvancedStoryExample("OnyxDataGrid", "RowDeleteInlineExample"),
 };

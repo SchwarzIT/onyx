@@ -3,7 +3,7 @@ import { iconTrash } from "@sit-onyx/icons";
 import {
   createFeature,
   DataGridFeatures,
-  InternalColumnConfig,
+  type InternalColumnConfig,
   OnyxDataGrid,
   OnyxIconButton,
   type ColumnConfig,
