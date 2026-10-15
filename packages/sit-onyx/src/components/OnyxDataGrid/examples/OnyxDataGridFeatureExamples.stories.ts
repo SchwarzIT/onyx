@@ -73,6 +73,6 @@ export const ColumnRearrange: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "ColumnRearrange"),
 };
 
-export const RowDeleteExamples: Story = {
+export const DeleteRows: Story = {
   ...createAdvancedStoryExample("OnyxDataGrid", "RowDeleteExamples"),
 };
