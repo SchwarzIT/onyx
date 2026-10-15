@@ -106,7 +106,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     addImports([
       {
-        from: resolve("./runtime/utils/router"),
+        from: resolve("./runtime/utils/scroll-behavior"),
         name: "createOnyxScrollBehavior",
       },
     ]);

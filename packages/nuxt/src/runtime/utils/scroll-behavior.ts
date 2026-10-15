@@ -1,6 +1,12 @@
 import type { RouterConfig } from "nuxt/schema";
 import { nextTick, useNuxtApp } from "#imports";
 
+type CreateOnyxScrollBehaviorOptions = {
+  onBeforeScroll?: (
+    ...params: Parameters<NonNullable<RouterConfig["scrollBehavior"]>>
+  ) => Promise<void>;
+};
+
 /**
  * Creates a Vue Router scrollBehavior for applying router scroll behavior when using the onyx
  * design system. Note: The default Vue Router scroll behavior does not work because onyx uses a
@@ -8,7 +14,9 @@ import { nextTick, useNuxtApp } from "#imports";
  *
  * Will make sure the scrolling is done after the async page is ready.
  */
-export function createOnyxScrollBehavior(): RouterConfig["scrollBehavior"] {
+export function createOnyxScrollBehavior(
+  options?: CreateOnyxScrollBehaviorOptions,
+): RouterConfig["scrollBehavior"] {
   return (to, from, savedPosition) => {
     const nuxtApp = useNuxtApp();
 
@@ -22,6 +30,8 @@ export function createOnyxScrollBehavior(): RouterConfig["scrollBehavior"] {
           resolve(false);
           return;
         }
+
+        await options?.onBeforeScroll?.(to, from, savedPosition);
 
         // to avoid too much visual motion when switching pages or on initial page load when scrolling to an anchor
         // we use "instant" scroll behavior here
