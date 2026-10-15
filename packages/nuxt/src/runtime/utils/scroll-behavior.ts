@@ -39,7 +39,9 @@ export function createOnyxScrollBehavior(
         const behavior: ScrollBehavior = "instant";
 
         // support scroll to anchors (e.g. headlines)
-        const hashElement = to.hash ? scrollContainer.querySelector(to.hash) : undefined;
+        // we need to also check "window.location.hash" since "to.hash" is not defined on initial load when using SSR
+        const hash = to.hash || window.location.hash || undefined;
+        const hashElement = hash ? scrollContainer.querySelector(hash) : undefined;
         if (hashElement) {
           return hashElement.scrollIntoView({ block: "start", behavior });
         }
