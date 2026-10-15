@@ -300,6 +300,12 @@ The checkboxes can optionally be only shown on hover:
 
 <<< ./examples/SelectionHover.example.vue preview=true  layout="grow"
 
+<br />
+
+Selection can be combined with global actions to execute operations on selected rows, such as batch deletion.
+
+<<< ./examples/SelectionActions.example.vue preview=true
+
 ### Resizing
 
 Allows the user to manually change the width of columns by dragging the right border of the column header. Double-clicking the right border adjusts the size to the content width.
