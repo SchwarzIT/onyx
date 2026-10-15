@@ -18,7 +18,7 @@ const _clearError = () => clearError({ redirect: localePath("/") });
 
     <OnyxAccordion>
       <OnyxAccordionItem value="details">
-        <template #header>{{ $t("errors.technicalDetails") }}</template>
+        <template #header>{{ $t("onyx.errors.technicalDetails") }}</template>
         <pre class="error__details">{{ JSON.stringify(props.error, null, 2) }}</pre>
       </OnyxAccordionItem>
     </OnyxAccordion>
