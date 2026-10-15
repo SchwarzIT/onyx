@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { useLocalePath } from "#i18n";
+import { clearError } from "#imports";
+
+type ErrorLike = Pick<Error, "message"> & Record<string, unknown>;
+
 const props = defineProps<{
-  error: Error;
+  error: ErrorLike;
 }>();
 
 const localePath = useLocalePath();
-const _clearError = () => clearError({ redirect: localePath("/") });
+const handleBackHome = () => clearError({ redirect: localePath("/") });
 </script>
 
 <template>
@@ -13,7 +18,7 @@ const _clearError = () => clearError({ redirect: localePath("/") });
 
     <div class="error__headline">
       <OnyxHeadline is="h1">{{ props.error.message }}</OnyxHeadline>
-      <OnyxButton :label="$t('onyx.errors.backToHome')" @click="_clearError" />
+      <OnyxButton :label="$t('onyx.errors.backToHome')" @click="handleBackHome" />
     </div>
 
     <OnyxAccordion>

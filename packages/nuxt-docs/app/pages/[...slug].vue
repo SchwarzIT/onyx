@@ -24,7 +24,7 @@ const layout = computed<keyof NuxtLayouts>(() => {
 
 <template>
   <NuxtLayout :name="layout">
-    <ErrorDetails v-if="error" :error />
+    <OnyxError v-if="error" :error />
     <ContentRenderer v-else-if="data" :value="data" />
   </NuxtLayout>
 </template>

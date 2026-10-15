@@ -1,5 +1,12 @@
 import { stat } from "node:fs/promises";
-import { addComponent, addPlugin, createResolver, defineNuxtModule, useLogger } from "@nuxt/kit";
+import {
+  addComponent,
+  addComponentsDir,
+  addPlugin,
+  createResolver,
+  defineNuxtModule,
+  useLogger,
+} from "@nuxt/kit";
 import type { NuxtOptions } from "@nuxt/schema";
 import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
 import * as onyx from "sit-onyx";
@@ -96,6 +103,8 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     addPlugin({ src: resolve("./runtime/plugins/onyx") });
+
+    addComponentsDir({ path: resolve("./runtime/components") });
   },
 });
 
