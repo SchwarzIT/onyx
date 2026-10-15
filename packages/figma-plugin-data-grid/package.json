@@ -21,8 +21,8 @@
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.141.0",
-    "@fontsource-variable/source-code-pro": "^5.3.0",
-    "@fontsource-variable/source-sans-3": "^5.3.0",
+    "@fontsource-variable/source-code-pro": "^5.3.1",
+    "@fontsource-variable/source-sans-3": "^5.3.1",
     "@sit-onyx/shared": "workspace:^",
     "typescript": "catalog:",
     "vite": "catalog:",

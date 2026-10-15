@@ -66,8 +66,8 @@
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.3.12",
-    "vue-i18n": "^11.4.13",
+    "vue-component-type-helpers": "^3.3.13",
+    "vue-i18n": "^11.4.14",
     "vue-router": "^5.4.0"
   },
   "peerDependencies": {
