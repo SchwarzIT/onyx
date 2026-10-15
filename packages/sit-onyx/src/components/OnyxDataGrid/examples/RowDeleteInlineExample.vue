@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { iconTrash } from "@sit-onyx/icons";
+import { computed, h, ref } from "vue";
 import {
   createFeature,
   DataGridFeatures,
@@ -7,8 +8,7 @@ import {
   OnyxDataGrid,
   OnyxIconButton,
   type ColumnConfig,
-} from "sit-onyx";
-import { computed, h, ref } from "vue";
+} from "../../../index.js";
 
 type Entry = {
   id: number;
