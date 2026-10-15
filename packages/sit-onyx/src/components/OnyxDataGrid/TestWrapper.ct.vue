@@ -44,6 +44,7 @@ const data = [
       'name',
       {
         key: 'birthday',
+        // Test overflowing headline content and actions (See https://github.com/SchwarzIT/onyx/issues/6277)
         label: 'AnuallyRecurringDateMarkingTheExactDayYouEnteredTheWorld',
         width: '200px',
       },
