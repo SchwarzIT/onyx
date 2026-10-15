@@ -88,6 +88,9 @@ export function getLegacyRedirects(): NuxtConfig["routeRules"] {
     "/variables/colors": "/docs/foundation/colors",
     "/variables/spacings": "/docs/foundation/density",
     "/variables/fonts": "/docs/foundation/typography",
+    // there might be pages for these in the (near) future
+    // "/variables/borders": getRedirect("/docs/foundation/TODO"),
+    // "/variables/shadows": getRedirect("/docs/foundation/TODO"),
     "/icons": "/components/basic/icon",
     "/flags": "/components/basic/flag",
     "/development": "/docs/getting-started/installation",
