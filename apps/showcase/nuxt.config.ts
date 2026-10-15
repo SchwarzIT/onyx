@@ -1,4 +1,3 @@
-import { globSync } from "node:fs";
 import { Features } from "lightningcss";
 import { getSupportedOnyxBrowsers } from "./scripts/browserslistrc.js";
 
@@ -59,23 +58,10 @@ export default defineNuxtConfig({
       exclude: [/\bpackages\/flags\b/, /\bpackages\/icons\b/],
     },
   },
-  hooks: {
-    // see: https://nuxt.com/docs/4.x/getting-started/prerendering#prerenderroutes-nuxt-hook
-    async "prerender:routes"(ctx) {
-      const componentDirs = globSync("content/en/components/*/*");
-
-      const componentRoutes = componentDirs.map((dir) => {
-        const path = dir
-          .split("/")
-          .slice(2)
-          .join("/")
-          .replace(/(?<=\/|^)\d+\./g, "");
-        return `/${path}`;
-      });
-
-      for (const route of componentRoutes) {
-        ctx.routes.add(route);
-      }
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ["/"],
     },
   },
 });

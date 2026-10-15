@@ -28,7 +28,7 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
 
       <!-- Column 2 -->
       <div :class="['offers__column', gridClass]">
-        <LandingCard link="/components/">
+        <LandingCard link="/components">
           <OnyxHeadline is="h3" show-as="h2">Build faster. Scale effortlessly.</OnyxHeadline>
 
           <p class="onyx-text--default">
