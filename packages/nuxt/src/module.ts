@@ -1,7 +1,7 @@
 import { stat } from "node:fs/promises";
 import {
   addComponent,
-  addImportsDir,
+  addImports,
   addPlugin,
   createResolver,
   defineNuxtModule,
@@ -104,7 +104,12 @@ export default defineNuxtModule<ModuleOptions>({
 
     addPlugin({ src: resolve("./runtime/plugins/onyx") });
 
-    addImportsDir([resolve("./runtime/composables")]);
+    addImports([
+      {
+        from: resolve("./runtime/utils/router"),
+        name: "createOnyxScrollBehavior",
+      },
+    ]);
   },
 });
 
