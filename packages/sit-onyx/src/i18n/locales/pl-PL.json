@@ -370,5 +370,9 @@
     "label": "Szukaj",
     "selectFilter": "Wybierz filtr"
   },
-  "save": "Zapisz"
+  "save": "Zapisz",
+  "errors": {
+    "backToHome": "Powrót do strony głównej",
+    "technicalDetails": "Szczegóły błędu technicznego"
+  }
 }

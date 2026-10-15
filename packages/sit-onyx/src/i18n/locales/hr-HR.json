@@ -370,5 +370,9 @@
     "label": "Pretraživanje",
     "selectFilter": "Odaberi filtar"
   },
-  "save": "Spremi"
+  "save": "Spremi",
+  "errors": {
+    "backToHome": "Natrag na početnu stranicu",
+    "technicalDetails": "Tehnički detalji pogreške"
+  }
 }
