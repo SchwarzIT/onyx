@@ -9,6 +9,6 @@ const props = defineProps<{
 
 <template>
   <App>
-    <ErrorDetails :error="props.error" />
+    <OnyxError :error="props.error" />
   </App>
 </template>

@@ -4,7 +4,7 @@
 
 refactor(useCollection)!: do not throw error on 404
 
-The `useCollection()` composable no longer always throws an error when the collection is not found to prevent unintentional error pages / side effects where the collection is loaded but not crucial for the page. Use the newly returned `error` object and the new `<ErrorDetails />` component to show the error manually.
+The `useCollection()` composable no longer always throws an error when the collection is not found to prevent unintentional error pages / side effects where the collection is loaded but not crucial for the page. Use the newly returned `error` object and the new `<OnyxError />` component to show the error manually.
 
 Also, `useSeoMeta()` is no longer set as well for the same reason.
 
@@ -29,7 +29,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <ErrorDetails v-if="error" :error />
+  <OnyxError v-if="error" :error />
   <ContentRenderer v-else-if="data" :value="data" />
 </template>
 ```

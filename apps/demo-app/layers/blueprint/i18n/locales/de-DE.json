@@ -1,10 +1,6 @@
 {
   "blueprint": {
     "changeColorScheme": "Erscheinungsbild ändern",
-    "errors": {
-      "backToHome": "Zurück zur Startseite",
-      "technicalDetails": "Technische Fehler-Informationen"
-    },
     "sidebar": "Seitenleiste",
     "search": "Suche",
     "noItemsFound": "Keine Einträge gefunden",

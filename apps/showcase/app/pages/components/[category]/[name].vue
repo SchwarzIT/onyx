@@ -18,7 +18,7 @@ const activeTab = useRouteQuery("tab", "overview");
 </script>
 
 <template>
-  <ErrorDetails v-if="error" :error />
+  <OnyxError v-if="error" :error />
 
   <TableOfContentsLayout
     v-else-if="data"
