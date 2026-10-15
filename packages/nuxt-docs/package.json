@@ -32,9 +32,9 @@
     "@sit-onyx/mdc": "workspace:^"
   },
   "devDependencies": {
-    "@fontsource-variable/source-code-pro": "^5.3.0",
-    "@fontsource-variable/source-sans-3": "^5.3.0",
-    "@nuxt/content": "^3.16.1",
+    "@fontsource-variable/source-code-pro": "^5.3.1",
+    "@fontsource-variable/source-sans-3": "^5.3.1",
+    "@nuxt/content": "^3.16.2",
     "@nuxt/test-utils": "^4.3.3",
     "@nuxtjs/color-mode": "^4.0.1",
     "@nuxtjs/mdc": "~0.23.2",
