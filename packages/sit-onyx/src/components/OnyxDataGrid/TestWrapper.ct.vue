@@ -42,8 +42,15 @@ const data = [
     :data="data"
     :columns="[
       'name',
-      { key: 'age', label: undefined },
-      { key: 'birthday', label: 'Day of Birth' },
+      {
+        key: 'birthday',
+        label: 'AnuallyRecurringDateMarkingTheExactDayYouEnteredTheWorld',
+        width: '200px',
+      },
+      {
+        key: 'age',
+        label: undefined,
+      },
     ]"
     :features="[features()]"
   />
