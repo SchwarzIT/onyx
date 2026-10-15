@@ -3,6 +3,7 @@ import { nextTick, useNuxtApp } from "#imports";
 
 type CreateOnyxScrollBehaviorOptions = {
   onBeforeScroll?: (
+    scrollContainer: HTMLElement,
     ...params: Parameters<NonNullable<RouterConfig["scrollBehavior"]>>
   ) => Promise<void>;
 };
@@ -31,7 +32,7 @@ export function createOnyxScrollBehavior(
           return;
         }
 
-        await options?.onBeforeScroll?.(to, from, savedPosition);
+        await options?.onBeforeScroll?.(scrollContainer, to, from, savedPosition);
 
         // to avoid too much visual motion when switching pages or on initial page load when scrolling to an anchor
         // we use "instant" scroll behavior here
