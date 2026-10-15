@@ -11,7 +11,5 @@
         <NuxtPage />
       </slot>
     </NuxtLayout>
-
-    <OnyxToast />
   </OnyxAppLayout>
 </template>
