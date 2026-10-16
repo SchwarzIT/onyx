@@ -9846,7 +9846,7 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@volar/typescript': ^2.4.0
-      '@vue/compiler-core': 3.5.43
+      '@vue/compiler-core': 3.5.44
       '@vue/language-core': ^3.0.0
       esbuild: '*'
       rolldown: '>=1.0.0-beta.0'
