@@ -86,8 +86,8 @@ export function rgbToHex(rgbValue: string) {
   };
 
   const r = toHex(values[0]);
-  const g = toHex(values[1]);
-  const b = toHex(values[2]);
+  const g = toHex(values[1]!);
+  const b = toHex(values[2]!);
 
   // Include 2-digit alpha only if an alpha channel < 1 is present
   let a = "";
