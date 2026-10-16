@@ -42,6 +42,13 @@ export const getDatasetColors = (color: OnyxColor | `quantitatives-${Quantitativ
  */
 
 export const getCSSVariableValue = (variableName: string, el = document.body): string => {
+  const rawValue = getComputedStyle(el).getPropertyValue(variableName).trim();
+
+  // if the CSS variable is no "color", return the raw value, otherwise we resolve the actual color below
+  if (!CSS.supports("color", rawValue)) {
+    return rawValue;
+  }
+
   const element = el.ownerDocument.createElement("div");
   element.style.display = "none";
   element.style.color = `var(${variableName})`;
