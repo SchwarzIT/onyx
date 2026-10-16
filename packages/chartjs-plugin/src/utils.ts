@@ -45,7 +45,7 @@ export const getCSSVariableValue = (variableName: string, el = document.body): s
   const element = el.ownerDocument.createElement("div");
   element.style.display = "none";
   element.style.color = `var(${variableName})`;
-  // color scheme is inherited by the parent, so we don't need to handle it manually
+  // color scheme is inherited from the parent, so we don't need to handle it manually
   el.appendChild(element);
 
   const resolvedColor = getComputedStyle(element).color;
