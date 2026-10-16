@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import { getCSSVariableValue } from "@sit-onyx/chartjs-plugin";
 import { iconCode, iconColors, iconFileSketch } from "@sit-onyx/icons";
-import type { OnyxColor } from "sit-onyx";
+import { useToast, type OnyxColor } from "sit-onyx";
 
 const props = withDefaults(
   defineProps<{
@@ -25,18 +26,64 @@ defineSlots<{
   default?(): unknown;
 }>();
 
+const toast = useToast();
+const { t } = useI18n();
+const { copy } = useClipboard();
+
+const button = useTemplateRef("button");
+
 const color = computed(() => {
   if (props.textColor === "white") return "#fff";
   if (props.textColor === "neutral") return "var(--onyx-color-text-icons-neutral-intense)";
   if (props.textColor === "inverted") return "var(--onyx-color-text-icons-neutral-inverted)";
   return `var(--onyx-color-text-icons-${props.textColor}-bold)`;
 });
+
+const cssVariableName = computed(() => {
+  return props.cssVariable.match(/^var\(\s*(.*?)\s*\)$/)?.at(1);
+});
+
+const handleCopyCss = async () => {
+  await copy(props.cssVariable);
+
+  toast.show({
+    headline: t("copiedToClipboard"),
+    description: t("variables.copy.css.success", { value: props.cssVariable }),
+    color: "success",
+  });
+};
+
+const handleCopyFigma = async () => {
+  if (!cssVariableName.value) return;
+
+  const figmaName = cssVariableName.value.split("-").slice(-2).join("-");
+  await copy(figmaName);
+
+  toast.show({
+    headline: t("copiedToClipboard"),
+    description: t("variables.copy.figma.success", { value: figmaName }),
+    color: "success",
+  });
+};
+
+const handleCopyHex = async () => {
+  if (!cssVariableName.value) return;
+  const value = getCSSVariableValue(cssVariableName.value, button.value ?? undefined);
+  await copy(value);
+
+  toast.show({
+    headline: t("copiedToClipboard"),
+    description: t("variables.copy.hex.success", { value }),
+    color: "success",
+  });
+};
 </script>
 
 <template>
-  <OnyxFlyoutMenu class="flyout" label="Color details" trigger="click">
+  <OnyxFlyoutMenu class="flyout" :label="$t('actions')" trigger="click">
     <template #button="{ trigger }">
       <button
+        ref="button"
         v-bind="trigger"
         class="color"
         :style="{ backgroundColor: props.cssVariable, color }"
@@ -47,9 +94,21 @@ const color = computed(() => {
     </template>
 
     <template #options>
-      <OnyxMenuItem label="Copy CSS variable" :icon="iconCode" />
-      <OnyxMenuItem label="Copy Figma variable" :icon="iconFileSketch" />
-      <OnyxMenuItem label="Copy HEX code" :icon="iconColors" />
+      <OnyxMenuItem
+        :label="$t('variables.copy.css.label')"
+        :icon="iconCode"
+        @click="handleCopyCss"
+      />
+      <OnyxMenuItem
+        :label="$t('variables.copy.figma.label')"
+        :icon="iconFileSketch"
+        @click="handleCopyFigma"
+      />
+      <OnyxMenuItem
+        :label="$t('variables.copy.hex.label')"
+        :icon="iconColors"
+        @click="handleCopyHex"
+      />
     </template>
 
     <template #footer>
