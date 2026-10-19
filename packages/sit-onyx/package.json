@@ -45,7 +45,7 @@
     "stylelint": "stylelint \"dist/**/*.css\""
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.13.0",
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/assets": "workspace:^",
