@@ -74,7 +74,7 @@ const densityClass = computed(() => {
 .variables {
   display: flex;
   flex-direction: column;
-  gap: var(--onyx-density-xs);
+  gap: var(--onyx-density-md);
 }
 
 .tabs {
