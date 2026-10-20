@@ -27,6 +27,7 @@ const primaryLinks = computed(() => [
 
 const legalLinks = computed(() => [
   { label: t("footer.navigation.imprint"), href: "/imprint" },
+  { label: t("footer.navigation.privacyPolicy"), href: "/privacy-policy" },
   { label: t("footer.navigation.compliance"), href: "/compliance" },
 ]);
 
