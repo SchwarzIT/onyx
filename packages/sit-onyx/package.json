@@ -45,7 +45,7 @@
     "stylelint": "stylelint \"dist/**/*.css\""
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.13.0",
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/assets": "workspace:^",
@@ -67,7 +67,7 @@
     "vite": "catalog:",
     "vue": "catalog:",
     "vue-component-type-helpers": "^3.3.13",
-    "vue-i18n": "^11.4.14",
+    "vue-i18n": "^11.4.15",
     "vue-router": "^5.4.0"
   },
   "peerDependencies": {
