@@ -79,7 +79,21 @@
   "variables": {
     "global": "Global variable",
     "semantic": "Semantic variable",
-    "visualizationDescription": "Visualization of color mapping for global and semantic variables."
+    "visualizationDescription": "Visualization of color mapping for global and semantic variables.",
+    "copy": {
+      "css": {
+        "label": "Copy CSS variable",
+        "success": "CSS variable \"{value}\" has been copied to your clipboard."
+      },
+      "figma": {
+        "label": "Copy Figma name",
+        "success": "Figma variable name \"{value}\" has been copied to your clipboard."
+      },
+      "hex": {
+        "label": "Copy HEX color",
+        "success": "HEX color \"{value}\" has been copied to your clipboard. Note: The color depends on your currently active light/dark theme."
+      }
+    }
   },
   "name": "Name",
   "description": "Description",
