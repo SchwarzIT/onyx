@@ -62,9 +62,9 @@ In addition, provided the legal requirements are met, you have the right to rect
 
 If you yourself have provided the processed data, you have the right to data portability under Article 20 of the GDPR.
 
-<p class="box" style="border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-primary); padding: var(--onyx-density-md) var(--onyx-density-lg);">
-If data processing is based on Article 6(1)(e) or (f) of the GDPR, you have the **right to object** under Article 21 of the GDPR. If you object to data processing, it will only continue if we can demonstrate compelling legitimate grounds for further processing that override your interest in the objection.
-</p>
+<div style="border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-primary); padding: var(--onyx-density-md) var(--onyx-density-lg);">
+If data processing is based on Article 6(1)(e) or (f) of the GDPR, you have the <b>right to object</b> under Article 21 of the GDPR. If you object to data processing, it will only continue if we can demonstrate compelling legitimate grounds for further processing that override your interest in the objection.
+</div>
 
 To exercise your rights as a data subject, if you have any questions, or in the event of a complaint, please contact the Data Protection Officer in writing or by email. You also have the right to lodge a complaint with a data protection supervisory authority. The competent authority is the data protection supervisory authority of the federal state in which you reside or in which the controller is headquartered.
 
