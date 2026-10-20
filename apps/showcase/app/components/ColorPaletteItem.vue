@@ -39,9 +39,7 @@ const color = computed(() => {
   return `var(--onyx-color-text-icons-${props.textColor}-bold)`;
 });
 
-const cssVariableName = computed(() => {
-  return props.cssVariable.match(/^var\(\s*(.*?)\s*\)$/)?.at(1);
-});
+const cssVariableName = computed(() => getCssVariableName(props.cssVariable));
 
 const handleCopyCss = async () => {
   await copy(props.cssVariable);
