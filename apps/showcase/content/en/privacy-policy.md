@@ -20,7 +20,7 @@ Germany
 
 Email: info@digits.schwarz
 
-## 2. Use of Our Website
+## 2. Use of our Website
 
 ### 2.1. Purposes and Legal Bases
 
