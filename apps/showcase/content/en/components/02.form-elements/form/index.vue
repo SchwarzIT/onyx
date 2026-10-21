@@ -17,6 +17,7 @@ import { OnyxForm, OnyxInput, OnyxUnstableDatePickerV2, OnyxStepper, OnyxCard } 
 
 <style lang="scss" scoped>
 .card {
+  width: 100%;
   zoom: 0.425;
 }
 </style>

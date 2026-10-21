@@ -4,7 +4,7 @@ import { OnyxCard, OnyxHeadline, OnyxIcon } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxCard class="card" link="https://onyx.schwarz">
+  <OnyxCard class="card">
     <OnyxIcon :icon="iconPlaceholder" size="48px" />
 
     <div class="card__content">

@@ -3,5 +3,5 @@ import { OnyxUnstableShortcut } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxUnstableShortcut :sequence="[{ all: ['Shift', 'Alt', 'Meta'] }]" />
+  <OnyxUnstableShortcut :sequence="[{ all: ['Shift', 'Alt', 'Meta'] }]" os="macOS" />
 </template>

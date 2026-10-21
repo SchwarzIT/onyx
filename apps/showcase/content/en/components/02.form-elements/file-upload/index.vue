@@ -8,6 +8,7 @@ import { OnyxFileUpload } from "sit-onyx";
 
 <style lang="scss" scoped>
 .onyx-file-upload-wrapper {
+  width: 100%;
   zoom: 0.5;
 }
 </style>

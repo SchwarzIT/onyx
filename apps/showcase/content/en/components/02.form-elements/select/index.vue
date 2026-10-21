@@ -5,3 +5,9 @@ import { OnyxSelect } from "sit-onyx";
 <template>
   <OnyxSelect label="Select" list-label="List label" placeholder="Placeholder" :options="[]" />
 </template>
+
+<style lang="scss" scoped>
+.onyx-select {
+  width: 100%;
+}
+</style>
