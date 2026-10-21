@@ -18,17 +18,15 @@ const variables = [
         <div class="preview" :style="{ boxShadow: variable }"></div>
       </div>
     </template>
+
+    <template #reference="{ ref }">
+      <!-- key is needed to update the value if light/dark mode changes -->
+      <div :key="$colorMode.value" :ref></div>
+    </template>
   </CssVariablesTable>
 </template>
 
 <style lang="scss" scoped>
-.preview-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--onyx-spacing-md);
-}
-
 .preview {
   width: 2.5rem;
   height: 2.5rem;
