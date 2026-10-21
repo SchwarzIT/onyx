@@ -35,18 +35,18 @@
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^3.4.2",
-    "@nuxt/kit": "^4.6.1",
+    "@nuxt/devtools": "^3.4.3",
+    "@nuxt/kit": "^4.6.2",
     "@nuxt/module-builder": "^1.0.3",
-    "@nuxt/schema": "^4.6.1",
-    "@nuxt/test-utils": "^4.3.3",
+    "@nuxt/schema": "^4.6.2",
+    "@nuxt/test-utils": "^4.3.4",
     "@nuxtjs/i18n": "^10.6.0",
     "@sit-onyx/shared": "workspace:^",
     "nuxt": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:",
     "unbuild": "^3.6.1",
-    "vue-i18n": "^11.4.14"
+    "vue-i18n": "^11.4.16"
   },
   "peerDependencies": {
     "sit-onyx": "workspace:^"

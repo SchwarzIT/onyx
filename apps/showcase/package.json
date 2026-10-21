@@ -36,12 +36,12 @@
     "browserslist": "^4.29.3",
     "chart.js": "catalog:",
     "nuxt": "catalog:",
-    "nuxt-auth-utils": "~0.5.31",
+    "nuxt-auth-utils": "~0.5.32",
     "nuxt-llms": "^0.2.0",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.4",
-    "vue-i18n": "^11.4.14",
+    "vue-i18n": "^11.4.16",
     "vue-router": "^5.4.0"
   },
   "devDependencies": {
