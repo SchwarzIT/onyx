@@ -36,8 +36,8 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
             engineered to scale your applications in any mode, theme, or stack.
           </p>
 
-          <div class="components">
-            <div class="components__content">
+          <InertComponentPreview>
+            <div class="components">
               <div class="onyx-grid">
                 <div class="components__flex onyx-grid-span-full">
                   <OnyxCheckbox label="Checkbox" value="example-value" model-value hide-label />
@@ -61,7 +61,7 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
                 <OnyxUnstableSearch class="onyx-grid-span-full" placeholder="Search..." />
               </div>
             </div>
-          </div>
+          </InertComponentPreview>
         </LandingCard>
       </div>
 
@@ -105,17 +105,10 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
 }
 
 .components {
-  pointer-events: none;
   margin-top: var(--onyx-density-xl);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  &__content {
-    max-width: 32rem;
-    container-type: inline-size;
-    width: 100%;
-  }
+  max-width: 32rem;
+  container-type: inline-size;
+  width: 100%;
 
   :deep(.onyx-button) {
     width: 100%;
