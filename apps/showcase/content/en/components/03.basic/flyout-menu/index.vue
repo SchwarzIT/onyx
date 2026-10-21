@@ -23,3 +23,9 @@ import { OnyxFlyoutMenu, OnyxMenuItem } from "sit-onyx";
     </template>
   </OnyxFlyoutMenu>
 </template>
+
+<style lang="scss" scoped>
+.onyx-flyout-menu {
+  zoom: 0.5;
+}
+</style>
