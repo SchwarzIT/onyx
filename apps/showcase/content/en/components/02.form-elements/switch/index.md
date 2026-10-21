@@ -37,7 +37,7 @@ For an improved user experience, it should be clear to the user _why_ the switch
 
 The switch label can be positioned in several ways to support a wide variety of layouts.
 
-<<< ./examples/LabelPositions.example.vue preview=true
+<<< ./examples/LabelPositions.example.vue preview=true orientation=vertical
 
 ### Value label
 
