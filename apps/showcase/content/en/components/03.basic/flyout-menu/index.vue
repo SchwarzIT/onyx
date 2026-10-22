@@ -3,7 +3,7 @@ import { OnyxFlyoutMenu, OnyxMenuItem } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxFlyoutMenu label="Flyout menu" position="bottom" alignment="left" open>
+  <OnyxFlyoutMenu label="Flyout menu" position="right" alignment="bottom" open>
     <template #options>
       <OnyxMenuItem label="Item 1">
         <template #children>
@@ -26,8 +26,8 @@ import { OnyxFlyoutMenu, OnyxMenuItem } from "sit-onyx";
 
 <style lang="scss" scoped>
 .onyx-flyout-menu {
-  zoom: 0.7;
-  align-self: flex-start;
-  transform: translateX(-100%);
+  zoom: 0.9;
+  align-self: flex-end;
+  transform: translateX(-200%);
 }
 </style>
