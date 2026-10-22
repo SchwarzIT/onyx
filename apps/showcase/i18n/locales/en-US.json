@@ -20,7 +20,7 @@
     }
   },
   "components": {
-    "all": "Components overview",
+    "all": "Component overview",
     "noMatches": "No components found that match your search.",
     "component": "Component | Components",
     "property": "Property | Properties",

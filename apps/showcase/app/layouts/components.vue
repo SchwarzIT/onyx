@@ -7,6 +7,10 @@ defineSlots<{
    * Main page content.
    */
   default(): unknown;
+  /**
+   * Optional full width hero content.
+   */
+  hero?(): unknown;
 }>();
 
 const { locale } = useI18n();
@@ -80,6 +84,8 @@ const filteredNavigation = computed(() => {
         </NestableSidebarItem>
       </OnyxSidebar>
     </template>
+
+    <slot name="hero"></slot>
 
     <div class="onyx-grid-layout">
       <slot></slot>
