@@ -1,12 +1,21 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxFlyoutMenu, OnyxMenuItem } from "sit-onyx";
+import { OnyxIcon, OnyxMenuItem, OnyxTag } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxFlyoutMenu label="Flyout menu" position="right" alignment="center" open>
-    <template #options>
-      <OnyxMenuItem label="Menu item" :icon="iconPlaceholder" />
-    </template>
-  </OnyxFlyoutMenu>
+  <OnyxMenuItem>
+    <OnyxIcon :icon="iconPlaceholder" />
+    Menu item
+
+    <div class="trailing">
+      <OnyxTag label="Tag" />
+    </div>
+  </OnyxMenuItem>
 </template>
+
+<style lang="scss" scoped>
+.trailing {
+  margin-left: auto;
+}
+</style>
