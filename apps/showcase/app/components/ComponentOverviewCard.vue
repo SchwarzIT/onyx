@@ -59,6 +59,16 @@ const PreviewComponent = computed(() => {
 .component {
   padding: 0;
   gap: 0;
+  transition: border-color var(--onyx-duration-sm) ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--onyx-color-component-border-primary);
+
+    .component__preview {
+      transform: scale(1.05);
+    }
+  }
 
   &__preview-wrapper {
     background-color: var(--onyx-color-base-background-tinted);
@@ -78,6 +88,7 @@ const PreviewComponent = computed(() => {
     height: 100%;
     width: 100%;
     container-type: inline-size;
+    transition: transform var(--onyx-duration-sm) ease;
 
     // this is used to position fixed components (e.g. OnyxFAB) relative to the preview wrapper
     // instead of relative to the whole screen
