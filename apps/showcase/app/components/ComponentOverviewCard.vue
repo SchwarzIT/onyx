@@ -64,8 +64,8 @@ const PreviewComponent = computed(() => {
     background-color: var(--onyx-color-base-background-tinted);
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
-    padding: var(--onyx-density-md) var(--onyx-density-xl);
-    height: 8.5rem;
+    padding: var(--onyx-density-md) var(--onyx-density-3xl);
+    height: 10rem;
   }
 
   &__preview {
@@ -73,7 +73,7 @@ const PreviewComponent = computed(() => {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: var(--onyx-density-2xs);
+    gap: var(--onyx-density-sm);
     overflow: hidden;
     height: 100%;
     width: 100%;
