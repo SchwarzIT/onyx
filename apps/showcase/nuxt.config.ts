@@ -1,6 +1,9 @@
+import path from "node:path";
 import { Features } from "lightningcss";
 import type { NuxtConfig } from "nuxt/schema";
 import { getSupportedOnyxBrowsers } from "./scripts/browserslistrc.js";
+
+const DEPLOYMENT_DOMAIN = "https://onyx-showcase-dev.apps.01.cf.eu01.stackit.cloud";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -12,6 +15,12 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [{ rel: "icon", href: "/favicon.svg" }],
+      meta: [
+        { property: "og:image", content: path.join(DEPLOYMENT_DOMAIN, "/images/og-image.png") },
+        { property: "og:image:type", content: "image/png" },
+        { property: "og:image:width", content: "600" },
+        { property: "og:image:height", content: "600" },
+      ],
     },
   },
   routeRules: getLegacyRedirects(),
@@ -37,7 +46,7 @@ export default defineNuxtConfig({
     },
   },
   llms: {
-    domain: "https://onyx-showcase-dev.apps.01.cf.eu01.stackit.cloud",
+    domain: DEPLOYMENT_DOMAIN,
   },
   vite: {
     css: {
@@ -88,9 +97,8 @@ export function getLegacyRedirects(): NuxtConfig["routeRules"] {
     "/variables/colors": "/docs/foundation/colors",
     "/variables/spacings": "/docs/foundation/density",
     "/variables/fonts": "/docs/foundation/typography",
-    // there might be pages for these in the (near) future
-    // "/variables/borders": getRedirect("/docs/foundation/TODO"),
-    // "/variables/shadows": getRedirect("/docs/foundation/TODO"),
+    "/variables/borders": "/docs/foundation/borders-and-shadows",
+    "/variables/shadows": "/docs/foundation/borders-and-shadows",
     "/icons": "/components/basic/icon",
     "/flags": "/components/basic/flag",
     "/development": "/docs/getting-started/installation",
