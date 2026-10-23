@@ -35,6 +35,7 @@
     "@vueuse/router": "^15.0.0",
     "browserslist": "^4.29.3",
     "chart.js": "catalog:",
+    "comark": "^0.7.0",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.31",
     "nuxt-llms": "^0.2.0",

@@ -93,6 +93,11 @@ const PreviewComponent = computed(() => {
     // this is used to position fixed components (e.g. OnyxFAB) relative to the preview wrapper
     // instead of relative to the whole screen
     contain: layout;
+
+    > .onyx-app {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   &__meta {
