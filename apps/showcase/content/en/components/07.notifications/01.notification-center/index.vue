@@ -29,6 +29,7 @@ createdAt.setHours(createdAt.getHours() - 1);
       class="notification-center"
       label="Notifications"
       alignment="right"
+      :collapse-sidebar="false"
       :temporary="temporarySidebar"
     >
       <template #headline="{ label }">

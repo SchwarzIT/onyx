@@ -14,7 +14,7 @@ import {
   <OnyxAppLayout>
     <OnyxPageLayout>
       <template #sidebar>
-        <OnyxSidebar class="sidebar" label="Sidebar">
+        <OnyxSidebar class="sidebar" label="Sidebar" :collapse-sidebar="false">
           <div class="sidebar__content">
             <ClientOnly>
               <OnyxSidebarItem v-for="i in 3" :key="i" :link="`#link-${i}`">

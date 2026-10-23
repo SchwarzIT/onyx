@@ -16,7 +16,7 @@ import {
     <OnyxPageLayout>
       <template #sidebar>
         <ClientOnly>
-          <OnyxSidebar class="sidebar" label="Example sidebar">
+          <OnyxSidebar class="sidebar" label="Example sidebar" :collapse-sidebar="false">
             <template #header>
               <OnyxUnstableSearch placeholder="Search..." />
             </template>

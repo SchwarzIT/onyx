@@ -101,6 +101,11 @@ const PreviewComponent = computed(() => {
     > .onyx-app {
       width: 100%;
       height: 100%;
+
+      // prevent examples with OnyxAppLayout from showing the global FAB caused by the overview page sidebar (for component navigation)
+      :deep(> .onyx-fab) {
+        display: none;
+      }
     }
   }
 
