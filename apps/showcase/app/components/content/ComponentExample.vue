@@ -158,6 +158,12 @@ if (props.provideNotifications) {
       flex-direction: column;
     }
 
+    // floating action buttons are placed fixed so the content does not account for the layout height
+    // therefore, we set a fixed height here
+    &:has(> .onyx-fab) {
+      min-height: 5rem;
+    }
+
     // if the OnyxAppLayout component is used, scale it to 100% instead of full viewport size
     .onyx-app {
       width: 100%;
