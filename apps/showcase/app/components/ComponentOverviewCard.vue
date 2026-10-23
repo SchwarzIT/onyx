@@ -76,6 +76,10 @@ const PreviewComponent = computed(() => {
     border-top-right-radius: inherit;
     padding: var(--onyx-density-md) var(--onyx-density-3xl);
     height: 10rem;
+
+    &:has(.onyx-basic-dialog:open) {
+      background-color: var(--onyx-color-component-opacity-backdrop-soft);
+    }
   }
 
   &__preview {
