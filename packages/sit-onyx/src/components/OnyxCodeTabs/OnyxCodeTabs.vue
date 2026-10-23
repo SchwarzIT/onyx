@@ -78,6 +78,7 @@ const { copyStatus, copy: handleCopy } = useCopy({ source: () => activeTabCode.v
     --onyx-code-group-tablist-padding: var(--onyx-density-xs);
     --onyx-tabs-tablist-margin-bottom: 0;
     border-radius: var(--onyx-radius-md);
+    max-width: 100%;
 
     .onyx-tabs {
       &__tablist {
