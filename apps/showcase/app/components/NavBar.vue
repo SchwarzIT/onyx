@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
-import type { OnyxNavItemProps } from "sit-onyx";
+import { iconFeedback, iconLightBulbShine, iconMegaphoneNew, iconUserGroup } from "@sit-onyx/icons";
+import type { OnyxNavItemProps, OnyxUnstableNavButton } from "sit-onyx";
 import NavBar from "#layers/onyx/app/components/NavBar.vue";
 import iconGitHub from "~/assets/images/social/github.svg?raw";
 
 const localePath = useLocalePath();
 const route = useRoute();
 const { demoAppLink } = useDemoApp();
+const { loggedIn } = useUserSession();
 
 const getLinkProps = computed(() => {
   return (link: string, base?: string) => {
@@ -46,6 +48,32 @@ const getLinkProps = computed(() => {
 
     <template #contextArea>
       <ColorSchemeSwitch v-if="!$colorMode.forced" />
+
+      <OnyxFlyoutMenu label="Contact options">
+        <template #button="{ trigger }">
+          <OnyxUnstableNavButton label="Contact" :icon="iconFeedback" v-bind="trigger" />
+        </template>
+
+        <template #options>
+          <OnyxMenuItem
+            label="Report a bug"
+            :icon="iconMegaphoneNew"
+            link="https://github.com/SchwarzIT/onyx/issues/new?template=01-bug_report.yml"
+          />
+          <OnyxMenuItem
+            label="Request a new feature"
+            :icon="iconLightBulbShine"
+            link="https://github.com/SchwarzIT/onyx/discussions/new/choose"
+          />
+          <OnyxMenuItem
+            v-if="loggedIn"
+            label="Join Google Community"
+            :icon="iconUserGroup"
+            link="https://groups.google.com/a/gws.schwarz/g/onyx-community/about"
+          />
+        </template>
+      </OnyxFlyoutMenu>
+
       <OnyxSeparator orientation="vertical" />
       <UserMenu />
     </template>
