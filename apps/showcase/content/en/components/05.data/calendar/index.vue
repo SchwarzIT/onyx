@@ -8,6 +8,6 @@ import { OnyxCalendar } from "sit-onyx";
 
 <style lang="scss" scoped>
 .onyx-calendar {
-  zoom: 0.8;
+  zoom: 0.7;
 }
 </style>

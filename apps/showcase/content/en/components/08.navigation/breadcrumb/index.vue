@@ -7,7 +7,6 @@ import { OnyxBreadcrumb, OnyxBreadcrumbItem } from "sit-onyx";
     <OnyxBreadcrumb>
       <OnyxBreadcrumbItem href="#1">Path</OnyxBreadcrumbItem>
       <OnyxBreadcrumbItem href="#2">Path</OnyxBreadcrumbItem>
-      <OnyxBreadcrumbItem href="#3">Path</OnyxBreadcrumbItem>
       <OnyxBreadcrumbItem href="#4" active>Path</OnyxBreadcrumbItem>
     </OnyxBreadcrumb>
   </ClientOnly>
@@ -15,6 +14,6 @@ import { OnyxBreadcrumb, OnyxBreadcrumbItem } from "sit-onyx";
 
 <style lang="scss" scoped>
 .onyx-breadcrumb {
-  width: 17rem;
+  width: 100%;
 }
 </style>

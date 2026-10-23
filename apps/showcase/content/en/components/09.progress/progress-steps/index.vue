@@ -13,6 +13,6 @@ const steps: ControlledProgressStep[] = [{ label: "Step" }, { label: "Step" }, {
 
 <style lang="scss" scoped>
 .onyx-progress-steps {
-  zoom: 0.75;
+  zoom: 0.6;
 }
 </style>
