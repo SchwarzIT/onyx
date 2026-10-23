@@ -13,5 +13,5 @@ const steps: ControlledProgressStep[] = [
 </script>
 
 <template>
-  <OnyxProgressSteps v-model="activeStep" :steps="steps" orientation="vertical" />
+  <OnyxProgressSteps v-model="activeStep" :steps orientation="vertical" />
 </template>

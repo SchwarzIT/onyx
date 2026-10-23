@@ -116,7 +116,10 @@ _unstableUseShortcut({
 
           <template #trailingIcons>
             <div v-if="!modelValue" class="onyx-search__placeholder">
-              <div v-if="props.withShortcut" class="onyx-search__placeholder-text">
+              <div
+                v-if="props.withShortcut"
+                class="onyx-search__placeholder-text onyx-truncation-ellipsis"
+              >
                 <span> {{ t("search.leadingShortcutPlaceholder") }}</span>
                 <OnyxKey name="/" />
                 <span class="onyx-truncation-ellipsis">

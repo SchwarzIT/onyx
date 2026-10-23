@@ -76,6 +76,10 @@ const PreviewComponent = computed(() => {
     border-top-right-radius: inherit;
     padding: var(--onyx-density-md) var(--onyx-density-3xl);
     height: 10rem;
+
+    &:has(.onyx-basic-dialog:open) {
+      background-color: var(--onyx-color-component-opacity-backdrop-soft);
+    }
   }
 
   &__preview {
@@ -93,6 +97,16 @@ const PreviewComponent = computed(() => {
     // this is used to position fixed components (e.g. OnyxFAB) relative to the preview wrapper
     // instead of relative to the whole screen
     contain: layout;
+
+    > .onyx-app {
+      width: 100%;
+      height: 100%;
+
+      // prevent examples with OnyxAppLayout from showing the global FAB caused by the overview page sidebar (for component navigation)
+      :deep(> .onyx-fab) {
+        display: none;
+      }
+    }
   }
 
   &__meta {
