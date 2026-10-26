@@ -60,7 +60,7 @@ const copyright = computed(() => t("footer.copyright", { year: new Date().getFul
           class="footer__logo"
           :width="78"
           :height="24"
-          :alt="t('app.hero.logoAlt')"
+          :alt="t('app.name')"
           :src="{ light: logoOnLight, dark: logoOnDark }"
         />
 

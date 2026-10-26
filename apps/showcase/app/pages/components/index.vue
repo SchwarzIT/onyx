@@ -8,16 +8,19 @@ useHead({ title: headline });
 const { navigation } = await useSidebarNavigation({
   collection: computed(() => `components_${locale.value}` as const),
 });
+
+const description = computed(() => t("components.description"));
+
+useSeoMeta({
+  title: () => t("components.component", 2),
+  description,
+});
 </script>
 
 <template>
   <NuxtLayout name="components">
     <template #hero>
-      <PageContentHero
-        :headline
-        description="Explore all available components to build accessible, consistent, and high-quality user
-      interfaces."
-      />
+      <PageContentHero :headline :description />
     </template>
 
     <div class="sections">

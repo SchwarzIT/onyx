@@ -9,11 +9,11 @@
     "moreContentAvailable": "There is more content available here for internal employees of the Schwarz Group."
   },
   "app": {
+    "name": "Onyx Design System",
+    "description": "The stable and flexible application design system for brands of the Schwarz group.",
     "hero": {
-      "tagline": "The stable and flexible application design system for brands of the Schwarz group.",
       "getStarted": "Get started",
       "browseComponents": "Browse components",
-      "logoAlt": "Onyx Application Design System",
       "current": "Current",
       "builtOn": "Built with {vue}",
       "brand": "Official brand of {schwarzDigits}"
@@ -34,6 +34,7 @@
     "details": "Component details",
     "schema": "Type",
     "tags": "Tags",
+    "description": "Explore all available components to build accessible, consistent, and high-quality user interfaces.",
     "options": {
       "reset": "Reset styles",
       "change": "Change styles",

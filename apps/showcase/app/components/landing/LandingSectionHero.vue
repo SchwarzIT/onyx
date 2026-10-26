@@ -7,10 +7,10 @@ import { version as onyxVersion } from "sit-onyx/package.json";
   <section class="hero">
     <div class="hero__layout onyx-grid-layout">
       <div class="hero__content">
-        <img :src="logoUrl" :alt="$t('app.hero.logoAlt')" class="hero__logo" />
+        <img :src="logoUrl" :alt="$t('app.name')" class="hero__logo" />
 
         <div class="hero__body">
-          <OnyxHeadline is="h1" class="hero__tagline"> {{ $t("app.hero.tagline") }} </OnyxHeadline>
+          <OnyxHeadline is="h1" class="hero__tagline"> {{ $t("app.description") }} </OnyxHeadline>
 
           <div class="hero__actions">
             <OnyxButton
