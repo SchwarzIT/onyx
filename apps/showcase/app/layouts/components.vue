@@ -13,12 +13,7 @@ defineSlots<{
   hero?(): unknown;
 }>();
 
-const { locale } = useI18n();
-
-const { navigation } = await useSidebarNavigation({
-  collection: computed(() => `components_${locale.value}` as const),
-  fields: ["status", "componentName"],
-});
+const { navigation } = await useComponentsNavigation();
 
 const searchTerm = ref("");
 

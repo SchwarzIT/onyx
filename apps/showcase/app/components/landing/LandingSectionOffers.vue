@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-const { locale } = useI18n();
-
-const { navigation } = await useSidebarNavigation({
-  collection: computed(() => `components_${locale.value}` as const),
-});
+const { navigation } = await useComponentsNavigation();
 
 const componentCount = computed(() => {
   return navigation.value.flatMap((page) => page.children).flatMap((category) => category?.children)
