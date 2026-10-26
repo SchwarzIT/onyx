@@ -1,4 +1,3 @@
-import path from "node:path";
 import { Features } from "lightningcss";
 import type { NuxtConfig } from "nuxt/schema";
 import { getSupportedOnyxBrowsers } from "./scripts/browserslistrc.js";
@@ -15,12 +14,6 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [{ rel: "icon", href: "/favicon.svg" }],
-      meta: [
-        { property: "og:image", content: path.join(DEPLOYMENT_DOMAIN, "/images/og-image.png") },
-        { property: "og:image:type", content: "image/png" },
-        { property: "og:image:width", content: "600" },
-        { property: "og:image:height", content: "600" },
-      ],
     },
   },
   routeRules: getLegacyRedirects(),
@@ -60,6 +53,7 @@ export default defineNuxtConfig({
     public: {
       // parse ".browserslistrc" at build time so they are available in the client app (since parsing requires Node runtime)
       browsers: getSupportedOnyxBrowsers(),
+      domain: DEPLOYMENT_DOMAIN,
     },
   },
   imports: {
