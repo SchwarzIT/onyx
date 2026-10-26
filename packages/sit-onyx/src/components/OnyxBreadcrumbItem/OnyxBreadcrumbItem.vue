@@ -67,7 +67,7 @@ const isActive = computed(() => {
 
     <ButtonOrLinkLayout
       v-else
-      class="onyx-breadcrumb-item__link"
+      class="onyx-breadcrumb-item__link onyx-truncation-ellipsis"
       :link="props.href"
       :aria-current="isActive ? 'page' : undefined"
       v-bind="restAttrs"
