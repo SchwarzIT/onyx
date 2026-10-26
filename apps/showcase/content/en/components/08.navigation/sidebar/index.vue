@@ -43,6 +43,16 @@ import {
 .onyx-app {
   zoom: 0.3;
   border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+  border-radius: var(--onyx-radius-md);
+
+  :deep(.onyx-app__page, .onyx-page) {
+    border-radius: inherit;
+  }
+
+  :deep(.onyx-page__sidebar) {
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+  }
 }
 
 .sidebar {

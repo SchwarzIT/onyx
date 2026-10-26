@@ -35,5 +35,11 @@ import {
 .onyx-app {
   zoom: 0.45;
   border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
+  border-radius: var(--onyx-radius-md);
+
+  :deep(.onyx-app__nav),
+  :deep(.onyx-nav-bar) {
+    border-radius: inherit;
+  }
 }
 </style>
