@@ -16,6 +16,6 @@ import { OnyxButton, OnyxNotificationMessage } from "sit-onyx";
 
 <style lang="scss" scoped>
 .onyx-notification-message {
-  zoom: 0.8;
+  zoom: 0.6;
 }
 </style>

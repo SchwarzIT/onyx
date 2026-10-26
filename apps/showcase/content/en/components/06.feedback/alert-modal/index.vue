@@ -22,6 +22,6 @@ import { OnyxAlertModal, OnyxButton } from "sit-onyx";
 
 <style lang="scss" scoped>
 .onyx-alert-modal {
-  zoom: 0.6;
+  zoom: 0.5;
 }
 </style>

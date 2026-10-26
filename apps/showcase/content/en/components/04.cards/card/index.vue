@@ -20,7 +20,7 @@ import { OnyxCard, OnyxHeadline, OnyxIcon } from "sit-onyx";
 .card {
   flex-direction: row;
   gap: var(--onyx-density-md);
-  zoom: 0.8;
+  zoom: 0.7;
 
   &:hover {
     background-color: var(--onyx-color-base-neutral-200);

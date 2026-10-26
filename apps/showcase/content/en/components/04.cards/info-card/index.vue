@@ -4,8 +4,7 @@ import { OnyxInfoCard } from "sit-onyx";
 
 <template>
   <OnyxInfoCard headline="Info card">
-    Lorem ipsum dolor sit amet consectetur. Felis euismod sit amet nulla nulla amet libero sed. Id
-    non adipiscing duis felis volutpat.
+    Lorem ipsum dolor sit amet consectetur. Felis euismod sit amet.
   </OnyxInfoCard>
 </template>
 

@@ -11,9 +11,3 @@ const options = [
 <template>
   <OnyxRadioGroup label="Radio group" :options hide-label />
 </template>
-
-<style lang="scss" scoped>
-.onyx-radio-group {
-  zoom: 0.8;
-}
-</style>

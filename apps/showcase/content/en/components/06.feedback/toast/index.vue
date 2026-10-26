@@ -16,11 +16,10 @@ import { OnyxToastMessage } from "sit-onyx";
 .wrapper {
   padding: var(--onyx-density-md); // needed to not cut off the shadow
   width: 100%;
+  zoom: 0.6;
 }
 
 .onyx-toast-message {
-  zoom: 0.8;
-
   :deep(.onyx-toast-message__progress-bar) {
     animation-play-state: paused;
     animation-delay: -1.5s;

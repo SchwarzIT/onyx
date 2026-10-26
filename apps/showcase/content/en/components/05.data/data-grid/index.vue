@@ -54,6 +54,6 @@ const features = [withFiltering, withPagination, withCustomActions];
 
 <style lang="scss" scoped>
 .onyx-data-grid {
-  zoom: 0.35;
+  zoom: 0.4;
 }
 </style>

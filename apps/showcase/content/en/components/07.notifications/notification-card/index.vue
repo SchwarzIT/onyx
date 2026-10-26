@@ -22,6 +22,6 @@ import { OnyxButton, OnyxNotificationCard } from "sit-onyx";
 
 <style lang="scss" scoped>
 .onyx-notification-card {
-  zoom: 0.55;
+  zoom: 0.5;
 }
 </style>

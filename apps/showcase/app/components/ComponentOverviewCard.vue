@@ -90,13 +90,19 @@ const PreviewComponent = computed(() => {
     gap: var(--onyx-density-sm);
     overflow: hidden;
     height: 100%;
-    width: 100%;
+    width: 15rem;
+    max-width: 100%;
     container-type: inline-size;
     transition: transform var(--onyx-duration-sm) ease;
 
     // this is used to position fixed components (e.g. OnyxFAB) relative to the preview wrapper
     // instead of relative to the whole screen
     contain: layout;
+
+    // default zoom level if not set explicitly by example
+    > :where(*) {
+      zoom: 0.81; // using 0.8 makes 1px borders invisible so we use a slightly higher zoom
+    }
 
     > .onyx-app {
       width: 100%;

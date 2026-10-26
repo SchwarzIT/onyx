@@ -8,7 +8,6 @@ import { OnyxTextarea } from "sit-onyx";
 
 <style lang="scss" scoped>
 .onyx-textarea {
-  zoom: 0.9;
   width: 100%;
 }
 </style>
