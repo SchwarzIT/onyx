@@ -3,18 +3,18 @@ title: App layout
 componentName: OnyxAppLayout
 ---
 
-The app layout structures your whole application and ensures that the content is sized correctly, scroll containers are defined as well as providing global functionalities such as [toasts](/components/feedback/toast), [notifications](/components/notifications/notifications) and more. It supports slots for common global app elements, e.g. the nav bar and page content. We **strongly recommended** to use the app layout once in the root of your application (typically the App.vue file) and place your actual application content inside it.
+The app layout provides the outer application shell, establishing viewport bounds, top-level scroll containers, and mounting points for global services like [toasts](/components/feedback/toast) and [notifications](/components/notifications/notifications). We strongly recommend mounting `OnyxAppLayout` once at the root of your application (typically `App.vue`).
 
 ## Examples
 
 ### Basic
 
-A basic app layout contains a [nav bar](/components/navigation/nav-bar) and the main page content. Use our [page layout](/components/layouts/page-layout) component for the page content.
+A standard application shell includes an [OnyxNavBar](/components/navigation/nav-bar) slot and a default slot containing the page content wrapped in [OnyxPageLayout](/components/layouts/page-layout).
 
 <<< ./examples/Basic.example.vue preview=true layout=fullWidth
 
 ### Vertical navigation
 
-The nav bar can also be placed vertically. For further information, please refer to our [nav bar](/components/navigation/nav-bar) component.
+The layout also accommodates vertical navigation bars. See [OnyxNavBar](/components/navigation/nav-bar) for vertical mode configuration.
 
 <<< ./examples/Vertical.example.vue preview=true layout=fullWidth

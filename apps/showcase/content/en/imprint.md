@@ -5,7 +5,7 @@ layout: default
 
 # Imprint
 
-The contents published on this website is maintained by:
+The content published on this website is maintained by:
 
 Schwarz Digits KG <br/>
 Am Campus 1 <br/>

@@ -4,7 +4,7 @@ componentName: OnyxDatePickerV2
 status: experimental
 ---
 
-The date picker component can be used to select a date, multiple dates or a range of dates.
+The date picker allows users to select individual dates, multiple selections, or continuous date ranges.
 
 <!-- TODO: check why export name from vue-component-meta is not "OnyxUnstableDatePickerV2" -->
 
@@ -12,58 +12,56 @@ The date picker component can be used to select a date, multiple dates or a rang
 
 ### Selection modes
 
-The date picker supports different selection modes like single, multi and range select.
+The date picker supports `single`, `multi`, and `range` selection modes.
 
 <<< ./examples/SelectionModes.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Min, max and disabled dates
 
-To limit which dates the user can select, you can optionally set a min and max date so all dates before `min` and after `max` will be disabled and can not be selected.
-Additionally, you can define custom / specific dates that are disabled, e.g. due to public holidays.
+Constrain selectable dates with `min` and `max` bounds, or provide an array of disabled dates (such as holidays or weekends).
 
-In the example below, only the past and upcoming 7 days are selectable except Wednesdays.
+In this example, only the past and upcoming 7 days are selectable, with Wednesdays disabled:
 
 <<< ./examples/MinMax.example.vue preview=true  layout="grow"
 
 ### Calendar weeks
 
-Calendar weeks can be displayed inside the calendar. When using the `range` selection mode, the calendar week can be clicked to automatically select the whole week.
+Calendar week numbers can be displayed alongside days. In `range` selection mode, clicking a week number selects the full week.
 
 <<< ./examples/CalendarWeeks.example.vue preview=true  layout="grow"
 
-### Readonly & Disabled
+### Readonly & disabled
 
-Readonly and disabled are used to indicate that the date picker is currently not editable.
+Use readonly or disabled states when user input is restricted.
 
 <<< ./examples/Readonly.example.vue preview=true  layout="grow"
 
-### Loading & Skeleton
+### Loading & skeleton
 
-The loading state is used after a user interaction to indicate that the triggered action is currently loading / in progress. On the other hand, the skeleton should be used on initial page load when the data for the page is initially loaded.
+The `loading` state indicates asynchronous operations following interaction, while `skeleton` renders a loading placeholder on initial page load.
 
 <<< ./examples/Loading.example.vue preview=true  layout="grow"
 
 ### Message
 
-An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
-When multiple message types are defined at once, only the most relevant will be displayed (e.g. error message takes precedent over the regular message).
+Supports hint, error, and success messages with optional tooltip context. When multiple states apply, errors take precedence.
 
 <<< ./examples/Message.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Slots
 
-Multiple slots are supported to pass in custom content if needed.
+Custom slots are provided for prefix and suffix content.
 
 <<< ./examples/Slots.example.vue preview=true  layout="grow"
 
 ### Label positions
 
-The label can be positioned in several ways to support a wide variety of layouts.
+Labels can be aligned top, left, or floating to accommodate various form layouts.
 
 <<< ./examples/LabelPositions.example.vue preview=true  layout="grow" orientation="vertical"
 
 ### Date and time picker
 
-The date picker component itself does **NOT support** a built-in picker for selecting a date **and** a time together since we've noticed too many UX issues and lack of flexibility. Therefore, we recommend to use a regular date picker together with a [time picker](/components/form-elements/time-picker) component for this. This also allows for full flexibility and customization depending on the use case and requirements.
+To select both date and time, pair the date picker with an [OnyxTimePicker](/components/form-elements/time-picker). Separating the two inputs ensures clearer usability across desktop and mobile screens.
 
 <<< ./examples/DateTime.example.vue preview=true  layout="grow"

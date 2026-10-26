@@ -4,13 +4,13 @@
   "auth": {
     "login": "Log in",
     "logout": "Log out",
-    "informationSchwarz": "The login is only supported for internal employees of the Schwarz Group. When logged in, some information and features of this showcase will be available for logged in users.",
+    "informationSchwarz": "Login is only available for Schwarz Group employees to unlock internal documentation and features.",
     "protectedContent": "Protected content",
-    "moreContentAvailable": "There is more content available here for internal employees of the Schwarz Group."
+    "moreContentAvailable": "Additional content is available for Schwarz Group employees."
   },
   "app": {
     "name": "Onyx Design System",
-    "description": "The stable and flexible application design system for brands of the Schwarz group.",
+    "description": "The stable and flexible application design system for brands of the Schwarz Group.",
     "hero": {
       "getStarted": "Get started",
       "browseComponents": "Browse components",
@@ -49,12 +49,12 @@
       "new": "New",
       "experimental": {
         "label": "Experimental",
-        "description": "This component is experimental since we have just recently added it to our design system. We allow breaking changes for this component within minor or patch versions (e.g. 1.0.0 => 1.0.1) so we can integrate community feedback and ensure high quality. Therefore, we strongly recommend to watch our {changelog} when updating and using this component.",
+        "description": "This component is experimental and was recently added to the design system. Breaking changes may occur in minor or patch releases to incorporate community feedback. We strongly recommend checking our {changelog} when updating.",
         "changelog": "changelog"
       },
       "deprecated": {
         "label": "Deprecated",
-        "description": "This component is deprecated and should no longer be used. It is currently kept for backwards compatibility but will be removed in the next major version."
+        "description": "This component is deprecated and should no longer be used. It is kept for backwards compatibility and will be removed in the next major version."
       }
     }
   },
@@ -65,7 +65,7 @@
     "default": "Default",
     "cozy": "Cozy",
     "preview": {
-      "description": "Preview of the different densities using OnyxButton's as an example."
+      "description": "Preview of the different densities using OnyxButton as an example."
     }
   },
   "roles": {
@@ -101,7 +101,7 @@
   "actions": "Actions",
   "icons": {
     "icon": "Icon | Icons",
-    "empty": "There are no icons matching your search.",
+    "empty": "No icons match your search.",
     "copy": {
       "code": {
         "label": "Copy code",
@@ -124,11 +124,11 @@
   "checkOut": "Check out",
   "team": {
     "headline": "The Team",
-    "description": "Powered by a dedicated team at Schwarz Digits, Onyx delivers seamless components and processes tailored to your users. We prioritize top-tier accessibility and ARIA standards, ensuring you receive fully inclusive solutions that work brilliantly for every user."
+    "description": "Developed by a dedicated team at Schwarz Digits, Onyx delivers accessible, enterprise-ready components and workflows. We adhere to high accessibility and ARIA standards to ensure inclusive solutions for everyone."
   },
   "contributors": {
-    "headline": "The Supporters",
-    "error": "Error while loading contributors",
+    "headline": "Contributors",
+    "error": "Failed to load contributors",
     "anonymous": "Anonymous"
   },
   "footer": {

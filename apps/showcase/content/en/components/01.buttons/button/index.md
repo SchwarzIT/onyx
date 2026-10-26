@@ -3,47 +3,47 @@ title: Button
 componentName: OnyxButton
 ---
 
-Buttons serve as fundamental components in UI design, acting as gateways for user interactions and pivotal points for initiating actions within an interface. Whether prompting users to submit forms, navigate through pages, or trigger specific functionalities, buttons play a pivotal role in guiding users through their digital journey.
+Buttons trigger actions, submit forms, and guide users through critical workflows.
+
 ## Examples
 
 ### Primary
 
-Use primary buttons for the most relevant actions for the current workflow such as "Save" or "Submit" actions.
+Use primary buttons for the key action in a given view (e.g. "Save", "Submit", "Continue").
 
 <<< ./examples/Primary.example.vue preview=true
 
 ### Neutral
 
-Neutral buttons are used for secondary actions such as "Cancel" actions.
+Use neutral buttons for secondary or cancel actions.
 
 <<< ./examples/Neutral.example.vue preview=true
 
 ### Danger
 
-Use danger buttons for destructive actions such as "Delete". For an improved user experience, we strongly recommend to show a confirmation before actually deleting any data. You can use our [alert modal](/components/feedback/alert-modal) component for this.
+Use danger buttons for destructive operations such as "Delete". We recommend pairing destructive actions with a confirmation dialog such as [OnyxAlertModal](/components/feedback/alert-modal).
 
 <<< ./examples/Danger.example.vue preview=true
 
 ### Icons
 
-An optional icon can be placed on either the left or the right side of the label.
+Icons can be placed before or after the text label.
 
 <<< ./examples/Icons.example.vue preview=true
 
-### Loading & Skeleton
+### Loading & skeleton
 
-The loading state is used after a user interaction to indicate that the triggered action is currently loading / in progress. On the other hand, the skeleton should be used on initial page load when the data for the page / button is initially loaded.
+The `loading` state indicates an action is in progress following user interaction. The `skeleton` prop displays a loading placeholder during initial page rendering.
 
 <<< ./examples/Loading.example.vue preview=true
 
 ### Disabled
 
-Buttons can be disabled to indicate that their actions is currently not available and the button can not be clicked.
-For an improved user experience, it should be clear to the user _why_ the button is disabled.
+Buttons can be disabled when an action is unavailable. Ensure the interface explains why the action is disabled.
 
 <div class="onyx-text--small" style="color: var(--onyx-color-text-icons-info-intense)">
 
-Please note that we do **NOT recommend** to disable "Submit" buttons in forms since this breaks the default form validation behavior where validation is automatically triggered for each form element used inside the form and error messages are displayed correspondingly. For further information, please refer to our [form](/components/form-elements/form) component.
+Do not disable "Submit" buttons in forms. Keeping submit buttons enabled allows form validation to trigger on click and guide users to fix errors. See the [form component](/components/form-elements/form) for details.
 
 </div>
 

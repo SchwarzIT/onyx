@@ -3,17 +3,17 @@ title: Nav bar
 componentName: OnyxNavBar
 ---
 
-The navigation bar is the foundation of an application's main navigation, allowing users to seamlessly move between pages and sections within the application. Additionally, it can provide access to global system-related information and interactions such as the user login, application language, color theme (light/dark mode), global search, notifications and more.
+The navigation bar provides the primary routing header for an application, allowing users to navigate between sections. It also accommodates global actions such as authentication, language switching, theme selection, global search, and notification centers.
 
-The nav bar is intended to be used within the [app layout](/components/layouts/app-layout) component.
+The navigation bar is designed to be placed inside the `#navBar` slot of [OnyxAppLayout](/components/layouts/app-layout).
 
 ## Examples
 
 ### Basic
 
-A basic nav bar contains the application name and logo (if one exists) and navigation items linking to the main pages of the application. On smaller screen sizes, the nav bar automatically switches to an optimized mobile mode.
+A basic navigation bar displays the application title, logo, and top-level navigation links. On compact viewports, it switches automatically to mobile mode.
 
-The individual nav items can either be standalone or contain nested children that are shown when hovering the parent nav item.
+Navigation items can be standalone links or parent menus with nested links revealed on hover or click.
 
 <<< ./examples/Basic.example.vue preview=true  layout="fullWidth"
 
@@ -21,7 +21,7 @@ The individual nav items can either be standalone or contain nested children tha
 
 <div class="onyx-grid">
 <link-card class="onyx-grid-span-4" headline="Nav item" link="/components/navigation/nav-item">
-For a full list of nav item examples, please refer to the nav item component.
+Explore navigation item variants and configuration options.
 </link-card>
 </div>
 
@@ -29,7 +29,7 @@ For a full list of nav item examples, please refer to the nav item component.
 
 ### Nested nav items
 
-Nav items can contain nested children which can be used to represent a hierarchy of pages. The nesting can also contain multiple layers.
+Navigation items support multilevel nested hierarchies.
 
 <steps>
 
@@ -38,7 +38,7 @@ Nav items can contain nested children which can be used to represent a hierarchy
 Children
 
 #default
-Use child nav items that are shown when hovering the parent nav item. The parent can optionally also contain a link.
+Child items open in a dropdown menu from the parent item. The parent item can optionally link to an overview page.
 
 <<< ./examples/Nested.example.vue preview=true  layout="fullWidth"
 ::
@@ -48,7 +48,7 @@ Use child nav items that are shown when hovering the parent nav item. The parent
 Internal drilldown
 
 #default
-When multiple layers of children are defined, an internal drilldown is used by default that supports navigation between the child layers.
+When navigating deeper hierarchies, nested submenus slide smoothly within the same dropdown panel.
 
 <<< ./examples/NestedInternal.example.vue preview=true  layout="fullWidth"
 ::
@@ -58,7 +58,7 @@ When multiple layers of children are defined, an internal drilldown is used by d
 External drilldown
 
 #default
-Additional, the drilldown can be external which displays the nested child layers using multiple flyouts. Please only use a limit amount of layers with the external drilldown since the available screen size can be limited on smaller screens.
+Displays child layers in cascading flyout panels. Limit nesting depth when using external drilldowns to prevent viewport overflow.
 
 <<< ./examples/NestedExternal.example.vue preview=true  layout="fullWidth"
 ::
@@ -69,46 +69,46 @@ Additional, the drilldown can be external which displays the nested child layers
 
 ### Context area
 
-Use the context area on the right of the nav bar to show global system-related information and interactions such as the user's login or application language. The nav bar also supports a `globalContextArea` which will not be moved to a flyout menu in mobile mode.
+The context area on the right hosts global actions such as account settings, notifications, or locale selectors. Items placed in `globalContextArea` remain pinned and visible in mobile views rather than collapsing into the hamburger menu.
 
 <<< ./examples/ContextArea.example.vue preview=true  layout="fullWidth"
 
 <br />
 
-We support several components that you can use inside of the context area. Check out their documentation for further information on how to use them:
+Available components designed for the context area:
 
 <div class="onyx-grid">
 
 <link-card class="onyx-grid-span-4" headline="User menu" link="/components/navigation/user-menu">
-Display the currently logged in user with additional actions such as logout, settings and more.
+User profile summary with logout, settings, and profile links.
 </link-card>
 
 <link-card class="onyx-grid-span-4" headline="Nav button" link="/components/navigation/nav-button">
-Button to provide additional nav bar context actions such as language selection, notifications and more.
+Context buttons for custom dialogs, locale triggers, or alerts.
 </link-card>
 
 <link-card class="onyx-grid-span-4" headline="Timer" link="/components/navigation/timer">
-Countdown timer, e.g. for when the user's login session expires.
+Session countdown and auto-logout warning display.
 </link-card>
 
 <link-card class="onyx-grid-span-4" headline="Notification center" link="/components/notifications/notification-center">
-Manage global notifications for the application.
+In-app notification drawer and feed.
 </link-card>
 
 <link-card class="onyx-grid-span-4" headline="Global search" link="/components/search-and-filter/global-search">
-Provide a global search to allow the user to quickly find relevant content.
+Keyboard-driven search trigger for cross-app navigation.
 </link-card>
 
 <link-card class="onyx-grid-span-4" headline="Language menu item" link="/components/navigation/language-menu-item">
-Pre-built menu item to display and change the application language.
+Dropdown trigger to switch application locales.
 </link-card>
 
 <link-card class="onyx-grid-span-4" headline="Color scheme menu item" link="/components/navigation/color-scheme-menu-item">
-Pre-built menu item to display and change the color scheme / appearance (light/dark) mode.
+Theme switcher menu for light, dark, and system modes.
 </link-card>
 
 <link-card class="onyx-grid-span-4" headline="Color scheme dialog" link="/components/navigation/color-scheme-dialog">
-Pre-built modal to change the color scheme / appearance (light/dark) mode.
+Theme selection modal dialog.
 </link-card>
 
 </div>
@@ -117,12 +117,12 @@ Pre-built modal to change the color scheme / appearance (light/dark) mode.
 
 ### Back button
 
-An optional back button can be displayed to allow the user to navigate back to the previously opened page.
+An optional back button enables navigation to the previous route.
 
 <<< ./examples/BackButton.example.vue preview=true  layout="fullWidth"
 
 ### Vertical
 
-The nav bar can also be displayed vertically depending on the application layout. It can then be expanded and collapsed. Each nav item **must** define an icon so they can be correctly displayed when collapsed. We strongly recommend to automatically switch to a horizontal nav bar on smaller screens.
+The navigation bar can also render vertically along the side of the application. Vertical mode supports expanding and collapsing. Every nav item **must** include an icon so it remains identifiable when collapsed. We recommend switching to a horizontal navigation bar on small viewports.
 
 <<< ./examples/Vertical.example.vue preview=true  layout="fullWidth"

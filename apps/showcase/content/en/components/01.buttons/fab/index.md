@@ -3,57 +3,56 @@ title: Floating action button
 componentName: OnyxFAB
 ---
 
-A floating action button (FAB) is a fixed/sticky action button that appears at the bottom corner of a screen.
+A floating action button (FAB) is a fixed button anchored to a lower viewport corner for primary, persistent actions.
 
 ## Examples
 
 ### Basic
 
-The FAB supports text and icons. It is positioned in the bottom right corner of the screen by default. For demonstration purposes, the examples on this page are displayed in place.
+The FAB supports icons and text labels, positioning itself in the bottom-right corner by default. Examples below are shown inline for demonstration.
 
 <<< ./examples/Basic.example.vue preview=true  style="height: 5rem"
 
 ### Icon only
 
-While the label is technically required for accessibility reasons, it can visually be hidden to achieve a icon-only FAB.
+The label can be visually hidden to render an icon-only FAB. The label remains accessible to screen readers.
 
 <<< ./examples/Icon.example.vue preview=true  style="height: 5rem"
 
 ### Left aligned
 
-While the FAB is right aligned by default, it can optionally be left aligned.
+By default, the FAB anchors to the right, but it can optionally anchor to the bottom-left corner.
 
 <<< ./examples/Right.example.vue preview=true  style="height: 5rem"
 
 ### Multiple actions
 
-Multiple actions can be added. The main button will then automatically switch to a flyout trigger so clicking it will toggle the actions.
+When multiple actions are provided, the FAB becomes a trigger that opens a speed-dial speed menu of child actions.
 
 <<< ./examples/Options.example.vue preview=true  style="height: 5rem"
 
 ### Custom offset
 
-Depending on the use case, it might be necessary to position the FAB with an horizontal/vertical offset to e.g. align with custom sidebars or components.
-Use the `--onyx-fab-offset-x` and `--onyx-fab-offset-y` CSS variables for this, they will automatically be applied correctly depending on whether the FAB is left or right aligned.
+To avoid overlapping sidebars or bottom navigation bars, customize the offset using CSS variables `--onyx-fab-offset-x` and `--onyx-fab-offset-y`.
 
 <<< ./examples/Offset.example.vue preview=true  style="height: 6rem"
 
 ### Global FAB
 
-In your application, you might need to show multiple FABs from within different pages / components. We support a universal `useGlobalFAB()` composable for this so you can easily add/remove FABs from anywhere in your application and have them displayed automatically.
+The `useGlobalFAB()` composable allows pages or components to register FABs dynamically without prop drilling.
 
-The FABs for this example are shown at the bottom right of your screen.
+The FABs in this example appear in the bottom-right corner of the browser window:
 
 <<< ./examples/GlobalFAB.example.vue preview=true  style="height: 6rem"
 
 <prose-details>
-<prose-summary>Show prerequisites / manual setup</prose-summary>
+<prose-summary>Prerequisites / manual setup</prose-summary>
 
 ::info-card{headline="App layout"}
-If you are using the [app layout](/components/layouts/app-layout) component you can skip these manual steps since everything will already be set up automatically.
+Applications using [OnyxAppLayout](/components/layouts/app-layout) have global FAB support preconfigured automatically.
 ::
 
-Otherwise, add the `OnyxGlobalFAB` component once to the root of your application. It will take care of displaying the global FABs correctly.
+If not using `OnyxAppLayout`, mount the `<OnyxGlobalFAB />` component at the root of your application:
 
 ```vue [Register global FAB]
 <script lang="ts" setup>

@@ -3,59 +3,56 @@ title: Form
 componentName: OnyxForm
 ---
 
-Forms are comprehensive components designed for collecting user inputs, including fields like text inputs, selects, steppers and more. With built-in validation and error handling, this flexible component adapts well to different input needs.
+Forms collect user input across fields such as text inputs, selects, and steppers. With integrated validation and error states, the form component simplifies complex data collection.
 
-Technically, our form component is a small wrapper for the native HTML [\<form\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form) element that supports additional convenience features to easy manage forms with multiple form elements such as disabling all elements at once.
+Technically, our form component wraps the native HTML [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/form) element and adds utility features like cascading disabled states across child inputs.
 
 ## Form validation
 
-All our form element components integrate with the [build-in HTML form validation](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation#using_built-in_form_validation) which means for most use cases, no additional validation logic or library is needed.
+All Onyx form components integrate with [native HTML form validation](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation#using_built-in_form_validation). External validation libraries are usually unnecessary.
 
-Simply place the form elements inside the form component as shown in the examples below. Triggering the form submit will validate all components and show a corresponding error message if any element is invalid. The `submit` event of the form is only called when all validations are passed.
-
-Take a look at the corresponding component documentation to see a full list of available properties and form validations.
+Submitting the form triggers validation across all child inputs and surfaces corresponding error messages. The `submit` event fires only when all fields satisfy validation constraints.
 
 ::info-card{headline="Submit button"}
-Please not that we do **NOT** recommend to disable "Submit" buttons in forms since this breaks our default form validation behavior where validation is automatically triggered for each form element used inside the form and error messages are displayed correspondingly. Keep the button enabled instead for an improved user experience. Even if the user tries to submit the form before its valid, the submit ist not triggered and all invalid form elements are highlighted with proper error messages.
+We advise against disabling form submit buttons. Disabling the button prevents users from discovering validation errors upon click. Keeping the submit button enabled allows the form to highlight invalid fields and guide correction when submitted.
 ::
 
-Using reset buttons is not recommended. Please refer to the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/reset#try_it) for further information.
+Form reset buttons are discouraged. See the [MDN reset documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/reset) for details.
 
 ## Examples
 
-In the following examples, we are using our [grid system](/docs/foundation/breakpoints-and-grid) to easily apply responsive layouts.
+The examples below use the Onyx [grid system](/docs/foundation/breakpoints-and-grid) for responsive multi-column layouts.
 
 ### Basic
 
-This example shows a basic form with some validations. Click the submit button before entering any values to see the form validation in action.
+Basic form demonstrating validation constraints. Click "Submit" with empty fields to trigger validation highlights:
 
 <<< ./examples/Basic.example.vue preview=true  layout="grow"
 
 ### External submit buttons
 
-For some layouts, it might be required to place the submit button technically outside of the form itself, e.g. when a modal is used where the submit button is inside the modal footer but the form itself is placed inside the modal button.
+Some layouts require placing the submit action outside the form element (e.g. inside a modal footer).
 
-To "connect" such external submit button, simply add an ID to the form and define the HTML [form](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/form) attribute with the same ID on the button. This way, the form validation, submit etc. still work as expected, even when the submit button is not placed inside the form.
+To connect an external button, assign an `id` to the form and set the `form` attribute on the button to match that `id`. Validation and submission behaviors work identically:
 
-<<< ./examples/Modal.example.vue preview=true 
+<<< ./examples/Modal.example.vue preview=true
 
 ### Required / optional marker
 
-Required form elements are indicated by a red asterisk by default while optional elements are not highlighted.
-When most form elements are required with only a few being optional, you can use the `requiredMarker` property to change the marker type to "optional". This way, optional form elements are highlighted while required elements are not.
+Required fields show an asterisk by default. When the vast majority of fields are required, set `requiredMarker="optional"` to label the rare optional fields instead.
 
-We strongly recommend to use only **one** marker type per form.
+Maintain one consistent marker convention per form.
 
 <<< ./examples/OptionalMarker.example.vue preview=true  layout="grow"
 
 ### Disabled
 
-The form can be disabled which will automatically disabled all form elements used inside the form such as inputs, selects etc. This can be useful when e.g. disabling the form while loading / submitting so the user can not edit any data while its being processed.
+Disabling the form cascades the disabled state down to all child inputs, which is ideal during asynchronous submit operations.
 
 <<< ./examples/Disabled.example.vue preview=true  layout="grow"
 
 ### Skeleton
 
-The skeleton state should be used on initial page load when the data for the page / form is initially loaded. For convenience, the skeleton can be set once on the form and all form elements inside will automatically be displayed as skeleton.
+Setting the `skeleton` prop renders skeletons for all nested fields during initial data fetch.
 
 <<< ./examples/Skeleton.example.vue preview=true  layout="grow"

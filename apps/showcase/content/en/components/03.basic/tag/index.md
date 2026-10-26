@@ -3,32 +3,32 @@ title: Tag
 componentName: OnyxTag
 ---
 
-Tags provide additional information or hints related to their parent element. They are commonly used to visualize data-driven information such as categories or filters. For system-related information, we recommend to use the [badge](/components/basic/badge) instead.
+Tags provide contextual metadata for related parent elements, such as categories or classification labels. For application-level or system status indicators, use the [badge](/components/basic/badge) instead.
 
 ## Examples
 
 ### Basic
 
-Tags are displayed using a required label and an optional icon if needed.
+Tags require a text label and can include an optional icon.
 
-<<< ./examples/Basic.example.vue preview=true 
+<<< ./examples/Basic.example.vue preview=true
 
 ### Colors
 
-Several colors are supported to highlight the semantic meaning of the related data. See our [color documentation](/docs/foundation/colors#colors) for more information.
+Semantic color variants highlight data status or categories. See the [color documentation](/docs/foundation/colors#colors) for token details.
 
 <<< ./examples/Colors.example.vue preview=true  layout="fullWidth"
 
 ### Clickable
 
-Tags are non-interactive by default. Use the `clickable` property to support triggering an action on click. An optional action icon can be defined if needed. The tooltip text must describe the on-click action, e.g. "Click to remove the tag".
+Tags are non-interactive by default. Enable `clickable` to execute actions on click (e.g. tag dismissal). An action icon and tooltip description can be configured.
 
-**Tip:** For search and filter related tags, we recommend using our [filter tag](/components/search-and-filter/filter-tag).
+**Tip:** For interactive filter controls, use [OnyxFilterTag](/components/search-and-filter/filter-tag).
 
-<<< ./examples/Clickable.example.vue preview=true 
+<<< ./examples/Clickable.example.vue preview=true
 
 ### Skeleton
 
-The skeleton can be used on initial page load when the data for the page / tag is initially loaded.
+Use the skeleton during data fetching.
 
-<<< ./examples/Skeleton.example.vue preview=true 
+<<< ./examples/Skeleton.example.vue preview=true
