@@ -38,7 +38,7 @@
     "comark": "^0.7.0",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.32",
-    "nuxt-llms": "^0.2.0",
+    "nuxt-llms": "^0.3.0",
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.4",
