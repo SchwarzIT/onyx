@@ -26,7 +26,6 @@ import { OnyxFlyoutMenu, OnyxMenuItem } from "sit-onyx";
 
 <style lang="scss" scoped>
 .onyx-flyout-menu {
-  zoom: 0.9;
   align-self: flex-end;
   transform: translateX(-200%);
 }

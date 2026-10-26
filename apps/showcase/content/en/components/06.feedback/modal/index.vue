@@ -22,7 +22,7 @@ import { OnyxBottomBar, OnyxButton, OnyxModal } from "sit-onyx";
 
 <style lang="scss" scoped>
 .modal {
-  zoom: 0.5;
+  zoom: 0.4;
 
   &__content {
     padding: var(--onyx-density-xl) var(--onyx-modal-padding-inline);

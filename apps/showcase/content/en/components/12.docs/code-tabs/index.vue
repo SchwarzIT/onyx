@@ -44,6 +44,6 @@ const message = ref("Hello World");
 
 <style lang="scss" scoped>
 .onyx-code-tabs {
-  zoom: 0.7;
+  zoom: 0.6;
 }
 </style>
