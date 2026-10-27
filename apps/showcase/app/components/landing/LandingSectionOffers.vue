@@ -29,7 +29,10 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
           </p>
         </div>
 
-        <LandingCard link="/docs/foundation/colors">
+        <LandingCard
+          link="/docs/getting-started/installation"
+          :button-label="$t('app.hero.getStarted')"
+        >
           <OnyxHeadline is="h3" show-as="h2">Open Source. Built to last.</OnyxHeadline>
 
           <p class="onyx-text--default">
@@ -82,7 +85,7 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
 
       <!-- Column 3 -->
       <div :class="['offers__column', gridClass]">
-        <LandingCard link="/docs/getting-started/first-steps/">
+        <LandingCard link="/docs/foundation/colors" :button-label="$t('learnMore')">
           <OnyxHeadline is="h3" show-as="h2">On brand. Seamlessly adaptive.</OnyxHeadline>
 
           <p class="onyx-text--default">
