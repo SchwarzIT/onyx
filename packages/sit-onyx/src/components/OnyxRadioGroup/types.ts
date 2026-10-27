@@ -1,3 +1,4 @@
+import type { InjectionKey } from "vue";
 import type {
   AutofocusProp,
   BaseSelectOption,
@@ -6,6 +7,7 @@ import type {
   SelectOptionValue,
 } from "../../types/index.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { FormElementV2Tooltip, OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 
 export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   BaseSelectOption,
@@ -23,7 +25,10 @@ export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionV
     | "required"
     | "requiredMarker"
     | "disabled"
-  > & {
+    | "showError"
+    | "reserveMessageSpace"
+  > &
+  Pick<OnyxFormElementV2Props, "message" | "success"> & {
     /**
      * Options for the individual radio buttons of the group.
      */
@@ -43,3 +48,18 @@ export type RadioButtonOption<TValue extends SelectOptionValue = SelectOptionVal
   "hideLabel"
 > &
   AutofocusProp;
+
+export type RadioGroupContext = {
+  /**
+   * Function to report an error.
+   */
+  reportError: (id: string, error: string | FormElementV2Tooltip | undefined) => void;
+  /**
+   * Function to unregister a radio button from the context.
+   */
+  unregister: (id: string) => void;
+};
+
+export const RADIO_GROUP_INJECTION_KEY: InjectionKey<RadioGroupContext> = Symbol(
+  "RADIO_GROUP_INJECTION_KEY",
+);
