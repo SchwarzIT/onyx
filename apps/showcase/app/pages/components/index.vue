@@ -27,6 +27,8 @@ const isComponentVisible = computed(() => {
     return filteredNavigation.value.some((i) => i.children?.some((c) => c.path === path));
   };
 });
+
+const isEmpty = computed(() => !filteredNavigation.value.length);
 </script>
 
 <template>
@@ -34,6 +36,12 @@ const isComponentVisible = computed(() => {
     <template #hero>
       <PageContentHero :headline :description />
     </template>
+
+    <div v-if="isEmpty" class="empty">
+      <OnyxEmpty>
+        {{ $t("components.noMatches") }}
+      </OnyxEmpty>
+    </div>
 
     <div class="sections">
       <!-- 
@@ -77,5 +85,11 @@ const isComponentVisible = computed(() => {
   display: flex;
   flex-direction: column;
   gap: var(--onyx-density-md);
+}
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

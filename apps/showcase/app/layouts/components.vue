@@ -73,6 +73,10 @@ const filteredNavigation = computed(() => getFilteredComponents.value(navigation
 
   &__empty {
     max-width: 100%;
+
+    :deep(.onyx-empty-svg) {
+      display: none;
+    }
   }
 }
 </style>
