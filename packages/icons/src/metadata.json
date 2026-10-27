@@ -621,6 +621,10 @@
     "category": "Action & Interface",
     "aliases": ["time", "clock", "Uhr-Bearbeitung"]
   },
+  "close-layer": {
+    "category": "Action & Interface",
+    "aliases": ["group", "layer", "close", "close-layer", "zuklappen"]
+  },
   "cloud": {
     "category": "Weather & Climate",
     "aliases": ["cloudy", "Wolke"]
@@ -1911,6 +1915,10 @@
   "opactiy": {
     "category": "Tools & Shapes",
     "aliases": ["transparency", "translucence", "Transparenz", "Durchsichtigkeit"]
+  },
+  "open-layer": {
+    "category": "Action & Interface",
+    "aliases": ["group", "layer", "open", "open-layer", "gruppieren", "aufklappen"]
   },
   "opsgenie": {
     "category": "Software & Services",
