@@ -22,7 +22,7 @@
 ### Minor Changes
 
 - df521cf: - added light/dark mode transition
-  - created the useThemeTransition composable, which observes changes between light and dark mode and dynamically adds the onyx-transition-active class during the transition for a smooth visual effect. See our [docs](https://onyx.schwarz/development/typography.html) on how to use it.
+  - created the useThemeTransition composable, which observes changes between light and dark mode and dynamically adds the onyx-transition-active class during the transition for a smooth visual effect. See our [docs](https://onyx.schwarz/docs/foundation/typography) on how to use it.
 
 ## 1.0.0-beta.3
 
@@ -48,7 +48,7 @@
 
 - bf3ea0a: release beta version
 
-  🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
+🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
 
 ## 0.1.0-alpha.4
 
@@ -56,7 +56,7 @@
 
 - 981495f: Require mapping of onyx locales to the project ones.
 
-  This change was necessary because registering all languages supported by onyx would force the project to also support them due to the way locales are merged by nuxt-i18n.
+This change was necessary because registering all languages supported by onyx would force the project to also support them due to the way locales are merged by nuxt-i18n.
 
 ## 0.1.0-alpha.3
 

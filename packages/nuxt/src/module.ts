@@ -20,7 +20,7 @@ export interface ModuleOptions {
    *
    * You can set this option to `true` to disable this.
    *
-   * @see https://onyx.schwarz/development/#installation
+   * @see https://onyx.schwarz/docs/getting-started/installation
    */
   disableGlobalStyles?: boolean;
 }

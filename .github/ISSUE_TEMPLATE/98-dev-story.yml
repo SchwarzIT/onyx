@@ -88,7 +88,6 @@ body:
         **Documentation**
         - [ ] "New" badge in Storybook is added, see [storybook-addon-tag-badges](https://github.com/Sidnioulz/storybook-addon-tag-badges/?tab=readme-ov-file#-usage)
         - [ ] Storybook code snippets are checked
-        - [ ] component status has been updated in the [docs overview](https://onyx.schwarz/#components)
 
         **Other**
         - [ ] follow-up tickets were created if necessary (add links below)

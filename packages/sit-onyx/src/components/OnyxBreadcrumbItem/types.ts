@@ -5,8 +5,7 @@ import type { SharedLinkProps } from "../OnyxRouterLink/types.js";
 export type OnyxBreadcrumbItemProps = DensityProp & {
   /**
    * Whether the nav item is currently active. If any nested option is active, the parent nav item
-   * will also be marked as active. If "auto" and a
-   * [router](https://onyx.schwarz/development/router.html) is provided, the active state will be
+   * will also be marked as active. If "auto" and a router is provided, the active state will be
    * determined automatically based on the current route.
    */
   active?: boolean | "auto";

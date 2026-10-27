@@ -22,8 +22,8 @@ import OnyxNotifications from "./OnyxNotifications.vue";
  *
  * #### Step 2: Create the notifications provider
  *
- * **If you are using the [createOnyx()](https://onyx.schwarz/development/#installation) Vue plugin,
- * you can skip this step since this will already be set up for you.**
+ * **If you are using the [createOnyx()](https://onyx.schwarz/docs/getting-started/installation) Vue
+ * plugin, you can skip this step since this will already be set up for you.**
  *
  * The notifications work with Vue's
  * [provide/inject](https://vuejs.org/guide/components/provide-inject) API so you need to create a

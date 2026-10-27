@@ -16,7 +16,7 @@
 
 - 85d97a2: fix: do not bundle any Tiptap dependencies
 
-  Previously some `@tiptap/` dependencies were bundled inline into the `@sit-onyx/tiptap` package which might have caused issues when additional Tiptap dependencies are installed in the project. This fix also reduces the bundles size of `@sit-onyx/tiptap` by ~85%.
+Previously some `@tiptap/` dependencies were bundled inline into the `@sit-onyx/tiptap` package which might have caused issues when additional Tiptap dependencies are installed in the project. This fix also reduces the bundles size of `@sit-onyx/tiptap` by ~85%.
 
 ## 0.2.0
 
@@ -43,4 +43,4 @@
 
 - ad676a1: Release initial version
 
-  For further information, please refer to the [documentation](https://storybook.onyx.schwarz/?path=/docs/form-elements-texteditor--docs)
+For further information, please refer to the [documentation](https://onyx.schwarz/components/form-elements/text-editor)

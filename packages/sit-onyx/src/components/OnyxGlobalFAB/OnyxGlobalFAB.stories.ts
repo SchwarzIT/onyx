@@ -16,8 +16,8 @@ import OnyxGlobalFAB from "./OnyxGlobalFAB.vue";
  *
  * #### Step 2: Create the global fab provider
  *
- * **If you are using the [createOnyx()](https://onyx.schwarz/development/#installation) Vue plugin,
- * you can skip this step since this will already be set up for you.**
+ * **If you are using the [createOnyx()](https://onyx.schwarz/docs/getting-started/installation) Vue
+ * plugin, you can skip this step since this will already be set up for you.**
  *
  * The global FAB works with Vue's
  * [provide/inject](https://vuejs.org/guide/components/provide-inject) API so you need to create a

@@ -7,11 +7,11 @@
 - db3a4fe: feat: expose `applyArrayOrder` utility that can e.g. be useful to apply data grid rearrange rows/columns state
 - 71864ef: feat: update update border colors
 
-  All border colors have been changed slightly. If you are using any Schwarz internal theme, make sure to also update it:
+All border colors have been changed slightly. If you are using any Schwarz internal theme, make sure to also update it:
 
-  ```sh
-  pnpm update "@onyx-internal/*"
-  ```
+```sh
+pnpm update "@onyx-internal/*"
+```
 
 - d2c3e81: feat(OnyxNavButton): automatically toggle label visibility based on vertical nav bar expanded state if used inside it.
 - d6db6ed: feat(OnyxDataGrid): support headless mode for row and column rearrange feature
@@ -56,7 +56,7 @@
 - fe9b472: feat(OnyxDataGrid): implement `useRowRearrange` feature
 - b4ec725: feat(theme): implement new default theme
 
-Our default public theme (Open Source) has been updated. If you have a Schwarz Group internal project and want to use one of our internal brand themes, see our [themes documentation](https://onyx.schwarz/development/theming.html).
+Our default public theme (Open Source) has been updated. If you have a Schwarz Group internal project and want to use one of our internal brand themes, see our [themes documentation](https://onyx.schwarz/docs/foundation/colors).
 
 - e1227c2: feat(OnyxFileUpload): implement OnyxFormElementV2 inside the File upload component
 
@@ -131,7 +131,7 @@ To already use the top label, use:
 ### Minor Changes
 
 - 74c1199: feat(OnyxDataGrid): Added `link` as column type for data grid.
-  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+  For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using it.
 
 - a89a427: feat(core): Disable font ligatures to improve readability
 - c27005b: fix(OnyxMoreList): Export `useMoreList` & `useMoreListChild` composables to allow custom implementations
@@ -148,7 +148,7 @@ To already use the top label, use:
 
 - 7910ed8: feat: implement new `OnyxUnstableTreeView` & `OnyxUnstableTreeViewItem` component.
 
-For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using it.
 
 - fea2714: feat(OnyxAccordionItem): stretch header to full width and apply default flex layout for easier placement of multiple components
 
@@ -162,7 +162,7 @@ For now, the component is marked as experimental/unstable which means that it is
 
 - 3b634b3: feat: implement new OnyxUnstableSearch component
 
-For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using it.
 
 - aaf3fb7: feat(OnyxDataGrid) implemented a column search inside the hideColumns feature.
 - 7459ecc: feat(OnyxTooltip): added `disabled` prop to allow conditional disabling of the tooltip.
@@ -333,11 +333,11 @@ This e.g. fixes the issue that the `OnyxDatePickerV2` looks broken when used ins
 
 - 9819e34: feat: implement new `OnyxUnstableFormElementAction` component
 
-For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using it.
 
 - c20ef71: feat: implement new `OnyxUnstableNavButton` component
 
-For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using it.
 
 - a0aafe8: refactor(OnyxSelect): use `OnyxFormElementV2` internally
   - feat(OnyxSelect): support left aligned label using `label.position` property
@@ -386,7 +386,7 @@ For now, the component is marked as experimental/unstable which means that it is
 
 This component will replace the `OnyxDatePicker` in the future.
 
-For now, the OnyxUnstableDatePickerV2 component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+For now, the OnyxUnstableDatePickerV2 component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using it.
 
 - 661b343: feat(OnyxTimePicker): implemented range mode
 - 5ffe689: feat(OnyxFormElementV2): implement `skeleton` property
@@ -459,19 +459,19 @@ export const MY_CUSTOM_RENDERER = DataGridFeatures.createTypeRenderer({
 
 - b1254e8: feat: implemented new `OnyxUnstableSplitButton` component
 
-For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog]<https://onyx.schwarz/development/packages/changelogs/sit-onyx.html>)** when using it.
+For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog]<https://onyx.schwarz/docs/getting-started/changelog>)** when using it.
 
 - bb05353: feat: implement new `OnyxUnstableFormElementV2` component
 
 This component will replace the `OnyxFormElement` in the future and be the unified foundation for other form elements.
 
-For now, the `OnyxUnstableFormElementV2` component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using it.
+For now, the `OnyxUnstableFormElementV2` component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using it.
 
 - 9527d87: feat: support more languages
 
 The following languages are now provided: Bulgarian, Czech, Spanish, French, Croatian, Italian, Korean (updated), Dutch, Polish, Portuguese, Romanian and Slovak
 
-For a full list, please refer to the [i18n documentation](https://onyx.schwarz/development/i18n.html#build-in-languages).
+For a full list, please refer to the [i18n documentation](https://onyx.schwarz/docs/foundation/i18n).
 
 - 2899011: feat(OnyxFlyout & OnyxUserMenu):
 
@@ -502,7 +502,7 @@ For a full list, please refer to the [i18n documentation](https://onyx.schwarz/d
 
 - 0b13ab6: feat: implement new `OnyxUnstableKey` and `OnyxUnstableShortcut` components as well as `_unstableUseShortcut` composable
 
-For now, the components and composable are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html)** when using them.
+For now, the components and composable are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the **[changelog](https://onyx.schwarz/docs/getting-started/changelog)** when using them.
 
 - da2532c: feat(OnyxFormElement, OnyxForm): Add new `reserveMessageSpace` prop, which permanently blocks the message space (used by errors etc.) beneath the input field. Enabling this ensures no layout shifts are happening when the error state of an form element changes. This will become the new default behaviour von v2.
 - 7574590: The `OnyxUnstableCodeTabs` and `OnyxUnstableCodeTab` component are now considered stable, so they have been renamed to `OnyxCodeTabs` and `OnyxCodeTab`.
@@ -532,7 +532,7 @@ Other changes:
 
 - 02153fd: feat: implement new `OnyxUnstableTableOfContents` component
 
-For now, the `OnyxUnstableTableOfContents` and `OnyxUnstableTableOfContentsItem` components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+For now, the `OnyxUnstableTableOfContents` and `OnyxUnstableTableOfContentsItem` components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using them.
 
 - b55bffd: feat(OnyxTimePicker):
 
@@ -568,7 +568,7 @@ The compact pagination type provides a more mobile-friendly alternative that sup
 - 50d0c26: feat(OnyxBadge): add `clickable` property to support interactive badges
 - 50d0c26: feat(OnyxUnstableFilterBadge): implemented new OnyxUnstableFilterBadge component
 
-For now, the OnyxUnstableFilterBadge is marked as experimental/unstable which means that it's still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+For now, the OnyxUnstableFilterBadge is marked as experimental/unstable which means that it's still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using them.
 
 - 0fbd53f: fix(useOpenDirection): handle viewport boundaries when no overflow parent exists
 - 0fbd53f: feat(OnyxDataGrid): add `OnyxItemsPerPage` component and pagination page size control
@@ -576,7 +576,7 @@ For now, the OnyxUnstableFilterBadge is marked as experimental/unstable which me
   - Add `OnyxUnstableItemsPerPage` component for configurable page size selection
   - Add `itemsPerPage` option to `OnyxDataGrid` pagination feature to control visible rows per page
 
-For now, the `OnyxUnstableItemsPerPage` component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+For now, the `OnyxUnstableItemsPerPage` component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using them.
 
 - 5c2bd74: feat(OnyxCalendar): implemented Month/Year selection
 - c0f5aa2: feat(OnyxModal): support `backdrop` property to change the backdrop color
@@ -633,19 +633,19 @@ The `copyCode` emit was a leftover in the code but didn't have any functionality
 
 - fd6793d: feat(OnyxSlider): add `OnyxSliderControl` component
 
-  - Add unstable `OnyxSliderControl` component for slider input controls. For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+  - Add unstable `OnyxSliderControl` component for slider input controls. For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using them.
   - fix(OnyxStepper): ensure formatted display value is in sync with modelValue on blur
 
 - 0a67f5b: feat: implement new `OnyxUnstableCodeTabs` and `OnyxUnstableCodeTab` component
 
-For now, the components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using them.
+For now, the components are marked as experimental/unstable which means that they are still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using them.
 
 - 0a67f5b: - OnyxTabs: implement new `actions` slot
   - OnyxTab: bind fallthrough attributes to child elements
 - 4a317f3: feat: export `mergeVueProps` utility
 - fe7b384: feat: implement new `OnyxUnstableGlobalSearch` component
 
-For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using the component.
+For now, the component is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using the component.
 
 Other minor changes:
 
@@ -699,7 +699,7 @@ onyx components apply all their styles inside [CSS layers](https://onyx.schwarz/
 
 Special thanks to [lovelycentury](https://github.com/lovelycentury) for contributing the slider to onyx 🎉
 
-For now, the slider is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using the slider.
+For now, the slider is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using the slider.
 
 - 11a8450: fix(onyx-grid): fixed grid-center not working when used with temporary sidebar
 - a2aa7c7: feat(OnyxCalendar): implemented individual disabled dates
@@ -1103,7 +1103,7 @@ For reference: `type Nullable<T> = T | null | undefined`
 
 The issue described [here](https://github.com/SchwarzIT/onyx/issues/3958) that boolean shorthands / boolean casting is not working for some properties has been officially fixed with Vue 3.5.19.
 
-We removed the onyx internal workarounds in this version which were originally implemented in onyx version [1.0.0-beta.301](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html#_1-0-0-beta-301).
+We removed the onyx internal workarounds in this version which were originally implemented in onyx version [1.0.0-beta.301](https://onyx.schwarz/docs/getting-started/changelog#_1-0-0-beta-301).
 
 Note: You can use a Vue version <= 3.5.19 in your project. The fix will still be included because onyx itself is build with the correct >= 3.5.19 version since its a compile-time fix.
 
@@ -1386,7 +1386,7 @@ We added a new `<div class="onyx-dialog__content">` container inside the dialog.
 
 - 928de9f: remove digits, kaufland and lidl theme since they are now only available for internal Schwarz employees
 
-For further information and migration instructions, see our [theming docs](https://onyx.schwarz/development/theming.html)
+For further information and migration instructions, see our [theming docs](https://onyx.schwarz/docs/foundation/colors)
 
 ## 1.0.0-beta.271
 
@@ -1589,7 +1589,7 @@ Also support new `_trAttributes` and `_columns` property for data grid entries/d
 ### Minor Changes
 
 - cc9e7c6: feat(OnyxDataGrid): support new `usePagination` feature
-  - features are now able to pass slots to the underlying OnyxTable of the data grid. Supported slots are: headline, bottomLeft and pagination (see [OnyxTable](https://storybook.onyx.schwarz/?path=/story/data-table--with-slots)).
+  - features are now able to pass slots to the underlying OnyxTable of the data grid. Supported slots are: headline, bottomLeft and pagination (see [OnyxTable](https://onyx.schwarz/components/data/table)).
   - the feature context now also includes the `skeleton` of the data grid which can be used for custom components
   - the skeleton now considers the current data when determining the skeleton count so the data grid layout does not shift
   - the `enabled` option of data grid features can now also be a ref
@@ -2070,7 +2070,7 @@ Also made the header of `nested-large` and `nested-small` OnyxAccordions sticky 
 
 - cdc7bae: feat: implement OnyxNotifications and useNotification
 
-See our [documentation](https://onyx.schwarz/?path=/docs/notifications-notifications--docs) for further information.
+See our [documentation](https://onyx.schwarz/components/notifications/notifications) for further information.
 
 ## 1.0.0-beta.185
 
@@ -2369,7 +2369,7 @@ The OnyxAccordion now also supports a `v-model` for the currently opened items.
 
 - eae5bd9: fix: correctly detect links as external
 
-Previously only links starting with `http://` or `https://` we detected as external links, meaning all other links we treated as internal and navigated using the [provided Vue Router](https://onyx.schwarz/development/router.html).
+Previously only links starting with `http://` or `https://` we detected as external links, meaning all other links we treated as internal and navigated using the provided Vue Router.
 
 Since this is incorrect for links like `mailto:`, `tel:` etc. this behavior has been fixed.
 Now only links starting with `/`, `#`, `./` and `../` are treated as **internal**. All other links are treated as **external**.
@@ -2421,7 +2421,7 @@ The new `DataGridFeatures.useSelection` can be used to enable and configure the 
 
 - 471deaf: implement auto active state for OnyxNavButton, OnyxNavItem and OnyxMenuItem
 
-By default, the OnyxNavButton, OnyxNavItem and OnyxMenuitem will now manage they active state automatically based on the current route if a [router](https://onyx.schwarz/development/router.html) is provided.
+By default, the OnyxNavButton, OnyxNavItem and OnyxMenuitem will now manage they active state automatically based on the current route if a router is provided.
 
 You can manually set the active state (`true` or `false`) to override/disable this behavior.
 
@@ -2854,7 +2854,7 @@ This is fixed now so it shows the correct `schwarz` theme colors in dark and lig
 ### Minor Changes
 
 - df521cf: - added light/dark mode transition
-  - created the useThemeTransition composable, which observes changes between light and dark mode and dynamically adds the onyx-transition-active class during the transition for a smooth visual effect. See our [docs](https://onyx.schwarz/development/typography.html) on how to use it.
+  - created the useThemeTransition composable, which observes changes between light and dark mode and dynamically adds the onyx-transition-active class during the transition for a smooth visual effect. See our [docs](https://onyx.schwarz/docs/foundation/typography) on how to use it.
 
 ## 1.0.0-beta.90
 
@@ -2875,7 +2875,7 @@ This is fixed now so it shows the correct `schwarz` theme colors in dark and lig
 
 - e250589: feat(OnyxSystemButton): implement soft and medium color
 
-Also removed the `density` property since the system button does not support [density](https://onyx.schwarz/basics/density.html).
+Also removed the `density` property since the system button does not support [density](https://onyx.schwarz/docs/foundation/density).
 
 ## 1.0.0-beta.87
 
@@ -2974,7 +2974,7 @@ Also changed the underlying logic to calculate the component visibility which is
 
 - 9f23f13: feat: support `schwarz` theme
 
-For docs about how to use the theme, see our [theming docs](https://onyx.schwarz/development/theming.html).
+For docs about how to use the theme, see our [theming docs](https://onyx.schwarz/docs/foundation/colors).
 
 - `sit-onyx` now also exports a `ONYX_THEMES` array that includes a list of all available themes.
 - OnyxButton: adjust text color contrast
@@ -3105,7 +3105,7 @@ The bug caused the color scheme dialog to not emit the correct select color sche
 
 - bb826a4: fix(sass): remove usage of globals
 
-Sass [deprecated the usage of built-in global functions](https://sass-lang.com/documentation/breaking-changes/import/) like `map-get` which might lead to build errors e.g. when using [onyx breakpoint utilities](https://onyx.schwarz/development/breakpoints.html). We removed their usages in favor of importing the corresponding module.
+Sass [deprecated the usage of built-in global functions](https://sass-lang.com/documentation/breaking-changes/import/) like `map-get` which might lead to build errors e.g. when using [onyx breakpoint utilities](https://onyx.schwarz/docs/foundation/breakpoints-and-grid). We removed their usages in favor of importing the corresponding module.
 
 ## 1.0.0-beta.58
 
@@ -3312,7 +3312,7 @@ Removed export of `syncGlobalOptionalText`, use the `createOnyx()` Vue plugin in
 onyx now no longer bundles/inlines the recommend font families because they got bundled by Vite into the main `style.css` file as base64 encoded URL.
 This had negative impact on performance, tree-shaking and bundle size.
 
-From now on, you need to install and import the font families manually. For more information see our [typography docs](https://onyx.schwarz/development/typography.html#installation).
+From now on, you need to install and import the font families manually. For more information see our [typography docs](https://onyx.schwarz/docs/foundation/typography).
 
 ## 1.0.0-beta.29
 
@@ -3679,7 +3679,7 @@ Including new features:
 
 - b8db0cc: refactor(OnyxPageLayout): remove slot `toasts`
 
-Use the new [OnyxToastProvider](https://storybook.onyx.schwarz/?path=/docs/feedback-toastprovider--docs) instead
+Use the new [OnyxToastProvider](https://onyx.schwarz/components/feedback/toast) instead
 
 ### Minor Changes
 
@@ -3886,7 +3886,7 @@ prevent "ResizeObserver not defined" error
 
 - 62cb2ca: feat: support `global.css` file
 
-See [Getting Started guide](https://onyx.schwarz/development/#installation) for further information.
+See [Getting Started guide](https://onyx.schwarz/docs/getting-started/installation) for further information.
 
 ## 1.0.0-alpha.126
 
@@ -4132,7 +4132,7 @@ New:
 
 - 9eb7b4e: feat: add `OnyxNavBar` component
 
-If you used one of the `onyx-grid-max-md`, `onyx-grid-max-lg` or `onyx-grid-center` CSS classes which are not placed on the application root, move them to the application root element. See [grid docs](https://onyx.schwarz/development/grid.html#example) for further information
+If you used one of the `onyx-grid-max-md`, `onyx-grid-max-lg` or `onyx-grid-center` CSS classes which are not placed on the application root, move them to the application root element. See [grid docs](https://onyx.schwarz/docs/foundation/breakpoints-and-grid) for further information
 
 ## 1.0.0-alpha.97
 
@@ -4384,7 +4384,7 @@ If you used one of the `onyx-grid-max-md`, `onyx-grid-max-lg` or `onyx-grid-cent
 
 - 03fea09: feat: add SCSS mixin for breakpoints
 
-See the [documentation](https://onyx.schwarz/development/breakpoints.html) for further details
+See the [documentation](https://onyx.schwarz/docs/foundation/breakpoints-and-grid) for further details
 
 ## 1.0.0-alpha.62
 
@@ -4446,7 +4446,7 @@ See the [documentation](https://onyx.schwarz/development/breakpoints.html) for f
 
 - cb3a72b: add CSS variables for box shadows
 
-See [token documentation](https://onyx.schwarz/variables/shadows.html) for a full list of available shadows.
+See [token documentation](https://onyx.schwarz/docs/foundation/borders-and-shadows) for a full list of available shadows.
 
 ### Patch Changes
 

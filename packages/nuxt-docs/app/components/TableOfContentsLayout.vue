@@ -44,7 +44,7 @@ defineSlots<{
   display: grid;
   gap: var(--onyx-content-toc-gap);
 
-  // see: https://storybook.onyx.schwarz/?path=/docs/navigation-tableofcontents--docs
+  // see: https://onyx.schwarz/components/navigation/table-of-contents
   grid-template-columns: 1fr minmax(8rem, 15rem);
 
   &__toc {

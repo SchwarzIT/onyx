@@ -27,7 +27,7 @@ export type OnyxNavBarProps<TOrientation extends NavBarOrientation = NavBarOrien
    * breakpoint matches or is smaller. - a `number`: The NavBar renders in mobile when the viewport
    * width is smaller than the provided value.
    *
-   * @see [onyx docs](https://onyx.schwarz/development/breakpoints.html) for more information.
+   * @see [onyx docs](https://onyx.schwarz/docs/foundation/breakpoints-and-grid) for more information.
    */
   mobile?: boolean | OnyxBreakpoint | number;
 

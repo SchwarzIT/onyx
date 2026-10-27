@@ -12,6 +12,8 @@ const ASSETS_SIDEBAR: DefaultTheme.SidebarItem[] = [
   },
 ];
 
+const DEPLOYMENT_DOMAIN = "https://onyx-documentation-dev.apps.01.cf.eu01.stackit.cloud";
+
 // https://vitepress.dev/reference/site-config
 export const CONFIG = {
   vite: {
@@ -38,11 +40,11 @@ export const CONFIG = {
       },
     ],
     ["meta", { property: "og:site_name", content: "onyx" }],
-    ["meta", { property: "og:image", content: "https://onyx.schwarz/images/og-image.png" }],
+    ["meta", { property: "og:image", content: `${DEPLOYMENT_DOMAIN}/images/og-image.png` }],
     ["meta", { property: "og:image:type", content: "image/jpeg" }],
     ["meta", { property: "og:image:width", content: "600" }],
     ["meta", { property: "og:image:height", content: "600" }],
-    ["meta", { property: "og:url", content: "https://onyx.schwarz" }],
+    ["meta", { property: "og:url", content: DEPLOYMENT_DOMAIN }],
   ],
   ignoreDeadLinks: [/^http:\/\/localhost:6006/],
   themeConfig: {

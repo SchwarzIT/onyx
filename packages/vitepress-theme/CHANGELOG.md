@@ -12,17 +12,17 @@
 
 - 7fde5eb: We proudly announce:
 
-  ## 🎉 Major release of version 1.0.0 🎉
+## 🎉 Major release of version 1.0.0 🎉
 
-  _There are no changes to the latest `beta` version._
+_There are no changes to the latest `beta` version._
 
-  Thanks for all your help, bug reports and feature requests that made this possible.
-  Our work still continues, we are actively working on new and more features and bug-fixes.
+Thanks for all your help, bug reports and feature requests that made this possible.
+Our work still continues, we are actively working on new and more features and bug-fixes.
 
-  Meet us at the [SITCON.perform](https://sitcon.schwarz/) in our UXDS Design room.
+Meet us at the [SITCON.perform](https://sitcon.schwarz/) in our UXDS Design room.
 
-  With the **1.0.0** release the package API is stable and there won't be any breaking changes until the next major release.
-  We don't expect more then one major release per year.
+With the **1.0.0** release the package API is stable and there won't be any breaking changes until the next major release.
+We don't expect more then one major release per year.
 
 ### Patch Changes
 
@@ -1770,7 +1770,7 @@
 
 - bb826a4: fix(sass): remove usage of globals
 
-  Sass [deprecated the usage of built-in global functions](https://sass-lang.com/documentation/breaking-changes/import/) like `map-get` which might lead to build errors e.g. when using [onyx breakpoint utilities](https://onyx.schwarz/development/breakpoints.html). We removed their usages in favor of importing the corresponding module.
+Sass [deprecated the usage of built-in global functions](https://sass-lang.com/documentation/breaking-changes/import/) like `map-get` which might lead to build errors e.g. when using [onyx breakpoint utilities](https://onyx.schwarz/docs/foundation/breakpoints-and-grid). We removed their usages in favor of importing the corresponding module.
 
 - Updated dependencies
   - sit-onyx@1.0.0-beta.59
@@ -2187,7 +2187,7 @@
 
 - bf3ea0a: release beta version
 
-  🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
+🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
 
 ### Patch Changes
 
@@ -3350,17 +3350,17 @@
 
 - cc49642: feat: add `breakpoint` scss mixin
 
-  Example usage:
+Example usage:
 
-  ```scss
-  @use "@sit-onyx/vitepress-theme/mixins.scss";
+```scss
+@use "@sit-onyx/vitepress-theme/mixins.scss";
 
-  .some-class {
-    @include mixins.breakpoint(max, m) {
-      // your styles for m breakpoint
-    }
+.some-class {
+  @include mixins.breakpoint(max, m) {
+    // your styles for m breakpoint
   }
-  ```
+}
+```
 
 ## 0.0.1-alpha.0
 

@@ -42,17 +42,17 @@
     - end
     - endPercentage
 
-  **BREAKING CHANGE**:
+**BREAKING CHANGE**:
 
-  - Removed `track` element, use the computed `track` state for rendering a track element if needed.
-  - Removed `thumbContainer` element, if necessary the relative position can be calculated using `getValueInPercentage`.
+- Removed `track` element, use the computed `track` state for rendering a track element if needed.
+- Removed `thumbContainer` element, if necessary the relative position can be calculated using `getValueInPercentage`.
 
-  The concept of _marks_ was removed form the headless slider, as they don't have any special accessibility properties or meaning.
+The concept of _marks_ was removed form the headless slider, as they don't have any special accessibility properties or meaning.
 
-  - Removed option property `marks`
-  - Removed type `SliderMark`
-  - Removed `mark` element
-  - Removed `marks` state
+- Removed option property `marks`
+- Removed type `SliderMark`
+- Removed `mark` element
+- Removed `marks` state
 
 ## 0.7.1
 
@@ -67,32 +67,32 @@
 
 - df4fa65: feat(createSlider): adapt `mark` left position style calculation
 
-  There is no additional `transform` necessary to align the marks, instead the necessary calculations parameters changed:
+There is no additional `transform` necessary to align the marks, instead the necessary calculations parameters changed:
 
-  - `positionOffset` is removed
-  - `padding` is added to allow for the definition of safe-zones at the start and beginning of the trail.
-  - `markWidth` is added to account it's width in the calculation and no additional transform is necessary.
+- `positionOffset` is removed
+- `padding` is added to allow for the definition of safe-zones at the start and beginning of the trail.
+- `markWidth` is added to account it's width in the calculation and no additional transform is necessary.
 
-  E.g.
+E.g.
 
-  ```ts
-  mark({
-    value: markItem.value,
-    label: markItem.label,
-    positionOffset: "0.25rem",
-  });
-  ```
+```ts
+mark({
+  value: markItem.value,
+  label: markItem.label,
+  positionOffset: "0.25rem",
+});
+```
 
-  is now
+is now
 
-  ```ts
-  mark({
-    value: markItem.value,
-    label: markItem.label,
-    padding: "0.1rem",
-    markWidth: "0.375rem",
-  });
-  ```
+```ts
+mark({
+  value: markItem.value,
+  label: markItem.label,
+  padding: "0.1rem",
+  markWidth: "0.375rem",
+});
+```
 
 ## 0.6.0
 
@@ -112,7 +112,7 @@
 
 - 4e7daca: fix(createElRef): make returned ref nullable
 
-  When using `createElRef()`, the returned ref was typed to be always defined. This is not true since the element can not be mounted yet. This fix adds `| null` to the type definition. This also aligns with the behavior of Vue's `useTemplateRef`.
+When using `createElRef()`, the returned ref was typed to be always defined. This is not true since the element can not be mounted yet. This fix adds `| null` to the type definition. This also aligns with the behavior of Vue's `useTemplateRef`.
 
 ## 0.4.0
 
@@ -121,17 +121,17 @@
 - fe7b384: feat: expose internals.getOptionValueById for createListbox and createComboBox
 - 523b7b9: refactor `createSlider` implementation
 
-  Breaking changes: This change includes breaking changes. Since the `createSlider` is marked as unstable, we allow for breaking changes within minor versions.
+Breaking changes: This change includes breaking changes. Since the `createSlider` is marked as unstable, we allow for breaking changes within minor versions.
 
-  - update and optimize internal implementation
-  - remove `onCommit` option, use `onChange` instead
-  - prevent thumbs from overlapping each other in range mode
-  - remove `rail` element since it is not needed
-  - removed unnecessary exposed states: isDragging, activeThumbIndex, isRange, trackOffset, trackLength
-  - renamed exposed states: marksList => marks, normalizedValues => normalizedValues
-  - removed unnecessary exposed internals: clampValue and roundToStep, use the new unified `updateValue` instead
-  - removed `discrete` option. Pass a corresponding `step` value if you only want to allow certain discrete values
-  - export `singleSliderTesting` and `rangeSliderTesting` Playwright test utils
+- update and optimize internal implementation
+- remove `onCommit` option, use `onChange` instead
+- prevent thumbs from overlapping each other in range mode
+- remove `rail` element since it is not needed
+- removed unnecessary exposed states: isDragging, activeThumbIndex, isRange, trackOffset, trackLength
+- renamed exposed states: marksList => marks, normalizedValues => normalizedValues
+- removed unnecessary exposed internals: clampValue and roundToStep, use the new unified `updateValue` instead
+- removed `discrete` option. Pass a corresponding `step` value if you only want to allow certain discrete values
+- export `singleSliderTesting` and `rangeSliderTesting` Playwright test utils
 
 ### Patch Changes
 
@@ -144,9 +144,9 @@
 - a2aa7c7: feat(OnyxCalendar): implemented individual disabled dates
 - 13f8d31: feat: implement `_unstableCreateSlider` composable
 
-  Special thanks to [lovelycentury](https://github.com/lovelycentury) for contributing the slider to onyx 🎉
+Special thanks to [lovelycentury](https://github.com/lovelycentury) for contributing the slider to onyx 🎉
 
-  For now, the slider is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/development/packages/changelogs/sit-onyx.html) when using the slider.
+For now, the slider is marked as experimental/unstable which means that it is still under active development and the API might change in patch or minor releases. Keep an eye on the [changelog](https://onyx.schwarz/docs/getting-started/changelog) when using the slider.
 
 - 7817640: feat(OnyxCalendar):
   - implemented week select for range select-mode
@@ -170,9 +170,9 @@
 
 - 7fde5eb: Development Release
 
-  This package is not yet stable and the API might change multiple times before the `1.0.0` release.
+This package is not yet stable and the API might change multiple times before the `1.0.0` release.
 
-  There are no changes to the latest `beta` version.
+There are no changes to the latest `beta` version.
 
 ## 1.0.0-beta.24
 
@@ -226,10 +226,10 @@
 
 - ece5641: chore: replace redundant useManagedState with defineModel
 
-  The changes are mostly internal, but the typings were of `OnyxSelect` were improved:
+The changes are mostly internal, but the typings were of `OnyxSelect` were improved:
 
-  - The `modelValue` now infers a specific subtype of `SelectOptionValue` and the `options` values must match.
-  - `withSearch`: Filtering of the options will not automatically disabled anymore when `searchTerm` is bound. Instead `noFilter` must be set.
+- The `modelValue` now infers a specific subtype of `SelectOptionValue` and the `options` values must match.
+- `withSearch`: Filtering of the options will not automatically disabled anymore when `searchTerm` is bound. Instead `noFilter` must be set.
 
 ## 1.0.0-beta.16
 
@@ -261,12 +261,12 @@
 
 - a3eb7d0: feat(createTabs): support skipping disabled tabs for keyboard navigation
 
-  Disabled tabs will now be skipped/ignored when navigating via keyboard.
-  You need to provide the disabled state when calling the `tabs()` element, e.g.:
+Disabled tabs will now be skipped/ignored when navigating via keyboard.
+You need to provide the disabled state when calling the `tabs()` element, e.g.:
 
-  ```vue
-  <button v-bind="tab({ value: 'tab-1', disabled: true })" />
-  ```
+```vue
+<button v-bind="tab({ value: 'tab-1', disabled: true })" />
+```
 
 ## 1.0.0-beta.11
 
@@ -290,7 +290,7 @@
 
 - 616550f: feat(headless): implement basic tabs composable #2038
 
-  The package now supports a `createTabs` composable and `tabsTesting()` Playwright utility.
+The package now supports a `createTabs` composable and `tabsTesting()` Playwright utility.
 
 ## 1.0.0-beta.8
 
@@ -298,7 +298,7 @@
 
 - dc00809: feat: support SSR for OnyxSelect, OnyxNavButton, OnyxUserMenu and more components
 
-  Removed `createId()` utility. Use Vue's new `useId()` utility which is SSR safe and supported since Vue `>= 3.5.0`.
+Removed `createId()` utility. Use Vue's new `useId()` utility which is SSR safe and supported since Vue `>= 3.5.0`.
 
 ## 1.0.0-beta.7
 
@@ -364,7 +364,7 @@
 
 - bf3ea0a: release beta version
 
-  🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
+🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
 
 ## 1.0.0-alpha.12
 

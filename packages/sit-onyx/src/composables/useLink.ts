@@ -4,7 +4,7 @@ import { extractLinkProps, isInternalLink } from "../utils/router.js";
 
 /**
  * Internal behavior of the `OnyxRouterLink`. Should be used for navigation. Considers the user
- * provided [router](https://onyx.schwarz/development/router.html).
+ * provided router.
  */
 export const useLink = () => {
   const router = inject(ROUTER_INJECTION_KEY, undefined);

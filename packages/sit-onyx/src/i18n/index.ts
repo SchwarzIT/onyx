@@ -41,7 +41,7 @@ export type ProvideI18nOptions = {
   locale?: MaybeRef<string>;
   /**
    * Available translations / messages. English is always supported. For build-in translations, see:
-   * https://onyx.schwarz/development/i18n.html
+   * https://onyx.schwarz/docs/foundation/i18n
    *
    * @example
    *   ```ts

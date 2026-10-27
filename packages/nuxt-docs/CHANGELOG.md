@@ -13,7 +13,7 @@
 
 - d871730: fix(nuxt-docs): show correct sidebar root when page is not found
 
-  When a page is not found, the sidebar previously included all available pages, even if a custom sidebar root was defined. This is now fixed so that if e.g. a root is defined for "/components" and a non-existing page is opened (e.g. "/components/buttons/not-found"), the sidebar will still correctly show all items inside the "/components" root.
+When a page is not found, the sidebar previously included all available pages, even if a custom sidebar root was defined. This is now fixed so that if e.g. a root is defined for "/components" and a non-existing page is opened (e.g. "/components/buttons/not-found"), the sidebar will still correctly show all items inside the "/components" root.
 
 ## 0.7.3
 
@@ -35,7 +35,7 @@
 - 3efb8bc: fix(sidebar-layout): Define content section of TOC layout as container so the actual content width is considered when using the onyx grid
 - b2197a5: fix(useCollection): Prevent 404 when the route seems to begin with a locale, but doesn't actually match a locale prefix.
 
-  This fixes cases where e.g. the route is `/design` for locale `de` which was incorrectly detected as locale prefix (`/de/design`) although no prefix is used in this case.
+This fixes cases where e.g. the route is `/design` for locale `de` which was incorrectly detected as locale prefix (`/de/design`) although no prefix is used in this case.
 
 ## 0.7.0
 
@@ -54,19 +54,19 @@
 
 - 65e3627: feat: support search options for `GlobalSearch`
 
-  You can now override the `GlobalSearch` component to e.g. pass options for generating the search sections:
+You can now override the `GlobalSearch` component to e.g. pass options for generating the search sections:
 
-  ```vue
-  <script lang="ts" setup>
-  import GlobalSearch from "#layers/onyx/app/components/GlobalSearch.vue";
+```vue
+<script lang="ts" setup>
+import GlobalSearch from "#layers/onyx/app/components/GlobalSearch.vue";
 
-  const { loggedIn } = useUserSession();
-  </script>
+const { loggedIn } = useUserSession();
+</script>
 
-  <template>
-    <GlobalSearch :options="loggedIn ? undefined : { ignoredTags: ['auth-only'] }" />
-  </template>
-  ```
+<template>
+  <GlobalSearch :options="loggedIn ? undefined : { ignoredTags: ['auth-only'] }" />
+</template>
+```
 
 ### Patch Changes
 
@@ -89,11 +89,11 @@
 
 - b818852: perf(nuxt-docs): remove `@nuxt/image` due to performance issues
 
-  We've experienced performance issues / "out of memory" issues for some deployment providers when using `@nuxt/image`.
-  The `@nuxt/image` module and `ProseImg` was now removed by default so images are no longer automatically optimized.
-  Also, you now no longer need to include the `sharp` onlyBuiltDependencies in your `pnpm-workspace.yaml`.
+We've experienced performance issues / "out of memory" issues for some deployment providers when using `@nuxt/image`.
+The `@nuxt/image` module and `ProseImg` was now removed by default so images are no longer automatically optimized.
+Also, you now no longer need to include the `sharp` onlyBuiltDependencies in your `pnpm-workspace.yaml`.
 
-  If you still want to use `@nuxt/image`, simply install the module in your project and create a `app/components/content/ProseImg.vue` file where you are using the `<NuxtImg />` component.
+If you still want to use `@nuxt/image`, simply install the module in your project and create a `app/components/content/ProseImg.vue` file where you are using the `<NuxtImg />` component.
 
 ### Patch Changes
 
@@ -140,23 +140,23 @@
 - fde0cb5: Support syntax highlighting for `PackageManagerCodeTabs` and `NpmInstallCodeTabs` components.
 - 1f3eeb9: feat: support icon for folders and files
 
-  The sidebar layout now supports showing an icon for content folders and pages in the sidebar. Use the "icon" property in the `.navigation.yml` file of a folder or the `navigation.item` frontmatter in your `*.md` files to specify the icon name. For more information, see the [Nuxt Content docs](https://content.nuxt.com/docs/utils/query-collection-navigation#navigation-metadata-with-navigationyml).
+The sidebar layout now supports showing an icon for content folders and pages in the sidebar. Use the "icon" property in the `.navigation.yml` file of a folder or the `navigation.item` frontmatter in your `*.md` files to specify the icon name. For more information, see the [Nuxt Content docs](https://content.nuxt.com/docs/utils/query-collection-navigation#navigation-metadata-with-navigationyml).
 
-  You can browse all available icons in our [icon library](https://onyx.schwarz/icons.html). Important: You need the define the icon name in kebab-case, so e.g. for the "User Settings" icon, use "user-settings".
+You can browse all available icons in our [icon library](https://onyx.schwarz/components/basic/icon). Important: You need the define the icon name in kebab-case, so e.g. for the "User Settings" icon, use "user-settings".
 
-  Other changes:
+Other changes:
 
-  - remove default back button from the nav bar. If needed, you can re-add it by [customizing the nav bar](https://onyx.schwarz/development/packages/nuxt-docs.html#customization)
-  - sidebar items that are new sidebar roots now show an arrow icon to indicate that there is nested content
-  - fix "Failed to resolve dependency: @nuxtjs/mdc" warning when running the dev server
-  - fix: prevent reactivity warning when using markdown tables
+- remove default back button from the nav bar. If needed, you can re-add it by [customizing the nav bar](https://onyx.schwarz/development/packages/nuxt-docs.html#customization)
+- sidebar items that are new sidebar roots now show an arrow icon to indicate that there is nested content
+- fix "Failed to resolve dependency: @nuxtjs/mdc" warning when running the dev server
+- fix: prevent reactivity warning when using markdown tables
 
 - e9e5a8b: - add ProseBr component for accessible line breaks when using `<br />`
   - fix(packageManagerCodeTabs): prevent "Failed to resolve component: ProsePre" warning.
   - feat: make `NpmInstallCodeTabs` a global component so its also available in the [Nuxt Studio](https://nuxt.studio/) visual editor
 - d91901d: feat(sidebar): support customizing the sidebar using `.navigation.yml`
 
-  For further information see our [documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#sidebar-layout)
+For further information see our [documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#sidebar-layout)
 
 - 8cd0c85: feat: show back button in sidebar for nested sidebar roots
 
@@ -164,9 +164,9 @@
 
 - 48291ec: fix: change collection prefix from "" to "/"
 
-  As documented in the [Nuxt content docs](https://content.nuxt.com/docs/collections/sources#prefix), collection prefixes must start with "/" so we fixed the default collection prefix from "" to "/". This also fixes a bug when using [Nuxt Studio](https://nuxt.studio/) where no files/folders are shown.
+As documented in the [Nuxt content docs](https://content.nuxt.com/docs/collections/sources#prefix), collection prefixes must start with "/" so we fixed the default collection prefix from "" to "/". This also fixes a bug when using [Nuxt Studio](https://nuxt.studio/) where no files/folders are shown.
 
-  **Important**: If you are defining custom collections (e.g. for custom languages), make sure to also fix the prefix if necessary!
+**Important**: If you are defining custom collections (e.g. for custom languages), make sure to also fix the prefix if necessary!
 
 - Updated dependencies
   - sit-onyx@1.6.0
@@ -178,13 +178,13 @@
 
 - 0a67f5b: feat: add `ProsePre` and `NpmInstallCodeTabs` component
 
-  Markdown code snippets are now rendered with the OnyxCodeTabs component. Also a new `NpmInstallCodeTabs` component can be used in markdown files
-  to display npm package install commands for common package managers (pnpm, npm, yarn and bun).
+Markdown code snippets are now rendered with the OnyxCodeTabs component. Also a new `NpmInstallCodeTabs` component can be used in markdown files
+to display npm package install commands for common package managers (pnpm, npm, yarn and bun).
 
 - 4a317f3: feat: support global search inside nav bar by default
 
-  The default nav bar now features a global search that can be used to search any markdown content as well as changing the app language and color scheme.
-  The previous search inside the sidebar layout has been removed since it is now redundant. If you still want to include a sidebar search, pass custom content / slots to the sidebar layout.
+The default nav bar now features a global search that can be used to search any markdown content as well as changing the app language and color scheme.
+The previous search inside the sidebar layout has been removed since it is now redundant. If you still want to include a sidebar search, pass custom content / slots to the sidebar layout.
 
 ### Patch Changes
 
@@ -255,10 +255,10 @@
 
 - 0fcd73f: feat: implement `sidebar` layout
 
-  By default, the new `sidebar` layout will be used to render the (markdown / content) pages.
-  It will generate a sidebar navigation based on the content structure.
+By default, the new `sidebar` layout will be used to render the (markdown / content) pages.
+It will generate a sidebar navigation based on the content structure.
 
-  Also default vertical margins have been added to prose markdown components (h1-h6, ol and ul)
+Also default vertical margins have been added to prose markdown components (h1-h6, ol and ul)
 
 ### Patch Changes
 
@@ -414,9 +414,9 @@
 
 - df455a1: refactor(nuxt-docs): remove app config in favor of Nuxt overrides
 
-  Configuration via `app.config.ts` file has been removed in favor of a more flexible and Nuxt native approach by leveraging the Nuxt layer
+Configuration via `app.config.ts` file has been removed in favor of a more flexible and Nuxt native approach by leveraging the Nuxt layer
 
-  For further information, see the [onyx documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#customization).
+For further information, see the [onyx documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#customization).
 
 ## 1.0.0-beta.105
 
@@ -424,9 +424,9 @@
 
 - 63e4499: feat: support Nuxt i18n
 
-  Nuxt i18n integration is now supported by default. For further information see the [onyx documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#i18n).
+Nuxt i18n integration is now supported by default. For further information see the [onyx documentation](https://onyx.schwarz/development/packages/nuxt-docs.html#i18n).
 
-  The default Nuxt content config has been changed, so by default, markdown files will only be loaded from the `content/en` directory instead of `content/` directly. To migrate, move all existing files to a new `content/en` folder.
+The default Nuxt content config has been changed, so by default, markdown files will only be loaded from the `content/en` directory instead of `content/` directly. To migrate, move all existing files to a new `content/en` folder.
 
 ## 1.0.0-beta.104
 
@@ -457,7 +457,7 @@
 
 - bf163a2: fix(nuxt-docs): update page content when navigating
 
-  Previously the page content did not update when dynamically navigating to another route which is fixed now
+Previously the page content did not update when dynamically navigating to another route which is fixed now
 
 - Updated dependencies
   - sit-onyx@1.0.0-beta.287
@@ -483,8 +483,8 @@
 
 - 3299c59: fix: correctly pack files when publishing
 
-  After the release of version `1.0.0-beta.92`, the Nuxt docs layer did not work at all when used inside a project.
-  The reason is that due to the Nuxt 4 migration, all relevant files are now placed inside the "app" directory but our "files" definition in package.json did not include the directory when publishing so the file were missing in the npm package.
+After the release of version `1.0.0-beta.92`, the Nuxt docs layer did not work at all when used inside a project.
+The reason is that due to the Nuxt 4 migration, all relevant files are now placed inside the "app" directory but our "files" definition in package.json did not include the directory when publishing so the file were missing in the npm package.
 
 ## 1.0.0-beta.97
 
@@ -533,7 +533,7 @@
 
 - c1ee0f0: Nuxt 4 is supported now which means you need to update your project to Nuxt 4 as well when using the `@sit-onyx/nuxt` or `@sit-onyx/nuxt-docs` package
 
-  The Nuxt I18n integration of `@sit-onyx/nuxt` now also no longer supports the `iso` property when defining locales which means to need to use `@nuxtjs/i18n >= 9.0.0`, see [Nuxt I18n docs](https://v9.i18n.nuxtjs.org/docs/guide/migrating/)
+The Nuxt I18n integration of `@sit-onyx/nuxt` now also no longer supports the `iso` property when defining locales which means to need to use `@nuxtjs/i18n >= 9.0.0`, see [Nuxt I18n docs](https://v9.i18n.nuxtjs.org/docs/guide/migrating/)
 
 ### Patch Changes
 
@@ -1264,7 +1264,7 @@
 
 - f3c6bef: fix(@sit-onyx/nuxt-docs): prevent missing test module on startup
 
-  Prevent `Cannot find module "@nuxt/test-utils"` error on app start.
+Prevent `Cannot find module "@nuxt/test-utils"` error on app start.
 
 ## 1.0.0-beta.2
 

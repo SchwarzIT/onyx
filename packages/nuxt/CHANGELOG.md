@@ -12,8 +12,8 @@
 
 - 50997cf: fix(nuxt): Fix loading of i18n locales
 
-  This fixes the following issue / warning:
-  `WARN Failed to load messages for locale "en" Failed loading locale (en): /@fs/@sit-onyx/nuxt/dist/runtime/locales/en-US.js — You need to define 'export default' that will return the locale messages.`Ï
+This fixes the following issue / warning:
+`WARN Failed to load messages for locale "en" Failed loading locale (en): /@fs/@sit-onyx/nuxt/dist/runtime/locales/en-US.js — You need to define 'export default' that will return the locale messages.`Ï
 
 ## 1.1.0
 
@@ -21,9 +21,9 @@
 
 - 416a3ea: feat: support more languages
 
-  The following languages are now supported: Bulgarian, Czech, Spanish, French, Croatian, Italian, Korean (updated), Dutch, Polish, Portuguese, Romanian and Slovak
+The following languages are now supported: Bulgarian, Czech, Spanish, French, Croatian, Italian, Korean (updated), Dutch, Polish, Portuguese, Romanian and Slovak
 
-  For a full list, please refer to the [i18n documentation](https://onyx.schwarz/development/i18n.html#build-in-languages).
+For a full list, please refer to the [i18n documentation](https://onyx.schwarz/docs/foundation/i18n).
 
 ## 1.0.1
 
@@ -39,17 +39,17 @@
 
 - 7fde5eb: We proudly announce:
 
-  ## 🎉 Major release of version 1.0.0 🎉
+## 🎉 Major release of version 1.0.0 🎉
 
-  _There are no changes to the latest `beta` version._
+_There are no changes to the latest `beta` version._
 
-  Thanks for all your help, bug reports and feature requests that made this possible.
-  Our work still continues, we are actively working on new and more features and bug-fixes.
+Thanks for all your help, bug reports and feature requests that made this possible.
+Our work still continues, we are actively working on new and more features and bug-fixes.
 
-  Meet us at the [SITCON.perform](https://sitcon.schwarz/) in our UXDS Design room.
+Meet us at the [SITCON.perform](https://sitcon.schwarz/) in our UXDS Design room.
 
-  With the **1.0.0** release the package API is stable and there won't be any breaking changes until the next major release.
-  We don't expect more then one major release per year.
+With the **1.0.0** release the package API is stable and there won't be any breaking changes until the next major release.
+We don't expect more then one major release per year.
 
 ### Patch Changes
 
@@ -242,51 +242,51 @@
 
 - dedae71: feat(nuxt): auto register onyx locales
 
-  The `registerLocales` option for the onyx module was removed as it is no longer necessary.
-  onyx will now automatically detect which locales are used by the project and register the corresponding onyx locales automatically.
+The `registerLocales` option for the onyx module was removed as it is no longer necessary.
+onyx will now automatically detect which locales are used by the project and register the corresponding onyx locales automatically.
 
-  If you are not using IETF's BCP47 names for your locale codes, you must include the `language` property when defining your locales.
-  For further details, see the [onyx documentation](https://onyx.schwarz/development/packages/nuxt.html#setup).
+If you are not using IETF's BCP47 names for your locale codes, you must include the `language` property when defining your locales.
+For further details, see the [onyx documentation](https://onyx.schwarz/docs/foundation/i18n).
 
-  **Old**:
+**Old**:
 
-  ```ts
-  export default defineNuxtConfig({
-    modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
+```ts
+export default defineNuxtConfig({
+  modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
+  i18n: {
+    defaultLocale: "en-US",
+    locales: [
+      { code: "en-US", file: "en-US.json" },
+      { code: "de", file: "de-DE.json" },
+    ],
+  },
+  onyx: {
     i18n: {
-      defaultLocale: "en-US",
-      locales: [
-        { code: "en-US", file: "en-US.json" },
-        { code: "de", file: "de-DE.json" },
-      ],
-    },
-    onyx: {
-      i18n: {
-        registerLocales: {
-          "en-US": "en-US",
-          de: "de-DE",
-        },
+      registerLocales: {
+        "en-US": "en-US",
+        de: "de-DE",
       },
     },
-  });
-  ```
+  },
+});
+```
 
-  **New**:
+**New**:
 
-  ```ts
-  export default defineNuxtConfig({
-    modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
-    i18n: {
-      defaultLocale: "en-US",
-      locales: [
-        { code: "en-US", file: "en-US.json" },
-        // in the "de" example, the langauge property is necessary because the "de" code is not a valid IETF's BCP47 code
-        // alternatively, you could remove the language property and change to code to "de-DE"
-        { code: "de", language: "de-DE", file: "de-DE.json" },
-      ],
-    },
-  });
-  ```
+```ts
+export default defineNuxtConfig({
+  modules: ["@sit-onyx/nuxt", "@nuxtjs/i18n"],
+  i18n: {
+    defaultLocale: "en-US",
+    locales: [
+      { code: "en-US", file: "en-US.json" },
+      // in the "de" example, the langauge property is necessary because the "de" code is not a valid IETF's BCP47 code
+      // alternatively, you could remove the language property and change to code to "de-DE"
+      { code: "de", language: "de-DE", file: "de-DE.json" },
+    ],
+  },
+});
+```
 
 ## 1.0.0-beta.288
 
@@ -314,8 +314,8 @@
 
 - 5e81385: fix(nuxt): always provide onyx plugin
 
-  Previously, the onyx plugin was only registered if Nuxt I18n was used.
-  This caused the issue that the router integration did not work when not using i18n.
+Previously, the onyx plugin was only registered if Nuxt I18n was used.
+This caused the issue that the router integration did not work when not using i18n.
 
 ## 1.0.0-beta.284
 
@@ -350,7 +350,7 @@
 
 - c1ee0f0: Nuxt 4 is supported now which means you need to update your project to Nuxt 4 as well when using the `@sit-onyx/nuxt` or `@sit-onyx/nuxt-docs` package
 
-  The Nuxt I18n integration of `@sit-onyx/nuxt` now also no longer supports the `iso` property when defining locales which means to need to use `@nuxtjs/i18n >= 9.0.0`, see [Nuxt I18n docs](https://v9.i18n.nuxtjs.org/docs/guide/migrating/)
+The Nuxt I18n integration of `@sit-onyx/nuxt` now also no longer supports the `iso` property when defining locales which means to need to use `@nuxtjs/i18n >= 9.0.0`, see [Nuxt I18n docs](https://v9.i18n.nuxtjs.org/docs/guide/migrating/)
 
 ## 1.0.0-beta.279
 
@@ -393,7 +393,7 @@
 
 - 928de9f: remove digits, kaufland and lidl theme since they are now only available for internal Schwarz employees
 
-  For further information and migration instructions, see our [theming docs](https://onyx.schwarz/development/theming.html)
+For further information and migration instructions, see our [theming docs](https://onyx.schwarz/docs/foundation/colors)
 
 ### Patch Changes
 
@@ -2024,13 +2024,13 @@
 
 - dfa58b8: feat: provide toasts
 
-  The Nuxt plugin now registers the `createOnyx()` Vue plugin which also provides [toasts](https://storybook.onyx.schwarz/?path=/docs/feedback-toast--docs). So you no longer need to manually provide them, so if you have something like the following in your code, you can remove it:
+The Nuxt plugin now registers the `createOnyx()` Vue plugin which also provides [toasts](https://onyx.schwarz/components/feedback/toast). So you no longer need to manually provide them, so if you have something like the following in your code, you can remove it:
 
-  ```ts
-  provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
-  ```
+```ts
+provide(TOAST_PROVIDER_INJECTION_KEY, createToastProvider());
+```
 
-  Also the i18n integration that syncs your nuxt-i18n locale with onyx now also supports the `locale.language` key since `locale.iso` is deprecated.
+Also the i18n integration that syncs your nuxt-i18n locale with onyx now also supports the `locale.language` key since `locale.iso` is deprecated.
 
 ### Patch Changes
 
@@ -2098,24 +2098,24 @@
 
 - d7b68e0: feat: remove inline font families from bundle
 
-  onyx now no longer bundles/inlines the recommend font families because they got bundled by Vite into the main `style.css` file as base64 encoded URL.
-  This had negative impact on performance, tree-shaking and bundle size.
+onyx now no longer bundles/inlines the recommend font families because they got bundled by Vite into the main `style.css` file as base64 encoded URL.
+This had negative impact on performance, tree-shaking and bundle size.
 
-  From now on, you need to install and import the font families manually. For more information see our [typography docs](https://onyx.schwarz/development/typography.html#installation).
+From now on, you need to install and import the font families manually. For more information see our [typography docs](https://onyx.schwarz/docs/foundation/typography).
 
-  For Nuxt, you can run
+For Nuxt, you can run
 
-  ```sh
-  npm install -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
-  ```
+```sh
+npm install -D @fontsource-variable/source-sans-3 @fontsource-variable/source-code-pro
+```
 
-  and then import them in your `nuxt.config.ts`:
+and then import them in your `nuxt.config.ts`:
 
-  ```ts
-  export default defineNuxtConfig({
-    css: ["@fontsource-variable/source-sans-3", "@fontsource-variable/source-code-pro"],
-  });
-  ```
+```ts
+export default defineNuxtConfig({
+  css: ["@fontsource-variable/source-sans-3", "@fontsource-variable/source-code-pro"],
+});
+```
 
 ### Patch Changes
 
@@ -2337,7 +2337,7 @@
 
 - bf3ea0a: release beta version
 
-  🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
+🎉 onyx is now beta! There are no breaking changes to the last `1.0.0.-alpha.*` version
 
 ### Patch Changes
 
@@ -2392,7 +2392,7 @@
 
 - 981495f: Require mapping of onyx locales to the project ones.
 
-  This change was necessary because registering all languages supported by onyx would force the project to also support them due to the way locales are merged by nuxt-i18n.
+This change was necessary because registering all languages supported by onyx would force the project to also support them due to the way locales are merged by nuxt-i18n.
 
 ### Patch Changes
 
@@ -2411,9 +2411,9 @@
 
 - 5b1aab0: fix(nuxt): i18n locales not resolvable
 
-  Prevents error on application start:
+Prevents error on application start:
 
-  ERROR ENOENT: no such file or directory, open '/node_modules/@sit-onyx/nuxt/dist/runtime/locales/de-DE.ts'
+ERROR ENOENT: no such file or directory, open '/node_modules/@sit-onyx/nuxt/dist/runtime/locales/de-DE.ts'
 
 ## 1.0.0-alpha.38
 
