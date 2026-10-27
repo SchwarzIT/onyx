@@ -18,8 +18,8 @@ useSeoMeta({
   ogDescription: description,
   ogImage: `${config.public.domain}/og-image.png`,
   ogImageType: "image/png",
-  ogImageWidth: "600",
-  ogImageHeight: "600",
+  ogImageWidth: "1200",
+  ogImageHeight: "630",
 });
 </script>
 
