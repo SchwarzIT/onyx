@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { iconGrid, iconSearchX } from "@sit-onyx/icons";
-import { normalizedIncludes } from "sit-onyx";
+import { iconSearchX } from "@sit-onyx/icons";
 
 defineSlots<{
   /**
@@ -14,28 +13,8 @@ defineSlots<{
 }>();
 
 const { navigation } = await useComponentsNavigation();
-
-const searchTerm = ref("");
-
-const filteredNavigation = computed(() => {
-  const search = searchTerm.value.trim();
-  if (!search) return navigation.value;
-
-  return navigation.value
-    .map((item) => {
-      return {
-        ...item,
-        children: item.children?.filter((child) => {
-          // support searching by title and componentName
-          return (
-            normalizedIncludes(child.title, search) ||
-            (child.fields?.componentName && normalizedIncludes(child.fields.componentName, search))
-          );
-        }),
-      };
-    })
-    .filter((item) => item.children?.length);
-});
+const { searchTerm, getFilteredComponents } = useComponentSearch();
+const filteredNavigation = computed(() => getFilteredComponents.value(navigation.value));
 </script>
 
 <template>
@@ -43,11 +22,6 @@ const filteredNavigation = computed(() => {
     <template #sidebar>
       <OnyxSidebar class="sidebar" :label="$t('onyx.navigation.navigationHeadline')">
         <template #header>
-          <OnyxSidebarItem link="/components">
-            <OnyxIcon :icon="iconGrid" />
-            <span>{{ $t("components.all") }}</span>
-          </OnyxSidebarItem>
-
           <OnyxUnstableSearch v-model="searchTerm" corner-radius="strong" with-shortcut />
         </template>
 

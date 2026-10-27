@@ -4,6 +4,5 @@ import { OnyxTag } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxTag label="Tag" />
   <OnyxTag label="Tag" :icon="iconPlaceholder" />
 </template>
