@@ -6,5 +6,3 @@ applications:
     instances: 2
     buildpacks:
       - https://github.com/cloudfoundry/staticfile-buildpack
-    routes:
-      - route: onyx.schwarz
