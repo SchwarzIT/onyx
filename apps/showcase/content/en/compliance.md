@@ -23,8 +23,8 @@ Please contact our Compliance Department to raise serious concerns regarding com
 
 Schwarz Digits IT KG <br/>
 Compliance <br/>
-Am Campus 174177 <br/>
-Bad Friedrichshall <br/>
+Am Campus 1 <br/>
+74177 Bad Friedrichshall <br/>
 Germany <br/>
 E-Mail: compliance@digits.schwarz
 

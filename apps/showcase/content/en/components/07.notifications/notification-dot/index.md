@@ -3,12 +3,12 @@ title: Notification dot
 componentName: OnyxNotificationDot
 ---
 
-Displays a dot indicator for an arbitrary component. Useful to highlight that there is more information available when e.g. clicking the button.
+Renders a dot indicator badge on target components to highlight unread activity or updates (e.g. on navigation items or action buttons).
 
 ## Examples
 
 ### Basic
 
-The notification dot can technically be wrapped around any element, although we most recommend to use a button such as an [icon button](/components/buttons/icon-button) or [nav button](/components/navigation/nav-button). The dot supports several colors depending on the semantic meaning. See our [color documentation](/docs/foundation/colors#colors) for more information on when to use which color.
+The notification dot can wrap any element, but is most commonly paired with an [icon button](/components/buttons/icon-button) or [nav button](/components/navigation/nav-button). Multiple semantic colors are supported. See the [color documentation](/docs/foundation/colors#colors) for semantic usage guidelines.
 
 <<< ./examples/Basic.example.vue preview=true

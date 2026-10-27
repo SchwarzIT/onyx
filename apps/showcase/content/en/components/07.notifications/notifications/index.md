@@ -2,26 +2,26 @@
 title: Notifications
 ---
 
-Notifications are used to display (temporary) messages to the user. They are commonly used to build a [notification center](/components/notifications/notification-center).
+Notifications display persistent or temporary status updates to users, typically integrating with a [notification center](/components/notifications/notification-center).
 
-We recommend to display at most 5 notifications at the same time to improve user experience.
+We recommend displaying at most 5 notifications simultaneously to maintain visual clarity.
 
 ## Examples
 
 ### Basic
 
-Use the `useNotification()` composable to show a new notification from anywhere in your application. The notification will close automatically after a certain time by default but you can adjust the time via the `duration` option. Set it to `0` to permanently show the notification and require the user to manually close it if needed.
+Use the `useNotification()` composable to dispatch notifications anywhere in your application. Notifications auto-dismiss after a preset duration, or pass `duration: 0` to require manual dismissal by the user.
 
 <<< ./examples/Basic.example.vue preview=true
 
 ## Prerequisites
 
-You must use the [OnyxAppLayout](/components/layouts/app-layout) component in the root of your application to correctly display notifications.
+Notifications require [OnyxAppLayout](/components/layouts/app-layout) at the root of your application.
 
 <prose-details>
-<prose-summary>Not using the OnyxAppLayout?</prose-summary>
+<prose-summary>Not using OnyxAppLayout?</prose-summary>
 
-If you are not using our app layout component (strongly recommend), you need to set up the notifications manually. Add the `<OnyxNotifications />` component once in the root of your application:
+If you cannot use `OnyxAppLayout`, mount the `<OnyxNotifications />` component manually at the root of your app:
 
 ```vue [App.vue]
 <script lang="ts" setup>

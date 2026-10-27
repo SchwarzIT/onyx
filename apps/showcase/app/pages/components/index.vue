@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 definePageMeta({ layout: false });
 
-const { t, locale } = useI18n();
+const { t } = useI18n();
 const headline = computed(() => t("components.all"));
 useHead({ title: headline });
 
-const { navigation } = await useSidebarNavigation({
-  collection: computed(() => `components_${locale.value}` as const),
-});
+const { navigation } = await useComponentsNavigation();
 
 const description = computed(() => t("components.description"));
 
