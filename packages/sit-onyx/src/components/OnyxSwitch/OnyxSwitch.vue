@@ -82,6 +82,7 @@ useAutofocus(input, props);
     v-bind="mergeVueProps(formElementV2Props, rootAttrs)"
     class="onyx-component onyx-switch"
     unstyled
+    full-width-bottom
   >
     <template #default="inputProps">
       <span class="onyx-switch__toggle">
@@ -348,18 +349,13 @@ useAutofocus(input, props);
     &.onyx-form-element-v2--label-right:not(:has(.onyx-switch__display-label)),
     &.onyx-form-element-v2--label-left:not(:has(.onyx-switch__display-label)) {
       cursor: pointer;
-      gap: var(--onyx-switch-label-padding-vertical);
+      column-gap: var(--onyx-switch-label-padding-vertical);
     }
     &:has(.onyx-switch-truncation-multiline) {
       .onyx-form-element-v2__content {
         height: auto;
       }
     }
-    // Truncates messages if the label is on the right to prevent layout shifts
-    &.onyx-form-element-v2--label-right .onyx-form-element-v2__bottom {
-      max-width: calc(2 * var(--onyx-switch-icon-size) - 2 * var(--onyx-switch-container-padding));
-    }
-
     > .onyx-form-element-v2__label {
       overflow: hidden;
     }
