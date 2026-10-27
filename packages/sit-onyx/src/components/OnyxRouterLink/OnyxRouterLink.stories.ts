@@ -6,7 +6,8 @@ import OnyxRouterLink from "./OnyxRouterLink.vue";
 /**
  * The router link is a unstyled support component that should be used instead of `<a>` elements. It
  * will behave identical to `<a>` but integrates the [Vue Router](https://router.vuejs.org/) if
- * passed to `createOnyx()`, see our [documentation](https://onyx.schwarz/development/router.html).
+ * passed to `createOnyx()`, see our
+ * [documentation](https://onyx.schwarz/docs/getting-started/installation).
  *
  * You can also use this behavior without the router link component by using the `useLink()`
  * composable.

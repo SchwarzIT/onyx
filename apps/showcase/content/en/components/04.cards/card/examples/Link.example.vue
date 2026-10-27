@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconArrowSmallRight, iconExpandWindow, iconPlaceholder } from "@sit-onyx/icons";
-import { isInternalLink, OnyxCard, OnyxCardProps, OnyxHeadline, OnyxIcon } from "sit-onyx";
+import { isInternalLink, OnyxCard, type OnyxCardProps, OnyxHeadline, OnyxIcon } from "sit-onyx";
 import { computed } from "vue";
 
 const link: OnyxCardProps["link"] = { href: "https://onyx.schwarz", target: "_blank" };

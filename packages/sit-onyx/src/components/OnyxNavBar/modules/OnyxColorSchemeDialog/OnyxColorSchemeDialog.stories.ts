@@ -10,7 +10,7 @@ import type { OnyxColorSchemeDialogProps } from "./types.js";
  * for the application.
  *
  * For recommended usage, please visit our [theming
- * docs](https://onyx.schwarz/development/theming.html).
+ * docs](https://onyx.schwarz/docs/foundation/colors).
  *
  * ### Keyboard support
  *

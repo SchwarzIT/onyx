@@ -21,7 +21,7 @@ export type OnyxSidebarProps = DensityProp & {
   /**
    * Where the sidebar is positioned on the page. Note: When using the non-drawer sidebar (default),
    * you need to do the actual positioning on the page manually. You can use the
-   * [OnyxPageLayout](https://storybook.onyx.schwarz/?path=/story/layout-pagelayout--sidebar-right)
+   * [OnyxPageLayout](https://onyx.schwarz/components/layouts/page-layout)
    * for this.
    */
   alignment?: SidebarAlignment;

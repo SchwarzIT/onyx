@@ -12,4 +12,4 @@ Wrapper for the [@nuxtjs/mdc](https://github.com/nuxt-content/mdc) package using
 
 ## Documentation
 
-You can find our documentation [here](https://storybook.onyx.schwarz/?path=/docs/documentation-markdownrenderer--docs).
+You can find our documentation [here](https://onyx.schwarz/components/docs/markdown).

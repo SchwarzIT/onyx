@@ -33,9 +33,8 @@ body:
             - [ ] min / max width
 
         **Documentation**
-        - [ ] category for Figma and Storybook is defined
-        - [ ] examples that should be shown in Storybook are defined and documented in Figma (documentation file)
-        - [ ] component status "planned" has been added to the [docs overview](https://onyx.schwarz/#components)
+        - [ ] category for Figma and Showcase is defined
+        - [ ] examples that should be shown in the Showcase are defined and documented in Figma (documentation file)
 
         **Other**
         - [ ] DEV has either refined an implementation ticket or at least created a blank issue with a title

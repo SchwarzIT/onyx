@@ -19,4 +19,4 @@ npx nuxi module add @sit-onyx/nuxt
 
 ## Documentation
 
-You can find our documentation [here](https://onyx.schwarz/development/packages/nuxt.html).
+You can find our documentation [here](https://onyx.schwarz/docs/getting-started/installation).
