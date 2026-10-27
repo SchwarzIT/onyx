@@ -2,7 +2,7 @@ import { Features } from "lightningcss";
 import type { NuxtConfig } from "nuxt/schema";
 import { getSupportedOnyxBrowsers } from "./scripts/browserslistrc.js";
 
-const DEPLOYMENT_DOMAIN = "https://onyx-showcase-dev.apps.01.cf.eu01.stackit.cloud";
+const DEPLOYMENT_DOMAIN = "https://onyx.schwarz";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
