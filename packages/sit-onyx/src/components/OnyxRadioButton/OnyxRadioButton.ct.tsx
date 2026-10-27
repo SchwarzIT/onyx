@@ -81,6 +81,7 @@ test.describe("Screenshot tests", () => {
           label="Test label"
           name="test-name"
           error={error}
+          showError
           checked={column === "checked"}
         />
       );
@@ -93,14 +94,6 @@ test.describe("Screenshot tests", () => {
           await component.getByText("Test label").hover();
         }
         if (row === "focus-visible") await page.keyboard.press("Tab");
-
-        // wait for the tooltip to show up reliably
-        if (["focus-visible", "hover"].includes(row)) {
-          await expect(
-            component.getByRole("tooltip"),
-            `should show error tooltip for ${row} and ${column}`,
-          ).toBeVisible();
-        }
       },
     },
   });
