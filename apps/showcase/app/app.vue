@@ -5,7 +5,7 @@ const config = useRuntimeConfig();
 const { t } = useI18n();
 
 const siteName = computed(() => t("app.name"));
-const description = computed(() => t("app.hero.tagline"));
+const description = computed(() => t("app.description"));
 
 // define global defaults, individual fields will be overridden by specific pages / components
 useSeoMeta({
@@ -18,8 +18,8 @@ useSeoMeta({
   ogDescription: description,
   ogImage: `${config.public.domain}/og-image.png`,
   ogImageType: "image/png",
-  ogImageWidth: "600",
-  ogImageHeight: "600",
+  ogImageWidth: "1200",
+  ogImageHeight: "630",
 });
 </script>
 

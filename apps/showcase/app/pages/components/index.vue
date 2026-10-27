@@ -7,11 +7,14 @@ useHead({ title: headline });
 
 const { navigation } = await useComponentsNavigation();
 
+const title = computed(() => t("components.component", 2));
 const description = computed(() => t("components.description"));
 
 useSeoMeta({
-  title: () => t("components.component", 2),
+  title,
+  ogTitle: title,
   description,
+  ogDescription: description,
 });
 </script>
 
