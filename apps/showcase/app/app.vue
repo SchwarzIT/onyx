@@ -5,7 +5,7 @@ const config = useRuntimeConfig();
 const { t } = useI18n();
 
 const siteName = computed(() => t("app.name"));
-const description = computed(() => t("app.hero.tagline"));
+const description = computed(() => t("app.description"));
 
 // define global defaults, individual fields will be overridden by specific pages / components
 useSeoMeta({

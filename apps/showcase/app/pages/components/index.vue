@@ -9,11 +9,14 @@ const { navigation } = await useSidebarNavigation({
   collection: computed(() => `components_${locale.value}` as const),
 });
 
+const title = computed(() => t("components.component", 2));
 const description = computed(() => t("components.description"));
 
 useSeoMeta({
-  title: () => t("components.component", 2),
+  title,
+  ogTitle: title,
   description,
+  ogDescription: description,
 });
 </script>
 
