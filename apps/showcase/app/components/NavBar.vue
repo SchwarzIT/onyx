@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
-import { iconFeedback, iconLightBulbShine, iconMegaphoneNew, iconUserGroup } from "@sit-onyx/icons";
+import { iconMessageConversation } from "@sit-onyx/icons";
 import type { OnyxNavItemProps, OnyxUnstableNavButton } from "sit-onyx";
 import NavBar from "#layers/onyx/app/components/NavBar.vue";
 import iconGitHub from "~/assets/images/social/github.svg?raw";
@@ -37,6 +37,33 @@ const getLinkProps = computed(() => {
     />
 
     <template #globalContextArea>
+      <OnyxFlyoutMenu label="Contact options">
+        <template #button="{ trigger }">
+          <OnyxUnstableNavButton
+            label="Contact"
+            :icon="iconMessageConversation"
+            hide-label
+            v-bind="trigger"
+          />
+        </template>
+
+        <template #options>
+          <OnyxMenuItem
+            label="Report bug"
+            link="https://github.com/SchwarzIT/onyx/issues/new?template=01-bug_report.yml"
+          />
+          <OnyxMenuItem
+            label="Request feature"
+            link="https://github.com/SchwarzIT/onyx/discussions/new/choose"
+          />
+          <OnyxMenuItem
+            v-if="loggedIn"
+            label="Join Google Community"
+            link="https://groups.google.com/a/gws.schwarz/g/onyx-community/about"
+          />
+        </template>
+      </OnyxFlyoutMenu>
+
       <GlobalSearch />
       <OnyxUnstableNavButton
         label="GitHub"
@@ -48,32 +75,6 @@ const getLinkProps = computed(() => {
 
     <template #contextArea>
       <ColorSchemeSwitch v-if="!$colorMode.forced" />
-
-      <OnyxFlyoutMenu label="Contact options">
-        <template #button="{ trigger }">
-          <OnyxUnstableNavButton label="Contact" :icon="iconFeedback" v-bind="trigger" />
-        </template>
-
-        <template #options>
-          <OnyxMenuItem
-            label="Report a bug"
-            :icon="iconMegaphoneNew"
-            link="https://github.com/SchwarzIT/onyx/issues/new?template=01-bug_report.yml"
-          />
-          <OnyxMenuItem
-            label="Request a new feature"
-            :icon="iconLightBulbShine"
-            link="https://github.com/SchwarzIT/onyx/discussions/new/choose"
-          />
-          <OnyxMenuItem
-            v-if="loggedIn"
-            label="Join Google Community"
-            :icon="iconUserGroup"
-            link="https://groups.google.com/a/gws.schwarz/g/onyx-community/about"
-          />
-        </template>
-      </OnyxFlyoutMenu>
-
       <OnyxSeparator orientation="vertical" />
       <UserMenu />
     </template>

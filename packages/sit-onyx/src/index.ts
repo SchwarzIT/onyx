@@ -190,6 +190,9 @@ export * from "./components/OnyxRadioButton/types.js";
 export { default as OnyxRadioGroup } from "./components/OnyxRadioGroup/OnyxRadioGroup.vue";
 export * from "./components/OnyxRadioGroup/types.js";
 
+export { default as OnyxResizeHandle } from "./components/OnyxResizeHandle/OnyxResizeHandle.vue";
+export * from "./components/OnyxResizeHandle/types.js";
+
 export { default as OnyxRouterLink } from "./components/OnyxRouterLink/OnyxRouterLink.vue";
 export * from "./components/OnyxRouterLink/types.js";
 

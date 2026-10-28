@@ -349,6 +349,11 @@ const COMPONENTS: Components = {
       is: ALL_EXPORTS.OnyxInput,
     },
   },
+  OnyxResizeHandle: {
+    props: {
+      element: null,
+    },
+  },
 };
 
 describe("components", () => {
