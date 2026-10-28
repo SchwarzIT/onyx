@@ -29,7 +29,7 @@ const columns: ColumnConfig<TEntry>[] = [
 ];
 
 /**
- * @see https://storybook.onyx.schwarz/?path=/story/data-datagrid-features--pagination
+ * @see https://onyx.schwarz/components/data/data-grid#pagination
  */
 const withPagination = DataGridFeatures.usePagination({ pageSize: 2 });
 

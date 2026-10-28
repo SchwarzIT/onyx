@@ -3,8 +3,7 @@ const { version } = packageJson;
 
 export const USER_AGENT = `onyx-mcp/${version}`;
 export const REGISTRY_URL = process.env.REGISTRY_URL ?? "https://registry.npmjs.org";
-export const DOCS_URL =
-  process.env.DOCS_URL ?? "https://onyx-showcase-dev.apps.01.cf.eu01.stackit.cloud";
+export const DOCS_URL = process.env.DOCS_URL ?? "https://onyx.schwarz";
 
 /**
  * Minimum `sit-onyx` version that provides the `component-meta.json` file

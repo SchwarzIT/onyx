@@ -23,7 +23,7 @@ export type OnyxAccordionProps<TValue extends PropertyKey> = DensityProp & {
   /**
    * Accordion type. Will have different visual representations. Please note that "nested-large" and
    * "nested-small" should only be used inside other components like e.g. the
-   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--default).
+   * [OnyxSidebar](https://onyx.schwarz/components/navigation/sidebar).
    */
   type?: AccordionType;
 };

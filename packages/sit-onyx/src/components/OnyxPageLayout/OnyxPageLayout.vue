@@ -16,20 +16,20 @@ const slots = defineSlots<{
   default(): unknown;
   /**
    * Optional (left) sidebar. Recommended component:
-   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs)
+   * [OnyxSidebar](https://onyx.schwarz/components/navigation/sidebar)
    *
    * For semantic HTML, it is recommended to use HTML elements like `<aside>` here, which is already
    * the case when using the
-   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs).
+   * [OnyxSidebar](https://onyx.schwarz/components/navigation/sidebar).
    */
   sidebar?(): unknown;
   /**
    * Optional (right) sidebar. Recommended component:
-   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs)
+   * [OnyxSidebar](https://onyx.schwarz/components/navigation/sidebar)
    *
    * For semantic HTML, it is recommended to use HTML elements like `<aside>` here, which is already
    * the case when using the
-   * [OnyxSidebar](https://storybook.onyx.schwarz/?path=/docs/navigation-sidebar--docs).
+   * [OnyxSidebar](https://onyx.schwarz/components/navigation/sidebar).
    */
   sidebarRight?(): unknown;
   /**

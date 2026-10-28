@@ -30,7 +30,7 @@ export type PaginationOptions = Pick<
    * Defines how the pagination is applied by the user.
    *
    * - Select: user can select a page using the
-   *   [OnyxPagination](https://storybook.onyx.schwarz/?path=/docs/data-pagination--docs) component
+   *   [OnyxPagination](https://onyx.schwarz/components/data/pagination) component
    * - Lazy: current page is increased automatically when the users scrolls to the end of the table.
    *   Requires a fixed table height to be set
    * - Button: when scrolling to the end of the table, a button is shown that can be clicked to load

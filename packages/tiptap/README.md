@@ -12,4 +12,4 @@ A rich text editor powered by the Tiptap editor and the onyx design system creat
 
 ## Documentation
 
-You can find our documentation [here](https://onyx.schwarz/development/packages/tiptap.html).
+You can find our documentation [here](https://onyx.schwarz/components/form-elements/text-editor).

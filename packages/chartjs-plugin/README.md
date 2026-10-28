@@ -10,4 +10,4 @@ A Chart.js plugin for the onyx design system created by [Schwarz Digits](https:/
 
 ## Documentation
 
-You can find our documentation [here](https://onyx.schwarz/development/packages/chartjs-plugin.html).
+You can find our documentation [here](https://onyx.schwarz/components/data/chart).
