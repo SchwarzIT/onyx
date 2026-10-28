@@ -345,6 +345,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
         > .onyx-form-element-v2__label {
           grid-area: label;
+          width: 100%;
         }
       }
 

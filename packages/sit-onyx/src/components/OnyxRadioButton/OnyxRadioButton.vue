@@ -178,11 +178,11 @@ const handleClick = (event: MouseEvent) => {
     &.onyx-form-element-v2--label-right,
     &.onyx-form-element-v2--label-left {
       gap: 0;
-
       > .onyx-form-element-v2__label {
         width: auto;
         min-width: 0;
         flex: 1 1 auto;
+        color: var(--onyx-radio-button-label-color);
         padding-block: var(--onyx-density-xs);
         line-height: var(--onyx-font-line-height-md);
         label {
