@@ -1,5 +1,12 @@
 # @sit-onyx/chartjs-plugin
 
+## 1.0.1
+
+### Patch Changes
+
+- 9897126: docs: update links to new Onyx documentation on https://onyx.schwarz
+- 79a2780: fix(getCSSVariableValue): correctly determine color for CSS complex variables, e.g. using nested `light-dark()`
+
 ## 1.0.0
 
 ### Major Changes

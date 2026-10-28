@@ -1,5 +1,11 @@
 # @sit-onyx/tiptap
 
+## 0.3.2
+
+### Patch Changes
+
+- 9897126: docs: update links to new Onyx documentation on https://onyx.schwarz
+
 ## 0.3.1
 
 ### Patch Changes

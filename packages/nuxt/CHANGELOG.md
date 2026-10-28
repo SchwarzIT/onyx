@@ -1,5 +1,16 @@
 # @sit-onyx/nuxt
 
+## 1.2.0
+
+### Minor Changes
+
+- c603e24: feat: support new `OnyxError` component that can be used inside the [error.vue](https://nuxt.com/docs/4.x/directory-structure/app/error) Nuxt page
+- e092d4a: feat: implement `createOnyxScrollBehavior` that can be used to correctly scroll to anchors on initial page load and scroll to the top of the page when navigating to a new page. See the [Vue Router scroll behavior](https://router.vuejs.org/guide/advanced/scroll-behavior.html) for how to use it.
+
+### Patch Changes
+
+- 9897126: docs: update links to new Onyx documentation on https://onyx.schwarz
+
 ## 1.1.2
 
 ### Patch Changes
