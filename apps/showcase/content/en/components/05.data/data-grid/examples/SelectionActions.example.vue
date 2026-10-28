@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { iconTrash } from "@sit-onyx/icons";
-import { createFeature, DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "sit-onyx";
+import {
+  createFeature,
+  DataGridFeatures,
+  OnyxDataGrid,
+  useToast,
+  type ColumnConfig,
+} from "sit-onyx";
 import { computed, ref } from "vue";
 
 type Entry = {
   id: number;
   name: string;
 };
+
+const toast = useToast();
 
 const data = ref<Entry[]>([
   { id: 1, name: "Alice" },
@@ -40,8 +48,23 @@ const selectedRows = computed(() => {
 });
 
 const deleteSelectedRows = () => {
-  data.value = data.value.filter((row) => !selectedRows.value.find((r) => r.id === row.id));
+  const rowsToDelete = selectedRows.value;
+  if (!rowsToDelete.length) return;
+
+  const count = rowsToDelete.length;
+  const names = rowsToDelete.map((row) => `"${row.name}"`).join(", ");
+  const idsToDelete = new Set(rowsToDelete.map((row) => row.id));
+
+  data.value = data.value.filter((row) => !idsToDelete.has(row.id));
   selectionState.value = { selectMode: "include", contingent: new Set() };
+  toast.show({
+    headline: count === 1 ? "Delete Row" : "Delete Rows",
+    description:
+      count === 1
+        ? `Row ${names} deleted successfully.`
+        : `${count} rows (${names}) deleted successfully.`,
+    color: "danger",
+  });
 };
 
 const withCustomActions = createFeature(() => ({
