@@ -6791,8 +6791,8 @@ packages:
     resolution: {integrity: sha512-paNr4LFIFPjeeSmwNYdrb8FafLLG/Cr2Af3GjbsHJ5CxIjH4r0c2emlmRdAtpPAieP1gRVzk6buBbVP5gBMGAg==}
     hasBin: true
 
-  jschardet@4.0.0:
-    resolution: {integrity: sha512-EsNiLV+xzeMBtkGL/HeWoUivNkGIr8JmaC5A5j7DBlKnhp4CcBTWKEOtNg6vlmf+mkn9yQ9Wals47u7+LoTr7w==}
+  jschardet@4.1.0:
+    resolution: {integrity: sha512-ighRZ11mb6l4m+xSKoivuqNj44qkObODXsAnnkkfYcY4JfYRnEgAe/w1c3mbnJtTQmLtfebAUfXGsUGUJImexg==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -11069,7 +11069,7 @@ snapshots:
   '@microsoft/eslint-formatter-sarif@3.1.0(jiti@2.7.0)(supports-color@10.2.2)':
     dependencies:
       eslint: 10.13.0(jiti@2.7.0)(supports-color@10.2.2)
-      jschardet: 4.0.0
+      jschardet: 4.1.0
       lodash: 4.18.1
       utf8: 3.0.0
     transitivePeerDependencies:
@@ -16809,7 +16809,7 @@ snapshots:
     dependencies:
       argparse: 3.0.4
 
-  jschardet@4.0.0: {}
+  jschardet@4.1.0: {}
 
   jsdom@30.1.3:
     dependencies:
