@@ -1,5 +1,21 @@
 # sit-onyx
 
+## 1.22.0
+
+### Minor Changes
+
+- e47935a: feat: export `OnyxResizeHandle`
+
+### Patch Changes
+
+- d9d7a53: fix(OnyxCodeTab): ensure language name does not wrap
+- 43bcdb8: fix(autofocus): prevent autofocus user warnings
+- 9943c70: fix: ensure truncation / max-width for OnyxBreadcrumbItem, OnyxCodeTabs and OnyxSearch
+- 255a662: fix(OnyxFileUpload, OnyxSwitch, OnyxSlider): Fix `id` prop not being passed through to the internal input element
+- 9897126: docs: update links to new Onyx documentation on https://onyx.schwarz
+- eb60f6b: fix(OnyxForm): inherit skeleton context from OnyxPageLayout
+- b6b6cea: fix(OnyxSearch): do not render filter slot if slot is empty/not defined
+
 ## 1.21.0
 
 ### Minor Changes

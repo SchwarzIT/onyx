@@ -1,5 +1,11 @@
 # @sit-onyx/comark
 
+## 0.3.0
+
+### Minor Changes
+
+- d9d7a53: feat: include component meta via `@sit-onyx/comark/component-meta.json` export
+
 ## 0.2.0
 
 ### Minor Changes

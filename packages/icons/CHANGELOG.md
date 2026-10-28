@@ -1,5 +1,21 @@
 # @sit-onyx/icons
 
+## 1.13.0
+
+### Minor Changes
+
+- dda9c54: feat: update icons
+
+  #### New
+  - apple
+  - drill
+
+- 8c51d17: feat: update icons
+
+  #### New
+  - close-layer
+  - open-layer
+
 ## 1.12.0
 
 ### Minor Changes

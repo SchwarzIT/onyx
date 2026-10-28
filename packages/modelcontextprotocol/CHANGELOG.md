@@ -1,5 +1,12 @@
 # @sit-onyx/modelcontextprotocol
 
+## 0.4.1
+
+### Patch Changes
+
+- 9897126: docs: update links to new Onyx documentation on https://onyx.schwarz
+- 87e19b2: feat(get-component-docs): Implemented new resource `get-component-docs`, which provides context and example snippets
+
 ## 0.4.0
 
 ### Minor Changes

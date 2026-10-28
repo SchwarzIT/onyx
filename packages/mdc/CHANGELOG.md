@@ -1,5 +1,11 @@
 # @sit-onyx/mdc
 
+## 0.3.1
+
+### Patch Changes
+
+- 9897126: docs: update links to new Onyx documentation on https://onyx.schwarz
+
 ## 0.3.0
 
 ### Minor Changes
