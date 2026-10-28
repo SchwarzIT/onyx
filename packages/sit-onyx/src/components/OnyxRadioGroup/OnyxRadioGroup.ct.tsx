@@ -67,23 +67,20 @@ test.describe("screenshot tests (invalid)", () => {
     columns: ["default", "hover"],
     rows: ["default"],
     component: () => (
-      <OnyxRadioGroup
-        modelValue={EXAMPLE_OPTIONS[0].value}
-        label="Test headline"
-        options={EXAMPLE_OPTIONS}
-        error="Example error"
-      />
+      <OnyxRadioGroup label="Test headline" options={EXAMPLE_OPTIONS} error="Example error" />
     ),
     hooks: {
       beforeEach: async (component, page, column) => {
         if (column === "hover") {
           const radio = component.getByText(EXAMPLE_OPTIONS[0].label);
-          await radio.hover();
+          await radio.click();
         }
 
         // wait for the tooltip to show up reliably
         if (column === "hover") {
-          await expect(component.getByRole("tooltip"), "should show error tooltip").toBeVisible();
+          await expect(
+            component.getByText("Example errorExample errorExample error"),
+          ).toBeVisible();
         }
       },
     },

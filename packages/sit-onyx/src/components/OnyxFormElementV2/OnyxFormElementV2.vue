@@ -1,7 +1,7 @@
 <script lang="ts">
 /**
  * @deprecated This component is still under active development and its API might change in patch
- *   releases.
+ * releases.
  * @experimental
  */
 export default {};
@@ -34,10 +34,14 @@ const props = withDefaults(
   defineProps<
     OnyxFormElementV2Props & {
       /**
-       * *Wether it's unstyled, in which case it resets the styles of the content area (where the
+       * Whether it's unstyled, in which case it resets the styles of the content area (where the
        * main form element resides)
        */
       unstyled?: boolean;
+      /**
+       * Whether the bottom area (messages, counter) should span the full width below both
+       */
+      fullWidthBottom?: boolean;
     }
   >(),
   {
@@ -105,6 +109,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       {
         [`onyx-form-element-v2--label-${label.position}`]: label.position !== 'top',
         'onyx-form-element-v2--unstyled': props.unstyled,
+        'onyx-form-element-v2--full-width-bottom': props.fullWidthBottom,
       },
     ]"
   >
@@ -163,12 +168,24 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
         </div>
       </div>
 
-      <OnyxFormElementV2Bottom v-bind="bottomProps">
+      <OnyxFormElementV2Bottom
+        v-if="!props.fullWidthBottom || label.position === 'top'"
+        v-bind="bottomProps"
+      >
         <template v-if="slots.bottomRight" #bottomRight>
           <slot name="bottomRight"></slot>
         </template>
       </OnyxFormElementV2Bottom>
     </div>
+
+    <OnyxFormElementV2Bottom
+      v-if="props.fullWidthBottom && label.position !== 'top'"
+      v-bind="bottomProps"
+    >
+      <template v-if="slots.bottomRight" #bottomRight>
+        <slot name="bottomRight"></slot>
+      </template>
+    </OnyxFormElementV2Bottom>
   </div>
 </template>
 
@@ -288,6 +305,64 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
 
     &--label-right {
       flex-direction: row-reverse;
+    }
+
+    &--full-width-bottom {
+      row-gap: var(--onyx-density-3xs);
+
+      > .onyx-form-element-v2__bottom {
+        width: 100%;
+
+        &:empty {
+          display: none;
+        }
+      }
+
+      &:has(> .onyx-form-element-v2__bottom:empty) {
+        row-gap: 0;
+      }
+
+      &.onyx-form-element-v2--label-right,
+      &.onyx-form-element-v2--label-left {
+        display: grid;
+        row-gap: var(--onyx-density-3xs);
+        column-gap: var(--onyx-form-element-v2-gap);
+
+        > .onyx-form-element-v2__bottom {
+          grid-area: bottom;
+        }
+      }
+
+      &.onyx-form-element-v2--label-right {
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "body label"
+          "bottom bottom";
+
+        > .onyx-form-element-v2__body {
+          grid-area: body;
+        }
+
+        > .onyx-form-element-v2__label {
+          grid-area: label;
+          width: 100%;
+        }
+      }
+
+      &.onyx-form-element-v2--label-left {
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "label body"
+          "bottom bottom";
+
+        > .onyx-form-element-v2__label {
+          grid-area: label;
+        }
+
+        > .onyx-form-element-v2__body {
+          grid-area: body;
+        }
+      }
     }
 
     &__body {
