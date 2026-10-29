@@ -1,20 +1,21 @@
 export const useSchwarzTheme = async () => {
-  // TODO: error handling
-  // TODO: refetch when user changes
-
+  const { loggedIn } = useUserSession();
   const theme = ref(INTERNAL_THEMES[0]);
 
-  useHead({
-    link: computed(() => {
-      if (!theme.value) return [];
+  useHead(
+    computed(() => {
+      if (!loggedIn.value) return {};
       const href = `/api/themes/${theme.value}/index.css`;
-      return [
-        { rel: "preload", as: "style", href, key: `theme-preload-${theme.value}` },
-        { rel: "stylesheet", href, key: `theme-style-${theme.value}` },
-      ];
+
+      return {
+        htmlAttrs: {
+          class: `onyx-theme-${theme.value}`,
+        },
+        link: [
+          { rel: "preload", as: "style", href, key: `theme-preload-${theme.value}` },
+          { rel: "stylesheet", href, key: `theme-style-${theme.value}` },
+        ],
+      } satisfies Parameters<typeof useHead>[0];
     }),
-    htmlAttrs: {
-      class: theme.value ? `onyx-theme-${theme.value}` : undefined,
-    },
-  });
+  );
 };
