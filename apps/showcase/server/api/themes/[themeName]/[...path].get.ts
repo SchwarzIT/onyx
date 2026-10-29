@@ -35,6 +35,13 @@ export default defineEventHandler(async (event) => {
 
   await requireUserSession(event);
 
+  // themes might request other packages (such as font families) so we proxy those requests to unpkg instead
+  // since they are publicly accessible
+  const isFontFamily = path.startsWith("@fontsource");
+  if (isFontFamily) {
+    return sendRedirect(event, `https://unpkg.com/${path}@latest`);
+  }
+
   const packageName = `@onyx-internal/${themeName}-theme`;
   const { version, files } = await getThemePackage(packageName);
 
@@ -98,18 +105,28 @@ function buildPackageUrl(baseUrl: string, ...segments: string[]) {
 async function getLatestPackageVersion(packageName: string) {
   const config = useRuntimeConfig();
 
-  const metadata = await $fetch<{ "dist-tags"?: Record<string, string> }>(
-    buildPackageUrl(config.jfrog.baseUrl, packageName),
-    {
-      headers: {
-        Authorization: `Bearer ${config.jfrog.token}`,
-      },
-    },
-  );
+  let latestVersion: string | undefined;
 
-  const latestVersion = metadata["dist-tags"]?.latest;
+  try {
+    const metadata = await $fetch<{ "dist-tags"?: Record<string, string> }>(
+      buildPackageUrl(config.jfrog.baseUrl, packageName),
+      {
+        headers: {
+          Authorization: `Bearer ${config.jfrog.token}`,
+        },
+      },
+    );
+
+    latestVersion = metadata["dist-tags"]?.latest;
+  } catch {
+    // noop
+  }
+
   if (!latestVersion) {
-    throw createError({ statusCode: 500, message: "Unable to determine latest version" });
+    throw createError({
+      statusCode: 500,
+      message: `Unable to determine latest version for package "${packageName}"`,
+    });
   }
 
   return latestVersion;
@@ -118,13 +135,28 @@ async function getLatestPackageVersion(packageName: string) {
 async function getPackageTar(packageName: string, version: string) {
   const config = useRuntimeConfig();
 
-  return await $fetch<ArrayBuffer>(
-    buildPackageUrl(config.jfrog.baseUrl, packageName, "-", `${packageName}-${version}.tgz`),
-    {
-      responseType: "arrayBuffer",
-      headers: {
-        Authorization: `Bearer ${config.jfrog.token}`,
+  let buffer: ArrayBuffer | undefined;
+
+  try {
+    buffer = await $fetch<ArrayBuffer>(
+      buildPackageUrl(config.jfrog.baseUrl, packageName, "-", `${packageName}-${version}.tgz`),
+      {
+        responseType: "arrayBuffer",
+        headers: {
+          Authorization: `Bearer ${config.jfrog.token}`,
+        },
       },
-    },
-  );
+    );
+  } catch {
+    // noop
+  }
+
+  if (!buffer) {
+    throw createError({
+      statusCode: 500,
+      message: `Unable to load tar for package "${packageName}" and version "${version}"`,
+    });
+  }
+
+  return buffer;
 }
