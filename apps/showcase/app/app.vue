@@ -21,6 +21,8 @@ useSeoMeta({
   ogImageWidth: "1200",
   ogImageHeight: "630",
 });
+
+await useSchwarzTheme();
 </script>
 
 <template>

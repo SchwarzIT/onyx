@@ -55,6 +55,10 @@ export default defineNuxtConfig({
       browsers: getSupportedOnyxBrowsers(),
       domain: DEPLOYMENT_DOMAIN,
     },
+    jfrog: {
+      baseUrl: "", // overridden by NUXT_JFROG_BASE_URL
+      token: "", // overridden by NUXT_JFROG_TOKEN
+    },
   },
   imports: {
     transform: {

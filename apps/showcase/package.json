@@ -36,6 +36,7 @@
     "browserslist": "^4.29.4",
     "chart.js": "catalog:",
     "comark": "^0.8.1",
+    "nanotar": "^0.3.0",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.5.32",
     "nuxt-llms": "^0.3.0",
