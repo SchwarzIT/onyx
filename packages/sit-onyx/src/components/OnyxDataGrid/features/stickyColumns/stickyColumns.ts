@@ -3,6 +3,7 @@ import { mergeVueProps } from "../../../../utils/attrs.js";
 import { escapeCSS } from "../../../../utils/dom.js";
 import type { TableColumnGroup } from "../../../OnyxTable/types.js";
 import type { DataGridEntry } from "../../types.js";
+import { HIDDEN_COLUMN } from "../hideColumns/hideColumns.js";
 import {
   createFeature,
   type ColumnGroupConfig,
@@ -53,6 +54,7 @@ export const useStickyColumns = <TEntry extends DataGridEntry>(
 
       normalized.unshift({ key: ROW_REARRANGE_COLUMN_KEY, position: "left" });
       normalized.unshift({ key: SELECTION_COLUMN, position: "left" });
+      normalized.unshift({ key: HIDDEN_COLUMN, position: "right" });
 
       return (
         normalized
