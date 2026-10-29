@@ -33,7 +33,7 @@
     "@vueuse/core": "^15.0.0",
     "@vueuse/nuxt": "^15.0.0",
     "@vueuse/router": "^15.0.0",
-    "browserslist": "^4.29.4",
+    "browserslist": "^4.29.5",
     "chart.js": "catalog:",
     "comark": "^0.8.1",
     "nuxt": "catalog:",
