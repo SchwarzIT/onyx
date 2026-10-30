@@ -4,6 +4,7 @@ import type { SharedLinkProps } from "sit-onyx";
 
 const props = defineProps<{
   link?: string | SharedLinkProps;
+  buttonLabel?: string;
 }>();
 
 defineSlots<{
@@ -20,7 +21,7 @@ defineSlots<{
     <OnyxButton
       v-if="props.link"
       class="offer-card__button"
-      :label="$t('checkOut')"
+      :label="props.buttonLabel ?? $t('checkOut')"
       color="primary"
       mode="plain"
       :icon="iconArrowSmallRight"

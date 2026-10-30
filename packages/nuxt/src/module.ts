@@ -1,5 +1,13 @@
 import { stat } from "node:fs/promises";
-import { addComponent, addPlugin, createResolver, defineNuxtModule, useLogger } from "@nuxt/kit";
+import {
+  addComponent,
+  addComponentsDir,
+  addImports,
+  addPlugin,
+  createResolver,
+  defineNuxtModule,
+  useLogger,
+} from "@nuxt/kit";
 import type { NuxtOptions } from "@nuxt/schema";
 import type { ModuleHooks as NuxtI18nModuleHooks } from "@nuxtjs/i18n";
 import * as onyx from "sit-onyx";
@@ -12,7 +20,7 @@ export interface ModuleOptions {
    *
    * You can set this option to `true` to disable this.
    *
-   * @see https://onyx.schwarz/development/#installation
+   * @see https://onyx.schwarz/docs/getting-started/installation
    */
   disableGlobalStyles?: boolean;
 }
@@ -96,6 +104,15 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     addPlugin({ src: resolve("./runtime/plugins/onyx") });
+
+    addImports([
+      {
+        from: resolve("./runtime/utils/scroll-behavior"),
+        name: "createOnyxScrollBehavior",
+      },
+    ]);
+
+    addComponentsDir({ path: resolve("./runtime/components") });
   },
 });
 

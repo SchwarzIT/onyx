@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { iconPlaceholder } from "@sit-onyx/icons";
+import { iconTrash } from "@sit-onyx/icons";
 import {
   createFeature,
   DataGridFeatures,
-  InternalColumnConfig,
+  type InternalColumnConfig,
   OnyxDataGrid,
   OnyxIconButton,
   type ColumnConfig,
@@ -58,8 +58,13 @@ const withMyFeature = createFeature(() => ({
       cell: {
         component: () => {
           return h(OnyxIconButton, {
-            icon: iconPlaceholder,
-            label: "Example action",
+            label: "Delete",
+            icon: iconTrash,
+            color: "danger",
+            density: "compact",
+            onClick: () => {
+              // your custom logic here...
+            },
           });
         },
       },

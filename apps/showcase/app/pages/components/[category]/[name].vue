@@ -9,14 +9,6 @@ const { data, error } = await useCollection({
   collection: computed(() => `components_${locale.value}` as const),
 });
 
-watch(
-  error,
-  () => {
-    if (error.value) showError(error.value);
-  },
-  { immediate: true },
-);
-
 useSeoMeta({
   title: () => data.value?.seo.title,
   description: () => data.value?.seo.description,
@@ -25,10 +17,11 @@ useSeoMeta({
 const activeTab = useRouteQuery("tab", "overview");
 </script>
 
-<!-- eslint-disable-next-line vue/no-root-v-if  -- The "useCollection" will already redirect to the error page when the data is undefined but the data might still be undefined while e.g. switching to another page -->
 <template>
+  <OnyxError v-if="error" :error />
+
   <TableOfContentsLayout
-    v-if="data"
+    v-else-if="data"
     :toc="data.body.toc?.links ?? []"
     :hidden="activeTab !== 'overview'"
   >

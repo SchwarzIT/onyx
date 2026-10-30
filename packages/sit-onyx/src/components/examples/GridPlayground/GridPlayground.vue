@@ -183,7 +183,9 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
         objects play around with them. To see the responsiveness of the onyx grid in action, just
         use the window resizer to adjust the width of your browser. You can globally adjust the grid
         the way that fit your needs. Details about the technical implementation can be found
-        <OnyxLink href="https://onyx.schwarz/development/grid.html" target="_blank">here</OnyxLink>
+        <OnyxLink href="https://onyx.schwarz/docs/foundation/breakpoints-and-grid" target="_blank">
+          here
+        </OnyxLink>
       </p>
 
       <p>

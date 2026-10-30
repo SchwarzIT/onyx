@@ -24,7 +24,6 @@ test("should render prose components with onyx", async ({ page, goto }) => {
 
   // ASSERT
   const details = page.getByRole("region", { name: "Technical error details" });
-  await expect(details).toContainText(`"url": "/some-not-existing-page"`);
   await expect(details).toContainText(`"statusCode": 404`);
   await expect(details).toContainText(`"message": "Page not found"`);
 

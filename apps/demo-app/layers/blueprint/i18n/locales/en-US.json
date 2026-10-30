@@ -1,10 +1,6 @@
 {
   "blueprint": {
     "changeColorScheme": "Change color scheme",
-    "errors": {
-      "backToHome": "Back to home",
-      "technicalDetails": "Technical error details"
-    },
     "sidebar": "Sidebar",
     "search": "Search",
     "noItemsFound": "No items found",

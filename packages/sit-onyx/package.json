@@ -1,6 +1,6 @@
 {
   "name": "sit-onyx",
-  "version": "1.21.0",
+  "version": "1.22.0",
   "description": "A design system and Vue.js component library created by Schwarz Digits",
   "homepage": "https://onyx.schwarz",
   "bugs": {
@@ -45,7 +45,7 @@
     "stylelint": "stylelint \"dist/**/*.css\""
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.13.0",
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/assets": "workspace:^",
@@ -55,7 +55,7 @@
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/vite-plugin-component-meta": "workspace:^",
-    "@storybook/addon-a11y": "~10.4.6",
+    "@storybook/addon-a11y": "^10.6.4",
     "@vue/compiler-dom": "catalog:",
     "@vue/test-utils": "^2.5.1",
     "axe-core": "^4.14.0",
@@ -66,8 +66,8 @@
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.3.12",
-    "vue-i18n": "^11.4.13",
+    "vue-component-type-helpers": "^3.3.13",
+    "vue-i18n": "^11.4.16",
     "vue-router": "^5.4.0"
   },
   "peerDependencies": {

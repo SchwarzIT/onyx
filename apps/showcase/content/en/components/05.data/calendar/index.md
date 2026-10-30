@@ -3,7 +3,7 @@ title: Calendar
 componentName: OnyxCalendar
 ---
 
-The calendar is used to display or select date-related information. It supports multiple selection modes such as single, multiple, range and more. For selecting date and time, we recommend to use our dedicated components:
+The calendar displays or selects dates across several selection modes (`single`, `multiple`, `range`). For form input workflows, consider our specialized components:
 
 <div class="onyx-grid">
 <link-card class="onyx-grid-span-4" headline="Date picker" link="/components/form-elements/date-picker-v2"></link-card>
@@ -14,40 +14,40 @@ The calendar is used to display or select date-related information. It supports 
 
 ### Default
 
-The calendar is display-only by default. Custom content can be added to specific dates if needed. The calendar sizes automatically adapts between small and big depending on the available width but can optionally be forced using the `size` property. When using custom content, make sure to consider the current calendar size so it is correctly visible on smaller devices.
+The calendar defaults to a display-only view. Custom slot content can be injected into individual date cells. The calendar size adapts automatically based on available container width, or can be pinned using the `size` prop.
 
-The calendar uses the current language of the application to automatically adapt weekdays, months and more.
+Weekdays, month headers, and locale conventions synchronize automatically with the application's active language.
 
 <<< ./examples/Basic.example.vue preview=true  layout="grow" style="--preview-max-width: 44rem"
 
 ### Single select
 
-Allows the user to select a single date.
+Allows selecting an individual date.
 
 <<< ./examples/Single.example.vue preview=true  layout="grow"
 
 ### Multiselect
 
-Allows the user to select multiple dates.
+Allows selecting multiple distinct dates.
 
 <<< ./examples/Multiple.example.vue preview=true  layout="grow"
 
 ### Range select
 
-Allows the user to select a range with a start and end date. If calendar weeks are enabled, the user can click a specific calendar week to automatically select the whole week.
+Allows selecting a continuous date range with start and end dates. When calendar weeks are enabled, clicking a week number selects the entire week.
 
 <<< ./examples/Range.example.vue preview=true  layout="grow"
 
 ### Min, max and disabled dates
 
-Specific dates can be disabled by defining a minimum or maximum date where all dates before/after the given date will be disabled or by specifying individual dates (e.g. every Wednesday). Alternatively, the `disabled` property can be set to disabled all dates.
+Disable date ranges using `min` and `max` bounds, or supply individual dates to disable specific days (e.g. holidays).
 
-In the example below, only the past and upcoming 7 days are selectable except Wednesdays.
+In this example, only the past and upcoming 7 days are selectable, with Wednesdays disabled:
 
 <<< ./examples/MinMax.example.vue preview=true  layout="grow"
 
 ### Skeleton
 
-The skeleton can be used on initial page load when the data for the page / calendar is initially loaded.
+Use the skeleton during initial calendar data loading.
 
 <<< ./examples/Skeleton.example.vue preview=true  layout="grow"

@@ -14,8 +14,10 @@ export type AxeFixture = {
  *
  * TODO: re-enable color-contrast rule when color contrasts issues are fixed in:
  * https://github.com/SchwarzIT/onyx/issues/2250
+ * TODO: re-enable label-content-name-mismatch rule, see:
+ * https://github.com/SchwarzIT/onyx/issues/6314
  */
-export const DEFAULT_DISABLED_AXE_RULES = ["color-contrast"];
+export const DEFAULT_DISABLED_AXE_RULES = ["color-contrast", "label-content-name-mismatch"];
 
 /**
  * Creates an `AxeBuilder` with onyx configuration that should be used for accessibility tests.

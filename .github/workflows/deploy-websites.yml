@@ -26,7 +26,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25 # v2.22.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           egress-policy: audit
 
@@ -51,42 +51,6 @@ jobs:
           space: ${{ inputs.environment || inputs.environment }}
           working-directory: packages/sit-onyx/.cloud-foundry
 
-  deploy_documentation:
-    name: Deploy documentation
-    runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment) != '' }}
-    environment: ${{ inputs.environment || inputs.environment }}
-    steps:
-      - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25 # v2.22.1
-        with:
-          egress-policy: audit
-
-      - name: "🛒 Checkout Repository"
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - uses: ./.github/templates/node-setup
-
-      - name: 🛠️ Build Documentation
-        run: pnpm build:all --filter=@sit-onyx/docs-app
-        env:
-          # needed for increase rate limit for the GitHub API that is used when building
-          # the VitePress documentation
-          VITEPRESS_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: ⛴️ Prepare Dist
-        run: mv apps/docs/src/.vitepress/dist apps/docs/.cloud-foundry/dist
-
-      - name: ⛅️ Deploy to Cloud Foundry
-        uses: ./.github/templates/cf-push
-        with:
-          endpoint: ${{ vars.CF_ENDPOINT }}
-          org: ${{ vars.CF_ORG }}
-          username: ${{ vars.CF_USERNAME }}
-          password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment }}
-          working-directory: apps/docs/.cloud-foundry
-
   deploy_playground:
     name: Deploy Playground
     runs-on: ubuntu-latest
@@ -94,7 +58,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25 # v2.22.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           egress-policy: audit
 
@@ -126,7 +90,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25 # v2.22.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           egress-policy: audit
 
@@ -172,7 +136,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25 # v2.22.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           egress-policy: audit
 
@@ -208,7 +172,7 @@ jobs:
     environment: ${{ inputs.environment || inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
-        uses: step-security/harden-runner@ccd8616d44fd3846e67624a50d5aad6d37bf2d25 # v2.22.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           egress-policy: audit
 

@@ -5,7 +5,7 @@ export type OnyxRouterLinkProps = SharedLinkProps;
 export type SharedLinkProps = {
   /**
    * The URL/link to point to. Will use the router for internal links if provided, see [our
-   * documentation](https://onyx.schwarz/development/router.html) for further details.
+   * documentation](https://onyx.schwarz/docs/getting-started/installation) for further details.
    */
   href: string;
   /**

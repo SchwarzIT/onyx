@@ -26,6 +26,8 @@ const primaryLinks = computed(() => [
 ]);
 
 const legalLinks = computed(() => [
+  { label: t("footer.navigation.imprint"), href: "/imprint" },
+  { label: t("footer.navigation.privacyPolicy"), href: "/privacy-policy" },
   { label: t("footer.navigation.compliance"), href: "/compliance" },
 ]);
 
@@ -58,7 +60,7 @@ const copyright = computed(() => t("footer.copyright", { year: new Date().getFul
           class="footer__logo"
           :width="78"
           :height="24"
-          :alt="t('app.hero.logoAlt')"
+          :alt="t('app.name')"
           :src="{ light: logoOnLight, dark: logoOnDark }"
         />
 

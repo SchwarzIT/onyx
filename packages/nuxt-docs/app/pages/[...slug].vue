@@ -10,14 +10,6 @@ const { data, error } = await useCollection({
   collection: computed(() => `content_${locale.value}` as keyof Collections),
 });
 
-watch(
-  error,
-  () => {
-    if (error.value) showError(error.value);
-  },
-  { immediate: true },
-);
-
 useSeoMeta({
   title: () => data.value?.seo.title,
   description: () => data.value?.seo.description,
@@ -32,6 +24,7 @@ const layout = computed<keyof NuxtLayouts>(() => {
 
 <template>
   <NuxtLayout :name="layout">
-    <ContentRenderer v-if="data" :value="data" />
+    <OnyxError v-if="error" :error />
+    <ContentRenderer v-else-if="data" :value="data" />
   </NuxtLayout>
 </template>

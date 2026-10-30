@@ -41,16 +41,25 @@ export const getDatasetColors = (color: OnyxColor | `quantitatives-${Quantitativ
  * @param CSS Variable name, e.g. `--onyx-color-base-primary-500`
  */
 
-export const getCSSVariableValue = (variableName: string): string => {
-  const isDark = getComputedStyle(document.body).colorScheme === "dark";
-  const computedValue = getComputedStyle(document.body).getPropertyValue(variableName).trim();
-  const lightDarkMatch = /^light-dark\(([^,]+),\s*([^)]+)\)$/.exec(computedValue);
+export const getCSSVariableValue = (variableName: string, el = document.body): string => {
+  const rawValue = getComputedStyle(el).getPropertyValue(variableName).trim();
 
-  if (lightDarkMatch) {
-    return lightDarkMatch[isDark ? 2 : 1]!.trim();
-  } else {
-    return computedValue;
+  // if the CSS variable is no "color" (e.g. font family or numeric value), return the raw value
+  //  otherwise we resolve the actual color below
+  if (!CSS.supports("color", rawValue)) {
+    return rawValue;
   }
+
+  const element = el.ownerDocument.createElement("div");
+  element.style.display = "none";
+  element.style.color = `var(${variableName})`;
+  // color scheme is inherited from the parent, so we don't need to handle it manually
+  el.appendChild(element);
+
+  const resolvedColor = getComputedStyle(element).color;
+  element.remove();
+
+  return rgbToHex(resolvedColor);
 };
 
 /**
@@ -63,3 +72,39 @@ export const hexToRgb = (hex: string) => {
   const b = number & 255;
   return `${r}, ${g}, ${b}`;
 };
+
+/**
+ * Converts an rgb() or rgba() string (comma- or space-separated) to hex.
+ *
+ * @param {string} rgbValue - e.g. "rgb(255, 0, 128)" or "rgba(0, 0, 0, 0.5)"
+ * @returns {string} - e.g. "#ff0080" or "#00000080"
+ */
+export function rgbToHex(rgbValue: string) {
+  // Extract all numeric components (supports standard numbers and percentages)
+  const values = rgbValue.match(/[\d.]+%?/g);
+  if (!values || values.length < 3) return rgbValue;
+
+  const toHex = (val: string, isAlpha = false) => {
+    let num = val.endsWith("%") ? (parseFloat(val) / 100) * (isAlpha ? 1 : 255) : parseFloat(val);
+
+    if (isAlpha) num = Math.round(num * 255);
+    else num = Math.round(num);
+
+    return Math.min(255, Math.max(0, num)).toString(16).padStart(2, "0");
+  };
+
+  const r = toHex(values[0]);
+  const g = toHex(values[1]!);
+  const b = toHex(values[2]!);
+
+  // Include 2-digit alpha only if an alpha channel < 1 is present
+  let a = "";
+  if (values[3] !== undefined) {
+    const alphaVal = values[3].endsWith("%") ? parseFloat(values[3]) / 100 : parseFloat(values[3]);
+    if (alphaVal < 1) {
+      a = toHex(values[3], true);
+    }
+  }
+
+  return `#${r}${g}${b}${a}`;
+}

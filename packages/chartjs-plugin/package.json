@@ -1,8 +1,8 @@
 {
   "name": "@sit-onyx/chartjs-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Chart.js plugin for the onyx design system created by Schwarz Digits",
-  "homepage": "https://onyx.schwarz/development/packages/chartjs-plugin.html",
+  "homepage": "https://onyx.schwarz/components/data/chart",
   "bugs": {
     "url": "https://github.com/SchwarzIT/onyx/issues"
   },

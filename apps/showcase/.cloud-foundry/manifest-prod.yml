@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://www.schemastore.org/cloudfoundry-application-manifest.json
+---
+applications:
+  - name: onyx-showcase-prod
+    memory: 1G
+    instances: 2
+    buildpacks:
+      - https://github.com/cloudfoundry/nodejs-buildpack
+    command: node dist/server/index.mjs
+    routes:
+      - route: onyx.schwarz

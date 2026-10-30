@@ -1,10 +1,17 @@
 <script lang="ts" setup generic="TItem extends SidebarNavigationItem">
+import type { AccordionType } from "sit-onyx";
 import type { SidebarNavigationItem } from "../composables/useSidebarNavigation.js";
 import type { SidebarItemProps } from "./SidebarItem.vue";
 
-const props = defineProps<{
-  item: TItem;
-}>();
+const props = withDefaults(
+  defineProps<{
+    item: TItem;
+    type?: Extract<AccordionType, "nested-large" | "nested-small">;
+  }>(),
+  {
+    type: "nested-large",
+  },
+);
 
 const slots = defineSlots<{
   /**
@@ -71,7 +78,7 @@ const { icon } = useIcon(computed(() => props.item.icon));
     v-else
     :model-value="isAccordionOpen ? [props.item.path] : undefined"
     class="sidebar-accordion"
-    type="nested-large"
+    :type="props.type"
     @update:model-value="isAccordionOpen = !isAccordionOpen"
   >
     <OnyxAccordionItem :value="props.item.path">

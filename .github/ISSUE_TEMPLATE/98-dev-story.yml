@@ -29,8 +29,8 @@ body:
       label: Design
       description: UX design information, e.g. Figma link, screenshots etc.
       value: |
-        "[Figma Documentation](ADD_FIGMA_LINK_HERE)"
-        "[Figma Component](ADD_FIGMA_LINK_HERE)"
+        [Figma Documentation](ADD_FIGMA_LINK_HERE)
+        [Figma Component](ADD_FIGMA_LINK_HERE)
 
   - type: textarea
     id: acceptance-criteria
@@ -77,7 +77,7 @@ body:
       label: DEV handover checklist
       description: This checklist must be completed when the DEV task is done and is reviewed by another developer. You can shorten / extend the checklist as needed.
       value: |
-        [Storybook](ADD_LINK_HERE)
+        [Showcase](ADD_LINK_HERE)
 
         DEV handover done with: @ADD_DEV_NAME_HERE
 
@@ -86,9 +86,8 @@ body:
         - [ ] covered by functional tests (Playwright or unit test)
 
         **Documentation**
-        - [ ] "New" badge in Storybook is added, see [storybook-addon-tag-badges](https://github.com/Sidnioulz/storybook-addon-tag-badges/?tab=readme-ov-file#-usage)
-        - [ ] Storybook code snippets are checked
-        - [ ] component status has been updated in the [docs overview](https://onyx.schwarz/#components)
+        - [ ] Component status is added (new, experimental etc.)
+        - [ ] Component examples are checked
 
         **Other**
         - [ ] follow-up tickets were created if necessary (add links below)
@@ -121,8 +120,8 @@ body:
         - [ ] Figma component is published
 
         **Documentation**
-        - [ ] Storybook category is aligned with Figma
-        - [ ] Storybook examples are checked
+        - [ ] Category in documentation is aligned with Figma
+        - [ ] Component examples are checked in the documentation
 
         **Other**
         - [ ] follow-up tickets were created if necessary (add links below)

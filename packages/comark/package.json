@@ -1,6 +1,6 @@
 {
   "name": "@sit-onyx/comark",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Wrapper for the comark package using the onyx design system created by Schwarz Digits",
   "bugs": {
     "url": "https://github.com/SchwarzIT/onyx/issues"
@@ -32,7 +32,7 @@
     "test:playwright": "playwright install && playwright test"
   },
   "devDependencies": {
-    "@comark/vue": "^0.7.0",
+    "@comark/vue": "^0.8.1",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/playwright-utils": "workspace:^",

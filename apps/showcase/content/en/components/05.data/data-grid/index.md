@@ -24,7 +24,7 @@ A very basic data grid contains one or multiple columns and a set of data to dis
 
 ### Column types
 
-The data grid supports several column data types out-of-the-box that will display the data accordingly and also integrate with e.g. the [sorting](#sorting) or [filtering](#filtering) feature. To implement custom column types, see the [custom feature section](#type-renderer-column-types) below.
+The data grid supports several built-in column types with predefined rendering, [sorting](#sorting), and [filtering](#filtering). To implement custom types, see [custom features](#type-renderer-column-types) below.
 
 <steps>
 
@@ -126,13 +126,13 @@ Actions are defined using a custom feature. See the [custom feature section](#sl
 
 ## Features
 
-Data grid features are reusable pieces of code that extend the functionality of the data grid using a unified API. We support several advanced features out-of-the-box for common use cases such as sorting, filtering, pagination and more. See the [custom feature](#build-a-custom-feature) section below for how you can build your own feature.
+Data grid features are reusable plugins that extend data grid capabilities via a unified API. Onyx provides built-in features for sorting, filtering, and pagination. See [custom features](#build-a-custom-feature) below to create application-specific extensions.
 
 In fact, every internal functionality of the data grid such as the different [column types](#column-types) is built using a feature.
 
 ### Sorting
 
-Allows the user to sort the rows by a specific column. The developer can optionally define an initial sorting, customize the sorting logic and disable/enable sorting for specific columns. For [built-in column types](#column-types), the sorting logic is correctly defined by default. For custom types, make sure to define a custom sorting function if alphabetical sorting is not sufficient.
+Allows sorting rows by column. You can specify initial sorting, define custom comparator logic, or toggle sorting per column. For [built-in column types](#column-types), sorting is preconfigured. For custom data types, provide a custom sorting function when alphabetical ordering is insufficient.
 
 <steps>
 
@@ -256,15 +256,15 @@ All rows are editable at once and the rows do not switch between display and edi
 
 ### Sticky columns
 
-One or multiple columns can be made sticky on the left or right side of the data grid. We strongly recommend using sticky columns sparingly since they can block the whole data grid on smaller devices.
+Columns can be pinned to the left or right edge of the data grid. Use sticky columns sparingly, as excessive pinned columns obscure content on smaller displays.
 
-<p style="color: var(--onyx-color-text-icons-info-intense)">Scroll the data grid horizontally below to see the sticky columns in action.</p>
+<p style="color: var(--onyx-color-text-icons-info-intense)">Scroll the data grid horizontally below to inspect sticky columns.</p>
 
 <<< ./examples/StickyColumns.example.vue preview=true  layout="grow"
 
 ### Selection
 
-Allows the user to select multiple rows. When dealing with large data sets that use pagination or filters, a standard "Select all" button doesn't always work because many rows are hidden from the view. To solve this, the data grid **automatically switches** between two selection modes.
+Allows selecting multiple rows. With paginated or filtered datasets, a single select-all toggle is often insufficient because unrendered rows remain hidden. To solve this, `OnyxDataGrid` switches between two selection modes:
 
 The data grid tracks the selection using a "contingent" - which is simply the specific list of rows the user has manually interacted with. How the selection behaves depends on the mode:
 
@@ -300,6 +300,12 @@ The checkboxes can optionally be only shown on hover:
 
 <<< ./examples/SelectionHover.example.vue preview=true  layout="grow"
 
+<br />
+
+Selection can be combined with global actions to execute operations on selected rows, such as batch deletion.
+
+<<< ./examples/SelectionActions.example.vue preview=true
+
 ### Resizing
 
 Allows the user to manually change the width of columns by dragging the right border of the column header. Double-clicking the right border adjusts the size to the content width.
@@ -322,9 +328,9 @@ Allows expanding additional content for each row. We do **NOT recommend** showin
 
 ### Row click
 
-Allows the user to click a row to perform any custom action defined by the developer, e.g. navigating to a detail page, showing additional content inside a modal or sidebar etc. The click can be disabled for specific rows, columns or cells. We strongly recommend to disable the click for columns/cells where interactive components are used such as links, buttons etc.
+Enables row-level click actions, such as routing to detail views or opening modals. Click handlers can be disabled per row, column, or cell. We recommend disabling row clicks on columns containing interactive controls like buttons or links.
 
-When the user has a selection inside the row (e.g. marked text to copy), the click will be disabled.
+Row clicks are automatically suppressed when the user selects or highlights cell text.
 
 <<< ./examples/RowClick.example.vue preview=true  layout="grow"
 
@@ -519,7 +525,7 @@ In addition to the header actions, a wrapper component can be defined that is pl
 
 ### Slots
 
-All slots available for the underlying [table component](/components/data/table#slots) can be used if needed. Make sure to consider existing slot content that might be added by other features, otherwise the slot will be overridden completely with your custom content.
+All slots available on the underlying [table component](/components/data/table#slots) are supported. Be careful when overriding slots, as custom slot implementations can overwrite content provided by other active features.
 
 <steps>
 
@@ -528,7 +534,7 @@ All slots available for the underlying [table component](/components/data/table#
 Headline
 
 #default
-We strongly recommend using the `headline` property of the data grid to add a headline. It also supports showing a row count and other properties of the [headline](/components/navigation/headline) component. In case custom content is needed, the `headline` slot can be extended using a custom feature:
+Use the `headline` prop on `OnyxDataGrid` to render headers with automatic row counts and formatting. For advanced requirements, the `headline` slot can be extended via a custom feature:
 
 <<< ./examples/SlotHeadline.example.vue preview=true  layout="grow"
 ::
@@ -538,7 +544,7 @@ We strongly recommend using the `headline` property of the data grid to add a he
 Actions
 
 #default
-Global actions can be placed at the top right of the data grid. We strongly recommend passing the [actions with a feature](#global-actions) which ensures a consistent usage and will automatically truncate them into a flyout if the available width is too small. If you still need to add custom content, you can use the `actions` slot:
+Global actions appear in the top-right corner. We recommend defining [actions via features](#global-actions) so that actions collapse gracefully into a flyout menu on narrow viewports. If custom elements are required, use the `actions` slot:
 
 <<< ./examples/SlotActions.example.vue preview=true  layout="grow"
 ::
@@ -548,7 +554,7 @@ Global actions can be placed at the top right of the data grid. We strongly reco
 Bottom left
 
 #default
-Allows placing any custom content, e.g. for showing an additional description, legend etc.
+Renders custom content in the bottom-left area below the grid (e.g. status summaries or legends).
 
 <<< ./examples/SlotBottomLeft.example.vue preview=true  layout="grow"
 ::
@@ -558,7 +564,7 @@ Allows placing any custom content, e.g. for showing an additional description, l
 Pagination
 
 #default
-We strongly recommend using the [pagination feature](#pagination) instead of the slot directly. In case custom content is needed, the `pagination` slot can be extended using a custom feature:
+We recommend the [pagination feature](#pagination) over using the raw slot. For specialized controls, the `pagination` slot can be extended with a custom feature:
 
 <<< ./examples/SlotPagination.example.vue preview=true  layout="grow"
 ::
@@ -568,7 +574,7 @@ We strongly recommend using the [pagination feature](#pagination) instead of the
 Empty
 
 #default
-Allows customizing the default empty state when there is no data available. We recommend using the [empty component](/components/data/empty) here.
+Customizes the fallback view when no data is available. We recommend rendering [OnyxEmpty](/components/data/empty).
 
 <<< ./examples/SlotEmpty.example.vue preview=true  layout="grow"
 ::

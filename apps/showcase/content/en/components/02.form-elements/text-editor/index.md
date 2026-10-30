@@ -58,23 +58,23 @@ Next, import the editor styles. We recommend to import them globally in the root
 
 ### Basic
 
-The basic text editor includes a pre-defined set of extensions to support common functionalities. See the [extensions](#extensions) section below for customization options. The height of the editor is sized automatically by default which ensures that there is a minimum height which grows as the user types in until the maximum height is reached. You can customize the minimum and maximum number of rows using the `autosize` property or disable the maximum height completely so the textarea grows infinitely.
+The basic text editor includes standard formatting extensions. The editor height expands dynamically as content grows until reaching its maximum threshold. Configure rows via `autosize` or allow unbounded vertical expansion.
 
-_Type in multiple rows in the example below to see the autosize in action._
+_Type multiple rows in the example below to test automatic height expansion._
 
-Additionally, the user can resize the editor manually by dragging the bottom right corner vertically. You can disable this feature using the `disableManualResize` property.
+Users can also manually resize the editor by dragging the bottom-right corner, unless `disableManualResize` is set.
 
 <<< ./examples/Basic.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 
 ### Toolbar position
 
-The toolbar can optionally be positioned at the bottom.
+The toolbar can be docked at the top or bottom of the editor.
 
 <<< ./examples/BottomToolbar.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 
 ### Extensions
 
-The editor adapts automatically depending on your configuration. E.g. if you disable specific extensions or options (e.g. heading levels), the displayed editor toolbar will adapt accordingly. The editor extensions can be customized in several ways:
+The toolbar automatically adapts to enabled extensions (e.g. hiding heading pickers if headings are disabled):
 
 <steps>
 
@@ -83,9 +83,9 @@ The editor adapts automatically depending on your configuration. E.g. if you dis
 Configure starter kit
 
 #default
-The editor uses a custom `OnyxStarterKit` by default which is based on the [Tiptap starter kit](https://tiptap.dev/docs/editor/extensions/functionality/starterkit) but includes additional commonly used extensions and options.
+The editor uses `OnyxStarterKit` by default, extending the [Tiptap starter kit](https://tiptap.dev/docs/editor/extensions/functionality/starterkit) with enterprise formatting presets.
 
-To override / customize the extensions used by the editor, use the `extensions` property to pass in custom extensions which will fully replace the default config. You can either re-use and configure the default `OnyxStarterKit` here or use your own starter kits / extensions.
+Pass custom extensions to the `extensions` property to reconfigure defaults or supply an alternative set of plugins.
 
 <<< ./examples/StarterKit.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 ::
@@ -95,7 +95,7 @@ To override / customize the extensions used by the editor, use the `extensions` 
 Custom extensions
 
 #default
-Additionally, the editor can be extended with custom extensions and actions which are displayed at the end of the toolbar. Browse the Tiptap extensions overview for a full list iof extensions.
+Extend the editor with third-party Tiptap plugins and append custom toolbar buttons to the end of the action row. See the full catalog of Tiptap extensions:
 
 <div class="onyx-grid">
 <link-card class="onyx-grid-span-4" headline="Tiptap extensions overview" link="https://tiptap.dev/docs/editor/extensions/overview" />
@@ -111,33 +111,30 @@ Additionally, the editor can be extended with custom extensions and actions whic
 
 ### Disabled
 
-The editor can be disabled to indicate that it is currently not editable.
+Renders the editor in a disabled, non-editable state.
 
 <<< ./examples/Disabled.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 
 ### Min and max length
 
-When a min or maxlength is defined, the user must enter at least `min` and at most `max` characters before the value is valid. Otherwise the editor is invalid and a proper error message is displayed. Optionally, a character counter can be displayed.
-
-Tiptap's [CharacterCount extension](https://tiptap.dev/docs/editor/extensions/functionality/character-count) is used to determine the character count.
+Enforce character limits using `min` and `max` constraints. Displays an optional character counter powered by Tiptap's [CharacterCount extension](https://tiptap.dev/docs/editor/extensions/functionality/character-count).
 
 <<< ./examples/MinMaxLength.example.vue preview=true  layout="grow" style="--preview-max-width: 34rem"
 
-### Loading & Skeleton
+### Loading & skeleton
 
-The loading state is used after a user interaction to indicate that the triggered action is currently loading / in progress. On the other hand, the skeleton should be used on initial page load when the data for the page / editor is initially loaded.
+The `loading` state indicates asynchronous operations following interaction, while `skeleton` renders a loading placeholder on initial page load.
 
 <<< ./examples/Loading.example.vue preview=true  layout="grow" orientation="vertical" style="--preview-max-width: 34rem"
 
 ### Message
 
-An optional message, error or success message can be displayed. Each message supports showing an info tooltip with further information.
-When multiple message types are defined at once, only the most relevant will be displayed (e.g. error is preferred over the regular message).
+Supports hint, error, and success messages with optional tooltip context. When multiple states apply, errors take precedence.
 
 <<< ./examples/Message.example.vue preview=true  layout="grow" orientation="vertical" style="--preview-max-width: 34rem"
 
 ### Label positions
 
-The editor label can be positioned in several ways to support a wide variety of layouts.
+Labels can be aligned top, left, or floating to match form layouts.
 
 <<< ./examples/LabelPositions.example.vue preview=true  layout="grow" orientation="vertical" style="--preview-max-width: 34rem"

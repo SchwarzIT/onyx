@@ -3,40 +3,40 @@ title: Table
 componentName: OnyxTable
 ---
 
-A streamlined way to display smaller data sets. The table component focuses on simplicity, making it easy for users to view and interact with data without overwhelming them.
+A lightweight component for displaying smaller, structured datasets.
 
 ::info-card{headline="Data grid vs. table" color="warning"}
-For most cases, we recommend to use the data grid instead. Please refer to the [data grid documentation](/components/data/data-grid) for further information when to use the data grid and the table.
+For complex datasets requiring sorting, filtering, or advanced actions, use [OnyxDataGrid](/components/data/data-grid) instead. See the data grid documentation for a feature comparison.
 ::
 
 ## Examples
 
 ### Basic
 
-A basic table displays rows in a pre-defined set of columns. The table header is optional. The cell content is fully customizable.
+A standard table displays rows across predefined columns. Headers are optional, and cell contents can be customized with template slots.
 
 <<< ./examples/Basic.example.vue preview=true  layout="fullWidth"
 
 ### Striped
 
-Striped rows can be enabled where every even row has a different background color.
+Alternating row backgrounds can be enabled to improve readability in dense tables.
 
 <<< ./examples/Striped.example.vue preview=true  layout="fullWidth"
 
 ### Vertical borders
 
-Use vertical borders to separate the columns more clearly and achieve a grid look.
+Vertical dividing borders can be added to clearly distinguish adjacent columns.
 
 <<< ./examples/VerticalBorders.example.vue preview=true  layout="fullWidth"
 
 ### Slots
 
-The table supports four custom slots around the main table to add custom content such as headline, actions or pagination.
+The table provides slots around its core layout for elements like headlines, toolbar actions, or pagination controls.
 
 <<< ./examples/Slots.example.vue preview=true  layout="fullWidth"
 
 ### Column groups
 
-Columns can be grouped to visually group related columns.
+Headers can be merged into column groups to represent hierarchical data relationships.
 
 <<< ./examples/ColumnGroups.example.vue preview=true  layout="fullWidth"

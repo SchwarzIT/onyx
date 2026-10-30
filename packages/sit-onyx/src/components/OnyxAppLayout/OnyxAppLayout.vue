@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<OnyxAppLayoutProps>(), {
 const slots = defineSlots<{
   /**
    * Page content area of the application. Recommended component:
-   * [OnyxPageLayout](https://storybook.onyx.schwarz/?path=/docs/layout-pagelayout--docs).
+   * [OnyxPageLayout](https://onyx.schwarz/components/layouts/page-layout).
    *
    * For semantic HTML, it is recommend to use HTML elements like `<main>`
    */
@@ -19,12 +19,11 @@ const slots = defineSlots<{
   /**
    * Navigation area of the application. Recommended components:
    *
-   * - For top alignment:
-   *   [OnyxNavBar](https://storybook.onyx.schwarz/?path=/docs/navigation-navbar--docs)
+   * - For top alignment: [OnyxNavBar](https://onyx.schwarz/components/navigation/nav-bar)
    * - For left alignment: no onyx component yet, create your own custom one
    *
    * For implementing page-level sidebars, please use the
-   * [OnyxPageLayout](https://onyx.schwarz/?path=/story/layout-pagelayout--sidebar). For semantic
+   * [OnyxPageLayout](https://onyx.schwarz/components/layouts/page-layout). For semantic
    * HTML, it is recommended to use HTML elements like `<header>` and `<nav>` here, which is already
    * the case when using the above recommended components.
    */

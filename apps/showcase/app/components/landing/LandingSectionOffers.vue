@@ -1,4 +1,18 @@
 <script lang="ts" setup>
+const { navigation } = await useComponentsNavigation();
+
+const componentCount = computed(() => {
+  return navigation.value.flatMap((page) => page.children).flatMap((category) => category?.children)
+    .length;
+});
+
+const nuxtApp = useNuxtApp();
+const componentExampleCount = Object.keys(nuxtApp.vueApp._context.components).filter((name) =>
+  name.startsWith("Example"),
+).length;
+
+const roundToMultipleOf = (num: number, multiple: number) => Math.ceil(num / multiple) * multiple;
+
 const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
 </script>
 
@@ -15,11 +29,14 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
           </p>
         </div>
 
-        <LandingCard link="/docs/foundation/colors">
-          <OnyxHeadline is="h3" show-as="h2">Open Source to code. Built to last.</OnyxHeadline>
+        <LandingCard
+          link="/docs/getting-started/installation"
+          :button-label="$t('app.hero.getStarted')"
+        >
+          <OnyxHeadline is="h3" show-as="h2">Open Source. Built to last.</OnyxHeadline>
 
           <p class="onyx-text--default">
-            Open source belongs to everyone — anyone can review, adapt, and improve it. But
+            Open Source belongs to everyone — anyone can review, adapt, and improve it. But
             long-term quality isn't free. Continuous development and maintenance require resources
             that internal Schwarz Group projects should support.
           </p>
@@ -28,16 +45,17 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
 
       <!-- Column 2 -->
       <div :class="['offers__column', gridClass]">
-        <LandingCard link="/components/">
+        <LandingCard link="/components">
           <OnyxHeadline is="h3" show-as="h2">Build faster. Scale effortlessly.</OnyxHeadline>
 
           <p class="onyx-text--default">
-            Unlock ultimate building freedom with 100+ accessible components and 450+ features
-            engineered to scale your applications in any mode, theme, or stack.
+            Create consistent interfaces with {{ roundToMultipleOf(componentCount, 5) }}+ accessible
+            components and {{ roundToMultipleOf(componentExampleCount, 10) }}+ features designed to
+            scale across any theme, mode, or tech stack.
           </p>
 
-          <div class="components">
-            <div class="components__content">
+          <InertComponentPreview>
+            <div class="components">
               <div class="onyx-grid">
                 <div class="components__flex onyx-grid-span-full">
                   <OnyxCheckbox label="Checkbox" value="example-value" model-value hide-label />
@@ -61,13 +79,13 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
                 <OnyxUnstableSearch class="onyx-grid-span-full" placeholder="Search..." />
               </div>
             </div>
-          </div>
+          </InertComponentPreview>
         </LandingCard>
       </div>
 
       <!-- Column 3 -->
       <div :class="['offers__column', gridClass]">
-        <LandingCard link="/docs/getting-started/first-steps/">
+        <LandingCard link="/docs/foundation/colors" :button-label="$t('learnMore')">
           <OnyxHeadline is="h3" show-as="h2">On brand. Seamlessly adaptive.</OnyxHeadline>
 
           <p class="onyx-text--default">
@@ -105,17 +123,10 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
 }
 
 .components {
-  pointer-events: none;
   margin-top: var(--onyx-density-xl);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  &__content {
-    max-width: 32rem;
-    container-type: inline-size;
-    width: 100%;
-  }
+  max-width: 32rem;
+  container-type: inline-size;
+  width: 100%;
 
   :deep(.onyx-button) {
     width: 100%;
