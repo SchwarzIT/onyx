@@ -16,8 +16,9 @@ import {
   type ModifyColumns,
 } from "../index.js";
 import "./hideColumns.scss";
+import { STICKY_COLUMNS_MUTATION_ORDER } from "../stickyColumns/stickyColumns.js";
 import type { HideColumnsOptions, HideColumnsState } from "./types.js";
-export const HIDE_COLUMNS_MUTATION_ORDER = 4000;
+export const HIDE_COLUMNS_MUTATION_ORDER = STICKY_COLUMNS_MUTATION_ORDER - 1000; //needs to be registered before the sticky column feature
 export const HIDE_COLUMNS_FEATURE = Symbol("HideColumnsFeature");
 export const HIDDEN_COLUMN = Symbol("HiddenColumn");
 
