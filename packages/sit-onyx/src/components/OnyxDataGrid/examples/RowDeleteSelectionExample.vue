@@ -5,8 +5,6 @@ import {
   createFeature,
   DataGridFeatures,
   OnyxDataGrid,
-  OnyxToast,
-  useToast,
   type ColumnConfig,
 } from "../../../index.js";
 
@@ -14,7 +12,6 @@ type Entry = {
   id: number;
   name: string;
 };
-const toast = useToast();
 
 const data = ref<Entry[]>([
   { id: 1, name: "Alice" },
@@ -48,23 +45,8 @@ const selectedRows = computed(() => {
 });
 
 const deleteSelectedRows = () => {
-  const rowsToDelete = selectedRows.value;
-  if (!rowsToDelete.length) return;
-
-  const count = rowsToDelete.length;
-  const names = rowsToDelete.map((row) => `"${row.name}"`).join(", ");
-  const idsToDelete = new Set(rowsToDelete.map((row) => row.id));
-
-  data.value = data.value.filter((row) => !idsToDelete.has(row.id));
+  data.value = data.value.filter((row) => !selectedRows.value.find((r) => r.id === row.id));
   selectionState.value = { selectMode: "include", contingent: new Set() };
-  toast.show({
-    headline: count === 1 ? "Delete Row" : "Delete Rows",
-    description:
-      count === 1
-        ? `Row ${names} deleted successfully.`
-        : `${count} rows (${names}) deleted successfully.`,
-    color: "danger",
-  });
 };
 
 const withCustomActions = createFeature(() => ({
@@ -90,5 +72,4 @@ const features = [withSelection, withCustomActions];
 
 <template>
   <OnyxDataGrid headline="Example headline" :columns :data :features />
-  <OnyxToast />
 </template>

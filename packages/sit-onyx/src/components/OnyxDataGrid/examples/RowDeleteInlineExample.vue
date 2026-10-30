@@ -8,8 +8,6 @@ import {
   OnyxDataGrid,
   OnyxIconButton,
   type ColumnConfig,
-  useToast,
-  OnyxToast,
 } from "../../../index.js";
 
 type Entry = {
@@ -29,20 +27,11 @@ const columns = computed<ColumnConfig<Entry>[]>(() => {
   return [{ key: "name", label: "Name" }];
 });
 
-const toast = useToast();
 const CUSTOM_COLUMN_KEY = Symbol();
 const CUSTOM_COLUMN_TYPE = Symbol();
 
 const handleDeleteRow = (rowId: Entry["id"]) => {
-  const deletedRow = data.value.find((row) => row.id === rowId);
-
   data.value = data.value.filter((row) => row.id !== rowId);
-
-  toast.show({
-    headline: "Delete Row",
-    description: `Row "${deletedRow?.name}" deleted successfully.`,
-    color: "danger",
-  });
 };
 
 const withMyFeature = createFeature(() => ({
@@ -88,5 +77,4 @@ const features = [withMyFeature];
 
 <template>
   <OnyxDataGrid headline="Example headline" :columns :data :features />
-  <OnyxToast />
 </template>
