@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { iconTrash } from "@sit-onyx/icons";
-import { createFeature, DataGridFeatures, OnyxDataGrid, type ColumnConfig } from "sit-onyx";
+import {
+  createFeature,
+  DataGridFeatures,
+  OnyxDataGrid,
+  useToast,
+  type ColumnConfig,
+} from "sit-onyx";
 import { computed, ref } from "vue";
 
 type Entry = {
   id: number;
   name: string;
 };
+
+const toast = useToast();
 
 const data = ref<Entry[]>([
   { id: 1, name: "Alice" },
@@ -40,8 +48,15 @@ const selectedRows = computed(() => {
 });
 
 const deleteSelectedRows = () => {
+  const count = selectedRows.value.length;
   data.value = data.value.filter((row) => !selectedRows.value.find((r) => r.id === row.id));
   selectionState.value = { selectMode: "include", contingent: new Set() };
+
+  toast.show({
+    headline: "Deleted rows",
+    description: `Successfully deleted ${count} rows`,
+    color: "success",
+  });
 };
 
 const withCustomActions = createFeature(() => ({
