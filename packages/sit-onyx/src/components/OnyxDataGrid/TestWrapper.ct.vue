@@ -42,8 +42,16 @@ const data = [
     :data="data"
     :columns="[
       'name',
-      { key: 'age', label: undefined },
-      { key: 'birthday', label: 'Day of Birth' },
+      {
+        key: 'birthday',
+        // Test overflowing headline content and actions (See https://github.com/SchwarzIT/onyx/issues/6277)
+        label: 'AnuallyRecurringDateMarkingTheExactDayYouEnteredTheWorld',
+        width: '200px',
+      },
+      {
+        key: 'age',
+        label: undefined,
+      },
     ]"
     :features="[features()]"
   />
