@@ -19,8 +19,8 @@ const variables = [
 
 <style lang="scss" scoped>
 .preview {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 5rem;
+  height: 5rem;
   background-color: var(--onyx-color-base-background-tinted);
   border: 0.125rem solid var(--onyx-color-base-info-500);
 }
