@@ -16,8 +16,9 @@ import {
   type ModifyColumns,
 } from "../index.js";
 import "./hideColumns.scss";
+import { STICKY_COLUMNS_MUTATION_ORDER } from "../stickyColumns/stickyColumns.js";
 import type { HideColumnsOptions, HideColumnsState } from "./types.js";
-
+export const HIDE_COLUMNS_MUTATION_ORDER = STICKY_COLUMNS_MUTATION_ORDER - 1000; //needs to be registered before the sticky column feature
 export const HIDE_COLUMNS_FEATURE = Symbol("HideColumnsFeature");
 export const HIDDEN_COLUMN = Symbol("HiddenColumn");
 
@@ -118,7 +119,7 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
       watch: [hiddenColumnKeys],
       modifyColumns: [
         {
-          order: 9000,
+          order: HIDE_COLUMNS_MUTATION_ORDER - 1,
           /**
            * Store the current column configuration for later reference
            */
@@ -128,7 +129,7 @@ export const useHideColumns = <TEntry extends DataGridEntry>(
           },
         },
         {
-          order: 9001,
+          order: HIDE_COLUMNS_MUTATION_ORDER,
           func: (columnConfig) => {
             const filteredColumns = columnConfig.filter(
               (column) => !hiddenColumnKeys.value.has(column.key),
