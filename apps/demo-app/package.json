@@ -17,7 +17,7 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
-    "@nuxtjs/color-mode": "^4.0.1",
+    "@nuxtjs/color-mode": "^4.1.0",
     "@nuxtjs/i18n": "^10.6.0",
     "@pinia/nuxt": "^1.0.3",
     "@sit-onyx/assets": "workspace:^",
