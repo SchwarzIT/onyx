@@ -55,7 +55,7 @@
     "@sit-onyx/shared": "workspace:^",
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/vite-plugin-component-meta": "workspace:^",
-    "@storybook/addon-a11y": "^10.6.4",
+    "@storybook/addon-a11y": "^10.6.5",
     "@vue/compiler-dom": "catalog:",
     "@vue/test-utils": "^2.5.1",
     "axe-core": "^4.14.0",
@@ -66,7 +66,7 @@
     "unplugin-dts": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
-    "vue-component-type-helpers": "^3.3.13",
+    "vue-component-type-helpers": "^3.3.14",
     "vue-i18n": "^11.4.16",
     "vue-router": "^5.4.0"
   },

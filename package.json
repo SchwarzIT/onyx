@@ -29,8 +29,8 @@
     "@fontsource-variable/source-sans-3": "^5.3.1",
     "@microsoft/eslint-formatter-sarif": "^3.1.0",
     "@playwright/test": "catalog:",
-    "@storybook/addon-docs": "^10.6.4",
-    "@storybook/vue3-vite": "^10.6.4",
+    "@storybook/addon-docs": "^10.6.5",
+    "@storybook/vue3-vite": "^10.6.5",
     "@tsconfig/node24": "^24.0.5",
     "@types/eslint": "^9.6.1",
     "@types/jsdom": "^30.0.0",
@@ -42,10 +42,10 @@
     "@vue/eslint-config-typescript": "^14.9.0",
     "@vue/tsconfig": "~0.9.1",
     "@vueless/storybook-dark-mode": "^10.0.8",
-    "eslint": "^10.13.0",
+    "eslint": "^10.14.0",
     "eslint-plugin-compat": "^7.0.2",
     "eslint-plugin-playwright": "^2.12.1",
-    "eslint-plugin-storybook": "^10.6.4",
+    "eslint-plugin-storybook": "^10.6.5",
     "eslint-plugin-vue": "^10.12.0",
     "eslint-plugin-vue-scoped-css": "^3.1.3",
     "eslint-plugin-vuejs-accessibility": "^2.6.3",
@@ -53,11 +53,11 @@
     "lightningcss": "^1.33.0",
     "lint-staged": "^17.6.0",
     "nuxt": "catalog:",
-    "oxfmt": "~0.74.0",
+    "oxfmt": "~0.75.0",
     "publint": "^0.3.25",
     "rimraf": "^6.1.3",
     "simple-git-hooks": "^2.14.0",
-    "storybook": "^10.6.4",
+    "storybook": "^10.6.5",
     "stylelint": "^17.16.0",
     "stylelint-no-unsupported-browser-features": "^8.1.2",
     "turbo": "^2.11.10",
@@ -75,5 +75,5 @@
       "eslint --fix"
     ]
   },
-  "packageManager": "pnpm@12.15.0+sha512.b3951d6d6ff4a9f13dc7cf56cd28d2b8eb37dbcc9c68e52e1e1191873ea9f82a017287ab50baadc5ccc494f036c67c0e47eb13608c2fa36f47711b61ea128e61"
+  "packageManager": "pnpm@12.17.0+sha512.b8d223ebec04b580a89ed206daa71d1bccb6a1ee1d52efa95cc3b0db75271561df8f0d8e2c43add39c5ec08018af7a8a95108e7090f95a29f88727b7a40fd53d"
 }
