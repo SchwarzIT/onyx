@@ -36,6 +36,8 @@ const slots = defineSlots<{
     }
     &__label {
       overflow: hidden;
+      word-break: break-all;
+      white-space: normal;
     }
   }
 }
