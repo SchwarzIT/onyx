@@ -12,16 +12,16 @@ catalog:
   "@vue/shared": 3.5.44
   "@types/node": 24.19.2
   chart.js: 4.6.1
-  nuxt: 4.6.2
+  nuxt: 4.6.3
   playwright: 1.62.1
   playwright-core: 1.62.1
-  sass-embedded: 1.106.1
+  sass-embedded: 1.107.1
   typescript: 6.0.3
   unplugin-dts: 1.1.2
   vite: 8.3.5
   vue: 3.5.44
-  vue-component-meta: 3.3.13
-  vue-tsc: 3.3.13
+  vue-component-meta: 3.3.14
+  vue-tsc: 3.3.14
 
 # Security settings (See: https://pnpm.io/supply-chain-security)
 trustPolicy: "no-downgrade"

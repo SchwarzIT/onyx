@@ -1,3 +1,12 @@
+import {
+  defineEventHandler,
+  deleteCookie,
+  getCookie,
+  getQuery,
+  sendRedirect,
+  setCookie,
+} from "nuxt/server";
+
 const REDIRECT_COOKIE_NAME = "auth_redirect_to";
 
 export default defineEventHandler(async (event) => {
