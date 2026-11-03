@@ -8,7 +8,7 @@ test.describe("DataGrid Editing", () => {
       <TestCaseCt
         style={{ paddingBottom: "15rem", width: "24rem" }}
         columns={[
-          { key: "id", label: "ID", width: "min-content" },
+          { key: "id", label: "ID", width: "auto" },
           { key: "link", label: "link", type: "link" },
         ]}
         data={[

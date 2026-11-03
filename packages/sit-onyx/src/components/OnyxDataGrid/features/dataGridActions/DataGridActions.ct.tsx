@@ -10,7 +10,7 @@ test("OnyxDataGridActions should handle responsive overflow", async ({ mount, pa
   // ASSERT
   await expect(component).toHaveScreenshot("data-grid-actions-full.png");
 
-  await page.setViewportSize({ width: 275, height: 600 });
+  await page.setViewportSize({ width: 300, height: 600 });
 
   await expect(component).toHaveScreenshot("data-grid-actions-truncated.png");
 
