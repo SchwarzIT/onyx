@@ -854,6 +854,10 @@
     "category": "Devices & Electronics",
     "aliases": ["PC-remove", "Computer entfernen", "abbrechen"]
   },
+  "container-applications": {
+    "category": "Software & Services",
+    "aliases": ["container applications", "docker", "container", "app"]
+  },
   "container-large": {
     "category": "Business & Statistics",
     "aliases": []
@@ -932,6 +936,10 @@
   "dinosaur": {
     "category": "Various",
     "aliases": ["animal", "Dinosaurier"]
+  },
+  "directory-roles": {
+    "category": "People & Users",
+    "aliases": ["approval", "directory", "zuweisung", "zugewiesen", "geprüft"]
   },
   "disc": {
     "category": "Hardware",
@@ -1208,6 +1216,10 @@
   "file-search": {
     "category": "File & Type",
     "aliases": ["find-document", "look-file", "Datei suchen", "Dokument finden", "Lupe"]
+  },
+  "file-server": {
+    "category": "File & Type",
+    "aliases": ["file", "server", "it", "doc", "datei", "dokument"]
   },
   "file-settings": {
     "category": "File & Type",
