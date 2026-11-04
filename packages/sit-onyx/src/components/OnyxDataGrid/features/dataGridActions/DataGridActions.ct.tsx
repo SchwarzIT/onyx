@@ -2,7 +2,7 @@ import { expect, test } from "../../../../playwright/a11y.js";
 import ActionsExample from "../../examples/ActionsExample.vue";
 
 test("OnyxDataGridActions should handle responsive overflow", async ({ mount, page }) => {
-  await page.setViewportSize({ width: 400, height: 600 });
+  await page.setViewportSize({ width: 500, height: 600 });
 
   // ARRANGE
   const component = await mount(ActionsExample);
