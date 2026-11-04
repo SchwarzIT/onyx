@@ -1,0 +1,15 @@
+{
+  "name": "@sit-onyx/nuxt-internal-playground",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "generate": "nuxi generate"
+  },
+  "dependencies": {
+    "@sit-onyx/nuxt": "workspace:^",
+    "@sit-onyx/nuxt-internal": "workspace:^",
+    "nuxt": "catalog:"
+  }
+}

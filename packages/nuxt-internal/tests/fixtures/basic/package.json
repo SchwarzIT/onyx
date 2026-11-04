@@ -1,0 +1,8 @@
+{
+  "name": "basic",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@sit-onyx/nuxt": "workspace:^"
+  }
+}

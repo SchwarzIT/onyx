@@ -1,0 +1,60 @@
+{
+  "name": "@sit-onyx/nuxt-internal",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Nuxt utilities that are used internally by Onyx.",
+  "homepage": "https://onyx.schwarz",
+  "bugs": {
+    "url": "https://github.com/SchwarzIT/onyx/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Schwarz Digits IT KG",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SchwarzIT/onyx",
+    "directory": "packages/nuxt-internal"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.mjs"
+    }
+  },
+  "scripts": {
+    "dev": "pnpm run dev:prepare && nuxi dev playground",
+    "dev:build": "pnpm run dev:prepare && nuxi build playground",
+    "dev:prepare": "pnpm run build && nuxi prepare playground",
+    "build": "nuxt-module-build prepare && nuxt-module-build build",
+    "type-check": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
+    "test": "vitest",
+    "test:playwright": "playwright install && playwright test",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^3.4.4",
+    "@nuxt/kit": "^4.6.2",
+    "@nuxt/module-builder": "^1.0.3",
+    "@nuxt/schema": "^4.6.2",
+    "@nuxt/test-utils": "^4.3.4",
+    "@sit-onyx/shared": "workspace:^",
+    "nuxt": "catalog:",
+    "sit-onyx": "workspace:^",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "sit-onyx": "workspace:^"
+  },
+  "optionalDependencies": {
+    "@onyx-internal/digits-theme": "^1.3.1",
+    "@onyx-internal/kaufland-theme": "^1.3.1",
+    "@onyx-internal/lidl-theme": "^1.3.1",
+    "@onyx-internal/prezero-theme": "^1.3.1",
+    "@onyx-internal/schwarzgroup-scos-theme": "^1.3.1",
+    "@onyx-internal/tailwind-theme": "^1.3.1"
+  }
+}

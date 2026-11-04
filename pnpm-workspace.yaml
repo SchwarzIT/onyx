@@ -32,6 +32,12 @@ trustPolicyExclude:
 minimumReleaseAge: 2880 # Wait two days after a new version release - This is in sync with the `dependabot.yml` `cooldown` config
 allowBuilds:
   "@modelcontextprotocol/inspector": false # Script is only needed for the local development of `@modelcontextprotocol/inspector` itself
+  "@onyx-internal/digits-theme": false
+  "@onyx-internal/kaufland-theme": false
+  "@onyx-internal/lidl-theme": false
+  "@onyx-internal/prezero-theme": false
+  "@onyx-internal/schwarzgroup-scos-theme": false
+  "@onyx-internal/tailwind-theme": false
   "@parcel/watcher": true # Downloads binary
   "better-sqlite3": true # Downloads binary
   "esbuild": true # Downloads binary

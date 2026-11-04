@@ -22,7 +22,7 @@ useSeoMeta({
   ogImageHeight: "630",
 });
 
-await useSchwarzTheme();
+provideSchwarzTheme();
 </script>
 
 <template>

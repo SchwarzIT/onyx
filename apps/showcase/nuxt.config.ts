@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   extends: ["@sit-onyx/nuxt-docs"],
-  modules: ["nuxt-auth-utils", "@vueuse/nuxt", "nuxt-llms"],
+  modules: ["nuxt-auth-utils", "@vueuse/nuxt", "nuxt-llms", "@sit-onyx/nuxt-internal"],
   css: ["@sit-onyx/tiptap/style.css", "@sit-onyx/comark/style.css"],
   app: {
     head: {
