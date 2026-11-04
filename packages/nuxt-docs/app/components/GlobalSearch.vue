@@ -54,6 +54,11 @@ const { data, status } = await useLazyAsyncData(
 
     return sections.flatMap((section) => section);
   },
+  {
+    // do not fetch on the server to not block the hydration since the search is only needed client-side / after interaction
+    // and the data can have hundredths of kb in size
+    server: false,
+  },
 );
 
 const searchResults = computed<SearchGroup[]>(() => {

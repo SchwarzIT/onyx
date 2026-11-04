@@ -65,7 +65,10 @@ export const useSidebarNavigation = async <
   const { data } = await useAsyncData(
     () => `navigation-${options.collection.value}-${locale.value}`,
     () => queryCollectionNavigation(options.collection.value, options.fields),
-    { default: () => [] },
+    {
+      default: () => [],
+      dedupe: "defer",
+    },
   );
 
   /**

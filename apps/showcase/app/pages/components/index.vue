@@ -50,7 +50,7 @@ const isEmpty = computed(() => !filteredNavigation.value.length);
           performs autofocus inside them automatically
       -->
       <section
-        v-for="category in navigation"
+        v-for="(category, categoryIndex) in navigation"
         v-show="isCategoryVisible(category.path)"
         :key="category.path"
         class="section"
@@ -66,6 +66,7 @@ const isEmpty = computed(() => !filteredNavigation.value.length);
             :key="component.path"
             :path="component.path"
             :title="component.title"
+            :client="categoryIndex >= 2"
             class="onyx-grid-span-4 onyx-grid-lg-span-3"
           />
         </div>
