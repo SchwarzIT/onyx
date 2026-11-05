@@ -67,6 +67,8 @@ export const useSidebarNavigation = async <
     () => queryCollectionNavigation(options.collection.value, options.fields),
     {
       default: () => [],
+      // the navigation is "fixed" so multiple requests would always return the same value
+      // therefore, we "defer" multiple requests so only the first one is completed and all other receive the same value
       dedupe: "defer",
     },
   );
