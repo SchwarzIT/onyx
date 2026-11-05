@@ -60,6 +60,9 @@ const isEmpty = computed(() => !filteredNavigation.value.length);
         </OnyxHeadline>
 
         <div class="onyx-grid">
+          <!-- 
+            The "client" property is used to only render the first X categories on the server (that are visible on initial page load) and the remaining ones on the client.
+            This improves the initial rendering performance since some component previews (data grid etc.) can be more complex. -->
           <ComponentOverviewCard
             v-for="component in category.children"
             v-show="isComponentVisible(component.path)"
