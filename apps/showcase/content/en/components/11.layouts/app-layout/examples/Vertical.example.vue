@@ -1,11 +1,9 @@
 <script lang="ts" setup>
 import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
-import { iconLogin, iconLogout, iconPlaceholder, iconSearch, iconSettings } from "@sit-onyx/icons";
+import { iconLogout, iconPlaceholder, iconSearch, iconSettings } from "@sit-onyx/icons";
 import {
-  ColorSchemeValue,
   ONYX_BREAKPOINTS,
   OnyxAppLayout,
-  OnyxColorSchemeMenuItem,
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
@@ -13,20 +11,7 @@ import {
   OnyxUserMenu,
   useResizeObserver,
 } from "sit-onyx";
-import { computed, ref } from "vue";
-
-const user = ref<{ name: string } | undefined>({ name: "Jane Doe" });
-const colorScheme = ref<ColorSchemeValue>("auto");
-
-const handleLogin = () => {
-  // your logout logic here...
-  user.value = { name: "Jane Doe" };
-};
-
-const handleLogout = () => {
-  // your logout logic here...
-  user.value = undefined;
-};
+import { computed } from "vue";
 
 const { width: viewportWidth } = useResizeObserver();
 
@@ -55,24 +40,15 @@ const isMobile = computed(() => viewportWidth.value <= ONYX_BREAKPOINTS.xs);
         </template>
 
         <template #contextArea>
-          <OnyxUserMenu v-if="user" full-name="Jane Doe" description="Description" position="right">
+          <OnyxUserMenu full-name="Jane Doe" description="Description" position="right">
             <OnyxMenuItem label="Settings" :icon="iconSettings" link="/settings" />
-            <OnyxColorSchemeMenuItem v-model="colorScheme" />
-            <OnyxMenuItem label="Logout" :icon="iconLogout" color="danger" @click="handleLogout" />
+            <OnyxMenuItem label="Logout" :icon="iconLogout" color="danger" />
 
             <template #footer>
               App version
               <span class="onyx-text--monospace">1.0.0</span>
             </template>
           </OnyxUserMenu>
-
-          <OnyxUnstableNavButton
-            v-else
-            label="Login"
-            :icon="iconLogin"
-            color="primary"
-            @click="handleLogin"
-          />
         </template>
       </OnyxNavBar>
     </template>

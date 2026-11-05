@@ -2,7 +2,7 @@
 import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import { iconLogin, iconLogout, iconPlaceholder, iconSearch, iconSettings } from "@sit-onyx/icons";
 import {
-  ColorSchemeValue,
+  type ColorSchemeValue,
   ONYX_BREAKPOINTS,
   OnyxAppLayout,
   OnyxColorSchemeMenuItem,
@@ -55,7 +55,12 @@ const isMobile = computed(() => viewportWidth.value <= ONYX_BREAKPOINTS.xs);
         </template>
 
         <template #contextArea>
-          <OnyxUserMenu v-if="user" full-name="Jane Doe" description="Description" position="right">
+          <OnyxUserMenu
+            v-if="user"
+            :full-name="user.name"
+            description="Description"
+            position="right"
+          >
             <OnyxMenuItem label="Settings" :icon="iconSettings" link="/settings" />
             <OnyxColorSchemeMenuItem v-model="colorScheme" />
             <OnyxMenuItem label="Logout" :icon="iconLogout" color="danger" @click="handleLogout" />
