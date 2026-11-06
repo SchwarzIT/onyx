@@ -54,5 +54,5 @@ const features = [withCustomActions];
 </script>
 
 <template>
-  <OnyxDataGrid headline="Example headline" :columns :data :features />
+  <OnyxDataGrid headline="Long Example headline" :columns :data :features />
 </template>
