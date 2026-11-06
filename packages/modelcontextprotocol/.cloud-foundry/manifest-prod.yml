@@ -1,0 +1,9 @@
+---
+applications:
+  - name: onyx-mcp-prod
+    memory: 64M
+    instances: 2
+    buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+    command: node dist/index.js -r -t http
+    routes:
+      - route: onyx-mcp.apps.01.cf.eu01.stackit.cloud
