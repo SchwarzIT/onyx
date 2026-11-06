@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxTab, OnyxTabs, OnyxTag } from "sit-onyx";
+import { OnyxTab, OnyxTabs, OnyxTag, OnyxSystemButton } from "sit-onyx";
 import { ref } from "vue";
 
 const tab = ref("tab-1");
