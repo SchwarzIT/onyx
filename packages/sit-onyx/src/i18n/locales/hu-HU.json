@@ -1,0 +1,378 @@
+{
+  "yes": "Igen",
+  "no": "Nem",
+  "optional": "(nem kötelező)",
+  "cancel": "Mégse",
+  "apply": "Alkalmaz",
+  "back": "Vissza",
+  "close": "Bezárás",
+  "now": "Most",
+  "save": "Mentés",
+  "breadcrumb": {
+    "label": "Morzsamenü",
+    "home": "Kezdőlap"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Összes sor kijelölése",
+        "deselectAll": "Összes sor kijelölésének megszüntetése",
+        "select": "A(z) '{id}' azonosítójú sor hozzáadása a kijelöléshez.",
+        "deselect": "A(z) '{id}' azonosítójú sor eltávolítása a kijelölésből."
+      },
+      "sorting": {
+        "action": {
+          "asc": "A táblázat növekvő rendezése a(z) {field} oszlop szerint.",
+          "desc": "A táblázat csökkenő rendezése a(z) {field} oszlop szerint.",
+          "none": "Rendezés visszaállítása."
+        },
+        "menu": {
+          "asc": "Növekvő rendezés",
+          "desc": "Csökkenő rendezés",
+          "none": "Nincs rendezés"
+        }
+      },
+      "filtering": {
+        "removeLabel": "A(z) {column} oszlop keresőkifejezésének eltávolítása",
+        "menu": {
+          "label": "Keresés a(z) {column} oszlopban",
+          "placeholder": "Keresés az oszlopban"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Rejtett oszlopok listája",
+        "revealTrigger": "Rejtett oszlopok megjelenítése",
+        "menu": {
+          "hideButton": "Oszlop elrejtése",
+          "lastColumnTooltip": "Az utolsó oszlop nem rejthető el."
+        }
+      }
+    },
+    "editing": {
+      "label": "{column}, azonosító: {id}"
+    },
+    "loadMore": "Továbbiak betöltése",
+    "rowRearrange": {
+      "rearrange": "Sorok átrendezése",
+      "reset": "Módosítások visszavonása",
+      "dragToMove": "Húzza a sor áthelyezéséhez"
+    },
+    "columnRearrange": {
+      "rearrange": "Oszlopok átrendezése",
+      "dragToMove": "Húzza az oszlop áthelyezéséhez"
+    }
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Túl rövid, legalább {minLength} karakter szükséges",
+      "fullError": "Adjon meg legalább {minLength} karaktert. Jelenleg {n} karakter hosszú. A speciális karakterek egynél több karakternek számíthatnak."
+    },
+    "tooLong": {
+      "preview": "Túl hosszú, legfeljebb {maxLength} karakter megengedett",
+      "fullError": "Rövidítse a bevitelt legfeljebb {maxLength} karakterre. Jelenleg {n} karakter hosszú. A speciális karakterek egynél több karakternek számíthatnak."
+    },
+    "rangeUnderflow": {
+      "preview": "Túl alacsony",
+      "fullError": "Az értéknek legalább {min} kell lennie."
+    },
+    "rangeOverflow": {
+      "preview": "Túl magas",
+      "fullError": "Az érték legfeljebb {max} lehet."
+    },
+    "patternMismatch": {
+      "preview": "Érvénytelen formátum",
+      "fullError": "Kérjük, a kért formátumot használja."
+    },
+    "valueMissing": {
+      "preview": "Kötelező",
+      "fullError": "A mező üres, de kötelező kitölteni.",
+      "whitespaceError": "Adjon meg érvényes szöveget (csak szóközök nem megengedettek)."
+    },
+    "stepMismatch": {
+      "preview": "Érvénytelen szám",
+      "fullError": "Adjon meg egy érvényes számot, amely {step} többszöröse."
+    },
+    "badInput": {
+      "preview": "Érvénytelen bevitel",
+      "fullError": "\"{value}\" nem felel meg a várt típusnak."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Érvénytelen beviteli típus",
+        "fullError": "\"{value}\" nem felel meg a várt típusnak."
+      },
+      "email": {
+        "preview": "Érvénytelen e-mail",
+        "fullError": "\"{value}\" nem érvényes e-mail-cím. Valahogy így kell kinéznie: \"johndoe{'@'}example.com\" (pontosan egy {'@'} jelet és egy pontot kell tartalmaznia)."
+      },
+      "number": {
+        "preview": "Érvénytelen szám",
+        "fullError": "\"{value}\" nem érvényes szám. Ügyeljen arra, hogy csak számjegyeket és legfeljebb egy tizedesjelet tartalmazzon."
+      },
+      "tel": {
+        "preview": "Érvénytelen telefonszám",
+        "fullError": "\"{value}\" nem érvényes telefonszám."
+      },
+      "url": {
+        "preview": "Érvénytelen URL",
+        "fullError": "\"{value}\" nem érvényes URL. Az URL általában egy webhelyre mutat, és valahogy így néz ki: \"https://www.example.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Választólista megnyitása/bezárása",
+    "empty": "Nincs elérhető adat",
+    "noMatch": "Egyetlen elem sem felel meg a keresésnek",
+    "searchInputLabel": "Listaelemek szűrése",
+    "clearSearch": "Keresőszűrő törlése",
+    "searchPlaceholder": "Keresés"
+  },
+  "selections": {
+    "selectAll": "Összes kijelölése",
+    "selectFiltered": "Szűrtek kijelölése",
+    "selectGroup": "Kijelölve",
+    "currentSelection": "{n} kijelölve"
+  },
+  "stepper": {
+    "decrement": "Csökkentés ennyivel: {stepSize}",
+    "increment": "Növelés ennyivel: {stepSize}"
+  },
+  "table": {
+    "empty": "A táblázat üres."
+  },
+  "link": {
+    "opensExternally": "(új lapon nyílik meg)"
+  },
+  "navItemOptionsLabel": "{label} aloldalai",
+  "navigation": {
+    "appLogo": "{appName} alkalmazáslogója",
+    "goToHome": "Ugrás a kezdőlapra",
+    "goBack": "Vissza",
+    "moreNavItems": "+{n} további",
+    "moreNavItemsLabel": "További elemek",
+    "showMoreNavItemsLabel": "További elemek megjelenítése",
+    "userMenuLabel": "Felhasználói beállítások",
+    "toggleBurgerMenu": "Menü megnyitása/bezárása",
+    "toggleContextMenu": "Helyi menü megnyitása/bezárása",
+    "navigationHeadline": "Navigáció",
+    "moreActionsFlyout": "Válasszon műveletet a(z) \"{column}\" oszlophoz",
+    "moreActionsTrigger": "Oszlopműveletek megjelenítése/elrejtése",
+    "collapse": "Összecsukás",
+    "expand": "Kibontás"
+  },
+  "tooltip": {
+    "neutral": "Információs tipp megjelenítése/elrejtése",
+    "danger": "Hibatipp megjelenítése/elrejtése",
+    "success": "Sikertipp megjelenítése/elrejtése"
+  },
+  "colorScheme": {
+    "headline": "Megjelenés módosítása",
+    "subtitle": "Válassza ki az alkalmazás megjelenését:",
+    "appearance": "Megjelenés",
+    "auto": {
+      "label": "Automatikus",
+      "description": "Az alkalmazás automatikusan a rendszerbeállításaihoz igazítja a megjelenését."
+    },
+    "light": {
+      "label": "Világos",
+      "description": "A világos mód világos környezetben optimális kontrasztot biztosít."
+    },
+    "dark": {
+      "label": "Sötét",
+      "description": "Ez a színmód sötétebb környezetekre van optimalizálva."
+    }
+  },
+  "pagination": {
+    "label": "Lapozás",
+    "ofPages": "/ {pages} oldal | / {pages} oldal",
+    "previous": "előző oldal",
+    "next": "következő oldal",
+    "buttonLabel": "{page}. oldal",
+    "morePages": "További oldalak közöttük",
+    "select": {
+      "label": "Oldalválasztás",
+      "listLabel": "Elérhető oldalak"
+    },
+    "currentOfTotalPages": "1/1 oldal | {current}/{total} oldal"
+  },
+  "input": {
+    "clear": "Bevitel törlése",
+    "showPassword": "Jelszó megjelenítése",
+    "hidePassword": "Jelszó elrejtése"
+  },
+  "dialog": {
+    "close": "Párbeszédablak bezárása"
+  },
+  "headline": {
+    "copyLink": "Hivatkozás másolása erre a címsorra",
+    "copyLinkTo": "Hivatkozás másolása a címsorra:"
+  },
+  "avatar": {
+    "ariaLabel": "{fullName} avatarja"
+  },
+  "filterTag": {
+    "clickToAdd": "\"{label}\" szűrő hozzáadása",
+    "clickToRemove": "\"{label}\" szűrő eltávolítása"
+  },
+  "languageSelect": {
+    "label": "Nyelv",
+    "headline": "Nyelv módosítása",
+    "subtitle": "Válassza ki az alkalmazás nyelvét:"
+  },
+  "resizeHandle": {
+    "label": "Húzza a szélesség módosításához"
+  },
+  "fileUpload": {
+    "select": "Kiválasztás",
+    "clickToUpload": "Kattintson a kiválasztáshoz",
+    "orDragAndDrop": "vagy húzza ide a fájlt",
+    "maxFileSize": "Maximális fájlméret",
+    "inTotal": "összesen",
+    "maxFileCount": "Összesen legfeljebb {n} fájl választható ki",
+    "allowedFileTypes": "Engedélyezett fájltípusok: {types}",
+    "hideFilesButton": "Összes fájl elrejtése",
+    "revealFilesButton": "Összes fájl megjelenítése",
+    "removeFile": "Fájl eltávolítása",
+    "requiredError": "Legalább egy fájlt fel kell töltenie",
+    "status": {
+      "fileTypeError": "A(z) '.{extension}' kiterjesztésű fájl nem megengedett",
+      "fileSizeError": "A fájl meghaladja a megengedett maximális méretet ({size})",
+      "maxFileSizeError": "Az összes fájl együttes mérete meghaladja a megengedett maximumot ({size})",
+      "maxCountError": "A fájlok száma meghaladja a megengedett maximumot ({count})"
+    }
+  },
+  "globalFAB": {
+    "label": "Globális műveletek"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Ma",
+      "tooltip": "Ugrás a mai napra"
+    },
+    "calendarWeek": "Hét",
+    "calendarWeekButtonLabel": "{weekNumber}. hét kiválasztása",
+    "previousMonthButton": "Előző hónap",
+    "nextMonthButton": "Következő hónap",
+    "monthYearPicker": "Hónap és év kiválasztása"
+  },
+  "flyoutMenu": {
+    "moreActions": "További műveletek",
+    "toggleActions": {
+      "click": "Kattintson a műveletek megjelenítéséhez/elrejtéséhez",
+      "hover": "Vigye fölé az egeret vagy fókuszáljon a műveletek megjelenítéséhez/elrejtéséhez"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Érték csökkentése ennyivel: {n}",
+    "increaseValueBy": "Érték növelése ennyivel: {n}",
+    "changeValue": "Érték módosítása",
+    "changeStartValue": "Kezdőérték módosítása",
+    "changeEndValue": "Záróérték módosítása"
+  },
+  "codeTabs": {
+    "label": "Kódrészletek",
+    "copySnippet": "Kód másolása",
+    "copied": "Másolva!",
+    "failed": "Sikertelen!",
+    "tabLabel": "Kód"
+  },
+  "search": {
+    "label": "Keresés",
+    "filterLabel": "Szűrők megjelenítése/elrejtése",
+    "selectFilter": "Szűrők kiválasztása",
+    "leadingShortcutPlaceholder": "Nyomja meg:",
+    "trailingShortcutPlaceholder": "a kereséshez"
+  },
+  "globalSearch": {
+    "label": "Globális keresés",
+    "searchResults": "Keresési eredmények",
+    "input": {
+      "label": "Tartalom keresése",
+      "placeholder": "Keresés..."
+    },
+    "shortcuts": {
+      "move": "Navigálás",
+      "select": "Kiválasztás"
+    },
+    "system": "Rendszer"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "ÓÓ",
+      "minute": "PP",
+      "second": "MM"
+    },
+    "labels": {
+      "from": "ettől",
+      "to": "eddig",
+      "iconButton": "Időválasztó megnyitása",
+      "popover": "Időválasztó",
+      "hour": "Óra",
+      "minute": "Perc",
+      "second": "Másodperc",
+      "listLabel": "Időpontok",
+      "am": "de.",
+      "pm": "du.",
+      "timeSuffix": "Válassza ki: de. vagy du."
+    },
+    "errors": {
+      "outsideRange": "Az időpontnak {min} és {max} között kell lennie.",
+      "timeBeforeMin": "Az időszaknak {min} után kell kezdődnie",
+      "timeAfterMax": "Az időszaknak {max} előtt kell véget érnie",
+      "endTimeAfterStartTime": "A befejezés időpontjának a kezdés után kell lennie."
+    }
+  },
+  "itemsPerPage": {
+    "label": "Elemek oldalanként",
+    "select": {
+      "listLabel": "Válassza ki az oldalanként megjelenő elemek számát"
+    }
+  },
+  "tableOfContents": {
+    "label": "Tartalomjegyzék"
+  },
+  "key": {
+    "label": "\"{name}\" billentyű"
+  },
+  "editor": {
+    "bold": "Félkövér",
+    "italic": "Dőlt",
+    "underline": "Aláhúzott",
+    "strike": "Áthúzott",
+    "alignments": {
+      "left": "Balra igazítva",
+      "center": "Középre igazítva",
+      "right": "Jobbra igazítva",
+      "block": "Sorkizárt"
+    },
+    "link": {
+      "edit": "Hivatkozás szerkesztése",
+      "link": "Hivatkozás",
+      "text": "Szöveg"
+    },
+    "quote": "Idézet",
+    "undo": "Visszavonás",
+    "redo": "Újra",
+    "headings": {
+      "headlines": "Címsorok",
+      "level": "{n}. címsor",
+      "paragraph": "Szöveg"
+    },
+    "lists": {
+      "lists": "Listák",
+      "orderedList": "Számozott lista",
+      "unorderedList": "Felsorolás"
+    },
+    "blockquote": "Idézetblokk"
+  },
+  "datePicker": {
+    "popoverLabel": "Naptár"
+  },
+  "accordion": {
+    "toggle": "Kattintson a tartalom megjelenítéséhez/elrejtéséhez"
+  },
+  "errors": {
+    "backToHome": "Vissza a kezdőlapra",
+    "technicalDetails": "Technikai hibarészletek"
+  }
+}

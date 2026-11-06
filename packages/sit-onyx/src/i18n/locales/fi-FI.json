@@ -1,0 +1,378 @@
+{
+  "yes": "Kyllä",
+  "no": "Ei",
+  "optional": "(valinnainen)",
+  "cancel": "Peruuta",
+  "apply": "Käytä",
+  "back": "Takaisin",
+  "close": "Sulje",
+  "now": "Nyt",
+  "save": "Tallenna",
+  "breadcrumb": {
+    "label": "Murupolku",
+    "home": "Etusivu"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Valitse kaikki rivit",
+        "deselectAll": "Poista kaikkien rivien valinta",
+        "select": "Lisää rivi, jonka tunnus on '{id}', valintaan.",
+        "deselect": "Poista rivi, jonka tunnus on '{id}', valinnasta."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Lajittele taulukko nousevaan järjestykseen sarakkeen {field} mukaan.",
+          "desc": "Lajittele taulukko laskevaan järjestykseen sarakkeen {field} mukaan.",
+          "none": "Palauta lajittelu."
+        },
+        "menu": {
+          "asc": "Lajittele nousevasti",
+          "desc": "Lajittele laskevasti",
+          "none": "Ei lajittelua"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Poista sarakkeen {column} hakusana",
+        "menu": {
+          "label": "Hae sarakkeesta {column}",
+          "placeholder": "Hae sarakkeesta"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Piilotettujen sarakkeiden luettelo",
+        "revealTrigger": "Näytä piilotetut sarakkeet",
+        "menu": {
+          "hideButton": "Piilota sarake",
+          "lastColumnTooltip": "Viimeistä saraketta ei voi piilottaa."
+        }
+      }
+    },
+    "editing": {
+      "label": "{column}, tunnus {id}"
+    },
+    "loadMore": "Lataa lisää",
+    "rowRearrange": {
+      "rearrange": "Järjestä rivit uudelleen",
+      "reset": "Kumoa muutokset",
+      "dragToMove": "Siirrä riviä vetämällä"
+    },
+    "columnRearrange": {
+      "rearrange": "Järjestä sarakkeet uudelleen",
+      "dragToMove": "Siirrä saraketta vetämällä"
+    }
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "Liian lyhyt, vähintään {minLength} merkkiä vaaditaan",
+      "fullError": "Syötä vähintään {minLength} merkkiä. Nyt merkkejä on {n}. Erikoismerkit voivat viedä useamman kuin yhden merkin."
+    },
+    "tooLong": {
+      "preview": "Liian pitkä, enintään {maxLength} merkkiä sallitaan",
+      "fullError": "Lyhennä syöte enintään {maxLength} merkkiin. Nyt merkkejä on {n}. Erikoismerkit voivat viedä useamman kuin yhden merkin."
+    },
+    "rangeUnderflow": {
+      "preview": "Liian pieni",
+      "fullError": "Arvon on oltava suurempi tai yhtä suuri kuin {min}."
+    },
+    "rangeOverflow": {
+      "preview": "Liian suuri",
+      "fullError": "Arvon on oltava pienempi tai yhtä suuri kuin {max}."
+    },
+    "patternMismatch": {
+      "preview": "Virheellinen muoto",
+      "fullError": "Käytä pyydettyä muotoa."
+    },
+    "valueMissing": {
+      "preview": "Pakollinen",
+      "fullError": "Kenttä on tyhjä. Se on pakollinen ja täytettävä.",
+      "whitespaceError": "Syötä kelvollinen teksti (pelkät välilyönnit eivät kelpaa)."
+    },
+    "stepMismatch": {
+      "preview": "Virheellinen luku",
+      "fullError": "Syötä kelvollinen luku, joka on luvun {step} monikerta."
+    },
+    "badInput": {
+      "preview": "Virheellinen syöte",
+      "fullError": "\"{value}\" ei vastaa odotettua tyyppiä."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Virheellinen syötteen tyyppi",
+        "fullError": "\"{value}\" ei vastaa odotettua tyyppiä."
+      },
+      "email": {
+        "preview": "Virheellinen sähköposti",
+        "fullError": "\"{value}\" ei ole kelvollinen sähköpostiosoite. Sen pitäisi olla muotoa \"johndoe{'@'}example.com\" (siinä on oltava yksi {'@'}-merkki ja piste)."
+      },
+      "number": {
+        "preview": "Virheellinen luku",
+        "fullError": "\"{value}\" ei ole kelvollinen luku. Varmista, että siinä on vain numeroita ja enintään yksi desimaalierotin."
+      },
+      "tel": {
+        "preview": "Virheellinen puhelinnumero",
+        "fullError": "\"{value}\" ei ole kelvollinen puhelinnumero."
+      },
+      "url": {
+        "preview": "Virheellinen URL-osoite",
+        "fullError": "\"{value}\" ei ole kelvollinen URL-osoite. URL-osoite viittaa yleensä verkkosivustoon ja on muotoa \"https://www.example.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Näytä tai piilota valintaluettelo",
+    "empty": "Tietoja ei ole saatavilla",
+    "noMatch": "Mikään kohde ei vastaa hakuasi",
+    "searchInputLabel": "Suodata luettelon kohteita",
+    "clearSearch": "Tyhjennä hakusuodatin",
+    "searchPlaceholder": "Hae"
+  },
+  "selections": {
+    "selectAll": "Valitse kaikki",
+    "selectFiltered": "Valitse suodatetut",
+    "selectGroup": "Valitut",
+    "currentSelection": "{n} valittu"
+  },
+  "stepper": {
+    "decrement": "Vähennä {stepSize}",
+    "increment": "Lisää {stepSize}"
+  },
+  "table": {
+    "empty": "Taulukko on tyhjä."
+  },
+  "link": {
+    "opensExternally": "(avautuu uuteen välilehteen)"
+  },
+  "navItemOptionsLabel": "Kohteen {label} alasivut",
+  "navigation": {
+    "appLogo": "Sovelluksen {appName} logo",
+    "goToHome": "Siirry etusivulle",
+    "goBack": "Palaa takaisin",
+    "moreNavItems": "+{n} lisää",
+    "moreNavItemsLabel": "Lisää kohteita",
+    "showMoreNavItemsLabel": "Näytä lisää kohteita",
+    "userMenuLabel": "Käyttäjävalinnat",
+    "toggleBurgerMenu": "Näytä tai piilota valikko",
+    "toggleContextMenu": "Näytä tai piilota pikavalikko",
+    "navigationHeadline": "Navigointi",
+    "moreActionsFlyout": "Valitse toiminto sarakkeelle \"{column}\"",
+    "moreActionsTrigger": "Näytä tai piilota saraketoiminnot",
+    "collapse": "Pienennä",
+    "expand": "Laajenna"
+  },
+  "tooltip": {
+    "neutral": "Näytä tai piilota lisätieto",
+    "danger": "Näytä tai piilota virheilmoitus",
+    "success": "Näytä tai piilota onnistumisilmoitus"
+  },
+  "colorScheme": {
+    "headline": "Vaihda ulkoasua",
+    "subtitle": "Valitse sovelluksen ulkoasu:",
+    "appearance": "Ulkoasu",
+    "auto": {
+      "label": "Automaattinen",
+      "description": "Sovellus mukauttaa ulkoasunsa automaattisesti järjestelmäsi asetusten mukaan."
+    },
+    "light": {
+      "label": "Vaalea",
+      "description": "Vaalea tila tarjoaa parhaan kontrastin valoisissa ympäristöissä."
+    },
+    "dark": {
+      "label": "Tumma",
+      "description": "Tämä väritila on optimoitu hämärämpiin ympäristöihin."
+    }
+  },
+  "pagination": {
+    "label": "Sivutus",
+    "ofPages": "/ {pages} sivu | / {pages} sivua",
+    "previous": "edellinen sivu",
+    "next": "seuraava sivu",
+    "buttonLabel": "Sivu {page}",
+    "morePages": "Lisää sivuja välissä",
+    "select": {
+      "label": "Sivun valinta",
+      "listLabel": "Käytettävissä olevat sivut"
+    },
+    "currentOfTotalPages": "1/1 sivu | {current}/{total} sivua"
+  },
+  "input": {
+    "clear": "Tyhjennä syöte",
+    "showPassword": "Näytä salasana",
+    "hidePassword": "Piilota salasana"
+  },
+  "dialog": {
+    "close": "Sulje valintaikkuna"
+  },
+  "headline": {
+    "copyLink": "Kopioi linkki tähän otsikkoon",
+    "copyLinkTo": "Kopioi linkki otsikkoon:"
+  },
+  "avatar": {
+    "ariaLabel": "Käyttäjän {fullName} avatar"
+  },
+  "filterTag": {
+    "clickToAdd": "Lisää suodatin \"{label}\"",
+    "clickToRemove": "Poista suodatin \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Kieli",
+    "headline": "Vaihda kieltä",
+    "subtitle": "Valitse sovelluksen kieli:"
+  },
+  "resizeHandle": {
+    "label": "Muuta leveyttä vetämällä"
+  },
+  "fileUpload": {
+    "select": "Valitse",
+    "clickToUpload": "Valitse napsauttamalla",
+    "orDragAndDrop": "tai vedä ja pudota tiedosto",
+    "maxFileSize": "Tiedoston enimmäiskoko",
+    "inTotal": "yhteensä",
+    "maxFileCount": "Valittavissa yhteensä enintään {n} tiedostoa",
+    "allowedFileTypes": "Sallitut tiedostotyypit: {types}",
+    "hideFilesButton": "Piilota kaikki tiedostot",
+    "revealFilesButton": "Näytä kaikki tiedostot",
+    "removeFile": "Poista tiedosto",
+    "requiredError": "Sinun on ladattava vähintään yksi tiedosto",
+    "status": {
+      "fileTypeError": "Tiedosto, jonka tiedostopääte on '.{extension}', ei kelpaa",
+      "fileSizeError": "Tiedosto ylittää suurimman sallitun koon {size}",
+      "maxFileSizeError": "Kaikkien tiedostojen yhteiskoko ylittää suurimman sallitun koon {size}",
+      "maxCountError": "Tiedostojen määrä ylittää suurimman sallitun määrän {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Yleiset toiminnot"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Tänään",
+      "tooltip": "Siirry tähän päivään"
+    },
+    "calendarWeek": "Vko",
+    "calendarWeekButtonLabel": "Valitse viikko {weekNumber}",
+    "previousMonthButton": "Edellinen kuukausi",
+    "nextMonthButton": "Seuraava kuukausi",
+    "monthYearPicker": "Kuukauden ja vuoden valinta"
+  },
+  "flyoutMenu": {
+    "moreActions": "Lisää toimintoja",
+    "toggleActions": {
+      "click": "Näytä tai piilota toiminnot napsauttamalla",
+      "hover": "Näytä tai piilota toiminnot osoittamalla tai kohdistamalla"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Pienennä arvoa {n}",
+    "increaseValueBy": "Suurenna arvoa {n}",
+    "changeValue": "Muuta arvoa",
+    "changeStartValue": "Muuta alkuarvoa",
+    "changeEndValue": "Muuta loppuarvoa"
+  },
+  "codeTabs": {
+    "label": "Koodiesimerkit",
+    "copySnippet": "Kopioi koodi",
+    "copied": "Kopioitu!",
+    "failed": "Epäonnistui!",
+    "tabLabel": "Koodi"
+  },
+  "search": {
+    "label": "Hae",
+    "filterLabel": "Näytä tai piilota suodattimet",
+    "selectFilter": "Valitse suodattimet",
+    "leadingShortcutPlaceholder": "Paina",
+    "trailingShortcutPlaceholder": "hakeaksesi"
+  },
+  "globalSearch": {
+    "label": "Yleinen haku",
+    "searchResults": "Hakutulokset",
+    "input": {
+      "label": "Hae sisältöä",
+      "placeholder": "Hae..."
+    },
+    "shortcuts": {
+      "move": "Siirry",
+      "select": "Valitse"
+    },
+    "system": "Järjestelmä"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "TT",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "from": "alkaen",
+      "to": "asti",
+      "iconButton": "Avaa ajanvalitsin",
+      "popover": "Ajanvalitsin",
+      "hour": "Tunti",
+      "minute": "Minuutti",
+      "second": "Sekunti",
+      "listLabel": "Aikavaihtoehdot",
+      "am": "ap.",
+      "pm": "ip.",
+      "timeSuffix": "Valitse ap. tai ip."
+    },
+    "errors": {
+      "outsideRange": "Ajan on oltava välillä {min}–{max}.",
+      "timeBeforeMin": "Aikavälin on alettava jälkeen {min}",
+      "timeAfterMax": "Aikavälin on päätyttävä ennen {max}",
+      "endTimeAfterStartTime": "Päättymisajan on oltava alkamisajan jälkeen."
+    }
+  },
+  "itemsPerPage": {
+    "label": "Kohteita sivulla",
+    "select": {
+      "listLabel": "Valitse kohteiden määrä sivulla"
+    }
+  },
+  "tableOfContents": {
+    "label": "Sisällysluettelo"
+  },
+  "key": {
+    "label": "Näppäin \"{name}\""
+  },
+  "editor": {
+    "bold": "Lihavointi",
+    "italic": "Kursivointi",
+    "underline": "Alleviivaus",
+    "strike": "Yliviivaus",
+    "alignments": {
+      "left": "Tasaus vasemmalle",
+      "center": "Keskitys",
+      "right": "Tasaus oikealle",
+      "block": "Tasattu molemmat reunat"
+    },
+    "link": {
+      "edit": "Muokkaa linkkiä",
+      "link": "Linkki",
+      "text": "Teksti"
+    },
+    "quote": "Lainaus",
+    "undo": "Kumoa",
+    "redo": "Tee uudelleen",
+    "headings": {
+      "headlines": "Otsikot",
+      "level": "Otsikko {n}",
+      "paragraph": "Teksti"
+    },
+    "lists": {
+      "lists": "Luettelot",
+      "orderedList": "Numeroitu luettelo",
+      "unorderedList": "Luettelomerkit"
+    },
+    "blockquote": "Lainauslohko"
+  },
+  "datePicker": {
+    "popoverLabel": "Kalenteri"
+  },
+  "accordion": {
+    "toggle": "Näytä tai piilota sisältö napsauttamalla"
+  },
+  "errors": {
+    "backToHome": "Takaisin etusivulle",
+    "technicalDetails": "Virheen tekniset tiedot"
+  }
+}

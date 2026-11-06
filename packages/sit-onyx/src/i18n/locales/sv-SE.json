@@ -1,0 +1,378 @@
+{
+  "yes": "Ja",
+  "no": "Nej",
+  "optional": "(valfritt)",
+  "cancel": "Avbryt",
+  "apply": "Tillämpa",
+  "back": "Tillbaka",
+  "close": "Stäng",
+  "now": "Nu",
+  "save": "Spara",
+  "breadcrumb": {
+    "label": "Brödsmulenavigering",
+    "home": "Startsida"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Markera alla rader",
+        "deselectAll": "Avmarkera alla rader",
+        "select": "Lägg till raden med ID '{id}' i markeringen.",
+        "deselect": "Ta bort raden med ID '{id}' från markeringen."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Sortera tabellen stigande efter kolumnen {field}.",
+          "desc": "Sortera tabellen fallande efter kolumnen {field}.",
+          "none": "Återställ sortering."
+        },
+        "menu": {
+          "asc": "Sortera stigande",
+          "desc": "Sortera fallande",
+          "none": "Ingen sortering"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Ta bort sökterm för kolumnen {column}",
+        "menu": {
+          "label": "Sök i kolumnen {column}",
+          "placeholder": "Sök i kolumn"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Lista över dolda kolumner",
+        "revealTrigger": "Visa dolda kolumner",
+        "menu": {
+          "hideButton": "Dölj kolumn",
+          "lastColumnTooltip": "Den sista kolumnen kan inte döljas."
+        }
+      }
+    },
+    "editing": {
+      "label": "{column} med ID {id}"
+    },
+    "loadMore": "Läs in fler",
+    "rowRearrange": {
+      "rearrange": "Ordna om rader",
+      "reset": "Återställ ändringar",
+      "dragToMove": "Dra för att flytta raden"
+    },
+    "columnRearrange": {
+      "rearrange": "Ordna om kolumner",
+      "dragToMove": "Dra för att flytta kolumnen"
+    }
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "För kort, minst {minLength} tecken krävs",
+      "fullError": "Ange minst {minLength} tecken. Just nu är det {n} tecken. Specialtecken kan räknas som mer än ett tecken."
+    },
+    "tooLong": {
+      "preview": "För långt, högst {maxLength} tecken tillåts",
+      "fullError": "Korta ner texten till högst {maxLength} tecken. Just nu är det {n} tecken. Specialtecken kan räknas som mer än ett tecken."
+    },
+    "rangeUnderflow": {
+      "preview": "För lågt",
+      "fullError": "Värdet måste vara större än eller lika med {min}."
+    },
+    "rangeOverflow": {
+      "preview": "För högt",
+      "fullError": "Värdet måste vara mindre än eller lika med {max}."
+    },
+    "patternMismatch": {
+      "preview": "Ogiltigt format",
+      "fullError": "Använd det format som efterfrågas."
+    },
+    "valueMissing": {
+      "preview": "Obligatoriskt",
+      "fullError": "Fältet är tomt. Det är obligatoriskt och måste fyllas i.",
+      "whitespaceError": "Ange en giltig text (enbart mellanslag är inte tillåtet)."
+    },
+    "stepMismatch": {
+      "preview": "Ogiltigt tal",
+      "fullError": "Ange ett giltigt tal som är en multipel av {step}."
+    },
+    "badInput": {
+      "preview": "Ogiltig inmatning",
+      "fullError": "\"{value}\" motsvarar inte den förväntade typen."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Ogiltig inmatningstyp",
+        "fullError": "\"{value}\" motsvarar inte den förväntade typen."
+      },
+      "email": {
+        "preview": "Ogiltig e-post",
+        "fullError": "\"{value}\" är inte en giltig e-postadress. Den ska likna \"johndoe{'@'}example.com\" (måste innehålla ett {'@'} och en punkt)."
+      },
+      "number": {
+        "preview": "Ogiltigt tal",
+        "fullError": "\"{value}\" är inte ett giltigt tal. Kontrollera att det bara innehåller siffror och eventuellt ett decimaltecken."
+      },
+      "tel": {
+        "preview": "Ogiltigt telefonnummer",
+        "fullError": "\"{value}\" är inte ett giltigt telefonnummer."
+      },
+      "url": {
+        "preview": "Ogiltig URL",
+        "fullError": "\"{value}\" är inte en giltig URL. En URL pekar oftast på en webbplats och ska likna \"https://www.example.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Visa/dölj urvalslista",
+    "empty": "Inga data tillgängliga",
+    "noMatch": "Inget objekt matchar din sökning",
+    "searchInputLabel": "Filtrera listobjekten",
+    "clearSearch": "Rensa sökfilter",
+    "searchPlaceholder": "Sök"
+  },
+  "selections": {
+    "selectAll": "Markera alla",
+    "selectFiltered": "Markera filtrerade",
+    "selectGroup": "Markerade",
+    "currentSelection": "{n} markerade"
+  },
+  "stepper": {
+    "decrement": "Minska med {stepSize}",
+    "increment": "Öka med {stepSize}"
+  },
+  "table": {
+    "empty": "Tabellen är tom."
+  },
+  "link": {
+    "opensExternally": "(öppnas i en ny flik)"
+  },
+  "navItemOptionsLabel": "Undersidor till {label}",
+  "navigation": {
+    "appLogo": "Applogotyp för {appName}",
+    "goToHome": "Gå till startsidan",
+    "goBack": "Gå tillbaka",
+    "moreNavItems": "+{n} till",
+    "moreNavItemsLabel": "Fler objekt",
+    "showMoreNavItemsLabel": "Visa fler objekt",
+    "userMenuLabel": "Användaralternativ",
+    "toggleBurgerMenu": "Visa/dölj menyn",
+    "toggleContextMenu": "Visa/dölj snabbmenyn",
+    "navigationHeadline": "Navigering",
+    "moreActionsFlyout": "Välj en åtgärd för kolumnen \"{column}\"",
+    "moreActionsTrigger": "Visa/dölj kolumnåtgärder",
+    "collapse": "Fäll ihop",
+    "expand": "Fäll ut"
+  },
+  "tooltip": {
+    "neutral": "Visa/dölj informationstips",
+    "danger": "Visa/dölj feltips",
+    "success": "Visa/dölj bekräftelsetips"
+  },
+  "colorScheme": {
+    "headline": "Ändra utseende",
+    "subtitle": "Välj applikationens utseende:",
+    "appearance": "Utseende",
+    "auto": {
+      "label": "Automatiskt",
+      "description": "Applikationen anpassar automatiskt sitt utseende efter dina systeminställningar."
+    },
+    "light": {
+      "label": "Ljust",
+      "description": "Ljust läge ger optimal kontrast i ljusa miljöer."
+    },
+    "dark": {
+      "label": "Mörkt",
+      "description": "Det här färgläget är optimerat för mörkare miljöer."
+    }
+  },
+  "pagination": {
+    "label": "Sidnumrering",
+    "ofPages": "av {pages} sida | av {pages} sidor",
+    "previous": "föregående sida",
+    "next": "nästa sida",
+    "buttonLabel": "Sida {page}",
+    "morePages": "Fler sidor emellan",
+    "select": {
+      "label": "Sidval",
+      "listLabel": "Tillgängliga sidor"
+    },
+    "currentOfTotalPages": "1/1 sida | {current}/{total} sidor"
+  },
+  "input": {
+    "clear": "Rensa inmatning",
+    "showPassword": "Visa lösenord",
+    "hidePassword": "Dölj lösenord"
+  },
+  "dialog": {
+    "close": "Stäng dialogrutan"
+  },
+  "headline": {
+    "copyLink": "Kopiera länk till den här rubriken",
+    "copyLinkTo": "Kopiera länk till rubriken:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar för {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Lägg till filtret \"{label}\"",
+    "clickToRemove": "Ta bort filtret \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Språk",
+    "headline": "Byt språk",
+    "subtitle": "Välj applikationens språk:"
+  },
+  "resizeHandle": {
+    "label": "Dra för att ändra bredden"
+  },
+  "fileUpload": {
+    "select": "Välj",
+    "clickToUpload": "Klicka för att välja",
+    "orDragAndDrop": "eller dra och släpp en fil",
+    "maxFileSize": "Maximal filstorlek",
+    "inTotal": "totalt",
+    "maxFileCount": "Högst {n} filer kan väljas totalt",
+    "allowedFileTypes": "Tillåtna filtyper: {types}",
+    "hideFilesButton": "Dölj alla filer",
+    "revealFilesButton": "Visa alla filer",
+    "removeFile": "Ta bort fil",
+    "requiredError": "Du måste ladda upp minst en fil",
+    "status": {
+      "fileTypeError": "Filer med filändelsen '.{extension}' är inte tillåtna",
+      "fileSizeError": "Filen överskrider den maximalt tillåtna storleken {size}",
+      "maxFileSizeError": "Den sammanlagda storleken på alla filer överskrider maxgränsen {size}",
+      "maxCountError": "Antalet filer överskrider maxgränsen {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Globala åtgärder"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "Idag",
+      "tooltip": "Gå till idag"
+    },
+    "calendarWeek": "V.",
+    "calendarWeekButtonLabel": "Välj vecka {weekNumber}",
+    "previousMonthButton": "Föregående månad",
+    "nextMonthButton": "Nästa månad",
+    "monthYearPicker": "Välj månad och år"
+  },
+  "flyoutMenu": {
+    "moreActions": "Fler åtgärder",
+    "toggleActions": {
+      "click": "Klicka för att visa/dölja åtgärder",
+      "hover": "Hovra/fokusera för att visa/dölja åtgärder"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Minska värdet med {n}",
+    "increaseValueBy": "Öka värdet med {n}",
+    "changeValue": "Ändra värde",
+    "changeStartValue": "Ändra startvärde",
+    "changeEndValue": "Ändra slutvärde"
+  },
+  "codeTabs": {
+    "label": "Kodexempel",
+    "copySnippet": "Kopiera kod",
+    "copied": "Kopierat!",
+    "failed": "Misslyckades!",
+    "tabLabel": "Kod"
+  },
+  "search": {
+    "label": "Sök",
+    "filterLabel": "Visa/dölj filter",
+    "selectFilter": "Välj filter",
+    "leadingShortcutPlaceholder": "Tryck",
+    "trailingShortcutPlaceholder": "för att söka"
+  },
+  "globalSearch": {
+    "label": "Global sökning",
+    "searchResults": "Sökresultat",
+    "input": {
+      "label": "Sök efter innehåll",
+      "placeholder": "Sök..."
+    },
+    "shortcuts": {
+      "move": "Navigera",
+      "select": "Välj"
+    },
+    "system": "System"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "TT",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "from": "från",
+      "to": "till",
+      "iconButton": "Öppna tidsväljaren",
+      "popover": "Tidsväljare",
+      "hour": "Timme",
+      "minute": "Minut",
+      "second": "Sekund",
+      "listLabel": "Tidsalternativ",
+      "am": "fm",
+      "pm": "em",
+      "timeSuffix": "Välj fm eller em"
+    },
+    "errors": {
+      "outsideRange": "Tiden måste ligga mellan {min} och {max}.",
+      "timeBeforeMin": "Tiden måste börja efter {min}",
+      "timeAfterMax": "Tiden måste sluta före {max}",
+      "endTimeAfterStartTime": "Sluttiden måste vara efter starttiden."
+    }
+  },
+  "itemsPerPage": {
+    "label": "Objekt per sida",
+    "select": {
+      "listLabel": "Välj antal objekt per sida"
+    }
+  },
+  "tableOfContents": {
+    "label": "Innehållsförteckning"
+  },
+  "key": {
+    "label": "Tangenten \"{name}\""
+  },
+  "editor": {
+    "bold": "Fetstil",
+    "italic": "Kursiv",
+    "underline": "Understruken",
+    "strike": "Genomstruken",
+    "alignments": {
+      "left": "Vänsterjusterad",
+      "center": "Centrerad",
+      "right": "Högerjusterad",
+      "block": "Marginaljusterad"
+    },
+    "link": {
+      "edit": "Redigera länk",
+      "link": "Länk",
+      "text": "Text"
+    },
+    "quote": "Citat",
+    "undo": "Ångra",
+    "redo": "Gör om",
+    "headings": {
+      "headlines": "Rubriker",
+      "level": "Rubrik {n}",
+      "paragraph": "Text"
+    },
+    "lists": {
+      "lists": "Listor",
+      "orderedList": "Numrerad lista",
+      "unorderedList": "Punktlista"
+    },
+    "blockquote": "Blockcitat"
+  },
+  "datePicker": {
+    "popoverLabel": "Kalender"
+  },
+  "accordion": {
+    "toggle": "Klicka för att visa/dölja innehållet"
+  },
+  "errors": {
+    "backToHome": "Tillbaka till startsidan",
+    "technicalDetails": "Tekniska detaljer om felet"
+  }
+}
