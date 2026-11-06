@@ -35,7 +35,9 @@ const slots = defineSlots<{
       gap: var(--onyx-density-2xs);
     }
     &__label {
-      max-width: 100%;
+      overflow: hidden;
+      word-break: break-all;
+      white-space: normal;
     }
   }
 }

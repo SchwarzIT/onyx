@@ -37,7 +37,8 @@ const data = computed<Entry[]>(() =>
     : [
         {
           id: 1,
-          name: "Pippilotta Delicatessa Windowshade Mackrelmint Efraimsdotter Longstocking",
+          // Test overlong content (See https://github.com/SchwarzIT/onyx/issues/5900)
+          name: "PippilottaDelicatessaWindowshadeMackrelmintEfraimsdotterLongstocking",
           age: 30,
           birthday: new Date("1990-01-01"),
           nickname: "Al",
@@ -99,6 +100,8 @@ const columnGroups = computed(() =>
         type: 'string',
         columnGroupKey: props.columnGroups ? 'gdpr' : undefined,
         width: '200px',
+        // Test overlong content (See https://github.com/SchwarzIT/onyx/issues/5900)
+        label: 'VeryOverlyAndOverTheTopLongColumnName',
       },
       'favoriteColor',
       {

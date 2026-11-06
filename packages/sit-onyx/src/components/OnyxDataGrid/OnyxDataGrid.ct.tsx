@@ -10,17 +10,23 @@ test("OnyxDataGrid", async ({ mount }) => {
   // ARRANGE
   const component = await mount(<TestWrapperCt />);
 
+  const moreActionsBtn = component
+    .getByRole("columnheader", { name: "AnuallyRecurringDateMarkingTheExactDayYouEnteredTheWorld" })
+    .getByLabel("Toggle column actions");
+
   await test.step("should display header labels as expected", async () => {
     // ASSERT
     const headers = component.locator("th");
     await expect(headers).toHaveCount(3);
     await expect(component).toHaveScreenshot("data-grid-with-header-labels.png");
+    await expect(moreActionsBtn).toBeVisible();
   });
 
   await test.step("should support header actions", async () => {
     // ARRANGE
-    const moreActionsBtn = component.getByLabel("Toggle column actions").last();
-    const flyout = component.getByLabel('Choose an action for the column "Day of Birth"');
+    const flyout = component.getByLabel(
+      'Choose an action for the column "AnuallyRecurringDateMarkingTheExactDayYouEnteredTheWorld"',
+    );
 
     // ACT
     await moreActionsBtn.click();
