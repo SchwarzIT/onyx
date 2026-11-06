@@ -51,6 +51,38 @@ jobs:
           space: ${{ inputs.environment || inputs.environment }}
           working-directory: packages/sit-onyx/.cloud-foundry
 
+  deploy_mcp:
+    name: Deploy MCP
+    runs-on: ubuntu-latest
+    if: ${{ (inputs.environment || inputs.environment) != '' }}
+    environment: ${{ inputs.environment || inputs.environment }}
+    steps:
+      - name: "🛃 Harden the runner (Audit all outbound calls)"
+        uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
+        with:
+          egress-policy: audit
+
+      - name: "🛒 Checkout Repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: ./.github/templates/node-setup
+
+      - name: 🛠️ Build MCP
+        run: pnpm build:all --filter=@sit-onyx/modelcontextprotocol
+
+      - name: ⛴️ Prepare Dist
+        run: mv packages/modelcontextprotocol/dist packages/modelcontextprotocol/.cloud-foundry/dist
+
+      - name: ⛅️ Deploy to Cloud Foundry
+        uses: ./.github/templates/cf-push
+        with:
+          endpoint: ${{ vars.CF_ENDPOINT }}
+          org: ${{ vars.CF_ORG }}
+          username: ${{ vars.CF_USERNAME }}
+          password: ${{ secrets.CF_PASSWORD }}
+          space: ${{ inputs.environment || inputs.environment }}
+          working-directory: packages/modelcontextprotocol/.cloud-foundry
+
   deploy_playground:
     name: Deploy Playground
     runs-on: ubuntu-latest
