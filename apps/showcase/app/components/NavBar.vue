@@ -20,6 +20,18 @@ const getLinkProps = computed(() => {
     } satisfies Partial<OnyxNavItemProps>;
   };
 });
+
+const iconLinkProps = computed(() => {
+  return getLinkProps.value("/components/basic/icon#available-icons", "/components/basic/icon");
+});
+
+const componentLinkProps = computed(() => {
+  const _props = getLinkProps.value("/components");
+  // technically, the "Icon" nav item is a subpage of "Components" but when the icon library is open
+  // the components nav item should not be active so only one item is active at a time
+  if (iconLinkProps.value.active) _props.active = false;
+  return _props;
+});
 </script>
 
 <template>
@@ -28,8 +40,8 @@ const getLinkProps = computed(() => {
       :label="$t('documentation')"
       v-bind="getLinkProps('/docs/getting-started/installation', '/docs')"
     />
-    <OnyxNavItem :label="$t('components.component', 2)" v-bind="getLinkProps('/components')" />
-    <OnyxNavItem :label="$t('icons.icon', 2)" link="/components/basic/icon#available-icons" />
+    <OnyxNavItem :label="$t('components.component', 2)" v-bind="componentLinkProps" />
+    <OnyxNavItem :label="$t('icons.icon', 2)" v-bind="iconLinkProps" />
     <OnyxNavItem :label="$t('footer.navigation.demo')" :link="demoAppLink" />
     <OnyxNavItem
       :label="$t('footer.navigation.playground')"

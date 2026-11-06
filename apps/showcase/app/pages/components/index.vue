@@ -50,7 +50,7 @@ const isEmpty = computed(() => !filteredNavigation.value.length);
           performs autofocus inside them automatically
       -->
       <section
-        v-for="category in navigation"
+        v-for="(category, categoryIndex) in navigation"
         v-show="isCategoryVisible(category.path)"
         :key="category.path"
         class="section"
@@ -60,12 +60,16 @@ const isEmpty = computed(() => !filteredNavigation.value.length);
         </OnyxHeadline>
 
         <div class="onyx-grid">
+          <!-- 
+            The "client" property is used to only render the first X categories on the server (that are visible on initial page load) and the remaining ones on the client.
+            This improves the initial rendering performance since some component previews (data grid etc.) can be more complex. -->
           <ComponentOverviewCard
             v-for="component in category.children"
             v-show="isComponentVisible(component.path)"
             :key="component.path"
             :path="component.path"
             :title="component.title"
+            :client="categoryIndex >= 2"
             class="onyx-grid-span-4 onyx-grid-lg-span-3"
           />
         </div>

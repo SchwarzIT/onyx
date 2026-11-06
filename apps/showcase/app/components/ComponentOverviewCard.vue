@@ -4,6 +4,11 @@ import type { Component } from "vue";
 const props = defineProps<{
   title: string;
   path: string;
+  /**
+   * If `true`, the preview component will only be rendered on the client.
+   * Can be used to optimize rendering performance.
+   */
+  client?: boolean;
 }>();
 
 const allComponents = Object.entries(
@@ -44,8 +49,11 @@ const PreviewComponent = computed(() => {
 <template>
   <OnyxCard class="component" :link="props.path">
     <InertComponentPreview class="component__preview-wrapper">
-      <div class="component__preview">
-        <component :is="PreviewComponent" v-if="PreviewComponent" />
+      <div v-if="PreviewComponent" class="component__preview">
+        <ClientOnly v-if="props.client">
+          <component :is="PreviewComponent" />
+        </ClientOnly>
+        <component :is="PreviewComponent" v-else />
       </div>
     </InertComponentPreview>
 
