@@ -58,7 +58,7 @@
     "rimraf": "^6.1.4",
     "simple-git-hooks": "^2.14.0",
     "storybook": "^10.6.5",
-    "stylelint": "^17.16.0",
+    "stylelint": "^18.0.0",
     "stylelint-no-unsupported-browser-features": "^8.1.2",
     "turbo": "^2.11.10",
     "typescript": "catalog:",
