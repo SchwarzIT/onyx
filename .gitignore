@@ -40,6 +40,7 @@ eslint-results.sarif
 .nuxt
 nuxt.d.ts
 .nuxtrc
+!/.nuxtrc
 .output
 coverage
 
