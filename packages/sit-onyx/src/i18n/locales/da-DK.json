@@ -1,0 +1,378 @@
+{
+  "yes": "Ja",
+  "no": "Nej",
+  "optional": "(valgfrit)",
+  "cancel": "Annuller",
+  "apply": "Anvend",
+  "back": "Tilbage",
+  "close": "Luk",
+  "now": "Nu",
+  "save": "Gem",
+  "breadcrumb": {
+    "label": "Brødkrummenavigation",
+    "home": "Forside"
+  },
+  "dataGrid": {
+    "head": {
+      "selection": {
+        "selectAll": "Vælg alle rækker",
+        "deselectAll": "Fravælg alle rækker",
+        "select": "Føj rækken med ID '{id}' til markeringen.",
+        "deselect": "Fjern rækken med ID '{id}' fra markeringen."
+      },
+      "sorting": {
+        "action": {
+          "asc": "Sorter tabellen stigende efter kolonnen {field}.",
+          "desc": "Sorter tabellen faldende efter kolonnen {field}.",
+          "none": "Nulstil sortering."
+        },
+        "menu": {
+          "asc": "Sorter stigende",
+          "desc": "Sorter faldende",
+          "none": "Ingen sortering"
+        }
+      },
+      "filtering": {
+        "removeLabel": "Fjern søgeord for kolonnen {column}",
+        "menu": {
+          "label": "Søg i kolonnen {column}",
+          "placeholder": "Søg i kolonne"
+        }
+      },
+      "hideColumns": {
+        "revealFlyout": "Liste over skjulte kolonner",
+        "revealTrigger": "Vis skjulte kolonner",
+        "menu": {
+          "hideButton": "Skjul kolonne",
+          "lastColumnTooltip": "Den sidste kolonne kan ikke skjules."
+        }
+      }
+    },
+    "editing": {
+      "label": "{column} med ID {id}"
+    },
+    "loadMore": "Indlæs flere",
+    "rowRearrange": {
+      "rearrange": "Omarranger rækker",
+      "reset": "Nulstil ændringer",
+      "dragToMove": "Træk for at flytte rækken"
+    },
+    "columnRearrange": {
+      "rearrange": "Omarranger kolonner",
+      "dragToMove": "Træk for at flytte kolonnen"
+    }
+  },
+  "validations": {
+    "tooShort": {
+      "preview": "For kort, mindst {minLength} tegn påkrævet",
+      "fullError": "Indtast mindst {minLength} tegn. Lige nu er der {n} tegn. Specialtegn kan tælle som mere end ét tegn."
+    },
+    "tooLong": {
+      "preview": "For langt, højst {maxLength} tegn tilladt",
+      "fullError": "Forkort teksten til højst {maxLength} tegn. Lige nu er der {n} tegn. Specialtegn kan tælle som mere end ét tegn."
+    },
+    "rangeUnderflow": {
+      "preview": "For lav",
+      "fullError": "Værdien skal være større end eller lig med {min}."
+    },
+    "rangeOverflow": {
+      "preview": "For høj",
+      "fullError": "Værdien skal være mindre end eller lig med {max}."
+    },
+    "patternMismatch": {
+      "preview": "Ugyldigt format",
+      "fullError": "Brug det ønskede format."
+    },
+    "valueMissing": {
+      "preview": "Påkrævet",
+      "fullError": "Feltet er tomt. Det er obligatorisk og skal udfyldes.",
+      "whitespaceError": "Indtast en gyldig tekst (kun mellemrum er ikke tilladt)."
+    },
+    "stepMismatch": {
+      "preview": "Ugyldigt tal",
+      "fullError": "Indtast et gyldigt tal, der er et multiplum af {step}."
+    },
+    "badInput": {
+      "preview": "Ugyldigt input",
+      "fullError": "\"{value}\" svarer ikke til den forventede type."
+    },
+    "typeMismatch": {
+      "generic": {
+        "preview": "Ugyldig inputtype",
+        "fullError": "\"{value}\" svarer ikke til den forventede type."
+      },
+      "email": {
+        "preview": "Ugyldig e-mail",
+        "fullError": "\"{value}\" er ikke en gyldig e-mailadresse. Den skal ligne \"johndoe{'@'}example.com\" (skal indeholde ét {'@'} og et punktum)."
+      },
+      "number": {
+        "preview": "Ugyldigt tal",
+        "fullError": "\"{value}\" er ikke et gyldigt tal. Sørg for, at det kun indeholder cifre og eventuelt ét decimaltegn."
+      },
+      "tel": {
+        "preview": "Ugyldigt telefonnummer",
+        "fullError": "\"{value}\" er ikke et gyldigt telefonnummer."
+      },
+      "url": {
+        "preview": "Ugyldig URL",
+        "fullError": "\"{value}\" er ikke en gyldig URL. En URL peger som regel på et websted og skal ligne \"https://www.example.com\"."
+      }
+    }
+  },
+  "select": {
+    "toggleDropDown": "Vis/skjul valglisten",
+    "empty": "Ingen data tilgængelige",
+    "noMatch": "Intet element matcher din søgning",
+    "searchInputLabel": "Filtrer listeelementerne",
+    "clearSearch": "Ryd søgefilter",
+    "searchPlaceholder": "Søg"
+  },
+  "selections": {
+    "selectAll": "Vælg alle",
+    "selectFiltered": "Vælg filtrerede",
+    "selectGroup": "Valgt",
+    "currentSelection": "{n} valgt"
+  },
+  "stepper": {
+    "decrement": "Formindsk med {stepSize}",
+    "increment": "Forøg med {stepSize}"
+  },
+  "table": {
+    "empty": "Tabellen er tom."
+  },
+  "link": {
+    "opensExternally": "(åbner i en ny fane)"
+  },
+  "navItemOptionsLabel": "Undersider til {label}",
+  "navigation": {
+    "appLogo": "Applogo for {appName}",
+    "goToHome": "Gå til forsiden",
+    "goBack": "Gå tilbage",
+    "moreNavItems": "+{n} mere",
+    "moreNavItemsLabel": "Flere elementer",
+    "showMoreNavItemsLabel": "Vis flere elementer",
+    "userMenuLabel": "Brugerindstillinger",
+    "toggleBurgerMenu": "Vis/skjul menuen",
+    "toggleContextMenu": "Vis/skjul kontekstmenuen",
+    "navigationHeadline": "Navigation",
+    "moreActionsFlyout": "Vælg en handling for kolonnen \"{column}\"",
+    "moreActionsTrigger": "Vis/skjul kolonnehandlinger",
+    "collapse": "Skjul",
+    "expand": "Udvid"
+  },
+  "tooltip": {
+    "neutral": "Vis/skjul infotip",
+    "danger": "Vis/skjul fejltip",
+    "success": "Vis/skjul succestip"
+  },
+  "colorScheme": {
+    "headline": "Skift udseende",
+    "subtitle": "Vælg applikationens udseende:",
+    "appearance": "Udseende",
+    "auto": {
+      "label": "Automatisk",
+      "description": "Applikationen tilpasser automatisk sit udseende til dine systemindstillinger."
+    },
+    "light": {
+      "label": "Lys",
+      "description": "Lys tilstand giver optimal kontrast i lyse omgivelser."
+    },
+    "dark": {
+      "label": "Mørk",
+      "description": "Denne farvetilstand er optimeret til mørkere omgivelser."
+    }
+  },
+  "pagination": {
+    "label": "Sideinddeling",
+    "ofPages": "af {pages} side | af {pages} sider",
+    "previous": "forrige side",
+    "next": "næste side",
+    "buttonLabel": "Side {page}",
+    "morePages": "Flere sider imellem",
+    "select": {
+      "label": "Sidevalg",
+      "listLabel": "Tilgængelige sider"
+    },
+    "currentOfTotalPages": "1/1 side | {current}/{total} sider"
+  },
+  "input": {
+    "clear": "Ryd input",
+    "showPassword": "Vis adgangskode",
+    "hidePassword": "Skjul adgangskode"
+  },
+  "dialog": {
+    "close": "Luk dialogboksen"
+  },
+  "headline": {
+    "copyLink": "Kopiér link til denne overskrift",
+    "copyLinkTo": "Kopiér link til overskriften:"
+  },
+  "avatar": {
+    "ariaLabel": "Avatar for {fullName}"
+  },
+  "filterTag": {
+    "clickToAdd": "Tilføj filteret \"{label}\"",
+    "clickToRemove": "Fjern filteret \"{label}\""
+  },
+  "languageSelect": {
+    "label": "Sprog",
+    "headline": "Skift sprog",
+    "subtitle": "Vælg applikationens sprog:"
+  },
+  "resizeHandle": {
+    "label": "Træk for at ændre bredden"
+  },
+  "fileUpload": {
+    "select": "Vælg",
+    "clickToUpload": "Klik for at vælge",
+    "orDragAndDrop": "eller træk og slip en fil",
+    "maxFileSize": "Maksimal filstørrelse",
+    "inTotal": "i alt",
+    "maxFileCount": "Højst {n} filer kan vælges i alt",
+    "allowedFileTypes": "Tilladte filtyper: {types}",
+    "hideFilesButton": "Skjul alle filer",
+    "revealFilesButton": "Vis alle filer",
+    "removeFile": "Fjern fil",
+    "requiredError": "Du skal uploade mindst én fil",
+    "status": {
+      "fileTypeError": "Filer med filtypenavnet '.{extension}' er ikke tilladt",
+      "fileSizeError": "Filen overskrider den maksimalt tilladte størrelse på {size}",
+      "maxFileSizeError": "Den samlede størrelse af alle filer overskrider det tilladte maksimum på {size}",
+      "maxCountError": "Antallet af filer overskrider det tilladte maksimum på {count}"
+    }
+  },
+  "globalFAB": {
+    "label": "Globale handlinger"
+  },
+  "calendar": {
+    "todayButton": {
+      "label": "I dag",
+      "tooltip": "Gå til i dag"
+    },
+    "calendarWeek": "Uge",
+    "calendarWeekButtonLabel": "Vælg uge {weekNumber}",
+    "previousMonthButton": "Forrige måned",
+    "nextMonthButton": "Næste måned",
+    "monthYearPicker": "Vælg måned og år"
+  },
+  "flyoutMenu": {
+    "moreActions": "Flere handlinger",
+    "toggleActions": {
+      "click": "Klik for at vise/skjule handlinger",
+      "hover": "Hold markøren over/fokuser for at vise/skjule handlinger"
+    }
+  },
+  "slider": {
+    "decreaseValueBy": "Formindsk værdien med {n}",
+    "increaseValueBy": "Forøg værdien med {n}",
+    "changeValue": "Skift værdi",
+    "changeStartValue": "Skift startværdi",
+    "changeEndValue": "Skift slutværdi"
+  },
+  "codeTabs": {
+    "label": "Kodeeksempler",
+    "copySnippet": "Kopiér kode",
+    "copied": "Kopieret!",
+    "failed": "Mislykkedes!",
+    "tabLabel": "Kode"
+  },
+  "search": {
+    "label": "Søg",
+    "filterLabel": "Vis/skjul filtre",
+    "selectFilter": "Vælg filtre",
+    "leadingShortcutPlaceholder": "Tryk",
+    "trailingShortcutPlaceholder": "for at søge"
+  },
+  "globalSearch": {
+    "label": "Global søgning",
+    "searchResults": "Søgeresultater",
+    "input": {
+      "label": "Søg efter indhold",
+      "placeholder": "Søg..."
+    },
+    "shortcuts": {
+      "move": "Naviger",
+      "select": "Vælg"
+    },
+    "system": "System"
+  },
+  "timePicker": {
+    "placeholder": {
+      "hour": "TT",
+      "minute": "MM",
+      "second": "SS"
+    },
+    "labels": {
+      "from": "fra",
+      "to": "til",
+      "iconButton": "Åbn tidsvælgeren",
+      "popover": "Tidsvælger",
+      "hour": "Time",
+      "minute": "Minut",
+      "second": "Sekund",
+      "listLabel": "Tidsmuligheder",
+      "am": "AM",
+      "pm": "PM",
+      "timeSuffix": "Vælg AM eller PM"
+    },
+    "errors": {
+      "outsideRange": "Tidspunktet skal ligge mellem {min} og {max}.",
+      "timeBeforeMin": "Tidsrummet skal begynde efter {min}",
+      "timeAfterMax": "Tidsrummet skal slutte før {max}",
+      "endTimeAfterStartTime": "Sluttidspunktet skal ligge efter starttidspunktet."
+    }
+  },
+  "itemsPerPage": {
+    "label": "Elementer pr. side",
+    "select": {
+      "listLabel": "Vælg antal elementer pr. side"
+    }
+  },
+  "tableOfContents": {
+    "label": "Indholdsfortegnelse"
+  },
+  "key": {
+    "label": "Tasten \"{name}\""
+  },
+  "editor": {
+    "bold": "Fed",
+    "italic": "Kursiv",
+    "underline": "Understreget",
+    "strike": "Gennemstreget",
+    "alignments": {
+      "left": "Venstrejusteret",
+      "center": "Centreret",
+      "right": "Højrejusteret",
+      "block": "Lige margener"
+    },
+    "link": {
+      "edit": "Rediger link",
+      "link": "Link",
+      "text": "Tekst"
+    },
+    "quote": "Citat",
+    "undo": "Fortryd",
+    "redo": "Gentag",
+    "headings": {
+      "headlines": "Overskrifter",
+      "level": "Overskrift {n}",
+      "paragraph": "Tekst"
+    },
+    "lists": {
+      "lists": "Lister",
+      "orderedList": "Nummereret liste",
+      "unorderedList": "Punktopstilling"
+    },
+    "blockquote": "Blokcitat"
+  },
+  "datePicker": {
+    "popoverLabel": "Kalender"
+  },
+  "accordion": {
+    "toggle": "Klik for at vise/skjule indholdet"
+  },
+  "errors": {
+    "backToHome": "Tilbage til forsiden",
+    "technicalDetails": "Tekniske fejldetaljer"
+  }
+}
