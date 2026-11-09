@@ -2,7 +2,6 @@
 const props = defineProps<{
   headline: string;
   subtitle?: string;
-  uri: string;
 }>();
 
 defineSlots<{
