@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://www.schemastore.org/cloudfoundry-application-manifest.json
+---
+applications:
+  - name: onyx-mcp-prod
+    memory: 64M
+    instances: 2
+    buildpacks:
+      - https://github.com/cloudfoundry/nodejs-buildpack
+    routes:
+      - route: onyx-mcp.apps.01.cf.eu01.stackit.cloud
+      - route: mcp.onyx.schwarz
+    env:
+      OPTIMIZE_MEMORY: "true"

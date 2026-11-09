@@ -23,6 +23,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "start": "node ./dist/index.js -t http",
     "dev": "pnpm run \"/build-dev|inspect-mcp/\"",
     "build-dev": "vite build --ssr -w",
     "inspect-mcp": "mcp-inspector --config inspector.json",
