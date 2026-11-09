@@ -1,8 +1,8 @@
 import { tabsTesting } from "@sit-onyx/headless/playwright";
-import { iconPlaceholder } from "@sit-onyx/icons";
+import { iconPlaceholder, iconEmojiHappy2 } from "@sit-onyx/icons";
 import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
-import { executeMatrixScreenshotTest, mockPlaywrightIcon } from "../../playwright/screenshots.js";
+import { executeMatrixScreenshotTest } from "../../playwright/screenshots.js";
 import OnyxBadge from "../OnyxBadge/OnyxBadge.vue";
 import OnyxIcon from "../OnyxIcon/OnyxIcon.vue";
 import OnyxSystemButton from "../OnyxSystemButton/OnyxSystemButton.vue";
@@ -67,7 +67,7 @@ test.describe("Screenshot tests (custom content)", () => {
             <span>Panel content 1...</span>
 
             <template v-slot:tab>
-              {row.includes("icon") && <OnyxIcon icon={mockPlaywrightIcon} />}
+              {row.includes("icon") && <OnyxIcon icon={iconEmojiHappy2} />}
               <span>Tab 1</span>
               {row.includes("badge") && <OnyxBadge color="warning" dot />}
             </template>
@@ -77,7 +77,7 @@ test.describe("Screenshot tests (custom content)", () => {
             <span>Panel content 2...</span>
 
             <template v-slot:tab>
-              {row.includes("icon") && <OnyxIcon icon={mockPlaywrightIcon} />}
+              {row.includes("icon") && <OnyxIcon icon={iconEmojiHappy2} />}
               <span>Tab 2</span>
               {row.includes("badge") && <OnyxBadge color="warning" dot />}
             </template>
@@ -107,7 +107,7 @@ for (const type of ["default", "skeleton"] as const) {
             {Array.from({ length: 3 }, (_, index) => {
               const id = index + 1;
               return (
-                <OnyxTab value={`tab-${id}`} label={`Tab ${id}`}>
+                <OnyxTab key={`tab-${id}`} value={`tab-${id}`} label={`Tab ${id}`}>
                   Panel content {id}...
                 </OnyxTab>
               );
@@ -130,7 +130,7 @@ test.describe("Screenshot tests (overflow)", () => {
           {Array.from({ length: 8 }, (_, index) => {
             const id = index + 1;
             return (
-              <OnyxTab value={`tab-${id}`} label={`Tab ${id}`}>
+              <OnyxTab key={`tab-${id}`} value={`tab-${id}`} label={`Tab ${id}`}>
                 Panel content {id}...
               </OnyxTab>
             );
