@@ -20,9 +20,15 @@ Navigation items can be standalone links or parent menus with nested links revea
 <br />
 
 <div class="onyx-grid">
-<link-card class="onyx-grid-span-4" headline="Nav item" link="/components/navigation/nav-item">
-Explore navigation item variants and configuration options.
-</link-card>
+
+::component-overview-card
+---
+title: Nav item
+path: /components/navigation/nav-item
+class: onyx-grid-span-4
+---
+::
+
 </div>
 
 <br />
@@ -79,37 +85,69 @@ Available components designed for the context area:
 
 <div class="onyx-grid">
 
-<link-card class="onyx-grid-span-4" headline="User menu" link="/components/navigation/user-menu">
-User profile summary with logout, settings, and profile links.
-</link-card>
+::component-overview-card
+---
+title: User menu
+path: /components/navigation/user-menu
+class: onyx-grid-span-4
+---
+::
 
-<link-card class="onyx-grid-span-4" headline="Nav button" link="/components/navigation/nav-button">
-Context buttons for custom dialogs, locale triggers, or alerts.
-</link-card>
+::component-overview-card
+---
+title: Nav button
+path: /components/navigation/nav-button
+class: onyx-grid-span-4
+---
+::
 
-<link-card class="onyx-grid-span-4" headline="Timer" link="/components/navigation/timer">
-Session countdown and auto-logout warning display.
-</link-card>
+::component-overview-card
+---
+title: Timer
+path: /components/navigation/timer
+class: onyx-grid-span-4
+---
+::
 
-<link-card class="onyx-grid-span-4" headline="Notification center" link="/components/notifications/notification-center">
-In-app notification drawer and feed.
-</link-card>
+::component-overview-card
+---
+title: Notification center
+path: /components/notifications/notification-center
+class: onyx-grid-span-4
+---
+::
 
-<link-card class="onyx-grid-span-4" headline="Global search" link="/components/search-and-filter/global-search">
-Keyboard-driven search trigger for cross-app navigation.
-</link-card>
+::component-overview-card
+---
+title: Global search
+path: /components/search-and-filter/global-search
+class: onyx-grid-span-4
+---
+::
 
-<link-card class="onyx-grid-span-4" headline="Language menu item" link="/components/navigation/language-menu-item">
-Dropdown trigger to switch application locales.
-</link-card>
+::component-overview-card
+---
+title: Language menu item
+path: /components/navigation/language-menu-item
+class: onyx-grid-span-4
+---
+::
 
-<link-card class="onyx-grid-span-4" headline="Color scheme menu item" link="/components/navigation/color-scheme-menu-item">
-Theme switcher menu for light, dark, and system modes.
-</link-card>
+::component-overview-card
+---
+title: Color scheme menu item
+path: /components/navigation/color-scheme-menu-item
+class: onyx-grid-span-4
+---
+::
 
-<link-card class="onyx-grid-span-4" headline="Color scheme dialog" link="/components/navigation/color-scheme-dialog">
-Theme selection modal dialog.
-</link-card>
+::component-overview-card
+---
+title: Color scheme dialog
+path: /components/navigation/color-scheme-dialog
+class: onyx-grid-span-4
+---
+::
 
 </div>
 

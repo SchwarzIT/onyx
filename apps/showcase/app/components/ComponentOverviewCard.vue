@@ -25,7 +25,8 @@ function getPathSegmentName(segment: string) {
 const PreviewComponent = computed(() => {
   const pathSegments = props.path.split("/");
   const category = pathSegments.at(-2);
-  const componentName = pathSegments.at(-1);
+  // remove any hashes (e.g. if links to specific sections are passed)
+  const componentName = pathSegments.at(-1)?.split("#")[0];
 
   const component = allComponents.find(
     (i) => i.category === category && i.componentName === componentName,

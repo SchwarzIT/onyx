@@ -15,4 +15,17 @@ A tree view can display an arbitrary amount of nested levels that can be collaps
 
 ### Sidebar
 
-Refer to the [sidebar](/components/navigation/sidebar#tree-view) documentation for an example on how to use the tree view within a sidebar.
+Refer to the sidebar documentation for an example on how to use the tree view within a sidebar:
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+title: Sidebar
+path: /components/navigation/sidebar
+class: onyx-grid-span-4
+---
+::
+
+</div>
+

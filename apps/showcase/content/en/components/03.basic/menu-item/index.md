@@ -11,12 +11,20 @@ The menu item represents a single action inside of a parent menu component such 
 
 The basic menu item supports a label and an optional icon.
 
-<<< ./examples/Basic.example.vue preview=true 
+<<< ./examples/Basic.example.vue preview=true
 
 ### Nested options
 
 See our flyout menu documentation for examples with nested options:
 
 <div class="onyx-grid">
-<link-card class="onyx-grid-span-4" headline="Flyout menu examples" link="/components/basic/flyout-menu#nested-options"></link-card>
+
+::component-overview-card
+---
+title: Flyout menu
+path: /components/basic/flyout-menu#nested-options
+class: onyx-grid-span-4
+---
+::
+
 </div>
