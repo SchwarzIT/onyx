@@ -76,7 +76,7 @@ const disabled = computed(() => {
       <OnyxSkeleton v-for="i in 3" :key="i" class="onyx-code-tab__skeleton" />
     </div>
 
-    <template v-else>
+    <div v-else class="onyx-code-tab__code-panel">
       <div ref="code" class="onyx-code-tab__code-wrapper">
         <slot>
           <pre><code>{{ props.code }}</code></pre>
@@ -86,7 +86,7 @@ const disabled = computed(() => {
       <span v-if="props.language" class="onyx-code-tab__language">
         {{ props.language }}
       </span>
-    </template>
+    </div>
   </OnyxTab>
 </template>
 
@@ -95,7 +95,7 @@ const disabled = computed(() => {
 
 .onyx-code-tab {
   @include layers.component() {
-    &.onyx-tab__panel {
+    &__code-panel {
       border-bottom-left-radius: inherit;
       border-bottom-right-radius: inherit;
       font-family: var(--onyx-font-family-mono);
