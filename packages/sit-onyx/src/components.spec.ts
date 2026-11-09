@@ -401,7 +401,7 @@ const createSsrTest = (render: Component) =>
     const appServer = createSSRApp(render);
     const result = await renderToString(appServer);
 
-    document.write(`<div id="app">${result}</div>`);
+    document.body.innerHTML = `<div id="app">${result}</div>`;
 
     const appBrowser = createSSRApp(render);
     appBrowser.mount("#app");
