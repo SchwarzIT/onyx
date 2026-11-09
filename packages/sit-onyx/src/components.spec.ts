@@ -100,6 +100,17 @@ const COMPONENTS: Components = {
     props: {
       value: "tab-1",
     },
+    render: () =>
+      h(
+        ALL_EXPORTS.OnyxTabs,
+        { label: "OnyxTabsExample", modelValue: "value-1" },
+        {
+          default: () => [
+            h(ALL_EXPORTS.OnyxTab, { value: "value-1" }, () => "Content 1"),
+            h(ALL_EXPORTS.OnyxTab, { value: "value-2" }, () => "Content 2"),
+          ],
+        },
+      ),
   },
   OnyxSelectDialog: {
     props: {
@@ -303,6 +314,17 @@ const COMPONENTS: Components = {
       value: "tab-1",
       code: "test-code",
     },
+    render: () =>
+      h(
+        ALL_EXPORTS.OnyxCodeTabs,
+        { label: "OnyxCodeTabsExample", modelValue: "value-1" },
+        {
+          default: () => [
+            h(ALL_EXPORTS.OnyxCodeTab, { value: "value-1", code: "code-1" }),
+            h(ALL_EXPORTS.OnyxCodeTab, { value: "value-2", code: "" }, () => "code-2"),
+          ],
+        },
+      ),
   },
   OnyxGlobalSearchOption: {
     props: {
