@@ -70,8 +70,15 @@ jobs:
       - name: 🛠️ Build MCP
         run: pnpm build:all --filter=@sit-onyx/modelcontextprotocol
 
-      - name: ⛴️ Prepare Dist
-        run: mv packages/modelcontextprotocol/dist packages/modelcontextprotocol/.cloud-foundry/dist
+      - name: ⛴️ Prepare
+        id: prepare
+        run: |
+          deployable=$(mktemp -d)
+          pnpm pkg set engines.node=$(cat ../../.node-version)
+          pnpm deploy $deployable --prod --filter @sit-onyx/modelcontextprotocol
+          cp -R .cloud-foundry/ $deployable
+          echo "deployable=$deployable" >> $GITHUB_OUTPUT
+        working-directory: packages/modelcontextprotocol
 
       - name: ⛅️ Deploy to Cloud Foundry
         uses: ./.github/templates/cf-push
@@ -81,7 +88,7 @@ jobs:
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
           space: ${{ inputs.environment || inputs.environment }}
-          working-directory: packages/modelcontextprotocol/.cloud-foundry
+          working-directory: ${{ steps.prepare.outputs.deployable }}
 
   deploy_playground:
     name: Deploy Playground
