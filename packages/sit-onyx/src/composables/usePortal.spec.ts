@@ -29,7 +29,9 @@ describe("usePortal", () => {
         key: ref("tab-1"),
         slot: vi.fn(),
       }),
-    ).toThrow("No RenderMap was provided for `usePortal` to be used!");
+    ).toThrow(
+      "No RenderMap was provided for `usePortal` to inject! This usually indicates that OnyxTab was used without the OnyxTabs component.",
+    );
   });
 
   test("should register, update and remove slot in injected RenderMap", async () => {
@@ -71,19 +73,19 @@ describe("usePortal", () => {
     expect(renderMap.has("tab-2")).toBe(false);
   });
 
-  test("should render active portal content in PortalOut and update when currentValue changes", async () => {
+  test("should render active portal content in PortalOutlet and update when currentValue changes", async () => {
     // ARRANGE
     const currentValue = ref<PropertyKey>("tab-1");
 
     const wrapper = mount(
       defineComponent({
         setup() {
-          const { PortalOut } = usePortalOutlet({ currentValue });
+          const { PortalOutlet } = usePortalOutlet({ currentValue });
           return () =>
             h("div", [
               h(TestPortalEntry, { portalKey: "tab-1" }, () => h("span", "Content 1")),
               h(TestPortalEntry, { portalKey: "tab-2" }, () => h("span", "Content 2")),
-              h("div", { class: "outlet" }, [h(PortalOut)]),
+              h("div", { class: "outlet" }, [h(PortalOutlet)]),
             ]);
         },
       }),
@@ -117,14 +119,14 @@ describe("usePortal", () => {
     const wrapper = mount(
       defineComponent({
         setup() {
-          const { PortalOut } = usePortalOutlet({ currentValue });
+          const { PortalOutlet } = usePortalOutlet({ currentValue });
           return () =>
             h("div", [
               h(TestPortalEntry, { portalKey: "tab-1" }, () => "Content 1"),
               showSecond.value
                 ? h(TestPortalEntry, { portalKey: "tab-2" }, () => "Content 2")
                 : null,
-              h("div", { class: "outlet" }, [h(PortalOut)]),
+              h("div", { class: "outlet" }, [h(PortalOutlet)]),
             ]);
         },
       }),

@@ -53,7 +53,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
   size: toRef(() => props.size),
 });
 
-const { PortalOut } = usePortalOutlet({ currentValue: modelValue });
+const { PortalOutlet } = usePortalOutlet({ currentValue: modelValue });
 </script>
 
 <template>
@@ -75,9 +75,8 @@ const { PortalOut } = usePortalOutlet({ currentValue: modelValue });
         <slot name="actions"></slot>
       </div>
     </div>
-    <!-- By putting the panel content into a dedicated component it is rendered after the slot content, which contains -->
     <OnyxTabPanel v-bind="headless.elements.tabpanel.value({ value: modelValue })">
-      <PortalOut />
+      <PortalOutlet />
     </OnyxTabPanel>
   </div>
 </template>
