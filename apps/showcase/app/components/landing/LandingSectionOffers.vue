@@ -94,8 +94,8 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
           </p>
         </LandingCard>
 
-        <LandingCard>
-          <OnyxHeadline is="h3" show-as="h2">Complete ecosystem. Expertly backed.</OnyxHeadline>
+        <LandingCard link="/docs/getting-started/ai" :button-label="$t('learnMore')">
+          <OnyxHeadline is="h3" show-as="h2">Complete ecosystem. AI integrated.</OnyxHeadline>
 
           <p class="onyx-text--default">
             Accelerate your development with Onyx’s complete ecosystem, backed by AI workflow
