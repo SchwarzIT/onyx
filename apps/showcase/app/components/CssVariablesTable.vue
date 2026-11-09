@@ -61,6 +61,10 @@ const selectedDensity = ref<Density>("default");
             <span :key="selectedDensity" class="onyx-text--mono">
               {{ getVariableValue(variable) }}
             </span>
+
+            <template #fallback>
+              <OnyxSkeleton class="table__skeleton" />
+            </template>
           </ClientOnly>
         </td>
 
@@ -79,14 +83,14 @@ const selectedDensity = ref<Density>("default");
 
 <style lang="scss" scoped>
 .table {
-  :deep(.onyx-table) {
-    table-layout: fixed;
-  }
-
   &__variable {
     display: flex;
     align-items: center;
     gap: var(--onyx-density-xs);
+  }
+
+  &__skeleton {
+    width: 4rem;
   }
 }
 </style>

@@ -65,7 +65,13 @@ export const useSidebarNavigation = async <
   const { data } = await useAsyncData(
     () => `navigation-${options.collection.value}-${locale.value}`,
     () => queryCollectionNavigation(options.collection.value, options.fields),
-    { default: () => [] },
+    {
+      default: () => [],
+      // the navigation for a collection is "static" (always the same for each requests, since it relies on the content file structure)
+      // so multiple requests would always return the same value
+      // therefore, we "defer" multiple requests so only the first one is completed and all other receive the same value
+      dedupe: "defer",
+    },
   );
 
   /**
