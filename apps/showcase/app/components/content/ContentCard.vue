@@ -43,7 +43,7 @@ defineSlots<{
     }
   }
 
-  &__uri {
+  &__subtitle {
     color: var(--onyx-color-text-icons-neutral-medium);
   }
 }
