@@ -200,7 +200,7 @@ test.describe("small screen", () => {
   });
 });
 
-test.describe("small screen", () => {
+test.describe("tiny screen", () => {
   test.use({ viewport: { height: ONYX_BREAKPOINTS.sm, width: 320 } });
 
   test("should render fab on small screens (left Sidebar)", async ({ mount }) => {

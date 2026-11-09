@@ -146,6 +146,7 @@ const vitestConfig = {
   files: ["**/*.spec.{js,jsx,ts,tsx}"],
   extends: [pluginVitest.configs.recommended],
   rules: {
+    "vue/one-component-per-file": "off",
     "vue/no-ref-object-reactivity-loss": "off",
     // enforce using "test" instead of mixed "it"
     "vitest/consistent-test-it": ["error", { fn: "test", withinDescribe: "test" }],

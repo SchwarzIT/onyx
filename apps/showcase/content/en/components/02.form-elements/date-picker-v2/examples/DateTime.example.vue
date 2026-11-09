@@ -6,7 +6,7 @@ const date = ref<Date>();
 const time = ref<string>();
 
 // use this computed value for the combined date + time value
-const dateTime = computed(() => {
+const _dateTime = computed(() => {
   if (!date.value || !time.value) return date.value;
   const value = new Date(date.value);
   const [hours, minutes] = time.value.split(":").map((i) => Number.parseInt(i));
