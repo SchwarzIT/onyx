@@ -33,7 +33,7 @@
     "@modelcontextprotocol/sdk": "^1.32.2"
   },
   "devDependencies": {
-    "@adobe/css-tools": "^4.5.0",
+    "@adobe/css-tools": "^5.0.0",
     "@modelcontextprotocol/inspector": "^2.13.0",
     "@sit-onyx/shared": "workspace:^",
     "@types/mdast": "^4.0.4",
