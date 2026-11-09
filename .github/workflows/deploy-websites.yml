@@ -22,8 +22,8 @@ jobs:
   deploy_storybook:
     name: Deploy Storybook
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment) != '' }}
-    environment: ${{ inputs.environment || inputs.environment }}
+    if: ${{ inputs.environment != '' }}
+    environment: ${{ inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
@@ -48,14 +48,14 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment }}
+          space: ${{ inputs.environment }}
           working-directory: packages/sit-onyx/.cloud-foundry
 
   deploy_mcp:
     name: Deploy MCP
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment) != '' }}
-    environment: ${{ inputs.environment || inputs.environment }}
+    if: ${{ inputs.environment != '' }}
+    environment: ${{ inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
@@ -87,14 +87,14 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment }}
+          space: ${{ inputs.environment }}
           working-directory: ${{ steps.prepare.outputs.deployable }}
 
   deploy_playground:
     name: Deploy Playground
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment) != '' }}
-    environment: ${{ inputs.environment || inputs.environment }}
+    if: ${{ inputs.environment != '' }}
+    environment: ${{ inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
@@ -119,14 +119,14 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment }}
+          space: ${{ inputs.environment }}
           working-directory: apps/playground/.cloud-foundry
 
   deploy_demo_app:
     name: Deploy demo app
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment) != '' }}
-    environment: ${{ inputs.environment || inputs.environment }}
+    if: ${{ inputs.environment != '' }}
+    environment: ${{ inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
@@ -138,7 +138,7 @@ jobs:
         # since the webhook is an external dependency, we still want to continue deploying the public demo app
         # we just call it here already so the internal demo app deployment can run in parallel
         continue-on-error: true
-        if: ${{ (inputs.environment || inputs.environment) == 'prod' }}
+        if: ${{ inputs.environment == 'prod' }}
         with:
           webhook_url: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_URL }}
           webhook_secret: ${{ secrets.AZURE_DEMO_APP_WEBHOOK_SECRET }}
@@ -165,14 +165,14 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment }}
+          space: ${{ inputs.environment }}
           working-directory: apps/demo-app/.cloud-foundry
 
   deploy_showcase:
     name: Deploy showcase
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment) != '' }}
-    environment: ${{ inputs.environment || inputs.environment }}
+    if: ${{ inputs.environment != '' }}
+    environment: ${{ inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
@@ -201,14 +201,14 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment }}
+          space: ${{ inputs.environment }}
           working-directory: apps/showcase/.cloud-foundry
 
   deploy_tiptap:
     name: Deploy Tiptap
     runs-on: ubuntu-latest
-    if: ${{ (inputs.environment || inputs.environment) != '' }}
-    environment: ${{ inputs.environment || inputs.environment }}
+    if: ${{ inputs.environment != '' }}
+    environment: ${{ inputs.environment }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
@@ -233,5 +233,5 @@ jobs:
           org: ${{ vars.CF_ORG }}
           username: ${{ vars.CF_USERNAME }}
           password: ${{ secrets.CF_PASSWORD }}
-          space: ${{ inputs.environment || inputs.environment }}
+          space: ${{ inputs.environment }}
           working-directory: packages/tiptap/.cloud-foundry
