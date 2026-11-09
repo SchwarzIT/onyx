@@ -1,6 +1,5 @@
 import { fileURLToPath } from "node:url";
 import comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
-import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
 import pluginVitest from "@vitest/eslint-plugin";
 import skipFormattingConfig from "@vue/eslint-config-prettier/skip-formatting";
@@ -11,7 +10,7 @@ import storybook from "eslint-plugin-storybook";
 import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
 import vueA11y from "eslint-plugin-vuejs-accessibility";
-import { defineConfig } from "eslint/config";
+import { defineConfig, includeIgnoreFile } from "eslint/config";
 import sitOnyx from "./packages/eslint-plugin/src/index.cjs";
 
 /**
