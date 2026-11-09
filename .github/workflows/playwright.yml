@@ -218,16 +218,7 @@ jobs:
           pattern: blob-report-*
           merge-multiple: true
 
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version-file: .node-version
-          cache: pnpm
-
-      - name: 📦 Install dependencies
-        run: pnpm install
+      - uses: ./.github/templates/node-setup
 
       # For every blob-report merge its playwright results as html report and move it into its original package
       - name: Merge into HTML Report
