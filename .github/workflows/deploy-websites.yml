@@ -76,7 +76,7 @@ jobs:
           deployable=$(mktemp -d)
           pnpm pkg set engines.node=$(cat ../../.node-version)
           pnpm deploy $deployable --prod --filter @sit-onyx/modelcontextprotocol
-          cp -R .cloud-foundry/ $deployable
+          cp -R .cloud-foundry/. $deployable
           echo "deployable=$deployable" >> $GITHUB_OUTPUT
         working-directory: packages/modelcontextprotocol
 
