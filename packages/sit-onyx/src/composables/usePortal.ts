@@ -26,16 +26,16 @@ export type PortalOutletOptions = {
   /**
    * Key of the currently active portal item to render.
    */
-  currentValue: MaybeRefOrGetter<PropertyKey>;
+  activeKey: MaybeRefOrGetter<PropertyKey>;
 };
 
 /**
  * Exposes a component to render the active content.
  * Depends on `usePortal` to provide content to render.
  */
-export const usePortalOutlet = ({ currentValue }: PortalOutletOptions) => {
+export const usePortalOutlet = ({ activeKey }: PortalOutletOptions) => {
   const renderMap: RenderMap = reactive(new Map());
-  const currentlyActive = computed(() => renderMap.get(toValue(currentValue)));
+  const currentlyActive = computed(() => renderMap.get(toValue(activeKey)));
 
   const PortalOutlet: Component = {
     name: "PortalOutlet",

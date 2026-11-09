@@ -75,12 +75,12 @@ describe("usePortal", () => {
 
   test("should render active portal content in PortalOutlet and update when currentValue changes", async () => {
     // ARRANGE
-    const currentValue = ref<PropertyKey>("tab-1");
+    const activeKey = ref<PropertyKey>("tab-1");
 
     const wrapper = mount(
       defineComponent({
         setup() {
-          const { PortalOutlet } = usePortalOutlet({ currentValue });
+          const { PortalOutlet } = usePortalOutlet({ activeKey });
           return () =>
             h("div", [
               h(TestPortalEntry, { portalKey: "tab-1" }, () => h("span", "Content 1")),
@@ -97,14 +97,14 @@ describe("usePortal", () => {
     expect(outlet.text()).toBe("Content 1");
 
     // ACT
-    currentValue.value = "tab-2";
+    activeKey.value = "tab-2";
     await nextTick();
 
     // ASSERT
     expect(outlet.text()).toBe("Content 2");
 
     // ACT
-    currentValue.value = "unknown";
+    activeKey.value = "unknown";
     await nextTick();
 
     // ASSERT
@@ -119,7 +119,7 @@ describe("usePortal", () => {
     const wrapper = mount(
       defineComponent({
         setup() {
-          const { PortalOutlet } = usePortalOutlet({ currentValue });
+          const { PortalOutlet } = usePortalOutlet({ activeKey: currentValue });
           return () =>
             h("div", [
               h(TestPortalEntry, { portalKey: "tab-1" }, () => "Content 1"),

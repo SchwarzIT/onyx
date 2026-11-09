@@ -53,7 +53,7 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
   size: toRef(() => props.size),
 });
 
-const { PortalOutlet } = usePortalOutlet({ currentValue: modelValue });
+const { PortalOutlet } = usePortalOutlet({ activeKey: modelValue });
 </script>
 
 <template>
