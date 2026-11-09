@@ -30,10 +30,6 @@ defineSlots<{
     gap: var(--onyx-density-xs);
     margin-top: var(--onyx-density-xs);
 
-    :deep(p) {
-      margin: 0;
-    }
-
     :deep(> :first-child) {
       margin-top: 0;
     }

@@ -1,29 +1,29 @@
 <script lang="ts" setup>
-import { OnyxTabs, type TabSize } from "sit-onyx";
+import { OnyxTabs, useForwardProps, type OnyxTabsProps } from "sit-onyx";
 import { ref } from "vue";
 
-const props = defineProps<{
-  label: string;
-  initialValue: string;
-  size?: TabSize;
-}>();
+const props = defineProps<
+  Omit<OnyxTabsProps, "modelValue"> & {
+    initialValue: string;
+  }
+>();
 
 defineSlots<{
   default(): unknown;
 }>();
 
-const tab = ref("");
+// eslint-disable-next-line vue/no-setup-props-reactivity-loss -- using watcher below
+const tab = ref(props.initialValue);
 watch(
   () => props.initialValue,
-  () => {
-    tab.value = props.initialValue;
-  },
-  { immediate: true },
+  (newValue) => (tab.value = newValue),
 );
+
+const tabsProps = useForwardProps(props, OnyxTabs);
 </script>
 
 <template>
-  <OnyxTabs v-model="tab" :label="props.label" :size="props.size">
+  <OnyxTabs v-model="tab" :label="props.label" v-bind="tabsProps">
     <slot></slot>
   </OnyxTabs>
 </template>
