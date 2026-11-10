@@ -28,6 +28,13 @@ export default defineContentConfig({
         componentName: z.string().optional(),
         package: z.string().default("sit-onyx"),
         status: z.enum(["new", "experimental", "deprecated"]).optional(),
+        supportComponents: z
+          .array(
+            z.object({
+              path: z.string(),
+            }),
+          )
+          .optional(),
       }),
     }),
   },

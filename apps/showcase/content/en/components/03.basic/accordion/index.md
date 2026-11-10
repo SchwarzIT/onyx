@@ -1,6 +1,8 @@
 ---
 title: Accordion
 componentName: OnyxAccordion
+supportComponents:
+    - path: /components/support/accordion-item
 ---
 
 An accordion is a versatile UI element that allows users to expand and collapse sections of content. It is commonly used for organizing large amounts of information in a compact space, enabling users to easily navigate through different categories or options.
@@ -22,7 +24,7 @@ Default
 #default
 This type is the default and should be used when a simple and subtle separation of the page content is desired.
 
-<<< ./examples/Basic.example.vue preview=true  layout="grow"
+<<< ./examples/Basic.example.vue preview=true layout="grow"
 ::
 
 ::step
