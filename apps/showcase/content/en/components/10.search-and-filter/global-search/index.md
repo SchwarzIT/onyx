@@ -18,3 +18,25 @@ This example simulates asynchronous data loading after a search term is entered.
 When working with many search results, you can also use a "Show all results" button to either navigate to a dedicated search results page or to load more results.
 
 <<< ./examples/ShowAll.example.vue preview=true layout=fullWidth
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/global-search-group
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/support/global-search-option
+class: onyx-grid-span-4
+---
+::
+
+</div>
