@@ -27,27 +27,31 @@ function getPathSegmentName(segment: string) {
   return segment.replace(/^\d+\./, "");
 }
 
+const normalizedPath = computed(() => {
+  // remove hashes from link
+  return props.path.split("#")[0]!;
+});
+
 const { data: title } = await useAsyncData(
-  () => `component-title-${props.path}`,
+  () => `component-title-${normalizedPath.value}`,
   async () => {
     if (props.title) return props.title;
     const navigation = await queryCollection(`components_${locale.value}`)
-      .path(props.path)
+      .path(normalizedPath.value)
       .select("title")
       .first();
     return navigation?.title ?? "N/A";
   },
   {
-    watch: [() => props.path],
+    watch: [normalizedPath],
     dedupe: "defer",
   },
 );
 
 const PreviewComponent = computed(() => {
-  const pathSegments = props.path.split("/");
+  const pathSegments = normalizedPath.value.split("/");
   const category = pathSegments.at(-2);
-  // remove any hashes (e.g. if links to specific sections are passed)
-  const componentName = pathSegments.at(-1)?.split("#")[0];
+  const componentName = pathSegments.at(-1);
 
   const component = allComponents.find(
     (i) => i.category === category && i.componentName === componentName,

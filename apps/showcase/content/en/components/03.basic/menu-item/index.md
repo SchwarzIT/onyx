@@ -21,7 +21,6 @@ See our flyout menu documentation for examples with nested options:
 
 ::component-overview-card
 ---
-title: Flyout menu
 path: /components/basic/flyout-menu#nested-options
 class: onyx-grid-span-4
 ---

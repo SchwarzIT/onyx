@@ -21,7 +21,6 @@ Refer to the sidebar documentation for an example on how to use the tree view wi
 
 ::component-overview-card
 ---
-title: Sidebar
 path: /components/navigation/sidebar
 class: onyx-grid-span-4
 ---

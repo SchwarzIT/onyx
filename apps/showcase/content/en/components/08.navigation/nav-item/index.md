@@ -10,7 +10,6 @@ The nav item is used to build the [navigation bar](/components/navigation/nav-ba
 
 ::component-overview-card
 ---
-title: Nav bar
 path: /components/navigation/nav-bar
 class: onyx-grid-span-4
 ---

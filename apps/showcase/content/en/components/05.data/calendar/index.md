@@ -9,7 +9,6 @@ The calendar displays or selects dates across several selection modes (`single`,
 
 ::component-overview-card
 ---
-title: Date picker (v2)
 path: /components/form-elements/date-picker-v2
 class: onyx-grid-span-4
 ---
@@ -17,7 +16,6 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
-title: Time picker
 path: /components/form-elements/time-picker
 class: onyx-grid-span-4
 ---

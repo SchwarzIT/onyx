@@ -23,7 +23,6 @@ Navigation items can be standalone links or parent menus with nested links revea
 
 ::component-overview-card
 ---
-title: Nav item
 path: /components/navigation/nav-item
 class: onyx-grid-span-4
 ---
@@ -87,7 +86,6 @@ Available components designed for the context area:
 
 ::component-overview-card
 ---
-title: User menu
 path: /components/navigation/user-menu
 class: onyx-grid-span-4
 ---
@@ -95,7 +93,6 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
-title: Nav button
 path: /components/navigation/nav-button
 class: onyx-grid-span-4
 ---
@@ -103,7 +100,6 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
-title: Timer
 path: /components/navigation/timer
 class: onyx-grid-span-4
 ---
@@ -111,7 +107,6 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
-title: Notification center
 path: /components/notifications/notification-center
 class: onyx-grid-span-4
 ---
@@ -119,7 +114,6 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
-title: Global search
 path: /components/search-and-filter/global-search
 class: onyx-grid-span-4
 ---
@@ -127,7 +121,6 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
-title: Language menu item
 path: /components/navigation/language-menu-item
 class: onyx-grid-span-4
 ---
@@ -135,7 +128,6 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
-title: Color scheme menu item
 path: /components/navigation/color-scheme-menu-item
 class: onyx-grid-span-4
 ---
@@ -143,7 +135,6 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
-title: Color scheme dialog
 path: /components/navigation/color-scheme-dialog
 class: onyx-grid-span-4
 ---

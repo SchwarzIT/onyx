@@ -76,7 +76,6 @@ See the date picker component for examples combining date and time inputs:
 
 ::component-overview-card
 ---
-title: Date picker (v2)
 path: /components/form-elements/date-picker-v2#date-and-time-picker
 class: onyx-grid-span-4
 ---
