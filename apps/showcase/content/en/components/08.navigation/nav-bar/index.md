@@ -17,21 +17,6 @@ Navigation items can be standalone links or parent menus with nested links revea
 
 <<< ./examples/Basic.example.vue preview=true  layout="fullWidth"
 
-<br />
-
-<div class="onyx-grid">
-
-::component-overview-card
----
-path: /components/navigation/nav-item
-class: onyx-grid-span-4
----
-::
-
-</div>
-
-<br />
-
 ### Nested nav items
 
 Navigation items support multilevel nested hierarchies.
@@ -78,11 +63,30 @@ The context area on the right hosts global actions such as account settings, not
 
 <<< ./examples/ContextArea.example.vue preview=true  layout="fullWidth"
 
-<br />
+### Back button
 
-Available components designed for the context area:
+An optional back button enables navigation to the previous route.
+
+<<< ./examples/BackButton.example.vue preview=true  layout="fullWidth"
+
+### Vertical
+
+The navigation bar can also render vertically along the side of the application. Vertical mode supports expanding and collapsing. Every nav item **must** include an icon so it remains identifiable when collapsed. We recommend switching to a horizontal navigation bar on small viewports.
+
+<<< ./examples/Vertical.example.vue preview=true  layout="fullWidth"
+
+## Support components
+
+:support-component-description
 
 <div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/navigation/nav-item
+class: onyx-grid-span-4
+---
+::
 
 ::component-overview-card
 ---
@@ -107,20 +111,6 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
-path: /components/notifications/notification-center
-class: onyx-grid-span-4
----
-::
-
-::component-overview-card
----
-path: /components/search-and-filter/global-search
-class: onyx-grid-span-4
----
-::
-
-::component-overview-card
----
 path: /components/navigation/language-menu-item
 class: onyx-grid-span-4
 ---
@@ -135,23 +125,23 @@ class: onyx-grid-span-4
 
 ::component-overview-card
 ---
+path: /components/notifications/notification-center
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/search-and-filter/global-search
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
 path: /components/navigation/color-scheme-dialog
 class: onyx-grid-span-4
 ---
 ::
 
 </div>
-
-<br />
-
-### Back button
-
-An optional back button enables navigation to the previous route.
-
-<<< ./examples/BackButton.example.vue preview=true  layout="fullWidth"
-
-### Vertical
-
-The navigation bar can also render vertically along the side of the application. Vertical mode supports expanding and collapsing. Every nav item **must** include an icon so it remains identifiable when collapsed. We recommend switching to a horizontal navigation bar on small viewports.
-
-<<< ./examples/Vertical.example.vue preview=true  layout="fullWidth"

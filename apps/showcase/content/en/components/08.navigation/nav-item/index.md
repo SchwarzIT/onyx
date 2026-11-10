@@ -4,18 +4,15 @@ componentName: OnyxNavItem
 navigation: false
 ---
 
-The nav item is used to build the [navigation bar](/components/navigation/nav-bar) component and not intended to be used standalone. Please refer to the nav bar component for a full list of examples.
+An individual item within a navigation bar that can function either as a direct page link or as a trigger that expands a flyout menu of sub-pages.
 
-<div class="onyx-grid">
+## Belongs to
 
-::component-overview-card
+::support-component-belongs-to
 ---
 path: /components/navigation/nav-bar
-class: onyx-grid-span-4
 ---
 ::
-
-</div>
 
 ## Examples
 

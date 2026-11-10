@@ -4,7 +4,15 @@ componentName: OnyxUserMenu
 navigation: false
 ---
 
-The user menu displays user-related information and actions and is intended to be used inside the [navigation bar](/components/navigation/nav-bar).
+A dedicated profile in the navigation bar — typically featuring an avatar and username - that expands to reveal user-related details and actions in a flyout menu.
+
+## Belongs to
+
+::support-component-belongs-to
+---
+path: /components/navigation/nav-bar
+---
+::
 
 ## Examples
 
@@ -14,4 +22,4 @@ Refer to the [menu item](/components/basic/menu-item) component for further info
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Hover over the user menu to open the flyout with actions.</p>
 
-<<< ./examples/Basic.example.vue preview=true 
+<<< ./examples/Basic.example.vue preview=true
