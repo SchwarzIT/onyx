@@ -77,7 +77,7 @@ const { copyStatus, copy: handleCopy } = useCopy({ source: () => activeTabCode.v
       var(--onyx-color-component-border-neutral);
     --onyx-code-group-tablist-padding: var(--onyx-density-xs);
     --onyx-tabs-tablist-margin-bottom: 0;
-    border-radius: var(--onyx-radius-md);
+    --onyx-code-group-border-radius: var(--onyx-radius-md);
     max-width: 100%;
 
     .onyx-tabs {
@@ -87,8 +87,8 @@ const { copyStatus, copy: handleCopy } = useCopy({ source: () => activeTabCode.v
 
       &__header {
         background-color: var(--onyx-color-base-background-blank);
-        border-top-left-radius: inherit;
-        border-top-right-radius: inherit;
+        border-top-left-radius: var(--onyx-code-group-border-radius);
+        border-top-right-radius: var(--onyx-code-group-border-radius);
         border: var(--onyx-code-group-border);
         padding: var(--onyx-code-group-tablist-padding);
         padding-right: calc(var(--onyx-code-group-tablist-padding) + var(--onyx-density-xs));
