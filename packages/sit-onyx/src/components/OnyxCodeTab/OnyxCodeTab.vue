@@ -96,8 +96,8 @@ const disabled = computed(() => {
 .onyx-code-tab {
   @include layers.component() {
     &__code-panel {
-      border-bottom-left-radius: inherit;
-      border-bottom-right-radius: inherit;
+      border-bottom-left-radius: var(--onyx-code-group-border-radius);
+      border-bottom-right-radius: var(--onyx-code-group-border-radius);
       font-family: var(--onyx-font-family-mono);
       font-size: var(--onyx-font-size-sm);
       line-height: var(--onyx-font-line-height-sm);
