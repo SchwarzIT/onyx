@@ -53,3 +53,17 @@ The flyout label can be positioned in several ways to support a wide variety of 
 
 <<< ./examples/LabelPositions.example.vue preview=true  layout="grow" orientation="vertical"
 
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/cards/file-card
+class: onyx-grid-span-4
+---
+::
+
+</div>

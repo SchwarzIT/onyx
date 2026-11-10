@@ -3,12 +3,7 @@ title: Calendar
 componentName: OnyxCalendar
 ---
 
-The calendar displays or selects dates across several selection modes (`single`, `multiple`, `range`). For form input workflows, consider our specialized components:
-
-<div class="onyx-grid">
-<link-card class="onyx-grid-span-4" headline="Date picker" link="/components/form-elements/date-picker-v2"></link-card>
-<link-card class="onyx-grid-span-4" headline="Time picker" link="/components/form-elements/time-picker"></link-card>
-</div>
+The calendar displays or selects dates across several selection modes (`single`, `multiple`, `range`). For form input workflows, consider our specialized [date picker](/components/form-elements/date-picker-v2) and [time picker](/components/form-elements/time-picker) components
 
 ## Examples
 

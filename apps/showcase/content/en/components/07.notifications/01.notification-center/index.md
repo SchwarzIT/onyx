@@ -13,3 +13,39 @@ Since a notification center is very specific to an application, we only provide 
 To show a new temporary notification, use the [useNotifications()](/components/notifications/notifications) composable.
 
 <<< ./examples/Basic.example.vue preview=true layout=fullWidth provideNotifications=true
+
+## Support components
+
+Find a list of support components which are designed to build up the notification center.
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/notifications/notifications
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/notifications/notification-card
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/notifications/notification-dot
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/navigation/sidebar
+class: onyx-grid-span-4
+---
+::
+
+</div>

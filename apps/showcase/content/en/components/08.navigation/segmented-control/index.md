@@ -30,3 +30,18 @@ Individual segments can be disabled to prevent interaction.
 Use the skeleton during data fetching or initial page load.
 
 <<< ./examples/Skeleton.example.vue preview=true  layout="grow"
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/segmented-control-element
+class: onyx-grid-span-4
+---
+::
+
+</div>

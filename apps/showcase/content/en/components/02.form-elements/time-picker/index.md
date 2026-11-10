@@ -70,4 +70,15 @@ Labels can be aligned top, left, or floating to match form structures.
 
 ### Date and time picker
 
-See [date picker](/components/form-elements/date-picker-v2#date-and-time-picker) component for examples combining date and time inputs.
+See the date picker component for examples combining date and time inputs:
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/form-elements/date-picker-v2#date-and-time-picker
+class: onyx-grid-span-4
+---
+::
+
+</div>

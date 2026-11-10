@@ -138,3 +138,32 @@ Supports hint, error, and success messages with optional tooltip context. When m
 Labels can be aligned top, left, or floating to match form layouts.
 
 <<< ./examples/LabelPositions.example.vue preview=true  layout="grow" orientation="vertical" style="--preview-max-width: 34rem"
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/editor-toolbar-action
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/support/editor-toolbar-flyout
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/support/editor-toolbar-group
+class: onyx-grid-span-4
+---
+::
+
+</div>

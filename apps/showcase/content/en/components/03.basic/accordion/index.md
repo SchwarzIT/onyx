@@ -22,7 +22,7 @@ Default
 #default
 This type is the default and should be used when a simple and subtle separation of the page content is desired.
 
-<<< ./examples/Basic.example.vue preview=true  layout="grow"
+<<< ./examples/Basic.example.vue preview=true layout="grow"
 ::
 
 ::step
@@ -82,3 +82,18 @@ The disabled state is used to indicate that the accordion is currently not inter
 The skeleton should be used on initial page load when the data for the page / accordion is initially loaded.
 
 <<< ./examples/Skeleton.example.vue preview=true  layout="grow"
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/accordion-item
+class: onyx-grid-span-4
+---
+::
+
+</div>
