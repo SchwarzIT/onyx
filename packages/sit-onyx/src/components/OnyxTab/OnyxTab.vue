@@ -42,7 +42,7 @@ const tab = computed(() =>
   }),
 );
 
-usePortal({ key: toRef(() => props.value), slot: slots.default });
+usePortal({ key: toRef(() => props.value), slot: toRef(() => slots.default) });
 </script>
 
 <template>
