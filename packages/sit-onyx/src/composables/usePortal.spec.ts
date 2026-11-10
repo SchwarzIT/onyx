@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
-import { describe, expect, test, vi } from "vitest";
-import { defineComponent, h, nextTick, ref, toRef, type PropType } from "vue";
+import { describe, expect, test } from "vitest";
+import { defineComponent, h, nextTick, ref, toRef, type PropType, type Ref } from "vue";
 import { PORTAL_INJECTION_KEY, usePortal, usePortalOutlet } from "./usePortal.js";
 
 const TestPortalEntry = defineComponent({
@@ -16,7 +16,7 @@ const TestPortalEntry = defineComponent({
   setup(props, { slots }) {
     usePortal({
       key: toRef(props, "portalKey"),
-      slot: () => slots.default?.(),
+      slot: ref(() => slots.default?.()),
     });
     return () => null;
   },
@@ -27,7 +27,7 @@ describe("usePortal", () => {
     expect(() =>
       usePortal({
         key: ref("tab-1"),
-        slot: vi.fn(),
+        slot: ref(() => {}),
       }),
     ).toThrow(
       "No RenderMap was provided for `usePortal` to inject! This usually indicates that OnyxTab was used without the OnyxTabs component.",
@@ -36,9 +36,9 @@ describe("usePortal", () => {
 
   test("should register, update and remove slot in injected RenderMap", async () => {
     // ARRANGE
-    const renderMap = new Map<PropertyKey, () => unknown>();
+    const renderMap = new Map<PropertyKey, Ref<() => unknown>>();
     const key = ref<PropertyKey>("tab-1");
-    const slot = vi.fn(() => "Slot content");
+    const slot = ref((): string => "Slot content");
 
     const wrapper = mount(
       defineComponent({
@@ -76,6 +76,7 @@ describe("usePortal", () => {
   test("should render active portal content in PortalOutlet and update when currentValue changes", async () => {
     // ARRANGE
     const activeKey = ref<PropertyKey>("tab-1");
+    const dynamicContent1 = ref<string>("Content 1");
 
     const wrapper = mount(
       defineComponent({
@@ -83,7 +84,7 @@ describe("usePortal", () => {
           const { PortalOutlet } = usePortalOutlet({ activeKey });
           return () =>
             h("div", [
-              h(TestPortalEntry, { portalKey: "tab-1" }, () => h("span", "Content 1")),
+              h(TestPortalEntry, { portalKey: "tab-1" }, () => h("span", dynamicContent1.value)),
               h(TestPortalEntry, { portalKey: "tab-2" }, () => h("span", "Content 2")),
               h("div", { class: "outlet" }, [h(PortalOutlet)]),
             ]);
@@ -95,6 +96,13 @@ describe("usePortal", () => {
 
     // ASSERT
     expect(outlet.text()).toBe("Content 1");
+
+    // ACT
+    dynamicContent1.value = "New Content 1";
+    await nextTick();
+
+    // ASSERT
+    expect(outlet.text()).toBe("New Content 1");
 
     // ACT
     activeKey.value = "tab-2";

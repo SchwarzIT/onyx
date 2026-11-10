@@ -12,7 +12,7 @@ import {
   type Ref,
 } from "vue";
 
-type RenderMap = Map<PropertyKey, () => unknown>;
+type RenderMap = Map<PropertyKey, Ref<() => unknown>>;
 
 /**
  * Map with slot contents, used by the parent tabs element where the child tabs should be teleported
@@ -35,7 +35,7 @@ export type PortalOutletOptions = {
  */
 export const usePortalOutlet = ({ activeKey }: PortalOutletOptions) => {
   const renderMap: RenderMap = reactive(new Map());
-  const currentlyActive = computed(() => renderMap.get(toValue(activeKey)));
+  const currentlyActive = computed(() => renderMap.get(toValue(activeKey))?.value);
 
   const PortalOutlet: Component = {
     name: "PortalOutlet",
@@ -62,7 +62,7 @@ export type PortalOptions = {
   /**
    * Slot render function to display when this portal entry is active.
    */
-  slot: () => unknown;
+  slot: Ref<() => unknown>;
 };
 
 /**
