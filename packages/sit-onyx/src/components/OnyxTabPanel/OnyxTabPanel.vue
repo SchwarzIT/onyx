@@ -15,7 +15,6 @@ defineSlots<{
 
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
-@use "../../styles/mixins/sizes.scss";
 
 @include layers.component() {
   .onyx-tab-panel {
