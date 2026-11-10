@@ -33,6 +33,6 @@ Additional buttons are supported to perform custom actions.
 
 ### Header actions
 
-Custom actions can be displayed inside the header using a [flyout menu](/components/basic/flyout-menu). See the [menu item](/components/basic/menu-item) component for all available options.
+Custom actions can be displayed inside the header using a [flyout menu](/components/basic/flyout-menu). See the [menu item](/components/support/menu-item) component for all available options.
 
 <<< ./examples/HeaderActions.example.vue preview=true  layout="grow"

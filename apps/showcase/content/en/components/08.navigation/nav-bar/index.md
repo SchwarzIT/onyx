@@ -17,16 +17,6 @@ Navigation items can be standalone links or parent menus with nested links revea
 
 <<< ./examples/Basic.example.vue preview=true  layout="fullWidth"
 
-<br />
-
-<div class="onyx-grid">
-<link-card class="onyx-grid-span-4" headline="Nav item" link="/components/navigation/nav-item">
-Explore navigation item variants and configuration options.
-</link-card>
-</div>
-
-<br />
-
 ### Nested nav items
 
 Navigation items support multilevel nested hierarchies.
@@ -73,48 +63,6 @@ The context area on the right hosts global actions such as account settings, not
 
 <<< ./examples/ContextArea.example.vue preview=true  layout="fullWidth"
 
-<br />
-
-Available components designed for the context area:
-
-<div class="onyx-grid">
-
-<link-card class="onyx-grid-span-4" headline="User menu" link="/components/navigation/user-menu">
-User profile summary with logout, settings, and profile links.
-</link-card>
-
-<link-card class="onyx-grid-span-4" headline="Nav button" link="/components/navigation/nav-button">
-Context buttons for custom dialogs, locale triggers, or alerts.
-</link-card>
-
-<link-card class="onyx-grid-span-4" headline="Timer" link="/components/navigation/timer">
-Session countdown and auto-logout warning display.
-</link-card>
-
-<link-card class="onyx-grid-span-4" headline="Notification center" link="/components/notifications/notification-center">
-In-app notification drawer and feed.
-</link-card>
-
-<link-card class="onyx-grid-span-4" headline="Global search" link="/components/search-and-filter/global-search">
-Keyboard-driven search trigger for cross-app navigation.
-</link-card>
-
-<link-card class="onyx-grid-span-4" headline="Language menu item" link="/components/navigation/language-menu-item">
-Dropdown trigger to switch application locales.
-</link-card>
-
-<link-card class="onyx-grid-span-4" headline="Color scheme menu item" link="/components/navigation/color-scheme-menu-item">
-Theme switcher menu for light, dark, and system modes.
-</link-card>
-
-<link-card class="onyx-grid-span-4" headline="Color scheme dialog" link="/components/navigation/color-scheme-dialog">
-Theme selection modal dialog.
-</link-card>
-
-</div>
-
-<br />
-
 ### Back button
 
 An optional back button enables navigation to the previous route.
@@ -126,3 +74,74 @@ An optional back button enables navigation to the previous route.
 The navigation bar can also render vertically along the side of the application. Vertical mode supports expanding and collapsing. Every nav item **must** include an icon so it remains identifiable when collapsed. We recommend switching to a horizontal navigation bar on small viewports.
 
 <<< ./examples/Vertical.example.vue preview=true  layout="fullWidth"
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/navigation/nav-item
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/navigation/user-menu
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/navigation/nav-button
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/navigation/timer
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/navigation/language-menu-item
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/navigation/color-scheme-menu-item
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/notifications/notification-center
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/search-and-filter/global-search
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/navigation/color-scheme-dialog
+class: onyx-grid-span-4
+---
+::
+
+</div>

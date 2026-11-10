@@ -30,7 +30,7 @@ const slots = defineSlots<{
   /**
    * Optional custom header actions to display inside a flyout menu. Will only be shown when
    * hovering the notification card or focussing via keyboard. You must only put
-   * [OnyxMenuItem](https://onyx.schwarz/components/basic/menu-item) components
+   * [OnyxMenuItem](https://onyx.schwarz/components/support/menu-item) components
    * here.
    */
   headerActions?: unknown;

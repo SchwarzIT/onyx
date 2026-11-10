@@ -24,3 +24,18 @@ The container breadcrumb can optionally be used and placed directly below the na
 Use the skeleton while the data for either the whole breadcrumb of specific items / pages is loaded on initial page load.
 
 <<< ./examples/Skeleton.example.vue preview=true  layout="fullWidth"
+
+## Support Components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/breadcrumb-item
+class: onyx-grid-span-4
+---
+::
+
+</div>

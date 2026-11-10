@@ -18,3 +18,18 @@ The table of contents should be on the right of the content with a minimum width
 Use the skeleton on initial page load while the data for the table of contents is loading. Can be set on either the whole table of contents or only individual items.
 
 <<< ./examples/Skeleton.example.vue preview=true  layout="grow"
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/table-of-contents-item
+class: onyx-grid-span-4
+---
+::
+
+</div>

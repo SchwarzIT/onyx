@@ -18,3 +18,18 @@ Display code tabs with a label and optional icon. Users can copy the active snip
 Use the skeleton placeholder while code snippets are loading.
 
 <<< ./examples/Skeleton.example.vue preview=true layout=grow
+
+## Support Components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/code-tab
+class: onyx-grid-span-4
+---
+::
+
+</div>

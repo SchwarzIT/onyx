@@ -4,7 +4,7 @@ componentName: OnyxLanguageMenuItem
 navigation: false
 ---
 
-Pre-built [menu item](/components/basic/menu-item) for the [user menu](/components/navigation/user-menu) that can be used inside the [nav bar](/components/navigation/nav-bar) to display the current application language to the user and allow changing it using a dialog.
+Pre-built [menu item](/components/support/menu-item) for the [user menu](/components/navigation/user-menu) that can be used inside the [nav bar](/components/navigation/nav-bar) to display the current application language to the user and allow changing it using a dialog.
 
 ## Examples
 
@@ -12,4 +12,4 @@ Pre-built [menu item](/components/basic/menu-item) for the [user menu](/componen
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Hover the user menu to see the language menu item.</p>
 
-<<< ./examples/Basic.example.vue preview=true 
+<<< ./examples/Basic.example.vue preview=true

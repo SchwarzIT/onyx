@@ -11,7 +11,7 @@ The flyout menu is used to create navigation or action menus that are positioned
 
 A predefined [system button](/components/buttons/system-button) is used as the trigger, if it is not overridden via the `button` slot.
 
-Options for the menu must be passed in using the `options` slot. Each option supports a label, icon and optional link by default but custom content can be passed as slot if needed. For more information, please refer to the [menu item](/components/basic/menu-item).
+Options for the menu must be passed in using the `options` slot. Each option supports a label, icon and optional link by default but custom content can be passed as slot if needed. For more information, please refer to the [menu item](/components/support/menu-item).
 
 <steps>
 
@@ -22,7 +22,7 @@ Hover
 #default
 The flyout menu is triggered on hover by default.
 
-<<< ./examples/Hover.example.vue preview=true 
+<<< ./examples/Hover.example.vue preview=true
 ::
 
 ::step
@@ -32,7 +32,7 @@ Click
 #default
 Optionally, the flyout menu can be triggered on click.
 
-<<< ./examples/Click.example.vue preview=true 
+<<< ./examples/Click.example.vue preview=true
 ::
 
 </steps>
@@ -43,7 +43,7 @@ Optionally, the flyout menu can be triggered on click.
 
 The default trigger button can be overridden with any custom component. However, the trigger must be an interactive element such as a button or link. Make sure to bind the `trigger` slot property to the custom trigger, otherwise the flyout will not open/close on hover or click.
 
-<<< ./examples/CustomTrigger.example.vue preview=true 
+<<< ./examples/CustomTrigger.example.vue preview=true
 
 ### Nested options
 
@@ -58,7 +58,7 @@ Internal drilldown
 #default
 The internal drilldown only shows a single flyout menu which is replaced with the nested options when navigating. A "Back" button is shown to navigate back to the previous layer.
 
-<<< ./examples/InternalDrilldown.example.vue preview=true 
+<<< ./examples/InternalDrilldown.example.vue preview=true
 ::
 
 ::step
@@ -68,7 +68,7 @@ External drilldown
 #default
 With the external drilldown, the nested options are expanded using additional flyout menus so all layers can be display at the same time. Make sure to only use a limited number of layers with the external drilldown to prevent cluttering the screen with many flyouts.
 
-<<< ./examples/ExternalDrilldown.example.vue preview=true 
+<<< ./examples/ExternalDrilldown.example.vue preview=true
 ::
 
 </steps>
@@ -79,10 +79,25 @@ With the external drilldown, the nested options are expanded using additional fl
 
 The position (placement of the flyout menu around the trigger) and alignment (relative to the trigger, based on the position) are calculated automatically depending on the placement on the screen. This ensures optimized visibility across multiple layouts and screen sizes. The position and alignment can be changed if needed but be aware that the flyout might not be ideally placed or not fully visible on all devices and layouts then.
 
-<<< ./examples/PositionAndAlignment.example.vue preview=true 
+<<< ./examples/PositionAndAlignment.example.vue preview=true
 
 ### Disabled
 
 The disabled state can be used to prevent opening the flyout.
 
-<<< ./examples/Disabled.example.vue preview=true 
+<<< ./examples/Disabled.example.vue preview=true
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/menu-item
+class: onyx-grid-span-4
+---
+::
+
+</div>

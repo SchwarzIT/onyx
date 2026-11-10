@@ -504,7 +504,7 @@ When creating custom header actions, you can define both an `iconComponent` and 
 
 Set the `showFlyoutMenu` option to force showing the action inside the flyout menu, even if there is only a single action. Similarly, the `iconComponent` can set `alwaysShowInHeader` to force showing it directly inside the header but this should be **used very rarely** to prevent an overload of always visible header actions.
 
-We strongly recommend using the [system button](/components/buttons/system-button) as `iconComponent` and the [menu item](/components/basic/menu-item) component for `menuItems`.
+We strongly recommend using the [system button](/components/buttons/system-button) as `iconComponent` and the [menu item](/components/support/menu-item) component for `menuItems`.
 
 <<< ./examples/HeaderActions.example.vue preview=true  layout="grow"
 ::
