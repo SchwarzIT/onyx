@@ -29,4 +29,19 @@ Stretch tabs to make them occupy the full available width.
 
 Use the skeleton on initial page load to indicate that the data for the tabs is currently loading. Can also be defined only for specific tabs.
 
-<<< ./examples/Skeleton.example.vue preview=true 
+<<< ./examples/Skeleton.example.vue preview=true
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/tab
+class: onyx-grid-span-4
+---
+::
+
+</div>

@@ -1,21 +1,15 @@
 ---
 title: Accordion item
 componentName: OnyxAccordionItem
+navigation: false
 ---
 
-A single item inside of a parent accordion.
+A single collapsible item within an accordion group, consisting of an interactive header and an expandable content area.
 
-## Examples
+## Belongs to
 
-The accordion item is a support component of the parent accordion and should NOT be used standalone. For examples, refer to the accordion:
-
-<div class="onyx-grid">
-
-::component-overview-card
+::support-component-belongs-to
 ---
 path: /components/basic/accordion
-class: onyx-grid-span-4
 ---
 ::
-
-</div>

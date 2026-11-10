@@ -34,3 +34,18 @@ import { OnyxNotifications } from "sit-onyx";
 ```
 
 </prose-details>
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/notification-message
+class: onyx-grid-span-4
+---
+::
+
+</div>

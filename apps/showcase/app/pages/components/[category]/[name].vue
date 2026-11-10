@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { TocLink } from "@nuxtjs/mdc";
 import { iconCircleAttention, iconTestTube } from "@sit-onyx/icons";
 
 definePageMeta({ layout: "components" });
@@ -16,28 +15,16 @@ useSeoMeta({
 });
 
 const activeTab = useRouteQuery("tab", "overview");
-
-const supportComponents = computed(() => data.value?.supportComponents ?? []);
-
-const supportComponentsTocItem: TocLink = {
-  id: "support-components",
-  text: "Support Components",
-  depth: 2,
-};
-
-const toc = computed(() => {
-  const items = data.value?.body.toc?.links.slice() ?? [];
-  if (supportComponents.value.length) {
-    items.push(supportComponentsTocItem);
-  }
-  return items;
-});
 </script>
 
 <template>
   <OnyxError v-if="error" :error />
 
-  <TableOfContentsLayout v-else-if="data" :toc :hidden="activeTab !== 'overview'">
+  <TableOfContentsLayout
+    v-else-if="data"
+    :toc="data.body.toc?.links ?? []"
+    :hidden="activeTab !== 'overview'"
+  >
     <div class="content">
       <div class="headline">
         <OnyxHeadline is="h1">{{ data.title }}</OnyxHeadline>
@@ -70,24 +57,6 @@ const toc = computed(() => {
       <OnyxTabs v-model="activeTab" :label="$t('components.details')">
         <OnyxTab :label="$t('components.overview')" value="overview">
           <ContentRenderer :value="data" />
-
-          <template v-if="supportComponents.length">
-            <ProseH2 :id="supportComponentsTocItem.id">{{ supportComponentsTocItem.text }}</ProseH2>
-
-            <ProseP>
-              Find a list of support components related to the "{{ data.title }}" component. They
-              are designed to build up the parent component rather than be used standalone.
-            </ProseP>
-
-            <div class="onyx-grid">
-              <ComponentOverviewCard
-                v-for="supportComponent in supportComponents"
-                :key="supportComponent.path"
-                class="onyx-grid-span-4"
-                v-bind="supportComponent"
-              />
-            </div>
-          </template>
         </OnyxTab>
 
         <OnyxTab v-if="data.componentName" :label="$t('components.property', 2)" value="properties">

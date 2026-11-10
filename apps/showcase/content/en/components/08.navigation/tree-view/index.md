@@ -28,3 +28,18 @@ class: onyx-grid-span-4
 
 </div>
 
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/tree-view-item
+class: onyx-grid-span-4
+---
+::
+
+</div>

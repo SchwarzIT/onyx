@@ -1,8 +1,6 @@
 ---
 title: Accordion
 componentName: OnyxAccordion
-supportComponents:
-    - path: /components/support/accordion-item
 ---
 
 An accordion is a versatile UI element that allows users to expand and collapse sections of content. It is commonly used for organizing large amounts of information in a compact space, enabling users to easily navigate through different categories or options.
@@ -84,3 +82,18 @@ The disabled state is used to indicate that the accordion is currently not inter
 The skeleton should be used on initial page load when the data for the page / accordion is initially loaded.
 
 <<< ./examples/Skeleton.example.vue preview=true  layout="grow"
+
+## Support components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/accordion-item
+class: onyx-grid-span-4
+---
+::
+
+</div>

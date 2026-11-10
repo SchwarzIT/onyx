@@ -65,3 +65,25 @@ import { OnyxGlobalFAB } from "sit-onyx";
 ```
 
 </prose-details>
+
+## Support Components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/fab-button
+class: onyx-grid-span-4
+---
+::
+
+::component-overview-card
+---
+path: /components/support/fab-item
+class: onyx-grid-span-4
+---
+::
+
+</div>
