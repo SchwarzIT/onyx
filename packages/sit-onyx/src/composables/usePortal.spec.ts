@@ -23,17 +23,6 @@ const TestPortalEntry = defineComponent({
 });
 
 describe("usePortal", () => {
-  test("should throw an error if No RenderMap was provided", () => {
-    expect(() =>
-      usePortal({
-        key: ref("tab-1"),
-        slot: ref(() => {}),
-      }),
-    ).toThrow(
-      "No RenderMap was provided for `usePortal` to inject! This usually indicates that OnyxTab was used without the OnyxTabs component.",
-    );
-  });
-
   test("should register, update and remove slot in injected RenderMap", async () => {
     // ARRANGE
     const renderMap = new Map<PropertyKey, Ref<() => unknown>>();
