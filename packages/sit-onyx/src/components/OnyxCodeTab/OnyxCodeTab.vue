@@ -95,6 +95,7 @@ const disabled = computed(() => {
 
 .onyx-code-tab {
   @include layers.component() {
+    &__skeletons,
     &__code-panel {
       border-bottom-left-radius: var(--onyx-code-group-border-radius);
       border-bottom-right-radius: var(--onyx-code-group-border-radius);
