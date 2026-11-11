@@ -11,7 +11,7 @@ defineSlots<{
 
 <template>
   <OnyxCard class="card">
-    <OnyxHeadline is="h2">{{ props.headline }}</OnyxHeadline>
+    <OnyxHeadline is="h3">{{ props.headline }}</OnyxHeadline>
     <div v-if="props.subtitle" class="card__subtitle onyx-text--small">{{ props.subtitle }}</div>
 
     <div class="card__content">
