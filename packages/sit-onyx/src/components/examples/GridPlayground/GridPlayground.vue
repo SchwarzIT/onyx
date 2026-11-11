@@ -231,9 +231,7 @@ onUnmounted(() => window.removeEventListener("resize", updateIsFullscreen));
     </div>
 
     <div v-if="gridValues" class="playground__grid-values onyx-grid-container">
-      <p class="playground__breakpoint">
-        Current breakpoint: <span>{{ currentBreakpoint }}</span>
-      </p>
+      <p class="playground__breakpoint">Current breakpoint: <span>{{ currentBreakpoint }}</span></p>
 
       <div class="playground__badges">
         <GridBadge :value="gridValues.margin" label="Margin" color="danger" />
