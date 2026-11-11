@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Wed, 02 Sep 2026 09:45:13 GMT
+ * Imported from Figma API on Wed, 11 Nov 2026 09:13:44 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -333,6 +333,7 @@
   --onyx-color-component-calendar-background-selected: var(--onyx-color-base-primary-500);
   --onyx-color-component-calendar-background-today: var(--onyx-color-base-neutral-700);
   --onyx-color-component-calendar-background-today-disabled: var(--onyx-color-base-neutral-200);
+  --onyx-color-component-calendar-background-weekend: var(--onyx-color-base-neutral-100);
   --onyx-color-component-calendar-text: var(--onyx-color-text-icons-neutral-intense);
   --onyx-color-component-calendar-text-disabled: var(--onyx-color-text-icons-neutral-soft);
   --onyx-color-component-calendar-text-inverted: light-dark(
@@ -393,6 +394,16 @@
     var(--onyx-color-opacity-backdrop-250),
     var(--onyx-color-opacity-backdrop-450)
   );
+  --onyx-color-component-slider-active-stroke: var(--onyx-color-base-neutral-600);
+  --onyx-color-component-slider-dots-background: var(--onyx-color-base-neutral-300);
+  --onyx-color-component-slider-inner-ring: var(--onyx-color-base-neutral-600);
+  --onyx-color-component-slider-outer-ring: var(--onyx-color-base-neutral-800);
+  --onyx-color-component-slider-ring-disbaled: var(--onyx-color-base-neutral-300);
+  --onyx-color-component-slider-ring-primary: var(--onyx-color-base-primary-500);
+  --onyx-color-component-slider-stroke-active: var(--onyx-color-base-primary-500);
+  --onyx-color-component-slider-stroke-background: var(--onyx-color-base-neutral-200);
+  --onyx-color-component-slider-stroke-default: var(--onyx-color-base-neutral-600);
+  --onyx-color-component-slider-stroke-disabled: var(--onyx-color-base-neutral-300);
   --onyx-color-text-icons-danger-bold: light-dark(
     var(--onyx-color-onyx-red-1100),
     var(--onyx-color-onyx-red-100)
@@ -528,13 +539,11 @@
   --onyx-radius-component-badge: var(--onyx-number-radius-600);
   --onyx-radius-component-button: var(--onyx-number-radius-200);
   --onyx-radius-component-checkbox: var(--onyx-number-radius-200);
-  --onyx-radius-component-container-sharp: var(--onyx-number-radius-200);
-  --onyx-radius-component-container-soft: var(--onyx-number-radius-300);
+  --onyx-radius-component-container: var(--onyx-number-radius-300);
   --onyx-radius-component-flyout: var(--onyx-number-radius-300);
   --onyx-radius-component-icon-button: var(--onyx-number-radius-200);
   --onyx-radius-component-input: var(--onyx-number-radius-200);
-  --onyx-radius-component-search-sharp: var(--onyx-number-radius-200);
-  --onyx-radius-component-search-soft: var(--onyx-number-radius-300);
+  --onyx-radius-component-search: var(--onyx-number-radius-300);
   --onyx-radius-component-segmented-control-inside: var(--onyx-number-radius-200);
   --onyx-radius-component-segmented-control-outside: var(--onyx-number-radius-300);
   --onyx-radius-component-skeleton: var(--onyx-number-radius-200);
