@@ -1,6 +1,5 @@
 import { fileURLToPath } from "node:url";
 import comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
-import { includeIgnoreFile } from "@eslint/compat";
 import eslint from "@eslint/js";
 import pluginVitest from "@vitest/eslint-plugin";
 import skipFormattingConfig from "@vue/eslint-config-prettier/skip-formatting";
@@ -11,7 +10,7 @@ import storybook from "eslint-plugin-storybook";
 import vue from "eslint-plugin-vue";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
 import vueA11y from "eslint-plugin-vuejs-accessibility";
-import { defineConfig } from "eslint/config";
+import { defineConfig, includeIgnoreFile } from "eslint/config";
 import sitOnyx from "./packages/eslint-plugin/src/index.cjs";
 
 /**
@@ -146,6 +145,7 @@ const vitestConfig = {
   files: ["**/*.spec.{js,jsx,ts,tsx}"],
   extends: [pluginVitest.configs.recommended],
   rules: {
+    "vue/one-component-per-file": "off",
     "vue/no-ref-object-reactivity-loss": "off",
     // enforce using "test" instead of mixed "it"
     "vitest/consistent-test-it": ["error", { fn: "test", withinDescribe: "test" }],
@@ -244,13 +244,13 @@ export default defineConfig(
   eslint.configs.recommended,
   eslintCommentsConfig,
   generalVueTsConfig,
-  vitestConfig,
-  ...storybook.configs["flat/recommended"],
   sitOnyxConfig,
-  playwrightConfig,
-  nuxtConfig,
-  noConsoleConfig,
+  vitestConfig,
   showcaseConfig,
+  nuxtConfig,
+  ...storybook.configs["flat/recommended"],
+  playwrightConfig,
+  noConsoleConfig,
   skipFormattingConfig,
   gitignoreConfig,
   specificIgnoreConfig,
