@@ -602,7 +602,7 @@ const shouldShowFileList = computed(() => {
         // the variable values here are given by the OnyxFileCard component
         $file-card-height: OnyxFileCard.height(
           $icon-padding: var(--onyx-density-xs),
-          $card-padding: var(--onyx-density-xs),
+          $card-padding: var(--onyx-density-xs)
         );
 
         max-height: calc(
