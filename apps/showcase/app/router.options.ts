@@ -10,7 +10,7 @@ export default <RouterConfig>{
       // if the page contains tabs (such as our component detail pages), we need to wait for the tab content to be actually visible before scrolling
       // since the OnyxTabs do currently not support SSR
 
-      await waitForElement(scrollContainer, ".onyx-tabs__header + .onyx-tab__panel:not(:empty)");
+      await waitForElement(scrollContainer, ".onyx-tabs__header + .onyx-tab-panel:not(:empty)");
     },
   }),
 };

@@ -1,9 +1,11 @@
 <script lang="ts" setup generic="TValue extends PropertyKey = PropertyKey">
 import { createTabs } from "@sit-onyx/headless";
-import { provide, toRef, useTemplateRef } from "vue";
+import { provide, toRef } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { usePortalOutlet } from "../../composables/usePortal.js";
 import { provideSkeletonContext } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
+import OnyxTabPanel from "../OnyxTabPanel/OnyxTabPanel.vue";
 import { TABS_INJECTION_KEY, type OnyxTabsProps, type TabsInjectionKey } from "./types.js";
 
 type Props = OnyxTabsProps<TValue>;
@@ -43,20 +45,19 @@ const slots = defineSlots<{
   actions?(): unknown;
 }>();
 
-const panel = useTemplateRef("panel");
 provideSkeletonContext(props);
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
 provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
   headless,
-  panel,
   size: toRef(() => props.size),
 });
+
+const { PortalOutlet } = usePortalOutlet({ activeKey: modelValue });
 </script>
 
 <template>
   <div
-    ref="panel"
     :class="[
       'onyx-component',
       'onyx-tabs',
@@ -74,6 +75,9 @@ provide(TABS_INJECTION_KEY as TabsInjectionKey<TValue>, {
         <slot name="actions"></slot>
       </div>
     </div>
+    <OnyxTabPanel v-bind="headless.elements.tabpanel.value({ value: modelValue })">
+      <PortalOutlet />
+    </OnyxTabPanel>
   </div>
 </template>
 

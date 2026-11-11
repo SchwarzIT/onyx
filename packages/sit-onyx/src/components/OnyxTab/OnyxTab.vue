@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed, inject, useAttrs } from "vue";
+import { computed, inject, toRef, useAttrs } from "vue";
 import { useDensity } from "../../composables/density.js";
+import { usePortal } from "../../composables/usePortal.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -17,11 +18,11 @@ const props = withDefaults(defineProps<OnyxTabProps>(), {
   skeleton: SKELETON_INJECTED_SYMBOL,
 });
 
-defineSlots<{
+const slots = defineSlots<{
   /**
    * Tab panel / content.
    */
-  default(): unknown;
+  default(this: void): unknown;
   /**
    * Optional slot to override the tab content. By default, the `label` property will be displayed.
    */
@@ -40,6 +41,8 @@ const tab = computed(() =>
     disabled: props.disabled || !!skeleton.value,
   }),
 );
+
+usePortal({ key: toRef(() => props.value), slot: toRef(() => slots.default) });
 </script>
 
 <template>
@@ -65,24 +68,6 @@ const tab = computed(() =>
       <slot name="tab">{{ props.label }}</slot>
     </div>
   </button>
-
-  <!-- The <Teleport> is used because we want to offer a nice API for the user
-       so they can provide both tab and the panel content in one "OnyxTab" component.
-       However, for the accessibility pattern (see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/),
-       we need a separated HTML structure where the tab and the panel must not be nested.
-       The <Teleport> will allow us to achieve this by moving the panel content to the `OnyxTabs` component.
-     -->
-  <Teleport v-if="tabsContext?.panel.value" :to="tabsContext?.panel.value" defer>
-    <div
-      v-if="tab?.['aria-selected']"
-      v-bind="
-        mergeVueProps(tabsContext?.headless.elements.tabpanel.value({ value: props.value }), attrs)
-      "
-      class="onyx-tab__panel"
-    >
-      <slot></slot>
-    </div>
-  </Teleport>
 </template>
 
 <style lang="scss">
@@ -166,13 +151,6 @@ const tab = computed(() =>
       justify-content: center;
       gap: var(--onyx-density-xs);
       position: relative;
-    }
-
-    &__panel {
-      font-family: var(--onyx-font-family-paragraph);
-      color: var(--onyx-color-text-icons-neutral-intense);
-      font-size: var(--onyx-font-size-md);
-      line-height: var(--onyx-font-line-height-md);
     }
 
     &-skeleton {
