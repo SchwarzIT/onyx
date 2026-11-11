@@ -11,6 +11,7 @@ import {
   type MaybeRefOrGetter,
   type Ref,
 } from "vue";
+import { userConsole } from "../utils/console.js";
 
 type RenderMap = Map<PropertyKey, Ref<() => unknown>>;
 
@@ -71,12 +72,12 @@ export type PortalOptions = {
 export const usePortal = ({ key, slot }: PortalOptions) => {
   const renderMap = inject(PORTAL_INJECTION_KEY);
 
-  if (!renderMap) {
-    throw new Error(
+  if (renderMap) {
+    watchEffect(() => renderMap.set(key.value, slot));
+    onBeforeUnmount(() => renderMap.delete(key.value));
+  } else {
+    userConsole?.error(
       "No RenderMap was provided for `usePortal` to inject! This usually indicates that OnyxTab was used without the OnyxTabs component.",
     );
   }
-
-  watchEffect(() => renderMap.set(key.value, slot));
-  onBeforeUnmount(() => renderMap.delete(key.value));
 };
