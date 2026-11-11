@@ -3,7 +3,7 @@ import { iconPlaceholder } from "@sit-onyx/icons";
 import { OnyxInput, OnyxUnstableFormElementAction } from "sit-onyx";
 
 const handleClick = () => {
-  // implement your custom login here...
+  // implement your logic here...
 };
 </script>
 
