@@ -80,6 +80,13 @@ const getNormalizedDate = computed(() => {
   };
 });
 
+// While typing the year digit by digit, the native input serialises a valid but zero-padded
+// partial year ("0002-06-15", "0020-06-15", …), so we compare the numeric year, not the length.
+const hasIncompleteYear = (raw: string): boolean => {
+  const yearPart = raw.split("-")[0];
+  return /^\d+$/.test(yearPart) && Number(yearPart) < 1000;
+};
+
 /**
  * Current value (with getter and setter) that can be used as "v-model" for the native input.
  */
@@ -91,6 +98,11 @@ const modelValue = useVModel({
 const value = computed({
   get: () => getNormalizedDate.value(modelValue.value),
   set: (value) => {
+    // Skip mid-typing values so the getter stays stable and Vue does not write the reformatted
+    // (zero-padded) year back into the input, which would overwrite what the user is typing.
+    if (value != null && value !== "" && hasIncompleteYear(value)) {
+      return;
+    }
     const newDate = new Date(value ?? "");
     // If the type is `datetime-local`, we always use UTC as a timezone to minimize edge-cases for our users.
     modelValue.value = dateToISOString(newDate, props.type === "date" ? "date" : "datetime-utc");
