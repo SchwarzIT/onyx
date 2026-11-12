@@ -129,6 +129,7 @@ const isActive = computed(() => {
       --onyx-breadcrumb-item-color-hover: var(--onyx-color-text-icons-primary-bold);
       --onyx-breadcrumb-item-background-hover: var(--onyx-color-base-primary-200);
       --onyx-breadcrumb-item-outline-color: var(--onyx-color-component-focus-primary);
+      font-weight: var(--onyx-font-weight-semibold);
     }
 
     &::before {

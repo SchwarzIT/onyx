@@ -119,14 +119,13 @@ const hasChildren = computed(() => !!slots.children);
       --onyx-list-item-background-selected: var(--onyx-color-base-primary-100);
       --onyx-list-item-color-selected: var(--onyx-color-component-nav-label);
       background-color: var(--onyx-list-item-background-selected);
-      border-color: var(--onyx-color-base-primary-200);
+      border-color: var(--onyx-color-component-border-primary);
       color: var(--onyx-color-text-icons-neutral-intense);
-      font-weight: 600;
-    }
+      font-weight: var(--onyx-font-weight-semibold);
 
-    &:has(.onyx-nav-item--active):hover,
-    &.onyx-nav-item--active:hover {
-      border-color: var(--onyx-component-border-primary);
+      &:hover {
+        border-color: var(--onyx-color-component-border-primary-hover);
+      }
     }
 
     &.onyx-nav-item--open {
