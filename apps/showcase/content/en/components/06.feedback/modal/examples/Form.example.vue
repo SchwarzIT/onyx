@@ -29,7 +29,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-  <OnyxButton label="Open modal" @click="isOpen = true" />
+  <OnyxButton label="Show modal" @click="isOpen = true" />
 
   <OnyxModal v-model:open="isOpen" class="modal" label="Example modal label">
     <OnyxForm

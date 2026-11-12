@@ -14,7 +14,7 @@ A basic shortcut consists out of one or multiple keys. Optionally, the `highligh
 
 The following shortcut is executed when pressing `Control` and `C` at the same time.
 
-<<< ./examples/Basic.example.vue preview=true 
+<<< ./examples/Basic.example.vue preview=true
 
 ### Multiple steps
 
@@ -22,7 +22,7 @@ The shortcut can also contain multiple steps that the user must press in a speci
 
 The following shortcut is executed when pressing `Control` and `K` at the same time **first**, **then** releasing both keys and **finally** pressing only either `A` or `B`.
 
-<<< ./examples/MultipleSteps.example.vue preview=true 
+<<< ./examples/MultipleSteps.example.vue preview=true
 
 ### Nested steps
 
@@ -30,13 +30,13 @@ Shortcut steps can also be nested for both single and multi step shortcuts.
 
 The following shortcut is executed when pressing `Control`, `K` and either `A` or `B` together at the same time.
 
-<<< ./examples/NestedSteps.example.vue preview=true 
+<<< ./examples/NestedSteps.example.vue preview=true
 
 ### Composable
 
 We also offer a composable (which is also used internally by our shortcut component) for reacting to shortcut sequences. It can be used independently from the shortcut component.
 
-<<< ./examples/Composable.example.vue preview=true 
+<<< ./examples/Composable.example.vue preview=true
 
 ### Operating system
 
@@ -48,10 +48,25 @@ The users operating system is detected automatically by default to show OS-speci
 
 The disabled state can be used to prevent listening to keyboard events so the shortcut is not executed when pressing the defined keys. This can be useful when the shortcut should only be displayed visually but should not actually be listened for to improve performance.
 
-<<< ./examples/Disabled.example.vue preview=true 
+<<< ./examples/Disabled.example.vue preview=true
 
 ### Skeleton
 
 The skeleton can be used on initial page load when the data for the page / shortcut is initially loaded.
 
-<<< ./examples/Skeleton.example.vue preview=true 
+<<< ./examples/Skeleton.example.vue preview=true
+
+## Support Components
+
+:support-component-description
+
+<div class="onyx-grid">
+
+::component-overview-card
+---
+path: /components/support/key
+class: onyx-grid-span-4
+---
+::
+
+</div>
