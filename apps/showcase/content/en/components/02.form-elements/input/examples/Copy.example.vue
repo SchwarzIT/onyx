@@ -26,7 +26,6 @@ const errorMessage = computed(() => {
     <template #trailingIcons>
       <OnyxUnstableFormElementAction
         v-if="textValue.length && copyStatus !== 'success'"
-        class="onyx-input__copy"
         label="Copy to clipboard"
         :icon="iconCopy"
         @click="handleCopy"
