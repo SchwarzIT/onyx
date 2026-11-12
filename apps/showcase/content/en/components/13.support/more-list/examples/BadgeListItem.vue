@@ -10,5 +10,7 @@ const { componentRef, isVisible } = useMoreListChild(EXAMPLE_MORE_LIST_INJECTION
 </script>
 
 <template>
-  <OnyxBadge v-show="isVisible" ref="componentRef">{{ props.label }}</OnyxBadge>
+  <li v-show="isVisible" ref="componentRef">
+    <OnyxBadge>{{ props.label }}</OnyxBadge>
+  </li>
 </template>

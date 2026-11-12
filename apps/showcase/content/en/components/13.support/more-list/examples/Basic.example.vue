@@ -8,9 +8,7 @@ import { EXAMPLE_MORE_LIST_INJECTION_KEY } from "./index.js";
   <OnyxMoreList :injection-key="EXAMPLE_MORE_LIST_INJECTION_KEY">
     <template #default="{ attributes }">
       <ul class="list" v-bind="attributes">
-        <li v-for="i in 24" :key="i">
-          <BadgeListItem :label="`Badge ${i}`" />
-        </li>
+        <BadgeListItem v-for="i in 24" :key="i" :label="`Badge ${i}`" />
       </ul>
     </template>
 

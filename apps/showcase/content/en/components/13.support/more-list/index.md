@@ -28,7 +28,7 @@ The more list works using [provide / inject](https://vuejs.org/guide/components/
 Step 2: Create child component
 
 #default
-You must define a custom child component that is used to display the list items. This child component must then register itself to the more list so it can watch the component size and manage its visibility.
+You must define a custom child component that is used to display the list items. This child component must then register itself to the more list so it can watch the component size and manage its visibility. **Important:** You must bind the values returned by `useMoreListChild()` directly to the root element of the component so its full size is watched.
 
 <<< ./examples/BadgeListItem.vue
 ::
@@ -39,6 +39,7 @@ Step 3: Create more list
 
 #default
 Create the more list parent component and use the already created child component to display the list items. The content for the more indicator can also be fully customized.
+**Important**: Only place your custom child components directly inside of the list. Do not wrap them in additional elements such as `<li>` since this will break the calculation of the available space.
 
 <p style="color: var(--onyx-color-text-icons-info-intense)">Resize your browser window the see the more list in action.</p>
 
