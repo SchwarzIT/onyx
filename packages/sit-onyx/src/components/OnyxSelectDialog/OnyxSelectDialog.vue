@@ -133,7 +133,7 @@ const handleApply = () => {
     }
 
     &__label {
-      font-weight: 600;
+      font-weight: var(--onyx-font-weight-semibold);
       font-size: var(--onyx-font-size-md);
       line-height: var(--onyx-font-line-height-md);
       color: var(--onyx-color-text-icons-neutral-intense);
@@ -151,11 +151,11 @@ const handleApply = () => {
       }
 
       &:has(input:checked) {
-        border-color: var(--onyx-color-base-primary-200);
+        border-color: var(--onyx-color-component-border-primary);
         background-color: var(--onyx-color-base-primary-100);
 
         &:hover {
-          border-color: var(--onyx-color-component-border-primary);
+          border-color: var(--onyx-color-component-border-primary-hover);
         }
         .onyx-select-dialog__description,
         .onyx-select-dialog__label,
