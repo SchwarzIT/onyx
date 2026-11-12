@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "onyx" theme.
- * Imported from Figma API on Wed, 02 Sep 2026 09:45:13 GMT
+ * Imported from Figma API on Thu, 12 Nov 2026 15:19:45 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -333,6 +333,7 @@
   --onyx-color-component-calendar-background-selected: var(--onyx-color-base-primary-500);
   --onyx-color-component-calendar-background-today: var(--onyx-color-base-neutral-700);
   --onyx-color-component-calendar-background-today-disabled: var(--onyx-color-base-neutral-200);
+  --onyx-color-component-calendar-background-weekend: var(--onyx-color-base-neutral-100);
   --onyx-color-component-calendar-text: var(--onyx-color-text-icons-neutral-intense);
   --onyx-color-component-calendar-text-disabled: var(--onyx-color-text-icons-neutral-soft);
   --onyx-color-component-calendar-text-inverted: light-dark(
@@ -346,10 +347,6 @@
   --onyx-color-component-cta-danger: light-dark(
     var(--onyx-color-base-danger-800),
     var(--onyx-color-base-danger-500)
-  );
-  --onyx-color-component-cta-danger-hover: light-dark(
-    var(--onyx-color-base-danger-900),
-    var(--onyx-color-base-danger-400)
   );
   --onyx-color-component-cta-default: var(--onyx-color-base-primary-500);
   --onyx-color-component-cta-default-hover: light-dark(
@@ -377,6 +374,13 @@
     var(--onyx-color-base-warning-400),
     var(--onyx-color-base-warning-200)
   );
+  --onyx-color-component-hover-hover-error: var(--onyx-color-base-danger-100);
+  --onyx-color-component-hover-hover-info: var(--onyx-color-base-info-200);
+  --onyx-color-component-hover-hover-neutral-dark: var(--onyx-color-base-neutral-200);
+  --onyx-color-component-hover-hover-neutral-medium: var(--onyx-color-base-neutral-200);
+  --onyx-color-component-hover-hover-primary: var(--onyx-color-base-primary-100);
+  --onyx-color-component-hover-hover-success: var(--onyx-color-base-success-200);
+  --onyx-color-component-hover-hover-warning: var(--onyx-color-base-warning-200);
   --onyx-color-component-nav-label: light-dark(
     var(--onyx-color-text-icons-primary-intense),
     var(--onyx-color-base-primary-800)
@@ -393,6 +397,16 @@
     var(--onyx-color-opacity-backdrop-250),
     var(--onyx-color-opacity-backdrop-450)
   );
+  --onyx-color-component-slider-active-stroke: var(--onyx-color-base-neutral-600);
+  --onyx-color-component-slider-dots-background: var(--onyx-color-base-neutral-300);
+  --onyx-color-component-slider-inner-ring: var(--onyx-color-base-neutral-600);
+  --onyx-color-component-slider-outer-ring: var(--onyx-color-base-neutral-800);
+  --onyx-color-component-slider-ring-disbaled: var(--onyx-color-base-neutral-300);
+  --onyx-color-component-slider-ring-primary: var(--onyx-color-base-primary-500);
+  --onyx-color-component-slider-stroke-active: var(--onyx-color-base-primary-500);
+  --onyx-color-component-slider-stroke-background: var(--onyx-color-base-neutral-200);
+  --onyx-color-component-slider-stroke-default: var(--onyx-color-base-neutral-600);
+  --onyx-color-component-slider-stroke-disabled: var(--onyx-color-base-neutral-300);
   --onyx-color-text-icons-danger-bold: light-dark(
     var(--onyx-color-onyx-red-1100),
     var(--onyx-color-onyx-red-100)
@@ -528,13 +542,11 @@
   --onyx-radius-component-badge: var(--onyx-number-radius-600);
   --onyx-radius-component-button: var(--onyx-number-radius-200);
   --onyx-radius-component-checkbox: var(--onyx-number-radius-200);
-  --onyx-radius-component-container-sharp: var(--onyx-number-radius-200);
-  --onyx-radius-component-container-soft: var(--onyx-number-radius-300);
+  --onyx-radius-component-container: var(--onyx-number-radius-300);
   --onyx-radius-component-flyout: var(--onyx-number-radius-300);
   --onyx-radius-component-icon-button: var(--onyx-number-radius-200);
   --onyx-radius-component-input: var(--onyx-number-radius-200);
-  --onyx-radius-component-search-sharp: var(--onyx-number-radius-200);
-  --onyx-radius-component-search-soft: var(--onyx-number-radius-300);
+  --onyx-radius-component-search: var(--onyx-number-radius-300);
   --onyx-radius-component-segmented-control-inside: var(--onyx-number-radius-200);
   --onyx-radius-component-segmented-control-outside: var(--onyx-number-radius-300);
   --onyx-radius-component-skeleton: var(--onyx-number-radius-200);
