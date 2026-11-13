@@ -22,13 +22,25 @@ test.describe("Screenshot tests", () => {
     executeMatrixScreenshotTest({
       name: `NavItem (${target})`,
       columns: ["default", "active"],
-      rows: ["default", "hover", "focus-visible", "external-link", "badge", "with-children"],
+      rows: [
+        "default",
+        "hover",
+        "focus-visible",
+        "external-link",
+        "badge",
+        "with-children",
+        "truncation",
+      ],
       context,
       component: (column, row) => (
         <ComponentTestWrapper
           topLeveL={target === "navbar"}
           mobile={target === "mobile"}
-          label="Parent item"
+          label={
+            row === "truncation"
+              ? "Parent item with very long label that should be truncated"
+              : "Parent item"
+          }
           link={row === "external-link" ? "https://onyx.schwarz" : "#"}
           active={column === "active"}
           style={{ maxWidth: "200px" }}
