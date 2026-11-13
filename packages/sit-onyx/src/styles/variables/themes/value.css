@@ -1,7 +1,7 @@
 /**
  * Do not edit directly.
  * This file contains the specific variables for the "value" theme.
- * Imported from Figma API on Wed, 02 Sep 2026 09:45:13 GMT
+ * Imported from Figma API on Thu, 12 Nov 2026 15:19:45 GMT
  */
 :where(:root),
 .onyx-theme-default {
@@ -227,6 +227,42 @@
   --onyx-color-prezero-teal-1000: #233a2c;
   --onyx-color-prezero-teal-1100: #14241b;
   --onyx-color-prezero-teal-1200: #07100a;
+  --onyx-color-produktion-blue-100: #dfecfa;
+  --onyx-color-produktion-blue-200: #d6e0ee;
+  --onyx-color-produktion-blue-300: #c2cedf;
+  --onyx-color-produktion-blue-400: #a7b7cb;
+  --onyx-color-produktion-blue-500: #96a7bd;
+  --onyx-color-produktion-blue-600: #7f90a8;
+  --onyx-color-produktion-blue-700: #647895;
+  --onyx-color-produktion-blue-800: #486083;
+  --onyx-color-produktion-blue-900: #244c76;
+  --onyx-color-produktion-blue-1000: #003769;
+  --onyx-color-produktion-blue-1100: #072a4e;
+  --onyx-color-produktion-blue-1200: #0d1d32;
+  --onyx-color-produktion-coral-100: #fff3f7;
+  --onyx-color-produktion-coral-200: #ffe2eb;
+  --onyx-color-produktion-coral-300: #ffc4d5;
+  --onyx-color-produktion-coral-400: #ff9fb9;
+  --onyx-color-produktion-coral-500: #ff799f;
+  --onyx-color-produktion-coral-600: #ff5385;
+  --onyx-color-produktion-coral-700: #ff2e6b;
+  --onyx-color-produktion-coral-800: #ff0f55;
+  --onyx-color-produktion-coral-900: #d10c46;
+  --onyx-color-produktion-coral-1000: #a30a36;
+  --onyx-color-produktion-coral-1100: #750727;
+  --onyx-color-produktion-coral-1200: #470417;
+  --onyx-color-produktion-himbeerrot-100: #fdf2f5;
+  --onyx-color-produktion-himbeerrot-200: #fbe0e8;
+  --onyx-color-produktion-himbeerrot-300: #f6bdce;
+  --onyx-color-produktion-himbeerrot-400: #ef94ae;
+  --onyx-color-produktion-himbeerrot-500: #e96b8e;
+  --onyx-color-produktion-himbeerrot-600: #e2426e;
+  --onyx-color-produktion-himbeerrot-700: #da214e;
+  --onyx-color-produktion-himbeerrot-800: #d2003c;
+  --onyx-color-produktion-himbeerrot-900: #ac0031;
+  --onyx-color-produktion-himbeerrot-1000: #860026;
+  --onyx-color-produktion-himbeerrot-1100: #61001c;
+  --onyx-color-produktion-himbeerrot-1200: #3b0011;
   --onyx-color-quantitatives-100: #005795;
   --onyx-color-quantitatives-150: #004475;
   --onyx-color-quantitatives-200: #ff8a25;
@@ -287,6 +323,42 @@
   --onyx-color-schwarz-lime-1000: #073c13;
   --onyx-color-schwarz-lime-1100: #032609;
   --onyx-color-schwarz-lime-1200: #011103;
+  --onyx-color-sms-beige-100: #fff9ef;
+  --onyx-color-sms-beige-200: #fff2e0;
+  --onyx-color-sms-beige-300: #fdecd1;
+  --onyx-color-sms-beige-400: #fae5c4;
+  --onyx-color-sms-beige-500: #f4dfbd;
+  --onyx-color-sms-beige-600: #f1d4a7;
+  --onyx-color-sms-beige-700: #edc991;
+  --onyx-color-sms-beige-800: #d5b582;
+  --onyx-color-sms-beige-900: #bea174;
+  --onyx-color-sms-beige-1000: #a68d66;
+  --onyx-color-sms-beige-1100: #8e7957;
+  --onyx-color-sms-beige-1200: #776549;
+  --onyx-color-sms-blue-100: #f3f3f3;
+  --onyx-color-sms-blue-200: #dddfe6;
+  --onyx-color-sms-blue-300: #cccfd9;
+  --onyx-color-sms-blue-400: #999fb3;
+  --onyx-color-sms-blue-500: #666f8d;
+  --onyx-color-sms-blue-600: #555f80;
+  --onyx-color-sms-blue-700: #444f74;
+  --onyx-color-sms-blue-800: #333f67;
+  --onyx-color-sms-blue-900: #1a2754;
+  --onyx-color-sms-blue-1000: #000f41;
+  --onyx-color-sms-blue-1100: #00082e;
+  --onyx-color-sms-blue-1200: #00031a;
+  --onyx-color-sms-greige-100: #fefdfc;
+  --onyx-color-sms-greige-200: #fdfcf9;
+  --onyx-color-sms-greige-300: #fbfaf7;
+  --onyx-color-sms-greige-400: #e7e3dc;
+  --onyx-color-sms-greige-500: #d6d1c8;
+  --onyx-color-sms-greige-600: #bdb8af;
+  --onyx-color-sms-greige-700: #9c9688;
+  --onyx-color-sms-greige-800: #6f6a61;
+  --onyx-color-sms-greige-900: #4e4944;
+  --onyx-color-sms-greige-1000: #3b3834;
+  --onyx-color-sms-greige-1100: #1e1e1e;
+  --onyx-color-sms-greige-1200: #151515;
   --onyx-color-system-green-100: #ecf8f2;
   --onyx-color-system-green-200: #c6e4d5;
   --onyx-color-system-green-300: #98d1b3;
@@ -411,6 +483,8 @@
   --onyx-font-family-Barlow: "Barlow";
   --onyx-font-family-Barlow-Semi-Condensed: "Barlow Semi Condensed";
   --onyx-font-family-DIN-2014: "DIN 2014";
+  --onyx-font-family-Geologica: "Geologica ";
+  --onyx-font-family-Geologica-Variable: "Geologica Variable";
   --onyx-font-family-Helvetica-Now-Var: "Helvetica Now Var";
   --onyx-font-family-IBM-Plex-Sans-Variable: "IBM Plex Sans Variable";
   --onyx-font-family-Kaufland: "Kaufland";
@@ -427,6 +501,8 @@
   --onyx-font-values-400: 1.5rem;
   --onyx-font-values-500: 1.75rem;
   --onyx-font-values-600: 2.5rem;
+  --onyx-font-weight-100: 100;
+  --onyx-font-weight-200: 200;
   --onyx-font-weight-300: 300;
   --onyx-font-weight-400: 400;
   --onyx-font-weight-500: 500;
