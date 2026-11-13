@@ -10,10 +10,7 @@ const showExampleNotifications = () => {
     icon: iconCircleAttention,
     description:
       "Lorem ipsum dolor sit amet consectetur. Dui purus quisque est varius vulputate. Ut odio dui diam pulvinar velit mollis cursus eu ut.",
-    buttons: [
-      { label: "Button", color: "neutral", onClick: () => alert("Button clicked") },
-      { label: "Button", onClick: () => alert("Button clicked") },
-    ],
+    buttons: [{ label: "Button", color: "neutral", onClick: () => alert("Button clicked") }],
   });
 };
 </script>
