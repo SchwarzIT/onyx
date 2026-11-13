@@ -228,11 +228,13 @@ const contentAttributes = computed(() => {
     &--neutral {
       --onyx-calendar-cell-date-background: var(--onyx-color-component-calendar-background-today);
       --onyx-calendar-cell-date-color: var(--onyx-color-component-calendar-text-today);
-      &[aria-disabled="true"] {
+      &[aria-disabled="true"],
+      &:disabled,
+      &--disabled {
         --onyx-calendar-cell-date-background: var(
           --onyx-color-component-calendar-background-today-disabled
         );
-        --onyx-calendar-cell-date-color: var(--onyx-color-component-calendar-text);
+        --onyx-color-component-calendar-text-disabled: var(--onyx-color-component-calendar-text);
       }
       &.onyx-calendar-cell--range-middle {
         .onyx-calendar-cell__date {
