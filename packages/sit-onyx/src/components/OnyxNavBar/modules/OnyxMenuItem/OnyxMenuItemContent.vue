@@ -21,20 +21,20 @@ defineSlots<{
    */
   default?(): unknown;
 }>();
+
+const truncationClass = "onyx-truncation-ellipsis";
 </script>
 
 <template>
   <ButtonOrLinkLayout
-    class="onyx-component onyx-menu-item__trigger"
+    :class="['onyx-component', 'onyx-menu-item__trigger', truncationClass]"
     :disabled="props.disabled"
     :link="props.link"
   >
     <slot>
       <OnyxIcon v-if="props.icon" :icon="props.icon" size="24px" />
-      <span>
-        <span class="onyx-truncation-ellipsis">
-          {{ props.label }}
-        </span>
+      <span :class="truncationClass">
+        <span> {{ props.label }} </span>
         <OnyxExternalLinkIcon v-bind="props.link ? extractLinkProps(props.link) : undefined" />
       </span>
     </slot>
