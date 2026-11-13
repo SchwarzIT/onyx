@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@nuxt/content": "^3.16.2",
-    "@nuxtjs/mdc": "~0.23.2",
+    "@nuxtjs/mdc": "~0.23.3",
     "@sit-onyx/assets": "workspace:^",
     "@sit-onyx/chartjs-plugin": "workspace:^",
     "@sit-onyx/comark": "workspace:^",
@@ -35,7 +35,7 @@
     "@vueuse/router": "^15.0.0",
     "browserslist": "^4.29.5",
     "chart.js": "catalog:",
-    "comark": "^0.9.0",
+    "comark": "^0.9.1",
     "nuxt": "catalog:",
     "nuxt-auth-utils": "~0.6.2",
     "nuxt-llms": "^0.3.1",
@@ -43,7 +43,7 @@
     "vue": "catalog:",
     "vue-chartjs": "^5.3.4",
     "vue-i18n": "^11.4.18",
-    "vue-router": "^5.4.0"
+    "vue-router": "^5.5.0"
   },
   "devDependencies": {
     "@octokit/types": "^18.0.0",
