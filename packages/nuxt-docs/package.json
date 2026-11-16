@@ -37,7 +37,7 @@
     "@nuxt/content": "^3.16.2",
     "@nuxt/test-utils": "^4.4.0",
     "@nuxtjs/color-mode": "^4.1.0",
-    "@nuxtjs/mdc": "~0.23.2",
+    "@nuxtjs/mdc": "~0.23.3",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",
