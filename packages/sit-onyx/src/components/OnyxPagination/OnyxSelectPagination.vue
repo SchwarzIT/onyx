@@ -132,6 +132,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
   @include layers.component() {
     --onyx-pagination-padding-vertical: var(--onyx-density-xs);
     --onyx-pagination-height: calc(1lh + 2 * var(--onyx-pagination-padding-vertical));
+    --onyx-pagination-border-radius: var(--onyx-radius-component-input);
   }
 }
 
@@ -144,6 +145,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       2 * (4.25rem + 2 * var(--onyx-density-sm)) + 2 *
         (1.5rem + 2 * var(--onyx-pagination-padding-vertical))
     );
+    border-radius: var(--onyx-pagination-border-radius);
   }
 }
 
@@ -151,7 +153,6 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
   @include layers.component() {
     --onyx-pagination-border-size: var(--onyx-1px-in-rem);
     --onyx-pagination-character-count: 1;
-    --onyx-pagination-border-radius: var(--onyx-radius-sm);
 
     display: flex;
     align-items: flex-start;

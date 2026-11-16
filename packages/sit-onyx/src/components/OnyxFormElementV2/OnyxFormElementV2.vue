@@ -492,6 +492,7 @@ const popoverLayoutProps = useForwardProps(props, MaybePopoverLayout);
       height: calc(
         var(--onyx-form-element-v2-content-height) + 2 * var(--onyx-form-element-v2-padding-block)
       );
+      border-radius: var(--onyx-form-element-v2-border-radius);
     }
   }
   &--unstyled {

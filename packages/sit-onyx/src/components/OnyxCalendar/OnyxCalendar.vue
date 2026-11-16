@@ -367,9 +367,15 @@ useOutsideClick({
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
-.onyx-calendar {
+.onyx-calendar,
+.onyx-calendar-skeleton {
   @include layers.component() {
     --onyx-calendar-border-radius: var(--onyx-radius-md);
+  }
+}
+
+.onyx-calendar {
+  @include layers.component() {
     --onyx-calendar-border-color: var(--onyx-color-component-border-neutral);
     display: flex;
     flex-direction: column;
@@ -493,13 +499,16 @@ useOutsideClick({
       display: flex;
       flex-direction: column;
       gap: var(--onyx-density-sm);
+
       &__header {
         width: 100%;
         height: var(--onyx-font-line-height-lg);
       }
+
       &__body {
         width: 100%;
         aspect-ratio: 1;
+        border-radius: var(--onyx-calendar-border-radius);
       }
     }
   }
