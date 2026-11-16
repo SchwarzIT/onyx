@@ -60,6 +60,8 @@ const skeleton = useSkeletonContext(props);
     --onyx-tag-hover-background-color: var(--onyx-color-base-neutral-900);
     --onyx-tag-focus-color: var(--onyx-color-component-focus-neutral);
     --onyx-tag-focus-background-color: var(--onyx-color-base-neutral-600);
+    // since we remove the border, we need to increase the padding so the overall height stays the same
+    --onyx-tag-padding-block: calc(var(--onyx-density-3xs) + var(--onyx-tag-border-width));
     border: none;
   }
 }

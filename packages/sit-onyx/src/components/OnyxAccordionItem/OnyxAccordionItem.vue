@@ -121,7 +121,6 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
     --onyx-accordion-item-justify: space-between;
     --onyx-accordion-item-chevron-rotation: 0deg;
     --onyx-accordion-item-chevron-rotation-open: 180deg;
-
     --onyx-accordion-item-header-gap: var(--onyx-density-xs);
 
     // colors
@@ -331,6 +330,7 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
       &--card {
         border: none;
         height: calc($icon-size + 2 * var(--onyx-accordion-item-padding));
+        border-radius: var(--onyx-accordion-item-border-radius);
       }
     }
   }

@@ -229,6 +229,7 @@
     width: 17rem;
     max-width: 100%;
     height: $height;
+    border-radius: var(--onyx-radius-component-input);
   }
 
   @include density.compact {

@@ -127,6 +127,7 @@ const link = computed(() => {
     // also change them inside the OnyxFileUpload where OnyxFileCard.height() is used
     --onyx-card-padding: var(--onyx-density-xs);
     --onyx-file-card-icon-padding: var(--onyx-density-xs);
+    --onyx-file-card-border-radius: var(--onyx-radius-md);
   }
 }
 
@@ -137,6 +138,7 @@ const link = computed(() => {
       $icon-padding: var(--onyx-file-card-icon-padding),
       $card-padding: var(--onyx-card-padding)
     );
+    border-radius: var(--onyx-file-card-border-radius);
   }
 }
 
@@ -144,6 +146,8 @@ const link = computed(() => {
   @include layers.component() {
     position: relative;
     border-color: var(--onyx-color-component-border-neutral);
+    border-radius: var(--onyx-file-card-border-radius);
+
     &__show-error {
       // position the input for the native error message & make it visually hidden
       bottom: var(--onyx-file-card-icon-padding);
