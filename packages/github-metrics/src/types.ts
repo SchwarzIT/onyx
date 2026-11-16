@@ -30,8 +30,8 @@ export type CreateClientOptions = {
   /**
    * Fetch function to use for making HTTP requests.
    *
-   * @default `global.fetch``
    * @private Only intended for internal usage / testing
+   * @default `global.fetch`
    */
   fetch?: typeof global.fetch;
 };
