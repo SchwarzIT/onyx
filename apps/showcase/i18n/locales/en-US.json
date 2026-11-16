@@ -33,6 +33,7 @@
     "overview": "Overview",
     "details": "Component details",
     "schema": "Type",
+    "default": "Default",
     "tags": "Tags",
     "description": "Explore all available components to build accessible, consistent, and high-quality user interfaces.",
     "options": {

@@ -32,6 +32,10 @@ export type ComponentMetaItem = {
    * JSDoc tags.
    */
   tags?: PropertyMeta["tags"];
+  /**
+   * Default value, e.g. of the property.
+   */
+  default?: string;
 };
 
 type TEntry = ComponentMetaItem & { id: string };
@@ -84,13 +88,25 @@ const columns = computed(() => {
     { key: "description", label: t("description"), type: "markdown" },
   ];
 
+  const schemaWidth = "minmax(8rem, 16rem)";
+
   const hasSchemas = data.value.some((row) => row.schema);
   if (hasSchemas) {
     _columns.push({
       key: "schema",
       label: t("components.schema"),
       type: "propertyMetaSchema",
-      width: "minmax(4rem, 16rem)",
+      width: schemaWidth,
+    });
+  }
+
+  const hasDefaultValues = data.value.some((row) => row.default);
+  if (hasDefaultValues) {
+    _columns.push({
+      key: "default",
+      label: t("components.default"),
+      type: "propertyMetaSchema",
+      width: schemaWidth,
     });
   }
 
@@ -131,7 +147,12 @@ const features = [customDataGridColumnTypes<TEntry>, withCustomTypes];
 </script>
 
 <template>
-  <OnyxDataGrid :headline="{ text: props.headline, rowCount: true }" :columns :data :features />
+  <OnyxDataGrid
+    :headline="{ text: props.headline, rowCount: true, hash: props.headline }"
+    :columns
+    :data
+    :features
+  />
 </template>
 
 <style lang="scss" scoped>
