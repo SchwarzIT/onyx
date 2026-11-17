@@ -14,7 +14,7 @@ onMounted(() => {
     duration: 0,
     buttons: [
       { label: "Button", color: "neutral", onClick: () => alert("Button clicked") },
-      { label: "Button", onClick: () => alert("Button clicked") },
+      { label: "Button", color: "neutral", onClick: () => alert("Button clicked") },
     ],
   });
   notification.show({

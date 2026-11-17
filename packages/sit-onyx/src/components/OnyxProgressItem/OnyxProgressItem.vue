@@ -77,6 +77,7 @@ const icon = computed(() => {
   @include layers.component() {
     height: calc(1lh + 2 * var(--onyx-progress-item-padding));
     width: calc(2 * 1lh + 2 * var(--onyx-progress-item-padding) + var(--onyx-progress-item-gap));
+    border-radius: var(--onyx-radius-sm);
   }
 }
 

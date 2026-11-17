@@ -27,7 +27,7 @@ const tagClasses = computed(() => [
 </script>
 
 <template>
-  <OnyxSkeleton v-if="skeleton" :class="['onyx-tag-skeleton', densityClass]" />
+  <OnyxSkeleton v-if="skeleton" :class="['onyx-tag-skeleton', 'onyx-text--small', densityClass]" />
 
   <OnyxTooltip
     v-else-if="props.clickable"
@@ -54,6 +54,15 @@ const tagClasses = computed(() => [
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
+.onyx-tag,
+.onyx-tag-skeleton {
+  @include layers.component() {
+    --onyx-tag-border-radius: var(--onyx-radius-xs);
+    --onyx-tag-padding-block: var(--onyx-density-3xs);
+    --onyx-tag-border-width: var(--onyx-1px-in-rem);
+  }
+}
+
 .onyx-tag {
   @include layers.component() {
     display: inline-flex;
@@ -61,12 +70,12 @@ const tagClasses = computed(() => [
     gap: var(--onyx-density-2xs);
     width: max-content;
     max-width: 100%;
-    padding: var(--onyx-density-3xs) var(--onyx-density-xs);
-    border-radius: var(--onyx-radius-xs);
+    padding: var(--onyx-tag-padding-block) var(--onyx-density-xs);
+    border-radius: var(--onyx-tag-border-radius);
     font-family: var(--onyx-font-family-paragraph);
 
     color: var(--onyx-tag-color);
-    border: var(--onyx-1px-in-rem) solid var(--onyx-tag-border-color);
+    border: var(--onyx-tag-border-width) solid var(--onyx-tag-border-color);
     background-color: var(--onyx-tag-background-color);
 
     $colors: primary, neutral, danger, warning, success, info;
@@ -116,9 +125,10 @@ const tagClasses = computed(() => [
 
     &-skeleton {
       width: var(--onyx-density-2xl);
-      height: calc(1.5rem + 2 * var(--onyx-density-3xs));
+      height: calc(1lh + 2 * var(--onyx-tag-padding-block) + 2 * var(--onyx-tag-border-width));
       display: inline-block;
       vertical-align: middle;
+      border-radius: var(--onyx-tag-border-radius);
     }
   }
 }
