@@ -27,17 +27,6 @@ export const Default = {
   },
 } satisfies Story;
 
-export const TopLabel = {
-  args: {
-    value: "example-value",
-    label: {
-      label: "Label",
-      position: "top",
-    },
-    name: "radio-default",
-  },
-} satisfies Story;
-
 /**
  * This example shows a radio truncated radio button.
  * You can set the "truncation" property to choose between the different truncation types.

@@ -22,6 +22,10 @@ export type OnyxRadioButtonProps<TValue extends SelectOptionValue = SelectOption
      */
     checked?: boolean;
     /**
+     * @deprecated Pass `error` directly to `OnyxRadioGroup` instead. Will be removed in V2.
+     */
+    error?: Pick<SharedFormElementProps, "error">;
+    /**
      * If any radio button of a group is required, a radio button of the group must be checked.
      * But it doesn't have to be this particular option.
      * See also: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio#required

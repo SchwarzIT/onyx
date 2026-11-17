@@ -64,20 +64,20 @@ test.describe("screenshot tests (truncation)", () => {
 test.describe("screenshot tests (invalid)", () => {
   executeMatrixScreenshotTest({
     name: "Radio group (invalid)",
-    columns: ["default", "hover"],
+    columns: ["default", "interacted"],
     rows: ["default"],
     component: () => (
       <OnyxRadioGroup label="Test headline" options={EXAMPLE_OPTIONS} error="Example error" />
     ),
     hooks: {
       beforeEach: async (component, page, column) => {
-        if (column === "hover") {
+        if (column === "interacted") {
           const radio = component.getByText(EXAMPLE_OPTIONS[0].label);
           await radio.click();
         }
 
-        // wait for the tooltip to show up reliably
-        if (column === "hover") {
+        // wait for error message to show up reliably
+        if (column === "interacted") {
           await expect(
             component.getByText("Example errorExample errorExample error"),
           ).toBeVisible();
