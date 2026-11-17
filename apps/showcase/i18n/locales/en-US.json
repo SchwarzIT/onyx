@@ -40,6 +40,7 @@
       "change": "Change styles",
       "density": "Density",
       "appearance": "Appearance",
+      "openPlayground": "Open in Playground",
       "appearances": {
         "light": "light",
         "dark": "dark"

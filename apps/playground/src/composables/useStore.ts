@@ -2,6 +2,7 @@ import { mergeImportMap, useStore as useOriginalStore, useVueImportMap } from "@
 import { computed, ref, watch, watchEffect } from "vue";
 import App from "../template/App.vue?raw";
 import NewFile from "../template/NewFile.vue?raw";
+import { useSass } from "./useSass.js";
 import { fetchVersions } from "./versions.js";
 
 /**
@@ -73,6 +74,8 @@ export const useStore = () => {
     // initialize repl with previously serialized state
     location.hash.slice(1),
   );
+
+  useSass(store);
 
   const updateQueryParam = (key: string, value: string) => {
     const url = new URL(location.href);

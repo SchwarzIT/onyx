@@ -446,6 +446,10 @@ importers:
         version: 5.3.4(chart.js@4.6.1)(vue@3.5.44(typescript@6.0.3))
 
   apps/playground:
+    dependencies:
+      sass:
+        specifier: ^1.108.2
+        version: 1.108.2
     devDependencies:
       '@sit-onyx/assets':
         specifier: workspace:^
