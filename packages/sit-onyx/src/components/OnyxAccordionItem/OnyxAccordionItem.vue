@@ -119,8 +119,6 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
     --onyx-accordion-item-line-height: var(--onyx-font-line-height-md);
     --onyx-accordion-item-font-weight: var(--onyx-font-weight-regular);
     --onyx-accordion-item-justify: space-between;
-    --onyx-accordion-item-chevron-rotation: 0deg;
-    --onyx-accordion-item-chevron-rotation-open: 180deg;
 
     --onyx-accordion-item-header-gap: var(--onyx-density-xs);
 
@@ -139,8 +137,6 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
       --onyx-accordion-item-font-weight: var(--onyx-font-weight-semibold);
       --onyx-accordion-item-gap: var(--onyx-density-xs);
       --onyx-accordion-item-justify: flex-start;
-      --onyx-accordion-item-chevron-rotation: 90deg;
-      --onyx-accordion-item-chevron-rotation-open: 0deg;
       --onyx-accordion-item-color-open: var(--onyx-accordion-item-color);
       --onyx-accordion-item-outline: none;
       --onyx-accordion-item-border-radius: 0;
@@ -244,10 +240,6 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
         top: 0;
         z-index: var(--onyx-z-index-sticky-content);
       }
-
-      .onyx-accordion-item__header-content {
-        flex-grow: 0;
-      }
     }
 
     &--card {
@@ -275,11 +267,10 @@ const showSkeleton = computed(() => skeleton.value || accordionContext?.skeleton
 
     &__header-icon {
       transition: transform var(--onyx-accordion-toggle-duration) ease;
-      transform: rotate(var(--onyx-accordion-item-chevron-rotation));
     }
 
     &[open] > &__header &__header-icon {
-      transform: rotate(var(--onyx-accordion-item-chevron-rotation-open));
+      transform: rotate(180deg);
     }
 
     &[open] &__header {
