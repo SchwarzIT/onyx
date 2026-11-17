@@ -90,21 +90,21 @@ const columns = computed(() => {
 
   const schemaWidth = "minmax(8rem, 16rem)";
 
-  const hasSchemas = data.value.some((row) => row.schema);
-  if (hasSchemas) {
-    _columns.push({
-      key: "schema",
-      label: t("components.schema"),
-      type: "propertyMetaSchema",
-      width: schemaWidth,
-    });
-  }
-
   const hasDefaultValues = data.value.some((row) => row.default);
   if (hasDefaultValues) {
     _columns.push({
       key: "default",
       label: t("components.default"),
+      type: "propertyMetaSchema",
+      width: schemaWidth,
+    });
+  }
+
+  const hasSchemas = data.value.some((row) => row.schema);
+  if (hasSchemas) {
+    _columns.push({
+      key: "schema",
+      label: t("components.schema"),
       type: "propertyMetaSchema",
       width: schemaWidth,
     });
