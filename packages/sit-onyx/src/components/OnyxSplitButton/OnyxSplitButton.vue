@@ -112,14 +112,23 @@ const { t } = injectI18n();
 <style lang="scss">
 @use "../../styles/mixins/layers.scss";
 
+.onyx-split-button,
+.onyx-split-button-skeleton {
+  @include layers.component() {
+    --onyx-split-button-border-radius: var(--onyx-radius-component-button);
+  }
+}
+
 .onyx-split-button {
   @include layers.override() {
     &__main-button {
-      --onyx-button-border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
+      --onyx-button-border-radius: var(--onyx-split-button-border-radius) 0 0
+        var(--onyx-split-button-border-radius);
     }
 
     &__flyout-button {
-      --onyx-button-border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+      --onyx-button-border-radius: 0 var(--onyx-split-button-border-radius)
+        var(--onyx-split-button-border-radius) 0;
       --onyx-button-padding-inline: var(--onyx-density-xs);
       border-left: none;
 
@@ -171,13 +180,15 @@ const { t } = injectI18n();
     &__left {
       width: var(--onyx-density-4xl);
       height: calc(1.5rem + 2 * var(--onyx-density-xs));
-      border-radius: var(--onyx-radius-sm) 0 0 var(--onyx-radius-sm);
+      border-radius: var(--onyx-split-button-border-radius) 0 0
+        var(--onyx-split-button-border-radius);
     }
 
     &__right {
       width: calc(1.5rem + 2 * var(--onyx-density-xs));
       height: calc(1.5rem + 2 * var(--onyx-density-xs));
-      border-radius: 0 var(--onyx-radius-sm) var(--onyx-radius-sm) 0;
+      border-radius: 0 var(--onyx-split-button-border-radius) var(--onyx-split-button-border-radius)
+        0;
     }
   }
 }

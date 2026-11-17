@@ -79,6 +79,7 @@ usePortal({ key: toRef(() => props.value), slot: toRef(() => slots.default) });
   @include layers.component() {
     --onyx-tab-padding-vertical: var(--onyx-density-xs);
     --onyx-tab-highlight-gap: var(--onyx-density-3xs);
+    --onyx-tab-border-radius: var(--onyx-radius-sm);
 
     @include sizes.define-headline-sizes();
   }
@@ -92,7 +93,7 @@ usePortal({ key: toRef(() => props.value), slot: toRef(() => slots.default) });
     --onyx-tab-color-disabled: var(--onyx-color-text-icons-neutral-soft);
 
     color: var(--onyx-tab-color);
-    border-radius: var(--onyx-radius-sm);
+    border-radius: var(--onyx-tab-border-radius);
     padding: var(--onyx-tab-padding-vertical) var(--onyx-density-md);
     font-weight: var(--onyx-font-weight-semibold);
     // tabs should have their needed width and be horizontally scrollable instead if they exceed the max parent width
@@ -158,6 +159,7 @@ usePortal({ key: toRef(() => props.value), slot: toRef(() => slots.default) });
       height: calc(1lh + 2 * var(--onyx-tab-padding-vertical) + var(--onyx-tab-highlight-gap));
       display: inline-block;
       vertical-align: middle;
+      border-radius: var(--onyx-tab-border-radius);
     }
   }
 }
