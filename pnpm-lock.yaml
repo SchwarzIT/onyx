@@ -1043,6 +1043,9 @@ importers:
       '@sit-onyx/shared':
         specifier: workspace:^
         version: link:../shared
+      nanotar:
+        specifier: ^0.3.0
+        version: 0.3.0
       nuxt:
         specifier: 4.6.3
         version: 4.6.3(e4e0b83b46132c49c54d7fcd2a3bf05e)

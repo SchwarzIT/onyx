@@ -42,6 +42,7 @@
     "@nuxt/schema": "^4.6.2",
     "@nuxt/test-utils": "^4.3.4",
     "@sit-onyx/shared": "workspace:^",
+    "nanotar": "^0.3.0",
     "nuxt": "catalog:",
     "sit-onyx": "workspace:^",
     "typescript": "catalog:"

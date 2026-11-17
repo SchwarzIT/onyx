@@ -29,25 +29,16 @@ export const useSchwarzTheme = () => {
  * Provides / applies the current Schwarz internal theme (from `useSchwarzTheme()`) to the
  * application. Should only be used once per application.
  */
-export const provideSchwarzTheme = () => {
+export const provideSchwarzTheme = async () => {
   const { theme } = useSchwarzTheme();
 
-  useHead(
-    computed(() => {
-      if (theme.value === "default") return {};
-      const href = `/api/themes/${theme.value}/index.css`;
-
-      return {
-        htmlAttrs: {
-          class: `onyx-theme-${theme.value}`,
-        },
-        link: [
-          { rel: "preload", as: "style", href, key: `theme-preload-${theme.value}` },
-          { rel: "stylesheet", href, key: `theme-style-${theme.value}` },
-        ],
-      } satisfies Parameters<typeof useHead>[0];
-    }),
-  );
+  useHead({
+    htmlAttrs: {
+      // its important to still add the class if the theme is "default" so the default theme is applied
+      // even if the CSS files for other themes are imported
+      class: computed(() => `onyx-theme-${theme.value}`),
+    },
+  });
 
   return { theme };
 };

@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-provideSchwarzTheme();
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <OnyxAppLayout>
@@ -11,5 +9,7 @@ provideSchwarzTheme();
     <div class="onyx-grid-layout">
       <NuxtPage />
     </div>
+
+    <SchwarzThemeProvider />
   </OnyxAppLayout>
 </template>
