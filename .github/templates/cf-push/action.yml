@@ -42,11 +42,11 @@ runs:
       # Since some of our deployed apps run on Node, we create the required file here centrally.
       # The CF node buildpack does not support arbitrary Node versions so we strip our defined version to only include the
       # major version so CF handles it automatically.
-      # Writing engines.node field in package.json (if package.json exists) is needed since engines.node would override our .nvmrc
+      # Having engines.node field in package.json would override our .nvmrc so we remove it here
       run: |
         cp "$GITHUB_WORKSPACE/.node-version" .nvmrc
         v=$(grep -oE '^[[:space:]]*v?[0-9]+' .nvmrc) && printf '%s\n' "${v//[!0-9]/}" > .nvmrc
-        if [ -f package.json ]; then pnpm pkg set engines.node="$(cat .nvmrc)"; fi
+        if [ -f package.json ]; then pnpm pkg delete engines; fi
       working-directory: ${{ inputs.working-directory }}
 
     - name: Login to Cloud Foundry
