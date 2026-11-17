@@ -40,6 +40,7 @@ runs:
         sudo apt-get install -y cf8-cli
 
     - name: Copy .node-version file
+      shell: bash
       # Cloud Foundry requires a ".nvmrc" file for defining the node version to use.
       # Since some of our deployed apps run on Node, we create the required file here centrally.
       # The CF node buildpack does not support arbitrary Node versions so we strip our defined version to only include the
@@ -48,7 +49,7 @@ runs:
       run: |
         cp "$GITHUB_WORKSPACE/.node-version" .nvmrc
         v=$(grep -oE '^[[:space:]]*v?[0-9]+' .nvmrc) && printf '%s\n' "${v//[!0-9]/}" > .nvmrc
-        if [ -f package.json ]; then pnpm pkg set engines.node=$(cat .nvmrc); fi
+        if [ -f package.json ]; then pnpm pkg set engines.node="$(cat .nvmrc)"; fi
       working-directory: ${{ inputs.working-directory }}
 
     - name: Login to Cloud Foundry
