@@ -129,7 +129,7 @@ const messages = computed(() =>
     }
 
     // visually hide bottom when skeleton is shown (but reserve height)
-    &:has(&__content-skeleton) {
+    &:has(> .onyx-form-element-v2__body > .onyx-form-element-v2__content-skeleton) {
       .onyx-form-element-v2__bottom {
         visibility: hidden;
       }

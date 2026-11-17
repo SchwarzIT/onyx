@@ -80,15 +80,6 @@ const formElementV2Props = computed(() => {
 const input = useTemplateRef("input");
 defineExpose({ input });
 useAutofocus(input, props);
-
-const handleClick = (event: MouseEvent) => {
-  if (disabled.value || props.loading) return;
-
-  const target = event.target as HTMLElement | null;
-  if (target?.closest("input, label")) return;
-
-  input.value?.click();
-};
 </script>
 
 <template>
@@ -97,7 +88,6 @@ const handleClick = (event: MouseEvent) => {
     class="onyx-component onyx-radio-button"
     unstyled
     full-width-bottom
-    @click="handleClick"
   >
     <template #default="inputProps">
       <OnyxLoadingIndicator v-if="props.loading" class="onyx-radio-button__loading" type="circle" />
@@ -129,9 +119,9 @@ const handleClick = (event: MouseEvent) => {
     --onyx-radio-button-dot-size: var(--onyx-spacing-3xs);
     --onyx-radio-button-selector-margin: var(--onyx-density-sm);
     --onyx-radio-button-cursor: pointer;
-    --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-neutral);
+    --onyx-radio-button-selector-border-color: var(--onyx-form-element-v2-border-color);
     --onyx-radio-button-selector-background-color: var(--onyx-color-base-background-blank);
-    --onyx-radio-button-selector-outline-color: var(--onyx-color-base-primary-200);
+    --onyx-radio-button-selector-outline-color: var(--onyx-form-element-v2-outline-color);
     --onyx-radio-button-selector-outline-width: 0;
     --onyx-radio-button-label-color: var(--onyx-color-text-icons-neutral-intense);
 
@@ -242,7 +232,7 @@ const handleClick = (event: MouseEvent) => {
     }
 
     &:has(.onyx-radio-button__selector:enabled):hover {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-neutral-hover);
+      --onyx-radio-button-selector-border-color: var(--onyx-form-element-v2-border-color-hover);
 
       &:has(.onyx-radio-button__selector:checked) {
         --onyx-radio-button-selector-background-color: var(
@@ -255,7 +245,7 @@ const handleClick = (event: MouseEvent) => {
     }
 
     &:has(&__selector:focus-visible) {
-      --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-neutral);
+      --onyx-radio-button-selector-border-color: var(--onyx-form-element-v2-border-color);
       --onyx-radio-button-selector-outline-width: var(--onyx-radio-button-selector-margin);
     }
 
@@ -268,9 +258,6 @@ const handleClick = (event: MouseEvent) => {
           .onyx-radio-button__selector:invalid,
           .onyx-radio-button__selector[aria-invalid="true"]
         ) {
-        --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-danger);
-        --onyx-radio-button-selector-outline-color: var(--onyx-color-base-danger-200);
-
         &:has(.onyx-radio-button__selector:checked) {
           --onyx-radio-button-selector-background-color: var(--onyx-color-component-cta-danger);
           --onyx-radio-button-selector-border-color: var(
@@ -285,10 +272,6 @@ const handleClick = (event: MouseEvent) => {
               --onyx-radio-button-selector-background-color
             );
           }
-        }
-
-        &:has(.onyx-radio-button__selector:focus-visible) {
-          --onyx-radio-button-selector-border-color: var(--onyx-color-component-border-danger);
         }
       }
     }
