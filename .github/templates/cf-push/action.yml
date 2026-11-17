@@ -23,9 +23,6 @@ inputs:
   varArgs:
     default: ""
     description: Variables argument strings used for variable substitution file in manifest. Must be provided in the form of `--var KEY1=VALUE1 --var KEY2=VALUE2`
-  build-dir:
-    default: dist
-    description: Folder name of the build output to deploy
 
 runs:
   using: "composite"
