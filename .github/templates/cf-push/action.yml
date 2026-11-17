@@ -23,6 +23,9 @@ inputs:
   varArgs:
     default: ""
     description: Variables argument strings used for variable substitution file in manifest. Must be provided in the form of `--var KEY1=VALUE1 --var KEY2=VALUE2`
+  build-dir:
+    default: dist
+    description: Folder name of the build output to deploy
 
 runs:
   using: "composite"
@@ -35,6 +38,18 @@ runs:
         echo "deb [signed-by=/usr/share/keyrings/cli.cloudfoundry.org.gpg] https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
         sudo apt-get update
         sudo apt-get install -y cf8-cli
+
+    - name: Copy .node-version file
+      # Cloud Foundry requires a ".nvmrc" file for defining the node version to use.
+      # Since some of our deployed apps run on Node, we create the required file here centrally.
+      # The CF node buildpack does not support arbitrary Node versions so we strip our defined version to only include the
+      # major version so CF handles it automatically.
+      # Writing engines.node field in package.json (if package.json exists) is needed since engines.node would override our .nvmrc
+      run: |
+        cp "$GITHUB_WORKSPACE/.node-version" .nvmrc
+        v=$(grep -oE '^[[:space:]]*v?[0-9]+' .nvmrc) && printf '%s\n' "${v//[!0-9]/}" > .nvmrc
+        if [ -f package.json ]; then pnpm pkg set engines.node=$(cat .nvmrc); fi
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Login to Cloud Foundry
       shell: bash
