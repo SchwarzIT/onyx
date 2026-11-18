@@ -82,6 +82,7 @@ jobs:
         id: first-playwright-install
         run: |
           set -ex
+          echo 'Acquire::Retries "3"; Acquire::http::Timeout "15"; Acquire::https::Timeout "15";' | sudo tee /etc/apt/apt.conf.d/99timeout
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
         timeout-minutes: 3
         continue-on-error: true
@@ -93,15 +94,14 @@ jobs:
 
           # Clean-up in progress installation: https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock
           sudo killall -q apt apt-get || true
-          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend || true
+          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock /var/cache/apt/archives/lock || true
           sudo dpkg --configure -a
 
           # Use different mirror
-          sudo sed -i 's/azure.archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
-          sudo cat /etc/apt/apt-mirrors.txt
+          sudo sed -i 's/azure.archive.ubuntu.com/archive.ubuntu.com/g' /etc/apt/apt-mirrors.txt /etc/apt/sources.list /etc/apt/sources.list.d/* 2>/dev/null || true
 
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
-        timeout-minutes: 10
+        timeout-minutes: 5
 
       - name: 🔎 Run Playwright tests
         run: pnpm run test:playwright:all --filter="${{ matrix.package }}" --concurrency 1 ${{ ((inputs.only-changed != '' && matrix.package == 'sit-onyx') && format('-- --only-changed {0}', inputs.only-changed)) || '' }}
