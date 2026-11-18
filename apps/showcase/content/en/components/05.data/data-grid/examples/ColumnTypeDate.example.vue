@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DateValue, OnyxDataGrid, type ColumnConfig } from "sit-onyx";
+import { OnyxDataGrid, type ColumnConfig, type DateValue } from "sit-onyx";
 import { computed } from "vue";
 
 type Entry = {

@@ -2,7 +2,6 @@
 import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import { iconLogin, iconLogout, iconSettings, iconTranslate } from "@sit-onyx/icons";
 import {
-  ColorSchemeValue,
   OnyxAppLayout,
   OnyxColorSchemeMenuItem,
   OnyxFlyoutMenu,
@@ -12,6 +11,7 @@ import {
   OnyxSeparator,
   OnyxUnstableNavButton,
   OnyxUserMenu,
+  type ColorSchemeValue,
 } from "sit-onyx";
 import { ref } from "vue";
 

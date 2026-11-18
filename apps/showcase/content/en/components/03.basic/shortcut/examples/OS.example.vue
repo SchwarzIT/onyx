@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxUnstableShortcut, ShortcutSequenceStep } from "sit-onyx";
+import { OnyxUnstableShortcut, type ShortcutSequenceStep } from "sit-onyx";
 
 const sequence: ShortcutSequenceStep[] = [{ all: ["Meta"] }];
 

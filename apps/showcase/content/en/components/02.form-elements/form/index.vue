@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-import { OnyxForm, OnyxInput, OnyxUnstableDatePickerV2, OnyxStepper, OnyxCard } from "sit-onyx";
+import {
+  OnyxButton,
+  OnyxCard,
+  OnyxForm,
+  OnyxInput,
+  OnyxStepper,
+  OnyxUnstableDatePickerV2,
+} from "sit-onyx";
 </script>
 
 <template>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { iconCopy } from "@sit-onyx/icons";
 import {
-  ColumnGroupConfig,
-  ColumnTypesFromFeatures,
   createFeature,
   DataGridFeatures,
   OnyxDataGrid,
   OnyxSystemButton,
   type ColumnConfig,
+  type ColumnGroupConfig,
+  type ColumnTypesFromFeatures,
 } from "sit-onyx";
 import { computed, h } from "vue";
 

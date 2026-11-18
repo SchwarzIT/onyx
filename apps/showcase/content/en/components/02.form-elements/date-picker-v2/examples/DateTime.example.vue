@@ -9,7 +9,7 @@ const time = ref<string>();
 const _dateTime = computed(() => {
   if (!date.value || !time.value) return date.value;
   const value = new Date(date.value);
-  const [hours, minutes] = time.value.split(":").map((i) => Number.parseInt(i));
+  const [hours = 0, minutes = 0] = time.value.split(":").map((i) => Number.parseInt(i));
   value.setHours(hours, minutes);
   return value;
 });

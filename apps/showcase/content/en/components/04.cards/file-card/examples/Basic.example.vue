@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { MediaType, OnyxFileCard } from "sit-onyx";
+import { OnyxFileCard, type MediaType } from "sit-onyx";
 import { onBeforeUnmount } from "vue";
 
 // create an initial dummy file for this example

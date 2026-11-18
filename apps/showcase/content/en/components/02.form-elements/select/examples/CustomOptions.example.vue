@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxSelect, OnyxTag, SelectOption } from "sit-onyx";
+import { OnyxSelect, OnyxTag, type SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
 const value = ref<string>();

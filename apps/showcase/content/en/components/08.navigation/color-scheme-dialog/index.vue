@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ColorSchemeValue, OnyxColorSchemeDialog } from "sit-onyx";
+import { OnyxColorSchemeDialog, type ColorSchemeValue } from "sit-onyx";
 import { ref } from "vue";
 
 const colorScheme = ref<ColorSchemeValue>("auto");

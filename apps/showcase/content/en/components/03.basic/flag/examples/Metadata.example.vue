@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import * as ALL_FLAGS from "@sit-onyx/flags";
 import { FLAG_METADATA, getFlagImportName } from "@sit-onyx/flags/utils";
-import { OnyxSelect, SelectOption } from "sit-onyx";
+import { OnyxSelect, type SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
 const value = ref<string>("DE");

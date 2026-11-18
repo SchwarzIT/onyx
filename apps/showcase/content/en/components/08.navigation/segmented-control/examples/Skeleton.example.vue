@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxSegmentedControl, OnyxSegmentedControlOption } from "sit-onyx";
+import { OnyxSegmentedControl, type OnyxSegmentedControlOption } from "sit-onyx";
 import { ref } from "vue";
 
 const options: OnyxSegmentedControlOption[] = [
@@ -8,7 +8,7 @@ const options: OnyxSegmentedControlOption[] = [
   { label: "Option 3", value: "option-3" },
 ];
 
-const selectedOption = ref(options[0].value);
+const selectedOption = ref("option-1");
 </script>
 
 <template>

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { iconPlaceholder, iconTrash } from "@sit-onyx/icons";
 import {
-  MediaType,
   OnyxFileCard,
   OnyxFileUpload,
   OnyxIconButton,
   OnyxModal,
   OnyxSystemButton,
+  type MediaType,
 } from "sit-onyx";
 import { ref } from "vue";
 
