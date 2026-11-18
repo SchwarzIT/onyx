@@ -72,7 +72,7 @@ const valueLabel = computed(() => selectedOption.value?.label ?? value.value);
   </OnyxSelect>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .loading-indicator {
   color: var(--onyx-color-text-icons-primary-intense);
 }

@@ -26,12 +26,13 @@ const isOpen = ref(false);
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .modal {
   width: 32rem;
-  container-type: inline-size; // this is needed so when using the onyx grid, it uses the actual modal width to determine the breakpoint
+  /* This is needed so when using the onyx grid, it uses the actual modal width to determine the breakpoint */
+  container-type: inline-size;
 
-  &__content {
+  .modal__content {
     padding: var(--onyx-density-xl) var(--onyx-modal-padding-inline);
     color: var(--onyx-color-text-icons-info-intense);
   }

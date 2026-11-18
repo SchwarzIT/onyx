@@ -30,7 +30,7 @@ const handleComplete = () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .shortcut {
   display: flex;
   align-items: center;

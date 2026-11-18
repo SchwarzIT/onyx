@@ -6,7 +6,7 @@ import { OnyxTextEditor } from "@sit-onyx/tiptap";
   <OnyxTextEditor label="Text editor" placeholder="Placeholder" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-text-editor {
   zoom: 0.6;
 }

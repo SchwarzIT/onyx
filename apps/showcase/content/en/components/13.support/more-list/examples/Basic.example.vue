@@ -20,7 +20,7 @@ import { EXAMPLE_MORE_LIST_INJECTION_KEY } from "./index.js";
   </OnyxMoreList>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .list {
   padding: 0;
   list-style: none;

@@ -11,7 +11,7 @@ const steps: ControlledProgressStep[] = [{ label: "Step" }, { label: "Step" }, {
   <OnyxProgressSteps v-model="activeStep" :steps />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-progress-steps {
   zoom: 0.6;
 }

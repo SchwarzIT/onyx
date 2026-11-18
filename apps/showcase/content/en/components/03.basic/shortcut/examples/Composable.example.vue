@@ -20,7 +20,7 @@ _unstableUseShortcut({
   <p class="description">Press (Shift + 7) to trigger the shortcut.</p>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .description {
   color: var(--onyx-color-text-icons-info-intense);
 }

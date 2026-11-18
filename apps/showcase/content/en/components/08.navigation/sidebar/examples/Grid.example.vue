@@ -36,7 +36,7 @@ import {
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .card {
   flex-direction: row;
   justify-content: center;

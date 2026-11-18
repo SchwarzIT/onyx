@@ -55,12 +55,12 @@ const removeFile = (fileToRemove: File) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .upload {
   width: max-content;
   max-width: 100%;
 
-  &__button {
+  .upload__button {
     display: block;
     margin-top: var(--onyx-density-xs);
     margin-inline: auto;

@@ -16,7 +16,7 @@ import { OnyxFileCard, OnyxIconButton } from "sit-onyx";
   </OnyxFileCard>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-file-card {
   width: 100%;
 }

@@ -27,12 +27,12 @@ const currentYear = new Date().getFullYear();
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .footer {
   border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
   background-color: var(--onyx-color-base-background-blank);
 
-  &__content {
+  .footer__content {
     padding-block: var(--onyx-density-sm);
     display: flex;
     align-items: center;
@@ -43,7 +43,7 @@ const currentYear = new Date().getFullYear();
     line-height: var(--onyx-font-line-height-sm);
   }
 
-  &__links {
+  .footer__links {
     display: flex;
     align-items: center;
     flex-wrap: wrap;

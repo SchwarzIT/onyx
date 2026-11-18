@@ -14,7 +14,7 @@ const tab = ref("tab-1");
   </OnyxTabs>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-tabs {
   --onyx-tabs-tablist-margin-bottom: 0;
 }

@@ -33,13 +33,13 @@ const selectedTab = ref("tab-1");
   </OnyxDialog>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .dialog {
   zoom: 0.4;
   height: 100%;
   margin-left: -50%;
 
-  &__content {
+  .dialog__content {
     padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
     width: 20rem;
     display: flex;

@@ -12,7 +12,7 @@ import { OnyxBreadcrumb, OnyxBreadcrumbItem } from "sit-onyx";
   </ClientOnly>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-breadcrumb {
   width: 100%;
 }

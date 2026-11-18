@@ -60,7 +60,7 @@ const features = [withMyFeature];
   <OnyxDataGrid :headline="{ text: 'Example headline', rowCount: true }" :columns :data :features />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 :deep(.row--highlighted) {
   --onyx-table-row-background-color: var(--onyx-color-base-primary-100);
 }

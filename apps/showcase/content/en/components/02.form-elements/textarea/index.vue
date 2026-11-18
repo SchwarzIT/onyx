@@ -6,7 +6,7 @@ import { OnyxTextarea } from "sit-onyx";
   <OnyxTextarea label="Textarea" placeholder="Placeholder" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-textarea {
   width: 100%;
 }

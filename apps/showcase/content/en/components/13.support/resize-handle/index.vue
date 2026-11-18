@@ -17,7 +17,7 @@ import { OnyxAppLayout, OnyxPageLayout, OnyxSidebar, OnyxIcon } from "sit-onyx";
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-app {
   border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);
   border-radius: var(--onyx-radius-md);
@@ -38,7 +38,7 @@ import { OnyxAppLayout, OnyxPageLayout, OnyxSidebar, OnyxIcon } from "sit-onyx";
   position: relative;
   overflow: inherit;
 
-  &__icon {
+  .sidebar__icon {
     position: absolute;
     top: calc(50% - 0.5 * var(--icon-size));
     right: calc(-0.5 * var(--icon-size));

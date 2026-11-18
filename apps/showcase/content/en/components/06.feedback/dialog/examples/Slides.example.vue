@@ -76,16 +76,16 @@ const nextSlide = () => {
   </OnyxDialog>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .dialog {
-  &__content {
+  .dialog__content {
     position: relative;
     width: 26rem;
     height: 10rem;
     overflow: hidden;
   }
 
-  &__slide {
+  .dialog__slide {
     position: absolute;
     top: 0;
     width: inherit;
@@ -94,7 +94,7 @@ const nextSlide = () => {
     transition: left var(--onyx-duration-md) ease-in-out;
   }
 
-  &__nav-button {
+  .dialog__nav-button {
     align-content: center;
   }
 }

@@ -23,7 +23,7 @@ const options = [
   </OnyxSelect>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .option {
   display: flex;
   align-items: center;

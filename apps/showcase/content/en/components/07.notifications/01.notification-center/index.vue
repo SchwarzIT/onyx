@@ -74,7 +74,7 @@ createdAt.setHours(createdAt.getHours() - 1);
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-app {
   zoom: 0.3;
 }
@@ -83,13 +83,13 @@ createdAt.setHours(createdAt.getHours() - 1);
   --onyx-sidebar-width: 22rem;
   margin-right: 0;
 
-  &__accordions {
+  .notification-center__accordions {
     :deep(.onyx-accordion-item__panel) {
       padding: 0;
     }
   }
 
-  // we use the OnyxBottomBar which already provides its own padding + border
+  /* we use the OnyxBottomBar which already provides its own padding + border */
   :deep(.onyx-sidebar__footer) {
     padding: 0;
     border-top: none;

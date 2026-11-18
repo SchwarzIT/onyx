@@ -24,7 +24,7 @@ import { OnyxFlyoutMenu, OnyxMenuItem } from "sit-onyx";
   </OnyxFlyoutMenu>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-flyout-menu {
   align-self: flex-end;
   transform: translateX(-200%);

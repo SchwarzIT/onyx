@@ -9,7 +9,7 @@ import { OnyxEmpty } from "sit-onyx";
   </OnyxEmpty>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-empty {
   zoom: 0.65;
 }

@@ -43,7 +43,7 @@ const features = [withCustomSlots];
   <OnyxDataGrid :headline="{ text: 'Example headline', rowCount: true }" :columns :data :features />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 :deep(.headline-wrapper) {
   display: flex;
   align-items: center;

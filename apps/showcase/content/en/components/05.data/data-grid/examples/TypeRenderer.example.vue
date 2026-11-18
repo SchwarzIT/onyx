@@ -59,7 +59,7 @@ const features = [withCustomTypes];
   <OnyxDataGrid :headline="{ text: 'Example headline', rowCount: true }" :columns :data :features />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 :deep(.copy-cell) {
   display: flex;
   align-items: center;

@@ -45,7 +45,7 @@ const handleLoadMore = async () => {
   </OnyxSelect>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .more-button {
   width: 100%;
 }

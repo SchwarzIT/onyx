@@ -14,7 +14,7 @@ const selectedOption = ref(options[0].value);
   <OnyxSegmentedControl v-model="selectedOption" :options />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-segmented-control {
   width: 100%;
 }

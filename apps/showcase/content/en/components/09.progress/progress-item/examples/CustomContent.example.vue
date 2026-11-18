@@ -11,7 +11,7 @@ import { OnyxProgressItem } from "sit-onyx";
   </OnyxProgressItem>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .description {
   color: var(--onyx-color-text-icons-neutral-soft);
   font-weight: var(--onyx-font-weight-regular);
