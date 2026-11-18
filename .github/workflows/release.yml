@@ -41,8 +41,6 @@ jobs:
           ssh-key: ${{ secrets.GH_PUSH_PROTECTED_KEY }}
 
       - uses: ./.github/templates/node-setup
-        with:
-          update_npm: "true"
 
       - name: 🛠️ Build packages
         run: pnpm build:all --filter=!./apps/*

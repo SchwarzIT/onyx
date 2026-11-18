@@ -3,11 +3,8 @@ description: Custom node setup for onyx
 
 inputs:
   pnpm_install_command:
-    default: "pnpm install --frozen-lockfile --prefer-offline"
+    default: "pnpm install --frozen-lockfile"
     description: Command to run to install dependencies
-  update_npm:
-    default: "false"
-    description: Whether to update npm to the latest version (needed for npm trusted publishing)
 
 runs:
   using: "composite"
@@ -24,7 +21,6 @@ runs:
     # *pnpm* uses *npm* under the hood for publishing.
     # For publishing securely the latest npm version should always be used.
     - name: Keep npm up-to-date
-      if: ${{ inputs.update_npm == 'true' }}
       run: npm install -g npm@latest
       shell: bash
 
