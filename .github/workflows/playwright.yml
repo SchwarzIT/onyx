@@ -51,7 +51,7 @@ jobs:
 
   playwright:
     needs: prepare
-    if: fromJSON(needs.prepare.outputs.packages)[0] != null
+    if: fromJSON(needs.prepare.outputs.packages)[0] != null && contains(fromJSON(needs.prepare.outputs.packages), matrix.package)
     strategy:
       fail-fast: false
       max-parallel: 15
