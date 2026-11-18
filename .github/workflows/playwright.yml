@@ -187,7 +187,7 @@ jobs:
 
       - uses: ./.github/templates/node-setup
         with:
-          pnpm_install_command: "pnpm install --frozen-lockfile --filter --ignore-scripts ."
+          pnpm_install_command: "pnpm install --frozen-lockfile --ignore-scripts --filter ."
 
       # For every blob-report merge its playwright results as html report and move it into its original package
       - name: Merge into HTML Report
