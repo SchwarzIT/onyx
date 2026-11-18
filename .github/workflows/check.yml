@@ -72,6 +72,9 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
+      - name: 🛠️ Build packages
+        run: pnpm run build:all
+
       - name: 🔎 Lint
         id: lint
         run: pnpm run lint:ci:all
@@ -94,9 +97,6 @@ jobs:
 
       - name: 🎨 Check formatting
         run: pnpm run format:check:all
-
-      - name: 🛠️ Build packages
-        run: pnpm run build:all
 
       - name: 🚨 Run unit tests
         run: pnpm run test:all
