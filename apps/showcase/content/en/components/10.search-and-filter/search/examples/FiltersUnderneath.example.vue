@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxSelect, OnyxUnstableSearch, SelectOption } from "sit-onyx";
+import { OnyxButton, OnyxSelect, OnyxUnstableSearch, type SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
 type FilterState = Partial<{

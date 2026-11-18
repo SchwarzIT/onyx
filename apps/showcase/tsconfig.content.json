@@ -1,0 +1,7 @@
+{
+  "extends": "./.nuxt/tsconfig.app.json",
+  "include": ["./.nuxt/types/builder-env.d.ts", "content/**/*", "content/**/*.vue", "content.d.ts"],
+  "vueCompilerOptions": {
+    "checkUnknownComponents": true
+  }
+}
