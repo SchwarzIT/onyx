@@ -23,9 +23,6 @@
     "test:playwright": "playwright install && playwright test",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
-  "dependencies": {
-    "sass": "^1.108.2"
-  },
   "devDependencies": {
     "@sit-onyx/assets": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
