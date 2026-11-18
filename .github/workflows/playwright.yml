@@ -149,6 +149,8 @@ jobs:
             ./packages/**/blob-report
             ./apps/**/blob-report
             !**/node_modules/**
+          # prevent warnings if shard does not generate a report
+          if-no-files-found: ignore
           retention-days: 1
 
   # this final step is needed to we can set make the Playwright tests a required check in pull requests
@@ -161,6 +163,8 @@ jobs:
       contents: write
     name: Collect Playwright result
     needs: playwright
+    env:
+      REPORT_ARTIFACT_NAME: html-report--attempt-${{ github.run_attempt }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
@@ -177,20 +181,38 @@ jobs:
         with:
           name: screenshots
           pattern: screenshots-*
+          delete-merged: true
           retention-days: 14
+
+      # merge all blob reports into a single one to prevent cluttering the GitHub UI a lot of individual reports
+      - name: Merge Reports
+        uses: actions/upload-artifact/merge@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        with:
+          # we use the same name as the final merged report so this "temporary" artifact will be overridden with the merged report
+          name: ${{ env.REPORT_ARTIFACT_NAME }}
+          pattern: blob-report-*
+          delete-merged: true
+          retention-days: 1
 
       - name: Download reports
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         if: ${{ !cancelled() }}
         with:
-          pattern: blob-report-*
-          merge-multiple: true
+          name: ${{ env.REPORT_ARTIFACT_NAME }}
 
       - uses: ./.github/templates/node-setup
+        with:
+          pnpm_install_command: "pnpm install --frozen-lockfile --prefer-offline --filter . --ignore-scripts"
 
       # For every blob-report merge its playwright results as html report and move it into its original package
       - name: Merge into HTML Report
-        run: find . -type d -name blob-report | xargs -n1 -I {} sh -c 'npx playwright merge-reports --reporter html {} && mv playwright-report {}/../playwright-report'
+        run: |
+          for dir in $(find . -type d -name blob-report); do
+            PW_TEST_HTML_REPORT_OPEN=never PLAYWRIGHT_HTML_OUTPUT_DIR="$dir/../playwright-report" pnpm exec playwright merge-reports --reporter html "$dir" &
+          done
+          wait
 
       # The html report can be manually downloaded and after extraction a static file server can be used to show the results.
       # A file server is necessary, otherwise not all features are supported.
@@ -198,7 +220,8 @@ jobs:
       - name: Upload HTML report
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: html-report--attempt-${{ github.run_attempt }}
+          name: ${{ env.REPORT_ARTIFACT_NAME }}
+          overwrite: true
           path: |
             ./packages/*/playwright-report
             ./apps/*/playwright-report
