@@ -394,60 +394,6 @@ importers:
         specifier: ^5.5.1
         version: 5.5.1(@vue/compiler-sfc@3.5.44)(esbuild@0.28.2)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.19)(rollup@4.67.4)(vite@8.3.8)(vue@3.5.44(typescript@6.0.3))
 
-  apps/docs:
-    devDependencies:
-      '@sit-onyx/assets':
-        specifier: workspace:^
-        version: link:../../packages/assets
-      '@sit-onyx/chartjs-plugin':
-        specifier: workspace:^
-        version: link:../../packages/chartjs-plugin
-      '@sit-onyx/flags':
-        specifier: workspace:^
-        version: link:../../packages/flags
-      '@sit-onyx/icons':
-        specifier: workspace:^
-        version: link:../../packages/icons
-      '@sit-onyx/shared':
-        specifier: workspace:^
-        version: link:../../packages/shared
-      '@sit-onyx/storybook-utils':
-        specifier: workspace:^
-        version: link:../../packages/storybook-utils
-      '@sit-onyx/tiptap':
-        specifier: workspace:^
-        version: link:../../packages/tiptap
-      '@sit-onyx/vitepress-theme':
-        specifier: workspace:^
-        version: link:../../packages/vitepress-theme
-      browserslist:
-        specifier: ^4.29.5
-        version: 4.29.5
-      chart.js:
-        specifier: 'catalog:'
-        version: 4.6.1
-      postcss:
-        specifier: ^8.5.33
-        version: 8.5.33
-      sass-embedded:
-        specifier: 1.108.2
-        version: 1.108.2
-      sit-onyx:
-        specifier: workspace:^
-        version: link:../../packages/sit-onyx
-      vite:
-        specifier: 8.3.8
-        version: 8.3.8(@types/node@24.19.2)(@vitejs/devtools@0.8.1)(esbuild@0.28.2)(jiti@2.7.0)(sass-embedded@1.108.2)(sass@1.108.2)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1)
-      vitepress:
-        specifier: 2.0.0-alpha.21
-        version: 2.0.0-alpha.21(@types/node@24.19.2)(@vitejs/devtools@0.8.1)(esbuild@0.28.2)(fuse.js@7.5.0)(jiti@2.7.0)(postcss@8.5.33)(sass-embedded@1.108.2)(sass@1.108.2)(terser@5.51.2)(tsx@4.23.15)(typescript@6.0.3)(yaml@2.9.1)
-      vue:
-        specifier: 3.5.44
-        version: 3.5.44(typescript@6.0.3)
-      vue-chartjs:
-        specifier: ^5.3.4
-        version: 5.3.4(chart.js@4.6.1)(vue@3.5.44(typescript@6.0.3))
-
   apps/playground:
     devDependencies:
       '@sit-onyx/assets':
@@ -1861,14 +1807,8 @@ packages:
   '@docsearch/css@3.8.2':
     resolution: {integrity: sha512-y05ayQFyUmCXze79+56v/4HpycYF3uFqB78pLPrSV5ZKAlDuIAAJNhaRi8tTdRNXh05yxX/TyNnzD6LwSM89vQ==}
 
-  '@docsearch/css@4.7.1':
-    resolution: {integrity: sha512-AsMPnbNmVLDNjhtgfq4ZRskNvWR8vuK6riEegHp3kjBFtxbmTWPzZ5s1FJ04SGr2D0ZXglueUNISsV2sDgV6Jw==}
-
   '@docsearch/js@3.8.2':
     resolution: {integrity: sha512-Q5wY66qHn0SwA7Taa0aDbHiJvaFJLOJyHmooQ7y8hlwwQLQ/5WwCcoX0g7ii04Qi2DJlHsd0XXzJ8Ypw9+9YmQ==}
-
-  '@docsearch/js@4.7.1':
-    resolution: {integrity: sha512-3FWRs18TuemPlLP5NeQG3+aYarmp3gTGnYLnZTLVlTnbFLWAgHafxUdFDWqtsqyvsbCMAeHyzwrX6MG6BuZfZA==}
 
   '@docsearch/react@3.8.2':
     resolution: {integrity: sha512-xCRrJQlTt8N9GU0DG4ptwHRkfnSnD/YpdeaXe02iKfqs97TkZJv60yE+1eq/tjPcVnTW8dP5qLP7itifFVV5eg==}
@@ -1886,9 +1826,6 @@ packages:
         optional: true
       search-insights:
         optional: true
-
-  '@docsearch/sidepanel-js@4.7.1':
-    resolution: {integrity: sha512-uyOKbC6rjHCZBVbLCSZVb1NDWzjbD27WqxTuRYnkTW717laEj2dX+W8Ho1fNHSyG4dqssIlPWlXdg+McGxxxxg==}
 
   '@dual-bundle/import-meta-resolve@4.2.1':
     resolution: {integrity: sha512-id+7YRUgoUX6CgV0DtuhirQWodeeA7Lf4i2x71JS/vtA5pRb/hIGWlw+G6MeXvsM+MXrz0VAydTGElX1rAfgPg==}
@@ -5067,49 +5004,6 @@ packages:
       universal-cookie:
         optional: true
 
-  '@vueuse/integrations@15.0.0':
-    resolution: {integrity: sha512-uWC1608pEocJPeRk1IqrEA3uYHhAGTJNibcMAdxgdK2Sy2Hypc6b+VdNO9KekCxyPc4VXK8SKDp8vsXefR/ZFg==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      async-validator: ^4
-      axios: ^1
-      change-case: ^5
-      drauu: ^1 || ^0.4
-      focus-trap: ^7 || ^8
-      fuse.js: ^7
-      idb-keyval: ^6
-      jwt-decode: ^4
-      nprogress: ^0.2
-      qrcode: ^1.5
-      sortablejs: ^1
-      universal-cookie: ^7 || ^8
-      vue: 3.5.44
-    peerDependenciesMeta:
-      async-validator:
-        optional: true
-      axios:
-        optional: true
-      change-case:
-        optional: true
-      drauu:
-        optional: true
-      focus-trap:
-        optional: true
-      fuse.js:
-        optional: true
-      idb-keyval:
-        optional: true
-      jwt-decode:
-        optional: true
-      nprogress:
-        optional: true
-      qrcode:
-        optional: true
-      sortablejs:
-        optional: true
-      universal-cookie:
-        optional: true
-
   '@vueuse/metadata@12.8.2':
     resolution: {integrity: sha512-rAyLGEuoBJ/Il5AmFHiziCPdQzRt88VxR+Y/A/QhJ1EWtWqPBBAxTAFaSkviwEuOEZNtW8pvkPgoCZQ+HxqW1A==}
 
@@ -6427,9 +6321,6 @@ packages:
 
   focus-trap@7.8.0:
     resolution: {integrity: sha512-/yNdlIkpWbM0ptxno3ONTuf+2g318kh2ez3KSeZN5dZ8YC6AAmgeWz+GasYYiBJPFaYcSAPeu4GfhUaChzIJXA==}
-
-  focus-trap@8.2.4:
-    resolution: {integrity: sha512-oy6dj7WZYgMbbpoOA29K5W++473F1zEzdI1oJgPb6x7yWT36YaWedUe6i6YPWEt5quSh0pRMohVyHLWXUxtdxg==}
 
   for-each@0.3.5:
     resolution: {integrity: sha512-dKx12eRCVIzqCxFGplyFKJMPvLEWgmNtUrpTiJIR5u97zEhRG8ySrtboPHZXx7daLxQVrl643cTzbab2tkQjxg==}
@@ -9698,18 +9589,6 @@ packages:
       postcss:
         optional: true
 
-  vitepress@2.0.0-alpha.21:
-    resolution: {integrity: sha512-b2PFPIw2mVfxDi490FhSq4AlkFi17b9lofLCqWfH4uPKz/dF4oy2C9vBpP2r7l7hl2hc5BG7OTRPvRFfRzF7MA==}
-    hasBin: true
-    peerDependencies:
-      markdown-it-mathjax3: ^4
-      postcss: ^8
-    peerDependenciesMeta:
-      markdown-it-mathjax3:
-        optional: true
-      postcss:
-        optional: true
-
   vitest-environment-nuxt@2.0.0:
     resolution: {integrity: sha512-zEGFRiCAaRR3fHnqISHKMNTRvCzkQEI1XyFeqNgR2IBD0oYkfZ1rUHwi7C+h3Cns3KPykfB0av1B3MtLEbChDw==}
 
@@ -10706,8 +10585,6 @@ snapshots:
 
   '@docsearch/css@3.8.2': {}
 
-  '@docsearch/css@4.7.1': {}
-
   '@docsearch/js@3.8.2(@algolia/client-search@5.61.0)(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)':
     dependencies:
       '@docsearch/react': 3.8.2(@algolia/client-search@5.61.0)(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)
@@ -10719,8 +10596,6 @@ snapshots:
       - react
       - react-dom
       - search-insights
-
-  '@docsearch/js@4.7.1': {}
 
   '@docsearch/react@3.8.2(@algolia/client-search@5.61.0)(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)':
     dependencies:
@@ -10735,8 +10610,6 @@ snapshots:
       search-insights: 2.17.3
     transitivePeerDependencies:
       - '@algolia/client-search'
-
-  '@docsearch/sidepanel-js@4.7.1': {}
 
   '@dual-bundle/import-meta-resolve@4.2.1': {}
 
@@ -15210,15 +15083,6 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@vueuse/integrations@15.0.0(focus-trap@8.2.4)(fuse.js@7.5.0)(vue@3.5.44(typescript@6.0.3))':
-    dependencies:
-      '@vueuse/core': 15.0.0(vue@3.5.44(typescript@6.0.3))
-      '@vueuse/shared': 15.0.0(vue@3.5.44(typescript@6.0.3))
-      vue: 3.5.44(typescript@6.0.3)
-    optionalDependencies:
-      focus-trap: 8.2.4
-      fuse.js: 7.5.0
-
   '@vueuse/metadata@12.8.2': {}
 
   '@vueuse/metadata@15.0.0': {}
@@ -16586,10 +16450,6 @@ snapshots:
   fnv1a-64@0.1.2: {}
 
   focus-trap@7.8.0:
-    dependencies:
-      tabbable: 6.5.1
-
-  focus-trap@8.2.4:
     dependencies:
       tabbable: 6.5.1
 
@@ -21215,53 +21075,6 @@ snapshots:
       - sass
       - sass-embedded
       - search-insights
-      - sortablejs
-      - stylus
-      - sugarss
-      - terser
-      - tsx
-      - typescript
-      - universal-cookie
-      - yaml
-
-  vitepress@2.0.0-alpha.21(@types/node@24.19.2)(@vitejs/devtools@0.8.1)(esbuild@0.28.2)(fuse.js@7.5.0)(jiti@2.7.0)(postcss@8.5.33)(sass-embedded@1.108.2)(sass@1.108.2)(terser@5.51.2)(tsx@4.23.15)(typescript@6.0.3)(yaml@2.9.1):
-    dependencies:
-      '@docsearch/css': 4.7.1
-      '@docsearch/js': 4.7.1
-      '@docsearch/sidepanel-js': 4.7.1
-      '@iconify-json/simple-icons': 1.2.101
-      '@shikijs/transformers': 4.6.0
-      '@types/markdown-it': 14.2.0
-      '@vitejs/plugin-vue': 6.0.11(vite@8.3.8)(vue@3.5.44(typescript@6.0.3))
-      '@vue/devtools-api': 8.2.1
-      '@vue/shared': 3.5.44
-      '@vueuse/core': 15.0.0(vue@3.5.44(typescript@6.0.3))
-      '@vueuse/integrations': 15.0.0(focus-trap@8.2.4)(fuse.js@7.5.0)(vue@3.5.44(typescript@6.0.3))
-      focus-trap: 8.2.4
-      mark.js: 8.11.1
-      minisearch: 7.2.0
-      shiki: 4.6.0
-      vite: 8.3.8(@types/node@24.19.2)(@vitejs/devtools@0.8.1)(esbuild@0.28.2)(jiti@2.7.0)(sass-embedded@1.108.2)(sass@1.108.2)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1)
-      vue: 3.5.44(typescript@6.0.3)
-    optionalDependencies:
-      postcss: 8.5.33
-    transitivePeerDependencies:
-      - '@types/node'
-      - '@vitejs/devtools'
-      - async-validator
-      - axios
-      - change-case
-      - drauu
-      - esbuild
-      - fuse.js
-      - idb-keyval
-      - jiti
-      - jwt-decode
-      - less
-      - nprogress
-      - qrcode
-      - sass
-      - sass-embedded
       - sortablejs
       - stylus
       - sugarss

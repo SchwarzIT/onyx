@@ -1,6 +1,6 @@
 {
-  "name": "onyx",
-  "short_name": "onyx",
+  "name": "Onyx Application Design System",
+  "short_name": "Onyx",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
