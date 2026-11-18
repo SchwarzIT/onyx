@@ -19,7 +19,7 @@ jobs:
     name: Prepare
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.queryPackages.outputs.packages }}
+      matrix: ${{ steps.queryPackages.outputs.matrix }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
@@ -41,54 +41,22 @@ jobs:
           query="query { ${{ (inputs.only-changed != '' && format('packages: affectedPackages(base: \"{0}\"', inputs.only-changed)) || 'packages(' }} filter: { has: { field: TASK_NAME, value: \"test:playwright\" } }) { items { name } } }"
 
           # 1. Query all packages that have a "test:playwright" script
-          # 2. Extract array with package names
+          # 2. Extract array with package names and expand "sit-onyx" into 10 shards
           # 3. Prepare for GITHUB_OUTPUT
           pnpm turbo query "$query" \
-          | jq -c ".data.packages.items | map(.name)" \
-          | awk '{print "packages="$1}' \
+          | jq -c '[.data.packages.items[].name | if . == "sit-onyx" then (range(1; 11) | {package: "sit-onyx", shard: ., totalShards: 10}) else {package: ., shard: 1} end]' \
+          | awk '{print "matrix="$1}' \
           | tee "$GITHUB_OUTPUT" \
           | cat
 
   playwright:
     needs: prepare
-    if: fromJSON(needs.prepare.outputs.packages)[0] != null && contains(fromJSON(needs.prepare.outputs.packages), matrix.package)
+    if: fromJSON(needs.prepare.outputs.matrix)[0] != null
     strategy:
       fail-fast: false
       max-parallel: 15
       matrix:
-        package: ${{ fromJSON(needs.prepare.outputs.packages) }}
-        shard: [1]
-        include:
-          - package: "sit-onyx"
-            shard: 1
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 2
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 3
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 4
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 5
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 6
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 7
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 8
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 9
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 10
-            totalShards: 10
+        include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
