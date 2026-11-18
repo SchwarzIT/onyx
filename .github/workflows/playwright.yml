@@ -155,7 +155,7 @@ jobs:
   # because we don't want to add each parallel matrix job individually
   # see: https://github.com/orgs/community/discussions/26822#discussioncomment-3305794
   playwright-result:
-    if: ${{ always() }}
+    if: ${{ always() && needs.playwright.result != 'skipped' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
