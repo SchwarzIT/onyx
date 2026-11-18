@@ -88,9 +88,8 @@ jobs:
       # the lint step continues on error so the results can be uploaded to GitHub but we still want to fail the CI job itself if errors occurred
       - name: Check lint result
         if: ${{ steps.lint.outcome == 'failure' }}
-        run: |
-          jq -r '.runs[].results[] | "::\(.level) file=\(.locations[0].physicalLocation.artifactLocation.uri),line=\(.locations[0].physicalLocation.region.startLine // 1),col=\(.locations[0].physicalLocation.region.startColumn // 1),title=\(.ruleId)::\(.message.text)"' eslint-results.sarif
-          exit 1
+        # eslint is cached so re-running without "lint:all" instead of "lint:all:ci" will output errors properly without re-checking valid files
+        run: pnpm run lint:all
 
       - name: 🎨 Check formatting
         run: pnpm run format:check:all
