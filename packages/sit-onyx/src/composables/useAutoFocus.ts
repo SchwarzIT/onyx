@@ -1,5 +1,4 @@
 import { onMounted, watch, type Ref } from "vue";
-import type { Nullable } from "../types/utils.js";
 
 const anyInputFocused = () => {
   if (!document.activeElement) {
@@ -28,8 +27,8 @@ export const useAutofocus = (
   }
 
   const performAutoFocus = () => {
-    const elem: Ref<Nullable<HTMLElement>> = Array.isArray(ref) ? ref[0] : ref;
-    if (elem.value === document.activeElement) {
+    const elem = Array.isArray(ref.value) ? ref.value[0] : ref.value;
+    if (!elem || elem === document.activeElement) {
       return;
     }
 
@@ -37,8 +36,8 @@ export const useAutofocus = (
       return;
     }
 
-    if (elem.value && "checkVisibility" in elem.value) {
-      const isVisible = elem.value?.checkVisibility({
+    if ("checkVisibility" in elem) {
+      const isVisible = elem.checkVisibility({
         opacityProperty: true,
         visibilityProperty: true,
         contentVisibilityAuto: true,
@@ -49,7 +48,7 @@ export const useAutofocus = (
       }
     }
 
-    elem.value?.focus();
+    elem.focus();
   };
 
   onMounted(() => {

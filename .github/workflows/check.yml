@@ -8,6 +8,11 @@ on:
   # see: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue#configuring-continuous-integration-ci-workflows-for-merge-queues
   merge_group:
 
+# for PRs, previous runs should be cancelled if a new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_REMOTE_CACHE__TURBO_TOKEN }}
 
@@ -64,13 +69,14 @@ jobs:
 
       - name: "🛒 Checkout Repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          # needed when building VitePress docs so timestamps can be calculated correctly
-          fetch-depth: 0
 
       - uses: ./.github/templates/node-setup
 
+      - name: 🛠️ Build packages
+        run: pnpm run build:all
+
       - name: 🔎 Lint
+        id: lint
         run: pnpm run lint:ci:all
         # we must continue on error here so the eslint results are uploaded to GitHub in the next step.
         continue-on-error: true
@@ -79,14 +85,18 @@ jobs:
         uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
         with:
           sarif_file: eslint-results.sarif
-          wait-for-processing: true
+          wait-for-processing: false
           category: "/tool:eslint"
+
+      # the lint step continues on error so the results can be uploaded to GitHub but we still want to fail the CI job itself if errors occurred
+      - name: Check lint errors
+        if: ${{ steps.lint.outcome == 'failure' }}
+        # eslint is cached so re-running "lint:all" instead of "lint:all:ci" (which only writes to the sarif file without any visible output)
+        # will output errors properly for easier debugging without heavy re-computation
+        run: pnpm run lint:all
 
       - name: 🎨 Check formatting
         run: pnpm run format:check:all
-
-      - name: 🛠️ Build packages
-        run: pnpm run build:all
 
       - name: 🚨 Run unit tests
         run: pnpm run test:all
@@ -122,7 +132,6 @@ jobs:
   codeql:
     name: CodeQL
     runs-on: ubuntu-latest
-    needs: build
     permissions:
       actions: read
       contents: read
