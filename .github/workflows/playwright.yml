@@ -76,13 +76,28 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
+      - name: 📦 Install Playwright system dependencies
+        id: first-playwright-install
+        run: |
+          set -ex
+
+          pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
+        timeout-minutes: 3
+        continue-on-error: true
+
       # Install system dependencies for Playwright using multiple mirrors.
       # The default mirror sometimes becomes slow/unstable (https://github.com/actions/runner-images/issues/7048),
       # therefore we add additional mirrors with the same priority.
       # The download is then spread over multiple mirrors: https://manpages.debian.org/testing/apt/apt-transport-mirror.1.en.html#Fallback_order_for_mirrors
-      - name: 📦 Install Playwright system dependencies
+      - name: 📦 Install Playwright system dependencies using fallback mirrors
+        if: ${{ steps.first-playwright-install.outcome == 'failure' }}
         run: |
           set -ex
+
+          # Clean-up in progress installation: https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock
+          sudo killall -q apt apt-get || true
+          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock /var/cache/apt/archives/lock || true
+          sudo dpkg --configure --pending
 
           # Add fastest "United States" mirrors from https://launchpad.net/ubuntu/+archivemirrors#:~:text=United%20States
           echo "https://mirror.enzu.com/ubuntu/	priority:0" | sudo tee --append /etc/apt/apt-mirrors.txt
