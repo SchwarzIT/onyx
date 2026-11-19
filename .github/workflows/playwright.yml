@@ -82,7 +82,7 @@ jobs:
         id: first-playwright-install
         run: |
           set -ex
-          echo 'Acquire::Retries "3"; Acquire::http::Timeout "15"; Acquire::https::Timeout "15";' | sudo tee /etc/apt/apt.conf.d/99timeout
+          echo 'Acquire::Retries "2"; Acquire::http::Timeout "10"; Acquire::https::Timeout "10";' | sudo tee /etc/apt/apt.conf.d/99timeout
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
         continue-on-error: true
 
