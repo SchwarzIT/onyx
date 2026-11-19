@@ -6,8 +6,8 @@ on:
       - "dependabot/npm_and_yarn/*"
     paths:
       - "**/package.json"
-      - "pnpm-lock.json"
-      - "pnpm-workspace.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
 
 permissions:
   contents: read

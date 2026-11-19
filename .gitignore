@@ -14,6 +14,7 @@ node_modules/
 *.local
 .npmrc
 **/.cache
+.eslintcache
 **/.vitepress/cache
 *.ts.timestamp*.mjs
 *.tsbuildinfo

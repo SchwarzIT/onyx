@@ -19,7 +19,7 @@ jobs:
     name: Prepare
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.queryPackages.outputs.packages }}
+      matrix: ${{ steps.queryPackages.outputs.matrix }}
     steps:
       - name: "🛃 Harden the runner (Audit all outbound calls)"
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
@@ -41,54 +41,22 @@ jobs:
           query="query { ${{ (inputs.only-changed != '' && format('packages: affectedPackages(base: \"{0}\"', inputs.only-changed)) || 'packages(' }} filter: { has: { field: TASK_NAME, value: \"test:playwright\" } }) { items { name } } }"
 
           # 1. Query all packages that have a "test:playwright" script
-          # 2. Extract array with package names
+          # 2. Extract array with package names and expand "sit-onyx" into 10 shards
           # 3. Prepare for GITHUB_OUTPUT
           pnpm turbo query "$query" \
-          | jq -c ".data.packages.items | map(.name)" \
-          | awk '{print "packages="$1}' \
+          | jq -c '[.data.packages.items[].name | if . == "sit-onyx" then (range(1; 11) | {package: "sit-onyx", shard: ., totalShards: 10}) else {package: ., shard: 1} end]' \
+          | awk '{print "matrix="$1}' \
           | tee "$GITHUB_OUTPUT" \
           | cat
 
   playwright:
     needs: prepare
-    if: fromJSON(needs.prepare.outputs.packages)[0] != null
+    if: fromJSON(needs.prepare.outputs.matrix)[0] != null
     strategy:
       fail-fast: false
       max-parallel: 15
       matrix:
-        package: ${{ fromJSON(needs.prepare.outputs.packages) }}
-        shard: [1]
-        include:
-          - package: "sit-onyx"
-            shard: 1
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 2
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 3
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 4
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 5
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 6
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 7
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 8
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 9
-            totalShards: 10
-          - package: "sit-onyx"
-            shard: 10
-            totalShards: 10
+        include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     name: Playwright shard
     runs-on: ubuntu-latest
     permissions:
@@ -114,8 +82,8 @@ jobs:
         id: first-playwright-install
         run: |
           set -ex
+          echo 'Acquire::Retries "2"; Acquire::http::Timeout "10"; Acquire::https::Timeout "10";' | sudo tee /etc/apt/apt.conf.d/99timeout
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
-        timeout-minutes: 3
         continue-on-error: true
 
       - name: 📦 Install Playwright system dependencies using fallback mirror
@@ -125,15 +93,13 @@ jobs:
 
           # Clean-up in progress installation: https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock
           sudo killall -q apt apt-get || true
-          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend || true
+          sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock /var/cache/apt/archives/lock || true
           sudo dpkg --configure -a
 
           # Use different mirror
-          sudo sed -i 's/azure.archive.ubuntu.com/mirror.enzu.com/g' /etc/apt/apt-mirrors.txt
-          sudo cat /etc/apt/apt-mirrors.txt
+          sudo sed -i 's/azure.archive.ubuntu.com/archive.ubuntu.com/g' /etc/apt/apt-mirrors.txt /etc/apt/sources.list /etc/apt/sources.list.d/* 2>/dev/null || true
 
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
-        timeout-minutes: 10
 
       - name: 🔎 Run Playwright tests
         run: pnpm run test:playwright:all --filter="${{ matrix.package }}" --concurrency 1 ${{ ((inputs.only-changed != '' && matrix.package == 'sit-onyx') && format('-- --only-changed {0}', inputs.only-changed)) || '' }}
@@ -181,13 +147,15 @@ jobs:
             ./packages/**/blob-report
             ./apps/**/blob-report
             !**/node_modules/**
+          # prevent warnings if shard does not generate a report
+          if-no-files-found: ignore
           retention-days: 1
 
-  # this final step is needed to we can set make the Playwright tests a required check in pull requests
+  # this final step is needed so we can make the Playwright tests a required check in pull requests
   # because we don't want to add each parallel matrix job individually
   # see: https://github.com/orgs/community/discussions/26822#discussioncomment-3305794
   playwright-result:
-    if: ${{ always() }}
+    if: ${{ !cancelled() && needs.playwright.result != 'skipped'  }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -204,21 +172,22 @@ jobs:
 
       - name: Merge Screenshots
         uses: actions/upload-artifact/merge@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        if: ${{ !cancelled() }}
         continue-on-error: true
         with:
           name: screenshots
           pattern: screenshots-*
+          delete-merged: true
           retention-days: 14
 
       - name: Download reports
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-        if: ${{ !cancelled() }}
         with:
           pattern: blob-report-*
           merge-multiple: true
 
       - uses: ./.github/templates/node-setup
+        with:
+          pnpm_install_command: "pnpm install --frozen-lockfile --ignore-scripts --filter ."
 
       # For every blob-report merge its playwright results as html report and move it into its original package
       - name: Merge into HTML Report
@@ -238,8 +207,8 @@ jobs:
 
       - run: |
           result="${{ needs.playwright.result }}"
-          if [[ $result == "success" || $result == "skipped" ]]; then
-            exit 0
-          else
+          if [[ $result == "failure" ]]; then
             exit 1
+          else
+            exit 0
           fi

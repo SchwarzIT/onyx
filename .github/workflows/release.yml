@@ -39,8 +39,6 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ssh-key: ${{ secrets.GH_PUSH_PROTECTED_KEY }}
-          # needed when building VitePress docs so timestamps can be calculated correctly
-          fetch-depth: 0
 
       - uses: ./.github/templates/node-setup
 
