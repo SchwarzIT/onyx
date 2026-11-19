@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { flagUS, flagDE } from "@sit-onyx/flags";
-import { OnyxLanguageMenuItem, SelectDialogOption } from "sit-onyx";
+import { OnyxLanguageMenuItem, type SelectDialogOption } from "sit-onyx";
 import { ref } from "vue";
 
 const locale = ref("en");

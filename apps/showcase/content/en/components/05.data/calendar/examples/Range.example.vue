@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { DateRange, OnyxCalendar } from "sit-onyx";
+import { OnyxCalendar, type DateRange } from "sit-onyx";
 import { ref } from "vue";
 
 const dateRange = ref<DateRange>();

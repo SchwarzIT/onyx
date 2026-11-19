@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxUnstableTimePicker, TimeRange } from "sit-onyx";
+import { OnyxUnstableTimePicker, type TimeRange } from "sit-onyx";
 import { ref } from "vue";
 
 const time = ref<string>();

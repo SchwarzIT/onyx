@@ -5,8 +5,10 @@ import {
   OnyxBottomBar,
   OnyxButton,
   OnyxHeadline,
+  OnyxIcon,
   OnyxPageLayout,
   OnyxSidebar,
+  OnyxSidebarItem,
 } from "sit-onyx";
 </script>
 

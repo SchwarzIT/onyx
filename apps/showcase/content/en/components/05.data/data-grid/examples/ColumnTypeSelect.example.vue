@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OnyxDataGrid, SelectOption, type ColumnConfig } from "sit-onyx";
+import { OnyxDataGrid, type ColumnConfig, type SelectOption } from "sit-onyx";
 import { computed } from "vue";
 
 type Entry = {

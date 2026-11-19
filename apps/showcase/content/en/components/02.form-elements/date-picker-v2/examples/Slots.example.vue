@@ -5,7 +5,7 @@ import {
   OnyxSelect,
   OnyxUnstableDatePickerV2,
   OnyxUnstableFormElementAction,
-  SelectOption,
+  type SelectOption,
 } from "sit-onyx";
 import { ref } from "vue";
 
@@ -16,7 +16,7 @@ const selectOptions = [
   { label: "Bar", value: "bar" },
 ] satisfies SelectOption[];
 
-const selectedOption = ref(selectOptions[0].value);
+const selectedOption = ref("foo");
 
 const handleActionClick = () => {
   // your logic here

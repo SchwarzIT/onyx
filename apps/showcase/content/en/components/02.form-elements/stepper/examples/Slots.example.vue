@@ -5,7 +5,7 @@ import {
   OnyxSelect,
   OnyxStepper,
   OnyxUnstableFormElementAction,
-  SelectOption,
+  type SelectOption,
 } from "sit-onyx";
 import { ref } from "vue";
 
@@ -16,7 +16,7 @@ const unitOptions = [
   { label: "g", value: "g" },
 ] satisfies SelectOption[];
 
-const unit = ref(unitOptions[0].value);
+const unit = ref("kg");
 
 const handleActionClick = () => {
   // your logic here

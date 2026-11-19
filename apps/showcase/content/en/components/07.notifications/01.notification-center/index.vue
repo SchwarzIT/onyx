@@ -10,7 +10,7 @@ import {
   OnyxHeadline,
   OnyxNotificationCard,
   OnyxSidebar,
-  TemporarySidebar,
+  type TemporarySidebar,
 } from "sit-onyx";
 import { ref } from "vue";
 

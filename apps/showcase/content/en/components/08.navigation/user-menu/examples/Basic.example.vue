@@ -2,12 +2,12 @@
 import { flagUS, flagDE } from "@sit-onyx/flags";
 import { iconLogout, iconSettings } from "@sit-onyx/icons";
 import {
-  ColorSchemeValue,
+  type ColorSchemeValue,
   OnyxColorSchemeMenuItem,
   OnyxLanguageMenuItem,
   OnyxMenuItem,
   OnyxUserMenu,
-  SelectDialogOption,
+  type SelectDialogOption,
 } from "sit-onyx";
 import { ref } from "vue";
 

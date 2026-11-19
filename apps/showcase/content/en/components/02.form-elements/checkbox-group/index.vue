@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { CheckboxGroupOption, OnyxCheckboxGroup } from "sit-onyx";
+import { OnyxCheckboxGroup, type CheckboxGroupOption } from "sit-onyx";
 
 const options = [
   { label: "Checkbox", value: 1 },

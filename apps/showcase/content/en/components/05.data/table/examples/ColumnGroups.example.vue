@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxTable, TableColumnGroup } from "sit-onyx";
+import { OnyxTable, type TableColumnGroup } from "sit-onyx";
 
 const data = [
   { fruit: "Strawberry", price: 4.5, weight: 200, quantity: 100, rating: 5 },

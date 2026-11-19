@@ -3,7 +3,7 @@ import { OnyxItemsPerPage } from "sit-onyx";
 import { ref } from "vue";
 
 const options = [25, 50, 100];
-const itemsPerPage = ref(options[0]);
+const itemsPerPage = ref(25);
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxIcon, OnyxSelect, OnyxUnstableFormElementAction, SelectOption } from "sit-onyx";
+import { OnyxIcon, OnyxSelect, OnyxUnstableFormElementAction, type SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
 const value = ref<string>();
@@ -11,7 +11,7 @@ const unitOptions = [
   { label: "g", value: "g" },
 ] satisfies SelectOption[];
 
-const unit = ref(unitOptions[0].value);
+const unit = ref("kg");
 
 const handleActionClick = () => {
   // your logic here

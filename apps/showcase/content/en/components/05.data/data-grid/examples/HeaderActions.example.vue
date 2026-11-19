@@ -2,11 +2,11 @@
 import { iconPlaceholder } from "@sit-onyx/icons";
 import {
   createFeature,
-  HeaderAction,
   OnyxDataGrid,
   OnyxMenuItem,
   OnyxSystemButton,
   type ColumnConfig,
+  type HeaderAction,
 } from "sit-onyx";
 import { computed, h } from "vue";
 

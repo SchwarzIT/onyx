@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {
-  ColumnGroupConfig,
-  ColumnTypesFromFeatures,
   createFeature,
-  DataGridEntry,
   DataGridFeatures,
   OnyxDataGrid,
   OnyxTag,
-  OnyxTagProps,
   type ColumnConfig,
+  type ColumnGroupConfig,
+  type ColumnTypesFromFeatures,
+  type DataGridEntry,
+  type OnyxTagProps,
 } from "sit-onyx";
 import { computed, h } from "vue";
 

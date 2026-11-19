@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ColorSchemeValue, OnyxColorSchemeMenuItem, OnyxUserMenu } from "sit-onyx";
+import { OnyxColorSchemeMenuItem, OnyxUserMenu, type ColorSchemeValue } from "sit-onyx";
 import { ref } from "vue";
 
 const colorScheme = ref<ColorSchemeValue>("auto");

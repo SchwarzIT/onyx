@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { EditorToolbarFlyoutOption, OnyxEditorToolbarFlyout } from "@sit-onyx/tiptap";
+import { type EditorToolbarFlyoutOption, OnyxEditorToolbarFlyout } from "@sit-onyx/tiptap";
 import { computed } from "vue";
 
 const options = computed<EditorToolbarFlyoutOption[]>(() => {

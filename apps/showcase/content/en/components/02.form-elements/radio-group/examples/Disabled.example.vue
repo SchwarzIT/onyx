@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxRadioGroup, RadioButtonOption } from "sit-onyx";
+import { OnyxRadioGroup, type RadioButtonOption } from "sit-onyx";
 
 const options = [
   { label: "Option 1", value: 1 },
