@@ -33,7 +33,7 @@ export const customDataGridColumnTypes = createFeature(<TEntry extends DataGridE
     propertyMetaSchema: DataGridFeatures.createTypeRenderer<object, TEntry>({
       cell: {
         component: ({ modelValue }) => {
-          if (!modelValue) return "-";
+          if (!modelValue || modelValue === "undefined") return "-";
           return h(ComponentMetaSchema, { schema: modelValue as PropertyMetaSchema });
         },
       },
