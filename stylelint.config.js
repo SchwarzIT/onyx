@@ -23,13 +23,4 @@ export default {
       },
     ],
   },
-  overrides: [
-    // disable strict "vh" unit check for docs since VitePress uses "vh" internally which we can not replace
-    {
-      files: ["apps/docs/src/.vitepress/dist/assets/style.*.css"],
-      rules: {
-        "unit-disallowed-list": null,
-      },
-    },
-  ],
 };
