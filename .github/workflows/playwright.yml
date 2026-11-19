@@ -151,7 +151,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
 
-  # this final step is needed so we can set make the Playwright tests a required check in pull requests
+  # this final step is needed so we can make the Playwright tests a required check in pull requests
   # because we don't want to add each parallel matrix job individually
   # see: https://github.com/orgs/community/discussions/26822#discussioncomment-3305794
   playwright-result:
