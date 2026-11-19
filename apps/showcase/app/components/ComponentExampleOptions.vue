@@ -7,6 +7,13 @@ export type ComponentExampleOptions = {
   colorScheme?: "light" | "dark";
 };
 
+defineSlots<{
+  /**
+   * Optional additional menu items.
+   */
+  default?(): unknown;
+}>();
+
 const options = defineModel<ComponentExampleOptions>({ default: () => ({}) });
 </script>
 
@@ -53,6 +60,8 @@ const options = defineModel<ComponentExampleOptions>({ default: () => ({}) });
           />
         </template>
       </OnyxMenuItem>
+
+      <slot></slot>
     </template>
   </OnyxFlyoutMenu>
 </template>

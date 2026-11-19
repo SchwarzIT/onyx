@@ -11,6 +11,10 @@ const props = withDefaults(
      */
     previewComponent: string;
     /**
+     * Raw code snippet of the component example.
+     */
+    code: string;
+    /**
      * Component preview layout.
      *
      * - default: Pre-defined Limited width
@@ -105,7 +109,12 @@ if (props.provideNotifications) {
           @click="options = {}"
         />
 
-        <ComponentExampleOptions v-model="options" />
+        <ComponentExampleOptions v-model="options">
+          <OnyxMenuItem
+            :label="$t('components.options.openPlayground')"
+            :link="createPlaygroundUrl(props.code)"
+          />
+        </ComponentExampleOptions>
       </template>
     </OnyxTabs>
   </div>

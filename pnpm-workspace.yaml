@@ -22,6 +22,7 @@ catalog:
   vue: 3.5.44
   vue-component-meta: 3.3.14
   vue-tsc: 3.3.14
+  "@nuxt/test-utils": 4.4.0
 
 # Security settings (See: https://pnpm.io/supply-chain-security)
 trustPolicy: "no-downgrade"

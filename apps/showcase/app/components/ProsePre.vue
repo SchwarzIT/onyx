@@ -59,7 +59,12 @@ const previewComponent = computed(
 </script>
 
 <template>
-  <ComponentExample v-if="previewComponent" :preview-component v-bind="metaProps">
+  <ComponentExample
+    v-if="previewComponent"
+    :preview-component
+    v-bind="metaProps"
+    :code="props.code"
+  >
     <ProsePre v-bind="props"><slot></slot></ProsePre>
   </ComponentExample>
   <ProsePre v-else v-bind="props"><slot></slot></ProsePre>
