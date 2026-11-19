@@ -4,9 +4,9 @@ import {
   createFeature,
   DataGridFeatures,
   OnyxDataGrid,
-  SelectOption,
   type ColumnConfig,
   type EditLinkValue,
+  type SelectOption,
 } from "sit-onyx";
 import { computed, ref } from "vue";
 
@@ -134,7 +134,7 @@ const handleSave = () => {
     const changes = editState.value[id];
 
     const index = data.value.findIndex((row) => row.id === Number.parseInt(id));
-    if (index === -1) continue;
+    if (!data.value[index]) continue;
 
     // the edit state only includes actually changed data so we need to make sure keep
     // all previous data

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxSlider, SliderMark } from "sit-onyx";
+import { OnyxSlider, type SliderMark } from "sit-onyx";
 import { ref } from "vue";
 
 const discreteValue = ref(50);

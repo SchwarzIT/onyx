@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxSelect, SelectOption } from "sit-onyx";
+import { OnyxSelect, type SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
 const options = [
@@ -8,7 +8,7 @@ const options = [
   { label: "Mango", value: "mango" },
 ] satisfies SelectOption[];
 
-const value = ref<string>(options[0].value);
+const value = ref<string>("apple");
 </script>
 
 <template>

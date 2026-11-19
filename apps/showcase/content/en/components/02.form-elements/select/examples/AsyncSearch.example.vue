@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { refDebounced, useAsyncState } from "@vueuse/core";
-import { OnyxEmpty, OnyxLoadingIndicator, OnyxSelect, SelectOption } from "sit-onyx";
+import { OnyxEmpty, OnyxLoadingIndicator, OnyxSelect, type SelectOption } from "sit-onyx";
 import { computed, ref, watch } from "vue";
 
 const value = ref<string>();

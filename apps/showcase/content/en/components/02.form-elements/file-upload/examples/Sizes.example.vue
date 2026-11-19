@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { FileType, OnyxFileUpload } from "sit-onyx";
+import { OnyxFileUpload, type FileType } from "sit-onyx";
 import { ref } from "vue";
 
 const file = ref<File>();

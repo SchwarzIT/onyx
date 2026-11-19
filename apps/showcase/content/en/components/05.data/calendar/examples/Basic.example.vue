@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxBadge, OnyxCalendar, OnyxColor } from "sit-onyx";
+import { OnyxBadge, OnyxCalendar, type OnyxColor } from "sit-onyx";
 
 type Event = { date: Date; color: OnyxColor; description: string };
 

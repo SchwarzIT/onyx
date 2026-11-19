@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { OnyxTimer } from "sit-onyx";
+import { ref } from "vue";
 
 function getEndTime() {
   const date = new Date();

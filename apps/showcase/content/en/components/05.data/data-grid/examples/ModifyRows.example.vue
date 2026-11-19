@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {
   createFeature,
-  DataGridEntry,
-  DataGridFeature,
   DataGridRowOptionsSymbol,
   mergeVueProps,
   OnyxDataGrid,
   type ColumnConfig,
+  type DataGridEntry,
+  type DataGridFeature,
 } from "sit-onyx";
 import { computed } from "vue";
 

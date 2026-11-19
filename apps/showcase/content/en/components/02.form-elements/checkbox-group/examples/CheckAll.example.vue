@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { CheckboxGroupOption, OnyxCheckboxGroup } from "sit-onyx";
+import { OnyxCheckboxGroup, type CheckboxGroupOption } from "sit-onyx";
 import { ref } from "vue";
 
 const selectedOptions = ref<number[]>([1]);

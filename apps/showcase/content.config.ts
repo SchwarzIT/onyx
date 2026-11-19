@@ -23,7 +23,7 @@ export default defineContentConfig({
     }),
     components_en: defineCollection({
       type: "page",
-      source: { include: "en/components/**", exclude: ["**/*.vue"], prefix: "/components" },
+      source: { include: "en/components/**", exclude: ["**/*.{vue,ts}"], prefix: "/components" },
       schema: z.object({
         componentName: z.string().optional(),
         package: z.string().default("sit-onyx"),

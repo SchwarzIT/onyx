@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { DateRange, OnyxUnstableDatePickerV2 } from "sit-onyx";
+import { OnyxUnstableDatePickerV2, type DateRange } from "sit-onyx";
 import { ref } from "vue";
 
 const range = ref<DateRange>();
