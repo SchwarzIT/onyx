@@ -11,7 +11,7 @@ const lines = ref(3);
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .text {
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@ const lines = ref(3);
   width: 100%;
   height: calc(v-bind(lines) * 1lh);
 
-  &__skeleton {
+  .text__skeleton {
     flex: 1;
     min-height: 0;
     width: 100%;

@@ -46,7 +46,7 @@ const categoryOptions = [
   </OnyxUnstableSearch>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .search {
   --onyx-search-input-width: 20rem;
 }

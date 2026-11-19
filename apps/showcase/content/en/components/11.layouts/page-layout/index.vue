@@ -39,7 +39,7 @@ import {
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-app {
   --onyx-grid-margin-vertical: var(--onyx-density-lg);
   zoom: 0.45;
@@ -54,7 +54,7 @@ import {
 .sidebar {
   --onyx-sidebar-width: 12rem;
 
-  &__content {
+  .sidebar__content {
     padding: var(--onyx-sidebar-padding);
     display: flex;
     flex-direction: column;

@@ -14,7 +14,7 @@ import { OnyxIcon, OnyxMenuItem, OnyxTag } from "sit-onyx";
   </OnyxMenuItem>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .trailing {
   margin-left: auto;
 }

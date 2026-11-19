@@ -17,7 +17,7 @@ const handleClick = () => {
   />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .fab {
   --onyx-fab-offset-x: 5rem;
   --onyx-fab-offset-y: 1rem;

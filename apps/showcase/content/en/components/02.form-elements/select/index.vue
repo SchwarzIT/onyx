@@ -6,7 +6,7 @@ import { OnyxSelect } from "sit-onyx";
   <OnyxSelect label="Select" list-label="List label" placeholder="Placeholder" :options="[]" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-select {
   width: 100%;
 }

@@ -11,7 +11,7 @@ const value = ref<number>(42);
   <OnyxStepper v-model="value" class="stepper--right" label="Right aligned" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .stepper {
   &--left {
     --onyx-stepper-text-align: left;

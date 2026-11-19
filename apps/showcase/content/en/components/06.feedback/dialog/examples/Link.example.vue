@@ -38,9 +38,9 @@ const value = ref("");
   </OnyxDialog>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .dialog {
-  &__content {
+  .dialog__content {
     padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
     color: var(--onyx-color-text-icons-info-intense);
     width: 20rem;

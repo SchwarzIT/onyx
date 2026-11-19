@@ -10,7 +10,7 @@ import { OnyxBadge } from "sit-onyx";
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .list {
   display: flex;
   align-items: center;

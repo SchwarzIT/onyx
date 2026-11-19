@@ -52,7 +52,7 @@ const features = [withFiltering, withPagination, withCustomActions];
   <OnyxDataGrid :headline="{ text: 'Data grid', rowCount: true }" :columns :data :features />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-data-grid {
   zoom: 0.4;
 }

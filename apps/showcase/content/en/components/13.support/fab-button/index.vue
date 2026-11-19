@@ -7,7 +7,7 @@ import { OnyxFAB } from "sit-onyx";
   <OnyxFAB label="FAB" :icon="iconPlaceholder" hide-label />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-fab {
   top: 50%;
   left: 50%;

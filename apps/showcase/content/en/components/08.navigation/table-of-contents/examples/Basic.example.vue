@@ -46,13 +46,13 @@ import {
   gap: calc(2 * var(--onyx-grid-gutter) + (100 / var(--onyx-grid-columns)) * 1%);
   grid-template-columns: 1fr minmax(8rem, 15rem);
 
-  &__toc {
+  .layout__toc {
     position: sticky;
     top: var(--onyx-grid-margin-vertical);
     max-height: calc(100dvh - var(--onyx-nav-bar-height) - 2 * var(--onyx-grid-margin-vertical));
   }
 
-  &__content {
+  .layout__content {
     // when using a grid inside the content, it should reflect only the available
     // content width as breakpoint instead of the whole page (including the TOC)
     container-type: inline-size;

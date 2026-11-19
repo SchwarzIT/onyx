@@ -52,7 +52,7 @@ const options: ChartOptions<"line"> = {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .chart {
   width: 100%;
   height: 100%;

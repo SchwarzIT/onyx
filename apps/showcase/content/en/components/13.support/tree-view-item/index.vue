@@ -14,7 +14,7 @@ import { OnyxUnstableTreeViewItem, OnyxTag } from "sit-onyx";
   </OnyxUnstableTreeViewItem>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 :deep(.onyx-tree-view-item__content) {
   justify-content: space-between;
 }

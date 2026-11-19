@@ -6,7 +6,7 @@ import { OnyxDatePicker } from "sit-onyx";
   <OnyxDatePicker label="Date picker" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-datepicker {
   width: 100%;
 }

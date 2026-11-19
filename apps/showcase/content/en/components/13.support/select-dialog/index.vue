@@ -35,7 +35,7 @@ const selectedValue = ref(options[0]!.value);
   </OnyxSelectDialog>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .modal {
   zoom: 0.35;
 }

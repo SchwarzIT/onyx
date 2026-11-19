@@ -80,9 +80,9 @@ import {
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .sidebar {
-  &__content {
+  .sidebar__content {
     padding: var(--onyx-sidebar-padding);
     display: flex;
     flex-direction: column;

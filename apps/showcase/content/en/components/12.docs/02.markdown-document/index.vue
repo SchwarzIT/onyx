@@ -15,7 +15,7 @@ const document =
   </ClientOnly>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-markdown-document {
   text-align: center;
 }

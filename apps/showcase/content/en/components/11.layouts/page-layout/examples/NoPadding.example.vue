@@ -12,7 +12,7 @@ import { OnyxAppLayout, OnyxPageLayout } from "sit-onyx";
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .hero {
   background-color: var(--onyx-color-base-background-blank);
   border-bottom: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);

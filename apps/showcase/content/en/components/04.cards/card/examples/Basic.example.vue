@@ -9,7 +9,7 @@ import { OnyxCard } from "sit-onyx";
   </OnyxCard>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .card {
   color: var(--onyx-color-text-icons-info-intense);
 }

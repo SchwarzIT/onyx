@@ -11,7 +11,7 @@ import { OnyxTooltip } from "sit-onyx";
   </OnyxTooltip>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-tooltip-wrapper {
   margin-bottom: -2.25rem;
 }

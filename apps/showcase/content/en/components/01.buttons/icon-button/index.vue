@@ -7,7 +7,7 @@ import { OnyxIconButton } from "sit-onyx";
   <OnyxIconButton label="Icon button" :icon="iconEdit" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-icon-button {
   zoom: 1;
 }
