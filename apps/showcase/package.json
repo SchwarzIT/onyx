@@ -46,6 +46,7 @@
     "vue-router": "^5.5.1"
   },
   "devDependencies": {
+    "@nuxt/test-utils": "catalog:",
     "@octokit/types": "^18.0.0",
     "@types/node": "catalog:",
     "vue-component-meta": "catalog:"
