@@ -74,7 +74,6 @@ jobs:
         id: prepare
         run: |
           deployable=$(mktemp -d)
-          pnpm pkg set engines.node=$(cat ../../.node-version)
           pnpm deploy $deployable --prod --filter @sit-onyx/modelcontextprotocol
           cp -R .cloud-foundry/. $deployable
           echo "deployable=$deployable" >> $GITHUB_OUTPUT
@@ -151,10 +150,6 @@ jobs:
       - name: 🛠️ Build Demo App
         run: pnpm build:all --filter=@sit-onyx/demo-app
 
-      - name: Copy .node-version file
-        # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
-        run: cp .node-version apps/demo-app/.cloud-foundry/.nvmrc
-
       - name: ⛴️ Prepare Dist
         run: mv apps/demo-app/.output apps/demo-app/.cloud-foundry/dist
 
@@ -186,10 +181,6 @@ jobs:
 
       - name: 🛠️ Build Showcase
         run: pnpm build:all --filter=@sit-onyx/showcase
-
-      - name: Copy .node-version file
-        # Cloud Foundry requires a ".nvmrc" file for defining the node version to use
-        run: cp .node-version apps/showcase/.cloud-foundry/.nvmrc
 
       - name: ⛴️ Prepare Dist
         run: mv apps/showcase/.output apps/showcase/.cloud-foundry/dist
