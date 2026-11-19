@@ -92,8 +92,8 @@ You can/should use the following boilerplate code to start your component:
 
 ```vue [OnyxExampleComponent.vue]
 <script lang="ts" setup>
-import type { OnyxExampleComponentProps } from "./types";
 import { useDensity } from "../../composables/density";
+import type { OnyxExampleComponentProps } from "./types";
 
 const props = defineProps<OnyxExampleComponentProps>();
 

@@ -94,8 +94,8 @@ Afterwards, you can capture a single matrix screenshot like this:
 ::: code-group
 
 ```tsx [MyComponent.tsx]
-import { executeMatrixScreenshotTest } from "./playwright";
 import { test } from "@playwright/experimental-ct-vue";
+import { executeMatrixScreenshotTest } from "./playwright";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -241,8 +241,8 @@ For each individual test, you can now optionally disable rules by defining them 
 ::: code-group
 
 ```tsx [MyComponent.tsx]
-import { executeMatrixScreenshotTest } from "./playwright";
 import { test } from "@playwright/experimental-ct-vue";
+import { executeMatrixScreenshotTest } from "./playwright";
 
 test.describe("Screenshot tests", () => {
   executeMatrixScreenshotTest({
@@ -263,8 +263,8 @@ Sets the component size to fit all absolute positioned content so it is fully in
 Useful if component includes flyouts or popovers that use CSS `position: absolute`.
 
 ```tsx
-import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import { test, expect } from "@playwright/experimental-ct-vue";
+import { adjustSizeToAbsolutePosition } from "@sit-onyx/playwright-utils";
 import MyComponent from "./MyComponent.vue";
 
 test("my example test", async ({ mount }) => {
