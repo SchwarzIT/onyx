@@ -38,7 +38,7 @@
     "@sit-onyx/storybook-utils": "workspace:^",
     "@sit-onyx/tiptap": "workspace:^",
     "@sit-onyx/vitepress-theme": "workspace:^",
-    "browserslist": "^4.29.5",
+    "browserslist": "^4.29.6",
     "chart.js": "catalog:",
     "postcss": "^8.5.33",
     "sass-embedded": "catalog:",

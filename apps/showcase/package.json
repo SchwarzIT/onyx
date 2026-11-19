@@ -33,7 +33,7 @@
     "@vueuse/core": "^15.0.0",
     "@vueuse/nuxt": "^15.0.0",
     "@vueuse/router": "^15.0.0",
-    "browserslist": "^4.29.5",
+    "browserslist": "^4.29.6",
     "chart.js": "catalog:",
     "comark": "^0.9.2",
     "nuxt": "catalog:",
@@ -42,7 +42,7 @@
     "sit-onyx": "workspace:^",
     "vue": "catalog:",
     "vue-chartjs": "^5.3.4",
-    "vue-i18n": "^11.4.19",
+    "vue-i18n": "^11.4.21",
     "vue-router": "^5.5.1"
   },
   "devDependencies": {
