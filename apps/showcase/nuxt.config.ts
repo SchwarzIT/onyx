@@ -13,7 +13,11 @@ export default defineNuxtConfig({
   css: ["@sit-onyx/tiptap/style.css", "@sit-onyx/comark/style.css"],
   app: {
     head: {
-      link: [{ rel: "icon", href: "/favicon.svg" }],
+      link: [
+        { rel: "icon", href: "/favicon.svg" },
+        { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" },
+        { rel: "manifest", href: "/site.webmanifest" },
+      ],
     },
   },
   routeRules: getLegacyRedirects(),
