@@ -72,7 +72,7 @@ const contingentRows = computed(() => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .example {
   margin-top: var(--onyx-density-sm);
   color: var(--onyx-color-text-icons-neutral-medium);

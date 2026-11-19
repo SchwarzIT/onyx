@@ -34,7 +34,7 @@ import {
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-app {
   zoom: 0.4;
   border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-secondary);

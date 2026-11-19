@@ -6,7 +6,7 @@ import { OnyxSkeleton } from "sit-onyx";
   <OnyxSkeleton class="skeleton" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .skeleton {
   width: 8rem;
   height: 2rem;

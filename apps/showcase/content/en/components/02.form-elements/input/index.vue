@@ -6,7 +6,7 @@ import { OnyxInput } from "sit-onyx";
   <OnyxInput label="Input" placeholder="Placeholder" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-input {
   width: 100%;
 }

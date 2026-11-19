@@ -9,7 +9,7 @@ import { OnyxMenuItem, OnyxTag } from "sit-onyx";
   </OnyxMenuItem>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .label {
   flex-grow: 1;
 }

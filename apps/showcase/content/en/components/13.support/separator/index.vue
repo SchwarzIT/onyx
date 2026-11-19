@@ -6,7 +6,7 @@ import { OnyxSeparator } from "sit-onyx";
   <OnyxSeparator />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-separator {
   width: 100%;
 }

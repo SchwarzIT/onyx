@@ -22,8 +22,8 @@ const options = [
   />
 </template>
 
-<style lang="scss" scoped>
-// these styles are only used for this example, remove them when copying
+<style scoped>
+/* these styles are only used for this example, remove them when copying */
 .group {
   width: 16rem;
 }

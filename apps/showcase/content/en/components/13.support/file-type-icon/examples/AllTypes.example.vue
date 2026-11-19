@@ -11,7 +11,7 @@ import { OnyxFileTypeIcon, SUPPORTED_FILE_TYPE_ICON_MEDIA_TYPES } from "sit-onyx
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .layout {
   display: flex;
   flex-direction: column;

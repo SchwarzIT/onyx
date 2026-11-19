@@ -22,7 +22,7 @@ import { version } from "sit-onyx/package.json";
   </OnyxUserMenu>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-user-menu {
   align-self: flex-end;
   zoom: 0.5;

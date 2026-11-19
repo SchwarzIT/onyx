@@ -11,7 +11,7 @@ import { OnyxInput, OnyxUnstableFormElementAction } from "sit-onyx";
   </OnyxInput>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-input {
   width: 100%;
 }

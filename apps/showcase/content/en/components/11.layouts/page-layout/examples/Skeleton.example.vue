@@ -32,15 +32,15 @@ const handleSubmit = () => {
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .page {
-  &__content {
+  .page__content {
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-2xl);
   }
 
-  &__headline {
+  .page__headline {
     display: flex;
     align-items: center;
     gap: var(--onyx-density-md);

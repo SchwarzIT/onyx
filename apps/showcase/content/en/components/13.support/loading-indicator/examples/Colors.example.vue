@@ -6,7 +6,7 @@ import { OnyxLoadingIndicator } from "sit-onyx";
   <OnyxLoadingIndicator class="loading" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .loading {
   color: var(--onyx-color-text-icons-primary-medium);
 }

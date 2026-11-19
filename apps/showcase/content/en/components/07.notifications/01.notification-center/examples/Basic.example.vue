@@ -260,7 +260,7 @@ const addExampleNotification = () => {
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .page {
   display: flex;
   flex-direction: column;
@@ -270,24 +270,24 @@ const addExampleNotification = () => {
 .notification-center {
   --onyx-sidebar-width: 26rem;
 
-  &__accordions {
+  .notification-center__accordions {
     :deep(.onyx-accordion-item__panel) {
       padding: 0;
     }
   }
 
-  &__empty {
+  .notification-center__empty {
     margin-inline: auto;
   }
 
-  &__skeletons {
+  .notification-center__skeletons {
     display: flex;
     flex-direction: column;
     padding: var(--onyx-density-md);
     gap: var(--onyx-density-md);
   }
 
-  // we use the OnyxBottomBar which already provides its own padding + border
+  /* we use the OnyxBottomBar which already provides its own padding + border */
   :deep(.onyx-sidebar__footer) {
     padding: 0;
     border-top: none;

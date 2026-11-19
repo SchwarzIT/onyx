@@ -37,7 +37,7 @@ const features = [withPagination];
   />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .data-grid {
   max-height: 32rem;
 }

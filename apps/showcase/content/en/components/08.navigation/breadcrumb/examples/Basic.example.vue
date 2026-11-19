@@ -36,7 +36,7 @@ import {
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .breadcrumb {
   padding-block: var(--onyx-grid-gutter);
 

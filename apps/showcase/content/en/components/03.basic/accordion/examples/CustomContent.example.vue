@@ -64,7 +64,7 @@ const openAccordions = ref<string[]>([]);
   </OnyxAccordion>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .header {
   display: flex;
   align-items: center;
@@ -73,14 +73,14 @@ const openAccordions = ref<string[]>([]);
   flex-wrap: wrap;
   flex-grow: 1;
 
-  &__content {
+  .header__content {
     display: flex;
     align-items: center;
     gap: var(--onyx-accordion-item-header-gap);
     flex-wrap: wrap;
   }
 
-  &__trailing {
+  .header__trailing {
     display: flex;
     align-items: center;
     gap: var(--onyx-accordion-item-header-gap);

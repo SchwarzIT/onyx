@@ -16,7 +16,7 @@ import { OnyxCard, OnyxHeadline, OnyxIcon } from "sit-onyx";
   </OnyxCard>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .card {
   flex-direction: row;
   gap: var(--onyx-density-md);
@@ -26,14 +26,14 @@ import { OnyxCard, OnyxHeadline, OnyxIcon } from "sit-onyx";
     background-color: var(--onyx-color-base-neutral-200);
   }
 
-  &__content {
+  .card__content {
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-2xs);
     flex-grow: 1;
   }
 
-  &__arrow {
+  .card__arrow {
     align-self: center;
   }
 }

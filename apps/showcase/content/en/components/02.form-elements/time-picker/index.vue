@@ -6,7 +6,7 @@ import { OnyxUnstableTimePicker } from "sit-onyx";
   <OnyxUnstableTimePicker label="Time picker" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-time-picker {
   width: 100%;
 }

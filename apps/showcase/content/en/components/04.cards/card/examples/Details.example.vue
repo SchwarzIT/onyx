@@ -59,26 +59,26 @@ import {
   </OnyxCard>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .card {
   --onyx-card-gap: var(--onyx-density-md);
   text-align: center;
 
-  &__header {
+  .card__header {
     display: flex;
     flex-direction: column;
     gap: var(--onyx-card-gap);
     align-items: center;
   }
 
-  &__icon-wrapper {
+  .card__icon-wrapper {
     border-radius: var(--onyx-radius-full);
     background-color: var(--onyx-color-base-success-100);
     padding: var(--onyx-density-lg);
     width: max-content;
   }
 
-  &__icon {
+  .card__icon {
     color: #fff;
     background-color: var(--onyx-color-text-icons-success-intense);
     border-radius: var(--onyx-radius-full);
@@ -89,18 +89,18 @@ import {
     box-sizing: content-box;
   }
 
-  &__description {
+  .card__description {
     color: var(--onyx-color-text-icons-neutral-medium);
     margin-top: var(--onyx-density-3xs);
   }
 
-  &__details {
+  .card__details {
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-xs);
   }
 
-  &__button {
+  .card__button {
     width: 100%;
   }
 }
@@ -112,13 +112,13 @@ import {
   justify-content: space-between;
   gap: var(--onyx-density-xs);
 
-  &__label {
+  .detail__label {
     color: var(--onyx-color-text-icons-neutral-soft);
     font-size: var(--onyx-font-size-sm);
     line-height: var(--onyx-font-line-height-sm);
   }
 
-  &__value {
+  .detail__value {
     display: flex;
     flex-wrap: wrap;
     gap: var(--onyx-density-2xs);

@@ -57,12 +57,12 @@ const handleSubmit = () => {
   </OnyxModal>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .modal {
   width: 24rem;
   container-type: inline-size;
 
-  &__content {
+  .modal__content {
     padding: var(--onyx-density-xl) var(--onyx-modal-padding-inline);
   }
 }
