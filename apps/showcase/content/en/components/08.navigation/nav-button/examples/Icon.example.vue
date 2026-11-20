@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxUnstableNavButton } from "sit-onyx";
+import { OnyxNavButton } from "sit-onyx";
 
 const handleClick = () => {
   // handle click here...
@@ -8,10 +8,5 @@ const handleClick = () => {
 </script>
 
 <template>
-  <OnyxUnstableNavButton
-    label="Example action"
-    :icon="iconPlaceholder"
-    hide-label
-    @click="handleClick"
-  />
+  <OnyxNavButton label="Example action" :icon="iconPlaceholder" hide-label @click="handleClick" />
 </template>

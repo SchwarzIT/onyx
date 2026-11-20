@@ -1,16 +1,7 @@
-<script lang="ts">
-/**
- * @deprecated This component is still under active development and its API might change in patch
- *   releases.
- * @experimental
- */
-export default {};
-</script>
-
 <script lang="ts" setup>
 import { iconFilter, iconSearch } from "@sit-onyx/icons";
 import { computed, useTemplateRef, type ComponentInstance } from "vue";
-import { _unstableUseShortcut } from "../../composables/useShortcut.js";
+import { useShortcut } from "../../composables/useShortcut.js";
 import { SKELETON_INJECTED_SYMBOL } from "../../composables/useSkeletonState.js";
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
@@ -76,7 +67,7 @@ const input = computed(() => inputComponent.value?.input);
 
 defineExpose({ input });
 
-_unstableUseShortcut({
+useShortcut({
   sequence: [{ all: ["Shift", "7"] }],
   disabled: computed(() => disabled.value || !props.withShortcut),
   onComplete: () => input.value?.focus(),

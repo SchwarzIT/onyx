@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { OnyxUnstableTimePicker } from "sit-onyx";
+import { OnyxTimePicker } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxUnstableTimePicker label="Loading" loading />
-  <OnyxUnstableTimePicker label="Skeleton" skeleton />
+  <OnyxTimePicker label="Loading" loading />
+  <OnyxTimePicker label="Skeleton" skeleton />
 </template>

@@ -10,7 +10,6 @@ import OnyxTimePicker from "./OnyxTimePicker.vue";
 const meta: Meta<typeof OnyxTimePicker> = {
   title: "Form Elements/TimePicker",
   component: OnyxTimePicker,
-  tags: ["unstable"],
   args: {
     label: "Select time",
     style: "max-width: 16rem;",

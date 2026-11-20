@@ -5,7 +5,7 @@ import {
   createFeature,
   DataGridFeatures,
   OnyxDataGrid,
-  OnyxUnstableKey,
+  OnyxKey,
   type ColumnConfig,
   type ColumnGroupConfig,
   type ColumnTypesFromFeatures,
@@ -78,7 +78,7 @@ const withCustomTypes = createFeature(() => ({
       cell: {
         component: ({ modelValue, metadata }) => {
           const os = metadata?.typeOptions?.os;
-          return h(OnyxUnstableKey, { name: modelValue as KeyboardKey, os });
+          return h(OnyxKey, { name: modelValue as KeyboardKey, os });
         },
       },
     }),
@@ -108,7 +108,7 @@ const features = [withCustomTypes, withFiltering, withSorting, withStickyColumns
     <OnyxDataGrid class="data-grid" :columns :data :features />
 
     <!-- this key is only used to get the detected OS -->
-    <OnyxUnstableKey v-show="false" ref="detectedKey" name="A" />
+    <OnyxKey v-show="false" ref="detectedKey" name="A" />
   </div>
 </template>
 

@@ -76,7 +76,7 @@ const gridClass = "onyx-grid-span-8 onyx-grid-md-span-4";
 
                 <OnyxButton class="onyx-grid-span-2 onyx-grid-xs-span-4" label="Button" />
 
-                <OnyxUnstableSearch class="onyx-grid-span-full" placeholder="Search..." />
+                <OnyxSearch class="onyx-grid-span-full" placeholder="Search..." />
               </div>
             </div>
           </InertComponentPreview>

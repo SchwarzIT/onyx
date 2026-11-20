@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { OnyxButton, OnyxSelect, OnyxUnstableSearch, type SelectOption } from "../../../index.js";
+import { OnyxButton, OnyxSelect, OnyxSearch, type SelectOption } from "../../../index.js";
 
 type FilterState = Partial<{
   search: string;
@@ -25,7 +25,7 @@ const categoryOptions = [
 </script>
 
 <template>
-  <OnyxUnstableSearch
+  <OnyxSearch
     v-model:show-filters="showFilters"
     v-model="filters.search"
     with-shortcut
@@ -50,7 +50,7 @@ const categoryOptions = [
       list-label="Available categories"
     />
     <OnyxButton label="Clear" @click="filters = {}" />
-  </OnyxUnstableSearch>
+  </OnyxSearch>
 </template>
 
 <style lang="scss" scoped>

@@ -1,7 +1,6 @@
 ---
 title: Nav button
 componentName: OnyxNavButton
-status: experimental
 navigation: false
 ---
 

@@ -73,12 +73,7 @@ const searchGroups = computed(() => {
 </script>
 
 <template>
-  <OnyxUnstableNavButton
-    label="Open global search"
-    :icon="iconSearch"
-    hide-label
-    @click="isOpen = true"
-  />
+  <OnyxNavButton label="Open global search" :icon="iconSearch" hide-label @click="isOpen = true" />
 
   <OnyxGlobalSearch v-model:open="isOpen" v-model="searchTerm">
     <!-- show skeleton while search results are loading -->

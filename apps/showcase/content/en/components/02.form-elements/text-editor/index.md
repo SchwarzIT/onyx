@@ -2,7 +2,6 @@
 title: Text editor
 componentName: OnyxTextEditor
 package: @sit-onyx/tiptap
-status: experimental
 ---
 
 The text editor supports entering text with additional formatting such as inserting links, headlines and more and is therefore ideal for comments, descriptions and more. For simple text-only data, please use the [textarea](/components/form-elements/textarea) instead.

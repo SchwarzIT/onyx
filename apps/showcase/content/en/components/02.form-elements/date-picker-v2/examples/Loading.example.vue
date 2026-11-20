@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { OnyxUnstableDatePickerV2 } from "sit-onyx";
+import { OnyxDatePickerV2 } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxUnstableDatePickerV2 label="Loading" loading />
-  <OnyxUnstableDatePickerV2 label="Skeleton" skeleton />
+  <OnyxDatePickerV2 label="Loading" loading />
+  <OnyxDatePickerV2 label="Skeleton" skeleton />
 </template>

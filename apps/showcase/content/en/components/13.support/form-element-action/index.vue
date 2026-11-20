@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxInput, OnyxUnstableFormElementAction } from "sit-onyx";
+import { OnyxInput, OnyxFormElementAction } from "sit-onyx";
 </script>
 
 <template>
   <OnyxInput label="Input" placeholder="Placeholder">
     <template #trailingIcons>
-      <OnyxUnstableFormElementAction label="Action label" :icon="iconPlaceholder" />
+      <OnyxFormElementAction label="Action label" :icon="iconPlaceholder" />
     </template>
   </OnyxInput>
 </template>

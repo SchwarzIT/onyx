@@ -4,7 +4,7 @@ import {
   OnyxIcon,
   OnyxSelect,
   OnyxStepper,
-  OnyxUnstableFormElementAction,
+  OnyxFormElementAction,
   type SelectOption,
 } from "sit-onyx";
 import { ref } from "vue";
@@ -26,7 +26,7 @@ const handleActionClick = () => {
 <template>
   <OnyxStepper v-model="value" label="Example label">
     <template #leading>
-      <OnyxUnstableFormElementAction
+      <OnyxFormElementAction
         label="Example action"
         :icon="iconPlaceholder"
         size="lg"

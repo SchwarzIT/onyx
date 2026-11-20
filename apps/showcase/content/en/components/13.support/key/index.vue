@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { OnyxUnstableKey } from "sit-onyx";
+import { OnyxKey } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxUnstableKey name="Enter" />
+  <OnyxKey name="Enter" />
 </template>

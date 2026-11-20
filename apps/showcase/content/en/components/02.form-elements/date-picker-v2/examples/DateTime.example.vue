@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxUnstableDatePickerV2, OnyxUnstableTimePicker } from "sit-onyx";
+import { OnyxDatePickerV2, OnyxTimePicker } from "sit-onyx";
 import { computed, ref } from "vue";
 
 const date = ref<Date>();
@@ -17,7 +17,7 @@ const _dateTime = computed(() => {
 
 <template>
   <div class="onyx-grid">
-    <OnyxUnstableDatePickerV2 v-model="date" class="onyx-grid-span-2" label="Date" />
-    <OnyxUnstableTimePicker v-model="time" class="onyx-grid-span-2" label="Time" />
+    <OnyxDatePickerV2 v-model="date" class="onyx-grid-span-2" label="Date" />
+    <OnyxTimePicker v-model="time" class="onyx-grid-span-2" label="Time" />
   </div>
 </template>

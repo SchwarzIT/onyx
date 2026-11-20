@@ -88,11 +88,8 @@ type UseShortcutOptions<TStep extends ShortcutSequenceStep> = {
 /**
  * Composable for managing a keyboard shortcut that can consist of one or multiple steps.
  * If you want to also visualize the shortcut, use the `OnyxShortcut` component instead.
- *
- * @deprecated This API is unstable and might change in patch releases.
- * @experimental
  */
-export const _unstableUseShortcut = <TStep extends ShortcutSequenceStep>(
+export const useShortcut = <TStep extends ShortcutSequenceStep>(
   options: UseShortcutOptions<TStep>,
 ) => {
   const sequence = computed(() => unref(options.sequence));

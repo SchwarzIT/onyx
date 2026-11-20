@@ -22,7 +22,7 @@ const filteredNavigation = computed(() => getFilteredComponents.value(navigation
     <template #sidebar>
       <OnyxSidebar class="sidebar" :label="$t('onyx.navigation.navigationHeadline')">
         <template #header>
-          <OnyxUnstableSearch v-model="searchTerm" corner-radius="strong" with-shortcut />
+          <OnyxSearch v-model="searchTerm" corner-radius="strong" with-shortcut />
         </template>
 
         <OnyxEmpty v-if="!filteredNavigation.length" class="sidebar__empty">

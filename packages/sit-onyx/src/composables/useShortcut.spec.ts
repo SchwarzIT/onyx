@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { nextTick, ref } from "vue";
-import { _unstableUseShortcut } from "./useShortcut.js";
+import { useShortcut } from "./useShortcut.js";
 
 vi.mock("vue", async (importOriginal) => {
   return {
@@ -24,7 +24,7 @@ describe("useShortcut", () => {
 
   test("should initialize with correct default values", () => {
     // ARRANGE
-    const { currentStepIndex, pressedKeys, isKeyHighlighted } = _unstableUseShortcut({
+    const { currentStepIndex, pressedKeys, isKeyHighlighted } = useShortcut({
       sequence: [{ all: ["Control", "C"] }],
     });
 
@@ -39,7 +39,7 @@ describe("useShortcut", () => {
     test("should handle single 'all' step shortcut", () => {
       // ARRANGE
       const onComplete = vi.fn();
-      const { currentStepIndex, pressedKeys } = _unstableUseShortcut({
+      const { currentStepIndex, pressedKeys } = useShortcut({
         sequence: [{ all: ["Control", "C"] }],
         onComplete,
       });
@@ -74,7 +74,7 @@ describe("useShortcut", () => {
     test("should handle single 'any' step shortcut and pass key parameter", () => {
       // ARRANGE
       const onComplete = vi.fn();
-      const { pressedKeys } = _unstableUseShortcut({
+      const { pressedKeys } = useShortcut({
         sequence: [{ any: ["Enter", "Space"] }],
         onComplete,
       });
@@ -113,7 +113,7 @@ describe("useShortcut", () => {
       // ARRANGE
       const onStepComplete = vi.fn();
       const onComplete = vi.fn();
-      const { currentStepIndex } = _unstableUseShortcut({
+      const { currentStepIndex } = useShortcut({
         sequence: [{ all: ["Control", "C"] }, { any: ["V", "Insert"] }],
         onStepComplete,
         onComplete,
@@ -143,7 +143,7 @@ describe("useShortcut", () => {
   describe("key highlighting", () => {
     test("should highlight pressed keys correctly", () => {
       // ARRANGE
-      const { isKeyHighlighted } = _unstableUseShortcut({
+      const { isKeyHighlighted } = useShortcut({
         sequence: [{ all: ["Control", "C"] }],
       });
 
@@ -183,7 +183,7 @@ describe("useShortcut", () => {
     test("should handle key highlighting in multi-step sequences", () => {
       // ARRANGE
       const onComplete = vi.fn();
-      const { isKeyHighlighted, currentStepIndex } = _unstableUseShortcut({
+      const { isKeyHighlighted, currentStepIndex } = useShortcut({
         sequence: [{ all: ["Control", "K"] }, { all: ["Control", "L"] }],
         onComplete,
       });
@@ -221,7 +221,7 @@ describe("useShortcut", () => {
     test("should correctly be highlighted when ctrl is held across steps", () => {
       // ARRANGE
       const onComplete = vi.fn();
-      const { isKeyHighlighted, currentStepIndex, pressedKeys } = _unstableUseShortcut({
+      const { isKeyHighlighted, currentStepIndex, pressedKeys } = useShortcut({
         sequence: [{ all: ["Control", "C"] }, { all: ["Control", "V"] }],
         onComplete,
       });
@@ -256,7 +256,7 @@ describe("useShortcut", () => {
   describe("edge cases", () => {
     test("should handle meta/control key edge case", () => {
       // ARRANGE
-      const { pressedKeys } = _unstableUseShortcut({ sequence: [{ all: ["Meta", "C"] }] });
+      const { pressedKeys } = useShortcut({ sequence: [{ all: ["Meta", "C"] }] });
 
       // ACT
       document.dispatchEvent(new KeyboardEvent("keydown", { key: "Meta" }));
@@ -276,7 +276,7 @@ describe("useShortcut", () => {
     test("should handle digit keys with layout-specific symbols", () => {
       // ARRANGE
       const onComplete = vi.fn();
-      _unstableUseShortcut({
+      useShortcut({
         sequence: [{ all: ["Control", "2"] }],
         onComplete,
       });
@@ -295,7 +295,7 @@ describe("useShortcut", () => {
     const onComplete = vi.fn();
     const disabled = ref(true);
 
-    const { pressedKeys } = _unstableUseShortcut({
+    const { pressedKeys } = useShortcut({
       sequence: [{ all: ["Control", "C"] }],
       onComplete,
       disabled,
@@ -322,7 +322,7 @@ describe("useShortcut", () => {
 
   test("should debounce cleanup function", () => {
     // ARRANGE
-    const { pressedKeys, currentStepIndex } = _unstableUseShortcut({
+    const { pressedKeys, currentStepIndex } = useShortcut({
       sequence: [{ all: ["Control", "C"] }],
       cleanupDelay: 300,
     });
@@ -354,7 +354,7 @@ describe("useShortcut", () => {
     const element = document.createElement("div");
     const onComplete = vi.fn();
 
-    const { pressedKeys } = _unstableUseShortcut({
+    const { pressedKeys } = useShortcut({
       sequence: [{ all: ["Control", "C"] }],
       onComplete,
       element,
@@ -381,7 +381,7 @@ describe("useShortcut", () => {
     // ARRANGE
     const onComplete = vi.fn();
 
-    _unstableUseShortcut({
+    useShortcut({
       sequence: [{ all: ["Control", "C"] }],
       onComplete,
     });

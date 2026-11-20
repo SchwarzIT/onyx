@@ -7,7 +7,6 @@ import OnyxTreeViewItem from "./OnyxTreeViewItem.vue";
 
 const meta: Meta<typeof OnyxTreeViewItem> = {
   title: "Support/TreeViewItem",
-  tags: ["unstable"],
   component: OnyxTreeViewItem,
   argTypes: {
     icon: defineIconSelectArgType(),

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconCircleHelp } from "@sit-onyx/icons";
-import { OnyxDialog, OnyxInput, OnyxUnstableFormElementAction } from "sit-onyx";
+import { OnyxDialog, OnyxInput, OnyxFormElementAction } from "sit-onyx";
 import { ref } from "vue";
 
 const isHelpOpen = ref(false);
@@ -11,7 +11,7 @@ const isHelpOpen = ref(false);
     <template #trailing>
       <OnyxDialog v-model:open="isHelpOpen" class="dialog" label="Help">
         <template #trigger="{ trigger }">
-          <OnyxUnstableFormElementAction
+          <OnyxFormElementAction
             v-bind="trigger"
             v-model:pressed="isHelpOpen"
             label="Toggle help"

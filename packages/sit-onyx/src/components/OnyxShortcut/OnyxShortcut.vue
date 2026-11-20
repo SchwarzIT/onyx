@@ -1,19 +1,6 @@
-<script lang="ts">
-/**
- * @deprecated This component is still under active development and its API might change in patch
- *   releases.
- * @experimental
- */
-export default {};
-
-type FlatShortcutItem =
-  | { type: "key"; name: KeyboardKey; stepIndex: number }
-  | { type: "separator"; label: string };
-</script>
-
 <script setup lang="ts">
 import { computed, toRefs } from "vue";
-import { _unstableUseShortcut } from "../../composables/useShortcut.js";
+import { useShortcut } from "../../composables/useShortcut.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -27,6 +14,10 @@ import type {
   ShortcutItemAny,
   ShortcutSequenceStep,
 } from "./types.js";
+
+type FlatShortcutItem =
+  | { type: "key"; name: KeyboardKey; stepIndex: number }
+  | { type: "separator"; label: string };
 
 const SEPARATORS = {
   ALL: "+",
@@ -68,7 +59,7 @@ const isGroupAll = (item: unknown): item is ShortcutItemAll => {
 const { sequence, cleanupDelay, element } = toRefs(props);
 
 const isShortcutHighlightingDisabled = computed(() => props.disabled || props.highlight !== "auto");
-const { isKeyHighlighted } = _unstableUseShortcut({
+const { isKeyHighlighted } = useShortcut({
   element,
   disabled: isShortcutHighlightingDisabled,
   sequence,

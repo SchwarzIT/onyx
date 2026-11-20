@@ -1,7 +1,6 @@
 ---
 title: Search
 componentName: OnyxSearch
-status: experimental
 ---
 
 The search component provides a straightforward text search functionality, allowing users to type in a keyword or phrase and receive results that directly match their input. It can optionally include additional filters, e.g. when working with complex tables.
