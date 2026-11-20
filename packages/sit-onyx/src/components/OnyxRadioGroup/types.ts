@@ -45,8 +45,9 @@ export type OnyxRadioGroupProps<TValue extends SelectOptionValue = SelectOptionV
 
 export type RadioButtonOption<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
   BaseSelectOption<TValue>,
-  "hideLabel"
+  "hideLabel" | "label"
 > &
+  Pick<OnyxFormElementV2Props, "label"> &
   AutofocusProp;
 
 export type RadioGroupContext = {
