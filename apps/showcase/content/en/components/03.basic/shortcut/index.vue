@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { OnyxUnstableShortcut } from "sit-onyx";
+import { OnyxShortcut } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxUnstableShortcut :sequence="[{ all: ['Shift', 'Alt', 'Meta'] }]" os="macOS" />
+  <OnyxShortcut :sequence="[{ all: ['Shift', 'Alt', 'Meta'] }]" os="macOS" />
 </template>

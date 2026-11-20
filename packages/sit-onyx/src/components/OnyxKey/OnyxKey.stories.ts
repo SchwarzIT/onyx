@@ -12,7 +12,6 @@ import OnyxKey from "./OnyxKey.vue";
 const meta: Meta<typeof OnyxKey> = {
   title: "Support/Key",
   component: OnyxKey,
-  tags: ["unstable"],
 };
 
 export default meta;

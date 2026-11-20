@@ -344,17 +344,17 @@ const COMPONENTS: Components = {
       link: "#link",
     },
   },
-  OnyxUnstableKey: {
+  OnyxKey: {
     props: {
       name: "Control",
     },
   },
-  OnyxUnstableShortcut: {
+  OnyxShortcut: {
     props: {
       sequence: [{ all: ["Control", "C"] }],
     },
   },
-  OnyxUnstableFormElementAction: {
+  OnyxFormElementAction: {
     props: {
       label: "Label",
       icon: iconPlaceholder,

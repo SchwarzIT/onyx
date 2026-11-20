@@ -1,12 +1,3 @@
-<script lang="ts">
-/**
- * @deprecated This component is still under active development and its API might change in patch
- *   releases.
- * @experimental
- */
-export default {};
-</script>
-
 <script lang="ts" setup>
 import { computed, inject } from "vue";
 import { useForwardProps } from "../../utils/props.js";

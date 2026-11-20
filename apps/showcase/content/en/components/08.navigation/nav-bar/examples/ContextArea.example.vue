@@ -9,7 +9,7 @@ import {
   OnyxNavBar,
   OnyxNavItem,
   OnyxSeparator,
-  OnyxUnstableNavButton,
+  OnyxNavButton,
   OnyxUserMenu,
   type ColorSchemeValue,
 } from "sit-onyx";
@@ -39,11 +39,7 @@ const handleLogout = () => {
         <template #contextArea>
           <OnyxFlyoutMenu label="Choose application language">
             <template #button="{ trigger }">
-              <OnyxUnstableNavButton
-                v-bind="trigger"
-                :label="locale.toUpperCase()"
-                :icon="iconTranslate"
-              />
+              <OnyxNavButton v-bind="trigger" :label="locale.toUpperCase()" :icon="iconTranslate" />
             </template>
 
             <template #options>
@@ -65,7 +61,7 @@ const handleLogout = () => {
             </template>
           </OnyxUserMenu>
 
-          <OnyxUnstableNavButton
+          <OnyxNavButton
             v-else
             label="Login"
             :icon="iconLogin"

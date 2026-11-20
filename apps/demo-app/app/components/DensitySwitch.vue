@@ -16,7 +16,7 @@ const options = DENSITIES.map((density) => {
 </script>
 
 <template>
-  <OnyxUnstableNavButton
+  <OnyxNavButton
     :label="$t('density.change')"
     :icon="iconToolRuler"
     hide-label

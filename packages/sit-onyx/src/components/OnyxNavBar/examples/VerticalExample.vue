@@ -21,7 +21,7 @@ import {
   OnyxNotificationDot,
   OnyxPageLayout,
   OnyxTag,
-  OnyxUnstableNavButton,
+  OnyxNavButton,
   OnyxUserMenu,
   useResizeObserver,
 } from "../../../index.js";
@@ -81,12 +81,12 @@ const isMobile = computed(() => width.value <= ONYX_BREAKPOINTS.xs);
 
         <template #globalContextArea>
           <component
-            :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem"
+            :is="isMobile ? OnyxNavButton : OnyxNavItem"
             :icon="iconSearch"
             label="Search"
             hide-label
           />
-          <component :is="isMobile ? OnyxUnstableNavButton : OnyxNavItem" label="Notification">
+          <component :is="isMobile ? OnyxNavButton : OnyxNavItem" label="Notification">
             <OnyxNotificationDot>
               <OnyxIcon :icon="iconBell" />
             </OnyxNotificationDot>

@@ -7,7 +7,7 @@ import {
   OnyxSidebar,
   OnyxIcon,
   OnyxSidebarItem,
-  OnyxUnstableSearch,
+  OnyxSearch,
 } from "sit-onyx";
 </script>
 
@@ -18,7 +18,7 @@ import {
         <ClientOnly>
           <OnyxSidebar class="sidebar" label="Example sidebar" :collapse-sidebar="false">
             <template #header>
-              <OnyxUnstableSearch placeholder="Search..." />
+              <OnyxSearch placeholder="Search..." />
             </template>
 
             <div class="sidebar__content">

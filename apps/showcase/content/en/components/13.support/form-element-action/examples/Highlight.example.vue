@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxInput, OnyxUnstableFormElementAction } from "sit-onyx";
+import { OnyxInput, OnyxFormElementAction } from "sit-onyx";
 
 const handleClick = () => {
   // implement your logic here...
@@ -10,7 +10,7 @@ const handleClick = () => {
 <template>
   <OnyxInput label="Label" placeholder="Placeholder">
     <template #leadingIcons>
-      <OnyxUnstableFormElementAction
+      <OnyxFormElementAction
         label="Trigger custom action"
         :icon="iconPlaceholder"
         highlighted="auto"

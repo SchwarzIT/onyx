@@ -18,7 +18,7 @@ import {
   OnyxInfoCard,
   OnyxNavBar,
   OnyxPageLayout,
-  OnyxUnstableNavButton,
+  OnyxNavButton,
   type OnyxGlobalSearchOptionProps,
 } from "../../../index.js";
 
@@ -131,7 +131,7 @@ const showMoreButton = computed(() => {
       <OnyxNavBar app-name="Global search example">
         <!-- using the "globalContextArea" instead of the regular "contextArea" here so the search is also always visible on mobile screens -->
         <template #globalContextArea>
-          <OnyxUnstableNavButton
+          <OnyxNavButton
             label="Open global search"
             :icon="iconSearch"
             hide-label

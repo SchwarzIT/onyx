@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxUnstableShortcut, type ShortcutSequenceStep } from "sit-onyx";
+import { OnyxShortcut, type ShortcutSequenceStep } from "sit-onyx";
 
 const sequence: ShortcutSequenceStep[] = [{ all: ["Meta"] }];
 
@@ -10,22 +10,22 @@ const handleComplete = () => {
 
 <template>
   <div class="shortcut">
-    <OnyxUnstableShortcut :sequence @complete="handleComplete" />
+    <OnyxShortcut :sequence @complete="handleComplete" />
     Auto
   </div>
 
   <div class="shortcut">
-    <OnyxUnstableShortcut :sequence os="macOS" @complete="handleComplete" />
+    <OnyxShortcut :sequence os="macOS" @complete="handleComplete" />
     macOS
   </div>
 
   <div class="shortcut">
-    <OnyxUnstableShortcut :sequence os="windows" @complete="handleComplete" />
+    <OnyxShortcut :sequence os="windows" @complete="handleComplete" />
     Windows
   </div>
 
   <div class="shortcut">
-    <OnyxUnstableShortcut :sequence os="generic" @complete="handleComplete" />
+    <OnyxShortcut :sequence os="generic" @complete="handleComplete" />
     Generic
   </div>
 </template>

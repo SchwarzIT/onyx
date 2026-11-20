@@ -4,7 +4,7 @@ import {
   OnyxIcon,
   OnyxInput,
   OnyxSelect,
-  OnyxUnstableFormElementAction,
+  OnyxFormElementAction,
   type SelectOption,
 } from "sit-onyx";
 import { ref } from "vue";
@@ -26,7 +26,7 @@ const handleActionClick = () => {
 <template>
   <OnyxInput v-model="value" label="Example label" disable-slot-padding>
     <template #leading>
-      <OnyxUnstableFormElementAction
+      <OnyxFormElementAction
         label="Example action"
         :icon="iconPlaceholder"
         size="lg"

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxIcon, OnyxSelect, OnyxUnstableFormElementAction, type SelectOption } from "sit-onyx";
+import { OnyxIcon, OnyxSelect, OnyxFormElementAction, type SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
 const value = ref<string>();
@@ -27,7 +27,7 @@ const handleActionClick = () => {
     disable-slot-padding
   >
     <template #leading>
-      <OnyxUnstableFormElementAction
+      <OnyxFormElementAction
         label="Example action"
         :icon="iconPlaceholder"
         size="lg"

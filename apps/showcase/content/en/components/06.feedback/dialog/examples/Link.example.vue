@@ -1,12 +1,6 @@
 <script lang="ts" setup>
 import { iconCopy, iconLink } from "@sit-onyx/icons";
-import {
-  OnyxButton,
-  OnyxDialog,
-  OnyxIcon,
-  OnyxInput,
-  OnyxUnstableFormElementAction,
-} from "sit-onyx";
+import { OnyxButton, OnyxDialog, OnyxIcon, OnyxInput, OnyxFormElementAction } from "sit-onyx";
 import { ref } from "vue";
 
 const value = ref("");
@@ -31,7 +25,7 @@ const value = ref("");
         </template>
 
         <template #trailingIcons>
-          <OnyxUnstableFormElementAction :icon="iconCopy" label="Copy" />
+          <OnyxFormElementAction :icon="iconCopy" label="Copy" />
         </template>
       </OnyxInput>
     </div>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxUnstableDatePickerV2 } from "sit-onyx";
+import { OnyxDatePickerV2 } from "sit-onyx";
 import { ref } from "vue";
 
 const date = ref<Date>();
@@ -20,5 +20,5 @@ const disabledDays = (date: Date) => {
 </script>
 
 <template>
-  <OnyxUnstableDatePickerV2 v-model="date" label="Date" :min :max :disabled-days />
+  <OnyxDatePickerV2 v-model="date" label="Date" :min :max :disabled-days />
 </template>

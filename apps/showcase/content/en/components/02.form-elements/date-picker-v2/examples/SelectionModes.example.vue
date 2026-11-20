@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxUnstableDatePickerV2, type DateRange } from "sit-onyx";
+import { OnyxDatePickerV2, type DateRange } from "sit-onyx";
 import { ref } from "vue";
 
 const date = ref<Date>();
@@ -8,10 +8,10 @@ const range = ref<DateRange>();
 </script>
 
 <template>
-  <OnyxUnstableDatePickerV2 v-model="date" label="Single" />
-  <OnyxUnstableDatePickerV2 v-model="dates" label="Multiple" selection-mode="multiple" />
-  <OnyxUnstableDatePickerV2 v-model="range" label="Range" selection-mode="range" />
-  <OnyxUnstableDatePickerV2
+  <OnyxDatePickerV2 v-model="date" label="Single" />
+  <OnyxDatePickerV2 v-model="dates" label="Multiple" selection-mode="multiple" />
+  <OnyxDatePickerV2 v-model="range" label="Range" selection-mode="range" />
+  <OnyxDatePickerV2
     v-model="range"
     label="Range with multi view"
     selection-mode="range"

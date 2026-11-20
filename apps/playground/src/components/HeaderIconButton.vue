@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxTooltip, OnyxUnstableNavButton } from "sit-onyx";
+import { OnyxTooltip, OnyxNavButton } from "sit-onyx";
 
 const props = defineProps<{
   icon: string;
@@ -16,7 +16,7 @@ const emit = defineEmits<{
     <template #default="{ trigger }">
       <!-- empty title is needed to prevent default title of the icon button
     which is not needed because of the tooltip -->
-      <OnyxUnstableNavButton
+      <OnyxNavButton
         v-bind="trigger"
         title=""
         :label="props.label"

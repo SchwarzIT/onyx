@@ -1,7 +1,6 @@
 ---
 title: Shortcut
 componentName: OnyxShortcut
-status: experimental
 ---
 
 The shortcut component offers a visual representation of a shortcut sequence. It supports multi-step sequences and operating system-specific symbols for macOS and Windows. It can also highlight pressed keys interactively.

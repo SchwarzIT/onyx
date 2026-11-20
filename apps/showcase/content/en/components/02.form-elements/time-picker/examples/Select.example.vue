@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxUnstableTimePicker, type SelectOption } from "sit-onyx";
+import { OnyxTimePicker, type SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
 const time = ref<string>();
@@ -53,17 +53,12 @@ const customTimes: SelectOption<string>[] = [
 </script>
 
 <template>
-  <OnyxUnstableTimePicker
+  <OnyxTimePicker
     v-model="time"
     label="Auto-generated options"
     type="select"
     min="09:00"
     max="17:00"
   />
-  <OnyxUnstableTimePicker
-    v-model="time"
-    label="Custom options"
-    type="select"
-    :options="{ customTimes }"
-  />
+  <OnyxTimePicker v-model="time" label="Custom options" type="select" :options="{ customTimes }" />
 </template>

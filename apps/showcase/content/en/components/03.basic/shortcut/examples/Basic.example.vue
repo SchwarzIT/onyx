@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxUnstableShortcut } from "sit-onyx";
+import { OnyxShortcut } from "sit-onyx";
 
 const handleComplete = () => {
   // your logic here when the full shortcut is pressed...
@@ -7,7 +7,7 @@ const handleComplete = () => {
 </script>
 
 <template>
-  <OnyxUnstableShortcut
+  <OnyxShortcut
     :sequence="[{ all: ['Control', 'C'] }]"
     highlight="auto"
     @complete="handleComplete"

@@ -16,7 +16,7 @@ import {
   OnyxInfoCard,
   OnyxNavBar,
   OnyxPageLayout,
-  OnyxUnstableNavButton,
+  OnyxNavButton,
   type OnyxGlobalSearchOptionProps,
 } from "../../../index.js";
 import OnyxFilterBadge from "../../OnyxFilterBadge/OnyxFilterBadge.vue";
@@ -109,7 +109,7 @@ const searchGroups = computed(() => {
       <OnyxNavBar app-name="Global search example">
         <!-- using the "globalContextArea" instead of the regular "contextArea" here so the search is also always visible on mobile screens -->
         <template #globalContextArea>
-          <OnyxUnstableNavButton
+          <OnyxNavButton
             label="Open global search"
             :icon="iconSearch"
             hide-label

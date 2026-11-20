@@ -1,6 +1,5 @@
 ---
 title: Global search
-status: new
 ---
 
 The global search is used to provide a application-wide search functionality to e.g. quickly find a wide variety of data. While it can be triggered / opened using any custom component or logic, it is commonly placed as search button inside the [nav bar](/components/navigation/nav-bar) component.

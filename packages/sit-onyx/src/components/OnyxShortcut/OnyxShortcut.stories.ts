@@ -9,12 +9,11 @@ import OnyxShortcut from "./OnyxShortcut.vue";
  * highlighting of pressed keys.
  *
  * If you want to use the shortcut functionality without visualizing the OnyxShortcut component, you
- * can also use the [_unstableUseShortcut()](/story/basic-shortcut--composable) composable.
+ * can also use the [useShortcut()](/story/basic-shortcut--composable) composable.
  */
 const meta: Meta<typeof OnyxShortcut> = {
   title: "Basic/Shortcut",
   component: OnyxShortcut,
-  tags: ["unstable"],
 };
 
 export default meta;

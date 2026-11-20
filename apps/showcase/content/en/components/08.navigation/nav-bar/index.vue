@@ -6,7 +6,7 @@ import {
   OnyxNavBar,
   OnyxNavItem,
   OnyxSeparator,
-  OnyxUnstableNavButton,
+  OnyxNavButton,
   OnyxUserMenu,
 } from "sit-onyx";
 </script>
@@ -21,8 +21,8 @@ import {
           <OnyxNavItem label="Item" />
 
           <template #contextArea>
-            <OnyxUnstableNavButton label="Search" :icon="iconSearch" hide-label />
-            <OnyxUnstableNavButton label="Notifications" :icon="iconBell" hide-label />
+            <OnyxNavButton label="Search" :icon="iconSearch" hide-label />
+            <OnyxNavButton label="Notifications" :icon="iconBell" hide-label />
 
             <OnyxSeparator orientation="vertical" />
 

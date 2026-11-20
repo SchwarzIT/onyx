@@ -1,7 +1,6 @@
 ---
 title: Form element action
 componentName: OnyxFormElementAction
-status: experimental
 ---
 
 A button placed within a form element (input, select etc.) to trigger contextual actions, such as copying content, toggling visibility, or opening auxiliary pickers.
