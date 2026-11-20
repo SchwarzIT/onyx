@@ -57,8 +57,8 @@
     "@sit-onyx/vite-plugin-component-meta": "workspace:^",
     "@storybook/addon-a11y": "^10.6.7",
     "@vue/compiler-dom": "catalog:",
-    "@vue/test-utils": "^2.5.1",
-    "axe-core": "^4.14.0",
+    "@vue/test-utils": "^2.6.0",
+    "axe-core": "^4.14.1",
     "postcss-scss": "^4.0.9",
     "sass-embedded": "catalog:",
     "storybook-addon-tag-badges": "^3.1.0",
@@ -67,7 +67,7 @@
     "vite": "catalog:",
     "vue": "catalog:",
     "vue-component-type-helpers": "^3.3.14",
-    "vue-i18n": "^11.4.19",
+    "vue-i18n": "^11.4.22",
     "vue-router": "^5.5.1"
   },
   "peerDependencies": {
