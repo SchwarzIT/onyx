@@ -35,7 +35,10 @@ const { t } = injectI18n();
 
 const tabProps = useForwardProps(props, OnyxTab);
 const tabsContext = inject(CODE_TABS_INJECTION_KEY, undefined);
-userConsole?.assert(tabsContext, "OnyxCodeTab must be placed inside of a OnyxCodeTabs component!");
+userConsole?.assert(
+  !!tabsContext,
+  "OnyxCodeTab must be placed inside of a OnyxCodeTabs component!",
+);
 
 const label = computed(() => props.label ?? t.value("codeTabs.tabLabel"));
 const skeleton = useSkeletonContext(props);
