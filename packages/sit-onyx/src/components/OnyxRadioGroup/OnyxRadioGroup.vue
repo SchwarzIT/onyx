@@ -199,7 +199,7 @@ defineExpose({
     }
 
     .onyx-radio-button {
-      .onyx-required-marker {
+      .onyx-required-marker::after {
         display: none;
       }
     }
