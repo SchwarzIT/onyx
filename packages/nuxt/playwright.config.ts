@@ -2,4 +2,5 @@ import { defineOnyxPlaywrightConfigNuxt } from "@sit-onyx/shared/playwright.conf
 
 export default defineOnyxPlaywrightConfigNuxt({
   browsers: "single",
+  rootDir: import.meta.dirname,
 });
