@@ -22,7 +22,7 @@ export default defineConfig({
     target: "node",
   },
   build: {
-    target: ["node24"],
+    target: [getBuildTarget()],
     lib: {
       entry: getFilePath("./src/index.ts"),
       formats: ["es"],
@@ -36,4 +36,11 @@ export default defineConfig({
  */
 function getFilePath(path: string) {
   return fileURLToPath(new URL(path, import.meta.url));
+}
+
+/**
+ * Gets the build target based on the supported node version definition.
+ */
+function getBuildTarget() {
+  return `node${packageJson.engines.node.replace(/[^0-9.]/g, "")}`;
 }
