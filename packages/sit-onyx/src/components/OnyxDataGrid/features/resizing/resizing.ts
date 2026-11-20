@@ -3,11 +3,15 @@ import { mergeVueProps } from "../../../../utils/attrs.js";
 import { escapeCSS } from "../../../../utils/dom.js";
 import OnyxResizeHandle from "../../../OnyxResizeHandle/OnyxResizeHandle.vue";
 import type { DataGridEntry } from "../../types.js";
+import { HIDDEN_COLUMN } from "../hideColumns/hideColumns.js";
 import { createFeature, useFeatureContext, type InternalColumnConfig } from "../index.js";
 import "./resizing.scss";
 import type { ResizeState, ResizingOptions } from "./types.js";
 
 export const RESIZING_FEATURE = Symbol("Resizing");
+
+const isHiddenColumn = (key: unknown): boolean =>
+  key === HIDDEN_COLUMN || (typeof key === "symbol" && key.description === "HiddenColumn");
 
 export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOptions<TEntry>) =>
   createFeature((ctx) => {
@@ -20,6 +24,9 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     const lastColumnKey = ref<keyof TEntry>();
     const lastColumnActiveMinWidth = ref(MIN_COLUMN_WIDTH);
     const lastColumnStartWidth = ref(MIN_COLUMN_WIDTH);
+
+    const isResizable = (column: InternalColumnConfig<TEntry>) =>
+      !isHiddenColumn(column.key) && isEnabled.value(column.key);
 
     const getColumnWidth = (key: keyof TEntry, el: HTMLElement): number => {
       const stateWidth = resizeState.value.get(key);
@@ -36,6 +43,8 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
         // Changing the width directly is needed to avoid re-rendering the table too often.
 
         headers.value.forEach((_, columnKey) => {
+          if (isHiddenColumn(columnKey)) return;
+
           const property = `--onyx-data-grid-column-${escapeCSS(columnKey)}`;
           const width = resizeState.value.get(columnKey);
           if (width) {
@@ -55,12 +64,28 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
     );
 
     const modifyColumns = (cols: Readonly<InternalColumnConfig<TEntry>[]>) => {
-      if (cols.length > 0) {
-        lastColumnKey.value = cols.at(-1)!.key;
-      }
+      const resizableCols = cols.filter(isResizable);
+      lastColumnKey.value = resizableCols.at(-1)?.key;
 
       return cols.map((column) => {
         if (!isEnabled.value(column.key)) return column;
+
+        if (isHiddenColumn(column.key)) {
+          const thAttributes = {
+            ref: (el?: HTMLElement) => {
+              if (el) {
+                headers.value.set(column.key, el);
+              } else {
+                headers.value.delete(column.key);
+              }
+            },
+          } as ThHTMLAttributes;
+
+          return {
+            ...column,
+            thAttributes: mergeVueProps(thAttributes, column.thAttributes),
+          };
+        }
 
         const isActive = column.key === resizingCol.value;
 
@@ -95,7 +120,8 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
 
     const renderWrapper = (slots: Slots, column: Readonly<InternalColumnConfig<TEntry>>) => {
       const slotContent = slots.default?.();
-      if (!isEnabled.value(column.key)) return slotContent;
+
+      if (!isEnabled.value(column.key) || isHiddenColumn(column.key)) return slotContent;
 
       const currentMin =
         column.key === lastColumnKey.value ? lastColumnActiveMinWidth.value : MIN_COLUMN_WIDTH;
@@ -115,7 +141,9 @@ export const useResizing = <TEntry extends DataGridEntry>(options?: ResizingOpti
 
             headers.value.forEach((el, col) => {
               const width = getColumnWidth(col, el);
-              resizeState.value.set(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
+              if (!isHiddenColumn(col)) {
+                resizeState.value.set(col, `${Math.max(MIN_COLUMN_WIDTH, width)}px`);
+              }
 
               if (col !== lastColumnKey.value) {
                 otherColumnsWidthSum += width;
