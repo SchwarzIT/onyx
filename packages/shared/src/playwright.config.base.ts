@@ -204,6 +204,7 @@ export const defineOnyxPlaywrightConfigNuxt = (options: DefineOnyxPlaywrightConf
   const outputDir = path.join(rootDir, ".output");
 
   // to speed up tests, we disable the automatic build for each test if the app was already built (e.g. in CI)
+  // so its only build during the test itself if no ".output" directory exists (e.g. during local development)
   const isPrebuilt = existsSync(path.join(outputDir, "server/index.mjs"));
 
   return defineConfig<ConfigOptionsNuxt>(
