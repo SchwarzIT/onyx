@@ -34,10 +34,10 @@
   "devDependencies": {
     "@fontsource-variable/source-code-pro": "^5.3.1",
     "@fontsource-variable/source-sans-3": "^5.3.1",
-    "@nuxt/content": "^3.16.2",
+    "@nuxt/content": "^3.17.0",
     "@nuxt/test-utils": "catalog:",
     "@nuxtjs/color-mode": "^4.1.0",
-    "@nuxtjs/mdc": "~0.23.3",
+    "@nuxtjs/mdc": "~0.23.4",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/icons": "workspace:^",
