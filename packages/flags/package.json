@@ -40,6 +40,6 @@
     "vite-plugin-static-copy": "^4.1.1"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

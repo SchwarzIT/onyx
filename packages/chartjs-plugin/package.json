@@ -46,6 +46,6 @@
     "sit-onyx": "workspace:^"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }
