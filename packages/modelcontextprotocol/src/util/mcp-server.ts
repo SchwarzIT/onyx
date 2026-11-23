@@ -34,7 +34,7 @@ export const resourceToTool = <
     (async (...args: any[]) => {
       const [vars, extra] = hasInputSchema ? args : [{}, args.at(0)];
       const { contents } = await cb(
-        new URL(hasInputSchema ? template.uriTemplate.expand(vars) : template),
+        new URL(typeof template === "object" ? template.uriTemplate.expand(vars) : template),
         vars,
         extra,
       );

@@ -30,7 +30,7 @@
     "@playwright/test": "catalog:",
     "@storybook/addon-docs": "^10.6.7",
     "@storybook/vue3-vite": "^10.6.7",
-    "@tsconfig/node24": "^24.0.6",
+    "@tsconfig/node26": "^26.0.2",
     "@types/eslint": "^9.6.1",
     "@types/jsdom": "^30.0.0",
     "@types/node": "catalog:",
