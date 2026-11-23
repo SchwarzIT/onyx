@@ -42,5 +42,5 @@ function getFilePath(path: string) {
  * Gets the build target based on the supported node version definition.
  */
 function getBuildTarget() {
-  return `node${packageJson.engines.node.replace(/[^0-9.]/g, "")}`;
+  return `node${packageJson.engines.node.replace(/^\D*/g, "")}`;
 }
