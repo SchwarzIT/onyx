@@ -38,17 +38,9 @@ export const useCollection = async <TCollection extends keyof Collections = keyo
 
   const key = computed(() => `collection-${collection.value}-${path.value}`);
 
-  return useAsyncData(
-    key,
-    async () => {
-      const data = await queryCollection(collection.value).path(path.value).first();
-      if (data) return data;
-      throw createError({ status: 404, message: "Page not found", fatal: true });
-    },
-    {
-      // when multiple parallel requests are made for the same page, "defer" will make sure only the first
-      // is executed and the result is shared with all other requests
-      dedupe: "defer",
-    },
-  );
+  return useAsyncData(key, () => queryCollection(collection.value).path(path.value).first(), {
+    // when multiple parallel requests are made for the same page, "defer" will make sure only the first
+    // is executed and the result is shared with all other requests
+    dedupe: "defer",
+  });
 };
