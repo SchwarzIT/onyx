@@ -22,11 +22,11 @@ const open = ref(false);
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .modal {
   width: 32rem;
 
-  &__content {
+  .modal__content {
     padding: var(--onyx-density-xl) var(--onyx-modal-padding-inline);
   }
 }

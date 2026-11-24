@@ -10,7 +10,7 @@ const colorScheme = ref<ColorSchemeValue>("auto");
   <OnyxColorSchemeDialog v-model="colorScheme" :modal="false" open />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-color-scheme-dialog {
   zoom: 0.2;
 }

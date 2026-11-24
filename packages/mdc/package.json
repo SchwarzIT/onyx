@@ -31,7 +31,7 @@
     "test:playwright": "playwright install && playwright test"
   },
   "devDependencies": {
-    "@nuxtjs/mdc": "~0.23.3",
+    "@nuxtjs/mdc": "~0.23.4",
     "@playwright/experimental-ct-vue": "catalog:",
     "@playwright/test": "catalog:",
     "@sit-onyx/playwright-utils": "workspace:^",
@@ -47,6 +47,6 @@
     "vue": ">= 3.5.0"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

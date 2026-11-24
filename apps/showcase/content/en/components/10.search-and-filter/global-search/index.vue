@@ -45,7 +45,7 @@ import {
   </OnyxAppLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-app {
   zoom: 0.2;
 }

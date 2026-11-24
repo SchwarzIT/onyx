@@ -18,7 +18,7 @@ import { OnyxAccordion, OnyxAccordionItem } from "sit-onyx";
   </OnyxAccordion>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-accordion {
   zoom: 0.6;
 }

@@ -20,9 +20,9 @@ import { OnyxCard, OnyxIcon, OnyxTag } from "sit-onyx";
   </OnyxCard>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .card {
-  &__header {
+  .card__header {
     color: var(--onyx-color-text-icons-neutral-medium);
     display: flex;
     justify-content: space-between;
@@ -30,7 +30,7 @@ import { OnyxCard, OnyxIcon, OnyxTag } from "sit-onyx";
     width: 100%;
   }
 
-  &__icon {
+  .card__icon {
     color: #fff;
     background-color: var(--onyx-color-text-icons-primary-intense);
     border-radius: var(--onyx-radius-full);
@@ -41,14 +41,14 @@ import { OnyxCard, OnyxIcon, OnyxTag } from "sit-onyx";
     box-sizing: content-box;
   }
 
-  &__content {
+  .card__content {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: var(--onyx-density-md);
   }
 
-  &__value {
+  .card__value {
     font-size: 3rem;
     line-height: 2.75rem;
     font-weight: var(--onyx-font-weight-semibold);

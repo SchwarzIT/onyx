@@ -19,7 +19,7 @@ import { OnyxTableOfContents, OnyxTableOfContentsItem } from "sit-onyx";
   </ClientOnly>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-toc {
   zoom: 0.5;
 }

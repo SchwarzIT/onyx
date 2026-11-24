@@ -24,7 +24,7 @@ const handleClick = () => {
   </OnyxCard>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .card {
   flex-direction: row;
   gap: var(--onyx-density-md);
@@ -33,7 +33,7 @@ const handleClick = () => {
     background-color: var(--onyx-color-base-neutral-200);
   }
 
-  &__content {
+  .card__content {
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-2xs);

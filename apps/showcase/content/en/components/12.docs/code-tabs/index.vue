@@ -42,7 +42,7 @@ const message = ref("Hello World");
   </OnyxCodeTabs>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-code-tabs {
   zoom: 0.6;
 }

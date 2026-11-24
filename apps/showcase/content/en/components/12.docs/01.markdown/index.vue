@@ -13,7 +13,7 @@ const markdown = `This is _client-side_ parsed **markdown** content rendered wit
   </ClientOnly>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-markdown {
   text-align: center;
 }

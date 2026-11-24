@@ -57,12 +57,12 @@ const user = {
   </OnyxCard>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .card {
   padding: 0;
   gap: 0;
 
-  &__header {
+  .card__header {
     display: flex;
     align-items: center;
     gap: var(--onyx-card-gap);
@@ -73,21 +73,21 @@ const user = {
     border-top-right-radius: inherit;
   }
 
-  &__headline {
+  .card__headline {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--onyx-card-gap);
   }
 
-  &__content {
+  .card__content {
     display: flex;
     flex-direction: column;
     gap: var(--onyx-density-2xs);
     flex-grow: 1;
   }
 
-  &__details {
+  .card__details {
     padding: var(--onyx-card-padding);
     border-top: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
     display: flex;

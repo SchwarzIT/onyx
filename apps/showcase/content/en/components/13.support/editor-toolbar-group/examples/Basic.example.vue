@@ -17,7 +17,7 @@ import { OnyxEditorToolbarAction, OnyxEditorToolbarGroup } from "@sit-onyx/tipta
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .actions {
   display: flex;
   align-items: center;

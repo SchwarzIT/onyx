@@ -17,9 +17,9 @@ const marks: SliderMark[] = [
   <OnyxSlider v-model="value" class="slider" label="Slider" :marks />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .slider {
   width: 100%;
-  padding-inline: var(--onyx-density-xs); // fit marks
+  padding-inline: var(--onyx-density-xs); /* fit marks */
 }
 </style>

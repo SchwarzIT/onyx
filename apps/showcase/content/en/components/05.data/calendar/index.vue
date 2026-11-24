@@ -6,7 +6,7 @@ import { OnyxCalendar } from "sit-onyx";
   <OnyxCalendar show-calendar-weeks />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-calendar {
   zoom: 0.7;
 }

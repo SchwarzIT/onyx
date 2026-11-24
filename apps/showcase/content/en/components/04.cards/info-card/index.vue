@@ -8,7 +8,7 @@ import { OnyxInfoCard } from "sit-onyx";
   </OnyxInfoCard>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-info-card {
   zoom: 0.7;
 }

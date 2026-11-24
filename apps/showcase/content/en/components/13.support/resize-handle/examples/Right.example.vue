@@ -16,7 +16,7 @@ const width = ref<number>();
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .container {
   position: relative;
   border-right: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);

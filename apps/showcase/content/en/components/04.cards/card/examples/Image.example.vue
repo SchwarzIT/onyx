@@ -50,37 +50,37 @@ import {
   </OnyxCard>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .card {
   --onyx-card-gap: var(--onyx-density-md);
 
-  &__image {
+  .card__image {
     width: 100%;
   }
 
-  &__category {
+  .card__category {
     color: var(--onyx-color-text-icons-neutral-medium);
   }
 
-  &__header {
+  .card__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--onyx-card-gap);
   }
 
-  &__description {
+  .card__description {
     color: var(--onyx-color-text-icons-neutral-medium);
   }
 
-  &__tags {
+  .card__tags {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: var(--onyx-density-xs);
   }
 
-  &__button {
+  .card__button {
     width: 100%;
   }
 }

@@ -33,9 +33,9 @@ const isHelpOpen = ref(false);
   </OnyxInput>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .dialog {
-  &__content {
+  .dialog__content {
     padding: var(--onyx-density-md) var(--onyx-dialog-padding-inline);
     width: 26rem;
   }

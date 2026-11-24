@@ -12,9 +12,9 @@ import { OnyxToastMessage } from "sit-onyx";
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .wrapper {
-  padding: var(--onyx-density-md); // needed to not cut off the shadow
+  padding: var(--onyx-density-md); /* needed to not cut off the shadow */
   width: 100%;
   zoom: 0.6;
 }

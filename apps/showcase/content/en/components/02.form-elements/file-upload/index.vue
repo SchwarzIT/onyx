@@ -6,7 +6,7 @@ import { OnyxFileUpload } from "sit-onyx";
   <OnyxFileUpload max-size="4MiB" />
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-file-upload-wrapper {
   width: 100%;
   zoom: 0.5;

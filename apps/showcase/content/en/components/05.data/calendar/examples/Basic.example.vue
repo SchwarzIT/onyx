@@ -38,7 +38,7 @@ const findEvent = (date: Date) => {
   </OnyxCalendar>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .event {
   display: flex;
   align-items: center;
@@ -46,7 +46,7 @@ const findEvent = (date: Date) => {
   text-align: left;
   margin-top: var(--onyx-density-2xs);
 
-  &__description {
+  .event__description {
     color: var(--onyx-color-text-icons-neutral-medium);
   }
 

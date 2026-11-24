@@ -20,7 +20,7 @@ import { OnyxTable } from "sit-onyx";
   </OnyxTable>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .onyx-table-wrapper {
   width: 100%;
   zoom: 0.55;
