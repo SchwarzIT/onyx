@@ -1,14 +1,30 @@
 <script setup lang="ts">
 import type { Collections } from "@nuxt/content";
-import type { NuxtLayouts } from "#app";
+import type { NuxtError, NuxtLayouts } from "#app";
 
 definePageMeta({ layout: false });
 
 const { locale } = useI18n();
 
-const { data, error } = await useCollection({
+const error = ref<NuxtError>();
+
+const { data, error: collectionError } = await useCollection({
   collection: computed(() => `content_${locale.value}` as keyof Collections),
 });
+
+watch(
+  [data, collectionError],
+  () => {
+    if (collectionError.value) {
+      error.value = collectionError.value;
+    } else if (!data.value) {
+      error.value = createError({ status: 404, message: "Page not found", fatal: true });
+    } else {
+      error.value = undefined;
+    }
+  },
+  { immediate: true },
+);
 
 useSeoMeta({
   title: () => data.value?.seo.title,
@@ -24,7 +40,7 @@ const layout = computed<keyof NuxtLayouts>(() => {
 
 <template>
   <NuxtLayout :name="layout">
-    <OnyxError v-if="error" :error />
+    <OnyxError v-if="error" :error="error" />
     <ContentRenderer v-else-if="data" :value="data" />
   </NuxtLayout>
 </template>
