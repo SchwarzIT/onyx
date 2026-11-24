@@ -7,7 +7,7 @@ The filter tag is a specialized variant of the general [tag](/components/basic/t
 
 ## Examples
 
-### Colors
+### Basic
 
 The filter tag can be clicked to toggle its active state.
 
