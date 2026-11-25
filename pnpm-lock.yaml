@@ -839,8 +839,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       query-registry:
-        specifier: ^4.4.0
-        version: 4.4.0(zod@4.6.7)
+        specifier: ^5.0.0
+        version: 5.0.0(zod@4.6.7)
       remark:
         specifier: ^15.0.1
         version: 15.0.1(supports-color@10.2.2)
@@ -1105,9 +1105,6 @@ importers:
 
   packages/storybook-utils:
     dependencies:
-      '@sit-onyx/flags':
-        specifier: workspace:^
-        version: link:../flags
       '@storybook/vue3-vite':
         specifier: '>= 9.0.0'
         version: 10.6.8(storybook@10.6.8(@types/react@19.3.0)(prettier@3.10.1)(react@19.3.1))(typescript@6.0.3)(vite@8.3.8)(vue@3.5.46(typescript@6.0.3))
@@ -1118,6 +1115,9 @@ importers:
         specifier: ^8.0.2
         version: 8.0.2
     devDependencies:
+      '@sit-onyx/flags':
+        specifier: workspace:^
+        version: link:../flags
       '@sit-onyx/icons':
         specifier: workspace:^
         version: link:../icons
@@ -5796,10 +5796,6 @@ packages:
   decode-named-character-reference@1.3.0:
     resolution: {integrity: sha512-GtpQYB283KrPp6nRw50q3U9/VfOutZOe103qlN7BPP6Ad27xYnOIWv4lPzo8HCAL+mMZofJ9KEy30fq6MfaK6Q==}
 
-  decode-uri-component@0.5.1:
-    resolution: {integrity: sha512-vWHQkXgg2cE3BB4rR0c+PYw9BCQzLoNIRMI7AunIkZst74tw/vpPp7VLoYtsR/cy1f55g3XDWUslfeCZjiZJyA==}
-    engines: {node: '>=14.16'}
-
   decompress-response@6.0.0:
     resolution: {integrity: sha512-aW35yZM6Bb/4oJlZncMH2LCoZtJXTRxES17vE3hoRiowU2kWHaJKFkSBDnDR+cm9J+9QhXmREyIfv0pji9ejCQ==}
     engines: {node: '>=10'}
@@ -6305,9 +6301,9 @@ packages:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
 
-  filter-obj@5.1.0:
-    resolution: {integrity: sha512-qWeTREPoT7I0bifpPUXtxkZJ1XJzxWtfoWWkdVGqa+eCr3SHW/Ocp89o8vLvbUuQnadybJpjOKu4V+RwO6sGng==}
-    engines: {node: '>=14.16'}
+  filter-obj@6.1.0:
+    resolution: {integrity: sha512-xdMtCAODmPloU9qtmPcdBV9Kd27NtMse+4ayThxqIHUES5Z2S6bGpap5PpdmNM56ub7y3i1eyr+vJJIIgWGKmA==}
+    engines: {node: '>=18'}
 
   finalhandler@2.1.1:
     resolution: {integrity: sha512-S8KoZgRZN+a5rNwqTxlZZePjT/4cnm0ROV70LedRHZ0p8u9fRID0hJUZQpkKLzro8LfmC8sx23bY6tVNxv8pQA==}
@@ -8198,15 +8194,15 @@ packages:
   quansync@1.0.0:
     resolution: {integrity: sha512-5xZacEEufv3HSTPQuchrvV6soaiACMFnq1H8wkVioctoH3TRha9Sz66lOxRwPK/qZj7HPiSveih9yAyh98gvqA==}
 
-  query-registry@4.4.0:
-    resolution: {integrity: sha512-zHkkkTvPW0QXEIGIBNPwO83g2PNLVXfwAlDswkrp6U1TNs7ne5a23T2Wi9ZRNb9pPxxnyXczdb9s8REGjQLTIA==}
-    engines: {node: '>=20'}
+  query-registry@5.0.0:
+    resolution: {integrity: sha512-PxfS6PyduZAHlCJQlYnmX9YHIREJqiR+ybrzGAzZRdPPM+6PrcPifEao5rrUXPTAbEo7hXxuYjaxnT83NtetSA==}
+    engines: {node: '>=22'}
     peerDependencies:
       zod: ^4.0.0
 
-  query-string@9.5.1:
-    resolution: {integrity: sha512-/zO3RwuRCMTIcEgq6YMv4OrtEE1XzBG7w5N6zc6ydYnkWYOWsnLI/5894hYEzfESfMOT4cHCsRTIdxsSl1KjGg==}
-    engines: {node: '>=18'}
+  query-string@10.0.0:
+    resolution: {integrity: sha512-QYodx/Ywk8lCcOmsyupXVN91yWPAdjq0xVqE2FE2BHFYnma71C8txR8JCBptjzoUpkfAK7Qjua9VjYRTru4LYg==}
+    engines: {node: '>=22'}
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
@@ -8214,9 +8210,9 @@ packages:
   quick-format-unescaped@4.0.4:
     resolution: {integrity: sha512-tYC1Q1hgyRuHgloV/YXs2w15unPVh8qfu/qCTfhTYamaw7fyhumKa2yGpdSo87vY32rIclj+4fWYQXUMs9EHvg==}
 
-  quick-lru@7.3.0:
-    resolution: {integrity: sha512-k9lSsjl36EJdK7I06v7APZCbyGT2vMTsYSRX1Q2nbYmnkBqgUhRkAuzH08Ciotteu/PLJmIF2+tti7o3C/ts2g==}
-    engines: {node: '>=18'}
+  quick-lru@8.0.0:
+    resolution: {integrity: sha512-wuV1TowawrTfnwGvYbjYE1vwKAO0yO0rcEgHz0y9/Lz+v79WqQtRLLpLYYCZJY/tacCb9zVDMDJCJ04DKVZgfg==}
+    engines: {node: '>=22'}
 
   radix3@1.1.2:
     resolution: {integrity: sha512-b484I/7b8rDEdSDKckSSBA8knMpcdsXudlE/LNL639wFoHKwLbEkQFZHWEYwDC0wa0FKUcCY+GAF73Z7wxNVFA==}
@@ -8792,9 +8788,9 @@ packages:
     resolution: {integrity: sha512-1POYv7uv2gXoyGFpBCmpDVSNV74IfsWlDW216UPjbWufNf+bSU6GdbDsxdcxtfwb4xlI3yxzOTKClUosxARYrQ==}
     engines: {node: '>=0.10.0'}
 
-  split-on-first@3.0.0:
-    resolution: {integrity: sha512-qxQJTx2ryR0Dw0ITYyekNQWpz6f8dGd7vffGNflQQ3Iqj9NJ6qiZ7ELpZsJ/QBhIVAiDfXdag3+Gp8RvWa62AA==}
-    engines: {node: '>=12'}
+  split-on-first@4.0.0:
+    resolution: {integrity: sha512-pyrgNqiEBHA9KlEtg9quYGagtrlTyukL3ryQ+RmjRn9SYmcNQmfa+sWIsI+hlcL4WrmFdrt7IfM6o8ktBAooDQ==}
+    engines: {node: '>=20'}
 
   split2@4.2.0:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
@@ -9435,8 +9431,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  url-join@5.2.0:
-    resolution: {integrity: sha512-/tMVQdp/2eE90fGb6npbd2nLHH8jamzLLeZhLEKTz4Rc38wO5AeEuIhoWroWWfQJS50ZzL4Xod9JER/pJWTTEQ==}
+  url-join@6.0.0:
+    resolution: {integrity: sha512-GrPbZO5/Il4fCWGbvu9nWsanTvCBOPluHf3lzCA+NlfTyObhpt4T6MufVyRj4HAkh3XARV1OTPGHmJfj6LI/jg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   use-sync-external-store@1.7.0:
@@ -9957,9 +9953,9 @@ packages:
     resolution: {integrity: sha512-dSvYKdvLsAHCDqPOhIwk/q5CvuWtTB3Dgpoe0uVEFjTzIOAmsQpprX25InCvrvJsirEbu1OHyy67n/kAj1Sw/w==}
     engines: {node: '>=18'}
 
-  zod-package-json@2.1.0:
-    resolution: {integrity: sha512-XLlyeEk+5q4m+GSNrTXAi9QwTbtOCHJOzr1eTCHsF6J5y8zypZRFCvfO1rOZ2CXht+9pY6DNpC7si1tcWESPCw==}
-    engines: {node: '>=20'}
+  zod-package-json@3.0.0:
+    resolution: {integrity: sha512-Kt0SL/FExy/uHnSJtv2NSoZhYlF5v6OCCoZjyRm61V0rfsHIL3q1K0Xar+gfzlttcf5BZpRiOeEqr++5QVt0/A==}
+    engines: {node: '>=22'}
     peerDependencies:
       zod: ^4.0.0
 
@@ -15866,8 +15862,6 @@ snapshots:
     dependencies:
       character-entities: 2.0.2
 
-  decode-uri-component@0.5.1: {}
-
   decompress-response@6.0.0:
     dependencies:
       mimic-response: 3.1.0
@@ -16432,7 +16426,7 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
-  filter-obj@5.1.0: {}
+  filter-obj@6.1.0: {}
 
   finalhandler@2.1.1(supports-color@10.2.2):
     dependencies:
@@ -19449,26 +19443,25 @@ snapshots:
 
   quansync@1.0.0: {}
 
-  query-registry@4.4.0(zod@4.6.7):
+  query-registry@5.0.0(zod@4.6.7):
     dependencies:
-      query-string: 9.5.1
-      quick-lru: 7.3.0
-      url-join: 5.2.0
+      query-string: 10.0.0
+      quick-lru: 8.0.0
+      url-join: 6.0.0
       validate-npm-package-name: 8.0.0
       zod: 4.6.7
-      zod-package-json: 2.1.0(zod@4.6.7)
+      zod-package-json: 3.0.0(zod@4.6.7)
 
-  query-string@9.5.1:
+  query-string@10.0.0:
     dependencies:
-      decode-uri-component: 0.5.1
-      filter-obj: 5.1.0
-      split-on-first: 3.0.0
+      filter-obj: 6.1.0
+      split-on-first: 4.0.0
 
   queue-microtask@1.2.3: {}
 
   quick-format-unescaped@4.0.4: {}
 
-  quick-lru@7.3.0: {}
+  quick-lru@8.0.0: {}
 
   radix3@1.1.2: {}
 
@@ -20159,7 +20152,7 @@ snapshots:
 
   speakingurl@14.0.1: {}
 
-  split-on-first@3.0.0: {}
+  split-on-first@4.0.0: {}
 
   split2@4.2.0: {}
 
@@ -20902,7 +20895,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  url-join@5.2.0: {}
+  url-join@6.0.0: {}
 
   use-sync-external-store@1.7.0(react@19.3.1):
     dependencies:
@@ -21437,7 +21430,7 @@ snapshots:
       normalize-path: 3.0.0
       readable-stream: 4.8.0
 
-  zod-package-json@2.1.0(zod@4.6.7):
+  zod-package-json@3.0.0(zod@4.6.7):
     dependencies:
       zod: 4.6.7
 
