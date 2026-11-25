@@ -39,7 +39,7 @@
     "@types/mdast": "^4.0.4",
     "@types/node": "catalog:",
     "@types/unist": "^3.0.3",
-    "query-registry": "^4.4.0",
+    "query-registry": "^5.0.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^5.0.0",
     "remark-parse": "^11.0.0",
