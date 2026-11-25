@@ -32,6 +32,7 @@
     "deepmerge-ts": "^8.0.2"
   },
   "devDependencies": {
+    "@sit-onyx/flags": "workspace:^",
     "@sit-onyx/icons": "workspace:^",
     "@sit-onyx/shared": "workspace:^",
     "prettier": "^3.10.1",
