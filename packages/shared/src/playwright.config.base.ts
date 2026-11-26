@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import type { ConfigOptions } from "@nuxt/test-utils/playwright";
 import {
   defineConfig as defineConfigCT,
@@ -7,7 +9,9 @@ import {
 import { defineConfig } from "@playwright/test";
 import vue, { type Options } from "@vitejs/plugin-vue";
 
-export type DefineOnyxPlaywrightConfigOptions = {
+export type DefineOnyxPlaywrightConfigOptions<
+  T extends Record<PropertyKey, unknown> = Record<PropertyKey, unknown>,
+> = {
   /**
    * Whether to run the tests in all onyx-defined browsers or just a single one of them.
    *
@@ -17,11 +21,26 @@ export type DefineOnyxPlaywrightConfigOptions = {
   /**
    * Optional custom overrides for the Playwright config.
    */
-  overrides?: PlaywrightTestConfig;
+  overrides?: PlaywrightTestConfig<T>;
 };
 
+export type DefineOnyxPlaywrightConfigNuxtOptions =
+  DefineOnyxPlaywrightConfigOptions<ConfigOptionsNuxt> & {
+    /**
+     * Root directory of the Nuxt application. Must be set to `import.meta.dirname`
+     */
+    rootDir: string;
+  };
+
 export type ConfigOptionsNuxt = ConfigOptions & {
-  nuxt: { nuxtConfig?: { content?: Record<PropertyKey, unknown> } };
+  defaults?: {
+    nuxt?: {
+      nuxtConfig?: {
+        content?: Record<PropertyKey, unknown>;
+        llms?: Record<PropertyKey, unknown>;
+      };
+    };
+  };
 };
 
 export const vuePluginOptions: Options = {
@@ -180,22 +199,48 @@ export const defineOnyxPlaywrightConfigCT = (options?: DefineOnyxPlaywrightConfi
  *
  * @see: https://playwright.dev/docs/test-configuration
  */
-export const defineOnyxPlaywrightConfigNuxt = (options?: DefineOnyxPlaywrightConfigOptions) => {
+export const defineOnyxPlaywrightConfigNuxt = (options: DefineOnyxPlaywrightConfigNuxtOptions) => {
+  const rootDir = options.rootDir;
+  const outputDir = path.join(rootDir, ".output");
+
+  // to speed up tests, we disable the automatic build for each test if the app was already built (e.g. in CI)
+  // so its only build during the test itself if no ".output" directory exists (e.g. during local development)
+  const isPrebuilt = existsSync(path.join(outputDir, "server/index.mjs"));
+
   return defineConfig<ConfigOptionsNuxt>(
     getDefaultConfig(options),
     {
       testDir: "./tests/playwright",
       timeout: 60 * 1000,
       use: {
-        nuxt: {
-          nuxtConfig: {
-            content: {
-              // prevent flaky tests / general test issues due to parallel execution
-              // by using a separate/unique database file for each test so the tests do not run / modify the same database
-              _localDatabase: {
-                type: "sqlite",
-                // see: https://playwright.dev/docs/test-parallel#worker-index-and-parallel-index
-                filename: `.data/playwright/playwright-${process.env.TEST_WORKER_INDEX}.sqlite`,
+        defaults: {
+          nuxt: {
+            rootDir,
+            build: !isPrebuilt,
+            nuxtConfig: {
+              nitro: {
+                // if prebuild, the existing ".output" dir should be used instead of the Nuxt test-utils default fixture directory
+                output: isPrebuilt ? { dir: outputDir } : undefined,
+              },
+              // disable type check and prerender to speed up build (if not already build before)
+              typescript: {
+                typeCheck: false,
+              },
+              prerender: {
+                crawlLinks: false,
+                routes: [],
+              },
+              llms: {
+                prerender: false,
+              },
+              content: {
+                // prevent flaky tests / general test issues due to parallel execution
+                // by using a separate/unique database file for each test so the tests do not run / modify the same database
+                _localDatabase: {
+                  type: "sqlite",
+                  // see: https://playwright.dev/docs/test-parallel#worker-index-and-parallel-index
+                  filename: `.data/playwright/playwright-${process.env.TEST_WORKER_INDEX}.sqlite`,
+                },
               },
             },
           },

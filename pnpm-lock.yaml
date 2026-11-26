@@ -517,6 +517,12 @@ importers:
       '@octokit/types':
         specifier: ^18.0.0
         version: 18.0.0
+      '@playwright/test':
+        specifier: 1.62.1
+        version: 1.62.1
+      '@sit-onyx/shared':
+        specifier: workspace:^
+        version: link:../../packages/shared
       '@types/node':
         specifier: 'catalog:'
         version: 26.6.6

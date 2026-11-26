@@ -67,11 +67,9 @@ export default defineNuxtConfig({
       exclude: [/\bpackages\/flags\b/, /\bpackages\/icons\b/],
     },
   },
-  nitro: {
-    prerender: {
-      crawlLinks: true,
-      routes: ["/"],
-    },
+  prerender: {
+    crawlLinks: true,
+    routes: ["/"],
   },
 });
 

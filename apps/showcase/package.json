@@ -15,7 +15,8 @@
     "dev": "nuxt prepare && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "test": "vitest"
+    "test": "vitest",
+    "test:playwright": "playwright install chromium && playwright test"
   },
   "dependencies": {
     "@nuxt/content": "^3.17.0",
@@ -48,6 +49,8 @@
   "devDependencies": {
     "@nuxt/test-utils": "catalog:",
     "@octokit/types": "^18.0.0",
+    "@playwright/test": "catalog:",
+    "@sit-onyx/shared": "workspace:^",
     "@types/node": "catalog:",
     "vue-component-meta": "catalog:"
   }
