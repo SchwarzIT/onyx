@@ -154,6 +154,7 @@ const link = computed(() => {
       left: 50%;
       pointer-events: none;
       position: absolute;
+      padding: 0;
       border: 0;
       height: 0;
       width: 0;
