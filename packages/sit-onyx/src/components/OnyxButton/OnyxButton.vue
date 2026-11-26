@@ -97,7 +97,7 @@ const rippleEvents = computed(() => ripple.value?.events ?? {});
       &.onyx-button--default {
         --onyx-button-background-color: var(--onyx-color-component-cta-default);
         --onyx-button-background-color-hover: var(--onyx-color-component-cta-default-hover);
-        --onyx-button-background-color-disabled: var(--onyx-color-base-primary-200);
+        --onyx-button-background-color-disabled: var(--onyx-color-component-cta-disabled);
         --onyx-button-text-color: var(--onyx-color-text-icons-neutral-button);
         --onyx-button-text-color-disabled: var(--onyx-color-text-icons-neutral-inverted);
         --onyx-button-border-color: var(--onyx-button-background-color);
