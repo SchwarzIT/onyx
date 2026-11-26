@@ -76,17 +76,20 @@ jobs:
 
       - uses: ./.github/templates/node-setup
 
-      # install system dependencies for Playwright
-      # https://github.com/actions/runner-images/issues/7048
       - name: 📦 Install Playwright system dependencies
         id: first-playwright-install
         run: |
           set -ex
-          echo 'Acquire::Retries "2"; Acquire::http::Timeout "10"; Acquire::https::Timeout "10";' | sudo tee /etc/apt/apt.conf.d/99timeout
+
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
+        timeout-minutes: 3
         continue-on-error: true
 
-      - name: 📦 Install Playwright system dependencies using fallback mirror
+      # Install system dependencies for Playwright using multiple mirrors.
+      # The default mirror sometimes becomes slow/unstable (https://github.com/actions/runner-images/issues/7048),
+      # therefore we add additional mirrors with the same priority.
+      # The download is then spread over multiple mirrors: https://manpages.debian.org/testing/apt/apt-transport-mirror.1.en.html#Fallback_order_for_mirrors
+      - name: 📦 Install Playwright system dependencies using fallback mirrors
         if: ${{ steps.first-playwright-install.outcome == 'failure' }}
         run: |
           set -ex
@@ -94,10 +97,12 @@ jobs:
           # Clean-up in progress installation: https://wiki.debian.org/Teams/Dpkg/FAQ#db-lock
           sudo killall -q apt apt-get || true
           sudo fuser -vk -KILL /var/lib/dpkg/lock /var/lib/dpkg/lock-frontend /var/lib/apt/lists/lock /var/cache/apt/archives/lock || true
-          sudo dpkg --configure -a
+          sudo dpkg --configure --pending
 
-          # Use different mirror
-          sudo sed -i 's/azure.archive.ubuntu.com/archive.ubuntu.com/g' /etc/apt/apt-mirrors.txt /etc/apt/sources.list /etc/apt/sources.list.d/* 2>/dev/null || true
+          # Add fastest "United States" mirrors from https://launchpad.net/ubuntu/+archivemirrors#:~:text=United%20States
+          echo "https://mirror.enzu.com/ubuntu/	priority:0" | sudo tee --append /etc/apt/apt-mirrors.txt
+          echo "https://mirror.pilotfiber.com/ubuntu/	priority:0" | sudo tee --append /etc/apt/apt-mirrors.txt
+          sudo cat /etc/apt/apt-mirrors.txt
 
           pnpm exec playwright install --only-shell --with-deps firefox webkit chromium-headless-shell
 
