@@ -246,7 +246,7 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     &__footer {
       padding: var(--onyx-density-xs) var(--onyx-global-search-padding);
       background-color: var(--onyx-color-base-background-tinted);
-      color: var(--onyx-color-text-icons-neutral-soft);
+      color: var(--onyx-color-text-icons-neutral-medium);
       border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
       border-top: none;
       border-radius: 0 0 var(--onyx-basic-dialog-border-radius)
@@ -295,6 +295,9 @@ provide(GLOBAL_SEARCH_INJECTION_KEY, { headless, activeValue });
     &__input {
       --onyx-form-element-v2-padding-block: var(--onyx-global-search-padding);
       --onyx-form-element-v2-border-radius: var(--onyx-basic-dialog-border-radius);
+      .onyx-form-element-v2__input::placeholder {
+        color: var(--onyx-color-text-icons-neutral-medium);
+      }
     }
   }
 }

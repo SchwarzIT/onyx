@@ -182,7 +182,7 @@ const hasReachedMax = computed(() => props.modelValue >= props.pages);
       border: 0 solid var(--onyx-color-component-border-neutral);
       border-width: var(--onyx-pagination-border-size) 0;
       text-align: center;
-      color: var(--onyx-color-text-icons-neutral-soft);
+      color: var(--onyx-color-text-icons-neutral-medium);
       background-color: var(--onyx-color-base-background-tinted);
       width: max-content;
       max-width: 100%;
