@@ -163,6 +163,13 @@ useAutofocus(input, props);
         margin: var(--onyx-radio-button-selector-margin);
         border-radius: var(--onyx-radius-full);
       }
+      &__label-skeleton {
+        height: var(--onyx-spacing-md);
+        margin-top: calc(
+          (var(--onyx-form-element-v2-label-skeleton-height) - var(--onyx-spacing-md)) / 2
+        );
+        width: var(--onyx-spacing-3xl);
+      }
     }
 
     &.onyx-form-element-v2--label-right,
