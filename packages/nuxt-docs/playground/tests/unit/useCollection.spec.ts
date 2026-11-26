@@ -1,8 +1,7 @@
 import type { Collections } from "@nuxt/content";
 import { mockNuxtImport } from "@nuxt/test-utils/runtime";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { reactive, ref } from "vue";
-import { useCollection } from "./useCollection.js";
+import { useCollection } from "../../../app/composables/useCollection.js";
 
 const TEST_COLLECTION = "docs" as keyof Collections;
 
@@ -22,21 +21,12 @@ vi.mock("vue-i18n", async (importOriginal) => {
 });
 
 mockNuxtImport("useRoute", () => () => mockRoute);
-
-vi.stubGlobal("useRoute", () => mockRoute);
 vi.stubGlobal("useI18n", () => ({ locale: mockLocale }));
 vi.stubGlobal("queryCollection", mockQueryCollection);
 
 describe("useCollection", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-
-    const clearFn = (globalThis as Record<string, unknown>).clearNuxtData as
-      | (() => void)
-      | undefined;
-    if (typeof clearFn === "function") {
-      clearFn();
-    }
 
     mockLocale.value = "en";
     mockRoute.path = "/";
