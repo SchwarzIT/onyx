@@ -35,10 +35,10 @@
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@nuxt/devtools": "^4.2.0",
-    "@nuxt/kit": "^4.6.4",
+    "@nuxt/devtools": "^4.2.1",
+    "@nuxt/kit": "^4.7.0",
     "@nuxt/module-builder": "^1.0.4",
-    "@nuxt/schema": "^4.6.4",
+    "@nuxt/schema": "^4.7.0",
     "@nuxt/test-utils": "catalog:",
     "@nuxtjs/i18n": "^10.6.0",
     "@sit-onyx/shared": "workspace:^",
