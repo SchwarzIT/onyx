@@ -83,7 +83,7 @@ const filteredGroups = computed(() => {
 <template>
   <div class="overview">
     <div class="onyx-grid">
-      <OnyxUnstableSearch v-model="search" class="onyx-grid-span-8" with-shortcut />
+      <OnyxSearch v-model="search" class="onyx-grid-span-8" with-shortcut />
     </div>
 
     <OnyxEmpty v-if="filteredGroups.every((group) => group.hidden)">

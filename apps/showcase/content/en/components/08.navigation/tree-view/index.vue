@@ -1,17 +1,11 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import {
-  OnyxIcon,
-  OnyxSystemButton,
-  OnyxTag,
-  OnyxUnstableTreeView,
-  OnyxUnstableTreeViewItem,
-} from "sit-onyx";
+import { OnyxIcon, OnyxSystemButton, OnyxTag, OnyxTreeView, OnyxTreeViewItem } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxUnstableTreeView label="Tree view">
-    <OnyxUnstableTreeViewItem open>
+  <OnyxTreeView label="Tree view">
+    <OnyxTreeViewItem open>
       <template #item>
         <OnyxIcon :icon="iconPlaceholder" />
         Item
@@ -22,15 +16,15 @@ import {
         </div>
       </template>
 
-      <OnyxUnstableTreeViewItem label="Item" open>
-        <OnyxUnstableTreeViewItem label="Item" open>
-          <OnyxUnstableTreeViewItem label="Item" />
-          <OnyxUnstableTreeViewItem label="Item" active />
-          <OnyxUnstableTreeViewItem label="Item" />
-        </OnyxUnstableTreeViewItem>
-      </OnyxUnstableTreeViewItem>
-    </OnyxUnstableTreeViewItem>
-  </OnyxUnstableTreeView>
+      <OnyxTreeViewItem label="Item" open>
+        <OnyxTreeViewItem label="Item" open>
+          <OnyxTreeViewItem label="Item" />
+          <OnyxTreeViewItem label="Item" active />
+          <OnyxTreeViewItem label="Item" />
+        </OnyxTreeViewItem>
+      </OnyxTreeViewItem>
+    </OnyxTreeViewItem>
+  </OnyxTreeView>
 </template>
 
 <style scoped>

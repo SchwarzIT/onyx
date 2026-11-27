@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { _unstableUseShortcut, useToast } from "sit-onyx";
+import { useShortcut, useToast } from "sit-onyx";
 
 const toast = useToast();
 
-_unstableUseShortcut({
+useShortcut({
   sequence: [{ all: ["Shift", "7"] }],
   onComplete: () => {
     // your logic here when the full shortcut is pressed...

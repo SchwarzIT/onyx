@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { iconCheckSmall, iconCopy } from "@sit-onyx/icons";
-import { OnyxIcon, OnyxInput, OnyxUnstableFormElementAction, useCopy } from "sit-onyx";
+import { OnyxIcon, OnyxInput, OnyxFormElementAction, useCopy } from "sit-onyx";
 import { ref, computed } from "vue";
 
 const textValue = ref("This text can be copied!");
@@ -24,7 +24,7 @@ const errorMessage = computed(() => {
     :error="errorMessage"
   >
     <template #trailingIcons>
-      <OnyxUnstableFormElementAction
+      <OnyxFormElementAction
         v-if="textValue.length && copyStatus !== 'success'"
         label="Copy to clipboard"
         :icon="iconCopy"

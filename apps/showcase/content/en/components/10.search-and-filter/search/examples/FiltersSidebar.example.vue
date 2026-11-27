@@ -1,11 +1,5 @@
 <script lang="ts" setup>
-import {
-  OnyxButton,
-  OnyxSelect,
-  OnyxUnstableSearch,
-  type SelectOption,
-  OnyxSidebar,
-} from "sit-onyx";
+import { OnyxButton, OnyxSelect, OnyxSearch, type SelectOption, OnyxSidebar } from "sit-onyx";
 import { ref } from "vue";
 
 type FilterState = Partial<{
@@ -37,7 +31,7 @@ const handleClear = () => {
 
 <template>
   <div>
-    <OnyxUnstableSearch v-model:show-filters="showFilters" v-model="filters.search" />
+    <OnyxSearch v-model:show-filters="showFilters" v-model="filters.search" />
 
     <OnyxSidebar
       label="Filters"

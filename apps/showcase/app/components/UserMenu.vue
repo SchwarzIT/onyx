@@ -9,7 +9,7 @@ const { login } = useLogin();
 <template>
   <OnyxTooltip v-if="!user" :text="t('auth.informationSchwarz')">
     <template #default="{ trigger }">
-      <OnyxUnstableNavButton
+      <OnyxNavButton
         v-bind="trigger"
         :label="t('auth.login')"
         :icon="iconLogin"

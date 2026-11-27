@@ -8,8 +8,8 @@ import {
   OnyxPageLayout,
   OnyxSidebar,
   OnyxSidebarItem,
-  OnyxUnstableTreeView,
-  OnyxUnstableTreeViewItem,
+  OnyxTreeView,
+  OnyxTreeViewItem,
 } from "sit-onyx";
 </script>
 
@@ -21,19 +21,19 @@ import {
           <template #header> Header content </template>
 
           <div class="sidebar__content">
-            <OnyxUnstableTreeView label="Example tree view">
+            <OnyxTreeView label="Example tree view">
               <OnyxSidebarItem link="#link-1">
                 <OnyxIcon :icon="iconPlaceholder" />
                 Item 1
               </OnyxSidebarItem>
 
-              <OnyxUnstableTreeViewItem label="Item 2" :icon="iconPlaceholder">
+              <OnyxTreeViewItem label="Item 2" :icon="iconPlaceholder">
                 <OnyxSidebarItem link="#link-2.1">
                   <OnyxIcon :icon="iconPlaceholder" />
                   Item 2.1
                 </OnyxSidebarItem>
 
-                <OnyxUnstableTreeViewItem label="Item 2.2" :icon="iconPlaceholder">
+                <OnyxTreeViewItem label="Item 2.2" :icon="iconPlaceholder">
                   <OnyxSidebarItem link="#link-2.2.1">
                     <OnyxIcon :icon="iconPlaceholder" />
                     Item 2.2.1
@@ -42,10 +42,10 @@ import {
                     <OnyxIcon :icon="iconPlaceholder" />
                     Item 2.2.2
                   </OnyxSidebarItem>
-                </OnyxUnstableTreeViewItem>
-              </OnyxUnstableTreeViewItem>
+                </OnyxTreeViewItem>
+              </OnyxTreeViewItem>
 
-              <OnyxUnstableTreeViewItem label="Item 3" :icon="iconPlaceholder">
+              <OnyxTreeViewItem label="Item 3" :icon="iconPlaceholder">
                 <OnyxSidebarItem link="#link-3.1">
                   <OnyxIcon :icon="iconPlaceholder" />
                   Item 3.1
@@ -58,13 +58,13 @@ import {
                   <OnyxIcon :icon="iconPlaceholder" />
                   Item 3.3
                 </OnyxSidebarItem>
-              </OnyxUnstableTreeViewItem>
+              </OnyxTreeViewItem>
 
               <OnyxSidebarItem link="#link-4">
                 <OnyxIcon :icon="iconPlaceholder" />
                 Item 4
               </OnyxSidebarItem>
-            </OnyxUnstableTreeView>
+            </OnyxTreeView>
           </div>
 
           <template #footer>

@@ -1,12 +1,9 @@
 ---
 title: Date picker (v2)
 componentName: OnyxDatePickerV2
-status: experimental
 ---
 
 The date picker allows users to select individual dates, multiple selections, or continuous date ranges.
-
-<!-- TODO: check why export name from vue-component-meta is not "OnyxUnstableDatePickerV2" -->
 
 ## Examples
 

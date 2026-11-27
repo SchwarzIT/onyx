@@ -9,7 +9,6 @@ import OnyxDatePickerV2 from "./OnyxDatePickerV2.vue";
  */
 const meta: Meta<typeof OnyxDatePickerV2> = {
   title: "Form Elements/DatePickerV2",
-  tags: ["unstable"],
   component: OnyxDatePickerV2 as Meta["component"],
   decorators: [
     (story) => ({

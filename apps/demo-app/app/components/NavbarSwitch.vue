@@ -31,7 +31,7 @@ const selectedOrientation = computed({
 </script>
 
 <template>
-  <OnyxUnstableNavButton
+  <OnyxNavButton
     :label="$t('navigation.changeOrientation')"
     :icon="iconDashboard"
     hide-label

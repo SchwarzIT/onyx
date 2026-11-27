@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { iconBell, iconBellRing, iconCheckRead, iconCircleAttention } from "@sit-onyx/icons";
 import { promiseTimeout } from "@vueuse/core";
-import { OnyxIcon, OnyxUnstableNavButton, useGlobalFAB, useNotification } from "sit-onyx";
+import { OnyxIcon, OnyxNavButton, useGlobalFAB, useNotification } from "sit-onyx";
 import type { MyNotification } from "~/stores/notification-store";
 
 const store = useNotificationStore();
@@ -61,18 +61,14 @@ onUnmounted(() => globalFAB.remove(id));
 </script>
 
 <template>
-  <OnyxUnstableNavButton
-    :label="$t('notification.headline')"
-    hide-label
-    @click="isSidebarOpen = true"
-  >
+  <OnyxNavButton :label="$t('notification.headline')" hide-label @click="isSidebarOpen = true">
     <OnyxNotificationDot :hidden="!store.unreadNotifications.length">
       <OnyxIcon :icon="iconBell" />
     </OnyxNotificationDot>
     <span v-if="props.isVertical && props.expanded">
       {{ $t("notification.headline") }}
     </span>
-  </OnyxUnstableNavButton>
+  </OnyxNavButton>
 
   <OnyxSidebar
     class="notification-center"

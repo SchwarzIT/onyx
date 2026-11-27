@@ -9,7 +9,6 @@ import OnyxNavButton from "./OnyxNavButton.vue";
  */
 const meta: Meta<typeof OnyxNavButton> = {
   title: "Navigation/NavBar/modules/NavButton",
-  tags: ["unstable"],
   component: OnyxNavButton,
   argTypes: {
     icon: defineIconSelectArgType(),

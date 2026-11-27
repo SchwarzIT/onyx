@@ -175,7 +175,7 @@ const handleDelete = () => {
         </template>
       </OnyxInput>
 
-      <OnyxUnstableDatePickerV2 class="onyx-grid-span-2" :label="$t('user.birthday')" />
+      <OnyxDatePickerV2 class="onyx-grid-span-2" :label="$t('user.birthday')" />
 
       <OnyxStepper
         v-model="state.age"

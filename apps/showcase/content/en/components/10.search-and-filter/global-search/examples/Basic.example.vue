@@ -17,7 +17,7 @@ import {
   OnyxInfoCard,
   OnyxNavBar,
   OnyxPageLayout,
-  OnyxUnstableNavButton,
+  OnyxNavButton,
   OnyxFilterBadge,
   type OnyxGlobalSearchOptionProps,
 } from "sit-onyx";
@@ -116,7 +116,7 @@ const searchGroups = computed(() => {
       <OnyxNavBar app-name="App name" :logo-url>
         <!-- using the "globalContextArea" instead of the regular "contextArea" here so the search is also always visible on mobile screens -->
         <template #globalContextArea>
-          <OnyxUnstableNavButton
+          <OnyxNavButton
             label="Open global search"
             :icon="iconSearch"
             hide-label

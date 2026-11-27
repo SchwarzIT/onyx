@@ -1,7 +1,6 @@
 ---
 title: Time picker
 componentName: OnyxTimePicker
-status: experimental
 ---
 
 The time picker allows users to select a specific time or a time range.

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxSelect, OnyxUnstableSearch, type SelectOption } from "sit-onyx";
+import { OnyxButton, OnyxSelect, OnyxSearch, type SelectOption } from "sit-onyx";
 import { ref } from "vue";
 
 type FilterState = Partial<{
@@ -25,7 +25,7 @@ const categoryOptions = [
 </script>
 
 <template>
-  <OnyxUnstableSearch v-model:show-filters="showFilters" v-model="filters.search" class="search">
+  <OnyxSearch v-model:show-filters="showFilters" v-model="filters.search" class="search">
     <OnyxSelect
       v-model="filters.status"
       class="select"
@@ -43,7 +43,7 @@ const categoryOptions = [
       list-label="Available categories"
     />
     <OnyxButton label="Clear" @click="filters = {}" />
-  </OnyxUnstableSearch>
+  </OnyxSearch>
 </template>
 
 <style scoped>

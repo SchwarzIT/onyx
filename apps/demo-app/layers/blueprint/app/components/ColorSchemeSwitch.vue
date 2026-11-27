@@ -18,7 +18,7 @@ useThemeTransition(colorScheme);
 </script>
 
 <template>
-  <OnyxUnstableNavButton
+  <OnyxNavButton
     :label="$t('blueprint.changeColorScheme')"
     :icon="iconCircleContrast"
     hide-label

@@ -25,7 +25,7 @@ import {
   OnyxNotificationDot,
   OnyxNotifications,
   OnyxSidebar,
-  OnyxUnstableNavButton,
+  OnyxNavButton,
   OnyxUserMenu,
   useNotification,
   type OnyxNotificationCardProps,
@@ -126,7 +126,7 @@ const addExampleNotification = () => {
 
         <template #globalContextArea>
           <OnyxNotificationDot :hidden="!store.unreadNotifications.value.length">
-            <OnyxUnstableNavButton
+            <OnyxNavButton
               label="Notifications"
               :icon="iconBell"
               hide-label

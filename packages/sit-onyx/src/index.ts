@@ -65,7 +65,7 @@ export * from "./components/OnyxDataGrid/features/index.js";
 export { default as OnyxDatePicker } from "./components/OnyxDatePicker/OnyxDatePicker.vue";
 export * from "./components/OnyxDatePicker/types.js";
 
-export { default as OnyxUnstableDatePickerV2 } from "./components/OnyxDatePickerV2/OnyxDatePickerV2.vue";
+export { default as OnyxDatePickerV2 } from "./components/OnyxDatePickerV2/OnyxDatePickerV2.vue";
 export * from "./components/OnyxDatePickerV2/types.js";
 
 export { default as OnyxBasicDialog } from "./components/OnyxBasicDialog/OnyxBasicDialog.vue";
@@ -97,7 +97,7 @@ export * from "./components/OnyxForm/types.js";
 export { default as OnyxFormElement } from "./components/OnyxFormElement/OnyxFormElement.vue";
 export * from "./components/OnyxFormElement/types.js";
 
-export { default as OnyxUnstableFormElementAction } from "./components/OnyxFormElementAction/OnyxFormElementAction.vue";
+export { default as OnyxFormElementAction } from "./components/OnyxFormElementAction/OnyxFormElementAction.vue";
 export * from "./components/OnyxFormElementAction/types.js";
 
 export { default as OnyxUnstableFormElementV2 } from "./components/OnyxFormElementV2/OnyxFormElementV2.vue";
@@ -157,7 +157,7 @@ export * from "./components/OnyxNavBar/modules/index.js";
 export { default as OnyxNavBar } from "./components/OnyxNavBar/OnyxNavBar.vue";
 export * from "./components/OnyxNavBar/types.js";
 
-export { default as OnyxUnstableNavButton } from "./components/OnyxNavButton/OnyxNavButton.vue";
+export { default as OnyxNavButton } from "./components/OnyxNavButton/OnyxNavButton.vue";
 export * from "./components/OnyxNavButton/types.js";
 
 export { default as OnyxNotificationCard } from "./components/OnyxNotificationCard/OnyxNotificationCard.vue";
@@ -208,7 +208,7 @@ export * from "./components/OnyxSelect/types.js";
 export { default as OnyxItemsPerPage } from "./components/OnyxItemsPerPage/OnyxItemsPerPage.vue";
 export * from "./components/OnyxItemsPerPage/types.js";
 
-export { default as OnyxUnstableSearch } from "./components/OnyxSearch/OnyxSearch.vue";
+export { default as OnyxSearch } from "./components/OnyxSearch/OnyxSearch.vue";
 export * from "./components/OnyxSearch/types.js";
 
 export { default as OnyxSelectDialog } from "./components/OnyxSelectDialog/OnyxSelectDialog.vue";
@@ -262,7 +262,7 @@ export * from "./components/OnyxTabs/types.js";
 export { default as OnyxTag } from "./components/OnyxTag/OnyxTag.vue";
 export * from "./components/OnyxTag/types.js";
 
-export { default as OnyxUnstableTimePicker } from "./components/OnyxTimePicker/OnyxTimePicker.vue";
+export { default as OnyxTimePicker } from "./components/OnyxTimePicker/OnyxTimePicker.vue";
 export * from "./components/OnyxTimePicker/types.js";
 
 export { default as OnyxFileCard } from "./components/OnyxFileCard/OnyxFileCard.vue";
@@ -301,16 +301,16 @@ export * from "./components/OnyxTooltip/types.js";
 export { default as OnyxVisuallyHidden } from "./components/OnyxVisuallyHidden/OnyxVisuallyHidden.vue";
 export * from "./components/OnyxVisuallyHidden/types.js";
 
-export { default as OnyxUnstableKey } from "./components/OnyxKey/OnyxKey.vue";
+export { default as OnyxKey } from "./components/OnyxKey/OnyxKey.vue";
 export * from "./components/OnyxKey/types.js";
 
-export { default as OnyxUnstableShortcut } from "./components/OnyxShortcut/OnyxShortcut.vue";
+export { default as OnyxShortcut } from "./components/OnyxShortcut/OnyxShortcut.vue";
 export * from "./components/OnyxShortcut/types.js";
 
-export { default as OnyxUnstableTreeView } from "./components/OnyxTreeView/OnyxTreeView.vue";
+export { default as OnyxTreeView } from "./components/OnyxTreeView/OnyxTreeView.vue";
 export * from "./components/OnyxTreeView/types.js";
 
-export { default as OnyxUnstableTreeViewItem } from "./components/OnyxTreeViewItem/OnyxTreeViewItem.vue";
+export { default as OnyxTreeViewItem } from "./components/OnyxTreeViewItem/OnyxTreeViewItem.vue";
 export * from "./components/OnyxTreeViewItem/types.js";
 
 export { default as OnyxComponentShowcase } from "./components/examples/ComponentShowcase/ComponentShowcase.vue";

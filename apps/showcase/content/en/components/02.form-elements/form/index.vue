@@ -1,12 +1,5 @@
 <script lang="ts" setup>
-import {
-  OnyxButton,
-  OnyxCard,
-  OnyxForm,
-  OnyxInput,
-  OnyxStepper,
-  OnyxUnstableDatePickerV2,
-} from "sit-onyx";
+import { OnyxButton, OnyxCard, OnyxForm, OnyxInput, OnyxStepper, OnyxDatePickerV2 } from "sit-onyx";
 </script>
 
 <template>
@@ -14,7 +7,7 @@ import {
     <OnyxForm class="onyx-grid" @submit.prevent>
       <OnyxInput class="onyx-grid-span-full" label="Email" type="email" placeholder="Placeholder" />
 
-      <OnyxUnstableDatePickerV2 class="onyx-grid-span-2" label="Date" placeholder="mm/dd/yyyy" />
+      <OnyxDatePickerV2 class="onyx-grid-span-2" label="Date" placeholder="mm/dd/yyyy" />
       <OnyxStepper class="onyx-grid-span-2" label="Number" placeholder="0" />
 
       <OnyxButton class="onyx-grid-span-full" label="Submit" type="submit" />

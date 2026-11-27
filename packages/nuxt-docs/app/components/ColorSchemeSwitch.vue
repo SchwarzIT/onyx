@@ -28,7 +28,7 @@ const trigger = {
 
 <template>
   <slot :trigger>
-    <OnyxUnstableNavButton
+    <OnyxNavButton
       :label="$t('onyx.colorScheme.headline')"
       :icon="iconCircleContrast"
       hide-label

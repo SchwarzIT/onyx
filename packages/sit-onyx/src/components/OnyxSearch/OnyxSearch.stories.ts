@@ -11,7 +11,6 @@ import OnyxSearch from "./OnyxSearch.vue";
 const meta: Meta<typeof OnyxSearch> = {
   title: "Search & Filter/Search",
   component: OnyxSearch,
-  tags: ["unstable"],
   argTypes: {
     disabled: { control: { type: "boolean" } },
   },

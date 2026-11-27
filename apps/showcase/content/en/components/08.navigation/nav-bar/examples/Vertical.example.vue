@@ -9,7 +9,7 @@ import {
   OnyxMenuItem,
   OnyxNavBar,
   OnyxNavItem,
-  OnyxUnstableNavButton,
+  OnyxNavButton,
   OnyxUserMenu,
   useResizeObserver,
 } from "sit-onyx";
@@ -51,7 +51,7 @@ const isMobile = computed(() => viewportWidth.value <= ONYX_BREAKPOINTS.xs);
         </OnyxNavItem>
 
         <template #globalContextArea>
-          <OnyxUnstableNavButton label="Search" :icon="iconSearch" hide-label />
+          <OnyxNavButton label="Search" :icon="iconSearch" hide-label />
         </template>
 
         <template #contextArea>
@@ -71,7 +71,7 @@ const isMobile = computed(() => viewportWidth.value <= ONYX_BREAKPOINTS.xs);
             </template>
           </OnyxUserMenu>
 
-          <OnyxUnstableNavButton
+          <OnyxNavButton
             v-else
             label="Login"
             :icon="iconLogin"

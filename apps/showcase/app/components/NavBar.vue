@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import logoUrl from "@sit-onyx/assets/onyx-brand/signet.svg";
 import { iconMessageConversation } from "@sit-onyx/icons";
-import type { OnyxNavItemProps, OnyxUnstableNavButton } from "sit-onyx";
+import type { OnyxNavItemProps, OnyxNavButton } from "sit-onyx";
 import NavBar from "#layers/onyx/app/components/NavBar.vue";
 import iconGitHub from "~/assets/images/social/github.svg?raw";
 
@@ -51,7 +51,7 @@ const componentLinkProps = computed(() => {
     <template #globalContextArea>
       <OnyxFlyoutMenu label="Contact options">
         <template #button="{ trigger }">
-          <OnyxUnstableNavButton
+          <OnyxNavButton
             label="Contact"
             :icon="iconMessageConversation"
             hide-label
@@ -77,7 +77,7 @@ const componentLinkProps = computed(() => {
       </OnyxFlyoutMenu>
 
       <GlobalSearch />
-      <OnyxUnstableNavButton
+      <OnyxNavButton
         label="GitHub"
         :link="{ href: 'https://github.com/SchwarzIT/onyx', target: '_blank' }"
         hide-label

@@ -5,7 +5,6 @@ import OnyxTreeView from "./OnyxTreeView.vue";
 const meta: Meta<typeof OnyxTreeView> = {
   title: "Navigation/TreeView",
   component: OnyxTreeView,
-  tags: ["unstable"],
 };
 
 export default meta;

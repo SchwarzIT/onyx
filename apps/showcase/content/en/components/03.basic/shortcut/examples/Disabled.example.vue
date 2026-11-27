@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { OnyxUnstableShortcut } from "sit-onyx";
+import { OnyxShortcut } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxUnstableShortcut :sequence="[{ all: ['Control', 'C'] }]" highlight="auto" disabled />
+  <OnyxShortcut :sequence="[{ all: ['Control', 'C'] }]" highlight="auto" disabled />
 </template>

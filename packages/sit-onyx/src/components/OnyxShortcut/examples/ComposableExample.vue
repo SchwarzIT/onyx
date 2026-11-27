@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { _unstableUseShortcut, useToast } from "../../../index.js";
+import { useShortcut, useToast } from "../../../index.js";
 
 const toast = useToast();
 
-_unstableUseShortcut({
+useShortcut({
   sequence: [{ all: ["Control", "C"] }],
   onComplete: () => {
     // your logic here when the full shortcut is pressed...
@@ -18,8 +18,7 @@ _unstableUseShortcut({
 
 <template>
   <p class="description">
-    This example uses the `_unstableUseShortcut()` composable. Press "Control + C" to trigger the
-    shortcut.
+    This example uses the `useShortcut()` composable. Press "Control + C" to trigger the shortcut.
   </p>
 </template>
 

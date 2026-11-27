@@ -21,7 +21,7 @@ const currentLocaleLabel = computed(() => {
 </script>
 
 <template>
-  <OnyxUnstableNavButton
+  <OnyxNavButton
     class="locale-nav-button"
     :label="currentLocaleLabel"
     :icon="iconTranslate"

@@ -1,26 +1,26 @@
 <script lang="ts" setup>
 import { iconPlaceholder } from "@sit-onyx/icons";
-import { OnyxUnstableTreeView, OnyxUnstableTreeViewItem } from "sit-onyx";
+import { OnyxTreeView, OnyxTreeViewItem } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxUnstableTreeView label="Example tree view">
-    <OnyxUnstableTreeViewItem label="Item 1" :icon="iconPlaceholder">
-      <OnyxUnstableTreeViewItem label="Item 1.1" :icon="iconPlaceholder">
-        <OnyxUnstableTreeViewItem label="Item 1.1.1" :icon="iconPlaceholder" />
-        <OnyxUnstableTreeViewItem label="Item 1.1.2" :icon="iconPlaceholder" />
-      </OnyxUnstableTreeViewItem>
+  <OnyxTreeView label="Example tree view">
+    <OnyxTreeViewItem label="Item 1" :icon="iconPlaceholder">
+      <OnyxTreeViewItem label="Item 1.1" :icon="iconPlaceholder">
+        <OnyxTreeViewItem label="Item 1.1.1" :icon="iconPlaceholder" />
+        <OnyxTreeViewItem label="Item 1.1.2" :icon="iconPlaceholder" />
+      </OnyxTreeViewItem>
 
-      <OnyxUnstableTreeViewItem label="Item 1.2" :icon="iconPlaceholder" />
-    </OnyxUnstableTreeViewItem>
+      <OnyxTreeViewItem label="Item 1.2" :icon="iconPlaceholder" />
+    </OnyxTreeViewItem>
 
-    <OnyxUnstableTreeViewItem label="Item 2" :icon="iconPlaceholder">
-      <OnyxUnstableTreeViewItem label="Item 2.1" :icon="iconPlaceholder" />
-      <OnyxUnstableTreeViewItem label="Item 2.2" :icon="iconPlaceholder" />
-    </OnyxUnstableTreeViewItem>
+    <OnyxTreeViewItem label="Item 2" :icon="iconPlaceholder">
+      <OnyxTreeViewItem label="Item 2.1" :icon="iconPlaceholder" />
+      <OnyxTreeViewItem label="Item 2.2" :icon="iconPlaceholder" />
+    </OnyxTreeViewItem>
 
-    <OnyxUnstableTreeViewItem label="Item 3" :icon="iconPlaceholder" disabled>
-      <OnyxUnstableTreeViewItem label="Item 3.1" :icon="iconPlaceholder" />
-    </OnyxUnstableTreeViewItem>
-  </OnyxUnstableTreeView>
+    <OnyxTreeViewItem label="Item 3" :icon="iconPlaceholder" disabled>
+      <OnyxTreeViewItem label="Item 3.1" :icon="iconPlaceholder" />
+    </OnyxTreeViewItem>
+  </OnyxTreeView>
 </template>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { OnyxUnstableSearch } from "sit-onyx";
+import { OnyxSearch } from "sit-onyx";
 </script>
 
 <template>
-  <OnyxUnstableSearch skeleton />
+  <OnyxSearch skeleton />
 </template>
