@@ -213,7 +213,7 @@ _unstableUseShortcut({
       padding: var(--onyx-form-element-v2-padding-block)
         var(--onyx-form-element-v2-padding-inline-icons);
       pointer-events: none;
-      color: var(--onyx-color-text-icons-neutral-soft);
+      color: var(--onyx-color-text-icons-neutral-medium);
       overflow: hidden;
       // 100% - icon-size - border
       width: calc(100% - 1.5rem - var(--onyx-form-element-v2-padding-inline));
@@ -226,7 +226,7 @@ _unstableUseShortcut({
       .onyx-key {
         min-width: 1.25rem;
         height: 1.25rem;
-        color: var(--onyx-color-text-icons-neutral-soft);
+        color: var(--onyx-color-text-icons-neutral-medium);
         font-size: var(--onyx-font-size-sm);
       }
     }
