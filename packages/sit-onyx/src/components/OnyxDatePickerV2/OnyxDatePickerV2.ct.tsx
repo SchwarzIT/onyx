@@ -236,7 +236,7 @@ test.describe("OnyxDatePickerV2 Interactions", () => {
         <OnyxDatePickerV2FormatTestCt selectionMode="single" modelValue={date} />,
       );
 
-      await expect(component.getByLabel("Test label")).toHaveValue("05.10.2024");
+      await expect(component.getByLabel("Test label")).toHaveValue("06.10.2024");
     });
 
     await test.step("multiple mode", async () => {
@@ -244,7 +244,7 @@ test.describe("OnyxDatePickerV2 Interactions", () => {
         <OnyxDatePickerV2FormatTestCt selectionMode="multiple" modelValue={multipleDates} />,
       );
 
-      await expect(component.getByLabel("Test label")).toHaveValue("05.10.2024, 08.10.2024");
+      await expect(component.getByLabel("Test label")).toHaveValue("06.10.2024, 09.10.2024");
     });
 
     await test.step("range mode", async () => {
@@ -252,7 +252,7 @@ test.describe("OnyxDatePickerV2 Interactions", () => {
         <OnyxDatePickerV2FormatTestCt selectionMode="range" modelValue={rangeDate} />,
       );
 
-      await expect(component.getByLabel("Test label")).toHaveValue("05.10.2024 - 08.10.2024");
+      await expect(component.getByLabel("Test label")).toHaveValue("06.10.2024 - 09.10.2024");
     });
   });
 });
