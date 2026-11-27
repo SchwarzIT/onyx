@@ -1,3 +1,4 @@
+import type { InjectionKey } from "vue";
 import type { RequiredProp } from "../../composables/required.js";
 import type { CustomValidityProp } from "../../composables/useFormElementError.js";
 import type {
@@ -8,6 +9,7 @@ import type {
   SelectOptionValue,
 } from "../../types/index.js";
 import type { SharedFormElementProps } from "../OnyxFormElement/types.js";
+import type { FormElementV2Tooltip, OnyxFormElementV2Props } from "../OnyxFormElementV2/types.js";
 
 export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOptionValue> = Pick<
   BaseSelectOption,
@@ -15,8 +17,18 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
 > &
   Pick<
     SharedFormElementProps,
-    "label" | "labelTooltip" | "hideLabel" | "density" | "skeleton" | "disabled" | "requiredMarker"
-  > & {
+    | "label"
+    | "labelTooltip"
+    | "hideLabel"
+    | "density"
+    | "skeleton"
+    | "disabled"
+    | "requiredMarker"
+    | "error"
+    | "showError"
+    | "reserveMessageSpace"
+  > &
+  Pick<OnyxFormElementV2Props, "message" | "success"> & {
     /**
      * Checkbox options.
      */
@@ -44,5 +56,26 @@ export type OnyxCheckboxGroupProps<TValue extends SelectOptionValue = SelectOpti
         };
   };
 
-export type CheckboxGroupOption<TValue extends SelectOptionValue = SelectOptionValue> =
-  BaseSelectOption<TValue> & RequiredProp & CustomValidityProp & AutofocusProp;
+export type CheckboxGroupOption<TValue extends SelectOptionValue = SelectOptionValue> = Omit<
+  BaseSelectOption<TValue>,
+  "hideLabel" | "label"
+> &
+  Pick<OnyxFormElementV2Props, "label"> &
+  RequiredProp &
+  CustomValidityProp &
+  AutofocusProp;
+
+export type CheckboxGroupContext = {
+  /**
+   * Function to report an error.
+   */
+  reportError: (id: string, error: string | FormElementV2Tooltip | undefined) => void;
+  /**
+   * Function to unregister a checkbox from the context.
+   */
+  unregister: (id: string) => void;
+};
+
+export const CHECKBOX_GROUP_INJECTION_KEY: InjectionKey<CheckboxGroupContext> = Symbol(
+  "CHECKBOX_GROUP_INJECTION_KEY",
+);
