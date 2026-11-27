@@ -22,4 +22,8 @@ export type OnyxDatePickerV2Props<TSelection extends OnyxCalendarSelectionMode =
        *   `(date: Date) => date.getDay() === 0`;
        */
       disabledDays?: (date: Date) => boolean;
+      /**
+       * Custom date formatter. If not provided, the default localized formatting will be used.
+       */
+      format?: Intl.DateTimeFormat;
     };

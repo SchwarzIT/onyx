@@ -55,6 +55,7 @@ const props = withDefaults(defineProps<OnyxDatePickerV2Props<TSelection>>(), {
   showCalendarWeeks: false,
   weekStartDay: "Monday",
   disabledDays: undefined,
+  format: undefined,
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- false positive
   selectionMode: () => "single" as TSelection,
 });
@@ -175,16 +176,20 @@ const formattedDate = computed(() => {
     return isValidDate(date) ? date : null;
   };
 
+  const formatSingleDate = (date: Date) => {
+    return props.format ? props.format.format(date) : d.value(date, dateOptions);
+  };
+
   if (props.selectionMode === "single") {
     const date = toDate(value);
-    return date ? d.value(date, dateOptions) : "";
+    return date ? formatSingleDate(date) : "";
   }
 
   if (props.selectionMode === "multiple" && Array.isArray(value)) {
     return value
       .map((v) => toDate(v))
       .filter((time): time is Date => time !== null)
-      .map((time) => d.value(time, dateOptions))
+      .map((time) => formatSingleDate(time))
       .join(", ");
   }
 
@@ -193,11 +198,11 @@ const formattedDate = computed(() => {
     const start = toDate(rangeValue.start);
     if (!start) return "";
 
-    const startStr = d.value(start, dateOptions);
+    const startStr = formatSingleDate(start);
     const end = toDate(rangeValue.end);
 
     if (!end) return startStr;
-    return `${startStr} - ${d.value(end, dateOptions)}`;
+    return `${startStr} - ${formatSingleDate(end)}`;
   }
 
   return "";
