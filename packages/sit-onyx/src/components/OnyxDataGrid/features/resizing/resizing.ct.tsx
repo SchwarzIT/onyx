@@ -69,8 +69,8 @@ test("should resize columns", async ({ page, mount }) => {
   // ASSERT
   cBox = (await cColumn.boundingBox())!;
   expect(cBox.width, "should be able to resize outside of viewport").toBeCloseTo(1000);
-  expect(parseFloat(resizeState["c"] ?? "")).toBeCloseTo(1000, -1);
-
+  const match = resizeState["c"]?.match(/minmax\((\d+(?:\.\d+)?)px/);
+  expect(parseFloat(match?.[1] ?? "")).toBeCloseTo(1000, -1);
   // ACT
   await cColumn.getByRole("button", { name: "Drag to change width" }).dblclick();
 
