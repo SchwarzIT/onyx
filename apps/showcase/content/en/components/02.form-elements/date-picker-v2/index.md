@@ -31,9 +31,9 @@ Calendar week numbers can be displayed alongside days. In `range` selection mode
 <<< ./examples/CalendarWeeks.example.vue preview=true  layout="grow"
 
 
-### Date Formatting
+### Custom format
 
-By default, selected dates are formatted according to the active locale. You can override this by passing a custom [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) instance to the `format` property.
+By default, selected dates are formatted according to the current application language. You can override this by passing a custom [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat) instance to the `format` property.
 
 <<< ./examples/CustomFormat.example.vue preview=true layout="grow"
 ### Readonly & disabled
