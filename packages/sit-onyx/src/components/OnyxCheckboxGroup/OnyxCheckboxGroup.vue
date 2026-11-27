@@ -1,7 +1,6 @@
 <script lang="ts" setup generic="TValue extends SelectOptionValue">
-import { computed, useTemplateRef } from "vue";
+import { computed, provide, ref, useTemplateRef } from "vue";
 import { useCheckAll } from "../../composables/checkAll.js";
-import { useDensity } from "../../composables/density.js";
 import {
   SKELETON_INJECTED_SYMBOL,
   useSkeletonContext,
@@ -9,11 +8,15 @@ import {
 import { useVModel } from "../../composables/useVModel.js";
 import { injectI18n } from "../../i18n/index.js";
 import type { SelectOptionValue } from "../../types/index.js";
+import { asArray } from "../../utils/objects.js";
 import OnyxCheckbox from "../OnyxCheckbox/OnyxCheckbox.vue";
 import { FORM_INJECTED_SYMBOL, useFormContext } from "../OnyxForm/OnyxForm.core.js";
+import OnyxFormElementV2 from "../OnyxFormElementV2/OnyxFormElementV2.vue";
+import type { FormElementV2Tooltip } from "../OnyxFormElementV2/types.js";
+import { useLegacyFormElementProps } from "../OnyxFormElementV2/useLegacyFormElementProps.js";
 import OnyxHeadline from "../OnyxHeadline/OnyxHeadline.vue";
 import OnyxInfoTooltip from "../OnyxInfoTooltip/OnyxInfoTooltip.vue";
-import type { OnyxCheckboxGroupProps } from "./types.js";
+import { CHECKBOX_GROUP_INJECTION_KEY, type OnyxCheckboxGroupProps } from "./types.js";
 
 const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   orientation: "vertical",
@@ -21,10 +24,10 @@ const props = withDefaults(defineProps<OnyxCheckboxGroupProps<TValue>>(), {
   disabled: FORM_INJECTED_SYMBOL,
   skeleton: SKELETON_INJECTED_SYMBOL,
   requiredMarker: FORM_INJECTED_SYMBOL,
+  showError: FORM_INJECTED_SYMBOL,
+  reserveMessageSpace: FORM_INJECTED_SYMBOL,
   truncation: "ellipsis",
 });
-
-const { densityClass } = useDensity(props);
 
 const emit = defineEmits<{
   /**
@@ -54,6 +57,41 @@ const enabledOptionValues = computed(() =>
 const { disabled, requiredMarker } = useFormContext(props);
 const skeleton = useSkeletonContext(props);
 
+const childErrors = ref(new Map<string, string | FormElementV2Tooltip>());
+
+provide(CHECKBOX_GROUP_INJECTION_KEY, {
+  reportError: (id, error) => {
+    if (error) {
+      childErrors.value.set(id, error);
+    } else {
+      childErrors.value.delete(id);
+    }
+  },
+  unregister: (id) => {
+    childErrors.value.delete(id);
+  },
+});
+
+const groupError = computed(() => Array.from(childErrors.value.values())[0]);
+
+const { formElementV2Props: legacyFormElementProps } = useLegacyFormElementProps({
+  props: computed(() => ({
+    ...props,
+    message: undefined,
+    success: undefined,
+  })),
+  errorMessages: computed(() => undefined),
+});
+
+const formElementV2Props = computed(() => ({
+  ...legacyFormElementProps.value,
+  message: props.message,
+  success: props.success,
+  error: groupError.value,
+  skeleton: false,
+  label: { label: props.label, hidden: true },
+}));
+
 const checkAll = useCheckAll(
   enabledOptionValues,
   computed(() => modelValue.value),
@@ -70,65 +108,75 @@ const checkboxes = useTemplateRef("checkboxes");
 
 defineExpose({
   inputs: computed<HTMLInputElement[]>(() => {
-    const array = Array.isArray(checkboxes.value) ? checkboxes.value : [checkboxes.value];
+    const array = asArray(checkboxes.value);
     return array.flatMap((checkbox) => checkbox?.input).filter((checkbox) => !!checkbox);
   }),
 });
 </script>
 
 <template>
-  <fieldset
-    :class="['onyx-component', 'onyx-checkbox-group', densityClass]"
-    :disabled="disabled"
+  <OnyxFormElementV2
+    v-bind="formElementV2Props"
+    class="onyx-component onyx-checkbox-group"
+    unstyled
+    role="group"
     :aria-label="props.label"
+    :aria-invalid="groupError ? 'true' : undefined"
   >
-    <legend v-if="!props.hideLabel" class="onyx-checkbox-group__label">
-      <OnyxHeadline is="h3">{{ props.label }}</OnyxHeadline>
-      <OnyxInfoTooltip v-if="props.labelTooltip" trigger="hover" :text="props.labelTooltip" />
-    </legend>
+    <fieldset class="onyx-checkbox-group__fieldset" :disabled="disabled">
+      <legend v-if="!props.hideLabel" class="onyx-checkbox-group__label">
+        <OnyxHeadline is="h3">
+          {{ props.label }}
+        </OnyxHeadline>
+        <OnyxInfoTooltip v-if="props.labelTooltip" trigger="hover" :text="props.labelTooltip" />
+      </legend>
 
-    <div
-      class="onyx-checkbox-group__content"
-      :class="{
-        'onyx-checkbox-group__content--horizontal': props.orientation === 'horizontal',
-        'onyx-checkbox-group__content--vertical': props.orientation === 'vertical',
-      }"
-    >
-      <template v-if="!skeleton">
-        <OnyxCheckbox
-          v-if="props.withCheckAll"
-          :required-marker
-          v-bind="checkAll.state.value"
-          :label="checkAllLabel"
-          value="all"
-          class="onyx-checkbox-group__option onyx-checkbox-group__check-all"
-          @update:model-value="checkAll.handleChange"
-        />
+      <div
+        class="onyx-checkbox-group__content"
+        :class="{
+          'onyx-checkbox-group__content--horizontal': props.orientation === 'horizontal',
+          'onyx-checkbox-group__content--vertical': props.orientation === 'vertical',
+        }"
+      >
+        <template v-if="!skeleton">
+          <OnyxCheckbox
+            v-if="props.withCheckAll"
+            :required-marker
+            v-bind="checkAll.state.value"
+            :label="checkAllLabel"
+            value="all"
+            class="onyx-checkbox-group__option onyx-checkbox-group__check-all"
+            @update:model-value="checkAll.handleChange"
+          />
 
-        <OnyxCheckbox
-          v-for="option in props.options"
-          :key="option.value.toString()"
-          v-bind="option"
-          ref="checkboxes"
-          :required-marker
-          :truncation="option.truncation ?? props.truncation"
-          :model-value="modelValue.includes(option.value)"
-          class="onyx-checkbox-group__option"
-          @update:model-value="handleUpdate(option.value, $event)"
-        />
-      </template>
+          <OnyxCheckbox
+            v-for="option in props.options"
+            :key="option.value.toString()"
+            v-bind="option"
+            ref="checkboxes"
+            :error="option.error || props.error"
+            :required-marker
+            :disabled="disabled || option.disabled"
+            :truncation="option.truncation ?? props.truncation"
+            :model-value="modelValue.includes(option.value)"
+            class="onyx-checkbox-group__option"
+            @update:model-value="handleUpdate(option.value, $event)"
+          />
+        </template>
 
-      <template v-else-if="typeof skeleton === 'number'">
-        <OnyxCheckbox
-          v-for="i in skeleton"
-          :key="i"
-          :label="`Skeleton ${i}`"
-          :value="`skeleton-${i}`"
-          skeleton
-        />
-      </template>
-    </div>
-  </fieldset>
+        <template v-else-if="typeof skeleton === 'number'">
+          <OnyxCheckbox
+            v-for="i in skeleton"
+            :id="`skeleton-${i}`"
+            :key="i"
+            :label="`Skeleton ${i}`"
+            :value="`skeleton-${i}`"
+            skeleton
+          />
+        </template>
+      </div>
+    </fieldset>
+  </OnyxFormElementV2>
 </template>
 
 <style lang="scss">
@@ -136,12 +184,16 @@ defineExpose({
 
 .onyx-checkbox-group {
   @include layers.component() {
-    padding: 0;
-    border: none;
-    width: max-content;
-    max-width: 100%;
-    min-width: unset;
+    --onyx-form-element-v2-padding-block: 0;
     $check-all-border: var(--onyx-1px-in-rem) solid var(--onyx-color-component-border-neutral);
+
+    &__fieldset {
+      padding: 0;
+      border: none;
+      width: max-content;
+      max-width: 100%;
+      min-width: unset;
+    }
 
     &__label {
       display: flex;
@@ -170,7 +222,7 @@ defineExpose({
           border-right: $check-all-border;
 
           // the horizontal "Select all" checkbox label needs an additional padding-right
-          .onyx-checkbox__label {
+          .onyx-form-element-v2__label {
             padding-right: var(--onyx-density-md);
           }
         }
