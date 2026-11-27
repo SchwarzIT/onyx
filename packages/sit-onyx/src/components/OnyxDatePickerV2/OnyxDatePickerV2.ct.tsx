@@ -3,6 +3,7 @@ import { DENSITIES } from "../../composables/density.js";
 import { expect, test } from "../../playwright/a11y.js";
 import { executeMatrixScreenshotTest } from "../../playwright/screenshots.jsx";
 import OnyxDatePickerV2 from "./OnyxDatePickerV2.vue";
+import OnyxDatePickerV2FormatTestCt from "./OnyxDatePickerV2FormatTest.ct.vue";
 
 const MOCK_NOW = new Date(2024, 9, 3);
 
@@ -226,6 +227,32 @@ test.describe("OnyxDatePickerV2 Interactions", () => {
       await expect(component.getByRole("button", { name: "November 2024" })).toBeVisible();
       await expect(component.getByRole("button", { name: "December 2024" })).toBeVisible();
       await expectEmit(onUpdateViewMonth, 4, [new Date(2024, 10, 1)]);
+    });
+  });
+
+  test("should apply custom formats", async ({ mount }) => {
+    await test.step("single mode", async () => {
+      const component = await mount(
+        <OnyxDatePickerV2FormatTestCt selectionMode="single" modelValue={date} />,
+      );
+
+      await expect(component.getByLabel("Test label")).toHaveValue("05.10.2024");
+    });
+
+    await test.step("multiple mode", async () => {
+      const component = await mount(
+        <OnyxDatePickerV2FormatTestCt selectionMode="multiple" modelValue={multipleDates} />,
+      );
+
+      await expect(component.getByLabel("Test label")).toHaveValue("05.10.2024, 08.10.2024");
+    });
+
+    await test.step("range mode", async () => {
+      const component = await mount(
+        <OnyxDatePickerV2FormatTestCt selectionMode="range" modelValue={rangeDate} />,
+      );
+
+      await expect(component.getByLabel("Test label")).toHaveValue("05.10.2024 - 08.10.2024");
     });
   });
 });
